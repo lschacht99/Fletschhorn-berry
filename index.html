@@ -1,0 +1,1564 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fletschhorn Booking Engine</title>
+
+  <style>
+    :root {
+      --ink: #1a1714;
+      --muted: rgba(26, 23, 20, .66);
+      --paper: #fffaf3;
+      --line: rgba(26, 23, 20, .12);
+      --dark: #1a1714;
+      --success: #2d704a;
+      --warning: #966523;
+      --error: #822626;
+      --shadow: 0 24px 70px rgba(0,0,0,.10);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: clamp(14px, 3vw, 38px);
+      color: var(--ink);
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at 16% 10%, rgba(255,255,255,.96), transparent 30%),
+        radial-gradient(circle at 86% 8%, rgba(185,159,134,.18), transparent 26%),
+        linear-gradient(135deg, #fbf8f2, #eee5d7 48%, #faf6ef);
+    }
+
+    .fh-page {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .fh-engine {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      padding: clamp(22px, 4vw, 46px);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255,255,255,.94), transparent 34%),
+        linear-gradient(135deg, rgba(255,250,243,.96), rgba(239,232,220,.86));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .fh-kicker {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 11px;
+      font-weight: 800;
+      color: rgba(26,23,20,.52);
+    }
+
+    .fh-title {
+      font-family: var(--serif);
+      font-size: clamp(40px, 6.4vw, 78px);
+      line-height: .92;
+      letter-spacing: -.06em;
+      font-weight: 400;
+      margin: 0 0 14px;
+      max-width: 920px;
+    }
+
+    .fh-intro {
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.6;
+      max-width: 820px;
+    }
+
+    .fh-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 0 0 20px;
+    }
+
+    .fh-step {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.56);
+      border: 1px solid rgba(26,23,20,.08);
+      color: rgba(26,23,20,.56);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .fh-step.is-active {
+      background: var(--dark);
+      color: var(--paper);
+    }
+
+    .fh-panel {
+      display: none;
+      padding: 16px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.58);
+      border: 1px solid rgba(26,23,20,.08);
+      backdrop-filter: blur(14px);
+    }
+
+    .fh-panel.is-active { display: block; }
+
+    .fh-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .fh-calendar-card,
+    .fh-side-card,
+    .fh-quote-card {
+      border-radius: 22px;
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(26,23,20,.10);
+      padding: 16px;
+    }
+
+    .fh-calendar-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .fh-calendar-title {
+      font-family: var(--serif);
+      font-size: 30px;
+      letter-spacing: -.04em;
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .fh-mini-btn {
+      border: 0;
+      border-radius: 999px;
+      background: rgba(26,23,20,.09);
+      color: var(--ink);
+      font-weight: 900;
+      cursor: pointer;
+      min-width: 42px;
+      min-height: 38px;
+      padding: 8px 12px;
+    }
+
+    .fh-weekdays,
+    .fh-calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .fh-weekday {
+      text-align: center;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 900;
+      color: rgba(26,23,20,.48);
+      padding: 0 0 4px;
+    }
+
+    .fh-day {
+      position: relative;
+      min-height: 84px;
+      border-radius: 16px;
+      border: 1px solid rgba(26,23,20,.09);
+      background: rgba(255,255,255,.72);
+      cursor: pointer;
+      padding: 9px;
+      text-align: left;
+      color: var(--ink);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .fh-day:hover {
+      transform: translateY(-1px);
+      border-color: rgba(26,23,20,.24);
+    }
+
+    .fh-day.is-empty {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .fh-day.is-past {
+      opacity: .42;
+      cursor: not-allowed;
+      background: rgba(255,255,255,.38);
+    }
+
+    .fh-day.is-unavailable {
+      opacity: .58;
+      cursor: not-allowed;
+      background: rgba(130,38,38,.08);
+      border-color: rgba(130,38,38,.16);
+    }
+
+    .fh-day.is-selected {
+      background: var(--dark);
+      color: var(--paper);
+      border-color: var(--dark);
+    }
+
+    .fh-day.is-range {
+      background: rgba(26,23,20,.10);
+      border-color: rgba(26,23,20,.18);
+    }
+
+    .fh-day.is-start,
+    .fh-day.is-end {
+      background: var(--dark);
+      color: var(--paper);
+      border-color: var(--dark);
+    }
+
+    .fh-day-number {
+      display: block;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .fh-day-price {
+      display: block;
+      margin-top: 18px;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(26,23,20,.68);
+    }
+
+    .fh-day-source {
+      display: block;
+      margin-top: 2px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: rgba(26,23,20,.42);
+      font-weight: 900;
+    }
+
+    .fh-day.is-start .fh-day-price,
+    .fh-day.is-end .fh-day-price,
+    .fh-day.is-selected .fh-day-price,
+    .fh-day.is-start .fh-day-source,
+    .fh-day.is-end .fh-day-source,
+    .fh-day.is-selected .fh-day-source {
+      color: rgba(255,250,243,.78);
+    }
+
+    .fh-day-status {
+      display: block;
+      margin-top: 4px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(130,38,38,.75);
+    }
+
+    .fh-side-card h3,
+    .fh-quote-card h3 {
+      font-family: var(--serif);
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -.04em;
+      font-weight: 400;
+      margin: 0 0 12px;
+    }
+
+    .fh-selection {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .fh-selection strong {
+      color: var(--ink);
+    }
+
+    .fh-estimate {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(26,23,20,.06);
+      border: 1px solid rgba(26,23,20,.08);
+    }
+
+    .fh-estimate-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 900;
+      color: rgba(26,23,20,.52);
+    }
+
+    .fh-estimate-total {
+      font-family: var(--serif);
+      font-size: 42px;
+      letter-spacing: -.05em;
+      line-height: 1;
+      margin-top: 8px;
+      color: var(--ink);
+    }
+
+    .fh-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .fh-field label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 800;
+      color: rgba(26,23,20,.52);
+      margin-bottom: 8px;
+    }
+
+    .fh-field input,
+    .fh-field select {
+      width: 100%;
+      min-height: 52px;
+      border: 1px solid rgba(26,23,20,.12);
+      background: rgba(255,255,255,.88);
+      border-radius: 17px;
+      padding: 13px 14px;
+      font: inherit;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .fh-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .fh-button,
+    .fh-link {
+      min-height: 48px;
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 18px;
+      background: rgba(26,23,20,.09);
+      color: var(--ink);
+      font-weight: 800;
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fh-button.primary,
+    .fh-link.primary {
+      background: var(--dark);
+      color: var(--paper);
+    }
+
+    .fh-button:disabled {
+      opacity: .58;
+      cursor: wait;
+    }
+
+    .fh-result {
+      display: none;
+      margin-top: 18px;
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(26,23,20,.10);
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .fh-result.is-visible { display: block; }
+
+    .fh-result strong {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .fh-result.is-success {
+      border-color: rgba(45,112,74,.24);
+      background: rgba(246,255,249,.74);
+    }
+
+    .fh-result.is-warning {
+      border-color: rgba(150,101,35,.25);
+      background: rgba(255,248,237,.80);
+    }
+
+    .fh-result.is-error {
+      border-color: rgba(130,38,38,.24);
+      background: rgba(255,245,245,.80);
+    }
+
+    .fh-money {
+      font-family: var(--serif);
+      font-size: clamp(34px, 5vw, 58px);
+      letter-spacing: -.05em;
+      line-height: 1;
+      color: var(--ink);
+      margin: 8px 0;
+    }
+
+    .fh-line-items {
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .fh-line-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(26,23,20,.08);
+      padding-top: 8px;
+    }
+
+    .fh-note {
+      margin: 16px 0 0;
+      font-size: 13px;
+      color: rgba(26,23,20,.54);
+      line-height: 1.5;
+    }
+
+    .fh-debug {
+      margin-top: 18px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(26,23,20,.10);
+      background: rgba(255,255,255,.55);
+    }
+
+    .fh-debug summary {
+      cursor: pointer;
+      padding: 12px 14px;
+      font-weight: 800;
+      font-size: 13px;
+      color: rgba(26,23,20,.64);
+    }
+
+    .fh-debug pre {
+      margin: 0;
+      padding: 14px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #2b2925;
+      background: rgba(255,255,255,.58);
+      max-height: 360px;
+    }
+
+    @media (max-width: 900px) {
+      .fh-layout { grid-template-columns: 1fr; }
+      .fh-steps { grid-template-columns: 1fr 1fr; }
+      .fh-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 0; }
+
+      .fh-engine {
+        border-radius: 0;
+        min-height: 100vh;
+      }
+
+      .fh-weekdays,
+      .fh-calendar-grid {
+        gap: 5px;
+      }
+
+      .fh-day {
+        min-height: 70px;
+        border-radius: 12px;
+        padding: 7px;
+      }
+
+      .fh-day-price {
+        font-size: 10px;
+        margin-top: 12px;
+      }
+
+      .fh-day-source {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="fh-page">
+    <section class="fh-engine">
+      <p class="fh-kicker">Private stay · Saas-Fee</p>
+
+      <h1 class="fh-title">Your private chalet in a few clicks</h1>
+
+      <p class="fh-intro">
+        Select your dates on the live Guesty calendar, load the live price through the Cloudflare Worker, then create the official Guesty quote.
+      </p>
+
+      <div class="fh-steps">
+        <div class="fh-step is-active" data-step-label="1">1. Calendar</div>
+        <div class="fh-step" data-step-label="2">2. Guest</div>
+        <div class="fh-step" data-step-label="3">3. Quote</div>
+        <div class="fh-step" data-step-label="4">4. Book</div>
+      </div>
+
+      <section class="fh-panel is-active" id="stepCalendar">
+        <div class="fh-layout">
+          <div class="fh-calendar-card">
+            <div class="fh-calendar-head">
+              <button class="fh-mini-btn" id="prevMonthBtn" type="button">‹</button>
+              <h2 class="fh-calendar-title" id="calendarTitle">Calendar</h2>
+              <button class="fh-mini-btn" id="nextMonthBtn" type="button">›</button>
+            </div>
+
+            <div class="fh-weekdays">
+              <div class="fh-weekday">Sun</div>
+              <div class="fh-weekday">Mon</div>
+              <div class="fh-weekday">Tue</div>
+              <div class="fh-weekday">Wed</div>
+              <div class="fh-weekday">Thu</div>
+              <div class="fh-weekday">Fri</div>
+              <div class="fh-weekday">Sat</div>
+            </div>
+
+            <div class="fh-calendar-grid" id="calendarGrid"></div>
+          </div>
+
+          <aside class="fh-side-card">
+            <h3>Your stay</h3>
+
+            <div class="fh-selection">
+              <div><strong>Arrival:</strong> <span id="selectedCheckIn">Select a date</span></div>
+              <div><strong>Departure:</strong> <span id="selectedCheckOut">Select a date</span></div>
+              <div><strong>Nights:</strong> <span id="selectedNights">0</span></div>
+              <div><strong>Nightly pricing:</strong> <span id="selectedNightly">Select dates</span></div>
+            </div>
+
+            <div class="fh-estimate">
+              <div class="fh-estimate-label">Estimated total</div>
+              <div class="fh-estimate-total" id="selectedEstimate">—</div>
+            </div>
+
+            <div class="fh-field" style="margin-top:16px;">
+              <label for="guests">Guests</label>
+              <select id="guests">
+                <option value="12">12 guests</option>
+                <option value="16">16 guests</option>
+                <option value="20">20 guests</option>
+                <option value="24">24 guests</option>
+                <option value="28">28 guests</option>
+                <option value="32">32 guests</option>
+                <option value="36">36 guests</option>
+                <option value="40">40 guests</option>
+                <option value="44">44 guests</option>
+                <option value="48">48 guests</option>
+              </select>
+            </div>
+
+            <div class="fh-actions">
+              <button class="fh-button primary" id="checkAvailabilityBtn" type="button">Check selected dates</button>
+              <button class="fh-button" id="clearDatesBtn" type="button">Clear</button>
+            </div>
+
+            <p class="fh-note">
+              Calendar availability is loaded through the Cloudflare Worker. Final price is confirmed only by the official Guesty quote.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="fh-panel" id="stepGuest">
+        <div class="fh-grid">
+          <div class="fh-field">
+            <label for="firstName">First name</label>
+            <input id="firstName" placeholder="First name">
+          </div>
+
+          <div class="fh-field">
+            <label for="lastName">Last name</label>
+            <input id="lastName" placeholder="Last name">
+          </div>
+
+          <div class="fh-field">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="email@example.com">
+          </div>
+
+          <div class="fh-field">
+            <label for="phone">Phone</label>
+            <input id="phone" placeholder="+1 ...">
+          </div>
+        </div>
+
+        <div class="fh-actions">
+          <button class="fh-button" data-back="1" type="button">Back</button>
+          <button class="fh-button primary" id="createQuoteBtn" type="button">Get official quote</button>
+        </div>
+      </section>
+
+      <section class="fh-panel" id="stepQuote">
+        <div id="quoteBox" class="fh-quote-card">
+          <h3>Guesty quote</h3>
+          Quote will appear here.
+        </div>
+
+        <div class="fh-actions">
+          <button class="fh-button" data-back="2" type="button">Back</button>
+          <button class="fh-button primary" id="continueToBookBtn" type="button">Continue</button>
+        </div>
+      </section>
+
+      <section class="fh-panel" id="stepBook">
+        <div class="fh-quote-card">
+          <h3>Choose booking type</h3>
+          <p class="fh-note">
+            Request booking creates a Guesty request from the quote. Instant book creates the reservation directly in Guesty when the rate plan allows it.
+          </p>
+
+          <div class="fh-actions">
+            <button class="fh-button primary" id="bookInquiryBtn" type="button">Request booking</button>
+            <button class="fh-button" id="bookInstantBtn" type="button">Create reservation</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="fh-result" id="resultBox"></div>
+
+      <details class="fh-debug">
+        <summary>Technical response</summary>
+        <pre id="debugOutput">No request sent yet.</pre>
+      </details>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const WORKER_BASE = "https://guetsyapi.moshe-cohen-h1.workers.dev";
+      const MIN_NIGHTS = 2;
+      const CURRENCY = "CHF";
+
+      /*
+        IMPORTANT: No hardcoded pricing here.
+        All pricing must come from the Cloudflare Worker, which calls Guesty server-side.
+      */
+
+      const state = {
+        currentMonthDate: new Date(),
+        calendarData: null,
+        dayMap: {},
+        checkIn: "",
+        checkOut: "",
+        guests: 12,
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        quoteId: "",
+        ratePlanId: "",
+        quote: null
+      };
+
+      const panels = [
+        document.getElementById("stepCalendar"),
+        document.getElementById("stepGuest"),
+        document.getElementById("stepQuote"),
+        document.getElementById("stepBook")
+      ];
+
+      const stepLabels = Array.from(document.querySelectorAll("[data-step-label]"));
+      const resultBox = document.getElementById("resultBox");
+      const debugOutput = document.getElementById("debugOutput");
+      const quoteBox = document.getElementById("quoteBox");
+      const calendarGrid = document.getElementById("calendarGrid");
+      const calendarTitle = document.getElementById("calendarTitle");
+
+      const guestsEl = document.getElementById("guests");
+      const selectedCheckIn = document.getElementById("selectedCheckIn");
+      const selectedCheckOut = document.getElementById("selectedCheckOut");
+      const selectedNights = document.getElementById("selectedNights");
+      const selectedNightly = document.getElementById("selectedNightly");
+      const selectedEstimate = document.getElementById("selectedEstimate");
+
+      document.getElementById("prevMonthBtn").addEventListener("click", function () {
+        state.currentMonthDate.setMonth(state.currentMonthDate.getMonth() - 1);
+        loadCalendarMonth();
+      });
+
+      document.getElementById("nextMonthBtn").addEventListener("click", function () {
+        state.currentMonthDate.setMonth(state.currentMonthDate.getMonth() + 1);
+        loadCalendarMonth();
+      });
+
+      document.getElementById("checkAvailabilityBtn").addEventListener("click", checkAvailability);
+      document.getElementById("clearDatesBtn").addEventListener("click", clearDates);
+      document.getElementById("createQuoteBtn").addEventListener("click", createQuote);
+      document.getElementById("continueToBookBtn").addEventListener("click", function () { goToStep(4); });
+      document.getElementById("bookInquiryBtn").addEventListener("click", function () { bookFromQuote("inquiry"); });
+      document.getElementById("bookInstantBtn").addEventListener("click", function () { bookFromQuote("instant"); });
+
+      document.querySelectorAll("[data-back]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          goToStep(Number(button.getAttribute("data-back")));
+        });
+      });
+
+      guestsEl.addEventListener("change", function () {
+        state.guests = Number(guestsEl.value || 1);
+        updateSelectionUI();
+      });
+
+      function goToStep(stepNumber) {
+        panels.forEach(function (panel, index) {
+          panel.classList.toggle("is-active", index === stepNumber - 1);
+        });
+
+        stepLabels.forEach(function (label, index) {
+          label.classList.toggle("is-active", index === stepNumber - 1);
+        });
+      }
+
+      function setResult(type, html) {
+        resultBox.className = "fh-result is-visible";
+        if (type) resultBox.classList.add("is-" + type);
+        resultBox.innerHTML = html;
+      }
+
+      function clearResult() {
+        resultBox.className = "fh-result";
+        resultBox.innerHTML = "";
+      }
+
+      function setDebug(value) {
+        debugOutput.textContent = typeof value === "string"
+          ? value
+          : JSON.stringify(value, null, 2);
+      }
+
+      function toDateString(date) {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const d = String(date.getDate()).padStart(2, "0");
+        return y + "-" + m + "-" + d;
+      }
+
+      function formatDisplayDate(dateString) {
+        if (!dateString) return "Select a date";
+        const date = new Date(dateString + "T00:00:00");
+
+        return date.toLocaleDateString(undefined, {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        });
+      }
+
+      function formatMoney(amount) {
+        if (!amount && amount !== 0) return "—";
+        return Math.round(amount).toLocaleString() + " " + CURRENCY;
+      }
+
+      function getNightCount(checkIn, checkOut) {
+        if (!checkIn || !checkOut) return 0;
+
+        const start = new Date(checkIn + "T00:00:00");
+        const end = new Date(checkOut + "T00:00:00");
+
+        return Math.round((end - start) / (1000 * 60 * 60 * 24));
+      }
+
+      function getDateRange(checkIn, checkOut) {
+        const dates = [];
+
+        if (!checkIn || !checkOut) return dates;
+
+        const current = new Date(checkIn + "T00:00:00");
+        const end = new Date(checkOut + "T00:00:00");
+
+        while (current < end) {
+          dates.push(toDateString(current));
+          current.setDate(current.getDate() + 1);
+        }
+
+        return dates;
+      }
+
+      function getMonthRange(date) {
+        const start = new Date(date.getFullYear(), date.getMonth(), 1);
+        const end = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+
+        return {
+          from: toDateString(start),
+          to: toDateString(end)
+        };
+      }
+
+      function getCalendarNightPrice(dateString) {
+        const day = state.dayMap[dateString];
+
+        if (!day || typeof day !== "object") {
+          return {
+            price: null,
+            source: "none"
+          };
+        }
+
+        const rawPrice = day.price;
+        const numericPrice = typeof rawPrice === "number"
+          ? rawPrice
+          : typeof rawPrice === "string" && !isNaN(Number(rawPrice))
+            ? Number(rawPrice)
+            : null;
+
+        if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
+          return {
+            price: null,
+            source: "none"
+          };
+        }
+
+        return {
+          price: numericPrice,
+          source: day.priceSource || "guesty_calendar"
+        };
+      }
+
+      function getEstimatedStayTotal() {
+        if (!state.checkIn || !state.checkOut) {
+          return {
+            total: null,
+            currency: CURRENCY,
+            nights: [],
+            hasSelection: false,
+            priceAvailable: false
+          };
+        }
+
+        const nights = getDateRange(state.checkIn, state.checkOut);
+        let total = 0;
+        let allNightsHavePrice = true;
+
+        const pricedNights = nights.map(function (dateString) {
+          const priceInfo = getCalendarNightPrice(dateString);
+          const numericPrice = Number(priceInfo.price);
+
+          if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
+            allNightsHavePrice = false;
+
+            return {
+              date: dateString,
+              price: null,
+              source: priceInfo.source || "none"
+            };
+          }
+
+          total += numericPrice;
+
+          return {
+            date: dateString,
+            price: numericPrice,
+            source: priceInfo.source || "guesty_calendar"
+          };
+        });
+
+        return {
+          total: allNightsHavePrice ? total : null,
+          currency: CURRENCY,
+          nights: pricedNights,
+          hasSelection: true,
+          priceAvailable: allNightsHavePrice
+        };
+      }
+
+      async function loadCalendarMonth() {
+        clearResult();
+
+        const range = getMonthRange(state.currentMonthDate);
+
+        calendarTitle.textContent = state.currentMonthDate.toLocaleDateString(undefined, {
+          month: "long",
+          year: "numeric"
+        });
+
+        calendarGrid.innerHTML = "<div style='grid-column:1/-1;padding:18px;color:rgba(26,20,20,.62);font-weight:800;'>Loading Guesty calendar...</div>";
+
+        try {
+          const data = await workerPost("/guesty/calendar-month-prices", {
+            from: range.from,
+            to: range.to,
+            guests: Number(guestsEl.value || 12)
+          }, false);
+
+          state.calendarData = data;
+          state.dayMap = buildDayMap(data.days || []);
+
+          renderCalendar();
+        } catch (error) {
+          console.error(error);
+          calendarGrid.innerHTML = "<div style='grid-column:1/-1;padding:18px;color:#822626;font-weight:800;'>Calendar could not load. Open technical response below.</div>";
+          setResult("error", "<strong>Calendar failed to load.</strong> The Worker is reachable only if CORS and Guesty are both responding.");
+        }
+      }
+
+      function buildDayMap(guestyData) {
+        const map = {};
+        const array = findCalendarArray(guestyData);
+
+        if (!array) return map;
+
+        array.forEach(function (day) {
+          const date = getCalendarDate(day);
+          if (!date) return;
+          map[String(date).slice(0, 10)] = day;
+        });
+
+        return map;
+      }
+
+      function findCalendarArray(value) {
+        if (Array.isArray(value)) return value;
+        if (!value || typeof value !== "object") return null;
+
+        const commonKeys = ["data", "days", "calendar", "results", "availability", "dates", "items"];
+
+        for (const key of commonKeys) {
+          if (Array.isArray(value[key])) return value[key];
+        }
+
+        for (const key of Object.keys(value)) {
+          if (Array.isArray(value[key])) return value[key];
+        }
+
+        return null;
+      }
+
+      function getCalendarDate(day) {
+        return day.date || day.day || day.startDate || day.checkInDate || day.calendarDate || day.from;
+      }
+
+      function isUnavailable(day) {
+        if (!day) return false;
+
+        const status = String(
+          day.status ||
+          day.availability ||
+          day.availabilityStatus ||
+          day.state ||
+          ""
+        ).toLowerCase();
+
+        if (status && status !== "available" && status !== "open" && status !== "bookable") return true;
+        if (day.available === false) return true;
+        if (day.isAvailable === false) return true;
+        if (day.closed === true) return true;
+        if (day.blocked === true) return true;
+        if (day.isBlocked === true) return true;
+        if (day.hardBlocked === true) return true;
+
+        return false;
+      }
+
+      function renderCalendar() {
+        const date = state.currentMonthDate;
+        const first = new Date(date.getFullYear(), date.getMonth(), 1);
+        const last = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        const today = toDateString(new Date());
+
+        calendarGrid.innerHTML = "";
+
+        for (let i = 0; i < first.getDay(); i++) {
+          const empty = document.createElement("button");
+          empty.type = "button";
+          empty.className = "fh-day is-empty";
+          calendarGrid.appendChild(empty);
+        }
+
+        for (let dayNumber = 1; dayNumber <= last.getDate(); dayNumber++) {
+          const dayDate = new Date(date.getFullYear(), date.getMonth(), dayNumber);
+          const dateString = toDateString(dayDate);
+          const guestyDay = state.dayMap[dateString];
+          const unavailable = isUnavailable(guestyDay);
+          const past = dateString < today;
+          const priceInfo = getCalendarNightPrice(dateString);
+
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "fh-day";
+          button.dataset.date = dateString;
+
+          if (past) button.classList.add("is-past");
+          if (unavailable) button.classList.add("is-unavailable");
+
+          button.innerHTML = `
+            <span class="fh-day-number">${dayNumber}</span>
+            ${
+              unavailable
+                ? `<span class="fh-day-price">—</span><span class="fh-day-status">Blocked</span>`
+                : Number.isFinite(Number(priceInfo.price)) && Number(priceInfo.price) > 0
+                  ? `<span class="fh-day-price">${formatMoney(priceInfo.price)}</span><span class="fh-day-source">Guesty price</span>`
+                  : `<span class="fh-day-price">—</span><span class="fh-day-source">Quote required</span>`
+            }
+          `;
+
+          if (!past && !unavailable) {
+            button.addEventListener("click", function () {
+              selectDate(dateString);
+            });
+          }
+
+          calendarGrid.appendChild(button);
+        }
+
+        updateSelectionUI();
+        paintSelectedRange();
+      }
+
+      function selectDate(dateString) {
+        clearResult();
+
+        if (!state.checkIn || state.checkOut) {
+          state.checkIn = dateString;
+          state.checkOut = "";
+        } else if (dateString <= state.checkIn) {
+          state.checkIn = dateString;
+          state.checkOut = "";
+        } else {
+          state.checkOut = dateString;
+        }
+
+        updateSelectionUI();
+        paintSelectedRange();
+      }
+
+      function clearDates() {
+        state.checkIn = "";
+        state.checkOut = "";
+        state.quoteId = "";
+        state.ratePlanId = "";
+        state.quote = null;
+        updateSelectionUI();
+        paintSelectedRange();
+        clearResult();
+      }
+
+      function updateSelectionUI() {
+        selectedCheckIn.textContent = formatDisplayDate(state.checkIn);
+        selectedCheckOut.textContent = formatDisplayDate(state.checkOut);
+        selectedNights.textContent = String(getNightCount(state.checkIn, state.checkOut));
+
+        const estimate = getEstimatedStayTotal();
+
+        if (!estimate.hasSelection || !estimate.nights.length) {
+          selectedNightly.textContent = "Select dates";
+          selectedEstimate.textContent = "—";
+          return;
+        }
+
+        if (!estimate.priceAvailable) {
+          selectedNightly.textContent = "Price confirmed after official Guesty quote";
+          selectedEstimate.textContent = "—";
+          return;
+        }
+
+        selectedEstimate.textContent = formatMoney(estimate.total);
+
+        const uniquePrices = Array.from(new Set(
+          estimate.nights.map(function (night) {
+            return formatMoney(night.price);
+          })
+        ));
+
+        if (uniquePrices.length === 1) {
+          selectedNightly.textContent = uniquePrices[0] + " / night";
+        } else {
+          selectedNightly.textContent = "Variable live Guesty pricing";
+        }
+      }
+
+      function paintSelectedRange() {
+        const dayButtons = Array.from(document.querySelectorAll(".fh-day[data-date]"));
+
+        dayButtons.forEach(function (button) {
+          const date = button.dataset.date;
+
+          button.classList.remove("is-selected", "is-range", "is-start", "is-end");
+
+          if (state.checkIn && !state.checkOut && date === state.checkIn) {
+            button.classList.add("is-selected");
+          }
+
+          if (state.checkIn && state.checkOut) {
+            if (date === state.checkIn) button.classList.add("is-start");
+            if (date === state.checkOut) button.classList.add("is-end");
+            if (date > state.checkIn && date < state.checkOut) button.classList.add("is-range");
+          }
+        });
+      }
+
+      function validateDates() {
+        state.guests = Number(guestsEl.value || 1);
+
+        if (!state.checkIn || !state.checkOut) {
+          setResult("error", "<strong>Please select arrival and departure dates on the calendar.</strong>");
+          return false;
+        }
+
+        if (state.checkOut <= state.checkIn) {
+          setResult("error", "<strong>Please choose a departure date after the arrival date.</strong>");
+          return false;
+        }
+
+        const nights = getNightCount(state.checkIn, state.checkOut);
+
+        if (nights < MIN_NIGHTS) {
+          setResult("warning", "<strong>Minimum stay required.</strong> Please choose at least " + MIN_NIGHTS + " nights.");
+          return false;
+        }
+
+        return true;
+      }
+
+      function collectGuest() {
+        state.firstName = document.getElementById("firstName").value.trim();
+        state.lastName = document.getElementById("lastName").value.trim();
+        state.email = document.getElementById("email").value.trim();
+        state.phone = document.getElementById("phone").value.trim();
+      }
+
+      function validateGuest() {
+        collectGuest();
+
+        if (!state.firstName || !state.lastName || !state.email) {
+          setResult("error", "<strong>Please enter first name, last name, and email.</strong>");
+          return false;
+        }
+
+        return true;
+      }
+
+      async function workerPost(path, payload, throwOnError = true) {
+        setDebug({
+          request: {
+            url: WORKER_BASE + path,
+            payload
+          }
+        });
+
+        const response = await fetch(WORKER_BASE + path, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const text = await response.text();
+
+        let data;
+
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = { rawText: text };
+        }
+
+        setDebug({
+          httpStatus: response.status,
+          browserFetchOk: response.ok,
+          data
+        });
+
+        if (throwOnError && (!response.ok || !data.ok)) {
+          throw data;
+        }
+
+        return data;
+      }
+
+      async function checkAvailability() {
+        clearResult();
+
+        if (!validateDates()) return;
+
+        const button = document.getElementById("checkAvailabilityBtn");
+        button.disabled = true;
+        button.textContent = "Checking...";
+
+        try {
+          const data = await workerPost("/guesty/check-availability", {
+            checkIn: state.checkIn,
+            checkOut: state.checkOut,
+            guests: state.guests
+          });
+
+          if (data.available) {
+            setResult(
+              "success",
+              "<strong>Dates appear available.</strong> Enter guest details to create the official Guesty quote and final price."
+            );
+            goToStep(2);
+          } else {
+            setResult("warning", "<strong>These dates appear unavailable.</strong> Try another date range or request alternatives.");
+          }
+        } catch (error) {
+          console.error(error);
+          setResult("error", "<strong>Availability check failed.</strong> Open the technical response below.");
+        } finally {
+          button.disabled = false;
+          button.textContent = "Check selected dates";
+        }
+      }
+
+      async function createQuote() {
+        clearResult();
+
+        if (!validateDates()) return;
+        if (!validateGuest()) return;
+
+        const button = document.getElementById("createQuoteBtn");
+        button.disabled = true;
+        button.textContent = "Creating quote...";
+
+        try {
+          const data = await workerPost("/guesty/quote", {
+            checkIn: state.checkIn,
+            checkOut: state.checkOut,
+            guests: state.guests,
+            firstName: state.firstName,
+            lastName: state.lastName,
+            email: state.email,
+            phone: state.phone
+          });
+
+          state.quoteId = data.quoteId;
+          state.ratePlanId = data.ratePlanId || findRatePlanId(data.quote || data) || "default-rateplan-id";
+          state.quote = data.quote;
+
+          renderQuote(data);
+
+          setResult("success", "<strong>Official quote created.</strong> Review the final Guesty price and continue.");
+          goToStep(3);
+        } catch (error) {
+          console.error(error);
+
+          const guestyMessage =
+            error &&
+            error.guestyData &&
+            error.guestyData.error &&
+            error.guestyData.error.message
+              ? error.guestyData.error.message
+              : "Open the technical response below.";
+
+          setResult("error", "<strong>Quote failed.</strong> " + guestyMessage);
+        } finally {
+          button.disabled = false;
+          button.textContent = "Get official quote";
+        }
+      }
+
+      function findRatePlanId(value) {
+        if (!value || typeof value !== "object") return "";
+
+        if (typeof value.ratePlanId === "string") return value.ratePlanId;
+        if (typeof value.rateId === "string") return value.rateId;
+        if (typeof value.ratePlan === "string") return value.ratePlan;
+
+        if (typeof value._id === "string" && (value.rateName || value.ratePlanName || value.name)) return value._id;
+        if (typeof value.id === "string" && (value.rateName || value.ratePlanName || value.name)) return value.id;
+
+        if (Array.isArray(value.ratePlans) && value.ratePlans.length) {
+          const first = value.ratePlans[0];
+          return first.ratePlanId || first.rateId || first._id || first.id || "";
+        }
+
+        if (Array.isArray(value.rates) && value.rates.length) {
+          const first = value.rates[0];
+          return first.ratePlanId || first.rateId || first._id || first.id || "";
+        }
+
+        for (const key of Object.keys(value)) {
+          if (value[key] && typeof value[key] === "object") {
+            const found = findRatePlanId(value[key]);
+            if (found) return found;
+          }
+        }
+
+        return "";
+      }
+
+      function renderQuote(data) {
+        const quote = data.quote || {};
+        const summary = data.summary || {};
+        const quoteId = data.quoteId || quote._id || quote.id || "";
+        const ratePlanId = state.ratePlanId || data.ratePlanId || findRatePlanId(quote || data);
+        const estimate = getEstimatedStayTotal();
+
+        const currency = findCurrency(quote) || findCurrency(summary) || CURRENCY;
+        const total = findTotal(quote) || findTotal(summary);
+        const invoiceItems = findInvoiceItems(quote) || findInvoiceItems(summary);
+
+        let itemsHtml = "";
+
+        if (invoiceItems.length) {
+          itemsHtml = invoiceItems.map(function (item) {
+            const title =
+              item.title ||
+              item.name ||
+              item.type ||
+              item.description ||
+              item.normalType ||
+              "Item";
+
+            const amount =
+              item.amount ||
+              item.total ||
+              item.value ||
+              item.price ||
+              item.totalPrice ||
+              "";
+
+            const itemCurrency =
+              item.currency ||
+              currency ||
+              "";
+
+            return `
+              <div class="fh-line-item">
+                <span>${title}</span>
+                <span>${amount ? Number(amount).toLocaleString() + " " + itemCurrency : "Included"}</span>
+              </div>
+            `;
+          }).join("");
+        }
+
+        quoteBox.innerHTML = `
+          <h3>Guesty quote</h3>
+          <div class="fh-money">
+            ${total ? Math.round(total).toLocaleString() + " " + currency : "Price returned"}
+          </div>
+          <div class="fh-note">
+            Calendar price preview: ${estimate && typeof estimate.total === "number" ? Math.round(estimate.total).toLocaleString() + " " + (estimate.currency || CURRENCY) : "Not available before official quote"}<br>
+            Quote ID: ${quoteId || "Not found in response"}<br>
+            Rate Plan ID: ${ratePlanId || "default-rateplan-id"}
+          </div>
+          <div class="fh-line-items">
+            ${
+              itemsHtml ||
+              "<div class='fh-line-item'><span>Pricing details</span><span>Open technical response</span></div>"
+            }
+          </div>
+        `;
+      }
+
+      function walk(obj, visitor) {
+        if (!obj || typeof obj !== "object") return null;
+
+        const direct = visitor(obj);
+        if (direct !== null && direct !== undefined) return direct;
+
+        if (Array.isArray(obj)) {
+          for (const item of obj) {
+            const found = walk(item, visitor);
+            if (found !== null && found !== undefined) return found;
+          }
+        } else {
+          for (const key of Object.keys(obj)) {
+            const found = walk(obj[key], visitor);
+            if (found !== null && found !== undefined) return found;
+          }
+        }
+
+        return null;
+      }
+
+      function findCurrency(obj) {
+        return walk(obj, function (x) {
+          if (typeof x.currency === "string") return x.currency;
+          return null;
+        });
+      }
+
+      function findTotal(obj) {
+        const fields = [
+          "totalPrice",
+          "total",
+          "grandTotal",
+          "subTotalPrice",
+          "balanceDue",
+          "hostPayout",
+          "fareAccommodationAdjusted",
+          "fareAccommodation",
+          "amount"
+        ];
+
+        return walk(obj, function (x) {
+          for (const field of fields) {
+            if (typeof x[field] === "number") return x[field];
+            if (typeof x[field] === "string" && !isNaN(Number(x[field]))) return Number(x[field]);
+          }
+
+          return null;
+        });
+      }
+
+      function findInvoiceItems(obj) {
+        return walk(obj, function (x) {
+          if (Array.isArray(x.invoiceItems)) return x.invoiceItems;
+          if (Array.isArray(x.lineItems)) return x.lineItems;
+          if (Array.isArray(x.items)) return x.items;
+          return null;
+        }) || [];
+      }
+
+
+      function htmlEscape(value) {
+        return String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function formatValue(value, fallback = "—") {
+        if (value === null || value === undefined || value === "") return fallback;
+        return htmlEscape(value);
+      }
+
+      function formatMoneyAny(amount, currency) {
+        if (amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "—";
+        return Math.round(Number(amount)).toLocaleString() + " " + (currency || CURRENCY);
+      }
+
+      function renderReservationSuccess(data) {
+        const summary = data.summary || {};
+        const reservation = data.reservation || {};
+        const currency = summary.currency || findCurrency(reservation) || CURRENCY;
+
+        const reservationId = summary.reservationId || data.reservationId || reservation._id || reservation.id || "";
+        const confirmationCode = summary.confirmationCode || data.confirmationCode || reservation.confirmationCode || "";
+        const status = summary.status || data.status || reservation.status || "created";
+        const checkIn = summary.checkIn || reservation.checkInDateLocalized || reservation.checkIn || state.checkIn;
+        const checkOut = summary.checkOut || reservation.checkOutDateLocalized || reservation.checkOut || state.checkOut;
+        const nights = summary.nights || getNightCount(state.checkIn, state.checkOut);
+        const guests = summary.guestsCount || summary.adults || state.guests;
+        const listingTitle = summary.listing?.title || reservation.listing?.title || reservation.listing?.nickname || "Fletschhorn";
+
+        const rows = [
+          ["Status", status],
+          ["Reservation ID", reservationId],
+          ["Confirmation code", confirmationCode],
+          ["Check-in", formatDisplayDate(String(checkIn).slice(0, 10))],
+          ["Check-out", formatDisplayDate(String(checkOut).slice(0, 10))],
+          ["Nights", nights],
+          ["Guests", guests],
+          ["Listing", listingTitle],
+          ["Channel / source", summary.websiteName || summary.source || summary.channel || data.bookingMode || "Website"],
+          ["Balance due", formatMoneyAny(summary.balanceDue, currency)],
+          ["Paid", formatMoneyAny(summary.paid, currency)],
+          ["Payout", formatMoneyAny(summary.payout, currency)]
+        ];
+
+        const rowHtml = rows.map(function (row) {
+          return `<div class="fh-line-item"><span>${htmlEscape(row[0])}</span><span>${formatValue(row[1])}</span></div>`;
+        }).join("");
+
+        return `
+          <strong>Reservation received in Guesty.</strong>
+          <div class="fh-money">${formatMoneyAny(summary.balanceDue || summary.total, currency)}</div>
+          <div class="fh-note">
+            Guesty created the reservation. Use the reservation ID or confirmation code to find it in Guesty.
+          </div>
+          <div class="fh-line-items">${rowHtml}</div>
+        `;
+      }
+
+      async function bookFromQuote(mode) {
+        clearResult();
+
+        if (!state.quoteId) {
+          setResult("error", "<strong>No quote ID found.</strong> Create a quote first.");
+          return;
+        }
+
+        if (!state.ratePlanId) {
+          state.ratePlanId = "default-rateplan-id";
+        }
+
+        const path = mode === "instant" ? "/guesty/book-instant" : "/guesty/book-inquiry";
+
+        const button = mode === "instant"
+          ? document.getElementById("bookInstantBtn")
+          : document.getElementById("bookInquiryBtn");
+
+        button.disabled = true;
+        button.textContent = mode === "instant" ? "Booking..." : "Sending request...";
+
+        try {
+          const data = await workerPost(path, {
+            quoteId: state.quoteId,
+            ratePlanId: state.ratePlanId,
+            firstName: state.firstName,
+            lastName: state.lastName,
+            email: state.email,
+            phone: state.phone
+          });
+
+          setResult("success", renderReservationSuccess(data));
+        } catch (error) {
+          console.error(error);
+
+          const guestyMessage =
+            error?.guestyData?.error?.message ||
+            error?.guestyData?.message ||
+            error?.error ||
+            "Open the technical response below.";
+
+          const guestyCode =
+            error?.guestyData?.error?.code ||
+            error?.guestyData?.code ||
+            "";
+
+          setResult(
+            "error",
+            `
+              <strong>Booking request failed.</strong>
+              ${guestyCode ? `<br><b>Guesty code:</b> ${guestyCode}` : ""}
+              <br><b>Reason:</b> ${guestyMessage}
+            `
+          );
+        } finally {
+          button.disabled = false;
+          button.textContent = mode === "instant" ? "Instant book" : "Request booking";
+        }
+      }
+
+      loadCalendarMonth();
+    })();
+  </script>
+</body>
+</html>
