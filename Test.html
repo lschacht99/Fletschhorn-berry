@@ -1,41 +1,93 @@
-<section id="fh-booking-widget">
-  <style>
-    #fh-booking-widget {
-      --fh-ink: #1a1714;
-      --fh-muted: rgba(26, 23, 20, .66);
-      --fh-paper: #fffaf3;
-      --fh-line: rgba(26, 23, 20, .12);
-      --fh-dark: #1a1714;
-      --fh-bg: rgba(255, 250, 243, .88);
-      --fh-soft: rgba(255, 255, 255, .74);
-      --fh-shadow: 0 24px 70px rgba(0,0,0,.10);
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fletschhorn Booking Test</title>
 
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: clamp(22px, 4vw, 42px);
-      border-radius: 34px;
-      background:
-        radial-gradient(circle at 12% 8%, rgba(255,255,255,.9), transparent 34%),
-        linear-gradient(135deg, rgba(255,250,243,.94), rgba(239,232,220,.82));
-      border: 1px solid var(--fh-line);
-      box-shadow: var(--fh-shadow);
-      color: var(--fh-ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      position: relative;
-      overflow: hidden;
+  <style>
+    :root {
+      --ink: #1a1714;
+      --muted: rgba(26, 23, 20, .66);
+      --paper: #fffaf3;
+      --line: rgba(26, 23, 20, .12);
+      --dark: #1a1714;
+      --clay: #b99f86;
+      --cream: #f7f1e8;
+      --shadow: 0 24px 70px rgba(0,0,0,.10);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    #fh-booking-widget * {
+    * {
       box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: clamp(14px, 3vw, 38px);
+      color: var(--ink);
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at 16% 10%, rgba(255,255,255,.96), transparent 30%),
+        radial-gradient(circle at 86% 8%, rgba(185,159,134,.18), transparent 26%),
+        linear-gradient(135deg, #fbf8f2, #eee5d7 48%, #faf6ef);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .fh-page {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .fh-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 20px;
+      color: rgba(26, 23, 20, .58);
+      font-size: 13px;
+    }
+
+    .fh-brand {
+      font-family: var(--serif);
+      font-size: 26px;
+      letter-spacing: -.04em;
+      color: var(--ink);
+    }
+
+    .fh-worker-pill {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.64);
+      border: 1px solid rgba(26,23,20,.10);
+      white-space: nowrap;
+    }
+
+    #fh-booking-widget {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      padding: clamp(22px, 4vw, 46px);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255,255,255,.94), transparent 34%),
+        linear-gradient(135deg, rgba(255,250,243,.96), rgba(239,232,220,.86));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
     }
 
     #fh-booking-widget::before {
       content: "";
       position: absolute;
-      inset: -30%;
+      inset: -28%;
       background:
         radial-gradient(circle at 20% 20%, rgba(255,255,255,.55), transparent 16%),
-        radial-gradient(circle at 80% 10%, rgba(185,159,134,.18), transparent 18%),
+        radial-gradient(circle at 80% 10%, rgba(185,159,134,.16), transparent 18%),
         radial-gradient(circle at 70% 80%, rgba(255,255,255,.42), transparent 18%);
       pointer-events: none;
     }
@@ -45,7 +97,7 @@
       z-index: 1;
     }
 
-    .fh-booking-kicker {
+    .fh-kicker {
       margin: 0 0 12px;
       text-transform: uppercase;
       letter-spacing: .18em;
@@ -54,22 +106,22 @@
       color: rgba(26, 23, 20, .52);
     }
 
-    .fh-booking-title {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(38px, 6vw, 72px);
+    .fh-title {
+      font-family: var(--serif);
+      font-size: clamp(40px, 6.4vw, 78px);
       line-height: .92;
-      letter-spacing: -.055em;
+      letter-spacing: -.06em;
       font-weight: 400;
       margin: 0 0 14px;
-      max-width: 760px;
+      max-width: 820px;
     }
 
-    .fh-booking-intro {
+    .fh-intro {
       margin: 0 0 28px;
-      color: var(--fh-muted);
+      color: var(--muted);
       font-size: clamp(16px, 2vw, 19px);
       line-height: 1.6;
-      max-width: 760px;
+      max-width: 780px;
     }
 
     .fh-booking-form {
@@ -79,7 +131,7 @@
       align-items: end;
       padding: 16px;
       border-radius: 26px;
-      background: rgba(255,255,255,.56);
+      background: rgba(255,255,255,.58);
       border: 1px solid rgba(26,23,20,.08);
       backdrop-filter: blur(14px);
     }
@@ -99,27 +151,27 @@
       width: 100%;
       min-height: 52px;
       border: 1px solid rgba(26,23,20,.12);
-      background: rgba(255,255,255,.86);
+      background: rgba(255,255,255,.88);
       border-radius: 17px;
       padding: 13px 14px;
       font: inherit;
-      color: var(--fh-ink);
+      color: var(--ink);
       outline: none;
     }
 
     .fh-field input:focus,
     .fh-field select:focus {
-      border-color: rgba(26,23,20,.32);
+      border-color: rgba(26,23,20,.34);
       box-shadow: 0 0 0 3px rgba(26,23,20,.06);
     }
 
-    .fh-booking-button {
+    .fh-button {
       min-height: 52px;
       border: 0;
       border-radius: 999px;
       padding: 14px 18px;
-      background: var(--fh-dark);
-      color: var(--fh-paper);
+      background: var(--dark);
+      color: var(--paper);
       font-weight: 800;
       font: inherit;
       cursor: pointer;
@@ -127,61 +179,61 @@
       transition: transform .2s ease, opacity .2s ease;
     }
 
-    .fh-booking-button:hover {
+    .fh-button:hover {
       transform: translateY(-1px);
     }
 
-    .fh-booking-button:disabled {
+    .fh-button:disabled {
       opacity: .58;
       cursor: wait;
       transform: none;
     }
 
-    .fh-booking-result {
+    .fh-result {
       display: none;
       margin-top: 18px;
-      padding: 18px;
+      padding: 20px;
       border-radius: 22px;
-      background: rgba(255,255,255,.70);
+      background: rgba(255,255,255,.72);
       border: 1px solid rgba(26,23,20,.10);
-      color: var(--fh-muted);
+      color: var(--muted);
       line-height: 1.55;
     }
 
-    .fh-booking-result.is-visible {
+    .fh-result.is-visible {
       display: block;
     }
 
-    .fh-booking-result strong {
+    .fh-result strong {
       display: block;
-      color: var(--fh-ink);
+      color: var(--ink);
       font-size: 18px;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
-    .fh-booking-result.is-success {
-      border-color: rgba(45, 112, 74, .22);
-      background: rgba(246, 255, 249, .72);
+    .fh-result.is-success {
+      border-color: rgba(45,112,74,.24);
+      background: rgba(246,255,249,.74);
     }
 
-    .fh-booking-result.is-warning {
-      border-color: rgba(150, 101, 35, .24);
-      background: rgba(255, 248, 237, .78);
+    .fh-result.is-warning {
+      border-color: rgba(150,101,35,.25);
+      background: rgba(255,248,237,.80);
     }
 
-    .fh-booking-result.is-error {
-      border-color: rgba(130, 38, 38, .22);
-      background: rgba(255, 245, 245, .78);
+    .fh-result.is-error {
+      border-color: rgba(130,38,38,.24);
+      background: rgba(255,245,245,.80);
     }
 
-    .fh-booking-actions {
+    .fh-actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       margin-top: 14px;
     }
 
-    .fh-booking-link {
+    .fh-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -189,22 +241,56 @@
       padding: 11px 16px;
       border-radius: 999px;
       background: rgba(26,23,20,.09);
-      color: var(--fh-ink);
+      color: var(--ink);
       text-decoration: none;
       font-weight: 800;
       font-size: 14px;
     }
 
-    .fh-booking-link.primary {
-      background: var(--fh-dark);
-      color: var(--fh-paper);
+    .fh-link.primary {
+      background: var(--dark);
+      color: var(--paper);
     }
 
-    .fh-booking-note {
+    .fh-note {
       margin: 16px 0 0;
       font-size: 13px;
       color: rgba(26,23,20,.54);
       line-height: 1.5;
+    }
+
+    .fh-debug {
+      margin-top: 18px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(26,23,20,.10);
+      background: rgba(255,255,255,.55);
+    }
+
+    .fh-debug summary {
+      cursor: pointer;
+      padding: 12px 14px;
+      font-weight: 800;
+      font-size: 13px;
+      color: rgba(26,23,20,.64);
+    }
+
+    .fh-debug pre {
+      margin: 0;
+      padding: 14px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #2b2925;
+      background: rgba(255,255,255,.58);
+      max-height: 360px;
+    }
+
+    code {
+      font-size: .92em;
+      background: rgba(26,23,20,.07);
+      padding: 2px 5px;
+      border-radius: 6px;
     }
 
     @media (max-width: 900px) {
@@ -212,14 +298,33 @@
         grid-template-columns: 1fr 1fr;
       }
 
-      .fh-booking-button {
+      .fh-button {
         grid-column: 1 / -1;
+      }
+
+      .fh-topbar {
+        align-items: flex-start;
+        flex-direction: column;
       }
     }
 
     @media (max-width: 640px) {
+      body {
+        padding: 0;
+      }
+
+      .fh-page {
+        max-width: none;
+      }
+
+      .fh-topbar {
+        padding: 14px 18px;
+        margin: 0;
+      }
+
       #fh-booking-widget {
-        border-radius: 26px;
+        border-radius: 0;
+        min-height: 100vh;
       }
 
       .fh-booking-form {
@@ -228,52 +333,70 @@
       }
     }
   </style>
+</head>
 
-  <div class="fh-booking-inner">
-    <p class="fh-booking-kicker">Private stay · Saas-Fee</p>
-    <h2 class="fh-booking-title">Your private chalet in a few clicks</h2>
-    <p class="fh-booking-intro">
-      Choose your dates and group size. We’ll check the property calendar securely through our booking system.
-    </p>
+<body>
+  <main class="fh-page">
+    <div class="fh-topbar">
+      <div class="fh-brand">Fletschhorn</div>
+      <div class="fh-worker-pill">Connected to Guesty Worker</div>
+    </div>
 
-    <form class="fh-booking-form" id="fhBookingForm">
-      <div class="fh-field">
-        <label for="fhCheckIn">Arrival</label>
-        <input id="fhCheckIn" name="checkIn" type="date" required>
+    <section id="fh-booking-widget">
+      <div class="fh-booking-inner">
+        <p class="fh-kicker">Private stay · Saas-Fee</p>
+
+        <h1 class="fh-title">Your private chalet in a few clicks</h1>
+
+        <p class="fh-intro">
+          Choose your dates and group size. The page checks the Fletschhorn Guesty calendar through the secure Cloudflare Worker.
+        </p>
+
+        <form class="fh-booking-form" id="fhBookingForm">
+          <div class="fh-field">
+            <label for="fhCheckIn">Arrival</label>
+            <input id="fhCheckIn" name="checkIn" type="date" required>
+          </div>
+
+          <div class="fh-field">
+            <label for="fhCheckOut">Departure</label>
+            <input id="fhCheckOut" name="checkOut" type="date" required>
+          </div>
+
+          <div class="fh-field">
+            <label for="fhGuests">Guests</label>
+            <select id="fhGuests" name="guests" required>
+              <option value="12">12 guests</option>
+              <option value="16">16 guests</option>
+              <option value="20">20 guests</option>
+              <option value="24">24 guests</option>
+              <option value="28">28 guests</option>
+              <option value="32">32 guests</option>
+              <option value="36">36 guests</option>
+              <option value="40">40 guests</option>
+              <option value="44">44 guests</option>
+              <option value="48">48 guests</option>
+            </select>
+          </div>
+
+          <button class="fh-button" id="fhBookingButton" type="submit">
+            Check availability
+          </button>
+        </form>
+
+        <div class="fh-result" id="fhBookingResult"></div>
+
+        <details class="fh-debug" id="fhDebugBox">
+          <summary>Technical response</summary>
+          <pre id="fhDebugOutput">No request sent yet.</pre>
+        </details>
+
+        <p class="fh-note">
+          Calendar availability is checked first. Final pricing and booking details are confirmed in the next step.
+        </p>
       </div>
-
-      <div class="fh-field">
-        <label for="fhCheckOut">Departure</label>
-        <input id="fhCheckOut" name="checkOut" type="date" required>
-      </div>
-
-      <div class="fh-field">
-        <label for="fhGuests">Guests</label>
-        <select id="fhGuests" name="guests" required>
-          <option value="12">12 guests</option>
-          <option value="16">16 guests</option>
-          <option value="20">20 guests</option>
-          <option value="24">24 guests</option>
-          <option value="28">28 guests</option>
-          <option value="32">32 guests</option>
-          <option value="36">36 guests</option>
-          <option value="40">40 guests</option>
-          <option value="44">44 guests</option>
-          <option value="48">48 guests</option>
-        </select>
-      </div>
-
-      <button class="fh-booking-button" id="fhBookingButton" type="submit">
-        Check availability
-      </button>
-    </form>
-
-    <div class="fh-booking-result" id="fhBookingResult"></div>
-
-    <p class="fh-booking-note">
-      Calendar availability is checked first. Final pricing and booking details are confirmed in the next step.
-    </p>
-  </div>
+    </section>
+  </main>
 
   <script>
     (function () {
@@ -282,14 +405,16 @@
       const form = document.getElementById("fhBookingForm");
       const button = document.getElementById("fhBookingButton");
       const result = document.getElementById("fhBookingResult");
+      const debugOutput = document.getElementById("fhDebugOutput");
       const checkInInput = document.getElementById("fhCheckIn");
       const checkOutInput = document.getElementById("fhCheckOut");
       const guestsInput = document.getElementById("fhGuests");
 
-      if (!form || !button || !result || !checkInInput || !checkOutInput || !guestsInput) return;
+      if (!form || !button || !result || !checkInInput || !checkOutInput || !guestsInput) {
+        return;
+      }
 
-      const today = new Date();
-      const todayString = today.toISOString().slice(0, 10);
+      const todayString = new Date().toISOString().slice(0, 10);
 
       checkInInput.min = todayString;
       checkOutInput.min = todayString;
@@ -315,13 +440,23 @@
       }
 
       function setResult(type, html) {
-        result.className = "fh-booking-result is-visible";
+        result.className = "fh-result is-visible";
 
         if (type) {
           result.classList.add("is-" + type);
         }
 
         result.innerHTML = html;
+      }
+
+      function setDebug(value) {
+        if (!debugOutput) return;
+
+        if (typeof value === "string") {
+          debugOutput.textContent = value;
+        } else {
+          debugOutput.textContent = JSON.stringify(value, null, 2);
+        }
       }
 
       function buildMailto(subject, payload) {
@@ -353,6 +488,14 @@
         return "/booking?" + params.toString();
       }
 
+      async function checkWorkerHealth() {
+        const response = await fetch(WORKER_BASE + "/health", {
+          method: "GET"
+        });
+
+        return await response.json();
+      }
+
       form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
@@ -377,8 +520,15 @@
 
         setResult(
           "",
-          "<strong>Checking availability...</strong> Please wait a moment while we check the calendar."
+          "<strong>Checking availability...</strong> Please wait while we connect to the Guesty calendar."
         );
+
+        setDebug({
+          requestToWorker: {
+            url: WORKER_BASE + "/guesty/check-availability",
+            payload: payload
+          }
+        });
 
         try {
           const response = await fetch(WORKER_BASE + "/guesty/check-availability", {
@@ -389,7 +539,23 @@
             body: JSON.stringify(payload)
           });
 
-          const data = await response.json();
+          const text = await response.text();
+
+          let data;
+
+          try {
+            data = JSON.parse(text);
+          } catch (error) {
+            data = {
+              rawText: text
+            };
+          }
+
+          setDebug({
+            httpStatus: response.status,
+            browserFetchOk: response.ok,
+            data: data
+          });
 
           console.log("Fletschhorn availability response:", data);
 
@@ -397,28 +563,27 @@
             setResult(
               "error",
               `
-                <strong>We could not confirm availability online.</strong>
-                Please contact us directly and we will check these dates manually.
-                <div class="fh-booking-actions">
-                  <a class="fh-booking-link primary" href="${buildMailto("Availability request for Fletschhorn", payload)}">Email us</a>
-                  <a class="fh-booking-link" href="tel:+41279572131">Call +41 27 957 2131</a>
+                <strong>Worker reached, but Guesty did not confirm availability.</strong>
+                The technical response is open below. If this is a CORS issue, make sure the Worker allows <code>https://lschacht99.github.io</code>.
+                <div class="fh-actions">
+                  <a class="fh-link primary" href="${buildMailto("Availability request for Fletschhorn", payload)}">Email us</a>
+                  <a class="fh-link" href="tel:+41279572131">Call +41 27 957 2131</a>
                 </div>
               `
             );
+
             return;
           }
 
           if (data.available === true) {
-            const bookingUrl = buildBookingUrl(payload);
-
             setResult(
               "success",
               `
                 <strong>These dates appear available.</strong>
                 ${cleanDateLabel(payload.checkIn)} to ${cleanDateLabel(payload.checkOut)} for ${payload.guests} guests.
-                <div class="fh-booking-actions">
-                  <a class="fh-booking-link primary" href="${bookingUrl}">Continue booking</a>
-                  <a class="fh-booking-link" href="${buildMailto("Question about available dates at Fletschhorn", payload)}">Ask a question</a>
+                <div class="fh-actions">
+                  <a class="fh-link primary" href="${buildBookingUrl(payload)}">Continue booking</a>
+                  <a class="fh-link" href="${buildMailto("Question about available dates at Fletschhorn", payload)}">Ask a question</a>
                 </div>
               `
             );
@@ -428,9 +593,9 @@
               `
                 <strong>These dates appear unavailable.</strong>
                 At least one night between ${cleanDateLabel(payload.checkIn)} and ${cleanDateLabel(payload.checkOut)} is not available.
-                <div class="fh-booking-actions">
-                  <a class="fh-booking-link primary" href="${buildMailto("Alternative dates request for Fletschhorn", payload)}">Request alternatives</a>
-                  <a class="fh-booking-link" href="tel:+41279572131">Call us</a>
+                <div class="fh-actions">
+                  <a class="fh-link primary" href="${buildMailto("Alternative dates request for Fletschhorn", payload)}">Request alternatives</a>
+                  <a class="fh-link" href="tel:+41279572131">Call us</a>
                 </div>
               `
             );
@@ -438,13 +603,29 @@
         } catch (error) {
           console.error(error);
 
+          let health = null;
+
+          try {
+            health = await checkWorkerHealth();
+          } catch (healthError) {
+            health = {
+              healthCheckFailed: String(healthError)
+            };
+          }
+
+          setDebug({
+            networkError: String(error),
+            workerHealth: health,
+            note: "If workerHealth also failed from GitHub Pages, this is probably CORS. Add https://lschacht99.github.io to allowedOrigins in the Worker."
+          });
+
           setResult(
             "error",
             `
               <strong>Connection issue.</strong>
-              The booking system did not respond. Please try again or contact us directly.
-              <div class="fh-booking-actions">
-                <a class="fh-booking-link primary" href="${buildMailto("Availability request for Fletschhorn", payload)}">Email us</a>
+              The browser could not connect to the Worker from this page. Most likely the Worker CORS list does not include <code>https://lschacht99.github.io</code>, or the Worker was not redeployed.
+              <div class="fh-actions">
+                <a class="fh-link primary" href="${buildMailto("Availability request for Fletschhorn", payload)}">Email us</a>
               </div>
             `
           );
@@ -455,4 +636,5 @@
       });
     })();
   </script>
-</section>
+</body>
+</html>
