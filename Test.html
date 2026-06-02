@@ -12,7 +12,6 @@
       --paper: #fffaf3;
       --line: rgba(26, 23, 20, .12);
       --dark: #1a1714;
-      --cream: #f7f1e8;
       --success: #2d704a;
       --warning: #966523;
       --error: #822626;
@@ -110,9 +109,7 @@
       backdrop-filter: blur(14px);
     }
 
-    .fh-panel.is-active {
-      display: block;
-    }
+    .fh-panel.is-active { display: block; }
 
     .fh-layout {
       display: grid;
@@ -243,9 +240,9 @@
       color: rgba(26,23,20,.60);
     }
 
-    .fh-day.is-selected .fh-day-price,
     .fh-day.is-start .fh-day-price,
-    .fh-day.is-end .fh-day-price {
+    .fh-day.is-end .fh-day-price,
+    .fh-day.is-selected .fh-day-price {
       color: rgba(255,250,243,.76);
     }
 
@@ -356,9 +353,7 @@
       line-height: 1.55;
     }
 
-    .fh-result.is-visible {
-      display: block;
-    }
+    .fh-result.is-visible { display: block; }
 
     .fh-result strong {
       display: block;
@@ -441,31 +436,14 @@
       max-height: 360px;
     }
 
-    code {
-      background: rgba(26,23,20,.07);
-      border-radius: 6px;
-      padding: 1px 5px;
-      font-size: .92em;
-    }
-
     @media (max-width: 900px) {
-      .fh-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .fh-steps {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .fh-grid {
-        grid-template-columns: 1fr;
-      }
+      .fh-layout { grid-template-columns: 1fr; }
+      .fh-steps { grid-template-columns: 1fr 1fr; }
+      .fh-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
-      body {
-        padding: 0;
-      }
+      body { padding: 0; }
 
       .fh-engine {
         border-radius: 0;
@@ -647,6 +625,7 @@
         email: "",
         phone: "",
         quoteId: "",
+        ratePlanId: "",
         quote: null
       };
 
@@ -732,7 +711,6 @@
 
       function formatDisplayDate(dateString) {
         if (!dateString) return "Select a date";
-
         const date = new Date(dateString + "T00:00:00");
 
         return date.toLocaleDateString(undefined, {
@@ -757,9 +735,7 @@
 
         return {
           from: toDateString(start),
-          to: toDateString(end),
-          start: start,
-          end: end
+          to: toDateString(end)
         };
       }
 
@@ -969,8 +945,8 @@
 
         const nights = getNightCount(state.checkIn, state.checkOut);
 
-        if (nights < MIN_NIGHTS) {
-          setResult("warning", `<strong>Minimum stay required.</strong> Please choose at least ${MIN_NIGHTS} nights.`);
+        if (nights < 2) {
+          setResult("warning", "<strong>Minimum stay required.</strong> Please choose at least 2 nights.");
           return false;
         }
 
@@ -999,7 +975,7 @@
         setDebug({
           request: {
             url: WORKER_BASE + path,
-            payload: payload
+            payload
           }
         });
 
@@ -1022,7 +998,7 @@
         setDebug({
           httpStatus: response.status,
           browserFetchOk: response.ok,
-          data: data
+          data
         });
 
         if (throwOnError && (!response.ok || !data.ok)) {
@@ -1038,7 +1014,6 @@
         if (!validateDates()) return;
 
         const button = document.getElementById("checkAvailabilityBtn");
-
         button.disabled = true;
         button.textContent = "Checking...";
 
@@ -1071,7 +1046,6 @@
         if (!validateGuest()) return;
 
         const button = document.getElementById("createQuoteBtn");
-
         button.disabled = true;
         button.textContent = "Creating quote...";
 
@@ -1087,6 +1061,7 @@
           });
 
           state.quoteId = data.quoteId;
+          state.ratePlanId = data.ratePlanId || findRatePlanId(data.quote || data);
           state.quote = data.quote;
 
           renderQuote(data);
@@ -1111,70 +1086,41 @@
         }
       }
 
+      function findRatePlanId(value) {
+        if (!value || typeof value !== "object") return "";
+
+        if (typeof value.ratePlanId === "string") return value.ratePlanId;
+        if (typeof value.rateId === "string") return value.rateId;
+        if (typeof value.ratePlan === "string") return value.ratePlan;
+
+        if (typeof value._id === "string" && (value.rateName || value.ratePlanName || value.name)) return value._id;
+        if (typeof value.id === "string" && (value.rateName || value.ratePlanName || value.name)) return value.id;
+
+        if (Array.isArray(value.ratePlans) && value.ratePlans.length) {
+          const first = value.ratePlans[0];
+          return first.ratePlanId || first.rateId || first._id || first.id || "";
+        }
+
+        if (Array.isArray(value.rates) && value.rates.length) {
+          const first = value.rates[0];
+          return first.ratePlanId || first.rateId || first._id || first.id || "";
+        }
+
+        for (const key of Object.keys(value)) {
+          if (value[key] && typeof value[key] === "object") {
+            const found = findRatePlanId(value[key]);
+            if (found) return found;
+          }
+        }
+
+        return "";
+      }
+
       function renderQuote(data) {
         const quote = data.quote || {};
         const summary = data.summary || {};
         const quoteId = data.quoteId || quote._id || quote.id || "";
-
-        function walk(obj, visitor) {
-          if (!obj || typeof obj !== "object") return null;
-
-          const direct = visitor(obj);
-          if (direct !== null && direct !== undefined) return direct;
-
-          if (Array.isArray(obj)) {
-            for (const item of obj) {
-              const found = walk(item, visitor);
-              if (found !== null && found !== undefined) return found;
-            }
-          } else {
-            for (const key of Object.keys(obj)) {
-              const found = walk(obj[key], visitor);
-              if (found !== null && found !== undefined) return found;
-            }
-          }
-
-          return null;
-        }
-
-        function findCurrency(obj) {
-          return walk(obj, function (x) {
-            if (typeof x.currency === "string") return x.currency;
-            return null;
-          }) || "CHF";
-        }
-
-        function findTotal(obj) {
-          const fields = [
-            "totalPrice",
-            "total",
-            "grandTotal",
-            "subTotalPrice",
-            "balanceDue",
-            "hostPayout",
-            "fareAccommodationAdjusted",
-            "fareAccommodation",
-            "amount"
-          ];
-
-          return walk(obj, function (x) {
-            for (const field of fields) {
-              if (typeof x[field] === "number") return x[field];
-              if (typeof x[field] === "string" && !isNaN(Number(x[field]))) return Number(x[field]);
-            }
-
-            return null;
-          });
-        }
-
-        function findInvoiceItems(obj) {
-          return walk(obj, function (x) {
-            if (Array.isArray(x.invoiceItems)) return x.invoiceItems;
-            if (Array.isArray(x.lineItems)) return x.lineItems;
-            if (Array.isArray(x.items)) return x.items;
-            return null;
-          }) || [];
-        }
+        const ratePlanId = state.ratePlanId || data.ratePlanId || findRatePlanId(quote || data);
 
         const currency = findCurrency(quote) || findCurrency(summary) || "CHF";
         const total = findTotal(quote) || findTotal(summary);
@@ -1220,7 +1166,8 @@
             ${total ? Math.round(total).toLocaleString() + " " + currency : "Price returned"}
           </div>
           <div class="fh-note">
-            Quote ID: ${quoteId || "Not found in response"}
+            Quote ID: ${quoteId || "Not found in response"}<br>
+            Rate Plan ID: ${ratePlanId || "Not found in response"}
           </div>
           <div class="fh-line-items">
             ${
@@ -1231,6 +1178,66 @@
         `;
       }
 
+      function walk(obj, visitor) {
+        if (!obj || typeof obj !== "object") return null;
+
+        const direct = visitor(obj);
+        if (direct !== null && direct !== undefined) return direct;
+
+        if (Array.isArray(obj)) {
+          for (const item of obj) {
+            const found = walk(item, visitor);
+            if (found !== null && found !== undefined) return found;
+          }
+        } else {
+          for (const key of Object.keys(obj)) {
+            const found = walk(obj[key], visitor);
+            if (found !== null && found !== undefined) return found;
+          }
+        }
+
+        return null;
+      }
+
+      function findCurrency(obj) {
+        return walk(obj, function (x) {
+          if (typeof x.currency === "string") return x.currency;
+          return null;
+        });
+      }
+
+      function findTotal(obj) {
+        const fields = [
+          "totalPrice",
+          "total",
+          "grandTotal",
+          "subTotalPrice",
+          "balanceDue",
+          "hostPayout",
+          "fareAccommodationAdjusted",
+          "fareAccommodation",
+          "amount"
+        ];
+
+        return walk(obj, function (x) {
+          for (const field of fields) {
+            if (typeof x[field] === "number") return x[field];
+            if (typeof x[field] === "string" && !isNaN(Number(x[field]))) return Number(x[field]);
+          }
+
+          return null;
+        });
+      }
+
+      function findInvoiceItems(obj) {
+        return walk(obj, function (x) {
+          if (Array.isArray(x.invoiceItems)) return x.invoiceItems;
+          if (Array.isArray(x.lineItems)) return x.lineItems;
+          if (Array.isArray(x.items)) return x.items;
+          return null;
+        }) || [];
+      }
+
       async function bookFromQuote(mode) {
         clearResult();
 
@@ -1239,7 +1246,16 @@
           return;
         }
 
+        if (!state.ratePlanId) {
+          setResult(
+            "error",
+            "<strong>No rate plan ID found.</strong> The quote was created, but the page could not find the Guesty rate plan ID. Open the technical response and send the quote object."
+          );
+          return;
+        }
+
         const path = mode === "instant" ? "/guesty/book-instant" : "/guesty/book-inquiry";
+
         const button = mode === "instant"
           ? document.getElementById("bookInstantBtn")
           : document.getElementById("bookInquiryBtn");
@@ -1249,7 +1265,12 @@
 
         try {
           const data = await workerPost(path, {
-            quoteId: state.quoteId
+            quoteId: state.quoteId,
+            ratePlanId: state.ratePlanId,
+            firstName: state.firstName,
+            lastName: state.lastName,
+            email: state.email,
+            phone: state.phone
           });
 
           const confirmation = data.confirmationCode
@@ -1292,4 +1313,4 @@
     })();
   </script>
 </body>
-</html> 
+</html>
