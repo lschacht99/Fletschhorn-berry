@@ -588,7 +588,7 @@
             </div>
 
             <p class="fh-note">
-              Pricing is loaded through the Cloudflare Worker. The official final price is confirmed by the Guesty quote.
+              Calendar availability is loaded through the Cloudflare Worker. Final price is confirmed only by the official Guesty quote.
             </p>
           </aside>
         </div>
@@ -682,11 +682,7 @@
         phone: "",
         quoteId: "",
         ratePlanId: "",
-        quote: null,
-        liveQuote: null,
-        livePriceLoading: false,
-        livePriceError: "",
-        priceRequestSeq: 0
+        quote: null
       };
 
       const panels = [
@@ -735,10 +731,7 @@
 
       guestsEl.addEventListener("change", function () {
         state.guests = Number(guestsEl.value || 1);
-        state.liveQuote = null;
-        state.livePriceError = "";
         updateSelectionUI();
-        schedulePricePreview();
       });
 
       function goToStep(stepNumber) {
@@ -826,178 +819,80 @@
         };
       }
 
-      function getGuestyNightlyPrice(day) {
-        if (!day || typeof day !== "object") return null;
-
-        const fields = [
-          "price",
-          "basePrice",
-          "nightlyPrice",
-          "nightlyRate",
-          "rate",
-          "amount",
-          "minPrice",
-          "avgPrice"
-        ];
-
-        for (const field of fields) {
-          if (typeof day[field] === "number") return day[field];
-
-          if (day[field] && typeof day[field] === "object") {
-            const nested = getGuestyNightlyPrice(day[field]);
-            if (nested !== null) return nested;
-          }
-        }
-
-        for (const key of Object.keys(day)) {
-          if (day[key] && typeof day[key] === "object") {
-            const nested = getGuestyNightlyPrice(day[key]);
-            if (nested !== null) return nested;
-          }
-        }
-
-        return null;
-      }
-
       function getCalendarNightPrice(dateString) {
         const day = state.dayMap[dateString];
-        const guestyPrice = getGuestyNightlyPrice(day);
 
-        if (guestyPrice !== null) {
+        if (!day || typeof day !== "object") {
           return {
-            price: guestyPrice,
-            source: "Guesty"
+            price: null,
+            source: "none"
+          };
+        }
+
+        const rawPrice = day.price;
+        const numericPrice = typeof rawPrice === "number"
+          ? rawPrice
+          : typeof rawPrice === "string" && !isNaN(Number(rawPrice))
+            ? Number(rawPrice)
+            : null;
+
+        if (!Number.isFinite(numericPrice)) {
+          return {
+            price: null,
+            source: day.priceSource || "none"
           };
         }
 
         return {
-          price: null,
-          source: "Worker"
+          price: numericPrice,
+          source: day.priceSource || "guesty_calendar"
         };
-      }
-
-      function isLiveQuoteCurrent() {
-        return Boolean(
-          state.liveQuote &&
-          state.liveQuote.checkIn === state.checkIn &&
-          state.liveQuote.checkOut === state.checkOut &&
-          Number(state.liveQuote.guests) === Number(state.guests)
-        );
-      }
-
-      function getLivePriceSummary() {
-        if (!isLiveQuoteCurrent()) return null;
-        return state.liveQuote;
-      }
-
-      let pricePreviewTimer = null;
-
-      function schedulePricePreview() {
-        clearTimeout(pricePreviewTimer);
-
-        if (!state.checkIn || !state.checkOut) return;
-        if (getNightCount(state.checkIn, state.checkOut) < MIN_NIGHTS) return;
-        if (isLiveQuoteCurrent()) return;
-
-        state.livePriceLoading = true;
-        state.livePriceError = "";
-        selectedEstimate.textContent = "Loading...";
-        selectedNightly.textContent = "Loading live price from Worker";
-
-        pricePreviewTimer = setTimeout(loadPricePreviewFromWorker, 350);
-      }
-
-      async function loadPricePreviewFromWorker() {
-        if (!state.checkIn || !state.checkOut) return;
-
-        const requestSeq = ++state.priceRequestSeq;
-        const payload = {
-          checkIn: state.checkIn,
-          checkOut: state.checkOut,
-          guests: Number(state.guests || guestsEl.value || 12)
-        };
-
-        try {
-          const data = await workerPost("/guesty/quote-preview", payload);
-
-          if (requestSeq !== state.priceRequestSeq) return;
-
-          const quotePayload = data.quote || data.guestyData || data.summary || data;
-          const total =
-            data.total ||
-            data.totalPrice ||
-            data.price ||
-            findTotal(quotePayload);
-
-          const currency =
-            data.currency ||
-            findCurrency(quotePayload) ||
-            CURRENCY;
-
-          state.liveQuote = {
-            checkIn: payload.checkIn,
-            checkOut: payload.checkOut,
-            guests: payload.guests,
-            total: typeof total === "string" ? Number(total) : total,
-            currency: currency,
-            raw: data
-          };
-
-          state.livePriceError = "";
-        } catch (error) {
-          console.error(error);
-          if (requestSeq !== state.priceRequestSeq) return;
-          state.liveQuote = null;
-          state.livePriceError = error?.error || error?.message || "Worker price preview failed";
-        } finally {
-          if (requestSeq === state.priceRequestSeq) {
-            state.livePriceLoading = false;
-            updateSelectionUI(false);
-          }
-        }
       }
 
       function getEstimatedStayTotal() {
-        const live = getLivePriceSummary();
-
-        if (live && typeof live.total === "number" && !isNaN(live.total)) {
-          return {
-            total: live.total,
-            currency: live.currency || CURRENCY,
-            hasSelection: true,
-            source: "Worker",
-            nights: getDateRange(state.checkIn, state.checkOut)
-          };
-        }
-
         if (!state.checkIn || !state.checkOut) {
-          return { total: 0, currency: CURRENCY, nights: [], hasSelection: false, source: "" };
+          return {
+            total: null,
+            currency: CURRENCY,
+            nights: [],
+            hasSelection: false,
+            priceAvailable: false
+          };
         }
 
         const nights = getDateRange(state.checkIn, state.checkOut);
         let total = 0;
-        const pricedNights = [];
+        let allNightsHavePrice = true;
 
-        for (const dateString of nights) {
+        const pricedNights = nights.map(function (dateString) {
           const priceInfo = getCalendarNightPrice(dateString);
-          if (priceInfo.price === null) {
-            return { total: null, currency: CURRENCY, nights: [], hasSelection: true, source: "Worker" };
+          const numericPrice = Number(priceInfo.price);
+
+          if (!Number.isFinite(numericPrice)) {
+            allNightsHavePrice = false;
+
+            return {
+              date: dateString,
+              price: null,
+              source: priceInfo.source || "none"
+            };
           }
 
-          total += Number(priceInfo.price || 0);
-          pricedNights.push({
+          total += numericPrice;
+
+          return {
             date: dateString,
-            price: Number(priceInfo.price || 0),
-            source: priceInfo.source
-          });
-        }
+            price: numericPrice,
+            source: priceInfo.source || "guesty_calendar"
+          };
+        });
 
         return {
-          total: total,
+          total: allNightsHavePrice ? total : null,
           currency: CURRENCY,
           nights: pricedNights,
           hasSelection: true,
-          source: "Guesty calendar"
+          priceAvailable: allNightsHavePrice
         };
       }
 
@@ -1014,14 +909,14 @@
         calendarGrid.innerHTML = "<div style='grid-column:1/-1;padding:18px;color:rgba(26,20,20,.62);font-weight:800;'>Loading Guesty calendar...</div>";
 
         try {
-          const data = await workerPost("/guesty/check-availability", {
-            checkIn: range.from,
-            checkOut: range.to,
+          const data = await workerPost("/guesty/calendar-month-prices", {
+            from: range.from,
+            to: range.to,
             guests: Number(guestsEl.value || 12)
           }, false);
 
-          state.calendarData = data.guestyData || data;
-          state.dayMap = buildDayMap(state.calendarData);
+          state.calendarData = data;
+          state.dayMap = buildDayMap(data.days || []);
 
           renderCalendar();
         } catch (error) {
@@ -1125,9 +1020,9 @@
             ${
               unavailable
                 ? `<span class="fh-day-price">—</span><span class="fh-day-status">Blocked</span>`
-                : priceInfo.price !== null
-                  ? `<span class="fh-day-price">${formatMoney(priceInfo.price)}</span><span class="fh-day-source">${priceInfo.source}</span>`
-                  : `<span class="fh-day-price">Live</span><span class="fh-day-source">Worker price</span>`
+                : Number.isFinite(Number(priceInfo.price))
+                  ? `<span class="fh-day-price">${formatMoney(priceInfo.price)}</span><span class="fh-day-source">Live Guesty price</span>`
+                  : `<span class="fh-day-price">—</span><span class="fh-day-source">Quote required</span>`
             }
           `;
 
@@ -1157,12 +1052,8 @@
           state.checkOut = dateString;
         }
 
-        state.liveQuote = null;
-        state.livePriceError = "";
-
         updateSelectionUI();
         paintSelectedRange();
-        schedulePricePreview();
       }
 
       function clearDates() {
@@ -1171,56 +1062,43 @@
         state.quoteId = "";
         state.ratePlanId = "";
         state.quote = null;
-        state.liveQuote = null;
-        state.livePriceLoading = false;
-        state.livePriceError = "";
         updateSelectionUI();
         paintSelectedRange();
         clearResult();
       }
 
-      function updateSelectionUI(allowAutoLoad = true) {
+      function updateSelectionUI() {
         selectedCheckIn.textContent = formatDisplayDate(state.checkIn);
         selectedCheckOut.textContent = formatDisplayDate(state.checkOut);
         selectedNights.textContent = String(getNightCount(state.checkIn, state.checkOut));
 
-        if (!state.checkIn || !state.checkOut) {
+        const estimate = getEstimatedStayTotal();
+
+        if (!estimate.hasSelection || !estimate.nights.length) {
           selectedNightly.textContent = "Select dates";
           selectedEstimate.textContent = "—";
           return;
         }
 
-        if (state.livePriceLoading) {
-          selectedNightly.textContent = "Loading live price from Worker";
-          selectedEstimate.textContent = "Loading...";
+        if (!estimate.priceAvailable) {
+          selectedNightly.textContent = "Price confirmed after official Guesty quote";
+          selectedEstimate.textContent = "—";
           return;
         }
 
-        const estimate = getEstimatedStayTotal();
+        selectedEstimate.textContent = formatMoney(estimate.total);
 
-        if (estimate.hasSelection && typeof estimate.total === "number" && !isNaN(estimate.total)) {
-          selectedEstimate.textContent = Math.round(estimate.total).toLocaleString() + " " + (estimate.currency || CURRENCY);
+        const uniquePrices = Array.from(new Set(
+          estimate.nights.map(function (night) {
+            return formatMoney(night.price);
+          })
+        ));
 
-          const nights = getNightCount(state.checkIn, state.checkOut);
-          const averageNightly = nights ? estimate.total / nights : 0;
-
-          selectedNightly.textContent = estimate.source === "Worker"
-            ? "Live Worker price · approx. " + Math.round(averageNightly).toLocaleString() + " " + (estimate.currency || CURRENCY) + " / night"
-            : "Guesty calendar pricing";
-
-          return;
+        if (uniquePrices.length === 1) {
+          selectedNightly.textContent = uniquePrices[0] + " / night";
+        } else {
+          selectedNightly.textContent = "Variable live Guesty pricing";
         }
-
-        if (state.livePriceError) {
-          selectedNightly.textContent = "Worker price unavailable";
-          selectedEstimate.textContent = "Open technical response";
-          return;
-        }
-
-        selectedNightly.textContent = "Ready to load live price";
-        selectedEstimate.textContent = "—";
-
-        if (allowAutoLoad) schedulePricePreview();
       }
 
       function paintSelectedRange() {
@@ -1338,15 +1216,9 @@
           });
 
           if (data.available) {
-            await loadPricePreviewFromWorker();
-            const estimate = getEstimatedStayTotal();
-            const priceText = estimate && typeof estimate.total === "number"
-              ? Math.round(estimate.total).toLocaleString() + " " + (estimate.currency || CURRENCY)
-              : "loaded through the Worker";
-
             setResult(
               "success",
-              "<strong>Dates appear available.</strong> Live Worker price: " + priceText + ". Continue to guest details for the official Guesty quote."
+              "<strong>Dates appear available.</strong> Enter guest details to create the official Guesty quote and final price."
             );
             goToStep(2);
           } else {
@@ -1489,7 +1361,7 @@
             ${total ? Math.round(total).toLocaleString() + " " + currency : "Price returned"}
           </div>
           <div class="fh-note">
-            Worker price preview: ${estimate && typeof estimate.total === "number" ? Math.round(estimate.total).toLocaleString() + " " + (estimate.currency || CURRENCY) : "Not loaded"}<br>
+            Calendar price preview: ${estimate && typeof estimate.total === "number" ? Math.round(estimate.total).toLocaleString() + " " + (estimate.currency || CURRENCY) : "Not available before official quote"}<br>
             Quote ID: ${quoteId || "Not found in response"}<br>
             Rate Plan ID: ${ratePlanId || "default-rateplan-id"}
           </div>
