@@ -35,7 +35,10 @@
         linear-gradient(135deg, #fbf8f2, #eee5d7 48%, #faf6ef);
     }
 
-    .fh-page { max-width: 1180px; margin: 0 auto; }
+    .fh-page {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
 
     .fh-engine {
       position: relative;
@@ -107,7 +110,9 @@
       backdrop-filter: blur(14px);
     }
 
-    .fh-panel.is-active { display: block; }
+    .fh-panel.is-active {
+      display: block;
+    }
 
     .fh-layout {
       display: grid;
@@ -139,11 +144,6 @@
       letter-spacing: -.04em;
       margin: 0;
       font-weight: 400;
-    }
-
-    .fh-cal-nav {
-      display: flex;
-      gap: 8px;
     }
 
     .fh-mini-btn {
@@ -287,8 +287,6 @@
       gap: 14px;
     }
 
-    .fh-grid.three { grid-template-columns: 1fr 1fr 170px; }
-
     .fh-field label {
       display: block;
       font-size: 11px;
@@ -358,12 +356,31 @@
       line-height: 1.55;
     }
 
-    .fh-result.is-visible { display: block; }
-    .fh-result strong { display: block; color: var(--ink); font-size: 18px; margin-bottom: 6px; }
+    .fh-result.is-visible {
+      display: block;
+    }
 
-    .fh-result.is-success { border-color: rgba(45,112,74,.24); background: rgba(246,255,249,.74); }
-    .fh-result.is-warning { border-color: rgba(150,101,35,.25); background: rgba(255,248,237,.80); }
-    .fh-result.is-error { border-color: rgba(130,38,38,.24); background: rgba(255,245,245,.80); }
+    .fh-result strong {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .fh-result.is-success {
+      border-color: rgba(45,112,74,.24);
+      background: rgba(246,255,249,.74);
+    }
+
+    .fh-result.is-warning {
+      border-color: rgba(150,101,35,.25);
+      background: rgba(255,248,237,.80);
+    }
+
+    .fh-result.is-error {
+      border-color: rgba(130,38,38,.24);
+      background: rgba(255,245,245,.80);
+    }
 
     .fh-money {
       font-family: var(--serif);
@@ -424,18 +441,52 @@
       max-height: 360px;
     }
 
+    code {
+      background: rgba(26,23,20,.07);
+      border-radius: 6px;
+      padding: 1px 5px;
+      font-size: .92em;
+    }
+
     @media (max-width: 900px) {
-      .fh-layout { grid-template-columns: 1fr; }
-      .fh-steps { grid-template-columns: 1fr 1fr; }
-      .fh-grid, .fh-grid.three { grid-template-columns: 1fr; }
+      .fh-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .fh-steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .fh-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 640px) {
-      body { padding: 0; }
-      .fh-engine { border-radius: 0; min-height: 100vh; }
-      .fh-weekdays, .fh-calendar-grid { gap: 5px; }
-      .fh-day { min-height: 66px; border-radius: 12px; padding: 7px; }
-      .fh-day-price { font-size: 10px; margin-top: 12px; }
+      body {
+        padding: 0;
+      }
+
+      .fh-engine {
+        border-radius: 0;
+        min-height: 100vh;
+      }
+
+      .fh-weekdays,
+      .fh-calendar-grid {
+        gap: 5px;
+      }
+
+      .fh-day {
+        min-height: 66px;
+        border-radius: 12px;
+        padding: 7px;
+      }
+
+      .fh-day-price {
+        font-size: 10px;
+        margin-top: 12px;
+      }
     }
   </style>
 </head>
@@ -446,7 +497,7 @@
       <p class="fh-kicker">Private stay · Saas-Fee</p>
       <h1 class="fh-title">Your private chalet in a few clicks</h1>
       <p class="fh-intro">
-        Select your dates on the live Guesty calendar, review availability and nightly prices, then create a quote and booking request.
+        Select your dates on the live Guesty calendar, review availability, then create a real Guesty quote and booking request.
       </p>
 
       <div class="fh-steps">
@@ -509,7 +560,7 @@
             </div>
 
             <p class="fh-note">
-              Prices shown in the calendar are pulled from Guesty calendar data when available. Final price comes from the quote step.
+              Availability comes from Guesty. Final price appears after you select dates and create a quote.
             </p>
           </aside>
         </div>
@@ -681,7 +732,9 @@
 
       function formatDisplayDate(dateString) {
         if (!dateString) return "Select a date";
+
         const date = new Date(dateString + "T00:00:00");
+
         return date.toLocaleDateString(undefined, {
           month: "short",
           day: "numeric",
@@ -691,19 +744,22 @@
 
       function getNightCount(checkIn, checkOut) {
         if (!checkIn || !checkOut) return 0;
+
         const start = new Date(checkIn + "T00:00:00");
         const end = new Date(checkOut + "T00:00:00");
+
         return Math.round((end - start) / (1000 * 60 * 60 * 24));
       }
 
       function getMonthRange(date) {
         const start = new Date(date.getFullYear(), date.getMonth(), 1);
         const end = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+
         return {
           from: toDateString(start),
           to: toDateString(end),
-          start,
-          end
+          start: start,
+          end: end
         };
       }
 
@@ -717,7 +773,7 @@
           year: "numeric"
         });
 
-        calendarGrid.innerHTML = "<div style='grid-column:1/-1;padding:18px;color:rgba(26,23,20,.62);font-weight:800;'>Loading Guesty calendar...</div>";
+        calendarGrid.innerHTML = "<div style='grid-column:1/-1;padding:18px;color:rgba(26,20,20,.62);font-weight:800;'>Loading Guesty calendar...</div>";
 
         try {
           const data = await workerPost("/guesty/check-availability", {
@@ -785,7 +841,6 @@
         ).toLowerCase();
 
         if (status && status !== "available" && status !== "open" && status !== "bookable") return true;
-
         if (day.available === false) return true;
         if (day.isAvailable === false) return true;
         if (day.closed === true) return true;
@@ -794,52 +849,6 @@
         if (day.hardBlocked === true) return true;
 
         return false;
-      }
-
-      function findNightlyPrice(day) {
-        if (!day || typeof day !== "object") return null;
-
-        const possibleFields = [
-          "price",
-          "basePrice",
-          "nightlyPrice",
-          "nightlyRate",
-          "rate",
-          "amount",
-          "minPrice",
-          "avgPrice"
-        ];
-
-        for (const field of possibleFields) {
-          if (typeof day[field] === "number") return day[field];
-          if (day[field] && typeof day[field] === "object") {
-            const nested = findNightlyPrice(day[field]);
-            if (nested !== null) return nested;
-          }
-        }
-
-        for (const key of Object.keys(day)) {
-          if (day[key] && typeof day[key] === "object") {
-            const nested = findNightlyPrice(day[key]);
-            if (nested !== null) return nested;
-          }
-        }
-
-        return null;
-      }
-
-      function findCurrency(value) {
-        if (!value || typeof value !== "object") return "";
-        if (typeof value.currency === "string") return value.currency;
-
-        for (const key of Object.keys(value)) {
-          if (value[key] && typeof value[key] === "object") {
-            const found = findCurrency(value[key]);
-            if (found) return found;
-          }
-        }
-
-        return "";
       }
 
       function renderCalendar() {
@@ -872,17 +881,13 @@
           if (past) button.classList.add("is-past");
           if (unavailable) button.classList.add("is-unavailable");
 
-          const price = findNightlyPrice(guestyDay);
-          const currency = findCurrency(guestyDay) || "CHF";
-
           button.innerHTML = `
             <span class="fh-day-number">${dayNumber}</span>
             ${
-              price
-                ? `<span class="fh-day-price">${Math.round(price)} ${currency}</span>`
-                : `<span class="fh-day-price">—</span>`
+              unavailable
+                ? `<span class="fh-day-price">—</span><span class="fh-day-status">Blocked</span>`
+                : `<span class="fh-day-price">Available</span>`
             }
-            ${unavailable ? `<span class="fh-day-status">Blocked</span>` : ``}
           `;
 
           if (!past && !unavailable) {
@@ -934,6 +939,7 @@
 
         dayButtons.forEach(function (button) {
           const date = button.dataset.date;
+
           button.classList.remove("is-selected", "is-range", "is-start", "is-end");
 
           if (state.checkIn && !state.checkOut && date === state.checkIn) {
@@ -1006,6 +1012,7 @@
         const text = await response.text();
 
         let data;
+
         try {
           data = JSON.parse(text);
         } catch {
@@ -1031,6 +1038,7 @@
         if (!validateDates()) return;
 
         const button = document.getElementById("checkAvailabilityBtn");
+
         button.disabled = true;
         button.textContent = "Checking...";
 
@@ -1063,6 +1071,7 @@
         if (!validateGuest()) return;
 
         const button = document.getElementById("createQuoteBtn");
+
         button.disabled = true;
         button.textContent = "Creating quote...";
 
@@ -1081,6 +1090,7 @@
           state.quote = data.quote;
 
           renderQuote(data);
+
           setResult("success", "<strong>Quote created.</strong> Review the pricing and continue.");
           goToStep(3);
         } catch (error) {
@@ -1106,22 +1116,99 @@
         const summary = data.summary || {};
         const quoteId = data.quoteId || quote._id || quote.id || "";
 
+        function walk(obj, visitor) {
+          if (!obj || typeof obj !== "object") return null;
+
+          const direct = visitor(obj);
+          if (direct !== null && direct !== undefined) return direct;
+
+          if (Array.isArray(obj)) {
+            for (const item of obj) {
+              const found = walk(item, visitor);
+              if (found !== null && found !== undefined) return found;
+            }
+          } else {
+            for (const key of Object.keys(obj)) {
+              const found = walk(obj[key], visitor);
+              if (found !== null && found !== undefined) return found;
+            }
+          }
+
+          return null;
+        }
+
+        function findCurrency(obj) {
+          return walk(obj, function (x) {
+            if (typeof x.currency === "string") return x.currency;
+            return null;
+          }) || "CHF";
+        }
+
+        function findTotal(obj) {
+          const fields = [
+            "totalPrice",
+            "total",
+            "grandTotal",
+            "subTotalPrice",
+            "balanceDue",
+            "hostPayout",
+            "fareAccommodationAdjusted",
+            "fareAccommodation",
+            "amount"
+          ];
+
+          return walk(obj, function (x) {
+            for (const field of fields) {
+              if (typeof x[field] === "number") return x[field];
+              if (typeof x[field] === "string" && !isNaN(Number(x[field]))) return Number(x[field]);
+            }
+
+            return null;
+          });
+        }
+
+        function findInvoiceItems(obj) {
+          return walk(obj, function (x) {
+            if (Array.isArray(x.invoiceItems)) return x.invoiceItems;
+            if (Array.isArray(x.lineItems)) return x.lineItems;
+            if (Array.isArray(x.items)) return x.items;
+            return null;
+          }) || [];
+        }
+
         const currency = findCurrency(quote) || findCurrency(summary) || "CHF";
-        const total = findPrice(quote) || findPrice(summary);
-        const invoiceItems = findInvoiceItems(quote);
+        const total = findTotal(quote) || findTotal(summary);
+        const invoiceItems = findInvoiceItems(quote) || findInvoiceItems(summary);
 
         let itemsHtml = "";
 
         if (invoiceItems.length) {
           itemsHtml = invoiceItems.map(function (item) {
-            const title = item.title || item.name || item.type || item.description || "Item";
-            const amount = item.amount || item.total || item.value || item.price || "";
-            const itemCurrency = item.currency || currency;
+            const title =
+              item.title ||
+              item.name ||
+              item.type ||
+              item.description ||
+              item.normalType ||
+              "Item";
+
+            const amount =
+              item.amount ||
+              item.total ||
+              item.value ||
+              item.price ||
+              item.totalPrice ||
+              "";
+
+            const itemCurrency =
+              item.currency ||
+              currency ||
+              "";
 
             return `
               <div class="fh-line-item">
                 <span>${title}</span>
-                <span>${amount} ${itemCurrency}</span>
+                <span>${amount ? Number(amount).toLocaleString() + " " + itemCurrency : "Included"}</span>
               </div>
             `;
           }).join("");
@@ -1129,59 +1216,19 @@
 
         quoteBox.innerHTML = `
           <h3>Guesty quote</h3>
-          <div class="fh-money">${total ? total + " " + currency : "Price returned"}</div>
-          <div class="fh-note">Quote ID: ${quoteId || "Not found in response"}</div>
+          <div class="fh-money">
+            ${total ? Math.round(total).toLocaleString() + " " + currency : "Price returned"}
+          </div>
+          <div class="fh-note">
+            Quote ID: ${quoteId || "Not found in response"}
+          </div>
           <div class="fh-line-items">
             ${
               itemsHtml ||
-              "<div class='fh-line-item'><span>Pricing details</span><span>See technical response</span></div>"
+              "<div class='fh-line-item'><span>Pricing details</span><span>Open technical response</span></div>"
             }
           </div>
         `;
-      }
-
-      function findPrice(value) {
-        if (!value || typeof value !== "object") return null;
-
-        const possibleFields = [
-          "totalPrice",
-          "total",
-          "subTotalPrice",
-          "hostPayout",
-          "fareAccommodationAdjusted",
-          "fareAccommodation",
-          "balanceDue",
-          "amount"
-        ];
-
-        for (const field of possibleFields) {
-          if (typeof value[field] === "number") return value[field];
-        }
-
-        for (const key of Object.keys(value)) {
-          if (value[key] && typeof value[key] === "object") {
-            const found = findPrice(value[key]);
-            if (found !== null) return found;
-          }
-        }
-
-        return null;
-      }
-
-      function findInvoiceItems(value) {
-        if (!value || typeof value !== "object") return [];
-
-        if (Array.isArray(value.invoiceItems)) return value.invoiceItems;
-        if (Array.isArray(value.items)) return value.items;
-
-        for (const key of Object.keys(value)) {
-          if (value[key] && typeof value[key] === "object") {
-            const found = findInvoiceItems(value[key]);
-            if (found.length) return found;
-          }
-        }
-
-        return [];
       }
 
       async function bookFromQuote(mode) {
@@ -1201,9 +1248,13 @@
         button.textContent = mode === "instant" ? "Booking..." : "Sending request...";
 
         try {
-          const data = await workerPost(path, { quoteId: state.quoteId });
+          const data = await workerPost(path, {
+            quoteId: state.quoteId
+          });
 
-          const confirmation = data.confirmationCode ? ` Confirmation code: ${data.confirmationCode}.` : "";
+          const confirmation = data.confirmationCode
+            ? ` Confirmation code: ${data.confirmationCode}.`
+            : "";
 
           setResult(
             "success",
@@ -1211,7 +1262,26 @@
           );
         } catch (error) {
           console.error(error);
-          setResult("error", "<strong>Booking request failed.</strong> Open the technical response below.");
+
+          const guestyMessage =
+            error?.guestyData?.error?.message ||
+            error?.guestyData?.message ||
+            error?.error ||
+            "Open the technical response below.";
+
+          const guestyCode =
+            error?.guestyData?.error?.code ||
+            error?.guestyData?.code ||
+            "";
+
+          setResult(
+            "error",
+            `
+              <strong>Booking request failed.</strong>
+              ${guestyCode ? `<br><b>Guesty code:</b> ${guestyCode}` : ""}
+              <br><b>Reason:</b> ${guestyMessage}
+            `
+          );
         } finally {
           button.disabled = false;
           button.textContent = mode === "instant" ? "Instant book" : "Request booking";
@@ -1222,4 +1292,4 @@
     })();
   </script>
 </body>
-</html>
+</html> 
