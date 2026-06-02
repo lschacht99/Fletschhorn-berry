@@ -639,12 +639,12 @@
         <div class="fh-quote-card">
           <h3>Choose booking type</h3>
           <p class="fh-note">
-            “Request booking” creates an inquiry/request in Guesty. “Instant book” attempts to create an instant reservation from the quote.
+            Request booking creates a Guesty request from the quote. Instant book creates the reservation directly in Guesty when the rate plan allows it.
           </p>
 
           <div class="fh-actions">
             <button class="fh-button primary" id="bookInquiryBtn" type="button">Request booking</button>
-            <button class="fh-button" id="bookInstantBtn" type="button">Instant book</button>
+            <button class="fh-button" id="bookInstantBtn" type="button">Create reservation</button>
           </div>
         </div>
       </section>
@@ -1021,7 +1021,7 @@
               unavailable
                 ? `<span class="fh-day-price">—</span><span class="fh-day-status">Blocked</span>`
                 : Number.isFinite(Number(priceInfo.price)) && Number(priceInfo.price) > 0
-                  ? `<span class="fh-day-price">${formatMoney(priceInfo.price)}</span><span class="fh-day-source">Live Guesty price</span>`
+                  ? `<span class="fh-day-price">${formatMoney(priceInfo.price)}</span><span class="fh-day-source">Guesty price</span>`
                   : `<span class="fh-day-price">—</span><span class="fh-day-source">Quote required</span>`
             }
           `;
@@ -1434,6 +1434,69 @@
         }) || [];
       }
 
+
+      function htmlEscape(value) {
+        return String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function formatValue(value, fallback = "—") {
+        if (value === null || value === undefined || value === "") return fallback;
+        return htmlEscape(value);
+      }
+
+      function formatMoneyAny(amount, currency) {
+        if (amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "—";
+        return Math.round(Number(amount)).toLocaleString() + " " + (currency || CURRENCY);
+      }
+
+      function renderReservationSuccess(data) {
+        const summary = data.summary || {};
+        const reservation = data.reservation || {};
+        const currency = summary.currency || findCurrency(reservation) || CURRENCY;
+
+        const reservationId = summary.reservationId || data.reservationId || reservation._id || reservation.id || "";
+        const confirmationCode = summary.confirmationCode || data.confirmationCode || reservation.confirmationCode || "";
+        const status = summary.status || data.status || reservation.status || "created";
+        const checkIn = summary.checkIn || reservation.checkInDateLocalized || reservation.checkIn || state.checkIn;
+        const checkOut = summary.checkOut || reservation.checkOutDateLocalized || reservation.checkOut || state.checkOut;
+        const nights = summary.nights || getNightCount(state.checkIn, state.checkOut);
+        const guests = summary.guestsCount || summary.adults || state.guests;
+        const listingTitle = summary.listing?.title || reservation.listing?.title || reservation.listing?.nickname || "Fletschhorn";
+
+        const rows = [
+          ["Status", status],
+          ["Reservation ID", reservationId],
+          ["Confirmation code", confirmationCode],
+          ["Check-in", formatDisplayDate(String(checkIn).slice(0, 10))],
+          ["Check-out", formatDisplayDate(String(checkOut).slice(0, 10))],
+          ["Nights", nights],
+          ["Guests", guests],
+          ["Listing", listingTitle],
+          ["Channel / source", summary.websiteName || summary.source || summary.channel || data.bookingMode || "Website"],
+          ["Balance due", formatMoneyAny(summary.balanceDue, currency)],
+          ["Paid", formatMoneyAny(summary.paid, currency)],
+          ["Payout", formatMoneyAny(summary.payout, currency)]
+        ];
+
+        const rowHtml = rows.map(function (row) {
+          return `<div class="fh-line-item"><span>${htmlEscape(row[0])}</span><span>${formatValue(row[1])}</span></div>`;
+        }).join("");
+
+        return `
+          <strong>Reservation received in Guesty.</strong>
+          <div class="fh-money">${formatMoneyAny(summary.balanceDue || summary.total, currency)}</div>
+          <div class="fh-note">
+            Guesty created the reservation. Use the reservation ID or confirmation code to find it in Guesty.
+          </div>
+          <div class="fh-line-items">${rowHtml}</div>
+        `;
+      }
+
       async function bookFromQuote(mode) {
         clearResult();
 
@@ -1465,14 +1528,7 @@
             phone: state.phone
           });
 
-          const confirmation = data.confirmationCode
-            ? " Confirmation code: " + data.confirmationCode + "."
-            : "";
-
-          setResult(
-            "success",
-            "<strong>Booking submitted to Guesty.</strong> Status: " + (data.status || "created") + "." + confirmation
-          );
+          setResult("success", renderReservationSuccess(data));
         } catch (error) {
           console.error(error);
 
