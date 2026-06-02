@@ -1,1986 +1,1634 @@
 <style>
-#fh-home{
-  --cream:#f7f1e8;
-  --paper:#fffaf2;
-  --paper2:#fbf5ec;
-  --line:rgba(28,24,20,.14);
-  --ink:#1c1814;
-  --muted:rgba(28,24,20,.68);
+#fh-booking-engine{
+  --ink:#1a1714;
+  --muted:rgba(26,23,20,.66);
+  --paper:#fffaf3;
+  --paper2:#fbf6ee;
+  --line:rgba(26,23,20,.12);
+  --dark:#1a1714;
   --forest:#1f3a2f;
-  --forest2:#2f5141;
-  --clay:#b99a7d;
-  --white:#fffaf2;
-  --shadow:0 22px 70px rgba(27,23,18,.14);
-  --soft-shadow:0 12px 34px rgba(27,23,18,.08);
+  --success:#2d704a;
+  --warning:#966523;
+  --error:#822626;
+  --shadow:0 24px 70px rgba(0,0,0,.10);
   --serif:Georgia,"Times New Roman",serif;
   --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --edge:clamp(15px,4vw,34px);
-  --container:min(1180px,calc(100% - var(--edge)*2));
-  position:relative;
-  overflow-x:hidden;
   color:var(--ink);
-  background:
-    radial-gradient(circle at 15% 8%,rgba(255,255,255,.82),transparent 23%),
-    radial-gradient(circle at 88% 18%,rgba(185,154,125,.18),transparent 24%),
-    linear-gradient(180deg,#efe5d9 0%,#fffaf2 24%,#f4ebdf 58%,#fbf6ee 100%);
   font-family:var(--sans);
-  -webkit-text-size-adjust:100%;
-  text-size-adjust:100%;
-}
-
-#fh-home *{box-sizing:border-box}
-#fh-home a{color:inherit;text-decoration:none}
-#fh-home img{display:block;max-width:100%}
-#fh-home button,
-#fh-home input,
-#fh-home select,
-#fh-home textarea{font:inherit}
-#fh-home button{cursor:pointer}
-
-#fh-home .fh-ambient{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-2;
   background:
-    radial-gradient(circle at 12% 18%,rgba(255,255,255,.70),transparent 25%),
-    radial-gradient(circle at 80% 12%,rgba(194,166,138,.16),transparent 28%),
-    radial-gradient(circle at 70% 90%,rgba(47,81,65,.09),transparent 22%);
+    radial-gradient(circle at 16% 10%,rgba(255,255,255,.96),transparent 30%),
+    radial-gradient(circle at 86% 8%,rgba(185,159,134,.18),transparent 26%),
+    linear-gradient(135deg,#fbf8f2,#eee5d7 48%,#faf6ef);
+  padding:clamp(18px,4vw,46px);
+  overflow:hidden;
 }
-
-#fh-home .fh-ambient:after{
-  content:"";
-  position:absolute;
-  inset:-10%;
-  opacity:.10;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23705d4c' stroke-opacity='.58' stroke-width='1.1'%3E%3Cpath d='M-80 160c210 58 370 62 506 18 132-43 266-42 414 14 156 59 328 57 518-8 78-27 151-31 232-16'/%3E%3Cpath d='M-80 320c220 42 392 35 540-12 126-40 263-36 406 13 168 58 330 55 512-7 92-31 160-30 236-16'/%3E%3Cpath d='M-80 500c235 26 428 18 586-22 126-31 258-28 398 4 162 37 320 36 492-9 92-24 164-24 226-14'/%3E%3Cpath d='M-80 700c260 11 470-5 642-35 128-22 250-19 382-3 146 17 292 17 438-8 86-15 154-13 228-7'/%3E%3C/g%3E%3C/svg%3E");
-  background-size:cover;
-  background-position:center;
-  animation:fhTopo 30s ease-in-out infinite alternate;
+#fh-booking-engine *{box-sizing:border-box}
+#fh-booking-engine button,
+#fh-booking-engine input,
+#fh-booking-engine select{font:inherit}
+#fh-booking-engine button{cursor:pointer}
+#fh-booking-engine .fh-wrap{max-width:1180px;margin:0 auto}
+#fh-booking-engine .fh-engine{
+  position:relative;
+  overflow:hidden;
+  border-radius:34px;
+  padding:clamp(22px,4vw,46px);
+  background:
+    radial-gradient(circle at 12% 8%,rgba(255,255,255,.94),transparent 34%),
+    linear-gradient(135deg,rgba(255,250,243,.96),rgba(239,232,220,.86));
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
 }
-
-@keyframes fhTopo{
-  from{transform:translate3d(0,0,0) scale(1.02)}
-  to{transform:translate3d(1.2vw,-1vh,0) scale(1.06)}
-}
-
-/* Language */
-#fh-home .fh-lang-switch{
-  position:fixed;
-  z-index:70;
-  top:104px;
-  left:50%;
-  transform:translateX(-50%);
+#fh-booking-engine .fh-lang{
   display:flex;
-  align-items:center;
-  justify-content:center;
   gap:6px;
-  padding:7px;
-  border:1px solid rgba(255,250,242,.55);
-  background:rgba(255,250,242,.88);
-  -webkit-backdrop-filter:blur(16px);
-  backdrop-filter:blur(16px);
-  box-shadow:0 12px 34px rgba(20,16,12,.10);
+  flex-wrap:wrap;
+  margin-bottom:22px;
 }
-
-#fh-home .fh-lang-switch button{
-  border:0;
-  background:transparent;
-  color:rgba(28,24,20,.62);
+#fh-booking-engine .fh-lang button{
+  border:1px solid rgba(26,23,20,.12);
+  background:rgba(255,255,255,.58);
+  color:rgba(26,23,20,.62);
+  border-radius:999px;
   padding:8px 11px;
   font-size:11px;
-  line-height:1;
   text-transform:uppercase;
-  letter-spacing:.13em;
+  letter-spacing:.12em;
   font-weight:850;
-  white-space:nowrap;
-  transition:background .18s,color .18s;
 }
-
-#fh-home .fh-lang-switch button.active{
-  background:var(--forest);
-  color:var(--white);
+#fh-booking-engine .fh-lang button.is-active{
+  background:var(--dark);
+  color:var(--paper);
 }
-
-/* Hero */
-#fh-home .fh-hero{
-  position:relative;
-  min-height:100svh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  background:#1c1814;
-  text-align:center;
-}
-
-#fh-home .fh-hero-media{
-  position:absolute;
-  inset:0;
-  z-index:0;
-}
-
-#fh-home .fh-hero-slide{
-  position:absolute;
-  inset:0;
-  background-size:cover;
-  background-position:center;
-  opacity:0;
-  transform:scale(1.045);
-  transition:opacity 1.2s ease,transform 8s ease;
-  will-change:opacity,transform;
-}
-
-#fh-home .fh-hero-slide.active{
-  opacity:1;
-  transform:scale(1);
-}
-
-#fh-home .fh-hero-media:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(180deg,rgba(14,12,10,.58) 0%,rgba(14,12,10,.46) 40%,rgba(14,12,10,.72) 100%),
-    radial-gradient(circle at center,rgba(14,12,10,.10) 0%,rgba(14,12,10,.38) 78%);
-}
-
-#fh-home .fh-hero-inner{
-  position:relative;
-  z-index:2;
-  width:min(1030px,calc(100% - var(--edge)*2));
-  margin:0 auto;
-  padding:clamp(148px,17vh,176px) 0 clamp(38px,6vh,54px);
-  color:var(--white);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-#fh-home .fh-kicker{
-  margin:0 0 13px;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.22em;
-  font-weight:850;
-  color:var(--clay);
-}
-
-#fh-home .fh-hero .fh-kicker{
-  color:rgba(255,250,242,.78);
-}
-
-#fh-home h1,
-#fh-home h2,
-#fh-home h3{
-  font-family:var(--serif);
-  font-weight:400;
-  letter-spacing:-.055em;
-  text-wrap:balance;
-}
-
-#fh-home h1{
-  margin:0 auto;
-  max-width:860px;
-  font-size:clamp(38px,6.2vw,76px);
-  line-height:.92;
-  text-align:center;
-}
-
-#fh-home .fh-hero-lead{
-  margin:clamp(12px,1.6vw,18px) auto 0;
-  max-width:700px;
-  font-size:clamp(14px,1.2vw,17px);
-  line-height:1.48;
-  color:rgba(255,250,242,.86);
-  text-align:center;
-}
-
-/* Booking toolbar */
-#fh-home .fh-booking{
-  margin:clamp(14px,2.2vw,24px) auto 0;
-  width:min(1100px,100%);
-  padding:9px;
-  background:rgba(255,250,242,.16);
-  border:1px solid rgba(255,250,242,.25);
-  -webkit-backdrop-filter:blur(10px);
-  backdrop-filter:blur(10px);
-  text-align:left;
-}
-
-#fh-home .fh-booking-form{
-  display:grid;
-  grid-template-columns:.88fr .88fr 1.15fr .86fr .86fr 185px;
-  background:var(--paper);
-}
-
-#fh-home .fh-field{
-  min-width:0;
-  padding:15px 16px;
-  border-right:1px solid var(--line);
-  background:rgba(255,250,242,.96);
-}
-
-#fh-home .fh-field label{
-  display:block;
-  margin-bottom:7px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.16em;
-  font-weight:850;
-  color:rgba(28,24,20,.52);
-}
-
-#fh-home .fh-field input{
-  width:100%;
-  min-width:0;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:var(--ink);
-  font-size:15px;
-}
-
-#fh-home .fh-submit{
-  border:0;
-  min-height:58px;
-  background:var(--forest);
-  color:var(--white);
-  text-transform:uppercase;
-  letter-spacing:.13em;
-  font-size:11px;
-  font-weight:850;
-  transition:background .18s,opacity .18s;
-}
-
-#fh-home .fh-submit:hover{
-  background:var(--forest2);
-}
-
-#fh-home .fh-submit:disabled{
-  opacity:.68;
-  cursor:wait;
-}
-
-#fh-home .fh-booking-note{
-  margin-top:12px;
-  color:rgba(255,250,242,.78);
-  font-size:13px;
-  line-height:1.45;
-  text-align:center;
-}
-
-#fh-home .fh-status{
-  display:none;
-  margin-top:12px;
-  padding:12px 14px;
-  border:1px solid rgba(255,250,242,.22);
-  background:rgba(255,250,242,.14);
-  color:#fffaf2;
-  font-size:14px;
-  line-height:1.45;
-  text-align:center;
-}
-
-#fh-home .fh-status.show{
-  display:block;
-}
-
-#fh-home .fh-status.error{
-  background:rgba(180,40,40,.18);
-  border-color:rgba(255,100,100,.28);
-}
-
-#fh-home .fh-status.success{
-  background:rgba(45,112,74,.22);
-  border-color:rgba(155,225,180,.28);
-}
-
-/* Sections */
-#fh-home .fh-section{
-  position:relative;
-  padding:clamp(72px,9vw,112px) var(--edge);
-}
-
-#fh-home .fh-section.alt{
-  background:linear-gradient(180deg,rgba(255,250,242,.52),rgba(239,229,217,.58));
-}
-
-#fh-home .fh-container{
-  width:var(--container);
-  margin:0 auto;
-}
-
-#fh-home .fh-section-head{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(280px,.82fr);
-  gap:clamp(20px,4vw,44px);
-  align-items:end;
-  margin-bottom:clamp(28px,4vw,44px);
-}
-
-#fh-home h2{
-  margin:0;
-  font-size:clamp(37px,5.5vw,78px);
-  line-height:.94;
-}
-
-#fh-home h3{
+#fh-booking-engine .fh-kicker{
   margin:0 0 12px;
-  font-size:clamp(30px,3.7vw,50px);
-  line-height:.98;
-}
-
-#fh-home p{
-  margin:0;
-  color:var(--muted);
-  line-height:1.68;
-  font-size:clamp(15px,1.25vw,17px);
-}
-
-#fh-home .fh-text-center{
-  text-align:center;
-  max-width:900px;
-  margin:0 auto;
-}
-
-#fh-home .fh-text-center p{
-  margin-left:auto;
-  margin-right:auto;
-  max-width:760px;
-}
-
-#fh-home .fh-overview-grid{
-  display:grid;
-  grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
-  gap:24px;
-  align-items:stretch;
-}
-
-#fh-home .fh-dark-panel{
-  min-height:560px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  padding:clamp(28px,3.6vw,46px);
-  background:var(--forest);
-  color:var(--white);
-  box-shadow:var(--shadow);
-}
-
-#fh-home .fh-dark-panel p{
-  color:rgba(255,250,242,.76);
-}
-
-#fh-home .fh-dark-panel .fh-kicker{
-  color:rgba(255,250,242,.70);
-}
-
-#fh-home .fh-dark-panel h3{
-  max-width:560px;
-  font-size:clamp(40px,5.2vw,70px);
-  color:var(--white);
-}
-
-#fh-home .fh-proof{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:32px;
-  padding-top:22px;
-  border-top:1px solid rgba(255,250,242,.22);
-}
-
-#fh-home .fh-proof strong{
-  display:block;
-  font-family:var(--serif);
-  font-weight:400;
-  font-size:clamp(34px,4.2vw,50px);
-  line-height:1;
-}
-
-#fh-home .fh-proof span{
-  display:block;
-  margin-top:5px;
-  color:rgba(255,250,242,.62);
-  font-size:11px;
   text-transform:uppercase;
-  letter-spacing:.13em;
-  line-height:1.35;
+  letter-spacing:.18em;
+  font-size:11px;
+  font-weight:850;
+  color:rgba(26,23,20,.52);
 }
-
-#fh-home .fh-photo-stage{
-  position:relative;
-  min-height:560px;
-  overflow:hidden;
-  background:#d7c8b6;
-  box-shadow:var(--shadow);
+#fh-booking-engine .fh-title{
+  font-family:var(--serif);
+  font-size:clamp(40px,6.4vw,78px);
+  line-height:.92;
+  letter-spacing:-.06em;
+  font-weight:400;
+  margin:0 0 14px;
+  max-width:920px;
 }
-
-#fh-home .fh-photo-stage img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+#fh-booking-engine .fh-intro{
+  margin:0 0 28px;
+  color:var(--muted);
+  font-size:clamp(16px,2vw,19px);
+  line-height:1.6;
+  max-width:840px;
 }
-
-#fh-home .fh-photo-stage .main-img{
-  position:absolute;
-  inset:0;
+#fh-booking-engine .fh-steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:0 0 20px;
 }
-
-#fh-home .fh-float{
-  position:absolute;
-  z-index:2;
-  object-fit:cover;
-  box-shadow:0 22px 50px rgba(0,0,0,.22);
+#fh-booking-engine .fh-step{
+  padding:12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.56);
+  border:1px solid rgba(26,23,20,.08);
+  color:rgba(26,23,20,.56);
+  font-size:13px;
+  font-weight:850;
 }
-
-#fh-home .fh-float.one{
-  right:22px;
-  top:22px;
-  width:33%;
-  height:27%;
+#fh-booking-engine .fh-step.is-active{
+  background:var(--dark);
+  color:var(--paper);
 }
-
-#fh-home .fh-float.two{
-  left:22px;
-  bottom:22px;
-  width:35%;
-  height:30%;
+#fh-booking-engine .fh-panel{
+  display:none;
+  padding:16px;
+  border-radius:26px;
+  background:rgba(255,255,255,.58);
+  border:1px solid rgba(26,23,20,.08);
+  backdrop-filter:blur(14px);
 }
-
-#fh-home .fh-caption{
-  position:absolute;
-  right:22px;
-  bottom:22px;
-  z-index:3;
-  width:min(340px,calc(100% - 44px));
-  padding:20px;
-  background:rgba(255,250,242,.94);
-  border:1px solid rgba(255,255,255,.55);
-  box-shadow:0 18px 40px rgba(0,0,0,.15);
+#fh-booking-engine .fh-panel.is-active{display:block}
+#fh-booking-engine .fh-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);
+  gap:18px;
+  align-items:start;
 }
-
-#fh-home .fh-caption p{
-  font-size:14px;
+#fh-booking-engine .fh-calendar-card,
+#fh-booking-engine .fh-side-card,
+#fh-booking-engine .fh-quote-card{
+  border-radius:22px;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(26,23,20,.10);
+  padding:16px;
 }
-
-#fh-home .fh-carousel{
-  position:relative;
-  overflow:hidden;
-  background:#d7c8b6;
-  box-shadow:var(--shadow);
-  min-height:560px;
-}
-
-#fh-home .fh-carousel-track{
-  position:absolute;
-  inset:0;
+#fh-booking-engine .fh-calendar-head{
   display:flex;
-  transition:transform .55s cubic-bezier(.2,.8,.2,1);
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
 }
-
-#fh-home .fh-carousel-slide{
-  position:relative;
-  min-width:100%;
-  height:100%;
+#fh-booking-engine .fh-calendar-title{
+  font-family:var(--serif);
+  font-size:30px;
+  letter-spacing:-.04em;
+  margin:0;
+  font-weight:400;
+  text-align:center;
 }
-
-#fh-home .fh-carousel-slide img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+#fh-booking-engine .fh-mini-btn{
+  border:0;
+  border-radius:999px;
+  background:rgba(26,23,20,.09);
+  color:var(--ink);
+  font-weight:900;
+  min-width:42px;
+  min-height:38px;
+  padding:8px 12px;
 }
-
-#fh-home .fh-carousel-copy{
-  position:absolute;
-  left:22px;
-  right:22px;
-  bottom:22px;
-  z-index:3;
-  padding:20px;
-  background:rgba(255,250,242,.94);
-  border:1px solid rgba(255,255,255,.55);
-  box-shadow:0 18px 40px rgba(0,0,0,.15);
-}
-
-#fh-home .fh-carousel-copy p{
-  font-size:14px;
-}
-
-#fh-home .fh-carousel-nav{
-  position:absolute;
-  z-index:4;
-  right:18px;
-  top:18px;
-  display:flex;
+#fh-booking-engine .fh-weekdays,
+#fh-booking-engine .fh-calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
   gap:8px;
 }
-
-#fh-home .fh-carousel-nav button{
-  width:42px;
-  height:42px;
-  border:1px solid rgba(28,24,20,.14);
-  background:rgba(255,250,242,.92);
-  color:var(--ink);
-  font-size:22px;
-  line-height:1;
+#fh-booking-engine .fh-weekday{
+  text-align:center;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:900;
+  color:rgba(26,23,20,.48);
+  padding:0 0 4px;
 }
-
-#fh-home .fh-room-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
-  gap:24px;
-  align-items:stretch;
-}
-
-#fh-home .fh-room-copy{
-  padding:clamp(28px,3.5vw,42px);
-  background:var(--paper);
-  border:1px solid #e2d4c4;
-  box-shadow:var(--soft-shadow);
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-
-#fh-home .fh-room-list{
-  display:grid;
-  gap:12px;
-  margin-top:24px;
-}
-
-#fh-home .fh-room-list div{
-  padding-top:14px;
-  border-top:1px solid #dfd0be;
-}
-
-#fh-home .fh-room-list strong{
-  display:block;
-  color:var(--forest);
-  font-family:var(--serif);
-  font-size:28px;
-  font-weight:400;
-  margin-bottom:4px;
-}
-
-#fh-home .fh-room-list span{
-  display:block;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.55;
-}
-
-#fh-home .fh-card-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-
-#fh-home .fh-card{
-  overflow:hidden;
-  background:var(--paper);
-  border:1px solid #e2d4c4;
-  box-shadow:var(--soft-shadow);
-}
-
-#fh-home .fh-card img{
-  width:100%;
-  height:260px;
-  object-fit:cover;
-}
-
-#fh-home .fh-card .copy{
-  padding:22px;
-}
-
-#fh-home .fh-card .copy p{
-  font-size:15px;
-}
-
-#fh-home .fh-kitchen-grid{
-  display:grid;
-  grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
-  gap:24px;
-  align-items:stretch;
-}
-
-#fh-home .fh-panel{
+#fh-booking-engine .fh-day{
   position:relative;
-  padding:clamp(28px,3.5vw,42px);
-  background:var(--paper);
-  border:1px solid #e2d4c4;
-  box-shadow:var(--soft-shadow);
+  min-height:84px;
+  border-radius:16px;
+  border:1px solid rgba(26,23,20,.09);
+  background:rgba(255,255,255,.74);
+  padding:9px;
+  text-align:left;
+  color:var(--ink);
+  transition:transform .16s ease,border-color .16s ease,background .16s ease;
 }
-
-#fh-home .fh-panel:after{
-  content:"";
-  position:absolute;
-  inset:13px;
-  border:1px solid rgba(28,24,20,.08);
+#fh-booking-engine .fh-day:hover{
+  transform:translateY(-1px);
+  border-color:rgba(26,23,20,.24);
+}
+#fh-booking-engine .fh-day.is-empty{
+  visibility:hidden;
   pointer-events:none;
 }
-
-#fh-home .fh-panel>*{
-  position:relative;
-  z-index:1;
+#fh-booking-engine .fh-day.is-past{
+  opacity:.42;
+  cursor:not-allowed;
+  background:rgba(255,255,255,.38);
 }
-
-#fh-home .fh-kitchen-list{
-  display:grid;
-  gap:13px;
-  margin-top:24px;
+#fh-booking-engine .fh-day.is-unavailable{
+  opacity:.72;
+  cursor:not-allowed;
+  background:rgba(130,38,38,.08);
+  border-color:rgba(130,38,38,.22);
 }
-
-#fh-home .fh-kitchen-item{
-  padding:18px;
-  background:rgba(31,58,47,.07);
-  border:1px solid rgba(31,58,47,.12);
+#fh-booking-engine .fh-day.is-selected,
+#fh-booking-engine .fh-day.is-start,
+#fh-booking-engine .fh-day.is-end{
+  background:var(--dark);
+  color:var(--paper);
+  border-color:var(--dark);
 }
-
-#fh-home .fh-kitchen-item strong{
+#fh-booking-engine .fh-day.is-range{
+  background:rgba(26,23,20,.10);
+  border-color:rgba(26,23,20,.18);
+}
+#fh-booking-engine .fh-day-number{
   display:block;
-  color:var(--forest);
-  margin-bottom:5px;
-}
-
-#fh-home .fh-kitchen-item span{
-  display:block;
-  color:var(--muted);
-  line-height:1.55;
+  font-weight:900;
   font-size:14px;
 }
-
-#fh-home .fh-season-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+#fh-booking-engine .fh-day-status{
+  display:inline-flex;
+  margin-top:22px;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
 }
-
-#fh-home .fh-season{
-  position:relative;
-  min-height:500px;
-  display:flex;
-  align-items:flex-end;
-  overflow:hidden;
-  background:#1c1814;
-  color:#fffaf2;
-  box-shadow:var(--shadow);
+#fh-booking-engine .fh-day-status.available{
+  color:var(--success);
+  background:rgba(45,112,74,.10);
 }
-
-#fh-home .fh-season img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:brightness(.78) contrast(1.04);
+#fh-booking-engine .fh-day-status.booked{
+  color:var(--error);
+  background:rgba(130,38,38,.10);
 }
-
-#fh-home .fh-season:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,rgba(20,16,12,.10) 0%,rgba(20,16,12,.72) 100%);
+#fh-booking-engine .fh-day.is-selected .fh-day-status,
+#fh-booking-engine .fh-day.is-start .fh-day-status,
+#fh-booking-engine .fh-day.is-end .fh-day-status{
+  color:rgba(255,250,243,.88);
+  background:rgba(255,255,255,.13);
 }
-
-#fh-home .fh-season .copy{
-  position:relative;
-  z-index:2;
-  padding:clamp(24px,3vw,34px);
-}
-
-#fh-home .fh-season h3{
-  color:#fffaf2;
-}
-
-#fh-home .fh-season p{
-  color:rgba(255,250,242,.76);
-}
-
-#fh-home .fh-season .fh-kicker{
-  color:rgba(255,250,242,.70);
-}
-
-#fh-home .fh-map-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 360px;
-  gap:24px;
-}
-
-#fh-home .fh-map-card{
-  position:relative;
-  min-height:560px;
-  overflow:hidden;
-  background:#d7c8b6;
-  box-shadow:var(--shadow);
-}
-
-#fh-home .fh-map-card iframe{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:0;
-  filter:saturate(.92) contrast(.98);
-}
-
-#fh-home .fh-map-context{
-  position:absolute;
-  left:18px;
-  bottom:18px;
-  z-index:3;
-  width:min(390px,calc(100% - 36px));
-  padding:17px;
-  background:rgba(255,250,242,.95);
-  border:1px solid rgba(28,24,20,.14);
-  box-shadow:0 14px 34px rgba(0,0,0,.14);
-}
-
-#fh-home .fh-map-context strong{
-  display:block;
+#fh-booking-engine .fh-side-card h3,
+#fh-booking-engine .fh-quote-card h3{
   font-family:var(--serif);
-  font-size:28px;
-  font-weight:400;
+  font-size:30px;
   line-height:1;
-  color:var(--forest);
-  margin-bottom:7px;
+  letter-spacing:-.04em;
+  font-weight:400;
+  margin:0 0 12px;
 }
-
-#fh-home .fh-map-context span{
-  display:block;
+#fh-booking-engine .fh-selection{
+  display:grid;
+  gap:8px;
   color:var(--muted);
-  font-size:13px;
+  font-size:14px;
   line-height:1.45;
 }
-
-#fh-home .fh-map-open{
-  position:absolute;
-  right:18px;
-  top:18px;
-  z-index:3;
-  padding:11px 14px;
-  background:rgba(255,250,242,.95);
-  border:1px solid rgba(28,24,20,.14);
+#fh-booking-engine .fh-selection strong{color:var(--ink)}
+#fh-booking-engine .fh-estimate{
+  margin-top:16px;
+  padding:16px;
+  border-radius:18px;
+  background:rgba(26,23,20,.06);
+  border:1px solid rgba(26,23,20,.08);
+}
+#fh-booking-engine .fh-estimate-label{
+  font-size:11px;
   text-transform:uppercase;
-  letter-spacing:.13em;
-  font-size:10px;
-  font-weight:850;
+  letter-spacing:.14em;
+  font-weight:900;
+  color:rgba(26,23,20,.52);
 }
-
-#fh-home .fh-map-side{
-  display:grid;
-  gap:12px;
-}
-
-#fh-home .fh-map-note{
-  width:100%;
-  text-align:left;
-  border:1px solid #e2d4c4;
-  background:var(--paper);
-  padding:21px;
-  box-shadow:var(--soft-shadow);
-}
-
-#fh-home .fh-map-note strong{
-  display:block;
+#fh-booking-engine .fh-estimate-total{
   font-family:var(--serif);
-  font-weight:400;
-  font-size:30px;
-  color:var(--forest);
-  margin-bottom:8px;
-}
-
-#fh-home .fh-map-note span{
-  display:block;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.52;
-}
-
-#fh-home .fh-map-note.active{
-  background:var(--forest);
-  border-color:var(--forest);
-}
-
-#fh-home .fh-map-note.active strong{
-  color:#fffaf2;
-}
-
-#fh-home .fh-map-note.active span{
-  color:rgba(255,250,242,.76);
-}
-
-#fh-home .fh-history-strip{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-}
-
-#fh-home .fh-time-card{
-  position:relative;
-  min-height:190px;
-  padding:22px;
-  background:var(--paper);
-  border:1px solid #e2d4c4;
-  box-shadow:var(--soft-shadow);
-}
-
-#fh-home .fh-time-card:before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:3px;
-  background:var(--forest);
-}
-
-#fh-home .fh-year{
-  font-family:var(--serif);
-  font-size:38px;
+  font-size:clamp(34px,5vw,48px);
+  letter-spacing:-.05em;
   line-height:1;
-  color:var(--forest);
-  margin-bottom:10px;
-}
-
-#fh-home .fh-time-card strong{
-  display:block;
-  margin-bottom:6px;
+  margin-top:8px;
   color:var(--ink);
 }
-
-#fh-home .fh-time-card p{
-  font-size:14px;
-}
-
-#fh-home .fh-contact-grid{
+#fh-booking-engine .fh-grid{
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,.86fr);
-  gap:24px;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
 }
-
-#fh-home .fh-contact-line{
-  padding:16px 0;
-  border-top:1px solid #dfd0be;
-}
-
-#fh-home .fh-contact-line span{
+#fh-booking-engine .fh-field label{
   display:block;
-  margin-bottom:5px;
-  font-size:10px;
+  font-size:11px;
   text-transform:uppercase;
-  letter-spacing:.17em;
+  letter-spacing:.14em;
   font-weight:850;
-  color:var(--forest);
+  color:rgba(26,23,20,.52);
+  margin-bottom:8px;
 }
-
-#fh-home .fh-contact-line strong{
+#fh-booking-engine .fh-field input,
+#fh-booking-engine .fh-field select{
+  width:100%;
+  min-height:52px;
+  border:1px solid rgba(26,23,20,.12);
+  background:rgba(255,255,255,.88);
+  border-radius:17px;
+  padding:13px 14px;
+  color:var(--ink);
+  outline:none;
+}
+#fh-booking-engine .fh-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+#fh-booking-engine .fh-button{
+  min-height:48px;
+  border:0;
+  border-radius:999px;
+  padding:13px 18px;
+  background:rgba(26,23,20,.09);
+  color:var(--ink);
+  font-weight:850;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+#fh-booking-engine .fh-button.primary{
+  background:var(--dark);
+  color:var(--paper);
+}
+#fh-booking-engine .fh-button:disabled{
+  opacity:.58;
+  cursor:wait;
+}
+#fh-booking-engine .fh-result{
+  display:none;
+  margin-top:18px;
+  padding:20px;
+  border-radius:22px;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(26,23,20,.10);
+  color:var(--muted);
+  line-height:1.55;
+}
+#fh-booking-engine .fh-result.is-visible{display:block}
+#fh-booking-engine .fh-result strong{
   display:block;
-  overflow-wrap:anywhere;
+  color:var(--ink);
+  font-size:18px;
+  margin-bottom:6px;
 }
-
-#fh-home .fh-reveal{
-  opacity:0;
-  transform:translateY(26px);
-  transition:opacity .72s ease,transform .72s cubic-bezier(.2,.8,.2,1);
+#fh-booking-engine .fh-result.is-success{
+  border-color:rgba(45,112,74,.24);
+  background:rgba(246,255,249,.74);
 }
-
-#fh-home .fh-reveal.visible{
-  opacity:1;
-  transform:translateY(0);
+#fh-booking-engine .fh-result.is-warning{
+  border-color:rgba(150,101,35,.25);
+  background:rgba(255,248,237,.80);
 }
-
-/* Responsive */
-@media(max-width:1120px){
-  #fh-home .fh-booking-form{
-    grid-template-columns:repeat(6,minmax(0,1fr));
-  }
-
-  #fh-home .fh-field:nth-child(1),
-  #fh-home .fh-field:nth-child(2),
-  #fh-home .fh-field:nth-child(3){
-    grid-column:span 2;
-  }
-
-  #fh-home .fh-field:nth-child(4),
-  #fh-home .fh-field:nth-child(5){
-    grid-column:span 2;
-  }
-
-  #fh-home .fh-submit{
-    grid-column:span 2;
-  }
-
-  #fh-home .fh-field{
-    border-bottom:1px solid var(--line);
-  }
-
-  #fh-home .fh-card-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  #fh-home .fh-map-grid{
-    grid-template-columns:1fr;
-  }
-
-  #fh-home .fh-map-side{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  #fh-home .fh-history-strip{
-    grid-template-columns:repeat(2,1fr);
-  }
+#fh-booking-engine .fh-result.is-error{
+  border-color:rgba(130,38,38,.24);
+  background:rgba(255,245,245,.80);
+}
+#fh-booking-engine .fh-money{
+  font-family:var(--serif);
+  font-size:clamp(34px,5vw,58px);
+  letter-spacing:-.05em;
+  line-height:1;
+  color:var(--ink);
+  margin:8px 0;
+}
+#fh-booking-engine .fh-line-items{
+  margin-top:12px;
+  display:grid;
+  gap:8px;
+  font-size:14px;
+  color:var(--muted);
+}
+#fh-booking-engine .fh-line-item{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  border-top:1px solid rgba(26,23,20,.08);
+  padding-top:8px;
+}
+#fh-booking-engine .fh-note{
+  margin:16px 0 0;
+  font-size:13px;
+  color:rgba(26,23,20,.54);
+  line-height:1.5;
+}
+#fh-booking-engine .fh-debug{
+  margin-top:18px;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid rgba(26,23,20,.10);
+  background:rgba(255,255,255,.55);
+}
+#fh-booking-engine .fh-debug summary{
+  cursor:pointer;
+  padding:12px 14px;
+  font-weight:850;
+  font-size:13px;
+  color:rgba(26,23,20,.64);
+}
+#fh-booking-engine .fh-debug pre{
+  margin:0;
+  padding:14px;
+  overflow:auto;
+  font-size:12px;
+  line-height:1.45;
+  color:#2b2925;
+  background:rgba(255,255,255,.58);
+  max-height:360px;
 }
 
 @media(max-width:900px){
-  #fh-home .fh-section-head,
-  #fh-home .fh-overview-grid,
-  #fh-home .fh-kitchen-grid,
-  #fh-home .fh-room-grid,
-  #fh-home .fh-contact-grid{
-    grid-template-columns:1fr;
-  }
-
-  #fh-home .fh-season-grid{
-    grid-template-columns:1fr;
-  }
-
-  #fh-home .fh-season{
-    min-height:420px;
-  }
-
-  #fh-home .fh-carousel{
-    min-height:460px;
-  }
+  #fh-booking-engine .fh-layout{grid-template-columns:1fr}
+  #fh-booking-engine .fh-steps{grid-template-columns:1fr 1fr}
+  #fh-booking-engine .fh-grid{grid-template-columns:1fr}
 }
-
 @media(max-width:640px){
-  #fh-home{--edge:16px}
-
-  #fh-home .fh-lang-switch{
-    top:82px;
-    width:calc(100% - 24px);
-    justify-content:center;
-    padding:5px;
-    gap:3px;
+  #fh-booking-engine{padding:0}
+  #fh-booking-engine .fh-engine{
+    border-radius:0;
+    min-height:100vh;
+    padding:22px 14px;
   }
-
-  #fh-home .fh-lang-switch button{
-    flex:1;
-    padding:10px 4px;
-    letter-spacing:.08em;
-    font-size:10px;
-  }
-
-  #fh-home .fh-hero{
-    min-height:100svh;
-    align-items:flex-start;
-  }
-
-  #fh-home .fh-hero-inner{
-    width:calc(100% - 28px);
-    padding-top:132px;
-    padding-bottom:34px;
-  }
-
-  #fh-home h1{
-    font-size:clamp(34px,10.5vw,48px);
-    line-height:.94;
-  }
-
-  #fh-home .fh-hero-lead{
-    font-size:13.5px;
-    line-height:1.42;
-  }
-
-  #fh-home .fh-booking{
+  #fh-booking-engine .fh-weekdays,
+  #fh-booking-engine .fh-calendar-grid{gap:5px}
+  #fh-booking-engine .fh-day{
+    min-height:70px;
+    border-radius:12px;
     padding:7px;
+  }
+  #fh-booking-engine .fh-day-status{
     margin-top:12px;
-  }
-
-  #fh-home .fh-booking-form{
-    grid-template-columns:1fr;
-  }
-
-  #fh-home .fh-field,
-  #fh-home .fh-field:nth-child(1),
-  #fh-home .fh-field:nth-child(2),
-  #fh-home .fh-field:nth-child(3),
-  #fh-home .fh-field:nth-child(4),
-  #fh-home .fh-field:nth-child(5),
-  #fh-home .fh-submit{
-    grid-column:auto;
-    border-right:0;
-  }
-
-  #fh-home .fh-field{
-    padding:12px 14px;
-  }
-
-  #fh-home .fh-submit{
-    min-height:52px;
-  }
-
-  #fh-home .fh-section{
-    padding:60px 16px;
-  }
-
-  #fh-home h2{
-    font-size:clamp(36px,11vw,52px);
-    line-height:.96;
-  }
-
-  #fh-home h3{
-    font-size:clamp(29px,8.6vw,42px);
-  }
-
-  #fh-home .fh-dark-panel{
-    min-height:auto;
-    padding:26px;
-  }
-
-  #fh-home .fh-proof{
-    grid-template-columns:1fr;
-    gap:12px;
-  }
-
-  #fh-home .fh-photo-stage{
-    min-height:440px;
-  }
-
-  #fh-home .fh-float.one{
-    width:42%;
-    height:22%;
-    top:12px;
-    right:12px;
-  }
-
-  #fh-home .fh-float.two{
-    width:42%;
-    height:22%;
-    left:12px;
-    bottom:100px;
-  }
-
-  #fh-home .fh-caption{
-    left:12px;
-    right:12px;
-    bottom:12px;
-    width:auto;
-    padding:14px;
-  }
-
-  #fh-home .fh-carousel{
-    min-height:420px;
-  }
-
-  #fh-home .fh-carousel-copy{
-    left:12px;
-    right:12px;
-    bottom:12px;
-    padding:14px;
-  }
-
-  #fh-home .fh-card-grid,
-  #fh-home .fh-map-side,
-  #fh-home .fh-history-strip{
-    grid-template-columns:1fr;
-  }
-
-  #fh-home .fh-card img{
-    height:230px;
-  }
-
-  #fh-home .fh-map-card{
-    min-height:440px;
-  }
-
-  #fh-home .fh-map-open{
-    top:10px;
-    right:10px;
-    padding:9px 12px;
-  }
-
-  #fh-home .fh-map-context{
-    left:10px;
-    right:10px;
-    bottom:10px;
-    width:auto;
-    padding:14px;
-  }
-
-  #fh-home .fh-map-context strong{
-    font-size:22px;
-  }
-
-  #fh-home p{
-    font-size:15px;
-  }
-}
-
-@media(prefers-reduced-motion:reduce){
-  #fh-home *,
-  #fh-home *:before,
-  #fh-home *:after{
-    animation:none!important;
-    transition:none!important;
-    scroll-behavior:auto!important;
+    font-size:9px;
+    padding:4px 6px;
   }
 }
 </style>
 
-<div id="fh-home">
-  <div class="fh-ambient" aria-hidden="true"></div>
+<div id="fh-booking-engine">
+  <div class="fh-wrap">
+    <section class="fh-engine">
+      <div class="fh-lang" aria-label="Language">
+        <button type="button" data-lang="en" class="is-active">EN</button>
+        <button type="button" data-lang="fr">FR</button>
+        <button type="button" data-lang="de">DE</button>
+        <button type="button" data-lang="ru">RU</button>
+      </div>
 
-  <div class="fh-lang-switch" role="group" aria-label="Language">
-    <button type="button" data-lang="en" class="active">EN</button>
-    <button type="button" data-lang="fr">FR</button>
-    <button type="button" data-lang="de">DE</button>
-    <button type="button" data-lang="ru">RU</button>
+      <p class="fh-kicker" data-i18n="kicker">Private stay · Saas-Fee</p>
+      <h1 class="fh-title" data-i18n="title">Your private chalet in a few clicks</h1>
+      <p class="fh-intro" data-i18n="intro">
+        Select your dates on the live Guesty calendar, confirm availability through the Cloudflare Worker, then load the final official Guesty price.
+      </p>
+
+      <div class="fh-steps">
+        <div class="fh-step is-active" data-step-label="1" data-i18n="step1">1. Calendar</div>
+        <div class="fh-step" data-step-label="2" data-i18n="step2">2. Guest</div>
+        <div class="fh-step" data-step-label="3" data-i18n="step3">3. Quote</div>
+        <div class="fh-step" data-step-label="4" data-i18n="step4">4. Book</div>
+      </div>
+
+      <section class="fh-panel is-active" id="stepCalendar">
+        <div class="fh-layout">
+          <div class="fh-calendar-card">
+            <div class="fh-calendar-head">
+              <button class="fh-mini-btn" id="prevMonthBtn" type="button">‹</button>
+              <h2 class="fh-calendar-title" id="calendarTitle">Calendar</h2>
+              <button class="fh-mini-btn" id="nextMonthBtn" type="button">›</button>
+            </div>
+
+            <div class="fh-weekdays">
+              <div class="fh-weekday" data-i18n="sun">Sun</div>
+              <div class="fh-weekday" data-i18n="mon">Mon</div>
+              <div class="fh-weekday" data-i18n="tue">Tue</div>
+              <div class="fh-weekday" data-i18n="wed">Wed</div>
+              <div class="fh-weekday" data-i18n="thu">Thu</div>
+              <div class="fh-weekday" data-i18n="fri">Fri</div>
+              <div class="fh-weekday" data-i18n="sat">Sat</div>
+            </div>
+
+            <div class="fh-calendar-grid" id="calendarGrid"></div>
+          </div>
+
+          <aside class="fh-side-card">
+            <h3 data-i18n="yourStay">Your stay</h3>
+
+            <div class="fh-selection">
+              <div><strong data-i18n="arrival">Arrival:</strong> <span id="selectedCheckIn">Select a date</span></div>
+              <div><strong data-i18n="departure">Departure:</strong> <span id="selectedCheckOut">Select a date</span></div>
+              <div><strong data-i18n="nights">Nights:</strong> <span id="selectedNights">0</span></div>
+              <div><strong data-i18n="status">Status:</strong> <span id="selectedStatus">Select dates</span></div>
+            </div>
+
+            <div class="fh-estimate">
+              <div class="fh-estimate-label" data-i18n="priceLabel">Official Guesty price</div>
+              <div class="fh-estimate-total" id="selectedEstimate">Quote only</div>
+            </div>
+
+            <div class="fh-field" style="margin-top:16px;">
+              <label for="guests" data-i18n="guests">Guests</label>
+              <select id="guests">
+                <option value="12">12 guests</option>
+                <option value="16">16 guests</option>
+                <option value="20">20 guests</option>
+                <option value="24">24 guests</option>
+                <option value="28">28 guests</option>
+                <option value="32">32 guests</option>
+                <option value="36">36 guests</option>
+                <option value="40">40 guests</option>
+                <option value="44">44 guests</option>
+                <option value="48">48 guests</option>
+              </select>
+            </div>
+
+            <div class="fh-actions">
+              <button class="fh-button primary" id="checkAvailabilityBtn" type="button" data-i18n="checkDates">Check selected dates</button>
+              <button class="fh-button" id="clearDatesBtn" type="button" data-i18n="clear">Clear</button>
+            </div>
+
+            <p class="fh-note" data-i18n="calendarNote">
+              Calendar availability is loaded through the Cloudflare Worker. Prices are not shown on the calendar. Final price comes only from the official Guesty quote.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="fh-panel" id="stepGuest">
+        <div class="fh-grid">
+          <div class="fh-field">
+            <label for="firstName" data-i18n="firstName">First name</label>
+            <input id="firstName" data-i18n-placeholder="firstNamePh" placeholder="First name">
+          </div>
+
+          <div class="fh-field">
+            <label for="lastName" data-i18n="lastName">Last name</label>
+            <input id="lastName" data-i18n-placeholder="lastNamePh" placeholder="Last name">
+          </div>
+
+          <div class="fh-field">
+            <label for="email" data-i18n="email">Email</label>
+            <input id="email" type="email" placeholder="email@example.com">
+          </div>
+
+          <div class="fh-field">
+            <label for="phone" data-i18n="phone">Phone</label>
+            <input id="phone" placeholder="+1 ...">
+          </div>
+        </div>
+
+        <div class="fh-actions">
+          <button class="fh-button" data-back="1" type="button" data-i18n="back">Back</button>
+          <button class="fh-button primary" id="createQuoteBtn" type="button" data-i18n="getQuote">Get official price</button>
+        </div>
+      </section>
+
+      <section class="fh-panel" id="stepQuote">
+        <div id="quoteBox" class="fh-quote-card">
+          <h3 data-i18n="quoteTitle">Guesty quote</h3>
+          <span data-i18n="quoteEmpty">Quote will appear here.</span>
+        </div>
+
+        <div class="fh-actions">
+          <button class="fh-button" data-back="2" type="button" data-i18n="back">Back</button>
+          <button class="fh-button primary" id="continueToBookBtn" type="button" data-i18n="continue">Continue</button>
+        </div>
+      </section>
+
+      <section class="fh-panel" id="stepBook">
+        <div class="fh-quote-card">
+          <h3 data-i18n="bookTitle">Choose booking type</h3>
+          <p class="fh-note" data-i18n="bookNote">
+            Request booking creates a Guesty booking request from the quote. Create reservation creates the reservation directly in Guesty when the rate plan allows it.
+          </p>
+
+          <div class="fh-actions">
+            <button class="fh-button primary" id="bookInquiryBtn" type="button" data-i18n="requestBooking">Request booking</button>
+            <button class="fh-button" id="bookInstantBtn" type="button" data-i18n="createReservation">Create reservation</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="fh-result" id="resultBox"></div>
+
+      <details class="fh-debug">
+        <summary data-i18n="technical">Technical response</summary>
+        <pre id="debugOutput">No request sent yet.</pre>
+      </details>
+    </section>
   </div>
-
-  <section class="fh-hero" id="top">
-    <div class="fh-hero-media" id="fhHeroMedia" aria-hidden="true"></div>
-
-    <div class="fh-hero-inner">
-      <p class="fh-kicker fh-reveal" data-i18n="heroKicker">Private Swiss chalet · Saas-Fee</p>
-      <h1 class="fh-reveal" data-i18n="heroTitle">Your Private Swiss Chalet Above Saas-Fee</h1>
-      <p class="fh-hero-lead fh-reveal" data-i18n="heroLead">A full-property alpine stay for families, retreats, weddings, ski groups, and private celebrations — with the whole chalet reserved for your group.</p>
-
-      <div class="fh-booking fh-reveal" id="booking">
-        <div class="fh-booking-form" id="fhBookingFields">
-          <div class="fh-field">
-            <label for="fhFirstName" data-i18n="fieldFirstName">First name</label>
-            <input id="fhFirstName" name="firstName" type="text" data-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name">
-          </div>
-
-          <div class="fh-field">
-            <label for="fhLastName" data-i18n="fieldLastName">Last name</label>
-            <input id="fhLastName" name="lastName" type="text" data-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name">
-          </div>
-
-          <div class="fh-field">
-            <label for="fhEmail" data-i18n="fieldEmail">Email</label>
-            <input id="fhEmail" name="email" type="email" data-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email">
-          </div>
-
-          <div class="fh-field">
-            <label for="fhArrival" data-i18n="fieldArrival">Arrival</label>
-            <input id="fhArrival" name="arrivalDate" type="date" autocomplete="off">
-          </div>
-
-          <div class="fh-field">
-            <label for="fhDeparture" data-i18n="fieldDeparture">Departure</label>
-            <input id="fhDeparture" name="departureDate" type="date" autocomplete="off">
-          </div>
-
-          <button class="fh-submit" type="button" id="fhBookNowBtn" data-i18n="bookNow">Book my stay now</button>
-        </div>
-
-        <div class="fh-booking-note" data-i18n="bookingNote">Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.</div>
-        <div class="fh-status" id="fhFormStatus" role="status" aria-live="polite"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="fh-section alt" id="private-chalet">
-    <div class="fh-container fh-section-head">
-      <div class="fh-reveal">
-        <p class="fh-kicker" data-i18n="privateKicker">The private chalet</p>
-        <h2 data-i18n="privateTitle">A private alpine house for groups who want the whole place to themselves.</h2>
-      </div>
-      <p class="fh-reveal" data-i18n="privateLead">Fletschhorn is a complete private chalet experience above Saas-Fee, with space to sleep, gather, cook, celebrate, reset, and explore the mountains.</p>
-    </div>
-
-    <div class="fh-container fh-overview-grid">
-      <article class="fh-dark-panel fh-reveal">
-        <div>
-          <p class="fh-kicker" data-i18n="conceptKicker">The concept</p>
-          <h3 data-i18n="conceptTitle">A full-property stay, made clear from the first section.</h3>
-          <p data-i18n="conceptText">Families, retreats, weddings, private celebrations, and ski groups can take over the property as one private alpine base.</p>
-        </div>
-
-        <div class="fh-proof">
-          <div><strong>48</strong><span data-i18n="proofGuests">sleeping places</span></div>
-          <div><strong>100+</strong><span data-i18n="proofHistory">years of alpine history</span></div>
-          <div><strong>360°</strong><span data-i18n="proofProperty">private-property experience</span></div>
-        </div>
-      </article>
-
-      <div class="fh-photo-stage fh-reveal">
-        <img class="main-img" data-img="overviewMain" alt="Fletschhorn alpine exterior">
-        <img class="fh-float one" data-img="overviewFloat1" alt="Fletschhorn interior detail">
-        <img class="fh-float two" data-img="overviewFloat2" alt="Fletschhorn room detail">
-        <div class="fh-caption">
-          <p class="fh-kicker" data-i18n="experienceKicker">The experience</p>
-          <p data-i18n="experienceText">A private property above the village of Saas-Fee — generous spaces, mountain air, and complete privacy for your group.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="fh-section" id="rooms">
-    <div class="fh-container fh-section-head">
-      <div class="fh-reveal">
-        <p class="fh-kicker" data-i18n="roomsKicker">Rooms & suites</p>
-        <h2 data-i18n="roomsTitle">Private sleeping spaces, shared under one alpine roof.</h2>
-      </div>
-      <p class="fh-reveal" data-i18n="roomsLead">Rooms and suites give a group the feeling of being together in one house while still offering privacy for families, couples, and guests who need their own space.</p>
-    </div>
-
-    <div class="fh-container fh-room-grid">
-      <div class="fh-carousel fh-reveal" data-carousel="inside">
-        <div class="fh-carousel-track"></div>
-        <div class="fh-carousel-nav">
-          <button type="button" data-prev aria-label="Previous room">‹</button>
-          <button type="button" data-next aria-label="Next room">›</button>
-        </div>
-        <div class="fh-carousel-copy">
-          <p class="fh-kicker" data-i18n="insidePhotoKicker">Inside Fletschhorn</p>
-          <p data-i18n="insidePhotoText">Bedrooms, suites, warm interiors, and quiet corners for guests who need space to rest.</p>
-        </div>
-      </div>
-
-      <article class="fh-room-copy fh-reveal">
-        <div>
-          <p class="fh-kicker" data-i18n="sleepKicker">Sleeping rhythm</p>
-          <h3 data-i18n="sleepTitle">Together, but not crowded.</h3>
-          <p data-i18n="sleepText">A private base where the group can stay together without being split across separate hotels.</p>
-        </div>
-
-        <div class="fh-room-list">
-          <div><strong data-i18n="roomPoint1Title">Up to 48 sleeping places</strong><span data-i18n="roomPoint1Text">Public website capacity is kept clear and simple.</span></div>
-          <div><strong data-i18n="roomPoint2Title">Rooms and suites</strong><span data-i18n="roomPoint2Text">Useful for mixed groups, families, retreats, and celebrations.</span></div>
-          <div><strong data-i18n="roomPoint3Title">One private base</strong><span data-i18n="roomPoint3Text">Guests stay together without feeling like they are split across separate hotels.</span></div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="fh-section alt" id="stays">
-    <div class="fh-container fh-text-center fh-reveal">
-      <p class="fh-kicker" data-i18n="staysKicker">What the house is for</p>
-      <h2 data-i18n="staysTitle">Different groups, one simple idea: the whole chalet is yours.</h2>
-      <p data-i18n="staysLead">Families, retreats, weddings, ski groups, and private celebrations can all use the property as a private alpine base.</p>
-    </div>
-
-    <div class="fh-container fh-card-grid" style="margin-top:34px">
-      <article class="fh-card fh-reveal">
-        <img data-img="family" alt="Family stay">
-        <div class="copy">
-          <p class="fh-kicker" data-i18n="familyKicker">Families</p>
-          <h3 data-i18n="familyTitle">Space for everyone.</h3>
-          <p data-i18n="familyText">Bedrooms, shared rooms, slow mornings, and easy mountain days together.</p>
-        </div>
-      </article>
-
-      <article class="fh-card fh-reveal">
-        <img data-img="retreat" alt="Retreat stay">
-        <div class="copy">
-          <p class="fh-kicker" data-i18n="retreatKicker">Retreats</p>
-          <h3 data-i18n="retreatTitle">A focused alpine base.</h3>
-          <p data-i18n="retreatText">Gathering spaces, quiet corners, and enough privacy for a real reset.</p>
-        </div>
-      </article>
-
-      <article class="fh-card fh-reveal">
-        <img data-img="event" alt="Wedding or event">
-        <div class="copy">
-          <p class="fh-kicker" data-i18n="eventKicker">Weddings & events</p>
-          <h3 data-i18n="eventTitle">Your moment, here.</h3>
-          <p data-i18n="eventText">In the middle of the Alps, the property becomes the setting for a private celebration.</p>
-        </div>
-      </article>
-
-      <article class="fh-card fh-reveal">
-        <img data-img="ski" alt="Ski group">
-        <div class="copy">
-          <p class="fh-kicker" data-i18n="skiKicker">Ski groups</p>
-          <h3 data-i18n="skiTitle">Mountain days, warm returns.</h3>
-          <p data-i18n="skiText">A private home base for skiing, glacier air, and evenings together.</p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="fh-section" id="kitchen">
-    <div class="fh-container fh-kitchen-grid">
-      <article class="fh-panel fh-reveal">
-        <p class="fh-kicker" data-i18n="foodKicker">Kitchen & food planning</p>
-        <h2 data-i18n="foodTitle">A flexible kitchen concept for private group stays.</h2>
-        <p data-i18n="foodText">The kitchen can support self-catering, chef or caterer discussions, breakfast planning, buffets, and lunchboxes depending on the group.</p>
-
-        <div class="fh-kitchen-list">
-          <div class="fh-kitchen-item"><strong data-i18n="foodItem1Title">Kitchen access</strong><span data-i18n="foodItem1Text">Groups can organize meals around the kitchen and the rhythm of their stay.</span></div>
-          <div class="fh-kitchen-item"><strong data-i18n="foodItem2Title">Chef or caterer by arrangement</strong><span data-i18n="foodItem2Text">For weddings, retreats, and special events, support can be discussed separately.</span></div>
-          <div class="fh-kitchen-item"><strong data-i18n="foodItem3Title">Simple planning</strong><span data-i18n="foodItem3Text">Breakfasts, buffets, packed lunches, and group logistics can be planned before arrival.</span></div>
-        </div>
-      </article>
-
-      <div class="fh-carousel fh-reveal" data-carousel="kitchen">
-        <div class="fh-carousel-track"></div>
-        <div class="fh-carousel-nav">
-          <button type="button" data-prev aria-label="Previous kitchen image">‹</button>
-          <button type="button" data-next aria-label="Next kitchen image">›</button>
-        </div>
-        <div class="fh-carousel-copy">
-          <p class="fh-kicker" data-i18n="foodNoteKicker">Private rhythm</p>
-          <p data-i18n="foodNote">Food planning follows the group, the dates, and the type of stay.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="fh-section" id="access">
-    <div class="fh-container fh-section-head">
-      <div class="fh-reveal">
-        <p class="fh-kicker" data-i18n="mapKicker">Access & location</p>
-        <h2 data-i18n="mapTitle">Above Saas-Fee, private enough to feel away.</h2>
-      </div>
-      <p class="fh-reveal" data-i18n="mapLead">The chalet sits above the village. Saas-Fee is car-free, so guests should plan arrival carefully with luggage, weather, and transfer timing in mind.</p>
-    </div>
-
-    <div class="fh-container fh-map-grid">
-      <div class="fh-map-card fh-reveal">
-        <iframe id="fhMapFrame" title="Interactive map to Fletschhorn, Saas-Fee" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland&z=15&output=embed"></iframe>
-        <div class="fh-map-context" id="fhMapContext"><strong>Fletschhorn</strong><span data-i18n="mapDefault">Click the cards to explore the property location, village route, arrival planning, or evening movement.</span></div>
-        <a class="fh-map-open" id="fhMapOpen" href="https://www.google.com/maps/search/?api=1&query=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland" target="_blank" rel="noopener" data-i18n="openMap">Open map</a>
-      </div>
-
-      <aside class="fh-map-side">
-        <button type="button" class="fh-map-note active" data-map-title="Fletschhorn" data-map-text="The map is centered on the Fletschhorn property so the chalet location appears clearly above Saas-Fee." data-map-src="https://www.google.com/maps?q=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland&z=15&output=embed" data-map-open="https://www.google.com/maps/search/?api=1&query=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland"><strong data-i18n="mapCard1Title">Fletschhorn</strong><span data-i18n="mapCard1Text">View the exact property location above the village.</span></button>
-        <button type="button" class="fh-map-note" data-map-title="Village center" data-map-text="About 15–20 minutes on foot from the center of Saas-Fee, depending on pace, luggage, and conditions." data-map-src="https://www.google.com/maps?saddr=Saas-Fee%20Bus%20Terminal%2C%20Saas-Fee%2C%20Switzerland&daddr=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland&output=embed" data-map-open="https://www.google.com/maps/dir/?api=1&origin=Saas-Fee%20Bus%20Terminal%2C%20Saas-Fee%2C%20Switzerland&destination=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland&travelmode=walking"><strong data-i18n="mapCard2Title">Village center</strong><span data-i18n="mapCard2Text">See the walking route from the village arrival point.</span></button>
-        <button type="button" class="fh-map-note" data-map-title="Arrival planning" data-map-text="Arrival should be coordinated in advance. Shuttle windows may be available depending on the stay and timing." data-map-src="https://www.google.com/maps?saddr=Saas-Fee%20Bus%20Terminal%2C%20Saas-Fee%2C%20Switzerland&daddr=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland&output=embed" data-map-open="https://www.google.com/maps/dir/?api=1&origin=Saas-Fee%20Bus%20Terminal%2C%20Saas-Fee%2C%20Switzerland&destination=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland&travelmode=driving"><strong data-i18n="mapCard3Title">Arrival planning</strong><span data-i18n="mapCard3Text">View the practical route for coordinated arrival.</span></button>
-        <button type="button" class="fh-map-note" data-map-title="Evening plans" data-map-text="Dinner or evening transfers may require a separate taxi arrangement. This view keeps the village center in mind for evening movement." data-map-src="https://www.google.com/maps?q=Saas-Fee%20village%20center%20restaurants%20Switzerland&z=15&output=embed" data-map-open="https://www.google.com/maps/search/?api=1&query=Saas-Fee%20village%20center%20restaurants%20Switzerland"><strong data-i18n="mapCard4Title">Evening plans</strong><span data-i18n="mapCard4Text">See the village area for dinner and evening taxi planning.</span></button>
-      </aside>
-    </div>
-  </section>
-
-  <section class="fh-section alt" id="area">
-    <div class="fh-container fh-section-head">
-      <div class="fh-reveal">
-        <p class="fh-kicker" data-i18n="areaKicker">Experiences around Saas-Fee</p>
-        <h2 data-i18n="areaTitle">A private base for winter, summer, and slow alpine days.</h2>
-      </div>
-      <p class="fh-reveal" data-i18n="areaLead">Saas-Fee gives groups a reason to come in every season: skiing, glacier access, summer trails, marmots at Spielboden, Aqua Allalin, Mattmark, Feeblitz, rope park, Hannig, and high-alpine views.</p>
-    </div>
-
-    <div class="fh-container fh-season-grid">
-      <article class="fh-season fh-reveal"><img data-img="winter" alt="Winter around Fletschhorn"><div class="copy"><p class="fh-kicker" data-i18n="winterKicker">Winter</p><h3 data-i18n="winterTitle">Ski days, glacier air, and quiet evenings.</h3><p data-i18n="winterText">High-altitude skiing, night sledging at Hannig, Ice Pavilion visits, Aqua Allalin, and warm returns to your private chalet.</p></div></article>
-      <article class="fh-season fh-reveal"><img data-img="summer" alt="Summer around Fletschhorn"><div class="copy"><p class="fh-kicker" data-i18n="summerKicker">Spring / Summer</p><h3 data-i18n="summerTitle">Trails, marmots, water, and mountain routes.</h3><p data-i18n="summerText">Spielboden marmots, Feeblitz, rope park, Mattmark Dam, Trotti scooters, and hikes for different energy levels.</p></div></article>
-      <article class="fh-season fh-reveal"><img data-img="soft" alt="Soft alpine day at Fletschhorn"><div class="copy"><p class="fh-kicker" data-i18n="softKicker">Soft days</p><h3 data-i18n="softTitle">Wellness, village time, and slow mornings.</h3><p data-i18n="softText">Stillness, views, warm interiors, sauna by request, and the feeling of staying above the rush.</p></div></article>
-    </div>
-  </section>
-
-  <section class="fh-section alt" id="history">
-    <div class="fh-container fh-section-head">
-      <div class="fh-reveal">
-        <p class="fh-kicker" data-i18n="historyKicker">History</p>
-        <h2 data-i18n="historyTitle">A mountain property with a century behind it.</h2>
-      </div>
-      <p class="fh-reveal" data-i18n="historyLead">A short home-page history adds credibility while the full story can live on the About page.</p>
-    </div>
-
-    <div class="fh-container fh-history-strip">
-      <div class="fh-time-card fh-reveal"><div class="fh-year">1906</div><strong data-i18n="h1906Title">Early mountain hospitality begins.</strong><p data-i18n="h1906Text">A family builds mountain inns in Saas-Fee for the first travellers coming to the village.</p></div>
-      <div class="fh-time-card fh-reveal"><div class="fh-year">1970s</div><strong data-i18n="h1970Title">The property grows.</strong><p data-i18n="h1970Text">The Dütsch family develops Fletschhorn into a respected alpine property.</p></div>
-      <div class="fh-time-card fh-reveal"><div class="fh-year">1994</div><strong data-i18n="h1994Title">Swiss culinary history.</strong><p data-i18n="h1994Text">Irma Dütsch becomes the first Swiss woman to be awarded a Michelin star.</p></div>
-      <div class="fh-time-card fh-reveal"><div class="fh-year">Now</div><strong data-i18n="hNowTitle">A renewed private chalet.</strong><p data-i18n="hNowText">The story continues as a private alpine base for groups, events, and whole-property stays.</p></div>
-    </div>
-  </section>
-
-  <section class="fh-section" id="contact">
-    <div class="fh-container fh-contact-grid">
-      <div class="fh-panel fh-reveal">
-        <p class="fh-kicker" data-i18n="contactKicker">Contact & booking</p>
-        <h2 data-i18n="contactTitle">Make this place yours.</h2>
-        <p data-i18n="contactText">Send your dates, group size, and the kind of stay you are imagining. We will help you shape the private chalet experience around your group.</p>
-      </div>
-
-      <div class="fh-panel fh-reveal">
-        <div class="fh-contact-line"><span data-i18n="addressLabel">Address</span><strong>Wildistrasse, 3906 Saas-Fee, Switzerland</strong></div>
-        <div class="fh-contact-line"><span data-i18n="phoneLabel">Phone</span><strong>+41 27 957 2131</strong></div>
-        <div class="fh-contact-line"><span data-i18n="directLabel">Direct note</span><strong data-i18n="directText">Best rates are available when booking direct.</strong></div>
-      </div>
-    </div>
-  </section>
 </div>
 
 <script>
 (function(){
   "use strict";
 
-  var root=document.getElementById("fh-home");
-  if(!root)return;
+  const root = document.getElementById("fh-booking-engine");
+  if (!root) return;
 
-  root.dataset.ready="fh-home-index-booking-prefill-v1";
+  /*
+    CHANGE ONLY THIS if your Worker URL changes.
+    Everything goes through the Worker.
+    No Guesty API key is ever exposed in this front-end code.
+  */
+  const WORKER_BASE = "https://guetsyapi.moshe-cohen-h1.workers.dev";
 
-  var CFG={
-    bookingPageUrl:"/booking",
-    listingId:"6968339ab7d735001ca015ba"
+  const MIN_NIGHTS = 2;
+  const DEFAULT_CURRENCY = "CHF";
+
+  const TEXT = {
+    en: {
+      kicker:"Private stay · Saas-Fee",
+      title:"Your private chalet in a few clicks",
+      intro:"Select your dates on the live Guesty calendar, confirm availability through the Cloudflare Worker, then load the final official Guesty price.",
+      step1:"1. Calendar", step2:"2. Guest", step3:"3. Quote", step4:"4. Book",
+      sun:"Sun", mon:"Mon", tue:"Tue", wed:"Wed", thu:"Thu", fri:"Fri", sat:"Sat",
+      yourStay:"Your stay", arrival:"Arrival:", departure:"Departure:", nights:"Nights:", status:"Status:",
+      selectDate:"Select a date", selectDates:"Select dates", available:"Available", booked:"Booked",
+      priceLabel:"Official Guesty price", quoteOnly:"Quote only",
+      guests:"Guests", checkDates:"Check selected dates", clear:"Clear",
+      calendarNote:"Calendar availability is loaded through the Cloudflare Worker. Prices are not shown on the calendar. Final price comes only from the official Guesty quote.",
+      firstName:"First name", lastName:"Last name", email:"Email", phone:"Phone",
+      firstNamePh:"First name", lastNamePh:"Last name",
+      back:"Back", getQuote:"Get official price", continue:"Continue",
+      quoteTitle:"Guesty quote", quoteEmpty:"Quote will appear here.",
+      bookTitle:"Choose booking type",
+      bookNote:"Request booking creates a Guesty booking request from the quote. Create reservation creates the reservation directly in Guesty when the rate plan allows it.",
+      requestBooking:"Request booking", createReservation:"Create reservation",
+      technical:"Technical response",
+      loadingCalendar:"Loading Guesty calendar...",
+      calendarFailed:"Calendar could not load. Open technical response below.",
+      pleaseDates:"Please select arrival and departure dates on the calendar.",
+      departureAfter:"Please choose a departure date after the arrival date.",
+      minStay:"Minimum stay required. Please choose at least {n} nights.",
+      blockedRange:"This range includes a booked or blocked night. Please choose different dates.",
+      checking:"Checking...",
+      availableResult:"Dates appear available. Enter guest details to load the official Guesty price.",
+      unavailableResult:"These dates appear unavailable. Try another date range or request alternatives.",
+      availabilityFailed:"Availability check failed. Open the technical response below.",
+      requiredGuest:"Please enter first name, last name, and email.",
+      creatingQuote:"Loading price...",
+      quoteCreated:"Official Guesty price loaded. Review it and continue.",
+      quoteFailed:"Quote failed.",
+      noQuote:"No quote ID found. Create a quote first.",
+      booking:"Booking...",
+      sendingRequest:"Sending request...",
+      bookingFailed:"Booking request failed.",
+      reservationReceived:"Reservation received in Guesty.",
+      reservationNote:"Guesty created the reservation. Use the reservation ID or confirmation code to find it in Guesty.",
+      reason:"Reason"
+    },
+    fr: {
+      kicker:"Séjour privé · Saas-Fee",
+      title:"Votre chalet privé en quelques clics",
+      intro:"Sélectionnez vos dates sur le calendrier Guesty en direct, confirmez la disponibilité via le Cloudflare Worker, puis chargez le prix officiel final depuis Guesty.",
+      step1:"1. Calendrier", step2:"2. Invité", step3:"3. Devis", step4:"4. Réserver",
+      sun:"Dim", mon:"Lun", tue:"Mar", wed:"Mer", thu:"Jeu", fri:"Ven", sat:"Sam",
+      yourStay:"Votre séjour", arrival:"Arrivée :", departure:"Départ :", nights:"Nuits :", status:"Statut :",
+      selectDate:"Choisir une date", selectDates:"Choisir les dates", available:"Disponible", booked:"Réservé",
+      priceLabel:"Prix officiel Guesty", quoteOnly:"Sur devis",
+      guests:"Invités", checkDates:"Vérifier les dates", clear:"Effacer",
+      calendarNote:"La disponibilité du calendrier est chargée via le Cloudflare Worker. Les prix ne sont pas affichés sur le calendrier. Le prix final vient uniquement du devis officiel Guesty.",
+      firstName:"Prénom", lastName:"Nom", email:"Email", phone:"Téléphone",
+      firstNamePh:"Prénom", lastNamePh:"Nom",
+      back:"Retour", getQuote:"Obtenir le prix officiel", continue:"Continuer",
+      quoteTitle:"Devis Guesty", quoteEmpty:"Le devis apparaîtra ici.",
+      bookTitle:"Choisir le type de réservation",
+      bookNote:"La demande de réservation crée une demande Guesty depuis le devis. Créer la réservation crée directement la réservation dans Guesty si le plan tarifaire le permet.",
+      requestBooking:"Demander réservation", createReservation:"Créer réservation",
+      technical:"Réponse technique",
+      loadingCalendar:"Chargement du calendrier Guesty...",
+      calendarFailed:"Le calendrier n’a pas pu charger. Ouvrez la réponse technique ci-dessous.",
+      pleaseDates:"Veuillez choisir une date d’arrivée et de départ sur le calendrier.",
+      departureAfter:"Veuillez choisir une date de départ après l’arrivée.",
+      minStay:"Séjour minimum requis. Choisissez au moins {n} nuits.",
+      blockedRange:"Cette période inclut une nuit réservée ou bloquée. Choisissez d’autres dates.",
+      checking:"Vérification...",
+      availableResult:"Les dates semblent disponibles. Entrez les informations invité pour charger le prix officiel Guesty.",
+      unavailableResult:"Ces dates semblent indisponibles. Essayez une autre période ou demandez des alternatives.",
+      availabilityFailed:"La vérification a échoué. Ouvrez la réponse technique ci-dessous.",
+      requiredGuest:"Veuillez entrer prénom, nom et email.",
+      creatingQuote:"Chargement du prix...",
+      quoteCreated:"Prix officiel Guesty chargé. Vérifiez-le puis continuez.",
+      quoteFailed:"Le devis a échoué.",
+      noQuote:"Aucun Quote ID trouvé. Créez d’abord un devis.",
+      booking:"Réservation...",
+      sendingRequest:"Envoi de la demande...",
+      bookingFailed:"La demande de réservation a échoué.",
+      reservationReceived:"Réservation reçue dans Guesty.",
+      reservationNote:"Guesty a créé la réservation. Utilisez l’ID ou le code de confirmation pour la retrouver.",
+      reason:"Raison"
+    },
+    de: {
+      kicker:"Privater Aufenthalt · Saas-Fee",
+      title:"Ihr privates Chalet in wenigen Klicks",
+      intro:"Wählen Sie Ihre Daten im Live-Guesty-Kalender, bestätigen Sie die Verfügbarkeit über den Cloudflare Worker und laden Sie dann den offiziellen Guesty-Endpreis.",
+      step1:"1. Kalender", step2:"2. Gast", step3:"3. Angebot", step4:"4. Buchen",
+      sun:"So", mon:"Mo", tue:"Di", wed:"Mi", thu:"Do", fri:"Fr", sat:"Sa",
+      yourStay:"Ihr Aufenthalt", arrival:"Anreise:", departure:"Abreise:", nights:"Nächte:", status:"Status:",
+      selectDate:"Datum wählen", selectDates:"Daten wählen", available:"Verfügbar", booked:"Gebucht",
+      priceLabel:"Offizieller Guesty-Preis", quoteOnly:"Nur Angebot",
+      guests:"Gäste", checkDates:"Daten prüfen", clear:"Löschen",
+      calendarNote:"Die Kalenderverfügbarkeit wird über den Cloudflare Worker geladen. Preise werden im Kalender nicht angezeigt. Der Endpreis kommt nur aus dem offiziellen Guesty-Angebot.",
+      firstName:"Vorname", lastName:"Nachname", email:"E-Mail", phone:"Telefon",
+      firstNamePh:"Vorname", lastNamePh:"Nachname",
+      back:"Zurück", getQuote:"Offiziellen Preis laden", continue:"Weiter",
+      quoteTitle:"Guesty-Angebot", quoteEmpty:"Das Angebot erscheint hier.",
+      bookTitle:"Buchungsart wählen",
+      bookNote:"Buchungsanfrage erstellt eine Guesty-Anfrage aus dem Angebot. Reservierung erstellen legt direkt eine Reservierung in Guesty an, wenn der Tarifplan es erlaubt.",
+      requestBooking:"Buchung anfragen", createReservation:"Reservierung erstellen",
+      technical:"Technische Antwort",
+      loadingCalendar:"Guesty-Kalender wird geladen...",
+      calendarFailed:"Kalender konnte nicht geladen werden. Technische Antwort unten öffnen.",
+      pleaseDates:"Bitte Anreise- und Abreisedatum im Kalender wählen.",
+      departureAfter:"Bitte ein Abreisedatum nach der Anreise wählen.",
+      minStay:"Mindestaufenthalt erforderlich. Bitte mindestens {n} Nächte wählen.",
+      blockedRange:"Dieser Zeitraum enthält eine gebuchte oder blockierte Nacht. Bitte andere Daten wählen.",
+      checking:"Prüfung...",
+      availableResult:"Die Daten scheinen verfügbar. Geben Sie Gastdaten ein, um den offiziellen Guesty-Preis zu laden.",
+      unavailableResult:"Diese Daten scheinen nicht verfügbar. Bitte andere Daten versuchen.",
+      availabilityFailed:"Verfügbarkeitsprüfung fehlgeschlagen. Technische Antwort unten öffnen.",
+      requiredGuest:"Bitte Vorname, Nachname und E-Mail eingeben.",
+      creatingQuote:"Preis wird geladen...",
+      quoteCreated:"Offizieller Guesty-Preis geladen. Prüfen und fortfahren.",
+      quoteFailed:"Angebot fehlgeschlagen.",
+      noQuote:"Keine Quote ID gefunden. Bitte zuerst Angebot erstellen.",
+      booking:"Buchung...",
+      sendingRequest:"Anfrage wird gesendet...",
+      bookingFailed:"Buchungsanfrage fehlgeschlagen.",
+      reservationReceived:"Reservierung in Guesty erhalten.",
+      reservationNote:"Guesty hat die Reservierung erstellt. Nutzen Sie Reservierungs-ID oder Bestätigungscode.",
+      reason:"Grund"
+    },
+    ru: {
+      kicker:"Частное проживание · Саас-Фе",
+      title:"Ваше частное шале за несколько кликов",
+      intro:"Выберите даты в live-календаре Guesty, подтвердите доступность через Cloudflare Worker, затем загрузите финальную официальную цену Guesty.",
+      step1:"1. Календарь", step2:"2. Гость", step3:"3. Цена", step4:"4. Бронь",
+      sun:"Вс", mon:"Пн", tue:"Вт", wed:"Ср", thu:"Чт", fri:"Пт", sat:"Сб",
+      yourStay:"Ваше пребывание", arrival:"Заезд:", departure:"Выезд:", nights:"Ночей:", status:"Статус:",
+      selectDate:"Выберите дату", selectDates:"Выберите даты", available:"Доступно", booked:"Занято",
+      priceLabel:"Официальная цена Guesty", quoteOnly:"Только quote",
+      guests:"Гости", checkDates:"Проверить даты", clear:"Очистить",
+      calendarNote:"Доступность календаря загружается через Cloudflare Worker. Цены в календаре не показываются. Финальная цена приходит только из официального Guesty quote.",
+      firstName:"Имя", lastName:"Фамилия", email:"Email", phone:"Телефон",
+      firstNamePh:"Имя", lastNamePh:"Фамилия",
+      back:"Назад", getQuote:"Получить официальную цену", continue:"Продолжить",
+      quoteTitle:"Guesty quote", quoteEmpty:"Quote появится здесь.",
+      bookTitle:"Выберите тип бронирования",
+      bookNote:"Request booking создаёт запрос в Guesty из quote. Create reservation создаёт бронь напрямую в Guesty, если тарифный план это разрешает.",
+      requestBooking:"Запросить бронь", createReservation:"Создать бронь",
+      technical:"Технический ответ",
+      loadingCalendar:"Загрузка календаря Guesty...",
+      calendarFailed:"Календарь не загрузился. Откройте технический ответ ниже.",
+      pleaseDates:"Выберите дату заезда и выезда в календаре.",
+      departureAfter:"Выберите дату выезда после даты заезда.",
+      minStay:"Минимальный срок проживания. Выберите минимум {n} ночи.",
+      blockedRange:"Этот период включает занятую или заблокированную ночь. Выберите другие даты.",
+      checking:"Проверка...",
+      availableResult:"Даты выглядят доступными. Введите данные гостя, чтобы загрузить официальную цену Guesty.",
+      unavailableResult:"Эти даты выглядят недоступными. Попробуйте другой период.",
+      availabilityFailed:"Проверка доступности не удалась. Откройте технический ответ ниже.",
+      requiredGuest:"Введите имя, фамилию и email.",
+      creatingQuote:"Загрузка цены...",
+      quoteCreated:"Официальная цена Guesty загружена. Проверьте и продолжайте.",
+      quoteFailed:"Quote не удалось создать.",
+      noQuote:"Quote ID не найден. Сначала создайте quote.",
+      booking:"Бронирование...",
+      sendingRequest:"Отправка запроса...",
+      bookingFailed:"Запрос бронирования не удался.",
+      reservationReceived:"Бронь получена в Guesty.",
+      reservationNote:"Guesty создал бронь. Используйте Reservation ID или confirmation code.",
+      reason:"Причина"
+    }
   };
 
-  function $(s){return root.querySelector(s)}
-  function $$(s){return Array.from(root.querySelectorAll(s))}
+  const state = {
+    lang:"en",
+    currentMonthDate:new Date(),
+    calendarData:null,
+    dayMap:{},
+    checkIn:"",
+    checkOut:"",
+    guests:12,
+    firstName:"",
+    lastName:"",
+    email:"",
+    phone:"",
+    quoteId:"",
+    ratePlanId:"",
+    quote:null
+  };
 
-  var IK="https://ik.imagekit.io/Redberry/";
-
-  var FALLBACK=[
-    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
-    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
-    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg",
-    "https://assets.guesty.com/image/upload/v1769381683/production/686c48ada4bbacd7a82a4f83/gdkntjfg2shhfc8sjsox.jpg",
-    "https://assets.guesty.com/image/upload/v1769381684/production/686c48ada4bbacd7a82a4f83/kzwdncmnkciaw508jnk7.jpg",
-    "https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg"
+  const panels = [
+    root.querySelector("#stepCalendar"),
+    root.querySelector("#stepGuest"),
+    root.querySelector("#stepQuote"),
+    root.querySelector("#stepBook")
   ];
 
-  function img(name){
-    return IK+encodeURIComponent(name).replace(/%2F/g,"/");
-  }
+  const stepLabels = Array.from(root.querySelectorAll("[data-step-label]"));
+  const resultBox = root.querySelector("#resultBox");
+  const debugOutput = root.querySelector("#debugOutput");
+  const quoteBox = root.querySelector("#quoteBox");
+  const calendarGrid = root.querySelector("#calendarGrid");
+  const calendarTitle = root.querySelector("#calendarTitle");
 
-  function seq(base,max,ext){
-    var a=[];
-    for(var i=1;i<=max;i++)a.push(img(base+" ("+i+")."+ext));
-    return a;
-  }
+  const guestsEl = root.querySelector("#guests");
+  const selectedCheckIn = root.querySelector("#selectedCheckIn");
+  const selectedCheckOut = root.querySelector("#selectedCheckOut");
+  const selectedNights = root.querySelector("#selectedNights");
+  const selectedStatus = root.querySelector("#selectedStatus");
+  const selectedEstimate = root.querySelector("#selectedEstimate");
 
-  var IMAGES={
-    hero:FALLBACK.slice(0,6),
-    overview:[img("Exterior 2.jpg"),img("Inside (1).jpg"),img("Inside (2).jpg")],
-    inside:seq("Inside",15,"jpg").concat(FALLBACK),
-    kitchen:[img("Kitchen (6).png"),img("Kitchen (6).jpg"),img("Kitchen (5).png"),img("Kitchen (4).png"),img("Kitchen (3).png"),img("Kitchen (2).png")].concat(FALLBACK),
-    cards:{
-      family:img("Inside (3).jpg"),
-      retreat:img("Home (6).jpg"),
-      event:img("Events (1).jpg"),
-      ski:img("Home-winter (1).jpg"),
-      winter:img("Home-winter (2).jpg"),
-      summer:img("Montains.jpg"),
-      soft:img("Spa (1).jpg")
-    }
-  };
-
-  var state={
-    lang:"en",
-    heroTimer:null,
-    carousels:{}
-  };
-
-  var T={
-    en:{
-      heroKicker:"Private Swiss chalet · Saas-Fee",
-      heroTitle:"Your Private Swiss Chalet Above Saas-Fee",
-      heroLead:"A full-property alpine stay for families, retreats, weddings, ski groups, and private celebrations — with the whole chalet reserved for your group.",
-      fieldFirstName:"First name",
-      fieldFirstNamePh:"First name",
-      fieldLastName:"Last name",
-      fieldLastNamePh:"Last name",
-      fieldEmail:"Email",
-      fieldEmailPh:"email@example.com",
-      fieldArrival:"Arrival",
-      fieldDeparture:"Departure",
-      bookNow:"Book my stay now",
-      bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
-      privateKicker:"The private chalet",
-      privateTitle:"A private alpine house for groups who want the whole place to themselves.",
-      privateLead:"Fletschhorn is a complete private chalet experience above Saas-Fee, with space to sleep, gather, cook, celebrate, reset, and explore the mountains.",
-      conceptKicker:"The concept",
-      conceptTitle:"A full-property stay, made clear from the first section.",
-      conceptText:"Families, retreats, weddings, private celebrations, and ski groups can take over the property as one private alpine base.",
-      proofGuests:"sleeping places",
-      proofHistory:"years of alpine history",
-      proofProperty:"private-property experience",
-      experienceKicker:"The experience",
-      experienceText:"A private property above the village of Saas-Fee — generous spaces, mountain air, and complete privacy for your group.",
-      roomsKicker:"Rooms & suites",
-      roomsTitle:"Private sleeping spaces, shared under one alpine roof.",
-      roomsLead:"Rooms and suites give a group the feeling of being together in one house while still offering privacy for families, couples, and guests who need their own space.",
-      insidePhotoKicker:"Inside Fletschhorn",
-      insidePhotoText:"Bedrooms, suites, warm interiors, and quiet corners for guests who need space to rest.",
-      sleepKicker:"Sleeping rhythm",
-      sleepTitle:"Together, but not crowded.",
-      sleepText:"A private base where the group can stay together without being split across separate hotels.",
-      roomPoint1Title:"Up to 48 sleeping places",
-      roomPoint1Text:"Public website capacity is kept clear and simple.",
-      roomPoint2Title:"Rooms and suites",
-      roomPoint2Text:"Useful for mixed groups, families, retreats, and celebrations.",
-      roomPoint3Title:"One private base",
-      roomPoint3Text:"Guests stay together without feeling like they are split across separate hotels.",
-      staysKicker:"What the house is for",
-      staysTitle:"Different groups, one simple idea: the whole chalet is yours.",
-      staysLead:"Families, retreats, weddings, ski groups, and private celebrations can all use the property as a private alpine base.",
-      familyKicker:"Families",
-      familyTitle:"Space for everyone.",
-      familyText:"Bedrooms, shared rooms, slow mornings, and easy mountain days together.",
-      retreatKicker:"Retreats",
-      retreatTitle:"A focused alpine base.",
-      retreatText:"Gathering spaces, quiet corners, and enough privacy for a real reset.",
-      eventKicker:"Weddings & events",
-      eventTitle:"Your moment, here.",
-      eventText:"In the middle of the Alps, the property becomes the setting for a private celebration.",
-      skiKicker:"Ski groups",
-      skiTitle:"Mountain days, warm returns.",
-      skiText:"A private home base for skiing, glacier air, and evenings together.",
-      foodKicker:"Kitchen & food planning",
-      foodTitle:"A flexible kitchen concept for private group stays.",
-      foodText:"The kitchen can support self-catering, chef or caterer discussions, breakfast planning, buffets, and lunchboxes depending on the group.",
-      foodItem1Title:"Kitchen access",
-      foodItem1Text:"Groups can organize meals around the kitchen and the rhythm of their stay.",
-      foodItem2Title:"Chef or caterer by arrangement",
-      foodItem2Text:"For weddings, retreats, and special events, support can be discussed separately.",
-      foodItem3Title:"Simple planning",
-      foodItem3Text:"Breakfasts, buffets, packed lunches, and group logistics can be planned before arrival.",
-      foodNoteKicker:"Private rhythm",
-      foodNote:"Food planning follows the group, the dates, and the type of stay.",
-      mapKicker:"Access & location",
-      mapTitle:"Above Saas-Fee, private enough to feel away.",
-      mapLead:"The chalet sits above the village. Saas-Fee is car-free, so guests should plan arrival carefully with luggage, weather, and transfer timing in mind.",
-      mapDefault:"Click the cards to explore the property location, village route, arrival planning, or evening movement.",
-      openMap:"Open map",
-      mapCard1Title:"Fletschhorn",
-      mapCard1Text:"View the exact property location above the village.",
-      mapCard2Title:"Village center",
-      mapCard2Text:"See the walking route from the village arrival point.",
-      mapCard3Title:"Arrival planning",
-      mapCard3Text:"View the practical route for coordinated arrival.",
-      mapCard4Title:"Evening plans",
-      mapCard4Text:"See the village area for dinner and evening taxi planning.",
-      areaKicker:"Experiences around Saas-Fee",
-      areaTitle:"A private base for winter, summer, and slow alpine days.",
-      areaLead:"Saas-Fee gives groups a reason to come in every season: skiing, glacier access, summer trails, marmots at Spielboden, Aqua Allalin, Mattmark, Feeblitz, rope park, Hannig, and high-alpine views.",
-      winterKicker:"Winter",
-      winterTitle:"Ski days, glacier air, and quiet evenings.",
-      winterText:"High-altitude skiing, night sledging at Hannig, Ice Pavilion visits, Aqua Allalin, and warm returns to your private chalet.",
-      summerKicker:"Spring / Summer",
-      summerTitle:"Trails, marmots, water, and mountain routes.",
-      summerText:"Spielboden marmots, Feeblitz, rope park, Mattmark Dam, Trotti scooters, and hikes for different energy levels.",
-      softKicker:"Soft days",
-      softTitle:"Wellness, village time, and slow mornings.",
-      softText:"Stillness, views, warm interiors, sauna by request, and the feeling of staying above the rush.",
-      historyKicker:"History",
-      historyTitle:"A mountain property with a century behind it.",
-      historyLead:"A short home-page history adds credibility while the full story can live on the About page.",
-      h1906Title:"Early mountain hospitality begins.",
-      h1906Text:"A family builds mountain inns in Saas-Fee for the first travellers coming to the village.",
-      h1970Title:"The property grows.",
-      h1970Text:"The Dütsch family develops Fletschhorn into a respected alpine property.",
-      h1994Title:"Swiss culinary history.",
-      h1994Text:"Irma Dütsch becomes the first Swiss woman to be awarded a Michelin star.",
-      hNowTitle:"A renewed private chalet.",
-      hNowText:"The story continues as a private alpine base for groups, events, and whole-property stays.",
-      contactKicker:"Contact & booking",
-      contactTitle:"Make this place yours.",
-      contactText:"Send your dates, group size, and the kind of stay you are imagining. We will help you shape the private chalet experience around your group.",
-      addressLabel:"Address",
-      phoneLabel:"Phone",
-      directLabel:"Direct note",
-      directText:"Best rates are available when booking direct.",
-      missingFirstName:"Please enter your first name.",
-      missingLastName:"Please enter your last name.",
-      missingEmail:"Please enter your email.",
-      invalidEmail:"Please enter a valid email address.",
-      missingDates:"Please choose arrival and departure dates.",
-      badDates:"Departure must be after arrival.",
-      redirecting:"Taking you to the booking page…"
-    }
-  };
-
-  T.fr=Object.assign({},T.en,{
-    heroKicker:"Chalet suisse privé · Saas-Fee",
-    heroTitle:"Votre chalet suisse privé au-dessus de Saas-Fee",
-    heroLead:"Un séjour alpin en propriété exclusive pour familles, retraites, mariages, groupes de ski et célébrations privées — avec tout le chalet réservé à votre groupe.",
-    fieldFirstName:"Prénom",
-    fieldFirstNamePh:"Prénom",
-    fieldLastName:"Nom",
-    fieldLastNamePh:"Nom",
-    fieldEmail:"Email",
-    fieldEmailPh:"email@example.com",
-    fieldArrival:"Arrivée",
-    fieldDeparture:"Départ",
-    bookNow:"Réserver mon séjour",
-    bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
-    missingFirstName:"Veuillez entrer votre prénom.",
-    missingLastName:"Veuillez entrer votre nom.",
-    missingEmail:"Veuillez entrer votre email.",
-    invalidEmail:"Veuillez entrer un email valide.",
-    missingDates:"Veuillez choisir les dates d’arrivée et de départ.",
-    badDates:"La date de départ doit être après l’arrivée.",
-    redirecting:"Ouverture de la page de réservation…"
-  });
-
-  T.de=Object.assign({},T.en,{
-    heroKicker:"Privates Schweizer Chalet · Saas-Fee",
-    heroTitle:"Ihr privates Schweizer Chalet oberhalb von Saas-Fee",
-    heroLead:"Ein alpiner Aufenthalt im gesamten Anwesen für Familien, Retreats, Hochzeiten, Skigruppen und private Feiern — das ganze Chalet nur für Ihre Gruppe.",
-    fieldFirstName:"Vorname",
-    fieldFirstNamePh:"Vorname",
-    fieldLastName:"Nachname",
-    fieldLastNamePh:"Nachname",
-    fieldEmail:"E-Mail",
-    fieldEmailPh:"email@example.com",
-    fieldArrival:"Anreise",
-    fieldDeparture:"Abreise",
-    bookNow:"Aufenthalt buchen",
-    bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
-    missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",
-    missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",
-    missingEmail:"Bitte geben Sie Ihre E-Mail ein.",
-    invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-    missingDates:"Bitte wählen Sie Anreise- und Abreisedatum.",
-    badDates:"Die Abreise muss nach der Anreise liegen.",
-    redirecting:"Weiter zur Buchungsseite…"
-  });
-
-  T.ru=Object.assign({},T.en,{
-    heroKicker:"Частное швейцарское шале · Саас-Фе",
-    heroTitle:"Ваше частное швейцарское шале над Саас-Фе",
-    heroLead:"Полный альпийский отдых для семей, ретритов, свадеб, лыжных групп и частных торжеств — всё шале только для вашей группы.",
-    fieldFirstName:"Имя",
-    fieldFirstNamePh:"Имя",
-    fieldLastName:"Фамилия",
-    fieldLastNamePh:"Фамилия",
-    fieldEmail:"Email",
-    fieldEmailPh:"email@example.com",
-    fieldArrival:"Заезд",
-    fieldDeparture:"Выезд",
-    bookNow:"Забронировать",
-    bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
-    missingFirstName:"Введите имя.",
-    missingLastName:"Введите фамилию.",
-    missingEmail:"Введите email.",
-    invalidEmail:"Введите корректный email.",
-    missingDates:"Выберите даты заезда и выезда.",
-    badDates:"Дата выезда должна быть после даты заезда.",
-    redirecting:"Переходим на страницу бронирования…"
-  });
-
-  function t(k){
-    return (T[state.lang]&&T[state.lang][k])||T.en[k]||"";
+  function tr(key){
+    return (TEXT[state.lang] && TEXT[state.lang][key]) || TEXT.en[key] || key;
   }
 
   function applyLanguage(lang){
-    state.lang=T[lang]?lang:"en";
+    state.lang = TEXT[lang] ? lang : "en";
 
-    $$("[data-i18n]").forEach(function(el){
-      var key=el.getAttribute("data-i18n");
-      var val=t(key);
-      if(val)el.textContent=val;
+    root.querySelectorAll("[data-i18n]").forEach(function(el){
+      const key = el.getAttribute("data-i18n");
+      if (tr(key)) el.textContent = tr(key);
     });
 
-    $$("[data-i18n-placeholder]").forEach(function(el){
-      var key=el.getAttribute("data-i18n-placeholder");
-      var val=t(key);
-      if(val)el.setAttribute("placeholder",val);
+    root.querySelectorAll("[data-i18n-placeholder]").forEach(function(el){
+      const key = el.getAttribute("data-i18n-placeholder");
+      if (tr(key)) el.setAttribute("placeholder", tr(key));
     });
 
-    $$(".fh-lang-switch button").forEach(function(btn){
-      btn.classList.toggle("active",btn.getAttribute("data-lang")===state.lang);
+    root.querySelectorAll(".fh-lang button").forEach(function(btn){
+      btn.classList.toggle("is-active", btn.getAttribute("data-lang") === state.lang);
     });
 
-    root.setAttribute("data-current-lang",state.lang);
+    updateSelectionUI();
+    renderCalendar();
   }
 
-  function setStatus(message,type){
-    var box=$("#fhFormStatus");
-    if(!box)return;
-
-    box.classList.add("show");
-    box.classList.toggle("error",type==="error");
-    box.classList.toggle("success",type==="success");
-    box.textContent=message;
-  }
-
-  function emailIsValid(email){
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email||"").trim());
-  }
-
-  function getBookingStartPayload(){
-    var firstName=$("#fhFirstName") ? $("#fhFirstName").value.trim() : "";
-    var lastName=$("#fhLastName") ? $("#fhLastName").value.trim() : "";
-    var email=$("#fhEmail") ? $("#fhEmail").value.trim() : "";
-    var checkIn=$("#fhArrival") ? $("#fhArrival").value : "";
-    var checkOut=$("#fhDeparture") ? $("#fhDeparture").value : "";
-
-    return {
-      listingId:CFG.listingId,
-      firstName:firstName,
-      lastName:lastName,
-      email:email,
-      checkIn:checkIn,
-      checkOut:checkOut,
-      language:state.lang,
-      source:"fletschhorn-homepage-toolbar",
-      pageUrl:window.location.href,
-      createdAt:new Date().toISOString()
-    };
-  }
-
-  function goToBookingPage(){
-    var payload=getBookingStartPayload();
-
-    if(!payload.firstName){
-      setStatus(t("missingFirstName"),"error");
-      $("#fhFirstName")&&$("#fhFirstName").focus();
-      return;
-    }
-
-    if(!payload.lastName){
-      setStatus(t("missingLastName"),"error");
-      $("#fhLastName")&&$("#fhLastName").focus();
-      return;
-    }
-
-    if(!payload.email){
-      setStatus(t("missingEmail"),"error");
-      $("#fhEmail")&&$("#fhEmail").focus();
-      return;
-    }
-
-    if(!emailIsValid(payload.email)){
-      setStatus(t("invalidEmail"),"error");
-      $("#fhEmail")&&$("#fhEmail").focus();
-      return;
-    }
-
-    if(!payload.checkIn || !payload.checkOut){
-      setStatus(t("missingDates"),"error");
-      return;
-    }
-
-    if(payload.checkOut<=payload.checkIn){
-      setStatus(t("badDates"),"error");
-      $("#fhDeparture")&&$("#fhDeparture").focus();
-      return;
-    }
-
-    try{
-      localStorage.setItem("fhBookingStart",JSON.stringify(payload));
-    }catch(e){
-      console.warn("Could not save booking start data.",e);
-    }
-
-    var params=new URLSearchParams();
-    params.set("firstName",payload.firstName);
-    params.set("lastName",payload.lastName);
-    params.set("email",payload.email);
-    params.set("checkIn",payload.checkIn);
-    params.set("checkOut",payload.checkOut);
-    params.set("lang",payload.language);
-    params.set("source","homepage");
-
-    setStatus(t("redirecting"),"success");
-
-    var btn=$("#fhBookNowBtn");
-    if(btn){
-      btn.disabled=true;
-      btn.dataset.oldText=btn.textContent;
-      btn.textContent=t("redirecting");
-    }
-
-    window.location.href=CFG.bookingPageUrl+"?"+params.toString();
-  }
-
-  function setHeroSlides(urls){
-    var hero=$("#fhHeroMedia");
-    if(!hero)return;
-
-    hero.innerHTML="";
-
-    urls.slice(0,8).forEach(function(src,i){
-      var d=document.createElement("div");
-      d.className="fh-hero-slide"+(i===0?" active":"");
-      d.style.backgroundImage="url('"+src+"')";
-      hero.appendChild(d);
+  root.querySelectorAll(".fh-lang button").forEach(function(button){
+    button.addEventListener("click", function(){
+      applyLanguage(button.getAttribute("data-lang"));
     });
+  });
+
+  document.addEventListener("click", function(event){
+    const externalLangButton = event.target.closest("[data-lang], [data-fh-lang]");
+    if (!externalLangButton) return;
+
+    const lang = externalLangButton.getAttribute("data-lang") || externalLangButton.getAttribute("data-fh-lang");
+    if (TEXT[lang]) applyLanguage(lang);
+  });
+
+  root.querySelector("#prevMonthBtn").addEventListener("click", function(){
+    state.currentMonthDate.setMonth(state.currentMonthDate.getMonth() - 1);
+    loadCalendarMonth();
+  });
+
+  root.querySelector("#nextMonthBtn").addEventListener("click", function(){
+    state.currentMonthDate.setMonth(state.currentMonthDate.getMonth() + 1);
+    loadCalendarMonth();
+  });
+
+  root.querySelector("#checkAvailabilityBtn").addEventListener("click", checkAvailability);
+  root.querySelector("#clearDatesBtn").addEventListener("click", clearDates);
+  root.querySelector("#createQuoteBtn").addEventListener("click", createQuote);
+  root.querySelector("#continueToBookBtn").addEventListener("click", function(){ goToStep(4); });
+  root.querySelector("#bookInquiryBtn").addEventListener("click", function(){ bookFromQuote("inquiry"); });
+  root.querySelector("#bookInstantBtn").addEventListener("click", function(){ bookFromQuote("instant"); });
+
+  root.querySelectorAll("[data-back]").forEach(function(button){
+    button.addEventListener("click", function(){
+      goToStep(Number(button.getAttribute("data-back")));
+    });
+  });
+
+  guestsEl.addEventListener("change", function(){
+    state.guests = Number(guestsEl.value || 1);
+    loadCalendarMonth();
+  });
+
+  function goToStep(stepNumber){
+    panels.forEach(function(panel,index){
+      panel.classList.toggle("is-active", index === stepNumber - 1);
+    });
+
+    stepLabels.forEach(function(label,index){
+      label.classList.toggle("is-active", index === stepNumber - 1);
+    });
+
+    clearResult();
   }
 
-  function safeImage(el,srcs,index){
-    if(!el||!srcs||!srcs.length)return;
+  function setResult(type, html){
+    resultBox.className = "fh-result is-visible";
+    if (type) resultBox.classList.add("is-" + type);
+    resultBox.innerHTML = html;
+  }
 
-    var i=index||0;
-    var all=srcs.concat(FALLBACK);
+  function clearResult(){
+    resultBox.className = "fh-result";
+    resultBox.innerHTML = "";
+  }
 
-    el.src=all[i%all.length];
+  function setDebug(value){
+    debugOutput.textContent = typeof value === "string" ? value : JSON.stringify(value, null, 2);
+  }
 
-    el.onerror=function(){
-      i++;
-      if(i<all.length){
-        el.src=all[i%all.length];
-      }else{
-        el.onerror=null;
+  function toDateString(date){
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+    return y + "-" + m + "-" + d;
+  }
+
+  function formatDisplayDate(dateString){
+    if (!dateString) return tr("selectDate");
+    const date = new Date(dateString + "T00:00:00");
+    return date.toLocaleDateString(undefined, { month:"short", day:"numeric", year:"numeric" });
+  }
+
+  function formatMoney(amount, currency){
+    if (amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "—";
+    return Math.round(Number(amount)).toLocaleString() + " " + (currency || DEFAULT_CURRENCY);
+  }
+
+  function getNightCount(checkIn, checkOut){
+    if (!checkIn || !checkOut) return 0;
+    const start = new Date(checkIn + "T00:00:00");
+    const end = new Date(checkOut + "T00:00:00");
+    return Math.round((end - start) / (1000 * 60 * 60 * 24));
+  }
+
+  function getDateRange(checkIn, checkOut){
+    const dates = [];
+    if (!checkIn || !checkOut) return dates;
+
+    const current = new Date(checkIn + "T00:00:00");
+    const end = new Date(checkOut + "T00:00:00");
+
+    while (current < end){
+      dates.push(toDateString(current));
+      current.setDate(current.getDate() + 1);
+    }
+
+    return dates;
+  }
+
+  function getMonthRange(date){
+    const start = new Date(date.getFullYear(), date.getMonth(), 1);
+    const end = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+    return { from:toDateString(start), to:toDateString(end) };
+  }
+
+  async function workerPost(path, payload, throwOnError){
+    if (throwOnError === undefined) throwOnError = true;
+
+    setDebug({
+      request:{
+        url:WORKER_BASE + path,
+        payload:payload
       }
-    };
-  }
-
-  function setStaticImages(){
-    safeImage($('[data-img="overviewMain"]'),[IMAGES.overview[0]].concat(FALLBACK));
-    safeImage($('[data-img="overviewFloat1"]'),[IMAGES.overview[1]].concat(FALLBACK));
-    safeImage($('[data-img="overviewFloat2"]'),[IMAGES.overview[2]].concat(FALLBACK));
-
-    Object.keys(IMAGES.cards).forEach(function(k){
-      var el=$('[data-img="'+k+'"]');
-      if(el)safeImage(el,[IMAGES.cards[k]].concat(FALLBACK));
-    });
-  }
-
-  function initCarousel(name,urls){
-    var box=$('[data-carousel="'+name+'"]');
-    if(!box)return;
-
-    var track=box.querySelector(".fh-carousel-track");
-    if(!track)return;
-
-    track.innerHTML="";
-
-    urls.slice(0,10).forEach(function(src,i){
-      var slide=document.createElement("div");
-      slide.className="fh-carousel-slide";
-
-      var image=document.createElement("img");
-      image.alt=name+" image "+(i+1);
-      safeImage(image,urls,i);
-
-      slide.appendChild(image);
-      track.appendChild(slide);
     });
 
-    var data={idx:0,total:track.children.length,track:track};
-    state.carousels[name]=data;
+    const response = await fetch(WORKER_BASE + path, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify(payload)
+    });
 
-    function move(dir){
-      data.idx=(data.idx+dir+data.total)%data.total;
-      track.style.transform="translateX("+(-100*data.idx)+"%)";
+    const text = await response.text();
+    let data;
+
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = { rawText:text };
     }
 
-    var prev=box.querySelector("[data-prev]");
-    var next=box.querySelector("[data-next]");
+    setDebug({
+      httpStatus:response.status,
+      browserFetchOk:response.ok,
+      data:data
+    });
 
-    if(prev)prev.addEventListener("click",function(){move(-1)});
-    if(next)next.addEventListener("click",function(){move(1)});
+    if (throwOnError && (!response.ok || data.ok === false)){
+      throw data;
+    }
+
+    return data;
   }
 
-  function startSlideshow(){
-    if(state.heroTimer)clearInterval(state.heroTimer);
+  async function loadCalendarMonth(){
+    clearResult();
 
-    var idx=0;
+    const range = getMonthRange(state.currentMonthDate);
 
-    state.heroTimer=window.setInterval(function(){
-      var slides=$$(".fh-hero-slide");
-      if(!slides.length)return;
+    calendarTitle.textContent = state.currentMonthDate.toLocaleDateString(undefined, {
+      month:"long",
+      year:"numeric"
+    });
 
-      slides[idx]&&slides[idx].classList.remove("active");
-      idx=(idx+1)%slides.length;
-      slides[idx]&&slides[idx].classList.add("active");
-    },7200);
-  }
+    calendarGrid.innerHTML =
+      "<div style='grid-column:1/-1;padding:18px;color:rgba(26,20,20,.62);font-weight:850;'>" +
+      tr("loadingCalendar") +
+      "</div>";
 
-  function initDates(){
-    var todayIso=new Date().toISOString().split("T")[0];
-    var arrival=$("#fhArrival");
-    var departure=$("#fhDeparture");
+    try {
+      const data = await workerPost("/guesty/calendar-month-prices", {
+        from:range.from,
+        to:range.to,
+        guests:Number(guestsEl.value || 12)
+      }, false);
 
-    if(arrival)arrival.min=todayIso;
-    if(departure)departure.min=todayIso;
-
-    if(arrival){
-      arrival.addEventListener("change",function(){
-        if(!departure)return;
-        departure.min=arrival.value||todayIso;
-
-        if(departure.value&&arrival.value&&departure.value<=arrival.value){
-          departure.value="";
-        }
-      });
+      state.calendarData = data;
+      state.dayMap = buildDayMap(data.days || data);
+      renderCalendar();
+    } catch (error){
+      console.error(error);
+      calendarGrid.innerHTML =
+        "<div style='grid-column:1/-1;padding:18px;color:#822626;font-weight:850;'>" +
+        tr("calendarFailed") +
+        "</div>";
+      setResult("error", "<strong>" + tr("calendarFailed") + "</strong>");
     }
   }
 
-  function initMap(){
-    $$(".fh-map-note").forEach(function(note){
-      note.addEventListener("click",function(){
-        $$(".fh-map-note").forEach(function(n){n.classList.remove("active")});
-        note.classList.add("active");
+  function buildDayMap(guestyData){
+    const map = {};
+    const array = findCalendarArray(guestyData);
 
-        var frame=$("#fhMapFrame");
-        var open=$("#fhMapOpen");
-        var ctx=$("#fhMapContext");
+    if (!array) return map;
 
-        if(frame&&note.dataset.mapSrc)frame.src=note.dataset.mapSrc;
-        if(open&&note.dataset.mapOpen)open.href=note.dataset.mapOpen;
-
-        if(ctx){
-          ctx.innerHTML="<strong>"+(note.dataset.mapTitle||"Fletschhorn")+"</strong><span>"+(note.dataset.mapText||"")+"</span>";
-        }
-      });
+    array.forEach(function(day){
+      const date = getCalendarDate(day);
+      if (!date) return;
+      map[String(date).slice(0, 10)] = day;
     });
+
+    return map;
   }
 
-  function initReveal(){
-    if("IntersectionObserver" in window){
-      var obs=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){
-            e.target.classList.add("visible");
-            obs.unobserve(e.target);
-          }
+  function findCalendarArray(value){
+    if (Array.isArray(value)) return value;
+    if (!value || typeof value !== "object") return null;
+
+    const commonKeys = ["data", "days", "calendar", "results", "availability", "dates", "items"];
+
+    for (const key of commonKeys){
+      if (Array.isArray(value[key])) return value[key];
+    }
+
+    for (const key of Object.keys(value)){
+      if (Array.isArray(value[key])) return value[key];
+    }
+
+    return null;
+  }
+
+  function getCalendarDate(day){
+    return day.date || day.day || day.startDate || day.checkInDate || day.calendarDate || day.from;
+  }
+
+  function isUnavailable(day){
+    if (!day) return false;
+
+    const status = String(
+      day.status ||
+      day.availability ||
+      day.availabilityStatus ||
+      day.state ||
+      day.booked ||
+      ""
+    ).toLowerCase();
+
+    if (
+      status &&
+      status !== "available" &&
+      status !== "open" &&
+      status !== "bookable" &&
+      status !== "false"
+    ) return true;
+
+    if (day.available === false) return true;
+    if (day.isAvailable === false) return true;
+    if (day.closed === true) return true;
+    if (day.blocked === true) return true;
+    if (day.isBlocked === true) return true;
+    if (day.hardBlocked === true) return true;
+    if (day.booked === true) return true;
+    if (day.reserved === true) return true;
+
+    return false;
+  }
+
+  function renderCalendar(){
+    if (!calendarGrid) return;
+
+    const date = state.currentMonthDate;
+    const first = new Date(date.getFullYear(), date.getMonth(), 1);
+    const last = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const today = toDateString(new Date());
+
+    calendarGrid.innerHTML = "";
+
+    for (let i = 0; i < first.getDay(); i++){
+      const empty = document.createElement("button");
+      empty.type = "button";
+      empty.className = "fh-day is-empty";
+      calendarGrid.appendChild(empty);
+    }
+
+    for (let dayNumber = 1; dayNumber <= last.getDate(); dayNumber++){
+      const dayDate = new Date(date.getFullYear(), date.getMonth(), dayNumber);
+      const dateString = toDateString(dayDate);
+      const guestyDay = state.dayMap[dateString];
+      const unavailable = isUnavailable(guestyDay);
+      const past = dateString < today;
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "fh-day";
+      button.dataset.date = dateString;
+
+      if (past) button.classList.add("is-past");
+      if (unavailable) button.classList.add("is-unavailable");
+
+      button.innerHTML = `
+        <span class="fh-day-number">${dayNumber}</span>
+        ${
+          unavailable
+            ? `<span class="fh-day-status booked">${tr("booked")}</span>`
+            : `<span class="fh-day-status available">${tr("available")}</span>`
+        }
+      `;
+
+      if (!past && !unavailable){
+        button.addEventListener("click", function(){
+          selectDate(dateString);
         });
-      },{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+      }
 
-      $$(".fh-reveal").forEach(function(el){obs.observe(el)});
-    }else{
-      $$(".fh-reveal").forEach(function(el){el.classList.add("visible")});
+      calendarGrid.appendChild(button);
+    }
+
+    updateSelectionUI();
+    paintSelectedRange();
+  }
+
+  function selectDate(dateString){
+    clearResult();
+
+    if (!state.checkIn || state.checkOut){
+      state.checkIn = dateString;
+      state.checkOut = "";
+    } else if (dateString <= state.checkIn){
+      state.checkIn = dateString;
+      state.checkOut = "";
+    } else {
+      const range = getDateRange(state.checkIn, dateString);
+      const hasBlocked = range.some(function(date){
+        return isUnavailable(state.dayMap[date]);
+      });
+
+      if (hasBlocked){
+        setResult("warning", "<strong>" + tr("blockedRange") + "</strong>");
+        return;
+      }
+
+      state.checkOut = dateString;
+    }
+
+    state.quoteId = "";
+    state.ratePlanId = "";
+    state.quote = null;
+
+    updateSelectionUI();
+    paintSelectedRange();
+  }
+
+  function clearDates(){
+    state.checkIn = "";
+    state.checkOut = "";
+    state.quoteId = "";
+    state.ratePlanId = "";
+    state.quote = null;
+    updateSelectionUI();
+    paintSelectedRange();
+    clearResult();
+  }
+
+  function updateSelectionUI(){
+    selectedCheckIn.textContent = state.checkIn ? formatDisplayDate(state.checkIn) : tr("selectDate");
+    selectedCheckOut.textContent = state.checkOut ? formatDisplayDate(state.checkOut) : tr("selectDate");
+    selectedNights.textContent = String(getNightCount(state.checkIn, state.checkOut));
+
+    if (!state.checkIn || !state.checkOut){
+      selectedStatus.textContent = tr("selectDates");
+      selectedEstimate.textContent = tr("quoteOnly");
+      return;
+    }
+
+    const range = getDateRange(state.checkIn, state.checkOut);
+    const hasBlocked = range.some(function(date){
+      return isUnavailable(state.dayMap[date]);
+    });
+
+    selectedStatus.textContent = hasBlocked ? tr("booked") : tr("available");
+    selectedEstimate.textContent = tr("quoteOnly");
+  }
+
+  function paintSelectedRange(){
+    const dayButtons = Array.from(root.querySelectorAll(".fh-day[data-date]"));
+
+    dayButtons.forEach(function(button){
+      const date = button.dataset.date;
+
+      button.classList.remove("is-selected", "is-range", "is-start", "is-end");
+
+      if (state.checkIn && !state.checkOut && date === state.checkIn){
+        button.classList.add("is-selected");
+      }
+
+      if (state.checkIn && state.checkOut){
+        if (date === state.checkIn) button.classList.add("is-start");
+        if (date === state.checkOut) button.classList.add("is-end");
+        if (date > state.checkIn && date < state.checkOut) button.classList.add("is-range");
+      }
+    });
+  }
+
+  function validateDates(){
+    state.guests = Number(guestsEl.value || 1);
+
+    if (!state.checkIn || !state.checkOut){
+      setResult("error", "<strong>" + tr("pleaseDates") + "</strong>");
+      return false;
+    }
+
+    if (state.checkOut <= state.checkIn){
+      setResult("error", "<strong>" + tr("departureAfter") + "</strong>");
+      return false;
+    }
+
+    const nights = getNightCount(state.checkIn, state.checkOut);
+
+    if (nights < MIN_NIGHTS){
+      setResult("warning", "<strong>" + tr("minStay").replace("{n}", MIN_NIGHTS) + "</strong>");
+      return false;
+    }
+
+    const range = getDateRange(state.checkIn, state.checkOut);
+    const hasBlocked = range.some(function(date){
+      return isUnavailable(state.dayMap[date]);
+    });
+
+    if (hasBlocked){
+      setResult("warning", "<strong>" + tr("blockedRange") + "</strong>");
+      return false;
+    }
+
+    return true;
+  }
+
+  function collectGuest(){
+    state.firstName = root.querySelector("#firstName").value.trim();
+    state.lastName = root.querySelector("#lastName").value.trim();
+    state.email = root.querySelector("#email").value.trim();
+    state.phone = root.querySelector("#phone").value.trim();
+  }
+
+  function validateGuest(){
+    collectGuest();
+
+    if (!state.firstName || !state.lastName || !state.email){
+      setResult("error", "<strong>" + tr("requiredGuest") + "</strong>");
+      return false;
+    }
+
+    return true;
+  }
+
+  async function checkAvailability(){
+    clearResult();
+
+    if (!validateDates()) return;
+
+    const button = root.querySelector("#checkAvailabilityBtn");
+    button.disabled = true;
+    button.textContent = tr("checking");
+
+    try {
+      const data = await workerPost("/guesty/check-availability", {
+        checkIn:state.checkIn,
+        checkOut:state.checkOut,
+        guests:state.guests
+      });
+
+      if (data.available){
+        setResult("success", "<strong>" + tr("availableResult") + "</strong>");
+        goToStep(2);
+      } else {
+        setResult("warning", "<strong>" + tr("unavailableResult") + "</strong>");
+      }
+    } catch (error){
+      console.error(error);
+      setResult("error", "<strong>" + tr("availabilityFailed") + "</strong>");
+    } finally {
+      button.disabled = false;
+      button.textContent = tr("checkDates");
     }
   }
 
-  function prefillFromExistingBookingStart(){
-    var data={};
+  async function createQuote(){
+    clearResult();
 
-    try{
-      data=JSON.parse(localStorage.getItem("fhBookingStart")||"{}");
-    }catch(e){
-      data={};
+    if (!validateDates()) return;
+    if (!validateGuest()) return;
+
+    const button = root.querySelector("#createQuoteBtn");
+    button.disabled = true;
+    button.textContent = tr("creatingQuote");
+
+    try {
+      const data = await workerPost("/guesty/quote", {
+        checkIn:state.checkIn,
+        checkOut:state.checkOut,
+        guests:state.guests,
+        firstName:state.firstName,
+        lastName:state.lastName,
+        email:state.email,
+        phone:state.phone
+      });
+
+      state.quoteId = data.quoteId || data.id || data._id || findQuoteId(data);
+      state.ratePlanId = data.ratePlanId || findRatePlanId(data.quote || data);
+      state.quote = data.quote || data;
+
+      renderQuote(data);
+
+      setResult("success", "<strong>" + tr("quoteCreated") + "</strong>");
+      goToStep(3);
+    } catch (error){
+      console.error(error);
+
+      const guestyMessage =
+        error &&
+        error.guestyData &&
+        error.guestyData.error &&
+        error.guestyData.error.message
+          ? error.guestyData.error.message
+          : "";
+
+      setResult("error", "<strong>" + tr("quoteFailed") + "</strong> " + htmlEscape(guestyMessage));
+    } finally {
+      button.disabled = false;
+      button.textContent = tr("getQuote");
+    }
+  }
+
+  function renderQuote(data){
+    const quote = data.quote || {};
+    const summary = data.summary || {};
+    const quoteId = state.quoteId || quote._id || quote.id || "";
+    const ratePlanId = state.ratePlanId || data.ratePlanId || findRatePlanId(quote || data);
+
+    const currency = findCurrency(quote) || findCurrency(summary) || DEFAULT_CURRENCY;
+    const total = findTotal(quote) || findTotal(summary);
+    const invoiceItems = findInvoiceItems(quote) || findInvoiceItems(summary);
+
+    let itemsHtml = "";
+
+    if (invoiceItems.length){
+      itemsHtml = invoiceItems.map(function(item){
+        const title =
+          item.title ||
+          item.name ||
+          item.type ||
+          item.description ||
+          item.normalType ||
+          "Item";
+
+        const amount =
+          item.amount ||
+          item.total ||
+          item.value ||
+          item.price ||
+          item.totalPrice ||
+          "";
+
+        const itemCurrency = item.currency || currency || "";
+
+        return `
+          <div class="fh-line-item">
+            <span>${htmlEscape(title)}</span>
+            <span>${amount ? formatMoney(amount, itemCurrency) : "Included"}</span>
+          </div>
+        `;
+      }).join("");
     }
 
-    if(data.firstName&&$("#fhFirstName"))$("#fhFirstName").value=data.firstName;
-    if(data.lastName&&$("#fhLastName"))$("#fhLastName").value=data.lastName;
-    if(data.email&&$("#fhEmail"))$("#fhEmail").value=data.email;
-    if(data.checkIn&&$("#fhArrival"))$("#fhArrival").value=data.checkIn;
-    if(data.checkOut&&$("#fhDeparture"))$("#fhDeparture").value=data.checkOut;
+    selectedEstimate.textContent = total ? formatMoney(total, currency) : tr("quoteOnly");
+
+    quoteBox.innerHTML = `
+      <h3>${tr("quoteTitle")}</h3>
+      <div class="fh-money">
+        ${total ? formatMoney(total, currency) : "Price returned"}
+      </div>
+      <div class="fh-note">
+        Quote ID: ${quoteId ? htmlEscape(quoteId) : "Not found in response"}<br>
+        Rate Plan ID: ${ratePlanId ? htmlEscape(ratePlanId) : "Not found in response"}
+      </div>
+      <div class="fh-line-items">
+        ${
+          itemsHtml ||
+          "<div class='fh-line-item'><span>Pricing details</span><span>Open technical response</span></div>"
+        }
+      </div>
+    `;
   }
 
-  $$(".fh-lang-switch button").forEach(function(btn){
-    btn.addEventListener("click",function(e){
-      e.preventDefault();
-      applyLanguage(btn.getAttribute("data-lang"));
-    });
-  });
+  async function bookFromQuote(mode){
+    clearResult();
 
-  document.addEventListener("click",function(e){
-    var external=e.target.closest("[data-lang],[data-fh-lang]");
-    if(!external)return;
+    if (!state.quoteId){
+      setResult("error", "<strong>" + tr("noQuote") + "</strong>");
+      return;
+    }
 
-    var lang=external.getAttribute("data-lang")||external.getAttribute("data-fh-lang");
-    if(T[lang])applyLanguage(lang);
-  });
+    const path = mode === "instant" ? "/guesty/book-instant" : "/guesty/book-inquiry";
 
-  if($("#fhBookNowBtn")){
-    $("#fhBookNowBtn").addEventListener("click",function(e){
-      e.preventDefault();
-      goToBookingPage();
+    const button = mode === "instant"
+      ? root.querySelector("#bookInstantBtn")
+      : root.querySelector("#bookInquiryBtn");
+
+    button.disabled = true;
+    button.textContent = mode === "instant" ? tr("booking") : tr("sendingRequest");
+
+    try {
+      const data = await workerPost(path, {
+        quoteId:state.quoteId,
+        ratePlanId:state.ratePlanId,
+        firstName:state.firstName,
+        lastName:state.lastName,
+        email:state.email,
+        phone:state.phone
+      });
+
+      setResult("success", renderReservationSuccess(data));
+    } catch (error){
+      console.error(error);
+
+      const guestyMessage =
+        error?.guestyData?.error?.message ||
+        error?.guestyData?.message ||
+        error?.error ||
+        "Open the technical response below.";
+
+      const guestyCode =
+        error?.guestyData?.error?.code ||
+        error?.guestyData?.code ||
+        "";
+
+      setResult(
+        "error",
+        `
+          <strong>${tr("bookingFailed")}</strong>
+          ${guestyCode ? `<br><b>Guesty code:</b> ${htmlEscape(guestyCode)}` : ""}
+          <br><b>${tr("reason")}:</b> ${htmlEscape(guestyMessage)}
+        `
+      );
+    } finally {
+      button.disabled = false;
+      button.textContent = mode === "instant" ? tr("createReservation") : tr("requestBooking");
+    }
+  }
+
+  function renderReservationSuccess(data){
+    const summary = data.summary || {};
+    const reservation = data.reservation || {};
+    const currency = summary.currency || findCurrency(reservation) || DEFAULT_CURRENCY;
+
+    const reservationId = summary.reservationId || data.reservationId || reservation._id || reservation.id || "";
+    const confirmationCode = summary.confirmationCode || data.confirmationCode || reservation.confirmationCode || "";
+    const status = summary.status || data.status || reservation.status || "created";
+    const checkIn = summary.checkIn || reservation.checkInDateLocalized || reservation.checkIn || state.checkIn;
+    const checkOut = summary.checkOut || reservation.checkOutDateLocalized || reservation.checkOut || state.checkOut;
+    const nights = summary.nights || getNightCount(state.checkIn, state.checkOut);
+    const guests = summary.guestsCount || summary.adults || state.guests;
+    const listingTitle = summary.listing?.title || reservation.listing?.title || reservation.listing?.nickname || "Fletschhorn";
+
+    const rows = [
+      ["Status", status],
+      ["Reservation ID", reservationId],
+      ["Confirmation code", confirmationCode],
+      ["Check-in", formatDisplayDate(String(checkIn).slice(0, 10))],
+      ["Check-out", formatDisplayDate(String(checkOut).slice(0, 10))],
+      ["Nights", nights],
+      ["Guests", guests],
+      ["Listing", listingTitle],
+      ["Channel / source", summary.websiteName || summary.source || summary.channel || data.bookingMode || "Website"],
+      ["Balance due", formatMoney(summary.balanceDue, currency)],
+      ["Paid", formatMoney(summary.paid, currency)],
+      ["Payout", formatMoney(summary.payout, currency)]
+    ];
+
+    const rowHtml = rows.map(function(row){
+      return `<div class="fh-line-item"><span>${htmlEscape(row[0])}</span><span>${formatValue(row[1])}</span></div>`;
+    }).join("");
+
+    return `
+      <strong>${tr("reservationReceived")}</strong>
+      <div class="fh-money">${formatMoney(summary.balanceDue || summary.total, currency)}</div>
+      <div class="fh-note">${tr("reservationNote")}</div>
+      <div class="fh-line-items">${rowHtml}</div>
+    `;
+  }
+
+  function findQuoteId(value){
+    return walk(value, function(x){
+      if (typeof x.quoteId === "string") return x.quoteId;
+      if (typeof x._id === "string" && (x.rates || x.ratePlans || x.money || x.invoiceItems)) return x._id;
+      if (typeof x.id === "string" && (x.rates || x.ratePlans || x.money || x.invoiceItems)) return x.id;
+      return null;
+    }) || "";
+  }
+
+  function findRatePlanId(value){
+    if (!value || typeof value !== "object") return "";
+
+    if (typeof value.ratePlanId === "string") return value.ratePlanId;
+    if (typeof value.rateId === "string") return value.rateId;
+    if (typeof value.ratePlan === "string") return value.ratePlan;
+
+    if (typeof value._id === "string" && (value.rateName || value.ratePlanName || value.name)) return value._id;
+    if (typeof value.id === "string" && (value.rateName || value.ratePlanName || value.name)) return value.id;
+
+    if (Array.isArray(value.ratePlans) && value.ratePlans.length){
+      const first = value.ratePlans[0];
+      return first.ratePlanId || first.rateId || first._id || first.id || "";
+    }
+
+    if (Array.isArray(value.rates) && value.rates.length){
+      const first = value.rates[0];
+      return first.ratePlanId || first.rateId || first._id || first.id || "";
+    }
+
+    for (const key of Object.keys(value)){
+      if (value[key] && typeof value[key] === "object"){
+        const found = findRatePlanId(value[key]);
+        if (found) return found;
+      }
+    }
+
+    return "";
+  }
+
+  function walk(obj, visitor){
+    if (!obj || typeof obj !== "object") return null;
+
+    const direct = visitor(obj);
+    if (direct !== null && direct !== undefined) return direct;
+
+    if (Array.isArray(obj)){
+      for (const item of obj){
+        const found = walk(item, visitor);
+        if (found !== null && found !== undefined) return found;
+      }
+    } else {
+      for (const key of Object.keys(obj)){
+        const found = walk(obj[key], visitor);
+        if (found !== null && found !== undefined) return found;
+      }
+    }
+
+    return null;
+  }
+
+  function findCurrency(obj){
+    return walk(obj, function(x){
+      if (typeof x.currency === "string") return x.currency;
+      return null;
     });
   }
 
-  setHeroSlides(IMAGES.hero);
-  setStaticImages();
-  initCarousel("inside",IMAGES.inside);
-  initCarousel("kitchen",IMAGES.kitchen);
-  startSlideshow();
-  initDates();
-  initMap();
-  initReveal();
-  prefillFromExistingBookingStart();
+  function findTotal(obj){
+    const fields = [
+      "totalPrice",
+      "total",
+      "grandTotal",
+      "subTotalPrice",
+      "balanceDue",
+      "hostPayout",
+      "fareAccommodationAdjusted",
+      "fareAccommodation",
+      "amount"
+    ];
+
+    return walk(obj, function(x){
+      for (const field of fields){
+        if (typeof x[field] === "number") return x[field];
+        if (typeof x[field] === "string" && !isNaN(Number(x[field]))) return Number(x[field]);
+      }
+
+      return null;
+    });
+  }
+
+  function findInvoiceItems(obj){
+    return walk(obj, function(x){
+      if (Array.isArray(x.invoiceItems)) return x.invoiceItems;
+      if (Array.isArray(x.lineItems)) return x.lineItems;
+      if (Array.isArray(x.items)) return x.items;
+      return null;
+    }) || [];
+  }
+
+  function htmlEscape(value){
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function formatValue(value, fallback){
+    if (fallback === undefined) fallback = "—";
+    if (value === null || value === undefined || value === "") return fallback;
+    return htmlEscape(value);
+  }
+
   applyLanguage("en");
-
-  console.log("Fletschhorn homepage index ready. Toolbar redirects to:",CFG.bookingPageUrl);
+  loadCalendarMonth();
 })();
 </script>
