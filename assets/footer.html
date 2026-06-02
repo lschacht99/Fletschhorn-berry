@@ -1,0 +1,297 @@
+<!-- ==========================================================
+Fletschhorn — Global Footer Only
+Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
+========================================================== -->
+<script>
+(function(){
+
+  const FH_WORKER_BASE = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  const FH_INQUIRY_ENDPOINT = FH_WORKER_BASE.replace(/\/$/, "") + "/api/inquiry";
+
+  window.FH_WORKER_BASE = FH_WORKER_BASE;
+  window.FH_WORKER_ENDPOINT = FH_WORKER_BASE;
+  window.FH_INQUIRY_ENDPOINT = FH_INQUIRY_ENDPOINT;
+  window.CLOUDFLARE_INQUIRY_ENDPOINT = FH_INQUIRY_ENDPOINT;
+
+  const FH_FOOTER_PAGES = [
+    { label:'Home', href:'/Home' },
+    { label:'The Property', href:'/the-property' },
+    { label:'Experiences', href:'/experiences' },
+    { label:'Wedding & Events', href:'/your-wedding-or-event' },
+    { label:'Booking', href:'/booking' },
+    { label:'About Us', href:'/about-us' }
+  ];
+
+  function makeFooter(){
+    const links = FH_FOOTER_PAGES.map(page => `
+      <a href="${page.href}">${page.label}</a>
+    `).join('');
+
+    return `
+      <footer class="fh-global-footer" id="fhGlobalFooter">
+        <div class="fh-footer-inner">
+
+          <div class="fh-footer-brand">
+            <a href="/home" class="fh-footer-logo" aria-label="Fletschhorn home">
+              <span class="fh-footer-mark">
+                <img src="/s/Saas-Fee-Logo.jpeg" alt="Fletschhorn" onerror="this.style.display='none'; this.parentElement.textContent='fh';" />
+              </span>
+              <span>
+                <strong>Fletschhorn</strong>
+                <small>Private alpine house · Saas-Fee</small>
+              </span>
+            </a>
+
+            <p>
+              A calm private alpine house for stays, weddings, retreats and meaningful events in Saas-Fee.
+            </p>
+
+            <a class="fh-footer-cta" href="/booking">Send an inquiry</a>
+          </div>
+
+          <div class="fh-footer-col">
+            <h3>Explore</h3>
+            <nav class="fh-footer-links" aria-label="Footer navigation">
+              ${links}
+            </nav>
+          </div>
+
+          <div class="fh-footer-col">
+            <h3>Contact</h3>
+            <p>
+              Waldhotel Fletschhorn<br>
+              Wildistrasse<br>
+              3906 Saas-Fee, Switzerland
+            </p>
+            <p>
+              <a href="tel:+41279572131">+41 27 957 2131</a><br>
+              <a href="mailto:welcome@fletschhorn.ch">welcome@fletschhorn.ch</a>
+            </p>
+          </div>
+
+          <div class="fh-footer-col">
+            <h3>Direct booking</h3>
+            <p>
+              Best rates guaranteed when booking direct.
+            </p>
+            <p class="fh-footer-small">
+              Inquiry endpoint connected through Cloudflare Worker:<br>
+              <span>${FH_INQUIRY_ENDPOINT}</span>
+            </p>
+          </div>
+
+        </div>
+
+        <div class="fh-footer-bottom">
+          <span>© ${new Date().getFullYear()} Fletschhorn. All rights reserved.</span>
+          <span>Saas-Fee · Switzerland</span>
+        </div>
+      </footer>
+    `;
+  }
+
+  function initFooter(){
+    if(document.getElementById('fhGlobalFooter')) return;
+
+    const nativeFooter = document.querySelector('footer:not(#fhGlobalFooter), .Footer, .SiteFooter, [data-test="footer"]');
+    if(nativeFooter){
+      nativeFooter.style.display = 'none';
+    }
+
+    document.body.insertAdjacentHTML('beforeend', makeFooter());
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initFooter);
+  }else{
+    initFooter();
+  }
+
+})();
+</script>
+
+<style>
+.fh-global-footer{
+  position:relative;
+  z-index:20;
+  margin-top:0;
+  padding:70px 6vw 34px;
+  background:
+    radial-gradient(circle at 16% 10%, rgba(255,255,255,.74), transparent 28%),
+    radial-gradient(circle at 84% 18%, rgba(199,206,197,.34), transparent 30%),
+    linear-gradient(135deg,#f7f4ed 0%,#ebe6dc 48%,#dde3d8 100%);
+  color:#172018;
+  border-top:1px solid rgba(23,32,24,.10);
+  overflow:hidden;
+}
+
+.fh-global-footer::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(120deg, transparent 0 34%, rgba(255,255,255,.28) 46%, transparent 58%),
+    radial-gradient(circle at 50% 100%, rgba(23,74,42,.08), transparent 38%);
+  pointer-events:none;
+}
+
+.fh-footer-inner{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(260px,1.35fr) minmax(160px,.7fr) minmax(210px,.8fr) minmax(220px,.8fr);
+  gap:42px;
+  align-items:start;
+  max-width:1280px;
+  margin:0 auto;
+}
+
+.fh-footer-logo{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  color:inherit;
+  text-decoration:none;
+}
+
+.fh-footer-mark{
+  width:54px;
+  height:54px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.68);
+  border:1px solid rgba(23,32,24,.10);
+  overflow:hidden;
+  font-family:Georgia,serif;
+  font-style:italic;
+  font-size:20px;
+  box-shadow:0 14px 34px rgba(23,32,24,.08);
+}
+
+.fh-footer-mark img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.fh-footer-logo strong{
+  display:block;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:31px;
+  line-height:.95;
+  font-weight:400;
+  letter-spacing:-.04em;
+}
+
+.fh-footer-logo small{
+  display:block;
+  margin-top:6px;
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(23,32,24,.52);
+}
+
+.fh-footer-brand p,
+.fh-footer-col p{
+  max-width:390px;
+  margin:22px 0 0;
+  font-size:15px;
+  line-height:1.65;
+  color:rgba(23,32,24,.66);
+}
+
+.fh-footer-col h3{
+  margin:0 0 18px;
+  font-size:11px;
+  line-height:1;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(23,32,24,.48);
+}
+
+.fh-footer-links{
+  display:grid;
+  gap:11px;
+}
+
+.fh-footer-links a,
+.fh-footer-col a{
+  color:rgba(23,32,24,.78);
+  text-decoration:none;
+  font-size:15px;
+  line-height:1.4;
+  transition:color .25s ease, transform .25s ease;
+}
+
+.fh-footer-links a:hover,
+.fh-footer-col a:hover{
+  color:#174f2f;
+}
+
+.fh-footer-links a:hover{
+  transform:translateX(3px);
+}
+
+.fh-footer-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:28px;
+  padding:13px 18px;
+  border-radius:999px;
+  background:#173f28;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  font-size:14px;
+  box-shadow:0 16px 36px rgba(23,63,40,.22);
+}
+
+.fh-footer-small{
+  font-size:12px !important;
+  line-height:1.55 !important;
+  color:rgba(23,32,24,.46) !important;
+}
+
+.fh-footer-small span{
+  word-break:break-word;
+}
+
+.fh-footer-bottom{
+  position:relative;
+  max-width:1280px;
+  margin:50px auto 0;
+  padding-top:22px;
+  border-top:1px solid rgba(23,32,24,.10);
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  font-size:12px;
+  letter-spacing:.04em;
+  color:rgba(23,32,24,.48);
+}
+
+@media(max-width:980px){
+  .fh-footer-inner{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:640px){
+  .fh-global-footer{
+    padding:52px 24px 28px;
+  }
+
+  .fh-footer-inner{
+    grid-template-columns:1fr;
+    gap:34px;
+  }
+
+  .fh-footer-bottom{
+    flex-direction:column;
+    margin-top:38px;
+  }
+}
+</style>
