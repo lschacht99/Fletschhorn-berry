@@ -1,38 +1,87 @@
-<!-- Fletschhorn / Guesty booking widget -->
-<section id="fh-guesty-booking">
+<section id="fh-booking-widget">
   <style>
-    #fh-guesty-booking {
-      max-width: 980px;
+    #fh-booking-widget {
+      --fh-ink: #1a1714;
+      --fh-muted: rgba(26, 23, 20, .66);
+      --fh-paper: #fffaf3;
+      --fh-line: rgba(26, 23, 20, .12);
+      --fh-dark: #1a1714;
+      --fh-bg: rgba(255, 250, 243, .88);
+      --fh-soft: rgba(255, 255, 255, .74);
+      --fh-shadow: 0 24px 70px rgba(0,0,0,.10);
+
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 28px;
-      border-radius: 28px;
-      background: rgba(255, 250, 243, 0.86);
-      border: 1px solid rgba(26, 23, 20, 0.12);
-      box-shadow: 0 18px 48px rgba(0,0,0,.08);
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #1a1714;
+      padding: clamp(22px, 4vw, 42px);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255,255,255,.9), transparent 34%),
+        linear-gradient(135deg, rgba(255,250,243,.94), rgba(239,232,220,.82));
+      border: 1px solid var(--fh-line);
+      box-shadow: var(--fh-shadow);
+      color: var(--fh-ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      position: relative;
+      overflow: hidden;
     }
 
-    #fh-guesty-booking h2 {
+    #fh-booking-widget * {
+      box-sizing: border-box;
+    }
+
+    #fh-booking-widget::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.55), transparent 16%),
+        radial-gradient(circle at 80% 10%, rgba(185,159,134,.18), transparent 18%),
+        radial-gradient(circle at 70% 80%, rgba(255,255,255,.42), transparent 18%);
+      pointer-events: none;
+    }
+
+    .fh-booking-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .fh-booking-kicker {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 11px;
+      font-weight: 800;
+      color: rgba(26, 23, 20, .52);
+    }
+
+    .fh-booking-title {
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(32px, 5vw, 54px);
-      line-height: .95;
-      letter-spacing: -.04em;
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: .92;
+      letter-spacing: -.055em;
       font-weight: 400;
-      margin: 0 0 10px;
+      margin: 0 0 14px;
+      max-width: 760px;
     }
 
-    #fh-guesty-booking p {
-      color: rgba(26, 23, 20, .66);
+    .fh-booking-intro {
+      margin: 0 0 28px;
+      color: var(--fh-muted);
+      font-size: clamp(16px, 2vw, 19px);
       line-height: 1.6;
-      margin: 0 0 22px;
+      max-width: 760px;
     }
 
-    .fh-booking-grid {
+    .fh-booking-form {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: 1fr 1fr 170px 190px;
       gap: 14px;
       align-items: end;
+      padding: 16px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.56);
+      border: 1px solid rgba(26,23,20,.08);
+      backdrop-filter: blur(14px);
     }
 
     .fh-field label {
@@ -41,45 +90,62 @@
       text-transform: uppercase;
       letter-spacing: .14em;
       font-weight: 800;
-      margin-bottom: 7px;
-      color: rgba(26, 23, 20, .55);
+      color: rgba(26,23,20,.52);
+      margin-bottom: 8px;
     }
 
     .fh-field input,
     .fh-field select {
       width: 100%;
-      border: 1px solid rgba(26, 23, 20, .12);
-      background: rgba(255,255,255,.82);
-      border-radius: 16px;
-      padding: 14px 14px;
+      min-height: 52px;
+      border: 1px solid rgba(26,23,20,.12);
+      background: rgba(255,255,255,.86);
+      border-radius: 17px;
+      padding: 13px 14px;
       font: inherit;
-      color: #1a1714;
+      color: var(--fh-ink);
+      outline: none;
+    }
+
+    .fh-field input:focus,
+    .fh-field select:focus {
+      border-color: rgba(26,23,20,.32);
+      box-shadow: 0 0 0 3px rgba(26,23,20,.06);
     }
 
     .fh-booking-button {
-      width: 100%;
+      min-height: 52px;
       border: 0;
       border-radius: 999px;
-      padding: 15px 18px;
-      background: #1a1714;
-      color: #fffaf3;
+      padding: 14px 18px;
+      background: var(--fh-dark);
+      color: var(--fh-paper);
       font-weight: 800;
+      font: inherit;
       cursor: pointer;
-      box-shadow: 0 14px 30px rgba(26,23,20,.20);
+      box-shadow: 0 14px 30px rgba(26,23,20,.22);
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .fh-booking-button:hover {
+      transform: translateY(-1px);
     }
 
     .fh-booking-button:disabled {
-      opacity: .55;
-      cursor: not-allowed;
+      opacity: .58;
+      cursor: wait;
+      transform: none;
     }
 
     .fh-booking-result {
-      margin-top: 18px;
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.72);
-      border: 1px solid rgba(26,23,20,.10);
       display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(26,23,20,.10);
+      color: var(--fh-muted);
+      line-height: 1.55;
     }
 
     .fh-booking-result.is-visible {
@@ -88,7 +154,24 @@
 
     .fh-booking-result strong {
       display: block;
-      margin-bottom: 6px;
+      color: var(--fh-ink);
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .fh-booking-result.is-success {
+      border-color: rgba(45, 112, 74, .22);
+      background: rgba(246, 255, 249, .72);
+    }
+
+    .fh-booking-result.is-warning {
+      border-color: rgba(150, 101, 35, .24);
+      background: rgba(255, 248, 237, .78);
+    }
+
+    .fh-booking-result.is-error {
+      border-color: rgba(130, 38, 38, .22);
+      background: rgba(255, 245, 245, .78);
     }
 
     .fh-booking-actions {
@@ -98,37 +181,62 @@
       margin-top: 14px;
     }
 
-    .fh-secondary-link {
+    .fh-booking-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      min-height: 42px;
+      padding: 11px 16px;
       border-radius: 999px;
-      padding: 12px 16px;
-      background: rgba(26,23,20,.08);
-      color: #1a1714;
+      background: rgba(26,23,20,.09);
+      color: var(--fh-ink);
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
+      font-size: 14px;
     }
 
-    @media (max-width: 800px) {
-      #fh-guesty-booking {
-        padding: 22px;
-        border-radius: 24px;
+    .fh-booking-link.primary {
+      background: var(--fh-dark);
+      color: var(--fh-paper);
+    }
+
+    .fh-booking-note {
+      margin: 16px 0 0;
+      font-size: 13px;
+      color: rgba(26,23,20,.54);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .fh-booking-form {
+        grid-template-columns: 1fr 1fr;
       }
 
-      .fh-booking-grid {
+      .fh-booking-button {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      #fh-booking-widget {
+        border-radius: 26px;
+      }
+
+      .fh-booking-form {
         grid-template-columns: 1fr;
+        padding: 12px;
       }
     }
   </style>
 
-  <h2>Your private chalet in a few clicks</h2>
-  <p>
-    Choose your dates and group size. Availability is checked securely through our booking system.
-  </p>
+  <div class="fh-booking-inner">
+    <p class="fh-booking-kicker">Private stay · Saas-Fee</p>
+    <h2 class="fh-booking-title">Your private chalet in a few clicks</h2>
+    <p class="fh-booking-intro">
+      Choose your dates and group size. We’ll check the property calendar securely through our booking system.
+    </p>
 
-  <form id="fhBookingForm">
-    <div class="fh-booking-grid">
+    <form class="fh-booking-form" id="fhBookingForm">
       <div class="fh-field">
         <label for="fhCheckIn">Arrival</label>
         <input id="fhCheckIn" name="checkIn" type="date" required>
@@ -158,45 +266,47 @@
       <button class="fh-booking-button" id="fhBookingButton" type="submit">
         Check availability
       </button>
-    </div>
-  </form>
+    </form>
 
-  <div class="fh-booking-result" id="fhBookingResult"></div>
+    <div class="fh-booking-result" id="fhBookingResult"></div>
+
+    <p class="fh-booking-note">
+      Calendar availability is checked first. Final pricing and booking details are confirmed in the next step.
+    </p>
+  </div>
 
   <script>
     (function () {
-      const WORKER_BASE = "https://fletschhorn-guesty-test.moshe-cohen-h1.workers.dev";
+      const WORKER_BASE = "https://guetsyapi.moshe-cohen-h1.workers.dev";
 
       const form = document.getElementById("fhBookingForm");
       const button = document.getElementById("fhBookingButton");
       const result = document.getElementById("fhBookingResult");
-      const checkIn = document.getElementById("fhCheckIn");
-      const checkOut = document.getElementById("fhCheckOut");
+      const checkInInput = document.getElementById("fhCheckIn");
+      const checkOutInput = document.getElementById("fhCheckOut");
+      const guestsInput = document.getElementById("fhGuests");
+
+      if (!form || !button || !result || !checkInInput || !checkOutInput || !guestsInput) return;
 
       const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, "0");
-      const dd = String(today.getDate()).padStart(2, "0");
-      const todayString = `${yyyy}-${mm}-${dd}`;
+      const todayString = today.toISOString().slice(0, 10);
 
-      checkIn.min = todayString;
-      checkOut.min = todayString;
+      checkInInput.min = todayString;
+      checkOutInput.min = todayString;
 
-      checkIn.addEventListener("change", function () {
-        checkOut.min = checkIn.value;
-        if (checkOut.value && checkOut.value <= checkIn.value) {
-          checkOut.value = "";
+      checkInInput.addEventListener("change", function () {
+        checkOutInput.min = checkInInput.value || todayString;
+
+        if (checkOutInput.value && checkOutInput.value <= checkInInput.value) {
+          checkOutInput.value = "";
         }
       });
 
-      function showResult(html) {
-        result.innerHTML = html;
-        result.classList.add("is-visible");
-      }
-
       function cleanDateLabel(dateString) {
         if (!dateString) return "";
+
         const date = new Date(dateString + "T00:00:00");
+
         return date.toLocaleDateString(undefined, {
           year: "numeric",
           month: "short",
@@ -204,32 +314,74 @@
         });
       }
 
+      function setResult(type, html) {
+        result.className = "fh-booking-result is-visible";
+
+        if (type) {
+          result.classList.add("is-" + type);
+        }
+
+        result.innerHTML = html;
+      }
+
+      function buildMailto(subject, payload) {
+        const body = [
+          "Hello,",
+          "",
+          "I would like to check availability for Fletschhorn.",
+          "",
+          "Arrival: " + payload.checkIn,
+          "Departure: " + payload.checkOut,
+          "Guests: " + payload.guests,
+          "",
+          "Thank you."
+        ].join("\n");
+
+        return "mailto:welcome@fletschhorn.ch?subject=" +
+          encodeURIComponent(subject) +
+          "&body=" +
+          encodeURIComponent(body);
+      }
+
+      function buildBookingUrl(payload) {
+        const params = new URLSearchParams({
+          checkIn: payload.checkIn,
+          checkOut: payload.checkOut,
+          guests: String(payload.guests)
+        });
+
+        return "/booking?" + params.toString();
+      }
+
       form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const payload = {
-          checkIn: document.getElementById("fhCheckIn").value,
-          checkOut: document.getElementById("fhCheckOut").value,
-          guests: Number(document.getElementById("fhGuests").value)
+          checkIn: checkInInput.value,
+          checkOut: checkOutInput.value,
+          guests: Number(guestsInput.value || 1)
         };
 
-        if (!payload.checkIn || !payload.checkOut || !payload.guests) {
-          showResult("<strong>Please complete all fields.</strong>");
+        if (!payload.checkIn || !payload.checkOut) {
+          setResult("error", "<strong>Please choose your arrival and departure dates.</strong>");
           return;
         }
 
         if (payload.checkOut <= payload.checkIn) {
-          showResult("<strong>Please choose a departure date after the arrival date.</strong>");
+          setResult("error", "<strong>Please choose a departure date after the arrival date.</strong>");
           return;
         }
 
         button.disabled = true;
         button.textContent = "Checking...";
 
-        showResult("<strong>Checking availability...</strong>Please wait a moment.");
+        setResult(
+          "",
+          "<strong>Checking availability...</strong> Please wait a moment while we check the calendar."
+        );
 
         try {
-          const response = await fetch(`${WORKER_BASE}/guesty/check-availability`, {
+          const response = await fetch(WORKER_BASE + "/guesty/check-availability", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -239,66 +391,63 @@
 
           const data = await response.json();
 
+          console.log("Fletschhorn availability response:", data);
+
           if (!response.ok || !data.ok) {
-            console.error("Guesty Worker error:", data);
-
-            showResult(`
-              <strong>We could not confirm availability online.</strong>
-              Please contact us directly and we will check these dates manually.
-              <div class="fh-booking-actions">
-                <a class="fh-secondary-link" href="mailto:welcome@fletschhorn.ch?subject=Availability request for Fletschhorn&body=Arrival: ${payload.checkIn}%0D%0ADeparture: ${payload.checkOut}%0D%0AGuests: ${payload.guests}">
-                  Email us
-                </a>
-                <a class="fh-secondary-link" href="tel:+41279572131">
-                  Call +41 27 957 2131
-                </a>
-              </div>
-            `);
-
+            setResult(
+              "error",
+              `
+                <strong>We could not confirm availability online.</strong>
+                Please contact us directly and we will check these dates manually.
+                <div class="fh-booking-actions">
+                  <a class="fh-booking-link primary" href="${buildMailto("Availability request for Fletschhorn", payload)}">Email us</a>
+                  <a class="fh-booking-link" href="tel:+41279572131">Call +41 27 957 2131</a>
+                </div>
+              `
+            );
             return;
           }
 
-          const isAvailable =
-            data.available === true ||
-            data.isAvailable === true ||
-            data.status === "available";
+          if (data.available === true) {
+            const bookingUrl = buildBookingUrl(payload);
 
-          if (isAvailable) {
-            showResult(`
-              <strong>These dates appear available.</strong>
-              ${cleanDateLabel(payload.checkIn)} to ${cleanDateLabel(payload.checkOut)} for ${payload.guests} guests.
-              <div class="fh-booking-actions">
-                <a class="fh-secondary-link" href="/booking?checkIn=${encodeURIComponent(payload.checkIn)}&checkOut=${encodeURIComponent(payload.checkOut)}&guests=${encodeURIComponent(payload.guests)}">
-                  Continue booking
-                </a>
-                <a class="fh-secondary-link" href="mailto:welcome@fletschhorn.ch?subject=Booking request for Fletschhorn&body=Arrival: ${payload.checkIn}%0D%0ADeparture: ${payload.checkOut}%0D%0AGuests: ${payload.guests}">
-                  Ask a question
-                </a>
-              </div>
-            `);
+            setResult(
+              "success",
+              `
+                <strong>These dates appear available.</strong>
+                ${cleanDateLabel(payload.checkIn)} to ${cleanDateLabel(payload.checkOut)} for ${payload.guests} guests.
+                <div class="fh-booking-actions">
+                  <a class="fh-booking-link primary" href="${bookingUrl}">Continue booking</a>
+                  <a class="fh-booking-link" href="${buildMailto("Question about available dates at Fletschhorn", payload)}">Ask a question</a>
+                </div>
+              `
+            );
           } else {
-            showResult(`
-              <strong>These dates may not be available.</strong>
-              Try another date range or contact us and we can help check alternatives.
-              <div class="fh-booking-actions">
-                <a class="fh-secondary-link" href="mailto:welcome@fletschhorn.ch?subject=Alternative dates request for Fletschhorn&body=Requested arrival: ${payload.checkIn}%0D%0ARequested departure: ${payload.checkOut}%0D%0AGuests: ${payload.guests}">
-                  Request alternatives
-                </a>
-              </div>
-            `);
+            setResult(
+              "warning",
+              `
+                <strong>These dates appear unavailable.</strong>
+                At least one night between ${cleanDateLabel(payload.checkIn)} and ${cleanDateLabel(payload.checkOut)} is not available.
+                <div class="fh-booking-actions">
+                  <a class="fh-booking-link primary" href="${buildMailto("Alternative dates request for Fletschhorn", payload)}">Request alternatives</a>
+                  <a class="fh-booking-link" href="tel:+41279572131">Call us</a>
+                </div>
+              `
+            );
           }
         } catch (error) {
           console.error(error);
 
-          showResult(`
-            <strong>Connection issue.</strong>
-            The booking system did not respond. Please try again or contact us directly.
-            <div class="fh-booking-actions">
-              <a class="fh-secondary-link" href="mailto:welcome@fletschhorn.ch">
-                Email us
-              </a>
-            </div>
-          `);
+          setResult(
+            "error",
+            `
+              <strong>Connection issue.</strong>
+              The booking system did not respond. Please try again or contact us directly.
+              <div class="fh-booking-actions">
+                <a class="fh-booking-link primary" href="${buildMailto("Availability request for Fletschhorn", payload)}">Email us</a>
+              </div>
+            `
+          );
         } finally {
           button.disabled = false;
           button.textContent = "Check availability";
