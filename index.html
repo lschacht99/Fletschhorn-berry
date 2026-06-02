@@ -19,249 +19,1115 @@
   position:relative;
   overflow-x:hidden;
   color:var(--ink);
-  background:radial-gradient(circle at 15% 8%,rgba(255,255,255,.82),transparent 23%),radial-gradient(circle at 88% 18%,rgba(185,154,125,.18),transparent 24%),linear-gradient(180deg,#efe5d9 0%,#fffaf2 24%,#f4ebdf 58%,#fbf6ee 100%);
+  background:
+    radial-gradient(circle at 15% 8%,rgba(255,255,255,.82),transparent 23%),
+    radial-gradient(circle at 88% 18%,rgba(185,154,125,.18),transparent 24%),
+    linear-gradient(180deg,#efe5d9 0%,#fffaf2 24%,#f4ebdf 58%,#fbf6ee 100%);
   font-family:var(--sans);
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
 }
+
 #fh-home *{box-sizing:border-box}
 #fh-home a{color:inherit;text-decoration:none}
 #fh-home img{display:block;max-width:100%}
-#fh-home button,#fh-home input,#fh-home select,#fh-home textarea{font:inherit}
+#fh-home button,
+#fh-home input,
+#fh-home select,
+#fh-home textarea{font:inherit}
 #fh-home button{cursor:pointer}
-#fh-home .fh-ambient{position:fixed;inset:0;pointer-events:none;z-index:-2;background:radial-gradient(circle at 12% 18%,rgba(255,255,255,.70),transparent 25%),radial-gradient(circle at 80% 12%,rgba(194,166,138,.16),transparent 28%),radial-gradient(circle at 70% 90%,rgba(47,81,65,.09),transparent 22%)}
-#fh-home .fh-ambient:after{content:"";position:absolute;inset:-10%;opacity:.10;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23705d4c' stroke-opacity='.58' stroke-width='1.1'%3E%3Cpath d='M-80 160c210 58 370 62 506 18 132-43 266-42 414 14 156 59 328 57 518-8 78-27 151-31 232-16'/%3E%3Cpath d='M-80 320c220 42 392 35 540-12 126-40 263-36 406 13 168 58 330 55 512-7 92-31 160-30 236-16'/%3E%3Cpath d='M-80 500c235 26 428 18 586-22 126-31 258-28 398 4 162 37 320 36 492-9 92-24 164-24 226-14'/%3E%3Cpath d='M-80 700c260 11 470-5 642-35 128-22 250-19 382-3 146 17 292 17 438-8 86-15 154-13 228-7'/%3E%3C/g%3E%3C/svg%3E");background-size:cover;background-position:center;animation:fhTopo 30s ease-in-out infinite alternate}
-@keyframes fhTopo{from{transform:translate3d(0,0,0) scale(1.02)}to{transform:translate3d(1.2vw,-1vh,0) scale(1.06)}}
 
-/* LANGUAGE */
-#fh-home .fh-lang-switch{position:fixed;z-index:70;top:82px;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:6px;padding:7px;border:1px solid rgba(255,250,242,.55);background:rgba(255,250,242,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 12px 34px rgba(20,16,12,.10)}
-#fh-home .fh-lang-switch button{border:0;background:transparent;color:rgba(28,24,20,.62);padding:8px 11px;font-size:11px;line-height:1;text-transform:uppercase;letter-spacing:.13em;font-weight:850;white-space:nowrap;transition:background .18s,color .18s}
-#fh-home .fh-lang-switch button.active{background:var(--forest);color:var(--white)}
-
-/* HERO */
-#fh-home .fh-hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#1c1814;text-align:center}
-#fh-home .fh-hero-media{position:absolute;inset:0;z-index:0}
-#fh-home .fh-hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.045);transition:opacity 1.2s ease,transform 8s ease;will-change:opacity,transform}
-#fh-home .fh-hero-slide.active{opacity:1;transform:scale(1)}
-#fh-home .fh-hero-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,12,10,.58) 0%,rgba(14,12,10,.46) 40%,rgba(14,12,10,.72) 100%),radial-gradient(circle at center,rgba(14,12,10,.10) 0%,rgba(14,12,10,.38) 78%)}
-#fh-home .fh-hero-inner{position:relative;z-index:2;width:min(980px,calc(100% - var(--edge)*2));margin:0 auto;padding:clamp(118px,14vh,150px) 0 clamp(38px,6vh,54px);color:var(--white);display:flex;flex-direction:column;align-items:center}
-#fh-home .fh-kicker{margin:0 0 13px;font-size:11px;text-transform:uppercase;letter-spacing:.22em;font-weight:850;color:var(--clay)}
-#fh-home .fh-hero .fh-kicker{color:rgba(255,250,242,.78)}
-#fh-home h1,#fh-home h2,#fh-home h3{font-family:var(--serif);font-weight:400;letter-spacing:-.055em;text-wrap:balance}
-#fh-home h1{margin:0 auto;max-width:820px;font-size:clamp(38px,6.2vw,76px);line-height:.92;text-align:center}
-#fh-home .fh-hero-lead{margin:clamp(12px,1.6vw,18px) auto 0;max-width:660px;font-size:clamp(14px,1.2vw,17px);line-height:1.48;color:rgba(255,250,242,.86);text-align:center}
-#fh-home .fh-hero-card{width:min(520px,100%);margin:clamp(12px,2vw,18px) auto 0;padding:15px 18px;background:rgba(255,250,242,.13);border:1px solid rgba(255,250,242,.25);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);text-align:center}
-#fh-home .fh-hero-card strong{display:block;font-family:var(--serif);font-size:clamp(21px,2.1vw,29px);line-height:1.04;font-weight:400;color:#fffaf2}
-#fh-home .fh-hero-card span{display:block;margin-top:7px;font-size:12.5px;line-height:1.42;color:rgba(255,250,242,.76)}
-
-/* BOOKING */
-#fh-home .fh-booking{margin:clamp(12px,2vw,20px) auto 0;width:min(1030px,100%);padding:9px;background:rgba(255,250,242,.16);border:1px solid rgba(255,250,242,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);text-align:left}
-#fh-home .fh-booking-form{display:grid;grid-template-columns:1.05fr .85fr .85fr 1.15fr 58px 170px;background:var(--paper)}
-#fh-home .fh-field{min-width:0;padding:15px 16px;border-right:1px solid var(--line);background:rgba(255,250,242,.96)}
-#fh-home .fh-field label{display:block;margin-bottom:7px;font-size:10px;text-transform:uppercase;letter-spacing:.16em;font-weight:850;color:rgba(28,24,20,.52)}
-#fh-home .fh-field input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font-size:15px}
-#fh-home .fh-more,#fh-home .fh-submit{border:0;min-height:58px}
-#fh-home .fh-more{background:#efe5d9;color:var(--ink);border-right:1px solid var(--line);font-size:20px}
-#fh-home .fh-submit{background:var(--forest);color:var(--white);text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:850;transition:background .18s}
-#fh-home .fh-submit:hover{background:var(--forest2)}
-#fh-home .fh-booking-note{margin-top:12px;color:rgba(255,250,242,.78);font-size:13px;line-height:1.45;text-align:center}
-#fh-home .fh-status{display:none;margin-top:12px;padding:12px 14px;border:1px solid rgba(255,250,242,.22);background:rgba(255,250,242,.14);color:#fffaf2;font-size:14px;text-align:center}
-#fh-home .fh-status.show{display:block}
-#fh-home .fh-status.error{background:rgba(180,40,40,.18);border-color:rgba(255,100,100,.28)}
-
-/* SECTIONS */
-#fh-home .fh-section{position:relative;padding:clamp(72px,9vw,112px) var(--edge)}
-#fh-home .fh-section.alt{background:linear-gradient(180deg,rgba(255,250,242,.52),rgba(239,229,217,.58))}
-#fh-home .fh-container{width:var(--container);margin:0 auto}
-#fh-home .fh-section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.82fr);gap:clamp(20px,4vw,44px);align-items:end;margin-bottom:clamp(28px,4vw,44px)}
-#fh-home h2{margin:0;font-size:clamp(37px,5.5vw,78px);line-height:.94}
-#fh-home h3{margin:0 0 12px;font-size:clamp(30px,3.7vw,50px);line-height:.98}
-#fh-home p{margin:0;color:var(--muted);line-height:1.68;font-size:clamp(15px,1.25vw,17px)}
-#fh-home .fh-text-center{text-align:center;max-width:900px;margin:0 auto}
-#fh-home .fh-text-center p{margin-left:auto;margin-right:auto;max-width:760px}
-
-/* OVERVIEW */
-#fh-home .fh-overview-grid{display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:24px;align-items:stretch}
-#fh-home .fh-dark-panel{min-height:560px;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(28px,3.6vw,46px);background:var(--forest);color:var(--white);box-shadow:var(--shadow)}
-#fh-home .fh-dark-panel p{color:rgba(255,250,242,.76)}
-#fh-home .fh-dark-panel .fh-kicker{color:rgba(255,250,242,.70)}
-#fh-home .fh-dark-panel h3{max-width:560px;font-size:clamp(40px,5.2vw,70px);color:var(--white)}
-#fh-home .fh-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;padding-top:22px;border-top:1px solid rgba(255,250,242,.22)}
-#fh-home .fh-proof strong{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.2vw,50px);line-height:1}
-#fh-home .fh-proof span{display:block;margin-top:5px;color:rgba(255,250,242,.62);font-size:11px;text-transform:uppercase;letter-spacing:.13em;line-height:1.35}
-#fh-home .fh-photo-stage{position:relative;min-height:560px;overflow:hidden;background:#d7c8b6;box-shadow:var(--shadow)}
-#fh-home .fh-photo-stage img{width:100%;height:100%;object-fit:cover}
-#fh-home .fh-photo-stage .main-img{position:absolute;inset:0}
-#fh-home .fh-float{position:absolute;z-index:2;object-fit:cover;box-shadow:0 22px 50px rgba(0,0,0,.22)}
-#fh-home .fh-float.one{right:22px;top:22px;width:33%;height:27%}
-#fh-home .fh-float.two{left:22px;bottom:22px;width:35%;height:30%}
-#fh-home .fh-caption{position:absolute;right:22px;bottom:22px;z-index:3;width:min(340px,calc(100% - 44px));padding:20px;background:rgba(255,250,242,.94);border:1px solid rgba(255,255,255,.55);box-shadow:0 18px 40px rgba(0,0,0,.15)}
-#fh-home .fh-caption p{font-size:14px}
-
-/* CAROUSELS */
-#fh-home .fh-carousel{position:relative;overflow:hidden;background:#d7c8b6;box-shadow:var(--shadow);min-height:560px}
-#fh-home .fh-carousel-track{position:absolute;inset:0;display:flex;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
-#fh-home .fh-carousel-slide{position:relative;min-width:100%;height:100%}
-#fh-home .fh-carousel-slide img{width:100%;height:100%;object-fit:cover}
-#fh-home .fh-carousel-copy{position:absolute;left:22px;right:22px;bottom:22px;z-index:3;padding:20px;background:rgba(255,250,242,.94);border:1px solid rgba(255,255,255,.55);box-shadow:0 18px 40px rgba(0,0,0,.15)}
-#fh-home .fh-carousel-copy p{font-size:14px}
-#fh-home .fh-carousel-nav{position:absolute;z-index:4;right:18px;top:18px;display:flex;gap:8px}
-#fh-home .fh-carousel-nav button{width:42px;height:42px;border:1px solid rgba(28,24,20,.14);background:rgba(255,250,242,.92);color:var(--ink);font-size:22px;line-height:1}
-#fh-home .fh-room-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:24px;align-items:stretch}
-#fh-home .fh-room-copy{padding:clamp(28px,3.5vw,42px);background:var(--paper);border:1px solid #e2d4c4;box-shadow:var(--soft-shadow);display:flex;flex-direction:column;justify-content:space-between}
-#fh-home .fh-room-list{display:grid;gap:12px;margin-top:24px}
-#fh-home .fh-room-list div{padding-top:14px;border-top:1px solid #dfd0be}
-#fh-home .fh-room-list strong{display:block;color:var(--forest);font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:4px}
-#fh-home .fh-room-list span{display:block;color:var(--muted);font-size:14px;line-height:1.55}
-
-/* CARDS */
-#fh-home .fh-card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-#fh-home .fh-card{overflow:hidden;background:var(--paper);border:1px solid #e2d4c4;box-shadow:var(--soft-shadow)}
-#fh-home .fh-card img{width:100%;height:260px;object-fit:cover}
-#fh-home .fh-card .copy{padding:22px}
-#fh-home .fh-card .copy p{font-size:15px}
-
-/* TWO COL */
-#fh-home .fh-two,#fh-home .fh-kitchen-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:24px;align-items:stretch}
-#fh-home .fh-panel{position:relative;padding:clamp(28px,3.5vw,42px);background:var(--paper);border:1px solid #e2d4c4;box-shadow:var(--soft-shadow)}
-#fh-home .fh-panel:after{content:"";position:absolute;inset:13px;border:1px solid rgba(28,24,20,.08);pointer-events:none}
-#fh-home .fh-panel>*{position:relative;z-index:1}
-#fh-home .fh-image-box{position:relative;min-height:520px;overflow:hidden;box-shadow:var(--shadow);background:#d7c8b6}
-#fh-home .fh-image-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#fh-home .fh-mini-note{position:absolute;z-index:2;left:22px;bottom:22px;width:min(360px,calc(100% - 44px));padding:20px;background:rgba(255,250,242,.94);border:1px solid rgba(255,255,255,.55)}
-#fh-home .fh-kitchen-list{display:grid;gap:13px;margin-top:24px}
-#fh-home .fh-kitchen-item{padding:18px;background:rgba(31,58,47,.07);border:1px solid rgba(31,58,47,.12)}
-#fh-home .fh-kitchen-item strong{display:block;color:var(--forest);margin-bottom:5px}
-#fh-home .fh-kitchen-item span{display:block;color:var(--muted);line-height:1.55;font-size:14px}
-
-/* SEASONS */
-#fh-home .fh-season-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-#fh-home .fh-season{position:relative;min-height:500px;display:flex;align-items:flex-end;overflow:hidden;background:#1c1814;color:#fffaf2;box-shadow:var(--shadow)}
-#fh-home .fh-season img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.78) contrast(1.04)}
-#fh-home .fh-season:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,12,.10) 0%,rgba(20,16,12,.72) 100%)}
-#fh-home .fh-season .copy{position:relative;z-index:2;padding:clamp(24px,3vw,34px)}
-#fh-home .fh-season h3{color:#fffaf2}
-#fh-home .fh-season p{color:rgba(255,250,242,.76)}
-#fh-home .fh-season .fh-kicker{color:rgba(255,250,242,.70)}
-
-/* MAP */
-#fh-home .fh-map-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:24px}
-#fh-home .fh-map-card{position:relative;min-height:560px;overflow:hidden;background:#d7c8b6;box-shadow:var(--shadow)}
-#fh-home .fh-map-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.92) contrast(.98)}
-#fh-home .fh-map-context{position:absolute;left:18px;bottom:18px;z-index:3;width:min(390px,calc(100% - 36px));padding:17px;background:rgba(255,250,242,.95);border:1px solid rgba(28,24,20,.14);box-shadow:0 14px 34px rgba(0,0,0,.14)}
-#fh-home .fh-map-context strong{display:block;font-family:var(--serif);font-size:28px;font-weight:400;line-height:1;color:var(--forest);margin-bottom:7px}
-#fh-home .fh-map-context span{display:block;color:var(--muted);font-size:13px;line-height:1.45}
-#fh-home .fh-map-open{position:absolute;right:18px;top:18px;z-index:3;padding:11px 14px;background:rgba(255,250,242,.95);border:1px solid rgba(28,24,20,.14);text-transform:uppercase;letter-spacing:.13em;font-size:10px;font-weight:850}
-#fh-home .fh-map-side{display:grid;gap:12px}
-#fh-home .fh-map-note{width:100%;text-align:left;border:1px solid #e2d4c4;background:var(--paper);padding:21px;box-shadow:var(--soft-shadow)}
-#fh-home .fh-map-note strong{display:block;font-family:var(--serif);font-weight:400;font-size:30px;color:var(--forest);margin-bottom:8px}
-#fh-home .fh-map-note span{display:block;color:var(--muted);font-size:14px;line-height:1.52}
-#fh-home .fh-map-note.active{background:var(--forest);border-color:var(--forest)}
-#fh-home .fh-map-note.active strong{color:#fffaf2}
-#fh-home .fh-map-note.active span{color:rgba(255,250,242,.76)}
-
-/* HISTORY */
-#fh-home .fh-history-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-#fh-home .fh-time-card{position:relative;min-height:190px;padding:22px;background:var(--paper);border:1px solid #e2d4c4;box-shadow:var(--soft-shadow)}
-#fh-home .fh-time-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--forest)}
-#fh-home .fh-year{font-family:var(--serif);font-size:38px;line-height:1;color:var(--forest);margin-bottom:10px}
-#fh-home .fh-time-card strong{display:block;margin-bottom:6px;color:var(--ink)}
-#fh-home .fh-time-card p{font-size:14px}
-
-/* CONTACT */
-#fh-home .fh-contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.86fr);gap:24px}
-#fh-home .fh-contact-line{padding:16px 0;border-top:1px solid #dfd0be}
-#fh-home .fh-contact-line span{display:block;margin-bottom:5px;font-size:10px;text-transform:uppercase;letter-spacing:.17em;font-weight:850;color:var(--forest)}
-#fh-home .fh-contact-line strong{display:block;overflow-wrap:anywhere}
-
-/* MODAL */
-#fh-home .fh-modal{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(12,10,8,.58);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-#fh-home .fh-modal.open{display:flex}
-#fh-home .fh-modal-panel{width:min(760px,100%);max-height:calc(100svh - 36px);overflow:auto;background:var(--paper);box-shadow:0 32px 90px rgba(0,0,0,.32)}
-#fh-home .fh-modal-head{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:22px 26px;border-bottom:1px solid #e3d5c6}
-#fh-home .fh-modal-head h3{margin:0;font-size:36px}
-#fh-home .fh-close{border:0;background:transparent;font-size:31px;color:rgba(28,24,20,.55)}
-#fh-home .fh-modal-body{padding:26px}
-#fh-home .fh-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-#fh-home .fh-detail-field.full{grid-column:1/-1}
-#fh-home .fh-detail-field label{display:block;margin-bottom:7px;font-size:10px;text-transform:uppercase;letter-spacing:.16em;font-weight:850;color:rgba(28,24,20,.52)}
-#fh-home .fh-detail-field input,#fh-home .fh-detail-field select,#fh-home .fh-detail-field textarea{width:100%;border:1px solid #dccdbb;background:#fbf5ec;padding:13px 14px;outline:0}
-#fh-home .fh-detail-field textarea{min-height:120px;resize:vertical}
-#fh-home .fh-modal-actions{display:flex;justify-content:space-between;gap:14px;margin-top:20px;padding-top:18px;border-top:1px solid #e3d5c6}
-#fh-home .fh-clear{border:0;background:transparent;color:var(--forest);text-decoration:underline;text-underline-offset:4px}
-#fh-home .fh-apply{border:0;background:var(--forest);color:#fffaf2;padding:14px 22px;text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:850}
-
-/* REVEAL */
-#fh-home .fh-reveal{opacity:0;transform:translateY(26px);transition:opacity .72s ease,transform .72s cubic-bezier(.2,.8,.2,1)}
-#fh-home .fh-reveal.visible{opacity:1;transform:translateY(0)}
-
-@media(max-width:1050px){
-  #fh-home .fh-booking-form{grid-template-columns:repeat(6,minmax(0,1fr))}
-  #fh-home .fh-field:nth-child(1),#fh-home .fh-field:nth-child(2),#fh-home .fh-field:nth-child(3){grid-column:span 2}
-  #fh-home .fh-field:nth-child(4){grid-column:span 3}
-  #fh-home .fh-more{grid-column:span 1}
-  #fh-home .fh-submit{grid-column:span 2}
-  #fh-home .fh-field{border-bottom:1px solid var(--line)}
-  #fh-home .fh-card-grid{grid-template-columns:repeat(2,1fr)}
-  #fh-home .fh-map-grid{grid-template-columns:1fr}
-  #fh-home .fh-map-side{grid-template-columns:repeat(2,1fr)}
-  #fh-home .fh-history-strip{grid-template-columns:repeat(2,1fr)}
+#fh-home .fh-ambient{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-2;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(255,255,255,.70),transparent 25%),
+    radial-gradient(circle at 80% 12%,rgba(194,166,138,.16),transparent 28%),
+    radial-gradient(circle at 70% 90%,rgba(47,81,65,.09),transparent 22%);
 }
+
+#fh-home .fh-ambient:after{
+  content:"";
+  position:absolute;
+  inset:-10%;
+  opacity:.10;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23705d4c' stroke-opacity='.58' stroke-width='1.1'%3E%3Cpath d='M-80 160c210 58 370 62 506 18 132-43 266-42 414 14 156 59 328 57 518-8 78-27 151-31 232-16'/%3E%3Cpath d='M-80 320c220 42 392 35 540-12 126-40 263-36 406 13 168 58 330 55 512-7 92-31 160-30 236-16'/%3E%3Cpath d='M-80 500c235 26 428 18 586-22 126-31 258-28 398 4 162 37 320 36 492-9 92-24 164-24 226-14'/%3E%3Cpath d='M-80 700c260 11 470-5 642-35 128-22 250-19 382-3 146 17 292 17 438-8 86-15 154-13 228-7'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:cover;
+  background-position:center;
+  animation:fhTopo 30s ease-in-out infinite alternate;
+}
+
+@keyframes fhTopo{
+  from{transform:translate3d(0,0,0) scale(1.02)}
+  to{transform:translate3d(1.2vw,-1vh,0) scale(1.06)}
+}
+
+/* Language */
+#fh-home .fh-lang-switch{
+  position:fixed;
+  z-index:70;
+  top:104px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:7px;
+  border:1px solid rgba(255,250,242,.55);
+  background:rgba(255,250,242,.88);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  box-shadow:0 12px 34px rgba(20,16,12,.10);
+}
+
+#fh-home .fh-lang-switch button{
+  border:0;
+  background:transparent;
+  color:rgba(28,24,20,.62);
+  padding:8px 11px;
+  font-size:11px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-weight:850;
+  white-space:nowrap;
+  transition:background .18s,color .18s;
+}
+
+#fh-home .fh-lang-switch button.active{
+  background:var(--forest);
+  color:var(--white);
+}
+
+/* Hero */
+#fh-home .fh-hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#1c1814;
+  text-align:center;
+}
+
+#fh-home .fh-hero-media{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+
+#fh-home .fh-hero-slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transform:scale(1.045);
+  transition:opacity 1.2s ease,transform 8s ease;
+  will-change:opacity,transform;
+}
+
+#fh-home .fh-hero-slide.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+#fh-home .fh-hero-media:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg,rgba(14,12,10,.58) 0%,rgba(14,12,10,.46) 40%,rgba(14,12,10,.72) 100%),
+    radial-gradient(circle at center,rgba(14,12,10,.10) 0%,rgba(14,12,10,.38) 78%);
+}
+
+#fh-home .fh-hero-inner{
+  position:relative;
+  z-index:2;
+  width:min(1030px,calc(100% - var(--edge)*2));
+  margin:0 auto;
+  padding:clamp(148px,17vh,176px) 0 clamp(38px,6vh,54px);
+  color:var(--white);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+#fh-home .fh-kicker{
+  margin:0 0 13px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-weight:850;
+  color:var(--clay);
+}
+
+#fh-home .fh-hero .fh-kicker{
+  color:rgba(255,250,242,.78);
+}
+
+#fh-home h1,
+#fh-home h2,
+#fh-home h3{
+  font-family:var(--serif);
+  font-weight:400;
+  letter-spacing:-.055em;
+  text-wrap:balance;
+}
+
+#fh-home h1{
+  margin:0 auto;
+  max-width:860px;
+  font-size:clamp(38px,6.2vw,76px);
+  line-height:.92;
+  text-align:center;
+}
+
+#fh-home .fh-hero-lead{
+  margin:clamp(12px,1.6vw,18px) auto 0;
+  max-width:700px;
+  font-size:clamp(14px,1.2vw,17px);
+  line-height:1.48;
+  color:rgba(255,250,242,.86);
+  text-align:center;
+}
+
+/* Booking toolbar */
+#fh-home .fh-booking{
+  margin:clamp(14px,2.2vw,24px) auto 0;
+  width:min(1100px,100%);
+  padding:9px;
+  background:rgba(255,250,242,.16);
+  border:1px solid rgba(255,250,242,.25);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  text-align:left;
+}
+
+#fh-home .fh-booking-form{
+  display:grid;
+  grid-template-columns:.88fr .88fr 1.15fr .86fr .86fr 185px;
+  background:var(--paper);
+}
+
+#fh-home .fh-field{
+  min-width:0;
+  padding:15px 16px;
+  border-right:1px solid var(--line);
+  background:rgba(255,250,242,.96);
+}
+
+#fh-home .fh-field label{
+  display:block;
+  margin-bottom:7px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:850;
+  color:rgba(28,24,20,.52);
+}
+
+#fh-home .fh-field input{
+  width:100%;
+  min-width:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--ink);
+  font-size:15px;
+}
+
+#fh-home .fh-submit{
+  border:0;
+  min-height:58px;
+  background:var(--forest);
+  color:var(--white);
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:11px;
+  font-weight:850;
+  transition:background .18s,opacity .18s;
+}
+
+#fh-home .fh-submit:hover{
+  background:var(--forest2);
+}
+
+#fh-home .fh-submit:disabled{
+  opacity:.68;
+  cursor:wait;
+}
+
+#fh-home .fh-booking-note{
+  margin-top:12px;
+  color:rgba(255,250,242,.78);
+  font-size:13px;
+  line-height:1.45;
+  text-align:center;
+}
+
+#fh-home .fh-status{
+  display:none;
+  margin-top:12px;
+  padding:12px 14px;
+  border:1px solid rgba(255,250,242,.22);
+  background:rgba(255,250,242,.14);
+  color:#fffaf2;
+  font-size:14px;
+  line-height:1.45;
+  text-align:center;
+}
+
+#fh-home .fh-status.show{
+  display:block;
+}
+
+#fh-home .fh-status.error{
+  background:rgba(180,40,40,.18);
+  border-color:rgba(255,100,100,.28);
+}
+
+#fh-home .fh-status.success{
+  background:rgba(45,112,74,.22);
+  border-color:rgba(155,225,180,.28);
+}
+
+/* Sections */
+#fh-home .fh-section{
+  position:relative;
+  padding:clamp(72px,9vw,112px) var(--edge);
+}
+
+#fh-home .fh-section.alt{
+  background:linear-gradient(180deg,rgba(255,250,242,.52),rgba(239,229,217,.58));
+}
+
+#fh-home .fh-container{
+  width:var(--container);
+  margin:0 auto;
+}
+
+#fh-home .fh-section-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(280px,.82fr);
+  gap:clamp(20px,4vw,44px);
+  align-items:end;
+  margin-bottom:clamp(28px,4vw,44px);
+}
+
+#fh-home h2{
+  margin:0;
+  font-size:clamp(37px,5.5vw,78px);
+  line-height:.94;
+}
+
+#fh-home h3{
+  margin:0 0 12px;
+  font-size:clamp(30px,3.7vw,50px);
+  line-height:.98;
+}
+
+#fh-home p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.68;
+  font-size:clamp(15px,1.25vw,17px);
+}
+
+#fh-home .fh-text-center{
+  text-align:center;
+  max-width:900px;
+  margin:0 auto;
+}
+
+#fh-home .fh-text-center p{
+  margin-left:auto;
+  margin-right:auto;
+  max-width:760px;
+}
+
+#fh-home .fh-overview-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+  gap:24px;
+  align-items:stretch;
+}
+
+#fh-home .fh-dark-panel{
+  min-height:560px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:clamp(28px,3.6vw,46px);
+  background:var(--forest);
+  color:var(--white);
+  box-shadow:var(--shadow);
+}
+
+#fh-home .fh-dark-panel p{
+  color:rgba(255,250,242,.76);
+}
+
+#fh-home .fh-dark-panel .fh-kicker{
+  color:rgba(255,250,242,.70);
+}
+
+#fh-home .fh-dark-panel h3{
+  max-width:560px;
+  font-size:clamp(40px,5.2vw,70px);
+  color:var(--white);
+}
+
+#fh-home .fh-proof{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:32px;
+  padding-top:22px;
+  border-top:1px solid rgba(255,250,242,.22);
+}
+
+#fh-home .fh-proof strong{
+  display:block;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(34px,4.2vw,50px);
+  line-height:1;
+}
+
+#fh-home .fh-proof span{
+  display:block;
+  margin-top:5px;
+  color:rgba(255,250,242,.62);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  line-height:1.35;
+}
+
+#fh-home .fh-photo-stage{
+  position:relative;
+  min-height:560px;
+  overflow:hidden;
+  background:#d7c8b6;
+  box-shadow:var(--shadow);
+}
+
+#fh-home .fh-photo-stage img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+#fh-home .fh-photo-stage .main-img{
+  position:absolute;
+  inset:0;
+}
+
+#fh-home .fh-float{
+  position:absolute;
+  z-index:2;
+  object-fit:cover;
+  box-shadow:0 22px 50px rgba(0,0,0,.22);
+}
+
+#fh-home .fh-float.one{
+  right:22px;
+  top:22px;
+  width:33%;
+  height:27%;
+}
+
+#fh-home .fh-float.two{
+  left:22px;
+  bottom:22px;
+  width:35%;
+  height:30%;
+}
+
+#fh-home .fh-caption{
+  position:absolute;
+  right:22px;
+  bottom:22px;
+  z-index:3;
+  width:min(340px,calc(100% - 44px));
+  padding:20px;
+  background:rgba(255,250,242,.94);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 18px 40px rgba(0,0,0,.15);
+}
+
+#fh-home .fh-caption p{
+  font-size:14px;
+}
+
+#fh-home .fh-carousel{
+  position:relative;
+  overflow:hidden;
+  background:#d7c8b6;
+  box-shadow:var(--shadow);
+  min-height:560px;
+}
+
+#fh-home .fh-carousel-track{
+  position:absolute;
+  inset:0;
+  display:flex;
+  transition:transform .55s cubic-bezier(.2,.8,.2,1);
+}
+
+#fh-home .fh-carousel-slide{
+  position:relative;
+  min-width:100%;
+  height:100%;
+}
+
+#fh-home .fh-carousel-slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+#fh-home .fh-carousel-copy{
+  position:absolute;
+  left:22px;
+  right:22px;
+  bottom:22px;
+  z-index:3;
+  padding:20px;
+  background:rgba(255,250,242,.94);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 18px 40px rgba(0,0,0,.15);
+}
+
+#fh-home .fh-carousel-copy p{
+  font-size:14px;
+}
+
+#fh-home .fh-carousel-nav{
+  position:absolute;
+  z-index:4;
+  right:18px;
+  top:18px;
+  display:flex;
+  gap:8px;
+}
+
+#fh-home .fh-carousel-nav button{
+  width:42px;
+  height:42px;
+  border:1px solid rgba(28,24,20,.14);
+  background:rgba(255,250,242,.92);
+  color:var(--ink);
+  font-size:22px;
+  line-height:1;
+}
+
+#fh-home .fh-room-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:24px;
+  align-items:stretch;
+}
+
+#fh-home .fh-room-copy{
+  padding:clamp(28px,3.5vw,42px);
+  background:var(--paper);
+  border:1px solid #e2d4c4;
+  box-shadow:var(--soft-shadow);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+#fh-home .fh-room-list{
+  display:grid;
+  gap:12px;
+  margin-top:24px;
+}
+
+#fh-home .fh-room-list div{
+  padding-top:14px;
+  border-top:1px solid #dfd0be;
+}
+
+#fh-home .fh-room-list strong{
+  display:block;
+  color:var(--forest);
+  font-family:var(--serif);
+  font-size:28px;
+  font-weight:400;
+  margin-bottom:4px;
+}
+
+#fh-home .fh-room-list span{
+  display:block;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
+}
+
+#fh-home .fh-card-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+#fh-home .fh-card{
+  overflow:hidden;
+  background:var(--paper);
+  border:1px solid #e2d4c4;
+  box-shadow:var(--soft-shadow);
+}
+
+#fh-home .fh-card img{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+}
+
+#fh-home .fh-card .copy{
+  padding:22px;
+}
+
+#fh-home .fh-card .copy p{
+  font-size:15px;
+}
+
+#fh-home .fh-kitchen-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  gap:24px;
+  align-items:stretch;
+}
+
+#fh-home .fh-panel{
+  position:relative;
+  padding:clamp(28px,3.5vw,42px);
+  background:var(--paper);
+  border:1px solid #e2d4c4;
+  box-shadow:var(--soft-shadow);
+}
+
+#fh-home .fh-panel:after{
+  content:"";
+  position:absolute;
+  inset:13px;
+  border:1px solid rgba(28,24,20,.08);
+  pointer-events:none;
+}
+
+#fh-home .fh-panel>*{
+  position:relative;
+  z-index:1;
+}
+
+#fh-home .fh-kitchen-list{
+  display:grid;
+  gap:13px;
+  margin-top:24px;
+}
+
+#fh-home .fh-kitchen-item{
+  padding:18px;
+  background:rgba(31,58,47,.07);
+  border:1px solid rgba(31,58,47,.12);
+}
+
+#fh-home .fh-kitchen-item strong{
+  display:block;
+  color:var(--forest);
+  margin-bottom:5px;
+}
+
+#fh-home .fh-kitchen-item span{
+  display:block;
+  color:var(--muted);
+  line-height:1.55;
+  font-size:14px;
+}
+
+#fh-home .fh-season-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+#fh-home .fh-season{
+  position:relative;
+  min-height:500px;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+  background:#1c1814;
+  color:#fffaf2;
+  box-shadow:var(--shadow);
+}
+
+#fh-home .fh-season img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(.78) contrast(1.04);
+}
+
+#fh-home .fh-season:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(20,16,12,.10) 0%,rgba(20,16,12,.72) 100%);
+}
+
+#fh-home .fh-season .copy{
+  position:relative;
+  z-index:2;
+  padding:clamp(24px,3vw,34px);
+}
+
+#fh-home .fh-season h3{
+  color:#fffaf2;
+}
+
+#fh-home .fh-season p{
+  color:rgba(255,250,242,.76);
+}
+
+#fh-home .fh-season .fh-kicker{
+  color:rgba(255,250,242,.70);
+}
+
+#fh-home .fh-map-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 360px;
+  gap:24px;
+}
+
+#fh-home .fh-map-card{
+  position:relative;
+  min-height:560px;
+  overflow:hidden;
+  background:#d7c8b6;
+  box-shadow:var(--shadow);
+}
+
+#fh-home .fh-map-card iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  filter:saturate(.92) contrast(.98);
+}
+
+#fh-home .fh-map-context{
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  z-index:3;
+  width:min(390px,calc(100% - 36px));
+  padding:17px;
+  background:rgba(255,250,242,.95);
+  border:1px solid rgba(28,24,20,.14);
+  box-shadow:0 14px 34px rgba(0,0,0,.14);
+}
+
+#fh-home .fh-map-context strong{
+  display:block;
+  font-family:var(--serif);
+  font-size:28px;
+  font-weight:400;
+  line-height:1;
+  color:var(--forest);
+  margin-bottom:7px;
+}
+
+#fh-home .fh-map-context span{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45;
+}
+
+#fh-home .fh-map-open{
+  position:absolute;
+  right:18px;
+  top:18px;
+  z-index:3;
+  padding:11px 14px;
+  background:rgba(255,250,242,.95);
+  border:1px solid rgba(28,24,20,.14);
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:10px;
+  font-weight:850;
+}
+
+#fh-home .fh-map-side{
+  display:grid;
+  gap:12px;
+}
+
+#fh-home .fh-map-note{
+  width:100%;
+  text-align:left;
+  border:1px solid #e2d4c4;
+  background:var(--paper);
+  padding:21px;
+  box-shadow:var(--soft-shadow);
+}
+
+#fh-home .fh-map-note strong{
+  display:block;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:30px;
+  color:var(--forest);
+  margin-bottom:8px;
+}
+
+#fh-home .fh-map-note span{
+  display:block;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.52;
+}
+
+#fh-home .fh-map-note.active{
+  background:var(--forest);
+  border-color:var(--forest);
+}
+
+#fh-home .fh-map-note.active strong{
+  color:#fffaf2;
+}
+
+#fh-home .fh-map-note.active span{
+  color:rgba(255,250,242,.76);
+}
+
+#fh-home .fh-history-strip{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+#fh-home .fh-time-card{
+  position:relative;
+  min-height:190px;
+  padding:22px;
+  background:var(--paper);
+  border:1px solid #e2d4c4;
+  box-shadow:var(--soft-shadow);
+}
+
+#fh-home .fh-time-card:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:var(--forest);
+}
+
+#fh-home .fh-year{
+  font-family:var(--serif);
+  font-size:38px;
+  line-height:1;
+  color:var(--forest);
+  margin-bottom:10px;
+}
+
+#fh-home .fh-time-card strong{
+  display:block;
+  margin-bottom:6px;
+  color:var(--ink);
+}
+
+#fh-home .fh-time-card p{
+  font-size:14px;
+}
+
+#fh-home .fh-contact-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,.86fr);
+  gap:24px;
+}
+
+#fh-home .fh-contact-line{
+  padding:16px 0;
+  border-top:1px solid #dfd0be;
+}
+
+#fh-home .fh-contact-line span{
+  display:block;
+  margin-bottom:5px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.17em;
+  font-weight:850;
+  color:var(--forest);
+}
+
+#fh-home .fh-contact-line strong{
+  display:block;
+  overflow-wrap:anywhere;
+}
+
+#fh-home .fh-reveal{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .72s ease,transform .72s cubic-bezier(.2,.8,.2,1);
+}
+
+#fh-home .fh-reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Responsive */
+@media(max-width:1120px){
+  #fh-home .fh-booking-form{
+    grid-template-columns:repeat(6,minmax(0,1fr));
+  }
+
+  #fh-home .fh-field:nth-child(1),
+  #fh-home .fh-field:nth-child(2),
+  #fh-home .fh-field:nth-child(3){
+    grid-column:span 2;
+  }
+
+  #fh-home .fh-field:nth-child(4),
+  #fh-home .fh-field:nth-child(5){
+    grid-column:span 2;
+  }
+
+  #fh-home .fh-submit{
+    grid-column:span 2;
+  }
+
+  #fh-home .fh-field{
+    border-bottom:1px solid var(--line);
+  }
+
+  #fh-home .fh-card-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  #fh-home .fh-map-grid{
+    grid-template-columns:1fr;
+  }
+
+  #fh-home .fh-map-side{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  #fh-home .fh-history-strip{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
 @media(max-width:900px){
-  #fh-home .fh-section-head,#fh-home .fh-overview-grid,#fh-home .fh-two,#fh-home .fh-kitchen-grid,#fh-home .fh-room-grid,#fh-home .fh-contact-grid{grid-template-columns:1fr}
-  #fh-home .fh-season-grid{grid-template-columns:1fr}
-  #fh-home .fh-season{min-height:420px}
-  #fh-home .fh-carousel{min-height:460px}
+  #fh-home .fh-section-head,
+  #fh-home .fh-overview-grid,
+  #fh-home .fh-kitchen-grid,
+  #fh-home .fh-room-grid,
+  #fh-home .fh-contact-grid{
+    grid-template-columns:1fr;
+  }
+
+  #fh-home .fh-season-grid{
+    grid-template-columns:1fr;
+  }
+
+  #fh-home .fh-season{
+    min-height:420px;
+  }
+
+  #fh-home .fh-carousel{
+    min-height:460px;
+  }
 }
+
 @media(max-width:640px){
   #fh-home{--edge:16px}
-  #fh-home .fh-lang-switch{top:70px;width:calc(100% - 24px);justify-content:center;padding:5px;gap:3px}
-  #fh-home .fh-lang-switch button{flex:1;padding:10px 4px;letter-spacing:.08em;font-size:10px}
-  #fh-home .fh-hero{min-height:100svh;align-items:flex-start}
-  #fh-home .fh-hero-inner{width:calc(100% - 28px);padding-top:118px;padding-bottom:34px}
-  #fh-home h1{font-size:clamp(34px,10.5vw,48px);line-height:.94}
-  #fh-home .fh-hero-lead{font-size:13.5px;line-height:1.42}
-  #fh-home .fh-hero-card{padding:12px 14px;margin-top:10px}
-  #fh-home .fh-hero-card strong{font-size:20px}
-  #fh-home .fh-hero-card span{font-size:12px;line-height:1.35}
-  #fh-home .fh-booking{padding:7px;margin-top:10px}
-  #fh-home .fh-booking-form{grid-template-columns:1fr}
-  #fh-home .fh-field,#fh-home .fh-field:nth-child(1),#fh-home .fh-field:nth-child(2),#fh-home .fh-field:nth-child(3),#fh-home .fh-field:nth-child(4),#fh-home .fh-more,#fh-home .fh-submit{grid-column:auto;border-right:0}
-  #fh-home .fh-field{padding:12px 14px}
-  #fh-home .fh-submit,#fh-home .fh-more{min-height:50px}
-  #fh-home .fh-section{padding:60px 16px}
-  #fh-home h2{font-size:clamp(36px,11vw,52px);line-height:.96}
-  #fh-home h3{font-size:clamp(29px,8.6vw,42px)}
-  #fh-home .fh-dark-panel{min-height:auto;padding:26px}
-  #fh-home .fh-proof{grid-template-columns:1fr;gap:12px}
-  #fh-home .fh-photo-stage{min-height:440px}
-  #fh-home .fh-float.one{width:42%;height:22%;top:12px;right:12px}
-  #fh-home .fh-float.two{width:42%;height:22%;left:12px;bottom:100px}
-  #fh-home .fh-caption{left:12px;right:12px;bottom:12px;width:auto;padding:14px}
-  #fh-home .fh-carousel{min-height:420px}
-  #fh-home .fh-carousel-copy{left:12px;right:12px;bottom:12px;padding:14px}
-  #fh-home .fh-card-grid,#fh-home .fh-map-side,#fh-home .fh-history-strip{grid-template-columns:1fr}
-  #fh-home .fh-card img{height:230px}
-  #fh-home .fh-image-box{min-height:380px}
-  #fh-home .fh-mini-note{left:12px;right:12px;bottom:12px;width:auto;padding:14px}
-  #fh-home .fh-map-card{min-height:440px}
-  #fh-home .fh-map-open{top:10px;right:10px;padding:9px 12px}
-  #fh-home .fh-map-context{left:10px;right:10px;bottom:10px;width:auto;padding:14px}
-  #fh-home .fh-map-context strong{font-size:22px}
-  #fh-home .fh-detail-grid{grid-template-columns:1fr}
-  #fh-home .fh-detail-field.full{grid-column:auto}
-  #fh-home .fh-modal{align-items:flex-end;padding:8px}
-  #fh-home .fh-modal-panel{max-height:calc(100svh - 16px)}
-  #fh-home .fh-modal-head,#fh-home .fh-modal-body{padding:16px}
-  #fh-home .fh-modal-actions{flex-direction:column-reverse}
-  #fh-home .fh-apply{width:100%;padding:16px}
-  #fh-home .fh-modal-head h3{font-size:28px}
-  #fh-home .fh-booking-proof{padding:11px 12px}
-  #fh-home .fh-booking-proof strong{font-size:22px}
-  #fh-home .fh-booking-proof span{font-size:12px;line-height:1.42}
-  #fh-home p{font-size:15px}
+
+  #fh-home .fh-lang-switch{
+    top:82px;
+    width:calc(100% - 24px);
+    justify-content:center;
+    padding:5px;
+    gap:3px;
+  }
+
+  #fh-home .fh-lang-switch button{
+    flex:1;
+    padding:10px 4px;
+    letter-spacing:.08em;
+    font-size:10px;
+  }
+
+  #fh-home .fh-hero{
+    min-height:100svh;
+    align-items:flex-start;
+  }
+
+  #fh-home .fh-hero-inner{
+    width:calc(100% - 28px);
+    padding-top:132px;
+    padding-bottom:34px;
+  }
+
+  #fh-home h1{
+    font-size:clamp(34px,10.5vw,48px);
+    line-height:.94;
+  }
+
+  #fh-home .fh-hero-lead{
+    font-size:13.5px;
+    line-height:1.42;
+  }
+
+  #fh-home .fh-booking{
+    padding:7px;
+    margin-top:12px;
+  }
+
+  #fh-home .fh-booking-form{
+    grid-template-columns:1fr;
+  }
+
+  #fh-home .fh-field,
+  #fh-home .fh-field:nth-child(1),
+  #fh-home .fh-field:nth-child(2),
+  #fh-home .fh-field:nth-child(3),
+  #fh-home .fh-field:nth-child(4),
+  #fh-home .fh-field:nth-child(5),
+  #fh-home .fh-submit{
+    grid-column:auto;
+    border-right:0;
+  }
+
+  #fh-home .fh-field{
+    padding:12px 14px;
+  }
+
+  #fh-home .fh-submit{
+    min-height:52px;
+  }
+
+  #fh-home .fh-section{
+    padding:60px 16px;
+  }
+
+  #fh-home h2{
+    font-size:clamp(36px,11vw,52px);
+    line-height:.96;
+  }
+
+  #fh-home h3{
+    font-size:clamp(29px,8.6vw,42px);
+  }
+
+  #fh-home .fh-dark-panel{
+    min-height:auto;
+    padding:26px;
+  }
+
+  #fh-home .fh-proof{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  #fh-home .fh-photo-stage{
+    min-height:440px;
+  }
+
+  #fh-home .fh-float.one{
+    width:42%;
+    height:22%;
+    top:12px;
+    right:12px;
+  }
+
+  #fh-home .fh-float.two{
+    width:42%;
+    height:22%;
+    left:12px;
+    bottom:100px;
+  }
+
+  #fh-home .fh-caption{
+    left:12px;
+    right:12px;
+    bottom:12px;
+    width:auto;
+    padding:14px;
+  }
+
+  #fh-home .fh-carousel{
+    min-height:420px;
+  }
+
+  #fh-home .fh-carousel-copy{
+    left:12px;
+    right:12px;
+    bottom:12px;
+    padding:14px;
+  }
+
+  #fh-home .fh-card-grid,
+  #fh-home .fh-map-side,
+  #fh-home .fh-history-strip{
+    grid-template-columns:1fr;
+  }
+
+  #fh-home .fh-card img{
+    height:230px;
+  }
+
+  #fh-home .fh-map-card{
+    min-height:440px;
+  }
+
+  #fh-home .fh-map-open{
+    top:10px;
+    right:10px;
+    padding:9px 12px;
+  }
+
+  #fh-home .fh-map-context{
+    left:10px;
+    right:10px;
+    bottom:10px;
+    width:auto;
+    padding:14px;
+  }
+
+  #fh-home .fh-map-context strong{
+    font-size:22px;
+  }
+
+  #fh-home p{
+    font-size:15px;
+  }
 }
-@media(prefers-reduced-motion:reduce){#fh-home *,#fh-home *:before,#fh-home *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+@media(prefers-reduced-motion:reduce){
+  #fh-home *,
+  #fh-home *:before,
+  #fh-home *:after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+}
 </style>
 
 <div id="fh-home">
@@ -276,23 +1142,46 @@
 
   <section class="fh-hero" id="top">
     <div class="fh-hero-media" id="fhHeroMedia" aria-hidden="true"></div>
+
     <div class="fh-hero-inner">
       <p class="fh-kicker fh-reveal" data-i18n="heroKicker">Private Swiss chalet · Saas-Fee</p>
       <h1 class="fh-reveal" data-i18n="heroTitle">Your Private Swiss Chalet Above Saas-Fee</h1>
       <p class="fh-hero-lead fh-reveal" data-i18n="heroLead">A full-property alpine stay for families, retreats, weddings, ski groups, and private celebrations — with the whole chalet reserved for your group.</p>
+
       <div class="fh-booking fh-reveal" id="booking">
         <div class="fh-booking-form" id="fhBookingFields">
-          <div class="fh-field"><label for="fhGroup" data-i18n="fieldGroup">Group</label><input id="fhGroup" name="group" type="text" data-i18n-placeholder="fieldGroupPh" placeholder="Group size" autocomplete="off"></div>
-          <div class="fh-field"><label for="fhArrival" data-i18n="fieldArrival">Arrival</label><input id="fhArrival" name="arrivalDate" type="date" autocomplete="off"></div>
-          <div class="fh-field"><label for="fhDeparture" data-i18n="fieldDeparture">Departure</label><input id="fhDeparture" name="departureDate" type="date" autocomplete="off"></div>
-          <div class="fh-field"><label for="fhContact" data-i18n="fieldContact">Contact</label><input id="fhContact" name="contact" type="text" data-i18n-placeholder="fieldContactPh" placeholder="Email or phone" autocomplete="off"></div>
-          <button class="fh-more" type="button" id="fhOpenDetails" aria-label="More details">＋</button>
-          <button class="fh-submit" type="button" id="fhSubmitBtn" data-i18n="requestAvailability">Request Availability</button>
+          <div class="fh-field">
+            <label for="fhFirstName" data-i18n="fieldFirstName">First name</label>
+            <input id="fhFirstName" name="firstName" type="text" data-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name">
+          </div>
+
+          <div class="fh-field">
+            <label for="fhLastName" data-i18n="fieldLastName">Last name</label>
+            <input id="fhLastName" name="lastName" type="text" data-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name">
+          </div>
+
+          <div class="fh-field">
+            <label for="fhEmail" data-i18n="fieldEmail">Email</label>
+            <input id="fhEmail" name="email" type="email" data-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email">
+          </div>
+
+          <div class="fh-field">
+            <label for="fhArrival" data-i18n="fieldArrival">Arrival</label>
+            <input id="fhArrival" name="arrivalDate" type="date" autocomplete="off">
+          </div>
+
+          <div class="fh-field">
+            <label for="fhDeparture" data-i18n="fieldDeparture">Departure</label>
+            <input id="fhDeparture" name="departureDate" type="date" autocomplete="off">
+          </div>
+
+          <button class="fh-submit" type="button" id="fhBookNowBtn" data-i18n="bookNow">Book my stay now</button>
         </div>
-        <div class="fh-booking-note" data-i18n="bookingNote">Choose real arrival and departure dates. Best rates are available when booking direct.</div>
+
+        <div class="fh-booking-note" data-i18n="bookingNote">Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.</div>
         <div class="fh-status" id="fhFormStatus" role="status" aria-live="polite"></div>
       </div>
-        </div>
+    </div>
   </section>
 
   <section class="fh-section alt" id="private-chalet">
@@ -301,26 +1190,32 @@
         <p class="fh-kicker" data-i18n="privateKicker">The private chalet</p>
         <h2 data-i18n="privateTitle">A private alpine house for groups who want the whole place to themselves.</h2>
       </div>
-      <p class="fh-reveal" data-i18n="privateLead">This home page keeps the message simple: Fletschhorn is not presented as a normal hotel page. It is a complete private chalet experience above Saas-Fee, with space to sleep, gather, cook, celebrate, reset, and explore the mountains.</p>
+      <p class="fh-reveal" data-i18n="privateLead">Fletschhorn is a complete private chalet experience above Saas-Fee, with space to sleep, gather, cook, celebrate, reset, and explore the mountains.</p>
     </div>
+
     <div class="fh-container fh-overview-grid">
       <article class="fh-dark-panel fh-reveal">
         <div>
           <p class="fh-kicker" data-i18n="conceptKicker">The concept</p>
           <h3 data-i18n="conceptTitle">A full-property stay, made clear from the first section.</h3>
-          <p data-i18n="conceptText">Families, retreats, weddings, private celebrations, and ski groups can take over the property as one private alpine base. The page now avoids repeating the same idea in multiple sections and moves through the stay in a clean order: private chalet, rooms, group moments, kitchen, Saas-Fee, access, history, and contact.</p>
+          <p data-i18n="conceptText">Families, retreats, weddings, private celebrations, and ski groups can take over the property as one private alpine base.</p>
         </div>
+
         <div class="fh-proof">
           <div><strong>48</strong><span data-i18n="proofGuests">sleeping places</span></div>
           <div><strong>100+</strong><span data-i18n="proofHistory">years of alpine history</span></div>
           <div><strong>360°</strong><span data-i18n="proofProperty">private-property experience</span></div>
         </div>
       </article>
+
       <div class="fh-photo-stage fh-reveal">
         <img class="main-img" data-img="overviewMain" alt="Fletschhorn alpine exterior">
         <img class="fh-float one" data-img="overviewFloat1" alt="Fletschhorn interior detail">
         <img class="fh-float two" data-img="overviewFloat2" alt="Fletschhorn room detail">
-        <div class="fh-caption"><p class="fh-kicker" data-i18n="experienceKicker">The experience</p><p data-i18n="experienceText">A private property above the village of Saas-Fee — generous spaces, mountain air, and complete privacy for your group.</p></div>
+        <div class="fh-caption">
+          <p class="fh-kicker" data-i18n="experienceKicker">The experience</p>
+          <p data-i18n="experienceText">A private property above the village of Saas-Fee — generous spaces, mountain air, and complete privacy for your group.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -331,20 +1226,29 @@
         <p class="fh-kicker" data-i18n="roomsKicker">Rooms & suites</p>
         <h2 data-i18n="roomsTitle">Private sleeping spaces, shared under one alpine roof.</h2>
       </div>
-      <p class="fh-reveal" data-i18n="roomsLead">This section uses Inside images from ImageKit/Redberry, so the room story feels real instead of generic. The carousel keeps the layout clean on mobile and avoids empty blocks.</p>
+      <p class="fh-reveal" data-i18n="roomsLead">Rooms and suites give a group the feeling of being together in one house while still offering privacy for families, couples, and guests who need their own space.</p>
     </div>
+
     <div class="fh-container fh-room-grid">
       <div class="fh-carousel fh-reveal" data-carousel="inside">
         <div class="fh-carousel-track"></div>
-        <div class="fh-carousel-nav"><button type="button" data-prev aria-label="Previous room">‹</button><button type="button" data-next aria-label="Next room">›</button></div>
-        <div class="fh-carousel-copy"><p class="fh-kicker" data-i18n="insidePhotoKicker">Inside Fletschhorn</p><p data-i18n="insidePhotoText">Bedrooms, suites, warm interiors, and quiet corners for guests who need space to rest.</p></div>
+        <div class="fh-carousel-nav">
+          <button type="button" data-prev aria-label="Previous room">‹</button>
+          <button type="button" data-next aria-label="Next room">›</button>
+        </div>
+        <div class="fh-carousel-copy">
+          <p class="fh-kicker" data-i18n="insidePhotoKicker">Inside Fletschhorn</p>
+          <p data-i18n="insidePhotoText">Bedrooms, suites, warm interiors, and quiet corners for guests who need space to rest.</p>
+        </div>
       </div>
+
       <article class="fh-room-copy fh-reveal">
         <div>
           <p class="fh-kicker" data-i18n="sleepKicker">Sleeping rhythm</p>
           <h3 data-i18n="sleepTitle">Together, but not crowded.</h3>
-          <p data-i18n="sleepText">The chalet gives a group the feeling of being together in one house while still offering private rooms and suites for couples, families, children, and guests who need their own space.</p>
+          <p data-i18n="sleepText">A private base where the group can stay together without being split across separate hotels.</p>
         </div>
+
         <div class="fh-room-list">
           <div><strong data-i18n="roomPoint1Title">Up to 48 sleeping places</strong><span data-i18n="roomPoint1Text">Public website capacity is kept clear and simple.</span></div>
           <div><strong data-i18n="roomPoint2Title">Rooms and suites</strong><span data-i18n="roomPoint2Text">Useful for mixed groups, families, retreats, and celebrations.</span></div>
@@ -358,13 +1262,45 @@
     <div class="fh-container fh-text-center fh-reveal">
       <p class="fh-kicker" data-i18n="staysKicker">What the house is for</p>
       <h2 data-i18n="staysTitle">Different groups, one simple idea: the whole chalet is yours.</h2>
-      <p data-i18n="staysLead">Instead of repeating “private chalet” again and again, this section lets visitors quickly recognize themselves.</p>
+      <p data-i18n="staysLead">Families, retreats, weddings, ski groups, and private celebrations can all use the property as a private alpine base.</p>
     </div>
+
     <div class="fh-container fh-card-grid" style="margin-top:34px">
-      <article class="fh-card fh-reveal"><img data-img="family" alt="Family stay"><div class="copy"><p class="fh-kicker" data-i18n="familyKicker">Families</p><h3 data-i18n="familyTitle">Space for everyone.</h3><p data-i18n="familyText">Bedrooms, shared rooms, slow mornings, and easy mountain days together.</p></div></article>
-      <article class="fh-card fh-reveal"><img data-img="retreat" alt="Retreat stay"><div class="copy"><p class="fh-kicker" data-i18n="retreatKicker">Retreats</p><h3 data-i18n="retreatTitle">A focused alpine base.</h3><p data-i18n="retreatText">Gathering spaces, quiet corners, and enough privacy for a real reset.</p></div></article>
-      <article class="fh-card fh-reveal"><img data-img="event" alt="Wedding or event"><div class="copy"><p class="fh-kicker" data-i18n="eventKicker">Weddings & events</p><h3 data-i18n="eventTitle">Your moment, here.</h3><p data-i18n="eventText">In the middle of the Alps, the property becomes the setting for a private celebration.</p></div></article>
-      <article class="fh-card fh-reveal"><img data-img="ski" alt="Ski group"><div class="copy"><p class="fh-kicker" data-i18n="skiKicker">Ski groups</p><h3 data-i18n="skiTitle">Mountain days, warm returns.</h3><p data-i18n="skiText">A private home base for skiing, glacier air, and evenings together.</p></div></article>
+      <article class="fh-card fh-reveal">
+        <img data-img="family" alt="Family stay">
+        <div class="copy">
+          <p class="fh-kicker" data-i18n="familyKicker">Families</p>
+          <h3 data-i18n="familyTitle">Space for everyone.</h3>
+          <p data-i18n="familyText">Bedrooms, shared rooms, slow mornings, and easy mountain days together.</p>
+        </div>
+      </article>
+
+      <article class="fh-card fh-reveal">
+        <img data-img="retreat" alt="Retreat stay">
+        <div class="copy">
+          <p class="fh-kicker" data-i18n="retreatKicker">Retreats</p>
+          <h3 data-i18n="retreatTitle">A focused alpine base.</h3>
+          <p data-i18n="retreatText">Gathering spaces, quiet corners, and enough privacy for a real reset.</p>
+        </div>
+      </article>
+
+      <article class="fh-card fh-reveal">
+        <img data-img="event" alt="Wedding or event">
+        <div class="copy">
+          <p class="fh-kicker" data-i18n="eventKicker">Weddings & events</p>
+          <h3 data-i18n="eventTitle">Your moment, here.</h3>
+          <p data-i18n="eventText">In the middle of the Alps, the property becomes the setting for a private celebration.</p>
+        </div>
+      </article>
+
+      <article class="fh-card fh-reveal">
+        <img data-img="ski" alt="Ski group">
+        <div class="copy">
+          <p class="fh-kicker" data-i18n="skiKicker">Ski groups</p>
+          <h3 data-i18n="skiTitle">Mountain days, warm returns.</h3>
+          <p data-i18n="skiText">A private home base for skiing, glacier air, and evenings together.</p>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -373,32 +1309,45 @@
       <article class="fh-panel fh-reveal">
         <p class="fh-kicker" data-i18n="foodKicker">Kitchen & food planning</p>
         <h2 data-i18n="foodTitle">A flexible kitchen concept for private group stays.</h2>
-        <p data-i18n="foodText">This replaces the duplicated restaurant/kitchen sections. The message is factual: the kitchen can support self-catering, chef or caterer discussions, breakfast planning, buffets, and lunchboxes depending on the group. It does not promise table service or a public restaurant model.</p>
+        <p data-i18n="foodText">The kitchen can support self-catering, chef or caterer discussions, breakfast planning, buffets, and lunchboxes depending on the group.</p>
+
         <div class="fh-kitchen-list">
           <div class="fh-kitchen-item"><strong data-i18n="foodItem1Title">Kitchen access</strong><span data-i18n="foodItem1Text">Groups can organize meals around the kitchen and the rhythm of their stay.</span></div>
           <div class="fh-kitchen-item"><strong data-i18n="foodItem2Title">Chef or caterer by arrangement</strong><span data-i18n="foodItem2Text">For weddings, retreats, and special events, support can be discussed separately.</span></div>
           <div class="fh-kitchen-item"><strong data-i18n="foodItem3Title">Simple planning</strong><span data-i18n="foodItem3Text">Breakfasts, buffets, packed lunches, and group logistics can be planned before arrival.</span></div>
         </div>
       </article>
+
       <div class="fh-carousel fh-reveal" data-carousel="kitchen">
         <div class="fh-carousel-track"></div>
-        <div class="fh-carousel-nav"><button type="button" data-prev aria-label="Previous kitchen image">‹</button><button type="button" data-next aria-label="Next kitchen image">›</button></div>
-        <div class="fh-carousel-copy"><p class="fh-kicker" data-i18n="foodNoteKicker">Private rhythm</p><p data-i18n="foodNote">Food planning follows the group, the dates, and the type of stay.</p></div>
+        <div class="fh-carousel-nav">
+          <button type="button" data-prev aria-label="Previous kitchen image">‹</button>
+          <button type="button" data-next aria-label="Next kitchen image">›</button>
+        </div>
+        <div class="fh-carousel-copy">
+          <p class="fh-kicker" data-i18n="foodNoteKicker">Private rhythm</p>
+          <p data-i18n="foodNote">Food planning follows the group, the dates, and the type of stay.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="fh-section" id="access">
     <div class="fh-container fh-section-head">
-      <div class="fh-reveal"><p class="fh-kicker" data-i18n="mapKicker">Access & location</p><h2 data-i18n="mapTitle">Above Saas-Fee, private enough to feel away.</h2></div>
-      <p class="fh-reveal" data-i18n="mapLead">The chalet sits above the village. Guests should plan arrival carefully because Saas-Fee is car-free, walking time varies with luggage and weather, and shuttle or taxi arrangements may need coordination.</p>
+      <div class="fh-reveal">
+        <p class="fh-kicker" data-i18n="mapKicker">Access & location</p>
+        <h2 data-i18n="mapTitle">Above Saas-Fee, private enough to feel away.</h2>
+      </div>
+      <p class="fh-reveal" data-i18n="mapLead">The chalet sits above the village. Saas-Fee is car-free, so guests should plan arrival carefully with luggage, weather, and transfer timing in mind.</p>
     </div>
+
     <div class="fh-container fh-map-grid">
       <div class="fh-map-card fh-reveal">
         <iframe id="fhMapFrame" title="Interactive map to Fletschhorn, Saas-Fee" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland&z=15&output=embed"></iframe>
         <div class="fh-map-context" id="fhMapContext"><strong>Fletschhorn</strong><span data-i18n="mapDefault">Click the cards to explore the property location, village route, arrival planning, or evening movement.</span></div>
         <a class="fh-map-open" id="fhMapOpen" href="https://www.google.com/maps/search/?api=1&query=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland" target="_blank" rel="noopener" data-i18n="openMap">Open map</a>
       </div>
+
       <aside class="fh-map-side">
         <button type="button" class="fh-map-note active" data-map-title="Fletschhorn" data-map-text="The map is centered on the Fletschhorn property so the chalet location appears clearly above Saas-Fee." data-map-src="https://www.google.com/maps?q=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland&z=15&output=embed" data-map-open="https://www.google.com/maps/search/?api=1&query=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland"><strong data-i18n="mapCard1Title">Fletschhorn</strong><span data-i18n="mapCard1Text">View the exact property location above the village.</span></button>
         <button type="button" class="fh-map-note" data-map-title="Village center" data-map-text="About 15–20 minutes on foot from the center of Saas-Fee, depending on pace, luggage, and conditions." data-map-src="https://www.google.com/maps?saddr=Saas-Fee%20Bus%20Terminal%2C%20Saas-Fee%2C%20Switzerland&daddr=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland&output=embed" data-map-open="https://www.google.com/maps/dir/?api=1&origin=Saas-Fee%20Bus%20Terminal%2C%20Saas-Fee%2C%20Switzerland&destination=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland&travelmode=walking"><strong data-i18n="mapCard2Title">Village center</strong><span data-i18n="mapCard2Text">See the walking route from the village arrival point.</span></button>
@@ -410,21 +1359,29 @@
 
   <section class="fh-section alt" id="area">
     <div class="fh-container fh-section-head">
-      <div class="fh-reveal"><p class="fh-kicker" data-i18n="areaKicker">Experiences around Saas-Fee</p><h2 data-i18n="areaTitle">A private base for winter, summer, and slow alpine days.</h2></div>
+      <div class="fh-reveal">
+        <p class="fh-kicker" data-i18n="areaKicker">Experiences around Saas-Fee</p>
+        <h2 data-i18n="areaTitle">A private base for winter, summer, and slow alpine days.</h2>
+      </div>
       <p class="fh-reveal" data-i18n="areaLead">Saas-Fee gives groups a reason to come in every season: skiing, glacier access, summer trails, marmots at Spielboden, Aqua Allalin, Mattmark, Feeblitz, rope park, Hannig, and high-alpine views.</p>
     </div>
+
     <div class="fh-container fh-season-grid">
       <article class="fh-season fh-reveal"><img data-img="winter" alt="Winter around Fletschhorn"><div class="copy"><p class="fh-kicker" data-i18n="winterKicker">Winter</p><h3 data-i18n="winterTitle">Ski days, glacier air, and quiet evenings.</h3><p data-i18n="winterText">High-altitude skiing, night sledging at Hannig, Ice Pavilion visits, Aqua Allalin, and warm returns to your private chalet.</p></div></article>
       <article class="fh-season fh-reveal"><img data-img="summer" alt="Summer around Fletschhorn"><div class="copy"><p class="fh-kicker" data-i18n="summerKicker">Spring / Summer</p><h3 data-i18n="summerTitle">Trails, marmots, water, and mountain routes.</h3><p data-i18n="summerText">Spielboden marmots, Feeblitz, rope park, Mattmark Dam, Trotti scooters, and hikes for different energy levels.</p></div></article>
-      <article class="fh-season fh-reveal"><img data-img="soft" alt="Soft alpine day at Fletschhorn"><div class="copy"><p class="fh-kicker" data-i18n="softKicker">Soft days</p><h3 data-i18n="softTitle">Wellness, village time, and slow mornings.</h3><p data-i18n="softText">The chalet also offers stillness, views, warm interiors, sauna by request, and the feeling of staying above the rush.</p></div></article>
+      <article class="fh-season fh-reveal"><img data-img="soft" alt="Soft alpine day at Fletschhorn"><div class="copy"><p class="fh-kicker" data-i18n="softKicker">Soft days</p><h3 data-i18n="softTitle">Wellness, village time, and slow mornings.</h3><p data-i18n="softText">Stillness, views, warm interiors, sauna by request, and the feeling of staying above the rush.</p></div></article>
     </div>
   </section>
 
   <section class="fh-section alt" id="history">
     <div class="fh-container fh-section-head">
-      <div class="fh-reveal"><p class="fh-kicker" data-i18n="historyKicker">History</p><h2 data-i18n="historyTitle">A mountain property with a century behind it.</h2></div>
-      <p class="fh-reveal" data-i18n="historyLead">The history is kept shorter on the home page so it adds credibility without making the page feel messy. A full history story can live on the About page.</p>
+      <div class="fh-reveal">
+        <p class="fh-kicker" data-i18n="historyKicker">History</p>
+        <h2 data-i18n="historyTitle">A mountain property with a century behind it.</h2>
+      </div>
+      <p class="fh-reveal" data-i18n="historyLead">A short home-page history adds credibility while the full story can live on the About page.</p>
     </div>
+
     <div class="fh-container fh-history-strip">
       <div class="fh-time-card fh-reveal"><div class="fh-year">1906</div><strong data-i18n="h1906Title">Early mountain hospitality begins.</strong><p data-i18n="h1906Text">A family builds mountain inns in Saas-Fee for the first travellers coming to the village.</p></div>
       <div class="fh-time-card fh-reveal"><div class="fh-year">1970s</div><strong data-i18n="h1970Title">The property grows.</strong><p data-i18n="h1970Text">The Dütsch family develops Fletschhorn into a respected alpine property.</p></div>
@@ -440,6 +1397,7 @@
         <h2 data-i18n="contactTitle">Make this place yours.</h2>
         <p data-i18n="contactText">Send your dates, group size, and the kind of stay you are imagining. We will help you shape the private chalet experience around your group.</p>
       </div>
+
       <div class="fh-panel fh-reveal">
         <div class="fh-contact-line"><span data-i18n="addressLabel">Address</span><strong>Wildistrasse, 3906 Saas-Fee, Switzerland</strong></div>
         <div class="fh-contact-line"><span data-i18n="phoneLabel">Phone</span><strong>+41 27 957 2131</strong></div>
@@ -447,40 +1405,27 @@
       </div>
     </div>
   </section>
-
-  <div class="fh-modal" id="fhDetailsModal" aria-hidden="true">
-    <div class="fh-modal-panel" role="dialog" aria-modal="true" aria-labelledby="fhModalTitle">
-      <div class="fh-modal-head"><h3 id="fhModalTitle" data-i18n="modalTitle">Tell us more</h3><button class="fh-close" type="button" id="fhCloseDetails" aria-label="Close">×</button></div>
-      <div class="fh-modal-body">
-        <div class="fh-detail-grid">
-          <div class="fh-detail-field"><label for="fhGuestCount" data-i18n="modalGroup">Group size</label><input id="fhGuestCount" type="text" data-i18n-placeholder="modalGroupPh" placeholder="How many people?"></div>
-          <div class="fh-detail-field"><label for="fhStayType" data-i18n="modalStay">Type of private stay</label><select id="fhStayType"><option data-i18n="stayOpt1">Exclusive chalet stay</option><option data-i18n="stayOpt2">Family gathering</option><option data-i18n="stayOpt3">Ski group</option><option data-i18n="stayOpt4">Retreat</option><option data-i18n="stayOpt5">Wedding or event</option></select></div>
-          <div class="fh-detail-field"><label for="fhRoomsNeed" data-i18n="modalRooms">Room setup needs</label><input id="fhRoomsNeed" type="text" data-i18n-placeholder="modalRoomsPh" placeholder="Optional"></div>
-          <div class="fh-detail-field"><label for="fhFlexible" data-i18n="modalFlex">Date flexibility</label><input id="fhFlexible" type="text" data-i18n-placeholder="modalFlexPh" placeholder="Exact dates or flexible?"></div>
-          <div class="fh-detail-field full"><label for="fhNotes" data-i18n="modalNotes">Notes</label><textarea id="fhNotes" data-i18n-placeholder="modalNotesPh" placeholder="Anything else about your stay, group, kitchen needs, sauna interest, or arrival plans."></textarea></div>
-        </div>
-        <div class="fh-modal-actions"><button class="fh-clear" type="button" id="fhClearDetails" data-i18n="clear">Clear</button><button class="fh-apply" type="button" id="fhApplyDetails" data-i18n="addDetails">Add details</button></div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script>
 (function(){
   "use strict";
+
   var root=document.getElementById("fh-home");
   if(!root)return;
-  root.dataset.ready="fh-home-v4-language-fixed";
+
+  root.dataset.ready="fh-home-index-booking-prefill-v1";
 
   var CFG={
-    propertyId:"6968339ab7d735001ca015ba",
-    inquiryEndpoint:"https://fletschhorn-guesty-api.bookings-e2d.workers.dev/api/inquiry"
+    bookingPageUrl:"/booking",
+    listingId:"6968339ab7d735001ca015ba"
   };
 
   function $(s){return root.querySelector(s)}
   function $$(s){return Array.from(root.querySelectorAll(s))}
 
   var IK="https://ik.imagekit.io/Redberry/";
+
   var FALLBACK=[
     "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
     "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
@@ -490,8 +1435,15 @@
     "https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg"
   ];
 
-  function img(name){return IK+encodeURIComponent(name).replace(/%2F/g,"/")}
-  function seq(base,max,ext){var a=[];for(var i=1;i<=max;i++)a.push(img(base+" ("+i+")."+ext));return a}
+  function img(name){
+    return IK+encodeURIComponent(name).replace(/%2F/g,"/");
+  }
+
+  function seq(base,max,ext){
+    var a=[];
+    for(var i=1;i<=max;i++)a.push(img(base+" ("+i+")."+ext));
+    return a;
+  }
 
   var IMAGES={
     hero:FALLBACK.slice(0,6),
@@ -509,199 +1461,526 @@
     }
   };
 
-  var state={lang:"en",extraDetails:{},heroTimer:null,carousels:{}};
+  var state={
+    lang:"en",
+    heroTimer:null,
+    carousels:{}
+  };
 
   var T={
     en:{
-      heroKicker:"Private Swiss chalet · Saas-Fee",heroTitle:"Your Private Swiss Chalet Above Saas-Fee",heroLead:"A full-property alpine stay for families, retreats, weddings, ski groups, and private celebrations — with the whole chalet reserved for your group.",heroCardTitle:"One chalet. One group. Completely private.",heroCardText:"Rooms and suites, generous shared spaces, kitchen access, terraces, wellness by request, and mountain views brought together as one private alpine house.",fieldGroup:"Group",fieldGroupPh:"Group size",fieldArrival:"Arrival",fieldDeparture:"Departure",fieldContact:"Contact",fieldContactPh:"Email or phone",requestAvailability:"Request Availability",bookingNote:"Choose real arrival and departure dates. Best rates are available when booking direct.",
-      privateKicker:"The private chalet",privateTitle:"A private alpine house for groups who want the whole place to themselves.",privateLead:"This home page keeps the message simple: Fletschhorn is not presented as a normal hotel page. It is a complete private chalet experience above Saas-Fee, with space to sleep, gather, cook, celebrate, reset, and explore the mountains.",conceptKicker:"The concept",conceptTitle:"A full-property stay, made clear from the first section.",conceptText:"Families, retreats, weddings, private celebrations, and ski groups can take over the property as one private alpine base. The page now avoids repeating the same idea in multiple sections and moves through the stay in a clean order: private chalet, rooms, group moments, kitchen, Saas-Fee, access, history, and contact.",proofGuests:"sleeping places",proofHistory:"years of alpine history",proofProperty:"private-property experience",experienceKicker:"The experience",experienceText:"A private property above the village of Saas-Fee — generous spaces, mountain air, and complete privacy for your group.",
-      roomsKicker:"Rooms & suites",roomsTitle:"Private sleeping spaces, shared under one alpine roof.",roomsLead:"This section uses Inside images from ImageKit/Redberry, so the room story feels real instead of generic. The carousel keeps the layout clean on mobile and avoids empty blocks.",insidePhotoKicker:"Inside Fletschhorn",insidePhotoText:"Bedrooms, suites, warm interiors, and quiet corners for guests who need space to rest.",sleepKicker:"Sleeping rhythm",sleepTitle:"Together, but not crowded.",sleepText:"The chalet gives a group the feeling of being together in one house while still offering private rooms and suites for couples, families, children, and guests who need their own space.",roomPoint1Title:"Up to 48 sleeping places",roomPoint1Text:"Public website capacity is kept clear and simple.",roomPoint2Title:"Rooms and suites",roomPoint2Text:"Useful for mixed groups, families, retreats, and celebrations.",roomPoint3Title:"One private base",roomPoint3Text:"Guests stay together without feeling like they are split across separate hotels.",
-      staysKicker:"What the house is for",staysTitle:"Different groups, one simple idea: the whole chalet is yours.",staysLead:"Instead of repeating “private chalet” again and again, this section lets visitors quickly recognize themselves.",familyKicker:"Families",familyTitle:"Space for everyone.",familyText:"Bedrooms, shared rooms, slow mornings, and easy mountain days together.",retreatKicker:"Retreats",retreatTitle:"A focused alpine base.",retreatText:"Gathering spaces, quiet corners, and enough privacy for a real reset.",eventKicker:"Weddings & events",eventTitle:"Your moment, here.",eventText:"In the middle of the Alps, the property becomes the setting for a private celebration.",skiKicker:"Ski groups",skiTitle:"Mountain days, warm returns.",skiText:"A private home base for skiing, glacier air, and evenings together.",
-      foodKicker:"Kitchen & food planning",foodTitle:"A flexible kitchen concept for private group stays.",foodText:"This replaces the duplicated restaurant/kitchen sections. The message is factual: the kitchen can support self-catering, chef or caterer discussions, breakfast planning, buffets, and lunchboxes depending on the group. It does not promise table service or a public restaurant model.",foodItem1Title:"Kitchen access",foodItem1Text:"Groups can organize meals around the kitchen and the rhythm of their stay.",foodItem2Title:"Chef or caterer by arrangement",foodItem2Text:"For weddings, retreats, and special events, support can be discussed separately.",foodItem3Title:"Simple planning",foodItem3Text:"Breakfasts, buffets, packed lunches, and group logistics can be planned before arrival.",foodNoteKicker:"Private rhythm",foodNote:"Food planning follows the group, the dates, and the type of stay.",
-      areaKicker:"Experiences around Saas-Fee",areaTitle:"A private base for winter, summer, and slow alpine days.",areaLead:"Saas-Fee gives groups a reason to come in every season: skiing, glacier access, summer trails, marmots at Spielboden, Aqua Allalin, Mattmark, Feeblitz, rope park, Hannig, and high-alpine views.",winterKicker:"Winter",winterTitle:"Ski days, glacier air, and quiet evenings.",winterText:"High-altitude skiing, night sledging at Hannig, Ice Pavilion visits, Aqua Allalin, and warm returns to your private chalet.",summerKicker:"Spring / Summer",summerTitle:"Trails, marmots, water, and mountain routes.",summerText:"Spielboden marmots, Feeblitz, rope park, Mattmark Dam, Trotti scooters, and hikes for different energy levels.",softKicker:"Soft days",softTitle:"Wellness, village time, and slow mornings.",softText:"The chalet also offers stillness, views, warm interiors, sauna by request, and the feeling of staying above the rush.",
-      mapKicker:"Access & location",mapTitle:"Above Saas-Fee, private enough to feel away.",mapLead:"The chalet sits above the village. Guests should plan arrival carefully because Saas-Fee is car-free, walking time varies with luggage and weather, and shuttle or taxi arrangements may need coordination.",mapDefault:"Click the cards to explore the property location, village route, arrival planning, or evening movement.",openMap:"Open map",mapCard1Title:"Fletschhorn",mapCard1Text:"View the exact property location above the village.",mapCard2Title:"Village center",mapCard2Text:"See the walking route from the village arrival point.",mapCard3Title:"Arrival planning",mapCard3Text:"View the practical route for coordinated arrival.",mapCard4Title:"Evening plans",mapCard4Text:"See the village area for dinner and evening taxi planning.",
-      historyKicker:"History",historyTitle:"A mountain property with a century behind it.",historyLead:"The history is kept shorter on the home page so it adds credibility without making the page feel messy. A full history story can live on the About page.",h1906Title:"Early mountain hospitality begins.",h1906Text:"A family builds mountain inns in Saas-Fee for the first travellers coming to the village.",h1970Title:"The property grows.",h1970Text:"The Dütsch family develops Fletschhorn into a respected alpine property.",h1994Title:"Swiss culinary history.",h1994Text:"Irma Dütsch becomes the first Swiss woman to be awarded a Michelin star.",hNowTitle:"A renewed private chalet.",hNowText:"The story continues as a private alpine base for groups, events, and whole-property stays.",
-      contactKicker:"Contact & booking",contactTitle:"Make this place yours.",contactText:"Send your dates, group size, and the kind of stay you are imagining. We will help you shape the private chalet experience around your group.",addressLabel:"Address",phoneLabel:"Phone",directLabel:"Direct note",directText:"Best rates are available when booking direct.",modalTitle:"Tell us more",modalGroup:"Group size",modalGroupPh:"How many people?",modalStay:"Type of private stay",stayOpt1:"Exclusive chalet stay",stayOpt2:"Family gathering",stayOpt3:"Ski group",stayOpt4:"Retreat",stayOpt5:"Wedding or event",modalRooms:"Room setup needs",modalRoomsPh:"Optional",modalFlex:"Date flexibility",modalFlexPh:"Exact dates or flexible?",modalNotes:"Notes",modalNotesPh:"Anything else about your stay, group, kitchen needs, sauna interest, or arrival plans.",clear:"Clear",addDetails:"Add details",sending:"Sending…",sent:"Thank you. Your request was sent. We will follow up about availability for the whole chalet.",failed:"The request could not be sent. Please try again or call +41 27 957 2131.",detailsAdded:"Extra details added to your request."
+      heroKicker:"Private Swiss chalet · Saas-Fee",
+      heroTitle:"Your Private Swiss Chalet Above Saas-Fee",
+      heroLead:"A full-property alpine stay for families, retreats, weddings, ski groups, and private celebrations — with the whole chalet reserved for your group.",
+      fieldFirstName:"First name",
+      fieldFirstNamePh:"First name",
+      fieldLastName:"Last name",
+      fieldLastNamePh:"Last name",
+      fieldEmail:"Email",
+      fieldEmailPh:"email@example.com",
+      fieldArrival:"Arrival",
+      fieldDeparture:"Departure",
+      bookNow:"Book my stay now",
+      bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
+      privateKicker:"The private chalet",
+      privateTitle:"A private alpine house for groups who want the whole place to themselves.",
+      privateLead:"Fletschhorn is a complete private chalet experience above Saas-Fee, with space to sleep, gather, cook, celebrate, reset, and explore the mountains.",
+      conceptKicker:"The concept",
+      conceptTitle:"A full-property stay, made clear from the first section.",
+      conceptText:"Families, retreats, weddings, private celebrations, and ski groups can take over the property as one private alpine base.",
+      proofGuests:"sleeping places",
+      proofHistory:"years of alpine history",
+      proofProperty:"private-property experience",
+      experienceKicker:"The experience",
+      experienceText:"A private property above the village of Saas-Fee — generous spaces, mountain air, and complete privacy for your group.",
+      roomsKicker:"Rooms & suites",
+      roomsTitle:"Private sleeping spaces, shared under one alpine roof.",
+      roomsLead:"Rooms and suites give a group the feeling of being together in one house while still offering privacy for families, couples, and guests who need their own space.",
+      insidePhotoKicker:"Inside Fletschhorn",
+      insidePhotoText:"Bedrooms, suites, warm interiors, and quiet corners for guests who need space to rest.",
+      sleepKicker:"Sleeping rhythm",
+      sleepTitle:"Together, but not crowded.",
+      sleepText:"A private base where the group can stay together without being split across separate hotels.",
+      roomPoint1Title:"Up to 48 sleeping places",
+      roomPoint1Text:"Public website capacity is kept clear and simple.",
+      roomPoint2Title:"Rooms and suites",
+      roomPoint2Text:"Useful for mixed groups, families, retreats, and celebrations.",
+      roomPoint3Title:"One private base",
+      roomPoint3Text:"Guests stay together without feeling like they are split across separate hotels.",
+      staysKicker:"What the house is for",
+      staysTitle:"Different groups, one simple idea: the whole chalet is yours.",
+      staysLead:"Families, retreats, weddings, ski groups, and private celebrations can all use the property as a private alpine base.",
+      familyKicker:"Families",
+      familyTitle:"Space for everyone.",
+      familyText:"Bedrooms, shared rooms, slow mornings, and easy mountain days together.",
+      retreatKicker:"Retreats",
+      retreatTitle:"A focused alpine base.",
+      retreatText:"Gathering spaces, quiet corners, and enough privacy for a real reset.",
+      eventKicker:"Weddings & events",
+      eventTitle:"Your moment, here.",
+      eventText:"In the middle of the Alps, the property becomes the setting for a private celebration.",
+      skiKicker:"Ski groups",
+      skiTitle:"Mountain days, warm returns.",
+      skiText:"A private home base for skiing, glacier air, and evenings together.",
+      foodKicker:"Kitchen & food planning",
+      foodTitle:"A flexible kitchen concept for private group stays.",
+      foodText:"The kitchen can support self-catering, chef or caterer discussions, breakfast planning, buffets, and lunchboxes depending on the group.",
+      foodItem1Title:"Kitchen access",
+      foodItem1Text:"Groups can organize meals around the kitchen and the rhythm of their stay.",
+      foodItem2Title:"Chef or caterer by arrangement",
+      foodItem2Text:"For weddings, retreats, and special events, support can be discussed separately.",
+      foodItem3Title:"Simple planning",
+      foodItem3Text:"Breakfasts, buffets, packed lunches, and group logistics can be planned before arrival.",
+      foodNoteKicker:"Private rhythm",
+      foodNote:"Food planning follows the group, the dates, and the type of stay.",
+      mapKicker:"Access & location",
+      mapTitle:"Above Saas-Fee, private enough to feel away.",
+      mapLead:"The chalet sits above the village. Saas-Fee is car-free, so guests should plan arrival carefully with luggage, weather, and transfer timing in mind.",
+      mapDefault:"Click the cards to explore the property location, village route, arrival planning, or evening movement.",
+      openMap:"Open map",
+      mapCard1Title:"Fletschhorn",
+      mapCard1Text:"View the exact property location above the village.",
+      mapCard2Title:"Village center",
+      mapCard2Text:"See the walking route from the village arrival point.",
+      mapCard3Title:"Arrival planning",
+      mapCard3Text:"View the practical route for coordinated arrival.",
+      mapCard4Title:"Evening plans",
+      mapCard4Text:"See the village area for dinner and evening taxi planning.",
+      areaKicker:"Experiences around Saas-Fee",
+      areaTitle:"A private base for winter, summer, and slow alpine days.",
+      areaLead:"Saas-Fee gives groups a reason to come in every season: skiing, glacier access, summer trails, marmots at Spielboden, Aqua Allalin, Mattmark, Feeblitz, rope park, Hannig, and high-alpine views.",
+      winterKicker:"Winter",
+      winterTitle:"Ski days, glacier air, and quiet evenings.",
+      winterText:"High-altitude skiing, night sledging at Hannig, Ice Pavilion visits, Aqua Allalin, and warm returns to your private chalet.",
+      summerKicker:"Spring / Summer",
+      summerTitle:"Trails, marmots, water, and mountain routes.",
+      summerText:"Spielboden marmots, Feeblitz, rope park, Mattmark Dam, Trotti scooters, and hikes for different energy levels.",
+      softKicker:"Soft days",
+      softTitle:"Wellness, village time, and slow mornings.",
+      softText:"Stillness, views, warm interiors, sauna by request, and the feeling of staying above the rush.",
+      historyKicker:"History",
+      historyTitle:"A mountain property with a century behind it.",
+      historyLead:"A short home-page history adds credibility while the full story can live on the About page.",
+      h1906Title:"Early mountain hospitality begins.",
+      h1906Text:"A family builds mountain inns in Saas-Fee for the first travellers coming to the village.",
+      h1970Title:"The property grows.",
+      h1970Text:"The Dütsch family develops Fletschhorn into a respected alpine property.",
+      h1994Title:"Swiss culinary history.",
+      h1994Text:"Irma Dütsch becomes the first Swiss woman to be awarded a Michelin star.",
+      hNowTitle:"A renewed private chalet.",
+      hNowText:"The story continues as a private alpine base for groups, events, and whole-property stays.",
+      contactKicker:"Contact & booking",
+      contactTitle:"Make this place yours.",
+      contactText:"Send your dates, group size, and the kind of stay you are imagining. We will help you shape the private chalet experience around your group.",
+      addressLabel:"Address",
+      phoneLabel:"Phone",
+      directLabel:"Direct note",
+      directText:"Best rates are available when booking direct.",
+      missingFirstName:"Please enter your first name.",
+      missingLastName:"Please enter your last name.",
+      missingEmail:"Please enter your email.",
+      invalidEmail:"Please enter a valid email address.",
+      missingDates:"Please choose arrival and departure dates.",
+      badDates:"Departure must be after arrival.",
+      redirecting:"Taking you to the booking page…"
     }
   };
 
   T.fr=Object.assign({},T.en,{
-      heroKicker:"Chalet suisse privé · Saas-Fee",heroTitle:"Votre chalet suisse privé au-dessus de Saas-Fee",heroLead:"Un séjour alpin en propriété exclusive pour familles, retraites, mariages, groupes de ski et célébrations privées — avec tout le chalet réservé à votre groupe.",heroCardTitle:"Un chalet. Un groupe. Entièrement privé.",heroCardText:"Chambres et suites, grands espaces partagés, accès cuisine, terrasses, bien-être sur demande et vues sur les montagnes réunis dans une maison alpine privée.",fieldGroup:"Groupe",fieldGroupPh:"Taille du groupe",fieldArrival:"Arrivée",fieldDeparture:"Départ",fieldContact:"Contact",fieldContactPh:"Email ou téléphone",requestAvailability:"Demander disponibilité",bookingNote:"Choisissez vos vraies dates d’arrivée et de départ. Les meilleurs tarifs sont disponibles en réservation directe.",
-      privateKicker:"Le chalet privé",privateTitle:"Une maison alpine privée pour les groupes qui veulent tout le lieu pour eux seuls.",privateLead:"La page d’accueil garde le message simple : Fletschhorn n’est pas présenté comme une page d’hôtel classique. C’est une expérience de chalet privé complet au-dessus de Saas-Fee, avec de l’espace pour dormir, se retrouver, cuisiner, célébrer, se ressourcer et explorer la montagne.",conceptKicker:"Le concept",conceptTitle:"Un séjour en propriété complète, clair dès la première section.",conceptText:"Familles, retraites, mariages, célébrations privées et groupes de ski peuvent prendre possession du lieu comme base alpine privée. La page évite maintenant de répéter la même idée partout et avance dans un ordre clair : chalet privé, chambres, moments de groupe, cuisine, Saas-Fee, accès, histoire et contact.",proofGuests:"places pour dormir",proofHistory:"ans d’histoire alpine",proofProperty:"expérience de propriété privée",experienceKicker:"L’expérience",experienceText:"Une propriété privée au-dessus du village de Saas-Fee — espaces généreux, air de montagne et intimité complète pour votre groupe.",
-      roomsKicker:"Chambres & suites",roomsTitle:"Des espaces de nuit privés, réunis sous un même toit alpin.",roomsLead:"Cette section utilise les images Inside depuis ImageKit/Redberry pour que l’histoire des chambres semble réelle, pas générique. Le carrousel garde une mise en page propre sur mobile et évite les blocs vides.",insidePhotoKicker:"À l’intérieur du Fletschhorn",insidePhotoText:"Chambres, suites, intérieurs chaleureux et coins calmes pour les invités qui ont besoin de repos.",sleepKicker:"Rythme du sommeil",sleepTitle:"Ensemble, mais pas entassés.",sleepText:"Le chalet donne au groupe le sentiment d’être réuni dans une même maison, tout en offrant des chambres et suites privées pour couples, familles, enfants et invités qui ont besoin de leur propre espace.",roomPoint1Title:"Jusqu’à 48 places pour dormir",roomPoint1Text:"La capacité publique du site reste claire et simple.",roomPoint2Title:"Chambres et suites",roomPoint2Text:"Utile pour groupes mixtes, familles, retraites et célébrations.",roomPoint3Title:"Une base privée",roomPoint3Text:"Les invités restent ensemble sans être dispersés dans plusieurs hôtels.",
-      staysKicker:"Pour qui est la maison",staysTitle:"Différents groupes, une idée simple : tout le chalet est à vous.",staysLead:"Au lieu de répéter encore et encore “chalet privé”, cette section permet aux visiteurs de se reconnaître rapidement.",familyKicker:"Familles",familyTitle:"De l’espace pour chacun.",familyText:"Chambres, espaces partagés, matins tranquilles et journées faciles en montagne.",retreatKicker:"Retraites",retreatTitle:"Une base alpine concentrée.",retreatText:"Espaces de réunion, coins calmes et assez d’intimité pour un vrai reset.",eventKicker:"Mariages & événements",eventTitle:"Votre moment, ici.",eventText:"Au milieu des Alpes, la propriété devient le décor d’une célébration privée.",skiKicker:"Groupes de ski",skiTitle:"Journées montagne, retours chaleureux.",skiText:"Une base privée pour le ski, l’air du glacier et les soirées ensemble.",
-      foodKicker:"Cuisine & organisation des repas",foodTitle:"Un concept de cuisine flexible pour les séjours de groupe privés.",foodText:"Cette section remplace les doublons restaurant/cuisine. Le message est factuel : la cuisine peut soutenir le self-catering, les discussions avec chef ou traiteur, les petits-déjeuners, buffets et lunchboxes selon le groupe. Cela ne promet pas de service à table ni de modèle de restaurant public.",foodItem1Title:"Accès cuisine",foodItem1Text:"Les groupes peuvent organiser les repas autour de la cuisine et du rythme de leur séjour.",foodItem2Title:"Chef ou traiteur sur arrangement",foodItem2Text:"Pour mariages, retraites et événements spéciaux, un accompagnement peut être discuté séparément.",foodItem3Title:"Organisation simple",foodItem3Text:"Petits-déjeuners, buffets, repas à emporter et logistique de groupe peuvent être planifiés avant l’arrivée.",foodNoteKicker:"Rythme privé",foodNote:"L’organisation des repas suit le groupe, les dates et le type de séjour.",
-      areaKicker:"Expériences autour de Saas-Fee",areaTitle:"Une base privée pour l’hiver, l’été et les journées alpines lentes.",areaLead:"Saas-Fee donne aux groupes une raison de venir à chaque saison : ski, accès au glacier, sentiers d’été, marmottes au Spielboden, Aqua Allalin, Mattmark, Feeblitz, parc aventure, Hannig et vues de haute montagne.",winterKicker:"Hiver",winterTitle:"Journées de ski, air du glacier et soirées calmes.",winterText:"Ski en altitude, luge nocturne à Hannig, visite du Pavillon de glace, Aqua Allalin et retours chaleureux dans votre chalet privé.",summerKicker:"Printemps / Été",summerTitle:"Sentiers, marmottes, eau et routes de montagne.",summerText:"Marmottes à Spielboden, Feeblitz, parc aventure, barrage de Mattmark, trottinettes Trotti et randonnées pour différents niveaux d’énergie.",softKicker:"Journées douces",softTitle:"Bien-être, village et matins lents.",softText:"Le chalet offre aussi du calme, des vues, des intérieurs chaleureux, un sauna sur demande et la sensation d’être au-dessus de l’agitation.",
-      mapKicker:"Accès & localisation",mapTitle:"Au-dessus de Saas-Fee, assez privé pour se sentir ailleurs.",mapLead:"Le chalet se situe au-dessus du village. Les invités doivent bien planifier l’arrivée car Saas-Fee est sans voitures, le temps de marche varie avec les bagages et la météo, et une navette ou un taxi peut devoir être coordonné.",mapDefault:"Cliquez sur les cartes pour explorer l’emplacement, le trajet depuis le village, l’arrivée ou les déplacements du soir.",openMap:"Ouvrir la carte",mapCard1Title:"Fletschhorn",mapCard1Text:"Voir l’emplacement exact de la propriété au-dessus du village.",mapCard2Title:"Centre du village",mapCard2Text:"Voir le trajet à pied depuis le point d’arrivée du village.",mapCard3Title:"Planification de l’arrivée",mapCard3Text:"Voir l’itinéraire pratique pour une arrivée coordonnée.",mapCard4Title:"Plans du soir",mapCard4Text:"Voir la zone du village pour le dîner et l’organisation des taxis.",
-      historyKicker:"Histoire",historyTitle:"Une propriété de montagne avec un siècle derrière elle.",historyLead:"L’histoire reste plus courte sur la page d’accueil pour ajouter de la crédibilité sans rendre la page confuse. L’histoire complète peut vivre sur la page À propos.",h1906Title:"Les débuts de l’hospitalité alpine.",h1906Text:"Une famille construit des auberges de montagne à Saas-Fee pour les premiers voyageurs qui arrivent au village.",h1970Title:"La propriété grandit.",h1970Text:"La famille Dütsch développe Fletschhorn en propriété alpine respectée.",h1994Title:"Histoire culinaire suisse.",h1994Text:"Irma Dütsch devient la première femme suisse à recevoir une étoile Michelin.",hNowTitle:"Un chalet privé renouvelé.",hNowText:"L’histoire continue comme base alpine privée pour groupes, événements et séjours en propriété complète.",
-      contactKicker:"Contact & réservation",contactTitle:"Faites de ce lieu le vôtre.",contactText:"Envoyez vos dates, la taille de votre groupe et le séjour que vous imaginez. Nous vous aiderons à adapter l’expérience du chalet privé à votre groupe.",addressLabel:"Adresse",phoneLabel:"Téléphone",directLabel:"Note directe",directText:"Les meilleurs tarifs sont disponibles en réservation directe.",modalTitle:"Dites-nous en plus",modalGroup:"Taille du groupe",modalGroupPh:"Combien de personnes ?",modalStay:"Type de séjour privé",stayOpt1:"Séjour exclusif en chalet",stayOpt2:"Réunion de famille",stayOpt3:"Groupe de ski",stayOpt4:"Retraite",stayOpt5:"Mariage ou événement",modalRooms:"Besoins en chambres",modalRoomsPh:"Optionnel",modalFlex:"Flexibilité des dates",modalFlexPh:"Dates exactes ou flexibles ?",modalNotes:"Notes",modalNotesPh:"Autres détails sur votre séjour, groupe, cuisine, sauna ou arrivée.",clear:"Effacer",addDetails:"Ajouter les détails",sending:"Envoi…",sent:"Merci. Votre demande a été envoyée. Nous reviendrons vers vous pour la disponibilité du chalet entier.",failed:"La demande n’a pas pu être envoyée. Veuillez réessayer ou appeler le +41 27 957 2131.",detailsAdded:"Détails supplémentaires ajoutés à votre demande."
-    });
-  T.de=Object.assign({},T.en,{
-      heroKicker:"Privates Schweizer Chalet · Saas-Fee",heroTitle:"Ihr privates Schweizer Chalet oberhalb von Saas-Fee",heroLead:"Ein alpiner Aufenthalt im gesamten Anwesen für Familien, Retreats, Hochzeiten, Skigruppen und private Feiern — das ganze Chalet nur für Ihre Gruppe.",heroCardTitle:"Ein Chalet. Eine Gruppe. Ganz privat.",heroCardText:"Zimmer und Suiten, großzügige Gemeinschaftsräume, Küchenzugang, Terrassen, Wellness auf Anfrage und Bergblicke vereint in einem privaten Alpenhaus.",fieldGroup:"Gruppe",fieldGroupPh:"Gruppengröße",fieldArrival:"Anreise",fieldDeparture:"Abreise",fieldContact:"Kontakt",fieldContactPh:"E-Mail oder Telefon",requestAvailability:"Verfügbarkeit anfragen",bookingNote:"Wählen Sie echte Anreise- und Abreisedaten. Die besten Preise erhalten Sie bei Direktbuchung.",
-      privateKicker:"Das private Chalet",privateTitle:"Ein privates Alpenhaus für Gruppen, die den ganzen Ort für sich möchten.",privateLead:"Die Startseite hält die Botschaft einfach: Fletschhorn wird nicht wie eine normale Hotelseite präsentiert. Es ist ein vollständiges privates Chalet-Erlebnis oberhalb von Saas-Fee, mit Raum zum Schlafen, Zusammenkommen, Kochen, Feiern, Erholen und Erkunden der Berge.",conceptKicker:"Das Konzept",conceptTitle:"Ein Aufenthalt im ganzen Anwesen, klar ab dem ersten Abschnitt.",conceptText:"Familien, Retreats, Hochzeiten, private Feiern und Skigruppen können das Anwesen als private Alpenbasis übernehmen. Die Seite wiederholt dieselbe Idee nicht mehrfach und führt sauber durch: privates Chalet, Zimmer, Gruppenmomente, Küche, Saas-Fee, Zugang, Geschichte und Kontakt.",proofGuests:"Schlafplätze",proofHistory:"Jahre alpine Geschichte",proofProperty:"privates Anwesen-Erlebnis",experienceKicker:"Das Erlebnis",experienceText:"Ein privates Anwesen oberhalb des Dorfes Saas-Fee — großzügige Räume, Bergluft und vollständige Privatsphäre für Ihre Gruppe.",
-      roomsKicker:"Zimmer & Suiten",roomsTitle:"Private Schlafräume unter einem alpinen Dach.",roomsLead:"Dieser Abschnitt nutzt Inside-Bilder von ImageKit/Redberry, damit die Zimmergeschichte echt und nicht generisch wirkt. Das Karussell hält das Layout mobil sauber und vermeidet leere Blöcke.",insidePhotoKicker:"Im Fletschhorn",insidePhotoText:"Schlafzimmer, Suiten, warme Innenräume und ruhige Ecken für Gäste, die Erholung brauchen.",sleepKicker:"Schlafrhythmus",sleepTitle:"Zusammen, aber nicht gedrängt.",sleepText:"Das Chalet gibt Gruppen das Gefühl, gemeinsam in einem Haus zu sein, bietet aber zugleich private Zimmer und Suiten für Paare, Familien, Kinder und Gäste mit eigenem Raumbedarf.",roomPoint1Title:"Bis zu 48 Schlafplätze",roomPoint1Text:"Die öffentliche Website-Kapazität bleibt klar und einfach.",roomPoint2Title:"Zimmer und Suiten",roomPoint2Text:"Nützlich für gemischte Gruppen, Familien, Retreats und Feiern.",roomPoint3Title:"Eine private Basis",roomPoint3Text:"Gäste bleiben zusammen, ohne auf verschiedene Hotels verteilt zu sein.",
-      staysKicker:"Wofür das Haus gedacht ist",staysTitle:"Verschiedene Gruppen, eine einfache Idee: das ganze Chalet gehört Ihnen.",staysLead:"Anstatt immer wieder „privates Chalet“ zu wiederholen, lässt dieser Abschnitt Besucher sich schnell wiederfinden.",familyKicker:"Familien",familyTitle:"Raum für alle.",familyText:"Schlafzimmer, gemeinsame Räume, langsame Morgen und einfache Bergtage zusammen.",retreatKicker:"Retreats",retreatTitle:"Eine fokussierte Alpenbasis.",retreatText:"Gemeinschaftsräume, ruhige Ecken und genug Privatsphäre für echte Erholung.",eventKicker:"Hochzeiten & Events",eventTitle:"Ihr Moment, hier.",eventText:"Mitten in den Alpen wird das Anwesen zur Kulisse einer privaten Feier.",skiKicker:"Skigruppen",skiTitle:"Bergtage, warme Rückkehr.",skiText:"Eine private Basis für Skifahren, Gletscherluft und gemeinsame Abende.",
-      foodKicker:"Küche & Essensplanung",foodTitle:"Ein flexibles Küchenkonzept für private Gruppenaufenthalte.",foodText:"Dieser Abschnitt ersetzt doppelte Restaurant-/Küchentexte. Die Botschaft ist sachlich: Die Küche kann Selbstversorgung, Koch- oder Cateringabsprachen, Frühstücksplanung, Buffets und Lunchpakete je nach Gruppe unterstützen. Es wird kein Tischservice oder öffentliches Restaurantmodell versprochen.",foodItem1Title:"Küchenzugang",foodItem1Text:"Gruppen können Mahlzeiten rund um die Küche und den Rhythmus ihres Aufenthalts organisieren.",foodItem2Title:"Koch oder Caterer nach Absprache",foodItem2Text:"Für Hochzeiten, Retreats und besondere Events kann Unterstützung separat besprochen werden.",foodItem3Title:"Einfache Planung",foodItem3Text:"Frühstück, Buffets, Lunchpakete und Gruppenlogistik können vor der Anreise geplant werden.",foodNoteKicker:"Privater Rhythmus",foodNote:"Die Essensplanung folgt der Gruppe, den Daten und der Art des Aufenthalts.",
-      areaKicker:"Erlebnisse rund um Saas-Fee",areaTitle:"Eine private Basis für Winter, Sommer und langsame Alpentage.",areaLead:"Saas-Fee gibt Gruppen zu jeder Jahreszeit einen Grund zu kommen: Skifahren, Gletscherzugang, Sommerwege, Murmeltiere am Spielboden, Aqua Allalin, Mattmark, Feeblitz, Seilpark, Hannig und hochalpine Ausblicke.",winterKicker:"Winter",winterTitle:"Skitage, Gletscherluft und ruhige Abende.",winterText:"Höhen-Skifahren, Nachtschlitteln am Hannig, Eispavillon, Aqua Allalin und warme Rückkehr ins private Chalet.",summerKicker:"Frühling / Sommer",summerTitle:"Wege, Murmeltiere, Wasser und Bergrouten.",summerText:"Murmeltiere am Spielboden, Feeblitz, Seilpark, Mattmark-Staudamm, Trotti-Roller und Wanderungen für verschiedene Energielevel.",softKicker:"Sanfte Tage",softTitle:"Wellness, Dorfzeit und langsame Morgen.",softText:"Das Chalet bietet auch Stille, Ausblicke, warme Innenräume, Sauna auf Anfrage und das Gefühl, über dem Trubel zu sein.",
-      mapKicker:"Zugang & Lage",mapTitle:"Oberhalb von Saas-Fee, privat genug um sich entfernt zu fühlen.",mapLead:"Das Chalet liegt oberhalb des Dorfes. Gäste sollten die Anreise sorgfältig planen, da Saas-Fee autofrei ist, die Gehzeit je nach Gepäck und Wetter variiert und Shuttle oder Taxi koordiniert werden können.",mapDefault:"Klicken Sie auf die Karten, um Lage, Dorfroute, Anreiseplanung oder Abendbewegung zu erkunden.",openMap:"Karte öffnen",mapCard1Title:"Fletschhorn",mapCard1Text:"Den genauen Standort oberhalb des Dorfes ansehen.",mapCard2Title:"Dorfzentrum",mapCard2Text:"Den Fußweg vom Ankunftspunkt im Dorf ansehen.",mapCard3Title:"Anreiseplanung",mapCard3Text:"Die praktische Route für koordinierte Anreise ansehen.",mapCard4Title:"Abendpläne",mapCard4Text:"Den Dorfbereich für Abendessen und Taxi-Planung ansehen.",
-      historyKicker:"Geschichte",historyTitle:"Ein Berganwesen mit einem Jahrhundert Geschichte.",historyLead:"Die Geschichte bleibt auf der Startseite kürzer, damit sie Vertrauen schafft, ohne die Seite unruhig zu machen. Die vollständige Geschichte kann auf der Über-uns-Seite leben.",h1906Title:"Frühe Berghospitalität beginnt.",h1906Text:"Eine Familie baut Berggasthäuser in Saas-Fee für die ersten Reisenden im Dorf.",h1970Title:"Das Anwesen wächst.",h1970Text:"Die Familie Dütsch entwickelt Fletschhorn zu einem angesehenen Alpenanwesen.",h1994Title:"Schweizer Kulinarikgeschichte.",h1994Text:"Irma Dütsch wird die erste Schweizer Frau mit einem Michelin-Stern.",hNowTitle:"Ein erneuertes privates Chalet.",hNowText:"Die Geschichte geht weiter als private Alpenbasis für Gruppen, Events und Aufenthalte im ganzen Anwesen.",
-      contactKicker:"Kontakt & Buchung",contactTitle:"Machen Sie diesen Ort zu Ihrem.",contactText:"Senden Sie Ihre Daten, Gruppengröße und die Art des Aufenthalts, die Sie sich vorstellen. Wir helfen, das private Chalet-Erlebnis an Ihre Gruppe anzupassen.",addressLabel:"Adresse",phoneLabel:"Telefon",directLabel:"Direkter Hinweis",directText:"Die besten Preise erhalten Sie bei Direktbuchung.",modalTitle:"Erzählen Sie uns mehr",modalGroup:"Gruppengröße",modalGroupPh:"Wie viele Personen?",modalStay:"Art des privaten Aufenthalts",stayOpt1:"Exklusiver Chalet-Aufenthalt",stayOpt2:"Familientreffen",stayOpt3:"Skigruppe",stayOpt4:"Retreat",stayOpt5:"Hochzeit oder Event",modalRooms:"Zimmerbedarf",modalRoomsPh:"Optional",modalFlex:"Datumsflexibilität",modalFlexPh:"Genaue Daten oder flexibel?",modalNotes:"Notizen",modalNotesPh:"Weitere Details zu Aufenthalt, Gruppe, Küche, Sauna oder Anreise.",clear:"Löschen",addDetails:"Details hinzufügen",sending:"Wird gesendet…",sent:"Danke. Ihre Anfrage wurde gesendet. Wir melden uns zur Verfügbarkeit des ganzen Chalets.",failed:"Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder rufen Sie +41 27 957 2131 an.",detailsAdded:"Zusätzliche Details wurden Ihrer Anfrage hinzugefügt."
-    });
-  T.ru=Object.assign({},T.en,{
-      heroKicker:"Частное швейцарское шале · Саас-Фе",heroTitle:"Ваше частное швейцарское шале над Саас-Фе",heroLead:"Полный альпийский отдых для семей, ретритов, свадеб, лыжных групп и частных торжеств — всё шале только для вашей группы.",heroCardTitle:"Одно шале. Одна группа. Полная приватность.",heroCardText:"Номера и люксы, просторные общие зоны, доступ к кухне, террасы, велнес по запросу и виды на горы, объединённые в одном частном альпийском доме.",fieldGroup:"Группа",fieldGroupPh:"Размер группы",fieldArrival:"Заезд",fieldDeparture:"Выезд",fieldContact:"Контакт",fieldContactPh:"Email или телефон",requestAvailability:"Узнать наличие",bookingNote:"Укажите реальные даты заезда и выезда. Лучшие цены доступны при прямом бронировании.",
-      privateKicker:"Частное шале",privateTitle:"Частный альпийский дом для групп, которые хотят всё пространство только для себя.",privateLead:"Главная страница сохраняет простую идею: Fletschhorn не представлен как обычная страница отеля. Это полноценный опыт частного шале над Саас-Фе, с пространством для сна, встреч, готовки, празднования, восстановления и горных прогулок.",conceptKicker:"Концепция",conceptTitle:"Проживание во всём объекте, понятное с первой секции.",conceptText:"Семьи, ретриты, свадьбы, частные торжества и лыжные группы могут занять объект как частную альпийскую базу. Страница больше не повторяет одну и ту же идею в разных местах и идёт в чистом порядке: частное шале, комнаты, групповые моменты, кухня, Саас-Фе, доступ, история и контакт.",proofGuests:"спальных мест",proofHistory:"лет альпийской истории",proofProperty:"опыт частной усадьбы",experienceKicker:"Опыт",experienceText:"Частная усадьба над деревней Саас-Фе — просторные зоны, горный воздух и полная приватность для вашей группы.",
-      roomsKicker:"Номера и люксы",roomsTitle:"Частные спальные пространства под одной альпийской крышей.",roomsLead:"Эта секция использует изображения Inside из ImageKit/Redberry, чтобы история комнат выглядела реальной, не общей. Карусель сохраняет чистую мобильную компоновку и избегает пустых блоков.",insidePhotoKicker:"Внутри Fletschhorn",insidePhotoText:"Спальни, люксы, тёплые интерьеры и тихие уголки для гостей, которым нужно отдохнуть.",sleepKicker:"Ритм отдыха",sleepTitle:"Вместе, но не тесно.",sleepText:"Шале даёт группе ощущение жизни в одном доме, сохраняя частные номера и люксы для пар, семей, детей и гостей, которым нужно своё пространство.",roomPoint1Title:"До 48 спальных мест",roomPoint1Text:"Публичная вместимость сайта остаётся ясной и простой.",roomPoint2Title:"Номера и люксы",roomPoint2Text:"Удобно для смешанных групп, семей, ретритов и праздников.",roomPoint3Title:"Одна частная база",roomPoint3Text:"Гости остаются вместе, а не распределяются по разным отелям.",
-      staysKicker:"Для кого этот дом",staysTitle:"Разные группы, одна простая идея: всё шале ваше.",staysLead:"Вместо постоянного повторения “частное шале” эта секция помогает посетителям быстро узнать себя.",familyKicker:"Семьи",familyTitle:"Пространство для всех.",familyText:"Спальни, общие зоны, медленные утра и лёгкие горные дни вместе.",retreatKicker:"Ретриты",retreatTitle:"Сосредоточенная альпийская база.",retreatText:"Пространства для встреч, тихие уголки и достаточно приватности для настоящего восстановления.",eventKicker:"Свадьбы и события",eventTitle:"Ваш момент, здесь.",eventText:"В центре Альп объект становится местом для частного торжества.",skiKicker:"Лыжные группы",skiTitle:"Горные дни, тёплые возвращения.",skiText:"Частная база для лыж, ледникового воздуха и вечеров вместе.",
-      foodKicker:"Кухня и питание",foodTitle:"Гибкая кухонная концепция для частных групповых проживаний.",foodText:"Эта секция заменяет повторяющиеся блоки ресторана/кухни. Сообщение фактическое: кухня может поддерживать самостоятельное питание, обсуждение повара или кейтеринга, завтраки, буфеты и ланч-боксы в зависимости от группы. Это не обещает обслуживание за столом или модель публичного ресторана.",foodItem1Title:"Доступ к кухне",foodItem1Text:"Группы могут организовывать питание вокруг кухни и ритма своего пребывания.",foodItem2Title:"Повар или кейтеринг по договорённости",foodItem2Text:"Для свадеб, ретритов и особых событий поддержку можно обсудить отдельно.",foodItem3Title:"Простое планирование",foodItem3Text:"Завтраки, буфеты, еда с собой и групповая логистика могут быть спланированы до приезда.",foodNoteKicker:"Частный ритм",foodNote:"Планирование питания следует группе, датам и типу пребывания.",
-      areaKicker:"Впечатления вокруг Саас-Фе",areaTitle:"Частная база для зимы, лета и спокойных альпийских дней.",areaLead:"Саас-Фе даёт группам повод приезжать в любой сезон: лыжи, ледник, летние маршруты, сурки на Spielboden, Aqua Allalin, Mattmark, Feeblitz, верёвочный парк, Hannig и высокогорные виды.",winterKicker:"Зима",winterTitle:"Лыжные дни, ледниковый воздух и тихие вечера.",winterText:"Высотное катание, ночные санки на Hannig, Ледяной павильон, Aqua Allalin и тёплое возвращение в частное шале.",summerKicker:"Весна / Лето",summerTitle:"Тропы, сурки, вода и горные маршруты.",summerText:"Сурки на Spielboden, Feeblitz, верёвочный парк, плотина Mattmark, самокаты Trotti и походы для разного уровня энергии.",softKicker:"Мягкие дни",softTitle:"Велнес, деревня и медленные утра.",softText:"Шале также предлагает тишину, виды, тёплые интерьеры, сауну по запросу и ощущение нахождения выше суеты.",
-      mapKicker:"Доступ и расположение",mapTitle:"Над Саас-Фе, достаточно приватно, чтобы почувствовать себя вдали.",mapLead:"Шале находится над деревней. Гостям нужно внимательно планировать приезд, потому что Саас-Фе без автомобилей, время пешком зависит от багажа и погоды, а шаттл или такси могут требовать координации.",mapDefault:"Нажмите на карточки, чтобы посмотреть расположение, путь из деревни, план приезда или вечерние перемещения.",openMap:"Открыть карту",mapCard1Title:"Fletschhorn",mapCard1Text:"Посмотреть точное расположение над деревней.",mapCard2Title:"Центр деревни",mapCard2Text:"Посмотреть пеший маршрут от точки прибытия.",mapCard3Title:"План приезда",mapCard3Text:"Посмотреть практичный маршрут для скоординированного приезда.",mapCard4Title:"Вечерние планы",mapCard4Text:"Посмотреть район деревни для ужина и планирования такси.",
-      historyKicker:"История",historyTitle:"Горная усадьба с вековой историей.",historyLead:"История на главной странице короче, чтобы добавить доверие без ощущения беспорядка. Полная история может быть на странице About.",h1906Title:"Начинается раннее горное гостеприимство.",h1906Text:"Семья строит горные гостиницы в Саас-Фе для первых путешественников, прибывающих в деревню.",h1970Title:"Объект растёт.",h1970Text:"Семья Dütsch развивает Fletschhorn в уважаемую альпийскую усадьбу.",h1994Title:"Швейцарская кулинарная история.",h1994Text:"Irma Dütsch становится первой швейцарской женщиной, получившей звезду Michelin.",hNowTitle:"Обновлённое частное шале.",hNowText:"История продолжается как частная альпийская база для групп, событий и проживания во всём объекте.",
-      contactKicker:"Контакт и бронирование",contactTitle:"Сделайте это место своим.",contactText:"Отправьте даты, размер группы и тип пребывания, который вы представляете. Мы поможем адаптировать опыт частного шале под вашу группу.",addressLabel:"Адрес",phoneLabel:"Телефон",directLabel:"Прямое примечание",directText:"Лучшие цены доступны при прямом бронировании.",modalTitle:"Расскажите нам больше",modalGroup:"Размер группы",modalGroupPh:"Сколько человек?",modalStay:"Тип частного пребывания",stayOpt1:"Эксклюзивное проживание в шале",stayOpt2:"Семейная встреча",stayOpt3:"Лыжная группа",stayOpt4:"Ретрит",stayOpt5:"Свадьба или событие",modalRooms:"Потребности по комнатам",modalRoomsPh:"Необязательно",modalFlex:"Гибкость дат",modalFlexPh:"Точные даты или гибко?",modalNotes:"Заметки",modalNotesPh:"Другие детали о пребывании, группе, кухне, сауне или приезде.",clear:"Очистить",addDetails:"Добавить детали",sending:"Отправка…",sent:"Спасибо. Ваш запрос отправлен. Мы свяжемся по поводу доступности всего шале.",failed:"Запрос не удалось отправить. Попробуйте снова или позвоните +41 27 957 2131.",detailsAdded:"Дополнительные детали добавлены к вашему запросу."
-    });
+    heroKicker:"Chalet suisse privé · Saas-Fee",
+    heroTitle:"Votre chalet suisse privé au-dessus de Saas-Fee",
+    heroLead:"Un séjour alpin en propriété exclusive pour familles, retraites, mariages, groupes de ski et célébrations privées — avec tout le chalet réservé à votre groupe.",
+    fieldFirstName:"Prénom",
+    fieldFirstNamePh:"Prénom",
+    fieldLastName:"Nom",
+    fieldLastNamePh:"Nom",
+    fieldEmail:"Email",
+    fieldEmailPh:"email@example.com",
+    fieldArrival:"Arrivée",
+    fieldDeparture:"Départ",
+    bookNow:"Réserver mon séjour",
+    bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
+    missingFirstName:"Veuillez entrer votre prénom.",
+    missingLastName:"Veuillez entrer votre nom.",
+    missingEmail:"Veuillez entrer votre email.",
+    invalidEmail:"Veuillez entrer un email valide.",
+    missingDates:"Veuillez choisir les dates d’arrivée et de départ.",
+    badDates:"La date de départ doit être après l’arrivée.",
+    redirecting:"Ouverture de la page de réservation…"
+  });
 
-  function t(k){return(T[state.lang]&&T[state.lang][k])||T.en[k]||""}
+  T.de=Object.assign({},T.en,{
+    heroKicker:"Privates Schweizer Chalet · Saas-Fee",
+    heroTitle:"Ihr privates Schweizer Chalet oberhalb von Saas-Fee",
+    heroLead:"Ein alpiner Aufenthalt im gesamten Anwesen für Familien, Retreats, Hochzeiten, Skigruppen und private Feiern — das ganze Chalet nur für Ihre Gruppe.",
+    fieldFirstName:"Vorname",
+    fieldFirstNamePh:"Vorname",
+    fieldLastName:"Nachname",
+    fieldLastNamePh:"Nachname",
+    fieldEmail:"E-Mail",
+    fieldEmailPh:"email@example.com",
+    fieldArrival:"Anreise",
+    fieldDeparture:"Abreise",
+    bookNow:"Aufenthalt buchen",
+    bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
+    missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",
+    missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",
+    missingEmail:"Bitte geben Sie Ihre E-Mail ein.",
+    invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    missingDates:"Bitte wählen Sie Anreise- und Abreisedatum.",
+    badDates:"Die Abreise muss nach der Anreise liegen.",
+    redirecting:"Weiter zur Buchungsseite…"
+  });
+
+  T.ru=Object.assign({},T.en,{
+    heroKicker:"Частное швейцарское шале · Саас-Фе",
+    heroTitle:"Ваше частное швейцарское шале над Саас-Фе",
+    heroLead:"Полный альпийский отдых для семей, ретритов, свадеб, лыжных групп и частных торжеств — всё шале только для вашей группы.",
+    fieldFirstName:"Имя",
+    fieldFirstNamePh:"Имя",
+    fieldLastName:"Фамилия",
+    fieldLastNamePh:"Фамилия",
+    fieldEmail:"Email",
+    fieldEmailPh:"email@example.com",
+    fieldArrival:"Заезд",
+    fieldDeparture:"Выезд",
+    bookNow:"Забронировать",
+    bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
+    missingFirstName:"Введите имя.",
+    missingLastName:"Введите фамилию.",
+    missingEmail:"Введите email.",
+    invalidEmail:"Введите корректный email.",
+    missingDates:"Выберите даты заезда и выезда.",
+    badDates:"Дата выезда должна быть после даты заезда.",
+    redirecting:"Переходим на страницу бронирования…"
+  });
+
+  function t(k){
+    return (T[state.lang]&&T[state.lang][k])||T.en[k]||"";
+  }
+
   function applyLanguage(lang){
     state.lang=T[lang]?lang:"en";
-    $$('[data-i18n]').forEach(function(el){
-      var key=el.getAttribute('data-i18n');
-      var v=t(key);
-      if(v)el.textContent=v;
+
+    $$("[data-i18n]").forEach(function(el){
+      var key=el.getAttribute("data-i18n");
+      var val=t(key);
+      if(val)el.textContent=val;
     });
-    $$('[data-i18n-placeholder]').forEach(function(el){
-      var key=el.getAttribute('data-i18n-placeholder');
-      var v=t(key);
-      if(v)el.setAttribute('placeholder',v);
+
+    $$("[data-i18n-placeholder]").forEach(function(el){
+      var key=el.getAttribute("data-i18n-placeholder");
+      var val=t(key);
+      if(val)el.setAttribute("placeholder",val);
     });
-    var select=$('#fhStayType');
-    if(select){Array.from(select.options).forEach(function(opt){var k=opt.getAttribute('data-i18n');var v=k?t(k):'';if(v)opt.textContent=v;});}
-    $$('.fh-lang-switch button').forEach(function(b){b.classList.toggle('active',b.dataset.lang===state.lang);});
-    root.setAttribute('data-current-lang',state.lang);
+
+    $$(".fh-lang-switch button").forEach(function(btn){
+      btn.classList.toggle("active",btn.getAttribute("data-lang")===state.lang);
+    });
+
+    root.setAttribute("data-current-lang",state.lang);
+  }
+
+  function setStatus(message,type){
+    var box=$("#fhFormStatus");
+    if(!box)return;
+
+    box.classList.add("show");
+    box.classList.toggle("error",type==="error");
+    box.classList.toggle("success",type==="success");
+    box.textContent=message;
+  }
+
+  function emailIsValid(email){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email||"").trim());
+  }
+
+  function getBookingStartPayload(){
+    var firstName=$("#fhFirstName") ? $("#fhFirstName").value.trim() : "";
+    var lastName=$("#fhLastName") ? $("#fhLastName").value.trim() : "";
+    var email=$("#fhEmail") ? $("#fhEmail").value.trim() : "";
+    var checkIn=$("#fhArrival") ? $("#fhArrival").value : "";
+    var checkOut=$("#fhDeparture") ? $("#fhDeparture").value : "";
+
+    return {
+      listingId:CFG.listingId,
+      firstName:firstName,
+      lastName:lastName,
+      email:email,
+      checkIn:checkIn,
+      checkOut:checkOut,
+      language:state.lang,
+      source:"fletschhorn-homepage-toolbar",
+      pageUrl:window.location.href,
+      createdAt:new Date().toISOString()
+    };
+  }
+
+  function goToBookingPage(){
+    var payload=getBookingStartPayload();
+
+    if(!payload.firstName){
+      setStatus(t("missingFirstName"),"error");
+      $("#fhFirstName")&&$("#fhFirstName").focus();
+      return;
+    }
+
+    if(!payload.lastName){
+      setStatus(t("missingLastName"),"error");
+      $("#fhLastName")&&$("#fhLastName").focus();
+      return;
+    }
+
+    if(!payload.email){
+      setStatus(t("missingEmail"),"error");
+      $("#fhEmail")&&$("#fhEmail").focus();
+      return;
+    }
+
+    if(!emailIsValid(payload.email)){
+      setStatus(t("invalidEmail"),"error");
+      $("#fhEmail")&&$("#fhEmail").focus();
+      return;
+    }
+
+    if(!payload.checkIn || !payload.checkOut){
+      setStatus(t("missingDates"),"error");
+      return;
+    }
+
+    if(payload.checkOut<=payload.checkIn){
+      setStatus(t("badDates"),"error");
+      $("#fhDeparture")&&$("#fhDeparture").focus();
+      return;
+    }
+
+    try{
+      localStorage.setItem("fhBookingStart",JSON.stringify(payload));
+    }catch(e){
+      console.warn("Could not save booking start data.",e);
+    }
+
+    var params=new URLSearchParams();
+    params.set("firstName",payload.firstName);
+    params.set("lastName",payload.lastName);
+    params.set("email",payload.email);
+    params.set("checkIn",payload.checkIn);
+    params.set("checkOut",payload.checkOut);
+    params.set("lang",payload.language);
+    params.set("source","homepage");
+
+    setStatus(t("redirecting"),"success");
+
+    var btn=$("#fhBookNowBtn");
+    if(btn){
+      btn.disabled=true;
+      btn.dataset.oldText=btn.textContent;
+      btn.textContent=t("redirecting");
+    }
+
+    window.location.href=CFG.bookingPageUrl+"?"+params.toString();
   }
 
   function setHeroSlides(urls){
-    var hero=$('#fhHeroMedia');if(!hero)return;
-    hero.innerHTML='';
-    urls.slice(0,8).forEach(function(src,i){var d=document.createElement('div');d.className='fh-hero-slide'+(i===0?' active':'');d.style.backgroundImage="url('"+src+"')";hero.appendChild(d);});
+    var hero=$("#fhHeroMedia");
+    if(!hero)return;
+
+    hero.innerHTML="";
+
+    urls.slice(0,8).forEach(function(src,i){
+      var d=document.createElement("div");
+      d.className="fh-hero-slide"+(i===0?" active":"");
+      d.style.backgroundImage="url('"+src+"')";
+      hero.appendChild(d);
+    });
   }
 
   function safeImage(el,srcs,index){
     if(!el||!srcs||!srcs.length)return;
+
     var i=index||0;
-    el.src=srcs[i%srcs.length];
-    el.onerror=function(){i++; if(i<srcs.length+FALLBACK.length){el.src=(srcs.concat(FALLBACK))[i%(srcs.length+FALLBACK.length)];}else{el.onerror=null;}};
+    var all=srcs.concat(FALLBACK);
+
+    el.src=all[i%all.length];
+
+    el.onerror=function(){
+      i++;
+      if(i<all.length){
+        el.src=all[i%all.length];
+      }else{
+        el.onerror=null;
+      }
+    };
   }
 
   function setStaticImages(){
     safeImage($('[data-img="overviewMain"]'),[IMAGES.overview[0]].concat(FALLBACK));
     safeImage($('[data-img="overviewFloat1"]'),[IMAGES.overview[1]].concat(FALLBACK));
     safeImage($('[data-img="overviewFloat2"]'),[IMAGES.overview[2]].concat(FALLBACK));
-    Object.keys(IMAGES.cards).forEach(function(k){var el=$('[data-img="'+k+'"]');if(el)safeImage(el,[IMAGES.cards[k]].concat(FALLBACK));});
+
+    Object.keys(IMAGES.cards).forEach(function(k){
+      var el=$('[data-img="'+k+'"]');
+      if(el)safeImage(el,[IMAGES.cards[k]].concat(FALLBACK));
+    });
   }
 
   function initCarousel(name,urls){
-    var box=$('[data-carousel="'+name+'"]');if(!box)return;
-    var track=box.querySelector('.fh-carousel-track');if(!track)return;
-    track.innerHTML='';
+    var box=$('[data-carousel="'+name+'"]');
+    if(!box)return;
+
+    var track=box.querySelector(".fh-carousel-track");
+    if(!track)return;
+
+    track.innerHTML="";
+
     urls.slice(0,10).forEach(function(src,i){
-      var slide=document.createElement('div');slide.className='fh-carousel-slide';
-      var image=document.createElement('img');image.alt=name+' image '+(i+1);safeImage(image,urls,i);
-      slide.appendChild(image);track.appendChild(slide);
+      var slide=document.createElement("div");
+      slide.className="fh-carousel-slide";
+
+      var image=document.createElement("img");
+      image.alt=name+" image "+(i+1);
+      safeImage(image,urls,i);
+
+      slide.appendChild(image);
+      track.appendChild(slide);
     });
+
     var data={idx:0,total:track.children.length,track:track};
     state.carousels[name]=data;
-    function move(dir){data.idx=(data.idx+dir+data.total)%data.total;track.style.transform='translateX('+(-100*data.idx)+'%)';}
-    var prev=box.querySelector('[data-prev]'),next=box.querySelector('[data-next]');
-    if(prev)prev.addEventListener('click',function(){move(-1)});
-    if(next)next.addEventListener('click',function(){move(1)});
+
+    function move(dir){
+      data.idx=(data.idx+dir+data.total)%data.total;
+      track.style.transform="translateX("+(-100*data.idx)+"%)";
+    }
+
+    var prev=box.querySelector("[data-prev]");
+    var next=box.querySelector("[data-next]");
+
+    if(prev)prev.addEventListener("click",function(){move(-1)});
+    if(next)next.addEventListener("click",function(){move(1)});
   }
 
   function startSlideshow(){
     if(state.heroTimer)clearInterval(state.heroTimer);
+
     var idx=0;
+
     state.heroTimer=window.setInterval(function(){
-      var slides=$$('.fh-hero-slide');if(!slides.length)return;
-      slides[idx]&&slides[idx].classList.remove('active');
+      var slides=$$(".fh-hero-slide");
+      if(!slides.length)return;
+
+      slides[idx]&&slides[idx].classList.remove("active");
       idx=(idx+1)%slides.length;
-      slides[idx]&&slides[idx].classList.add('active');
+      slides[idx]&&slides[idx].classList.add("active");
     },7200);
+  }
+
+  function initDates(){
+    var todayIso=new Date().toISOString().split("T")[0];
+    var arrival=$("#fhArrival");
+    var departure=$("#fhDeparture");
+
+    if(arrival)arrival.min=todayIso;
+    if(departure)departure.min=todayIso;
+
+    if(arrival){
+      arrival.addEventListener("change",function(){
+        if(!departure)return;
+        departure.min=arrival.value||todayIso;
+
+        if(departure.value&&arrival.value&&departure.value<=arrival.value){
+          departure.value="";
+        }
+      });
+    }
+  }
+
+  function initMap(){
+    $$(".fh-map-note").forEach(function(note){
+      note.addEventListener("click",function(){
+        $$(".fh-map-note").forEach(function(n){n.classList.remove("active")});
+        note.classList.add("active");
+
+        var frame=$("#fhMapFrame");
+        var open=$("#fhMapOpen");
+        var ctx=$("#fhMapContext");
+
+        if(frame&&note.dataset.mapSrc)frame.src=note.dataset.mapSrc;
+        if(open&&note.dataset.mapOpen)open.href=note.dataset.mapOpen;
+
+        if(ctx){
+          ctx.innerHTML="<strong>"+(note.dataset.mapTitle||"Fletschhorn")+"</strong><span>"+(note.dataset.mapText||"")+"</span>";
+        }
+      });
+    });
+  }
+
+  function initReveal(){
+    if("IntersectionObserver" in window){
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            e.target.classList.add("visible");
+            obs.unobserve(e.target);
+          }
+        });
+      },{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+
+      $$(".fh-reveal").forEach(function(el){obs.observe(el)});
+    }else{
+      $$(".fh-reveal").forEach(function(el){el.classList.add("visible")});
+    }
+  }
+
+  function prefillFromExistingBookingStart(){
+    var data={};
+
+    try{
+      data=JSON.parse(localStorage.getItem("fhBookingStart")||"{}");
+    }catch(e){
+      data={};
+    }
+
+    if(data.firstName&&$("#fhFirstName"))$("#fhFirstName").value=data.firstName;
+    if(data.lastName&&$("#fhLastName"))$("#fhLastName").value=data.lastName;
+    if(data.email&&$("#fhEmail"))$("#fhEmail").value=data.email;
+    if(data.checkIn&&$("#fhArrival"))$("#fhArrival").value=data.checkIn;
+    if(data.checkOut&&$("#fhDeparture"))$("#fhDeparture").value=data.checkOut;
+  }
+
+  $$(".fh-lang-switch button").forEach(function(btn){
+    btn.addEventListener("click",function(e){
+      e.preventDefault();
+      applyLanguage(btn.getAttribute("data-lang"));
+    });
+  });
+
+  document.addEventListener("click",function(e){
+    var external=e.target.closest("[data-lang],[data-fh-lang]");
+    if(!external)return;
+
+    var lang=external.getAttribute("data-lang")||external.getAttribute("data-fh-lang");
+    if(T[lang])applyLanguage(lang);
+  });
+
+  if($("#fhBookNowBtn")){
+    $("#fhBookNowBtn").addEventListener("click",function(e){
+      e.preventDefault();
+      goToBookingPage();
+    });
   }
 
   setHeroSlides(IMAGES.hero);
   setStaticImages();
-  initCarousel('inside',IMAGES.inside);
-  initCarousel('kitchen',IMAGES.kitchen);
+  initCarousel("inside",IMAGES.inside);
+  initCarousel("kitchen",IMAGES.kitchen);
   startSlideshow();
+  initDates();
+  initMap();
+  initReveal();
+  prefillFromExistingBookingStart();
+  applyLanguage("en");
 
-  $$('.fh-lang-switch button').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();applyLanguage(b.getAttribute('data-lang'));});});
-  root.addEventListener('click',function(e){
-    var btn=e.target.closest&&e.target.closest('.fh-lang-switch button');
-    if(btn&&root.contains(btn)){e.preventDefault();applyLanguage(btn.getAttribute('data-lang'));}
-  });
-
-  $$('.fh-map-note').forEach(function(note){
-    note.addEventListener('click',function(){
-      $$('.fh-map-note').forEach(function(n){n.classList.remove('active');});
-      note.classList.add('active');
-      var frame=$('#fhMapFrame'),open=$('#fhMapOpen'),ctx=$('#fhMapContext');
-      if(frame&&note.dataset.mapSrc)frame.src=note.dataset.mapSrc;
-      if(open&&note.dataset.mapOpen)open.href=note.dataset.mapOpen;
-      if(ctx)ctx.innerHTML='<strong>'+(note.dataset.mapTitle||'Fletschhorn')+'</strong><span>'+(note.dataset.mapText||'')+'</span>';
-    });
-  });
-
-  var todayIso=new Date().toISOString().split('T')[0];
-  var arrival=$('#fhArrival'),departure=$('#fhDeparture');
-  if(arrival)arrival.min=todayIso;
-  if(departure)departure.min=todayIso;
-  if(arrival)arrival.addEventListener('change',function(){if(!departure)return;departure.min=arrival.value||todayIso;if(departure.value&&arrival.value&&departure.value<arrival.value)departure.value=arrival.value;});
-
-  var modal=$('#fhDetailsModal');
-  function openModal(){if(modal){modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}}
-  function closeModal(){if(modal){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}}
-  $('#fhOpenDetails')&&$('#fhOpenDetails').addEventListener('click',openModal);
-  $('#fhCloseDetails')&&$('#fhCloseDetails').addEventListener('click',closeModal);
-  modal&&modal.addEventListener('click',function(e){if(e.target===modal)closeModal();});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
-
-  $('#fhApplyDetails')&&$('#fhApplyDetails').addEventListener('click',function(){
-    var count=$('#fhGuestCount')?$('#fhGuestCount').value:'';
-    var stayType=$('#fhStayType')?$('#fhStayType').value:'';
-    var rooms=$('#fhRoomsNeed')?$('#fhRoomsNeed').value:'';
-    var flex=$('#fhFlexible')?$('#fhFlexible').value:'';
-    var notes=$('#fhNotes')?$('#fhNotes').value:'';
-    state.extraDetails={guestCount:count,stayType:stayType,roomsNeed:rooms,dateFlex:flex,notes:notes};
-    var parts=[count,stayType,rooms?rooms+' (rooms)':''].filter(Boolean);
-    if(parts.length&&$('#fhGroup'))$('#fhGroup').value=parts.join(' · ');
-    var st=$('#fhFormStatus');if(st){st.classList.add('show');st.textContent=t('detailsAdded');}
-    closeModal();
-  });
-
-  $('#fhClearDetails')&&$('#fhClearDetails').addEventListener('click',function(){
-    ['fhGuestCount','fhRoomsNeed','fhFlexible','fhNotes'].forEach(function(id){var el=$('#'+id);if(el)el.value='';});
-    var sel=$('#fhStayType');if(sel)sel.selectedIndex=0;
-    state.extraDetails={};
-  });
-
-  $('#fhSubmitBtn')&&$('#fhSubmitBtn').addEventListener('click',function(){
-    var group=$('#fhGroup')?$('#fhGroup').value.trim():'';
-    var arrivalVal=arrival?arrival.value:'';
-    var departureVal=departure?departure.value:'';
-    var contact=$('#fhContact')?$('#fhContact').value.trim():'';
-    var st=$('#fhFormStatus');
-    if(!contact){if(st){st.classList.add('show');st.classList.remove('error');st.textContent=t('fieldContact')+' — '+t('fieldContactPh')+'.';}$('#fhContact')&&$('#fhContact').focus();return;}
-    var payload={propertyId:CFG.propertyId,listingId:CFG.propertyId,group:group,arrivalDate:arrivalVal,departureDate:departureVal,contact:contact,language:state.lang,source:'fletschhorn-homepage',createdAt:new Date().toISOString(),extraDetails:state.extraDetails};
-    if(st){st.classList.remove('error');st.classList.add('show');st.textContent=t('sending');}
-    fetch(CFG.inquiryEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-    .then(function(res){if(!res.ok)throw new Error('HTTP '+res.status);return res.json();})
-    .then(function(){if(st){st.classList.remove('error');st.textContent=t('sent');}if($('#fhGroup'))$('#fhGroup').value='';if(arrival)arrival.value='';if(departure)departure.value='';if($('#fhContact'))$('#fhContact').value='';state.extraDetails={};})
-    .catch(function(err){console.warn('Guesty inquiry error',err,payload);if(st){st.classList.add('error');st.textContent=t('failed');}});
-  });
-
-  if('IntersectionObserver' in window){
-    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
-    $$('.fh-reveal').forEach(function(el){obs.observe(el);});
-  }else{$$('.fh-reveal').forEach(function(el){el.classList.add('visible');});}
-
-  applyLanguage('en');
+  console.log("Fletschhorn homepage index ready. Toolbar redirects to:",CFG.bookingPageUrl);
 })();
 </script>
