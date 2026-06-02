@@ -1,428 +1,2963 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fletschhorn · Weddings & Events in Saas-Fee</title>
-  <meta name="description" content="A private alpine house in Saas-Fee for weddings, retreats, family milestones, workshops, and private events.">
-  <link rel="stylesheet" href="assets/fh-global.css">
-
-  <style>
-    section:has(#fh-events){padding:0!important;margin:0!important}
-    section:has(#fh-events) .content-wrapper,
-    section:has(#fh-events) .sqs-layout,
-    section:has(#fh-events) .sqs-row,
-    section:has(#fh-events) .sqs-block,
-    section:has(#fh-events) .sqs-block-content,
-    section:has(#fh-events) .sqs-block-code{width:100%!important;max-width:none!important;margin:0!important;padding:0!important}
-
-    #fh-events,
-    #fh-events *{box-sizing:border-box}
-
-    #fh-events{
-      --fh-ivory:#fbf7f0;
-      --fh-paper:#f5eee6;
-      --fh-green:#345f46;
-      --fh-green-bright:#5f8e6d;
-      --fh-green-deep:#203d2d;
-      --fh-clay:#c3a58a;
-      --fh-ink:#241f1c;
-      --fh-muted:rgba(36,31,28,.66);
-      --fh-white:#fffaf3;
-      --fh-line:rgba(36,31,28,.13);
-      --fh-shadow:0 24px 70px rgba(23,19,16,.14);
-      --fh-soft-shadow:0 14px 38px rgba(23,19,16,.08);
-      --fh-serif:Georgia,"Times New Roman",serif;
-      --fh-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      position:relative;
-      left:50%;right:50%;width:100vw;max-width:100vw;margin-left:-50vw;margin-right:-50vw;
-      overflow:hidden;
-      color:var(--fh-ink);
-      font-family:var(--fh-sans);
-      background:
-        radial-gradient(circle at 12% 8%,rgba(255,255,255,.80),transparent 0 20%),
-        radial-gradient(circle at 85% 20%,rgba(52,95,70,.10),transparent 0 23%),
-        radial-gradient(circle at 20% 86%,rgba(195,165,138,.18),transparent 0 22%),
-        linear-gradient(180deg,var(--fh-ivory),var(--fh-paper) 48%,#f8f2ea);
-      -webkit-text-size-adjust:100%;text-size-adjust:100%;
-    }
-
-    #fh-events a{color:inherit;text-decoration:none}
-    #fh-events img{display:block;max-width:100%}
-    #fh-events button,#fh-events input,#fh-events select,#fh-events textarea{font:inherit}
-    #fh-events button{cursor:pointer;border-radius:0}
-    #fh-events ::selection{background:var(--fh-green);color:#fff}
-
-    #fh-events .fh-atmosphere{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-    #fh-events .fh-atmosphere:before{content:"";position:absolute;inset:-14%;background:radial-gradient(ellipse at 18% 16%,rgba(255,255,255,.86),transparent 0 18%),radial-gradient(ellipse at 74% 12%,rgba(236,216,208,.34),transparent 0 20%),radial-gradient(ellipse at 70% 72%,rgba(52,95,70,.12),transparent 0 24%),linear-gradient(130deg,rgba(255,255,255,.30),transparent 43%,rgba(128,103,82,.10));filter:blur(18px);animation:fhFog 24s ease-in-out infinite alternate}
-    #fh-events .fh-atmosphere:after{content:"";position:absolute;inset:-8%;opacity:.20;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1500' height='900' viewBox='0 0 1500 900'%3E%3Cg fill='none' stroke='%23a7a096' stroke-opacity='.36' stroke-width='1.1'%3E%3Cpath d='M-30 170c180 40 319 36 446-14 122-48 231-42 354 5 151 58 293 48 452-11 101-37 188-39 310-3'/%3E%3Cpath d='M-40 315c197 32 356 24 494-19 128-39 242-35 376 6 154 47 303 42 464-8 93-29 171-31 248-13'/%3E%3Cpath d='M-40 473c215 18 390 10 548-22 126-26 253-25 386 5 152 35 295 33 447 0 80-18 148-19 210-8'/%3E%3Cpath d='M-40 640c236 9 433-2 603-27 131-19 255-18 385 0 147 21 287 19 436-4 76-12 135-11 188-5'/%3E%3C/g%3E%3C/svg%3E");background-size:cover;background-position:center;animation:fhTopo 32s ease-in-out infinite alternate}
-    #fh-events .fh-grain{position:fixed;inset:0;z-index:98;pointer-events:none;opacity:.035;mix-blend-mode:multiply;background-image:radial-gradient(rgba(0,0,0,.58) .45px,transparent .58px);background-size:4px 4px}
-    @keyframes fhFog{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-2vw,1vh,0) scale(1.06)}}
-    @keyframes fhTopo{from{transform:translate3d(0,0,0) scale(1.02)}to{transform:translate3d(1.5vw,-1vh,0) scale(1.06)}}
-
-    #fh-events .fh-lang-switch{position:fixed;z-index:90;top:82px;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:6px;padding:7px;border:1px solid rgba(255,250,243,.55);background:rgba(255,250,243,.90);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 34px rgba(20,16,12,.10)}
-    #fh-events .fh-lang-switch button{border:0;background:transparent;color:rgba(36,31,28,.62);padding:8px 11px;font-size:11px;line-height:1;text-transform:uppercase;letter-spacing:.13em;font-weight:850;white-space:nowrap;transition:background .18s,color .18s}
-    #fh-events .fh-lang-switch button.active{background:var(--fh-green);color:var(--fh-white)}
-
-    #fh-events .fh-main{position:relative;z-index:2;background:linear-gradient(180deg,var(--fh-ivory),var(--fh-paper) 54%,#f7f1e9)}
-    #fh-events .fh-container{width:min(1180px,calc(100% - 40px));margin:0 auto}
-    #fh-events .fh-section{position:relative;z-index:2;padding:70px 0;overflow:hidden}
-    #fh-events .fh-section.fh-alt{background:linear-gradient(180deg,rgba(255,250,243,.38),rgba(236,216,208,.15))}
-    #fh-events .fh-section.fh-dark{background:radial-gradient(circle at 10% 8%,rgba(255,250,243,.13),transparent 0 24%),radial-gradient(circle at 86% 18%,rgba(95,142,109,.22),transparent 0 30%),radial-gradient(circle at 44% 96%,rgba(195,165,138,.11),transparent 0 28%),linear-gradient(180deg,#211c18,#151210);color:#fff}
-    #fh-events .fh-section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.62fr);gap:28px;align-items:start;margin-bottom:26px}
-    #fh-events .fh-section-head p:last-child{max-width:560px;justify-self:start;padding-top:12px}
-    #fh-events .fh-kicker{margin:0 0 10px;text-transform:uppercase;letter-spacing:.22em;font-size:11px;font-weight:850;color:var(--fh-green)}
-    #fh-events .fh-dark .fh-kicker{color:rgba(255,250,243,.75)}
-    #fh-events h1,#fh-events h2,#fh-events h3,#fh-events h4,#fh-events p{margin-top:0}
-    #fh-events h1,#fh-events h2,#fh-events h3,#fh-events h4{font-family:var(--fh-serif);font-weight:400;color:var(--fh-ink)}
-    #fh-events .fh-dark h2,#fh-events .fh-dark h3,#fh-events .fh-dark h4{color:#fff}
-    #fh-events h1{margin:0 auto 16px;max-width:1040px;font-size:clamp(50px,8.3vw,118px);line-height:.88;letter-spacing:-.07em}
-    #fh-events h2{margin:0;max-width:900px;font-size:clamp(40px,5vw,78px);line-height:.92;letter-spacing:-.06em}
-    #fh-events h3{margin:0 0 12px;font-size:clamp(31px,3.6vw,54px);line-height:.94;letter-spacing:-.05em}
-    #fh-events h4{margin:0 0 9px;font-size:clamp(24px,2.35vw,33px);line-height:1;letter-spacing:-.04em}
-    #fh-events p{color:var(--fh-muted);line-height:1.64;font-size:16.5px}
-    #fh-events .fh-dark p{color:rgba(255,250,243,.76)}
-
-    #fh-events .fh-btn{display:inline-flex;align-items:center;justify-content:center;border:0;padding:14px 20px;background:var(--fh-green);color:#fff;text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:850;box-shadow:0 14px 36px rgba(32,61,45,.18);transition:transform .25s ease,background .25s ease}
-    #fh-events .fh-btn:hover{transform:translateY(-2px);background:var(--fh-green-deep)}
-    #fh-events .fh-btn.fh-btn-light{background:rgba(255,250,243,.78);color:var(--fh-ink);border:1px solid rgba(36,31,28,.12)}
-    #fh-events .fh-big-label{display:block;margin:0 0 14px;font-family:var(--fh-serif);font-size:clamp(62px,9.5vw,148px);line-height:.78;letter-spacing:-.08em;font-weight:400;color:var(--fh-green)}
-    #fh-events .fh-dark .fh-big-label{color:var(--fh-green-bright);text-shadow:0 18px 60px rgba(0,0,0,.35)}
-
-    #fh-events .fh-hero{position:relative;z-index:1;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#241f1c}
-    #fh-events .fh-hero-slides{position:absolute;inset:0;z-index:0}
-    #fh-events .fh-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.045);transition:opacity 1500ms ease,transform 8200ms ease}
-    #fh-events .fh-slide.fh-active{opacity:1;transform:scale(1)}
-    #fh-events .fh-hero:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(23,19,16,.62),rgba(23,19,16,.34) 42%,rgba(23,19,16,.70)),radial-gradient(circle at 50% 20%,rgba(255,250,243,.12),transparent 0 28%)}
-    #fh-events .fh-hero:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:110px;z-index:1;background:linear-gradient(180deg,transparent,var(--fh-ivory))}
-    #fh-events .fh-hero-inner{position:relative;z-index:2;width:min(1180px,calc(100% - 40px));padding:132px 0 44px;color:var(--fh-white);text-align:center}
-    #fh-events .fh-crest{width:74px;height:74px;margin:0 auto 20px;display:grid;place-items:center;border:1px solid rgba(255,250,243,.42);font-family:var(--fh-serif);font-size:26px;letter-spacing:-.05em;background:rgba(255,255,255,.055);backdrop-filter:blur(10px)}
-    #fh-events .fh-eyebrow{margin:0 0 14px;text-transform:uppercase;letter-spacing:.24em;font-size:11px;font-weight:850;color:rgba(255,250,243,.78)}
-    #fh-events .fh-hero h1{color:var(--fh-white)}
-    #fh-events .fh-hero-lead{margin:0 auto 24px;max-width:820px;font-size:clamp(16px,1.7vw,20px);line-height:1.62;color:rgba(255,250,243,.86)}
-    #fh-events .fh-hero-ctas{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:0 auto 20px}
-    #fh-events .fh-proof-row{width:min(920px,100%);margin:0 auto 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    #fh-events .fh-proof{padding:13px 16px;border:1px solid rgba(255,250,243,.22);background:rgba(255,250,243,.12);backdrop-filter:blur(12px)}
-    #fh-events .fh-proof strong{display:block;font-family:var(--fh-serif);font-size:27px;line-height:1;font-weight:400;color:#fff;letter-spacing:-.03em;margin-bottom:6px}
-    #fh-events .fh-proof span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.14em;line-height:1.45;color:rgba(255,250,243,.70)}
-
-    #fh-events .fh-booking{width:min(1100px,100%);margin:0 auto;padding:9px;border:1px solid rgba(255,250,243,.22);background:rgba(255,250,243,.12);backdrop-filter:blur(12px);box-shadow:var(--fh-shadow)}
-    #fh-events .fh-booking-form{display:grid;grid-template-columns:.88fr .88fr 1.15fr .86fr .86fr 185px;background:rgba(255,250,243,.94);color:var(--fh-ink)}
-    #fh-events .fh-field{min-width:0;text-align:left;padding:15px 16px;border-right:1px solid var(--fh-line);background:rgba(255,250,243,.88)}
-    #fh-events .fh-field label{display:block;margin-bottom:7px;font-size:10px;text-transform:uppercase;letter-spacing:.16em;font-weight:850;color:rgba(36,31,28,.52)}
-    #fh-events .fh-field input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--fh-ink);font-size:15px}
-    #fh-events .fh-submit{border:0;min-height:58px;background:var(--fh-green);color:var(--fh-white);text-transform:uppercase;letter-spacing:.13em;font-size:11px;font-weight:850;transition:background .18s,opacity .18s}
-    #fh-events .fh-submit:hover{background:var(--fh-green-deep)}
-    #fh-events .fh-submit:disabled{opacity:.68;cursor:wait}
-    #fh-events .fh-booking-note{margin-top:11px;color:rgba(255,250,243,.78);font-size:13px;line-height:1.45;text-align:center}
-    #fh-events .fh-status{display:none;margin-top:11px;padding:12px 14px;border:1px solid rgba(255,250,243,.22);background:rgba(255,250,243,.12);color:#fff;font-size:13px;text-align:center}
-    #fh-events .fh-status.show{display:block}.fh-status.error{background:rgba(180,40,40,.20)}.fh-status.success{background:rgba(45,112,74,.24)}
-    #fh-events .fh-scroll-cue{margin-top:22px;display:inline-flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,250,243,.82)}
-    #fh-events .fh-scroll-cue span{font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:850}
-    #fh-events .fh-scroll-line{width:1px;height:34px;background:rgba(255,250,243,.38)}
-
-    #fh-events .fh-venue-grid,#fh-events .fh-wedding-feature,#fh-events .fh-logistics-grid,#fh-events .fh-form-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:22px;align-items:stretch}
-    #fh-events .fh-editorial-card,#fh-events .fh-logistics-card,#fh-events .fh-form-panel{position:relative;background:rgba(255,250,243,.80);border:1px solid rgba(255,255,255,.68);box-shadow:var(--fh-soft-shadow);overflow:hidden}
-    #fh-events .fh-card-inner,#fh-events .fh-logistics-card,#fh-events .fh-form-panel{padding:34px}
-    #fh-events .fh-card-list,.fh-contact-lines{display:grid;gap:11px}
-    #fh-events .fh-card-list div,#fh-events .fh-contact-line{border-top:1px solid var(--fh-line);padding-top:12px}
-    #fh-events .fh-card-list strong{display:block;font-family:var(--fh-serif);font-size:26px;font-weight:400;letter-spacing:-.03em;margin-bottom:4px;color:var(--fh-ink)}
-    #fh-events .fh-card-list span,#fh-events .fh-contact-line strong{display:block;color:var(--fh-muted);line-height:1.52;font-size:15px}
-    #fh-events .fh-contact-line span{display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:850;color:var(--fh-green)}
-
-    #fh-events .fh-photo-stage,#fh-events .fh-wedding-visual,#fh-events .fh-event-hero-media,#fh-events .fh-inline-carousel{position:relative;min-height:460px;overflow:hidden;background:#d5c8bb;box-shadow:var(--fh-shadow)}
-    #fh-events .fh-simple-carousel{position:absolute;inset:0;overflow:hidden;background:#d5c8bb}
-    #fh-events .fh-simple-carousel .fh-carousel-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.035);transition:opacity 1200ms ease,transform 7000ms ease}
-    #fh-events .fh-simple-carousel .fh-carousel-slide.fh-active{opacity:1;transform:scale(1)}
-    #fh-events .fh-photo-stage:after,#fh-events .fh-wedding-visual:after,#fh-events .fh-event-hero-media:after,#fh-events .fh-inline-carousel:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(23,19,16,.58));pointer-events:none}
-    #fh-events .fh-photo-caption,#fh-events .fh-wedding-visual-copy,#fh-events .fh-inline-caption{position:absolute;left:22px;right:22px;bottom:22px;z-index:2;color:#fff}
-    #fh-events .fh-photo-caption small,#fh-events .fh-inline-caption small{display:block;text-transform:uppercase;letter-spacing:.18em;font-size:10px;font-weight:850;color:rgba(255,250,243,.72);margin-bottom:8px}
-    #fh-events .fh-photo-caption strong,#fh-events .fh-inline-caption strong{display:block;font-family:var(--fh-serif);font-size:clamp(30px,3.8vw,46px);line-height:.96;font-weight:400;letter-spacing:-.045em}
-
-    #fh-events .fh-wedding-feature{grid-template-columns:minmax(300px,.88fr) minmax(0,1.12fr)}
-    #fh-events .fh-wedding-visual{min-height:560px}
-    #fh-events .fh-wedding-visual-copy h3{color:#fff;font-size:clamp(38px,4.8vw,70px);max-width:580px}
-    #fh-events .fh-wedding-visual-copy p{color:rgba(255,250,243,.82);max-width:580px}
-    #fh-events .fh-wedding-panel{display:grid;grid-template-rows:auto 1fr;gap:14px}
-    #fh-events .fh-wedding-main-card,.fh-moment-card{position:relative;padding:32px;background:rgba(255,250,243,.12);border:1px solid rgba(255,250,243,.18);box-shadow:0 20px 60px rgba(0,0,0,.12);overflow:hidden}
-    #fh-events .fh-wedding-main-card p,#fh-events .fh-moment-card p{color:rgba(255,250,243,.78)}
-    #fh-events .fh-wedding-pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
-    #fh-events .fh-pill{display:inline-flex;align-items:center;justify-content:center;padding:8px 11px;border:1px solid rgba(255,250,243,.20);background:rgba(255,250,243,.08);color:rgba(255,250,243,.78);font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;font-weight:800}
-    #fh-events .fh-wedding-moments{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    #fh-events .fh-moment-card{min-height:190px;padding:24px}
-    #fh-events .fh-moment-card b,.fh-energy-card b,.fh-flow b{display:block;font-family:var(--fh-serif);font-size:38px;line-height:1;font-weight:400;color:rgba(95,142,109,.76);margin-bottom:11px}
-
-    #fh-events .fh-wedding-gallery,#fh-events .fh-event-types,#fh-events .fh-event-energy,#fh-events .fh-flow-grid{display:grid;gap:14px;margin-top:22px}
-    #fh-events .fh-wedding-gallery{grid-template-columns:1.2fr .8fr .8fr}
-    #fh-events .fh-event-types{grid-template-columns:repeat(4,1fr)}
-    #fh-events .fh-event-energy{grid-template-columns:repeat(3,1fr)}
-    #fh-events .fh-flow-grid{grid-template-columns:repeat(4,1fr)}
-    #fh-events .fh-gallery-card,#fh-events .fh-event-card{position:relative;min-height:300px;overflow:hidden;box-shadow:var(--fh-soft-shadow);background:#d5c8bb}
-    #fh-events .fh-gallery-card:first-child{min-height:360px}
-    #fh-events .fh-gallery-card img,#fh-events .fh-event-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.86) contrast(1.04);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
-    #fh-events .fh-gallery-card:hover img,#fh-events .fh-event-card:hover img{transform:scale(1.045)}
-    #fh-events .fh-gallery-card:after,#fh-events .fh-event-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(23,19,16,.62))}
-    #fh-events .fh-gallery-copy,#fh-events .fh-event-copy{position:absolute;left:20px;right:20px;bottom:20px;z-index:2;color:#fff}
-    #fh-events .fh-gallery-copy strong{display:block;font-family:var(--fh-serif);font-size:30px;font-weight:400;line-height:.98;letter-spacing:-.04em;margin-bottom:7px}
-    #fh-events .fh-gallery-copy span,#fh-events .fh-event-copy p{display:block;color:rgba(255,250,243,.78);font-size:14px;line-height:1.55}
-    #fh-events .fh-event-copy h3{color:#fff;font-size:32px;margin-bottom:8px}
-    #fh-events .fh-event-hero{position:relative;min-height:460px;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(310px,.72fr);overflow:hidden;background:#2a241f;box-shadow:var(--fh-shadow)}
-    #fh-events .fh-event-hero-copy{position:relative;padding:34px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 10% 12%,rgba(255,255,255,.70),transparent 0 24%),linear-gradient(180deg,rgba(255,250,243,.94),rgba(237,228,218,.96))}
-    #fh-events .fh-event-hero-copy h2{color:var(--fh-ink)}
-    #fh-events .fh-energy-card,#fh-events .fh-flow{position:relative;padding:26px;min-height:215px;background:rgba(255,250,243,.78);border:1px solid rgba(255,255,255,.70);box-shadow:var(--fh-soft-shadow);overflow:hidden}
-    #fh-events .fh-flow{padding-bottom:110px}
-    #fh-events .fh-flow:after{content:"";position:absolute;left:0;right:0;bottom:0;height:96px;background-image:var(--flow-img);background-size:cover;background-position:center;opacity:.92;filter:saturate(.88) contrast(1.04)}
-
-    #fh-events .fh-logistics-list{display:grid;gap:12px}
-    #fh-events .fh-logistics-line{display:grid;grid-template-columns:115px 1fr;gap:18px;padding-top:14px;border-top:1px solid var(--fh-line)}
-    #fh-events .fh-logistics-line strong{font-family:var(--fh-serif);font-size:23px;line-height:1;font-weight:400;color:var(--fh-ink)}
-    #fh-events .fh-logistics-line span{color:var(--fh-muted);line-height:1.58;font-size:15px}
-    #fh-events .fh-inline-carousel{min-height:300px;margin-top:20px;box-shadow:var(--fh-soft-shadow)}
-    #fh-events .fh-form-grid{grid-template-columns:minmax(0,.92fr) minmax(360px,.8fr);align-items:start}
-    #fh-events .fh-form-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    #fh-events .fh-form-field.fh-full{grid-column:1/-1}
-    #fh-events .fh-form-panel label{display:block;margin:0 0 8px;text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:850;color:rgba(36,31,28,.48)}
-    #fh-events .fh-form-panel input,#fh-events .fh-form-panel select,#fh-events .fh-form-panel textarea{width:100%;border:1px solid rgba(36,31,28,.14);background:rgba(255,255,255,.68);padding:13px 14px;color:var(--fh-ink);outline:none;margin:0;min-height:48px;border-radius:0}
-    #fh-events .fh-form-panel textarea{min-height:122px;resize:vertical}
-    #fh-events .fh-form-actions{margin-top:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    #fh-events .fh-final{position:relative;z-index:2;padding:56px 0 68px;background:radial-gradient(circle at 20% 10%,rgba(255,255,255,.66),transparent 0 22%),linear-gradient(180deg,rgba(235,225,214,.82),rgba(247,241,233,.94));border-top:1px solid rgba(36,31,28,.08)}
-    #fh-events .fh-final-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:22px;align-items:end}
-
-    #fh-events .fh-reveal,#fh-events .fh-preclip{opacity:0;transform:translateY(28px);transition:opacity .85s ease,transform .85s cubic-bezier(.2,.8,.2,1)}
-    #fh-events .fh-reveal.fh-visible,#fh-events .fh-preclip.fh-visible{opacity:1;transform:translateY(0)}
-    #fh-events .fh-stagger>*{opacity:0;transform:translateY(20px);transition:opacity .72s ease,transform .72s cubic-bezier(.2,.8,.2,1)}
-    #fh-events .fh-stagger.fh-visible>*{opacity:1;transform:translateY(0)}
-    #fh-events .fh-stagger.fh-visible>*:nth-child(2){transition-delay:.07s}#fh-events .fh-stagger.fh-visible>*:nth-child(3){transition-delay:.14s}#fh-events .fh-stagger.fh-visible>*:nth-child(4){transition-delay:.21s}
-
-    @media(max-width:1120px){
-      #fh-events .fh-booking-form{grid-template-columns:repeat(6,minmax(0,1fr))}
-      #fh-events .fh-field:nth-child(1),#fh-events .fh-field:nth-child(2),#fh-events .fh-field:nth-child(3){grid-column:span 2}
-      #fh-events .fh-field:nth-child(4),#fh-events .fh-field:nth-child(5),#fh-events .fh-submit{grid-column:span 2}
-      #fh-events .fh-field{border-bottom:1px solid var(--fh-line)}
-      #fh-events .fh-section-head,#fh-events .fh-venue-grid,#fh-events .fh-wedding-feature,#fh-events .fh-event-hero,#fh-events .fh-logistics-grid,#fh-events .fh-form-grid,#fh-events .fh-final-inner{grid-template-columns:1fr}
-      #fh-events .fh-section-head p:last-child{max-width:760px;padding-top:0}
-      #fh-events .fh-event-types,#fh-events .fh-event-energy,#fh-events .fh-flow-grid{grid-template-columns:1fr 1fr}
-      #fh-events .fh-wedding-gallery{grid-template-columns:1fr 1fr}#fh-events .fh-wedding-gallery .fh-gallery-card:first-child{grid-column:1/-1}
-    }
-    @media(max-width:720px){
-      #fh-events .fh-container,#fh-events .fh-hero-inner{width:calc(100% - 24px)}
-      #fh-events .fh-lang-switch{top:68px;width:calc(100% - 24px);padding:5px;gap:3px}#fh-events .fh-lang-switch button{flex:1;padding:10px 4px;letter-spacing:.08em;font-size:10px}
-      #fh-events .fh-atmosphere,#fh-events .fh-grain{position:absolute}
-      #fh-events .fh-hero-inner{padding-top:130px;padding-bottom:30px}
-      #fh-events .fh-crest{width:56px;height:56px;font-size:22px;margin-bottom:14px}
-      #fh-events .fh-eyebrow{font-size:9.5px;line-height:1.45;letter-spacing:.17em;margin-bottom:10px}
-      #fh-events h1{font-size:clamp(39px,13vw,62px);line-height:.90;margin-bottom:14px}
-      #fh-events h2{font-size:clamp(35px,10.5vw,54px);line-height:.94}#fh-events h3{font-size:clamp(29px,8vw,44px);line-height:.96}#fh-events p{font-size:15.5px;line-height:1.58}
-      #fh-events .fh-hero-lead{font-size:15.5px;margin-bottom:18px}
-      #fh-events .fh-hero-ctas .fh-btn,#fh-events .fh-btn{width:100%;min-height:46px}
-      #fh-events .fh-proof-row,#fh-events .fh-booking-form,#fh-events .fh-wedding-moments,#fh-events .fh-wedding-gallery,#fh-events .fh-event-types,#fh-events .fh-event-energy,#fh-events .fh-flow-grid,#fh-events .fh-form-fields{grid-template-columns:1fr}
-      #fh-events .fh-field,#fh-events .fh-field:nth-child(1),#fh-events .fh-field:nth-child(2),#fh-events .fh-field:nth-child(3),#fh-events .fh-field:nth-child(4),#fh-events .fh-field:nth-child(5),#fh-events .fh-submit{grid-column:auto;border-right:0}
-      #fh-events .fh-field{padding:12px 14px}.fh-submit{min-height:52px}
-      #fh-events .fh-scroll-cue{display:none}#fh-events .fh-section{padding:46px 0}.fh-section-head{gap:12px;margin-bottom:18px}
-      #fh-events .fh-photo-stage,#fh-events .fh-wedding-visual,#fh-events .fh-event-hero-media{min-height:320px}
-      #fh-events .fh-card-inner,#fh-events .fh-wedding-main-card,#fh-events .fh-logistics-card,#fh-events .fh-event-hero-copy,#fh-events .fh-form-panel{padding:22px}
-      #fh-events .fh-gallery-card,#fh-events .fh-gallery-card:first-child,#fh-events .fh-event-card{min-height:260px}
-      #fh-events .fh-logistics-line{grid-template-columns:1fr;gap:7px}
-      #fh-events .fh-form-field.fh-full{grid-column:auto}
-      #fh-events .fh-final{padding:44px 0 54px}
-    }
-    @media(prefers-reduced-motion:reduce){#fh-events *,#fh-events *:before,#fh-events *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}#fh-events .fh-reveal,#fh-events .fh-preclip,#fh-events .fh-stagger>*{opacity:1!important;transform:none!important}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fletschhorn — Weddings & Events</title>
+<link rel="stylesheet" href="assets/fh-global.css">
 </head>
 <body>
-  <div id="fh-header-slot"></div>
+<div id="fh-header-slot"></div>
+<style>
+/* Fletschhorn — Your Wedding / Your Event, compact responsive Squarespace code */
+#fh-events,
+#fh-events *{box-sizing:border-box}
 
-  <div id="fh-events" data-current-lang="en">
-    <div class="fh-atmosphere" aria-hidden="true"></div>
-    <div class="fh-grain" aria-hidden="true"></div>
+#fh-events{
+  --fh-ivory:#fbf7f0;
+  --fh-paper:#f5eee6;
+  --fh-green:#345f46;
+  --fh-green-bright:#5f8e6d;
+  --fh-green-deep:#203d2d;
+  --fh-clay:#c3a58a;
+  --fh-ink:#241f1c;
+  --fh-muted:rgba(36,31,28,.66);
+  --fh-white:#fffaf3;
+  --fh-line:rgba(36,31,28,.13);
+  --fh-shadow:0 24px 70px rgba(23,19,16,.14);
+  --fh-soft-shadow:0 14px 38px rgba(23,19,16,.08);
+  --fh-serif:Georgia,"Times New Roman",serif;
+  --fh-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  position:relative;
+  width:100%;
+  margin:0;
+  overflow:hidden;
+  color:var(--fh-ink);
+  font-family:var(--fh-sans);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255,255,255,.80), transparent 0 20%),
+    radial-gradient(circle at 85% 20%, rgba(52,95,70,.10), transparent 0 23%),
+    radial-gradient(circle at 20% 86%, rgba(195,165,138,.18), transparent 0 22%),
+    linear-gradient(180deg,var(--fh-ivory),var(--fh-paper) 48%,#f8f2ea);
+}
 
-    <div class="fh-lang-switch" role="group" aria-label="Language">
-      <button type="button" data-lang="en" class="active">EN</button>
-      <button type="button" data-lang="fr">FR</button>
-      <button type="button" data-lang="de">DE</button>
-      <button type="button" data-lang="ru">RU</button>
+#fh-events a{color:inherit;text-decoration:none}
+#fh-events img{display:block;max-width:100%}
+#fh-events button,
+#fh-events input,
+#fh-events select,
+#fh-events textarea{font:inherit}
+#fh-events button{cursor:pointer}
+#fh-events ::selection{background:var(--fh-green);color:#fff}
+
+/* Background */
+#fh-events .fh-atmosphere{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+#fh-events .fh-atmosphere::before{
+  content:"";
+  position:absolute;
+  inset:-14%;
+  background:
+    radial-gradient(ellipse at 18% 16%, rgba(255,255,255,.86), transparent 0 18%),
+    radial-gradient(ellipse at 74% 12%, rgba(236,216,208,.34), transparent 0 20%),
+    radial-gradient(ellipse at 70% 72%, rgba(52,95,70,.12), transparent 0 24%),
+    linear-gradient(130deg, rgba(255,255,255,.30), transparent 43%, rgba(128,103,82,.10));
+  filter:blur(18px);
+  animation:fhFog 24s ease-in-out infinite alternate;
+}
+
+#fh-events .fh-atmosphere::after{
+  content:"";
+  position:absolute;
+  inset:-8%;
+  opacity:.20;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1500' height='900' viewBox='0 0 1500 900'%3E%3Cg fill='none' stroke='%23a7a096' stroke-opacity='.36' stroke-width='1.1'%3E%3Cpath d='M-30 170c180 40 319 36 446-14 122-48 231-42 354 5 151 58 293 48 452-11 101-37 188-39 310-3'/%3E%3Cpath d='M-40 315c197 32 356 24 494-19 128-39 242-35 376 6 154 47 303 42 464-8 93-29 171-31 248-13'/%3E%3Cpath d='M-40 473c215 18 390 10 548-22 126-26 253-25 386 5 152 35 295 33 447 0 80-18 148-19 210-8'/%3E%3Cpath d='M-40 640c236 9 433-2 603-27 131-19 255-18 385 0 147 21 287 19 436-4 76-12 135-11 188-5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:cover;
+  background-position:center;
+  animation:fhTopo 32s ease-in-out infinite alternate;
+}
+
+#fh-events .fh-grain{
+  position:fixed;
+  inset:0;
+  z-index:98;
+  pointer-events:none;
+  opacity:.035;
+  mix-blend-mode:multiply;
+  background-image:radial-gradient(rgba(0,0,0,.58) .45px, transparent .58px);
+  background-size:4px 4px;
+}
+
+@keyframes fhFog{
+  from{transform:translate3d(0,0,0) scale(1)}
+  to{transform:translate3d(-2vw,1vh,0) scale(1.06)}
+}
+
+@keyframes fhTopo{
+  from{transform:translate3d(0,0,0) scale(1.02)}
+  to{transform:translate3d(1.5vw,-1vh,0) scale(1.06)}
+}
+
+/* Petals */
+#fh-events .fh-petal-layer{
+  position:fixed;
+  inset:0;
+  z-index:15;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+#fh-events .fh-petal{
+  position:absolute;
+  left:0;
+  top:0;
+  width:var(--petal-w,18px);
+  height:var(--petal-h,12px);
+  opacity:var(--petal-opacity,.42);
+  border-radius:100% 0 100% 0 / 100% 0 100% 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.92), transparent 0 34%),
+    linear-gradient(135deg,rgba(255,250,243,.90),rgba(236,216,208,.72) 48%,rgba(195,165,138,.38));
+  box-shadow:0 8px 22px rgba(128,103,82,.12);
+  will-change:transform;
+}
+
+/* Base layout */
+#fh-events .fh-main{
+  position:relative;
+  z-index:2;
+  background:linear-gradient(180deg,var(--fh-ivory),var(--fh-paper) 54%,#f7f1e9);
+}
+
+#fh-events .fh-container{
+  width:min(1180px,calc(100% - 40px));
+  margin:0 auto;
+}
+
+#fh-events .fh-section{
+  position:relative;
+  z-index:2;
+  padding:70px 0;
+  overflow:hidden;
+}
+
+#fh-events .fh-section.fh-alt{
+  background:linear-gradient(180deg,rgba(255,250,243,.38),rgba(236,216,208,.15));
+}
+
+#fh-events .fh-section.fh-dark{
+  background:
+    radial-gradient(circle at 10% 8%,rgba(255,250,243,.13),transparent 0 24%),
+    radial-gradient(circle at 86% 18%,rgba(95,142,109,.22),transparent 0 30%),
+    radial-gradient(circle at 44% 96%,rgba(195,165,138,.11),transparent 0 28%),
+    linear-gradient(180deg,#211c18,#151210);
+  color:#fff;
+}
+
+#fh-events .fh-section-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(300px,.62fr);
+  gap:28px;
+  align-items:start;
+  margin-bottom:26px;
+}
+
+#fh-events .fh-section-head p:last-child{
+  max-width:520px;
+  justify-self:start;
+  padding-top:12px;
+}
+
+#fh-events .fh-kicker{
+  margin:0 0 10px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-size:11px;
+  font-weight:850;
+  color:var(--fh-green);
+}
+
+#fh-events .fh-dark .fh-kicker{color:rgba(255,250,243,.75)}
+
+#fh-events h1,
+#fh-events h2,
+#fh-events h3,
+#fh-events h4,
+#fh-events p{margin-top:0}
+
+#fh-events h1,
+#fh-events h2,
+#fh-events h3,
+#fh-events h4{
+  font-family:var(--fh-serif);
+  font-weight:400;
+  color:var(--fh-ink);
+}
+
+#fh-events .fh-dark h2,
+#fh-events .fh-dark h3,
+#fh-events .fh-dark h4{color:#fff}
+
+#fh-events h1{
+  margin:0 auto 16px;
+  max-width:1040px;
+  font-size:clamp(50px,8.3vw,118px);
+  line-height:.88;
+  letter-spacing:-.07em;
+}
+
+#fh-events h2{
+  margin:0;
+  max-width:900px;
+  font-size:clamp(40px,5vw,78px);
+  line-height:.92;
+  letter-spacing:-.06em;
+}
+
+#fh-events h3{
+  margin:0 0 12px;
+  font-size:clamp(31px,3.6vw,54px);
+  line-height:.94;
+  letter-spacing:-.05em;
+}
+
+#fh-events h4{
+  margin:0 0 9px;
+  font-size:clamp(24px,2.35vw,33px);
+  line-height:1;
+  letter-spacing:-.04em;
+}
+
+#fh-events p{
+  color:var(--fh-muted);
+  line-height:1.64;
+  font-size:16.5px;
+}
+
+#fh-events .fh-dark p{color:rgba(255,250,243,.76)}
+
+#fh-events .fh-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  padding:14px 20px;
+  background:var(--fh-green);
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:11px;
+  font-weight:850;
+  box-shadow:0 14px 36px rgba(32,61,45,.18);
+  transition:transform .25s ease,background .25s ease;
+}
+
+#fh-events .fh-btn:hover{
+  transform:translateY(-2px);
+  background:var(--fh-green-deep);
+}
+
+#fh-events .fh-btn.fh-btn-light{
+  background:rgba(255,250,243,.78);
+  color:var(--fh-ink);
+  border:1px solid rgba(36,31,28,.12);
+}
+
+/* Big section titles */
+#fh-events .fh-big-label{
+  display:block;
+  margin:0 0 14px;
+  font-family:var(--fh-serif);
+  font-size:clamp(62px,9.5vw,148px);
+  line-height:.78;
+  letter-spacing:-.08em;
+  font-weight:400;
+  color:var(--fh-green);
+}
+
+#fh-events .fh-dark .fh-big-label{
+  color:var(--fh-green-bright);
+  text-shadow:0 18px 60px rgba(0,0,0,.35);
+}
+
+/* Hero */
+#fh-events .fh-hero{
+  position:relative;
+  z-index:1;
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#241f1c;
+}
+
+#fh-events .fh-hero-slides{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+
+#fh-events .fh-slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transform:scale(1.045);
+  transition:opacity 1500ms ease,transform 8200ms ease;
+}
+
+#fh-events .fh-slide.fh-active{
+  opacity:1;
+  transform:scale(1);
+}
+
+#fh-events .fh-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:
+    linear-gradient(180deg,rgba(23,19,16,.62),rgba(23,19,16,.34) 42%,rgba(23,19,16,.70)),
+    radial-gradient(circle at 50% 20%,rgba(255,250,243,.12),transparent 0 28%);
+}
+
+#fh-events .fh-hero::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-1px;
+  height:110px;
+  z-index:1;
+  background:linear-gradient(180deg,transparent,var(--fh-ivory));
+}
+
+#fh-events .fh-hero-inner{
+  position:relative;
+  z-index:2;
+  width:min(1180px,calc(100% - 40px));
+  padding:86px 0 44px;
+  color:var(--fh-white);
+  text-align:center;
+}
+
+#fh-events .fh-crest{
+  width:74px;
+  height:74px;
+  margin:0 auto 20px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,250,243,.42);
+  font-family:var(--fh-serif);
+  font-size:26px;
+  letter-spacing:-.05em;
+  background:rgba(255,255,255,.055);
+  backdrop-filter:blur(10px);
+}
+
+#fh-events .fh-eyebrow{
+  margin:0 0 14px;
+  text-transform:uppercase;
+  letter-spacing:.24em;
+  font-size:11px;
+  font-weight:850;
+  color:rgba(255,250,243,.78);
+}
+
+#fh-events .fh-hero h1{color:var(--fh-white)}
+
+#fh-events .fh-hero-lead{
+  margin:0 auto 24px;
+  max-width:820px;
+  font-size:clamp(16px,1.7vw,20px);
+  line-height:1.62;
+  color:rgba(255,250,243,.86);
+}
+
+#fh-events .fh-hero-ctas{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:0 auto 20px;
+}
+
+#fh-events .fh-proof-row{
+  width:min(920px,100%);
+  margin:0 auto 20px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+#fh-events .fh-proof{
+  padding:13px 16px;
+  border:1px solid rgba(255,250,243,.22);
+  background:rgba(255,250,243,.12);
+  backdrop-filter:blur(12px);
+}
+
+#fh-events .fh-proof strong{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:27px;
+  line-height:1;
+  font-weight:400;
+  color:#fff;
+  letter-spacing:-.03em;
+  margin-bottom:6px;
+}
+
+#fh-events .fh-proof span{
+  display:block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  line-height:1.45;
+  color:rgba(255,250,243,.70);
+}
+
+/* Inquiry bar */
+#fh-events .fh-inquiry-shell{
+  width:min(1080px,100%);
+  margin:0 auto;
+  padding:9px;
+  border:1px solid rgba(255,250,243,.22);
+  background:rgba(255,250,243,.12);
+  backdrop-filter:blur(12px);
+  box-shadow:var(--fh-shadow);
+}
+
+#fh-events .fh-inquiry-bar{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 68px 175px;
+  background:rgba(255,250,243,.94);
+  color:var(--fh-ink);
+}
+
+#fh-events .fh-inquiry-field{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 15px;
+  border-right:1px solid var(--fh-line);
+  background:rgba(255,250,243,.88);
+}
+
+#fh-events .fh-field-icon{
+  width:20px;
+  height:20px;
+  color:var(--fh-green);
+  flex:0 0 auto;
+}
+
+#fh-events .fh-field-copy{
+  min-width:0;
+  width:100%;
+  text-align:left;
+}
+
+#fh-events .fh-field-copy label{
+  display:block;
+  margin:0 0 5px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.17em;
+  font-weight:850;
+  color:rgba(36,31,28,.48);
+}
+
+#fh-events .fh-field-copy input{
+  width:100%;
+  border:0;
+  background:transparent;
+  outline:none;
+  color:var(--fh-ink);
+  font-size:16px;
+  padding:0;
+  margin:0;
+}
+
+#fh-events .fh-field-copy input::placeholder{color:rgba(36,31,28,.44)}
+
+#fh-events .fh-more-btn,
+#fh-events .fh-send-btn{
+  border:0;
+  margin:0;
+}
+
+#fh-events .fh-more-btn{
+  display:grid;
+  place-items:center;
+  background:#f4ece2;
+  color:var(--fh-ink);
+  border-right:1px solid var(--fh-line);
+}
+
+#fh-events .fh-send-btn{
+  background:var(--fh-green);
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:11px;
+  font-weight:850;
+}
+
+#fh-events .fh-bar-note{
+  margin-top:11px;
+  color:rgba(255,250,243,.78);
+  font-size:13px;
+}
+
+#fh-events .fh-status{
+  display:none;
+  margin-top:11px;
+  padding:12px 14px;
+  border:1px solid rgba(255,250,243,.22);
+  background:rgba(255,250,243,.12);
+  color:#fff;
+  font-size:13px;
+  text-align:center;
+}
+
+#fh-events .fh-status.fh-show{display:block}
+
+#fh-events .fh-scroll-cue{
+  margin-top:22px;
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  color:rgba(255,250,243,.82);
+}
+
+#fh-events .fh-scroll-cue span{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-weight:850;
+}
+
+#fh-events .fh-scroll-line{
+  width:1px;
+  height:34px;
+  background:rgba(255,250,243,.38);
+}
+
+/* Reveal */
+#fh-events .fh-reveal{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .85s ease,transform .85s cubic-bezier(.2,.8,.2,1);
+}
+
+#fh-events .fh-reveal.fh-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+#fh-events .fh-preclip{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .85s ease,transform .85s cubic-bezier(.2,.8,.2,1);
+}
+
+#fh-events .fh-preclip.fh-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+#fh-events .fh-stagger > *{
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .72s ease,transform .72s cubic-bezier(.2,.8,.2,1);
+}
+
+#fh-events .fh-stagger.fh-visible > *{
+  opacity:1;
+  transform:translateY(0);
+}
+
+#fh-events .fh-stagger.fh-visible > *:nth-child(2){transition-delay:.07s}
+#fh-events .fh-stagger.fh-visible > *:nth-child(3){transition-delay:.14s}
+#fh-events .fh-stagger.fh-visible > *:nth-child(4){transition-delay:.21s}
+
+/* Intro section */
+#fh-events .fh-venue-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  gap:22px;
+  align-items:stretch;
+}
+
+#fh-events .fh-editorial-card{
+  position:relative;
+  min-height:460px;
+  background:rgba(255,250,243,.80);
+  border:1px solid rgba(255,255,255,.68);
+  box-shadow:var(--fh-soft-shadow);
+  overflow:hidden;
+}
+
+#fh-events .fh-editorial-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 16% 8%,rgba(255,255,255,.78),transparent 0 28%),
+    radial-gradient(circle at 80% 76%,rgba(236,216,208,.38),transparent 0 30%),
+    linear-gradient(135deg,rgba(255,255,255,.25),transparent 52%);
+}
+
+#fh-events .fh-card-inner{
+  position:relative;
+  padding:34px;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:22px;
+}
+
+#fh-events .fh-card-list{
+  display:grid;
+  gap:11px;
+}
+
+#fh-events .fh-card-list div{
+  border-top:1px solid var(--fh-line);
+  padding-top:12px;
+}
+
+#fh-events .fh-card-list strong{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:26px;
+  font-weight:400;
+  letter-spacing:-.03em;
+  margin-bottom:4px;
+  color:var(--fh-ink);
+}
+
+#fh-events .fh-card-list span{
+  display:block;
+  color:var(--fh-muted);
+  line-height:1.52;
+  font-size:15px;
+}
+
+#fh-events .fh-photo-stage{
+  position:relative;
+  min-height:460px;
+  overflow:hidden;
+  background:#d5c8bb;
+  box-shadow:var(--fh-shadow);
+}
+
+#fh-events .fh-photo-stage img{
+  position:absolute;
+  object-fit:cover;
+  filter:saturate(.86) contrast(1.04);
+}
+
+#fh-events .fh-photo-main{
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+#fh-events .fh-photo-small{
+  width:36%;
+  height:30%;
+  right:0;
+  top:11%;
+  box-shadow:0 24px 58px rgba(23,19,16,.24);
+  border:7px solid rgba(255,250,243,.72);
+}
+
+#fh-events .fh-photo-small.two{
+  left:0;
+  right:auto;
+  top:auto;
+  bottom:9%;
+  width:32%;
+  height:26%;
+}
+
+#fh-events .fh-photo-stage::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(23,19,16,.54));
+}
+
+#fh-events .fh-photo-caption{
+  position:absolute;
+  left:22px;
+  right:22px;
+  bottom:22px;
+  z-index:2;
+  color:#fff;
+}
+
+#fh-events .fh-photo-caption small{
+  display:block;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:10px;
+  font-weight:850;
+  color:rgba(255,250,243,.72);
+  margin-bottom:8px;
+}
+
+#fh-events .fh-photo-caption strong{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:clamp(30px,3.8vw,46px);
+  line-height:.96;
+  font-weight:400;
+  letter-spacing:-.045em;
+}
+
+/* Wedding dark */
+#fh-events .fh-wedding-feature{
+  display:grid;
+  grid-template-columns:minmax(300px,.88fr) minmax(0,1.12fr);
+  gap:22px;
+  align-items:stretch;
+}
+
+#fh-events .fh-wedding-visual{
+  position:relative;
+  min-height:560px;
+  overflow:hidden;
+  background:#ccbcae;
+  box-shadow:var(--fh-shadow);
+}
+
+#fh-events .fh-wedding-visual img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.86) contrast(1.05);
+}
+
+#fh-events .fh-wedding-visual::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.03),rgba(23,19,16,.74)),
+    radial-gradient(circle at 50% 12%,rgba(255,250,243,.25),transparent 0 28%);
+}
+
+#fh-events .fh-wedding-visual-copy{
+  position:absolute;
+  left:28px;
+  right:28px;
+  bottom:30px;
+  z-index:2;
+  color:#fff;
+}
+
+#fh-events .fh-wedding-visual-copy h3{
+  color:#fff;
+  font-size:clamp(38px,4.8vw,70px);
+  max-width:580px;
+}
+
+#fh-events .fh-wedding-visual-copy p{
+  color:rgba(255,250,243,.82);
+  max-width:580px;
+}
+
+#fh-events .fh-wedding-panel{
+  display:grid;
+  grid-template-rows:auto 1fr;
+  gap:14px;
+}
+
+#fh-events .fh-wedding-main-card{
+  position:relative;
+  padding:32px;
+  background:rgba(255,250,243,.12);
+  border:1px solid rgba(255,250,243,.18);
+  box-shadow:0 20px 60px rgba(0,0,0,.12);
+  overflow:hidden;
+}
+
+#fh-events .fh-wedding-main-card::before{
+  content:"";
+  position:absolute;
+  inset:-18%;
+  background:
+    radial-gradient(circle at 18% 12%,rgba(255,255,255,.10),transparent 0 18%),
+    radial-gradient(circle at 84% 18%,rgba(95,142,109,.22),transparent 0 18%),
+    radial-gradient(circle at 70% 82%,rgba(195,165,138,.12),transparent 0 18%);
+}
+
+#fh-events .fh-wedding-main-card > *{position:relative}
+#fh-events .fh-wedding-main-card p{color:rgba(255,250,243,.78)}
+
+#fh-events .fh-wedding-pill-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:20px;
+}
+
+#fh-events .fh-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 11px;
+  border:1px solid rgba(255,250,243,.20);
+  background:rgba(255,250,243,.08);
+  color:rgba(255,250,243,.78);
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:800;
+}
+
+#fh-events .fh-wedding-moments{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+#fh-events .fh-moment-card{
+  position:relative;
+  min-height:190px;
+  padding:24px;
+  background:rgba(255,250,243,.10);
+  border:1px solid rgba(255,250,243,.18);
+  box-shadow:0 20px 60px rgba(0,0,0,.12);
+  overflow:hidden;
+}
+
+#fh-events .fh-moment-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.08),transparent 52%,rgba(95,142,109,.16));
+}
+
+#fh-events .fh-moment-card > *{position:relative}
+
+#fh-events .fh-moment-card b{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:38px;
+  line-height:1;
+  font-weight:400;
+  color:rgba(95,142,109,.76);
+  margin-bottom:11px;
+}
+
+#fh-events .fh-moment-card p{
+  font-size:15px;
+  color:rgba(255,250,243,.76);
+}
+
+/* Gallery */
+#fh-events .fh-wedding-gallery{
+  display:grid;
+  grid-template-columns:1.2fr .8fr .8fr;
+  gap:14px;
+  margin-top:22px;
+}
+
+#fh-events .fh-gallery-card{
+  position:relative;
+  min-height:285px;
+  overflow:hidden;
+  box-shadow:var(--fh-soft-shadow);
+  background:#d5c8bb;
+}
+
+#fh-events .fh-gallery-card:first-child{min-height:360px}
+
+#fh-events .fh-gallery-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.86) contrast(1.04);
+  transition:transform .9s cubic-bezier(.2,.8,.2,1);
+}
+
+#fh-events .fh-gallery-card:hover img{transform:scale(1.045)}
+
+#fh-events .fh-gallery-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(23,19,16,.58));
+}
+
+#fh-events .fh-gallery-copy{
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:20px;
+  z-index:2;
+  color:#fff;
+}
+
+#fh-events .fh-gallery-copy strong{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:30px;
+  font-weight:400;
+  line-height:.98;
+  letter-spacing:-.04em;
+  margin-bottom:7px;
+}
+
+#fh-events .fh-gallery-copy span{
+  display:block;
+  color:rgba(255,250,243,.78);
+  font-size:14px;
+  line-height:1.55;
+}
+
+/* Event light */
+#fh-events .fh-event-hero{
+  position:relative;
+  min-height:460px;
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(310px,.72fr);
+  overflow:hidden;
+  background:#2a241f;
+  box-shadow:var(--fh-shadow);
+}
+
+#fh-events .fh-event-hero-media{
+  position:relative;
+  min-height:460px;
+  overflow:hidden;
+}
+
+#fh-events .fh-event-hero-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.86) contrast(1.06);
+}
+
+#fh-events .fh-event-hero-media::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(23,19,16,.08),rgba(23,19,16,.58)),
+    radial-gradient(circle at 25% 18%,rgba(255,250,243,.16),transparent 0 24%);
+}
+
+#fh-events .fh-event-hero-copy{
+  position:relative;
+  padding:34px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 10% 12%,rgba(255,255,255,.70),transparent 0 24%),
+    linear-gradient(180deg,rgba(255,250,243,.94),rgba(237,228,218,.96));
+}
+
+#fh-events .fh-event-hero-copy h2{color:var(--fh-ink)}
+#fh-events .fh-event-hero-copy p{color:var(--fh-muted)}
+
+#fh-events .fh-event-types{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:22px;
+}
+
+#fh-events .fh-event-card{
+  position:relative;
+  min-height:350px;
+  overflow:hidden;
+  background:#d8cabe;
+  box-shadow:var(--fh-soft-shadow);
+}
+
+#fh-events .fh-event-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.86) contrast(1.04);
+  transition:transform .9s cubic-bezier(.2,.8,.2,1);
+}
+
+#fh-events .fh-event-card:hover img{transform:scale(1.045)}
+
+#fh-events .fh-event-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(23,19,16,.74));
+}
+
+#fh-events .fh-event-copy{
+  position:absolute;
+  z-index:2;
+  left:20px;
+  right:20px;
+  bottom:20px;
+  color:#fff;
+}
+
+#fh-events .fh-event-copy h3{
+  color:#fff;
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+#fh-events .fh-event-copy p{
+  color:rgba(255,250,243,.82);
+  font-size:15px;
+}
+
+#fh-events .fh-event-energy{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:22px;
+}
+
+#fh-events .fh-energy-card{
+  position:relative;
+  padding:26px;
+  min-height:215px;
+  background:rgba(255,250,243,.78);
+  border:1px solid rgba(255,255,255,.70);
+  box-shadow:var(--fh-soft-shadow);
+  overflow:hidden;
+}
+
+#fh-events .fh-energy-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 18% 12%,rgba(255,255,255,.50),transparent 0 22%),
+    linear-gradient(135deg,rgba(255,255,255,.32),transparent 52%,rgba(52,95,70,.08));
+}
+
+#fh-events .fh-energy-card > *{position:relative}
+
+#fh-events .fh-energy-card b{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:42px;
+  line-height:1;
+  font-weight:400;
+  color:rgba(52,95,70,.46);
+  margin-bottom:12px;
+}
+
+
+/* Simple image carousels for Love / Events galleries */
+#fh-events .fh-simple-carousel{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background:#d5c8bb;
+}
+
+#fh-events .fh-simple-carousel .fh-carousel-slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transform:scale(1.035);
+  transition:opacity 1200ms ease, transform 7000ms ease;
+}
+
+#fh-events .fh-simple-carousel .fh-carousel-slide.fh-active{
+  opacity:1;
+  transform:scale(1);
+}
+
+#fh-events .fh-wedding-visual .fh-simple-carousel,
+#fh-events .fh-event-hero-media .fh-simple-carousel{
+  z-index:0;
+}
+
+#fh-events .fh-wedding-visual-copy,
+#fh-events .fh-event-hero-copy{
+  z-index:2;
+}
+
+#fh-events .fh-gallery-card img,
+#fh-events .fh-event-card img{
+  position:absolute;
+  inset:0;
+}
+
+
+
+
+/* Added: simple section image blocks to remove empty-looking areas */
+#fh-events .fh-inline-carousel{
+  position:relative;
+  min-height:300px;
+  margin-top:20px;
+  overflow:hidden;
+  background:#d5c8bb;
+  box-shadow:var(--fh-soft-shadow);
+}
+
+#fh-events .fh-inline-carousel::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(23,19,16,.55));
+  pointer-events:none;
+}
+
+#fh-events .fh-inline-caption{
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:18px;
+  z-index:2;
+  color:#fff;
+}
+
+#fh-events .fh-inline-caption small{
+  display:block;
+  margin-bottom:6px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:10px;
+  font-weight:850;
+  color:rgba(255,250,243,.74);
+}
+
+#fh-events .fh-inline-caption strong{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:clamp(26px,3vw,38px);
+  line-height:.98;
+  font-weight:400;
+  letter-spacing:-.04em;
+}
+
+#fh-events .fh-logistics-card .fh-inline-carousel{min-height:310px}
+#fh-events .fh-plan-visual{min-height:340px;margin-top:22px}
+#fh-events .fh-form-visual{min-height:235px;margin-top:20px}
+
+#fh-events .fh-flow{
+  padding-bottom:120px;
+}
+
+#fh-events .fh-flow::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:105px;
+  background-image:var(--flow-img);
+  background-size:cover;
+  background-position:center;
+  opacity:.92;
+  filter:saturate(.88) contrast(1.04);
+}
+
+#fh-events .fh-flow::before{z-index:1}
+#fh-events .fh-flow > *{z-index:2}
+
+#fh-events .fh-photo-stage .fh-simple-carousel{z-index:0}
+
+/* Logistics */
+#fh-events .fh-logistics-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  gap:22px;
+  align-items:stretch;
+}
+
+#fh-events .fh-logistics-card{
+  padding:32px;
+  background:rgba(255,250,243,.80);
+  border:1px solid rgba(255,255,255,.70);
+  box-shadow:var(--fh-soft-shadow);
+}
+
+#fh-events .fh-logistics-list{
+  display:grid;
+  gap:12px;
+}
+
+#fh-events .fh-logistics-line{
+  display:grid;
+  grid-template-columns:115px 1fr;
+  gap:18px;
+  padding-top:14px;
+  border-top:1px solid var(--fh-line);
+}
+
+#fh-events .fh-logistics-line strong{
+  font-family:var(--fh-serif);
+  font-size:23px;
+  line-height:1;
+  font-weight:400;
+  color:var(--fh-ink);
+}
+
+#fh-events .fh-logistics-line span{
+  color:var(--fh-muted);
+  line-height:1.58;
+  font-size:15px;
+}
+
+/* Flow */
+#fh-events .fh-flow-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+#fh-events .fh-flow{
+  background:rgba(255,250,243,.78);
+  border:1px solid rgba(255,255,255,.70);
+  padding:24px;
+  min-height:215px;
+  box-shadow:var(--fh-soft-shadow);
+  position:relative;
+  overflow:hidden;
+}
+
+#fh-events .fh-flow::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.40),transparent 50%,rgba(52,95,70,.08));
+}
+
+#fh-events .fh-flow > *{position:relative}
+
+#fh-events .fh-flow b{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:39px;
+  font-weight:400;
+  color:rgba(52,95,70,.42);
+  margin-bottom:10px;
+}
+
+#fh-events .fh-flow h3{
+  font-size:28px;
+  margin-bottom:9px;
+}
+
+#fh-events .fh-flow p{font-size:15px}
+
+/* Form */
+#fh-events .fh-form-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.92fr) minmax(360px,.8fr);
+  gap:22px;
+  align-items:start;
+}
+
+#fh-events .fh-form-panel{
+  background:rgba(255,250,243,.80);
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:var(--fh-soft-shadow);
+  padding:30px;
+}
+
+#fh-events .fh-form-fields{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+#fh-events .fh-form-field.fh-full{grid-column:1 / -1}
+
+#fh-events .fh-form-panel label{
+  display:block;
+  margin:0 0 8px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:10px;
+  font-weight:850;
+  color:rgba(36,31,28,.48);
+}
+
+#fh-events .fh-form-panel input,
+#fh-events .fh-form-panel select,
+#fh-events .fh-form-panel textarea{
+  width:100%;
+  border:1px solid rgba(36,31,28,.14);
+  background:rgba(255,255,255,.68);
+  padding:13px 14px;
+  color:var(--fh-ink);
+  outline:none;
+  margin:0;
+  min-height:48px;
+  border-radius:0;
+}
+
+#fh-events .fh-form-panel textarea{
+  min-height:122px;
+  resize:vertical;
+}
+
+#fh-events .fh-form-actions{
+  margin-top:16px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+#fh-events .fh-contact-lines{
+  display:grid;
+  gap:0;
+  margin-top:20px;
+}
+
+#fh-events .fh-contact-line{
+  border-top:1px solid var(--fh-line);
+  padding:14px 0;
+}
+
+#fh-events .fh-contact-line span{
+  display:block;
+  margin-bottom:5px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:10px;
+  font-weight:850;
+  color:var(--fh-green);
+}
+
+#fh-events .fh-contact-line strong{
+  font-size:17px;
+  font-weight:620;
+  color:var(--fh-ink);
+}
+
+/* Final */
+#fh-events .fh-final{
+  position:relative;
+  z-index:2;
+  padding:56px 0 68px;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(255,255,255,.66),transparent 0 22%),
+    linear-gradient(180deg,rgba(235,225,214,.82),rgba(247,241,233,.94));
+  border-top:1px solid rgba(36,31,28,.08);
+}
+
+#fh-events .fh-final-inner{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:22px;
+  align-items:end;
+}
+
+/* Modal */
+#fh-events .fh-modal{
+  position:fixed;
+  inset:0;
+  z-index:120;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(20,17,14,.62);
+  backdrop-filter:blur(10px);
+}
+
+#fh-events .fh-modal.fh-open{display:flex}
+
+#fh-events .fh-modal-panel{
+  width:min(760px,100%);
+  max-height:min(720px,calc(100vh - 40px));
+  overflow:auto;
+  background:var(--fh-white);
+  color:var(--fh-ink);
+  border:1px solid rgba(255,250,243,.60);
+  box-shadow:0 34px 100px rgba(0,0,0,.36);
+}
+
+#fh-events .fh-modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:20px 24px;
+  border-bottom:1px solid rgba(36,31,28,.12);
+}
+
+#fh-events .fh-modal-head h3{
+  margin:0;
+  font-size:36px;
+}
+
+#fh-events .fh-close{
+  border:0;
+  background:transparent;
+  color:rgba(36,31,28,.56);
+  font-size:32px;
+  line-height:1;
+}
+
+#fh-events .fh-modal-body{padding:24px}
+
+#fh-events .fh-detail-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+#fh-events .fh-detail-field.fh-full{grid-column:1 / -1}
+
+#fh-events .fh-detail-field label{
+  display:block;
+  margin-bottom:8px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:10px;
+  font-weight:850;
+  color:rgba(36,31,28,.48);
+}
+
+#fh-events .fh-detail-field input,
+#fh-events .fh-detail-field select,
+#fh-events .fh-detail-field textarea{
+  width:100%;
+  border:1px solid rgba(36,31,28,.14);
+  background:#fbf5ed;
+  padding:13px 14px;
+  color:var(--fh-ink);
+  outline:none;
+  min-height:48px;
+}
+
+#fh-events .fh-detail-field textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+#fh-events .fh-modal-actions{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:20px;
+  padding-top:18px;
+  border-top:1px solid rgba(36,31,28,.12);
+}
+
+#fh-events .fh-link-btn{
+  border:0;
+  background:transparent;
+  color:var(--fh-green);
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
+
+/* Tablet */
+@media(max-width:1120px){
+  #fh-events .fh-inquiry-bar{grid-template-columns:1fr 1fr}
+  #fh-events .fh-inquiry-field:nth-child(2){border-right:0}
+  #fh-events .fh-inquiry-field:nth-child(3){grid-column:1 / -1;border-top:1px solid var(--fh-line);border-right:0}
+  #fh-events .fh-more-btn{min-height:56px;border-top:1px solid var(--fh-line)}
+  #fh-events .fh-send-btn{min-height:56px}
+
+  #fh-events .fh-section-head,
+  #fh-events .fh-venue-grid,
+  #fh-events .fh-wedding-feature,
+  #fh-events .fh-event-hero,
+  #fh-events .fh-logistics-grid,
+  #fh-events .fh-form-grid,
+  #fh-events .fh-final-inner{
+    grid-template-columns:1fr;
+  }
+
+  #fh-events .fh-section-head p:last-child{
+    max-width:760px;
+    padding-top:0;
+  }
+
+  #fh-events .fh-photo-stage,
+  #fh-events .fh-event-hero-media,
+  #fh-events .fh-wedding-visual{min-height:430px}
+
+  #fh-events .fh-event-types,
+  #fh-events .fh-event-energy,
+  #fh-events .fh-flow-grid{grid-template-columns:1fr 1fr}
+
+  #fh-events .fh-wedding-gallery{grid-template-columns:1fr 1fr}
+  #fh-events .fh-wedding-gallery .fh-gallery-card:first-child{grid-column:1 / -1}
+}
+
+/* Mobile */
+@media(max-width:720px){
+  #fh-events .fh-container,
+  #fh-events .fh-hero-inner{width:calc(100% - 24px)}
+
+  #fh-events .fh-hero{
+    min-height:auto;
+  }
+
+  #fh-events .fh-hero-inner{
+    padding-top:56px;
+    padding-bottom:30px;
+  }
+
+  #fh-events .fh-crest{
+    width:56px;
+    height:56px;
+    font-size:22px;
+    margin-bottom:14px;
+  }
+
+  #fh-events .fh-eyebrow{
+    font-size:9.5px;
+    line-height:1.45;
+    letter-spacing:.17em;
+    margin-bottom:10px;
+  }
+
+  #fh-events h1{
+    font-size:clamp(39px,13vw,62px);
+    line-height:.90;
+    margin-bottom:14px;
+  }
+
+  #fh-events h2{
+    font-size:clamp(35px,10.5vw,54px);
+    line-height:.94;
+  }
+
+  #fh-events h3{
+    font-size:clamp(29px,8vw,44px);
+    line-height:.96;
+  }
+
+  #fh-events h4{
+    font-size:clamp(23px,7vw,31px);
+  }
+
+  #fh-events p{
+    font-size:15.5px;
+    line-height:1.58;
+  }
+
+  #fh-events .fh-hero-lead{
+    font-size:15.5px;
+    margin-bottom:18px;
+  }
+
+  #fh-events .fh-proof-row{
+    grid-template-columns:1fr;
+    gap:8px;
+    margin-bottom:14px;
+  }
+
+  #fh-events .fh-proof{
+    padding:11px 14px;
+  }
+
+  #fh-events .fh-proof strong{
+    font-size:24px;
+  }
+
+  #fh-events .fh-inquiry-shell{
+    padding:7px;
+  }
+
+  #fh-events .fh-inquiry-bar{
+    grid-template-columns:1fr;
+  }
+
+  #fh-events .fh-inquiry-field{
+    border-right:0;
+    border-bottom:1px solid var(--fh-line);
+    padding:12px 13px;
+  }
+
+  #fh-events .fh-inquiry-field:nth-child(3){
+    grid-column:auto;
+    border-top:0;
+  }
+
+  #fh-events .fh-more-btn{
+    min-height:46px;
+    border-top:0;
+    border-bottom:1px solid var(--fh-line);
+    border-right:0;
+  }
+
+  #fh-events .fh-send-btn{
+    min-height:48px;
+  }
+
+  #fh-events .fh-bar-note{
+    font-size:12.5px;
+  }
+
+  #fh-events .fh-scroll-cue{
+    display:none;
+  }
+
+  #fh-events .fh-section{
+    padding:46px 0;
+  }
+
+  #fh-events .fh-section-head{
+    gap:12px;
+    margin-bottom:18px;
+  }
+
+  #fh-events .fh-section-head p:last-child{
+    max-width:none;
+  }
+
+  #fh-events .fh-big-label{
+    font-size:clamp(50px,16vw,86px);
+    line-height:.84;
+    margin-bottom:10px;
+    letter-spacing:-.07em;
+  }
+
+  #fh-events .fh-editorial-card{
+    min-height:auto;
+  }
+
+  #fh-events .fh-card-inner,
+  #fh-events .fh-wedding-main-card,
+  #fh-events .fh-logistics-card,
+  #fh-events .fh-event-hero-copy{
+    padding:22px;
+  }
+
+  #fh-events .fh-photo-stage,
+  #fh-events .fh-wedding-visual,
+  #fh-events .fh-event-hero-media{
+    min-height:320px;
+  }
+
+  #fh-events .fh-wedding-visual-copy{
+    left:20px;
+    right:20px;
+    bottom:20px;
+  }
+
+  #fh-events .fh-photo-caption{
+    left:18px;
+    right:18px;
+    bottom:18px;
+  }
+
+  #fh-events .fh-photo-small{
+    width:42%;
+    height:22%;
+    border-width:5px;
+  }
+
+  #fh-events .fh-photo-small.two{
+    width:38%;
+    height:21%;
+  }
+
+  #fh-events .fh-wedding-panel{
+    gap:12px;
+  }
+
+  #fh-events .fh-wedding-moments,
+  #fh-events .fh-wedding-gallery,
+  #fh-events .fh-event-types,
+  #fh-events .fh-event-energy,
+  #fh-events .fh-flow-grid,
+  #fh-events .fh-form-fields,
+  #fh-events .fh-detail-grid{
+    grid-template-columns:1fr;
+  }
+
+  #fh-events .fh-wedding-gallery{
+    gap:12px;
+    margin-top:14px;
+  }
+
+  #fh-events .fh-wedding-gallery .fh-gallery-card:first-child{
+    grid-column:auto;
+  }
+
+  #fh-events .fh-gallery-card,
+  #fh-events .fh-gallery-card:first-child{
+    min-height:250px;
+  }
+
+  #fh-events .fh-event-card{
+    min-height:285px;
+  }
+
+  #fh-events .fh-event-types,
+  #fh-events .fh-event-energy{
+    margin-top:14px;
+    gap:12px;
+  }
+
+  #fh-events .fh-moment-card,
+  #fh-events .fh-energy-card,
+  #fh-events .fh-flow{
+    min-height:auto;
+    padding:21px;
+  }
+
+  #fh-events .fh-form-panel{
+    padding:22px;
+  }
+
+  #fh-events .fh-form-field.fh-full,
+  #fh-events .fh-detail-field.fh-full{
+    grid-column:auto;
+  }
+
+  #fh-events .fh-logistics-line{
+    grid-template-columns:1fr;
+    gap:7px;
+  }
+
+  #fh-events .fh-final{
+    padding:44px 0 54px;
+  }
+
+  #fh-events .fh-modal{
+    padding:10px;
+  }
+
+  #fh-events .fh-modal-head,
+  #fh-events .fh-modal-body{
+    padding:18px;
+  }
+
+  #fh-events .fh-petal:nth-child(n+13){
+    display:none;
+  }
+}
+
+@media(max-width:420px){
+  #fh-events .fh-container,
+  #fh-events .fh-hero-inner{
+    width:calc(100% - 18px);
+  }
+
+  #fh-events .fh-section{
+    padding:38px 0;
+  }
+
+  #fh-events .fh-card-inner,
+  #fh-events .fh-wedding-main-card,
+  #fh-events .fh-logistics-card,
+  #fh-events .fh-event-hero-copy,
+  #fh-events .fh-form-panel{
+    padding:19px;
+  }
+
+  #fh-events .fh-photo-stage,
+  #fh-events .fh-wedding-visual,
+  #fh-events .fh-event-hero-media{
+    min-height:285px;
+  }
+
+  #fh-events .fh-event-card,
+  #fh-events .fh-gallery-card,
+  #fh-events .fh-gallery-card:first-child{
+    min-height:230px;
+  }
+}
+
+
+
+/* Added mobile tightening */
+@media(max-width:720px){
+  #fh-events .fh-atmosphere,
+  #fh-events .fh-grain{position:absolute}
+  #fh-events .fh-section-head{margin-bottom:16px}
+  #fh-events .fh-venue-grid,
+  #fh-events .fh-wedding-feature,
+  #fh-events .fh-logistics-grid,
+  #fh-events .fh-form-grid{gap:14px}
+  #fh-events .fh-inline-carousel{min-height:235px;margin-top:14px}
+  #fh-events .fh-logistics-card .fh-inline-carousel{min-height:230px}
+  #fh-events .fh-plan-visual{min-height:235px;margin-top:14px}
+  #fh-events .fh-form-visual{min-height:210px}
+  #fh-events .fh-flow{padding-bottom:98px}
+  #fh-events .fh-flow::after{height:88px}
+  #fh-events .fh-wedding-pill-row{gap:6px}
+  #fh-events .fh-pill{padding:7px 9px;font-size:9.5px}
+  #fh-events .fh-hero-ctas .fh-btn{width:100%}
+  #fh-events .fh-btn{width:100%;min-height:46px}
+  #fh-events .fh-final-inner .fh-btn{width:100%}
+}
+
+@media(max-width:420px){
+  #fh-events .fh-inline-carousel{min-height:210px}
+  #fh-events .fh-plan-visual{min-height:215px}
+  #fh-events .fh-form-visual{min-height:190px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #fh-events *,
+  #fh-events *::before,
+  #fh-events *::after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+
+  #fh-events .fh-reveal,
+  #fh-events .fh-preclip,
+  #fh-events .fh-stagger > *{
+    opacity:1!important;
+    transform:none!important;
+  }
+
+  #fh-events .fh-petal-layer{display:none}
+}
+
+
+/* Fix: event/wedding cards should never collapse into blank gradient if ImageKit tries one filename variant first */
+#fh-events .fh-event-card,
+#fh-events .fh-gallery-card,
+#fh-events .fh-wedding-visual,
+#fh-events .fh-photo-stage,
+#fh-events .fh-event-hero-media{
+  background-image:linear-gradient(135deg,#d9d1c8,#b8ad9f 45%,#345f46);
+  background-size:cover;
+  background-position:center;
+}
+
+#fh-events .fh-event-card img,
+#fh-events .fh-gallery-card img{
+  opacity:1;
+  transition:transform .9s cubic-bezier(.2,.8,.2,1), opacity .3s ease;
+}
+
+@media(max-width:720px){
+  #fh-events .fh-event-types{gap:14px!important;}
+  #fh-events .fh-event-card{min-height:260px!important;}
+  #fh-events .fh-event-copy{left:17px!important;right:17px!important;bottom:17px!important;}
+  #fh-events .fh-event-copy h3{font-size:29px!important;}
+  #fh-events .fh-event-copy p{font-size:14.5px!important;line-height:1.55!important;}
+}
+
+</style>
+
+<style>
+/* Fletschhorn standard booking toolbar + GitHub asset behavior */
+body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
+#fh-header-slot,#fh-footer-slot{position:relative;z-index:100;}
+#fh-events .fh-standard-booking-shell{width:min(1080px,100%);margin:0 auto;padding:9px;border:1px solid rgba(255,250,243,.22);background:rgba(255,250,243,.12);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:var(--fh-shadow);}
+#fh-events .fh-standard-booking-bar{display:grid;grid-template-columns:1fr 1fr 1.35fr 1fr 1fr 175px;background:rgba(255,250,243,.94);color:var(--fh-ink);}
+#fh-events .fh-standard-booking-field{min-width:0;padding:14px 15px;border-right:1px solid var(--fh-line);background:rgba(255,250,243,.88);text-align:left;}
+#fh-events .fh-standard-booking-field label{display:block;margin:0 0 5px;font-size:10px;text-transform:uppercase;letter-spacing:.17em;font-weight:850;color:rgba(36,31,28,.48);}
+#fh-events .fh-standard-booking-field input{width:100%;border:0;background:transparent;outline:none;color:var(--fh-ink);font-size:15px;padding:0;margin:0;min-height:22px;}
+#fh-events .fh-standard-booking-field input::placeholder{color:rgba(36,31,28,.44)}
+#fh-events .fh-standard-booking-btn{border:0;margin:0;background:var(--fh-green);color:#fff;text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:850;min-height:58px;}
+#fh-events .fh-standard-booking-note{margin-top:11px;color:rgba(255,250,243,.78);font-size:13px;text-align:center;}
+#fh-events .fh-standard-booking-status{display:none;margin-top:11px;padding:12px 14px;border:1px solid rgba(255,250,243,.22);background:rgba(255,250,243,.12);color:#fff;font-size:13px;text-align:center;}
+#fh-events .fh-standard-booking-status.is-visible{display:block;}
+#fh-events .fh-lang-switcher{position:fixed;right:18px;bottom:18px;z-index:140;display:flex;gap:6px;padding:7px;background:rgba(255,250,243,.78);border:1px solid rgba(36,31,28,.12);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 14px 36px rgba(23,19,16,.14);}
+#fh-events .fh-lang-switcher button{border:0;background:transparent;color:var(--fh-ink);padding:7px 8px;font-size:10px;letter-spacing:.12em;font-weight:850;}
+#fh-events .fh-lang-switcher button.is-active{background:var(--fh-green);color:#fff;}
+@media(max-width:1120px){#fh-events .fh-standard-booking-bar{grid-template-columns:1fr 1fr;}#fh-events .fh-standard-booking-field:nth-child(2n){border-right:0;}#fh-events .fh-standard-booking-btn{grid-column:1/-1;}}
+@media(max-width:720px){#fh-events .fh-standard-booking-shell{padding:7px;}#fh-events .fh-standard-booking-bar{grid-template-columns:1fr;}#fh-events .fh-standard-booking-field{border-right:0;border-bottom:1px solid var(--fh-line);padding:12px 13px;}#fh-events .fh-standard-booking-btn{min-height:50px;}#fh-events .fh-lang-switcher{right:10px;bottom:10px;}}
+</style>
+
+
+<div id="fh-events">
+  <div class="fh-lang-switcher" aria-label="Language selector"><button type="button" data-fh-lang="en">EN</button><button type="button" data-fh-lang="fr">FR</button><button type="button" data-fh-lang="de">DE</button><button type="button" data-fh-lang="ru">RU</button></div>
+  <div class="fh-atmosphere" aria-hidden="true"></div>
+  <div class="fh-petal-layer" aria-hidden="true"></div>
+  <div class="fh-grain" aria-hidden="true"></div>
+
+  <section class="fh-hero" id="fh-events-top">
+    <div class="fh-hero-slides" data-fh-event-slides aria-hidden="true"></div>
+
+    <div class="fh-hero-inner">
+      <div class="fh-crest" aria-hidden="true">fh</div>
+      <p class="fh-eyebrow" data-fh-i18n="heroEyebrow">Private alpine house · weddings · retreats · events</p>
+      <h1 data-fh-i18n="heroTitle">Weddings and events in the Alps.</h1>
+      <p class="fh-hero-lead" data-fh-i18n="heroLead">A private alpine house in Saas-Fee for weddings, retreats, family milestones, and meaningful gatherings.</p>
+
+      <div class="fh-hero-ctas">
+        <a class="fh-btn" href="#fh-wedding-moment" data-fh-i18n="heroCtaWedding">Your Wedding</a>
+        <a class="fh-btn fh-btn-light" href="#fh-private-events" data-fh-i18n="heroCtaEvents">Your Event</a>
+      </div>
+
+      <div class="fh-proof-row fh-stagger">
+        <div class="fh-proof"><strong data-fh-i18n="proof1Title">Private</strong><span data-fh-i18n="proof1Text">A house for one group at a time</span></div>
+        <div class="fh-proof"><strong data-fh-i18n="proof2Title">48</strong><span data-fh-i18n="proof2Text">Sleeping places for overnight groups</span></div>
+        <div class="fh-proof"><strong data-fh-i18n="proof3Title">Saas-Fee</strong><span data-fh-i18n="proof3Text">Forest edge, alpine views, village access</span></div>
+      </div>
+
+      <div class="fh-standard-booking-shell" id="fh-event-inquiry-bar">
+        <form class="fh-standard-booking-bar" id="fh-standard-booking-form" novalidate>
+          <div class="fh-standard-booking-field"><label for="fhBookingFirstName" data-booking-i18n="firstNameLabel">First name</label><input id="fhBookingFirstName" name="firstName" autocomplete="given-name" data-booking-i18n-placeholder="firstNamePlaceholder" placeholder="First name" required /></div>
+          <div class="fh-standard-booking-field"><label for="fhBookingLastName" data-booking-i18n="lastNameLabel">Last name</label><input id="fhBookingLastName" name="lastName" autocomplete="family-name" data-booking-i18n-placeholder="lastNamePlaceholder" placeholder="Last name" required /></div>
+          <div class="fh-standard-booking-field"><label for="fhBookingEmail" data-booking-i18n="emailLabel">Email</label><input id="fhBookingEmail" name="email" type="email" autocomplete="email" data-booking-i18n-placeholder="emailPlaceholder" placeholder="Email address" required /></div>
+          <div class="fh-standard-booking-field"><label for="fhBookingArrival" data-booking-i18n="arrivalLabel">Arrival</label><input id="fhBookingArrival" name="checkIn" type="date" required /></div>
+          <div class="fh-standard-booking-field"><label for="fhBookingDeparture" data-booking-i18n="departureLabel">Departure</label><input id="fhBookingDeparture" name="checkOut" type="date" required /></div>
+          <button class="fh-standard-booking-btn" type="submit" data-booking-i18n="bookButton">Book my stay now</button>
+        </form>
+        <div class="fh-standard-booking-note" data-booking-i18n="bookingNote">Best Rates Guaranteed when Booking Direct</div>
+        <div class="fh-standard-booking-status" id="fh-standard-booking-status"></div>
+      </div>
+
+      <a class="fh-scroll-cue" href="#fh-wedding-house" aria-label="Scroll to wedding and events content">
+        <span data-fh-i18n="scrollCue">See the venue story</span>
+        <div class="fh-scroll-line"></div>
+      </a>
     </div>
+  </section>
 
-    <section class="fh-hero" id="fh-events-top">
-      <div class="fh-hero-slides" data-fh-event-slides aria-hidden="true"></div>
-      <div class="fh-hero-inner">
-        <div class="fh-crest" aria-hidden="true">fh</div>
-        <p class="fh-eyebrow" data-i18n="heroEyebrow">Private alpine house · weddings · retreats · events</p>
-        <h1 data-i18n="heroTitle">Weddings and events in the Alps.</h1>
-        <p class="fh-hero-lead" data-i18n="heroLead">A private alpine house in Saas-Fee for weddings, retreats, family milestones, and meaningful gatherings.</p>
-
-        <div class="fh-hero-ctas">
-          <a class="fh-btn" href="#fh-wedding-moment" data-i18n="heroCtaWedding">Your Wedding</a>
-          <a class="fh-btn fh-btn-light" href="#fh-private-events" data-i18n="heroCtaEvents">Your Event</a>
+  <main class="fh-main">
+    <section class="fh-section fh-alt" id="fh-wedding-house">
+      <div class="fh-container fh-section-head fh-reveal">
+        <div>
+          <p class="fh-kicker" data-fh-i18n="introKicker">A house for meaningful gatherings</p>
+          <h2 data-fh-i18n="introTitle">A private house for meaningful gatherings.</h2>
         </div>
+        <p data-fh-i18n="introText">Fletschhorn is made for moments that need privacy, mountain air, and time together.</p>
+      </div>
 
-        <div class="fh-proof-row fh-stagger">
-          <div class="fh-proof"><strong data-i18n="proof1Title">Private</strong><span data-i18n="proof1Text">A house for one group at a time</span></div>
-          <div class="fh-proof"><strong>48</strong><span data-i18n="proof2Text">Sleeping places for overnight groups</span></div>
-          <div class="fh-proof"><strong>Saas-Fee</strong><span data-i18n="proof3Text">Forest edge, alpine views, village access</span></div>
+      <div class="fh-container fh-venue-grid">
+        <article class="fh-editorial-card fh-reveal">
+          <div class="fh-card-inner">
+            <div>
+              <p class="fh-kicker" data-fh-i18n="introCardKicker">The feeling</p>
+              <h3 data-fh-i18n="introCardTitle">A place to gather, stay, and remember.</h3>
+              <p data-fh-i18n="introCardText">The house sits at the edge of the village rhythm: close enough to Saas-Fee, but quiet enough for the event to feel held apart. The forest, the snow, the stone, and the views become part of the atmosphere.</p>
+            </div>
+
+            <div class="fh-card-list fh-stagger">
+              <div><strong data-fh-i18n="introList1Title">For the whole group</strong><span data-fh-i18n="introList1Text">A private setting designed around staying together, moving together, and sharing the weekend.</span></div>
+              <div><strong data-fh-i18n="introList2Title">For the landscape</strong><span data-fh-i18n="introList2Text">Alpine air, forest arrival, mountain views, soft evening light, and winter or summer scenery.</span></div>
+              <div><strong data-fh-i18n="introList3Title">For the memory</strong><span data-fh-i18n="introList3Text">A place that can hold arrival, ceremony, gathering, music, rest, and the morning after.</span></div>
+            </div>
+          </div>
+        </article>
+
+        <div class="fh-photo-stage fh-preclip">
+          <div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="12" aria-hidden="true"></div>
+          <div class="fh-photo-caption"><small data-fh-i18n="introPhotoSmall">Private alpine event setting</small><strong data-fh-i18n="introPhotoTitle">One house, one group, one shared weekend.</strong></div>
         </div>
-
-        <div class="fh-booking" id="booking">
-          <form class="fh-booking-form" id="fhBookingFields">
-            <div class="fh-field"><label for="fhFirstName" data-i18n="fieldFirstName">First name</label><input id="fhFirstName" name="firstName" type="text" data-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name"></div>
-            <div class="fh-field"><label for="fhLastName" data-i18n="fieldLastName">Last name</label><input id="fhLastName" name="lastName" type="text" data-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name"></div>
-            <div class="fh-field"><label for="fhEmail" data-i18n="fieldEmail">Email</label><input id="fhEmail" name="email" type="email" data-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email"></div>
-            <div class="fh-field"><label for="fhArrival" data-i18n="fieldArrival">Arrival</label><input id="fhArrival" name="arrivalDate" type="date" autocomplete="off"></div>
-            <div class="fh-field"><label for="fhDeparture" data-i18n="fieldDeparture">Departure</label><input id="fhDeparture" name="departureDate" type="date" autocomplete="off"></div>
-            <button class="fh-submit" type="submit" id="fhBookNowBtn" data-i18n="bookNow">Book my stay now</button>
-          </form>
-          <div class="fh-booking-note" data-i18n="bookingNote">Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.</div>
-          <div class="fh-status" id="fhFormStatus" role="status" aria-live="polite"></div>
-        </div>
-
-        <a class="fh-scroll-cue" href="#fh-wedding-house" aria-label="Scroll to wedding and events content"><span data-i18n="scrollCue">See the venue story</span><div class="fh-scroll-line"></div></a>
       </div>
     </section>
 
-    <main class="fh-main">
-      <section class="fh-section fh-alt" id="fh-wedding-house">
-        <div class="fh-container fh-section-head fh-reveal">
-          <div><p class="fh-kicker" data-i18n="introKicker">A house for meaningful gatherings</p><h2 data-i18n="introTitle">A private house for meaningful gatherings.</h2></div>
-          <p data-i18n="introText">Fletschhorn is made for moments that need privacy, mountain air, and time together.</p>
+    <section class="fh-section fh-dark" id="fh-wedding-moment">
+      <div class="fh-container fh-section-head fh-reveal">
+        <div>
+          <span class="fh-big-label" data-fh-i18n="weddingBigLabel">Your Wedding</span>
+          <p class="fh-kicker" data-fh-i18n="weddingKicker">Weddings at Fletschhorn</p>
+          <h2 data-fh-i18n="weddingTitle">Your moment, here, forever.</h2>
         </div>
-        <div class="fh-container fh-venue-grid">
-          <article class="fh-editorial-card fh-reveal"><div class="fh-card-inner"><div><p class="fh-kicker" data-i18n="introCardKicker">The feeling</p><h3 data-i18n="introCardTitle">A place to gather, stay, and remember.</h3><p data-i18n="introCardText">The house sits at the edge of the village rhythm: close enough to Saas-Fee, but quiet enough for the event to feel held apart. The forest, the snow, the stone, and the views become part of the atmosphere.</p></div><div class="fh-card-list fh-stagger"><div><strong data-i18n="introList1Title">For the whole group</strong><span data-i18n="introList1Text">A private setting designed around staying together, moving together, and sharing the weekend.</span></div><div><strong data-i18n="introList2Title">For the landscape</strong><span data-i18n="introList2Text">Alpine air, forest arrival, mountain views, soft evening light, and winter or summer scenery.</span></div><div><strong data-i18n="introList3Title">For the memory</strong><span data-i18n="introList3Text">A place that can hold arrival, ceremony, gathering, music, rest, and the morning after.</span></div></div></div></article>
-          <div class="fh-photo-stage fh-preclip"><div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="12" aria-hidden="true"></div><div class="fh-photo-caption"><small data-i18n="introPhotoSmall">Private alpine event setting</small><strong data-i18n="introPhotoTitle">One house, one group, one shared weekend.</strong></div></div>
+        <p data-fh-i18n="weddingText">In the middle of the Alps, your wedding can feel private, emotional, and beautifully held from arrival to the morning after.</p>
+      </div>
+
+      <div class="fh-container fh-wedding-feature">
+        <div class="fh-wedding-visual fh-preclip">
+          <div class="fh-simple-carousel" data-fh-carousel="love" data-fh-carousel-offset="0" aria-hidden="true"></div>
+          <div class="fh-wedding-visual-copy">
+            <p class="fh-kicker" data-fh-i18n="weddingVisualKicker">Your wedding weekend</p>
+            <h3 data-fh-i18n="weddingVisualTitle">Your moment. Here. Forever.</h3>
+            <p data-fh-i18n="weddingVisualText">In the middle of the Alps, the weekend has room to breathe: preparation, ceremony, celebration, and the quiet morning after.</p>
+          </div>
         </div>
-      </section>
 
-      <section class="fh-section fh-dark" id="fh-wedding-moment">
-        <div class="fh-container fh-section-head fh-reveal"><div><span class="fh-big-label" data-i18n="weddingBigLabel">Your Wedding</span><p class="fh-kicker" data-i18n="weddingKicker">Weddings at Fletschhorn</p><h2 data-i18n="weddingTitle">Your moment, here, forever.</h2></div><p data-i18n="weddingText">In the middle of the Alps, your wedding can feel private, emotional, and beautifully held from arrival to the morning after.</p></div>
-        <div class="fh-container fh-wedding-feature">
-          <div class="fh-wedding-visual fh-preclip"><div class="fh-simple-carousel" data-fh-carousel="love" data-fh-carousel-offset="0" aria-hidden="true"></div><div class="fh-wedding-visual-copy"><p class="fh-kicker" data-i18n="weddingVisualKicker">Your wedding weekend</p><h3 data-i18n="weddingVisualTitle">Your moment. Here. Forever.</h3><p data-i18n="weddingVisualText">In the middle of the Alps, the weekend has room to breathe: preparation, ceremony, celebration, and the quiet morning after.</p></div></div>
-          <div class="fh-wedding-panel"><article class="fh-wedding-main-card fh-reveal"><p class="fh-kicker" data-i18n="weddingMainKicker">Why it works for weddings</p><h3 data-i18n="weddingMainTitle">A weekend that belongs to you.</h3><p data-i18n="weddingMainText">The house feels intimate enough for a deeply personal celebration, but substantial enough for a full wedding stay. It gives the couple and their guests places to arrive, dress, toast, gather, dance, rest, and wake up still inside the same story.</p><div class="fh-wedding-pill-row"><span class="fh-pill" data-i18n="weddingPill1">Private house</span><span class="fh-pill" data-i18n="weddingPill2">Mountain photos</span><span class="fh-pill" data-i18n="weddingPill3">Overnight stay</span><span class="fh-pill" data-i18n="weddingPill4">Catering options</span><span class="fh-pill" data-i18n="weddingPill5">Direct planning</span></div></article>
-            <div class="fh-wedding-moments fh-stagger"><article class="fh-moment-card"><b>01</b><h4 data-i18n="weddingMoment1Title">The arrival</h4><p data-i18n="weddingMoment1Text">Guests arrive into a mountain atmosphere before the celebration even begins.</p></article><article class="fh-moment-card"><b>02</b><h4 data-i18n="weddingMoment2Title">The ceremony</h4><p data-i18n="weddingMoment2Text">A ceremony shaped by alpine air, natural materials, close people, and a cinematic landscape.</p></article><article class="fh-moment-card"><b>03</b><h4 data-i18n="weddingMoment3Title">The celebration</h4><p data-i18n="weddingMoment3Text">Food, music, speeches, laughter, and the feeling that everyone is part of the same weekend.</p></article><article class="fh-moment-card"><b>04</b><h4 data-i18n="weddingMoment4Title">The morning after</h4><p data-i18n="weddingMoment4Text">Guests wake up still together, still in the mountains, still inside the memory.</p></article></div></div>
+        <div class="fh-wedding-panel">
+          <article class="fh-wedding-main-card fh-reveal">
+            <p class="fh-kicker" data-fh-i18n="weddingMainKicker">Why it works for weddings</p>
+            <h3 data-fh-i18n="weddingMainTitle">A weekend that belongs to you.</h3>
+            <p data-fh-i18n="weddingMainText">The house feels intimate enough for a deeply personal celebration, but substantial enough for a full wedding stay. It gives the couple and their guests places to arrive, dress, toast, gather, dance, rest, and wake up still inside the same story.</p>
+
+            <div class="fh-wedding-pill-row">
+              <span class="fh-pill" data-fh-i18n="weddingPill1">Private house</span>
+              <span class="fh-pill" data-fh-i18n="weddingPill2">Mountain photos</span>
+              <span class="fh-pill" data-fh-i18n="weddingPill3">Overnight stay</span>
+              <span class="fh-pill" data-fh-i18n="weddingPill4">Catering options</span>
+              <span class="fh-pill" data-fh-i18n="weddingPill5">Direct planning</span>
+            </div>
+          </article>
+
+          <div class="fh-wedding-moments fh-stagger">
+            <article class="fh-moment-card">
+              <b>01</b>
+              <h4 data-fh-i18n="weddingMoment1Title">The arrival</h4>
+              <p data-fh-i18n="weddingMoment1Text">Guests arrive into a mountain atmosphere before the celebration even begins: the village, the climb, the house, the first glass, the first view.</p>
+            </article>
+            <article class="fh-moment-card">
+              <b>02</b>
+              <h4 data-fh-i18n="weddingMoment2Title">The ceremony</h4>
+              <p data-fh-i18n="weddingMoment2Text">A ceremony shaped by alpine air, natural materials, close people, and a landscape that already feels cinematic.</p>
+            </article>
+            <article class="fh-moment-card">
+              <b>03</b>
+              <h4 data-fh-i18n="weddingMoment3Title">The celebration</h4>
+              <p data-fh-i18n="weddingMoment3Text">The house becomes the center of the evening: food, music, speeches, laughter, and the feeling that everyone is part of the same weekend.</p>
+            </article>
+            <article class="fh-moment-card">
+              <b>04</b>
+              <h4 data-fh-i18n="weddingMoment4Title">The morning after</h4>
+              <p data-fh-i18n="weddingMoment4Text">The celebration does not disappear at midnight. Guests wake up still together, still in the mountains, still inside the memory.</p>
+            </article>
+          </div>
         </div>
-        <div class="fh-container fh-wedding-gallery fh-stagger"><article class="fh-gallery-card"><img src="https://ik.imagekit.io/Redberry/Exterior%202.jpg" alt="Wedding weekend arrival at Fletschhorn"><div class="fh-gallery-copy"><strong data-i18n="gallery1Title">The first view</strong><span data-i18n="gallery1Text">The weekend begins with the mountains already in the frame.</span></div></article><article class="fh-gallery-card"><img src="https://ik.imagekit.io/Redberry/The%20People.jpg" alt="People at Fletschhorn"><div class="fh-gallery-copy"><strong data-i18n="gallery2Title">The people</strong><span data-i18n="gallery2Text">The faces, laughter, and guests who make the weekend yours.</span></div></article><article class="fh-gallery-card"><img src="https://ik.imagekit.io/Redberry/Love%20%286%29.jpg" alt="Private celebration atmosphere"><div class="fh-gallery-copy"><strong data-i18n="gallery3Title">The memory</strong><span data-i18n="gallery3Text">A wedding weekend that stays with people long after they leave.</span></div></article></div>
-      </section>
+      </div>
 
-      <section class="fh-section fh-alt" id="fh-private-events">
-        <div class="fh-container fh-section-head fh-reveal"><div><span class="fh-big-label" data-i18n="eventBigLabel">Your Event</span><p class="fh-kicker" data-i18n="eventsKicker">Private events & retreats</p><h2 data-i18n="eventsTitle">Your event, gathered in the Alps.</h2></div><p data-i18n="eventsText">For retreats, milestones, workshops, and private programs that need a real place to gather.</p></div>
-        <div class="fh-container fh-event-hero fh-reveal"><div class="fh-event-hero-media"><div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="0" aria-hidden="true"></div></div><div class="fh-event-hero-copy"><p class="fh-kicker" data-i18n="eventsHeroKicker">Bring the group together</p><h2 data-i18n="eventsHeroTitle">Bring your people together.</h2><p data-i18n="eventsHeroText">From leadership retreats and creative workshops to family milestones and private celebrations, Fletschhorn can become the base for a group that wants to arrive, connect, work, celebrate, and stay together.</p></div></div>
-        <div class="fh-container fh-event-types fh-stagger"><article class="fh-event-card"><img src="https://ik.imagekit.io/Redberry/Event%20(1).jpg" alt="Milestone event"><div class="fh-event-copy"><h3 data-i18n="eventCard1Title">Milestones</h3><p data-i18n="eventCard1Text">Birthdays, anniversaries, family reunions, and private celebrations with space to stay together.</p></div></article><article class="fh-event-card"><img src="https://ik.imagekit.io/Redberry/Event%20(2).jpg" alt="Retreat"><div class="fh-event-copy"><h3 data-i18n="eventCard2Title">Retreats</h3><p data-i18n="eventCard2Text">A private base for teams, communities, families, and creative groups.</p></div></article><article class="fh-event-card"><img src="https://ik.imagekit.io/Redberry/Event%20(3).jpg" alt="Workshop"><div class="fh-event-copy"><h3 data-i18n="eventCard3Title">Workshops</h3><p data-i18n="eventCard3Text">A focused environment for presentations, planning sessions, and small private programs.</p></div></article><article class="fh-event-card"><img src="https://ik.imagekit.io/Redberry/Event%20(4).jpg" alt="Celebration"><div class="fh-event-copy"><h3 data-i18n="eventCard4Title">Celebrations</h3><p data-i18n="eventCard4Text">Food, music, speeches, conversation, and a house that gives the evening a center.</p></div></article></div>
-        <div class="fh-container fh-event-energy fh-stagger"><article class="fh-energy-card"><b>01</b><h4 data-i18n="energy1Title">Gather with purpose</h4><p data-i18n="energy1Text">Use the house as a base for people who need to meet, think, celebrate, and spend real time together.</p></article><article class="fh-energy-card"><b>02</b><h4 data-i18n="energy2Title">Shape the rhythm</h4><p data-i18n="energy2Text">Morning sessions, mountain breaks, group meals, private moments, and evening energy can all be planned around the group.</p></article><article class="fh-energy-card"><b>03</b><h4 data-i18n="energy3Title">Stay in the story</h4><p data-i18n="energy3Text">Because guests can stay on site, the event becomes a shared experience.</p></article></div>
-      </section>
+      <div class="fh-container fh-wedding-gallery fh-stagger">
+        <article class="fh-gallery-card">
+          <img src="https://ik.imagekit.io/Redberry/Exterior%202.jpg" alt="Wedding weekend arrival at Fletschhorn" />
+          <div class="fh-gallery-copy"><strong data-fh-i18n="gallery1Title">The first view</strong><span data-fh-i18n="gallery1Text">The weekend begins with the mountains already in the frame.</span></div>
+        </article>
+        <article class="fh-gallery-card">
+          <img src="https://ik.imagekit.io/Redberry/The%20People.jpg" alt="Kitchen and gathering detail at Fletschhorn" />
+          <div class="fh-gallery-copy"><strong data-fh-i18n="gallery2Title">The people</strong><span data-fh-i18n="gallery2Text">The faces, the laughter, and the guests who make the weekend yours.</span></div>
+        </article>
+        <article class="fh-gallery-card">
+          <img src="https://ik.imagekit.io/Redberry/Love%20%286%29.jpg" alt="Private celebration atmosphere" />
+          <div class="fh-gallery-copy"><strong data-fh-i18n="gallery3Title">The memory</strong><span data-fh-i18n="gallery3Text">A wedding weekend that stays with people long after they leave.</span></div>
+        </article>
+      </div>
+    </section>
 
-      <section class="fh-section fh-alt" id="fh-event-logistics"><div class="fh-container fh-logistics-grid"><article class="fh-logistics-card fh-reveal"><p class="fh-kicker" data-i18n="logisticsKicker">Planning clarity</p><h2 data-i18n="logisticsTitle">Simple planning, clear details.</h2><p data-i18n="logisticsText">This page should inspire first, then send the guest into an inquiry. The details can be confirmed directly for your dates and group.</p><div class="fh-inline-carousel"><div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="16" aria-hidden="true"></div><div class="fh-inline-caption"><small data-i18n="logisticsImageKicker">Event setup</small><strong data-i18n="logisticsImageTitle">Clear planning, calm setting.</strong></div></div></article><div class="fh-logistics-card fh-reveal"><div class="fh-logistics-list"><div class="fh-logistics-line"><strong data-i18n="log1Title">Food</strong><span data-i18n="log1Text">Guests may use the kitchen depending on the arrangement. Catering or chef options can be discussed for an additional fee.</span></div><div class="fh-logistics-line"><strong data-i18n="log2Title">Stay</strong><span data-i18n="log2Text">The public overnight capacity is 48 sleeping places. Event capacity, rooming, and layout should be confirmed directly.</span></div><div class="fh-logistics-line"><strong data-i18n="log3Title">Access</strong><span data-i18n="log3Text">Shuttle timing, walking access, arrivals, and evening transport should be coordinated in advance.</span></div><div class="fh-logistics-line"><strong data-i18n="log4Title">Wellness</strong><span data-i18n="log4Text">A private sauna option can be discussed as part of the stay.</span></div></div></div></div></section>
+    <section class="fh-section fh-alt" id="fh-private-events">
+      <div class="fh-container fh-section-head fh-reveal">
+        <div>
+          <span class="fh-big-label" data-fh-i18n="eventBigLabel">Your Event</span>
+          <p class="fh-kicker" data-fh-i18n="eventsKicker">Private events & retreats</p>
+          <h2 data-fh-i18n="eventsTitle">Your event, gathered in the Alps.</h2>
+        </div>
+        <p data-fh-i18n="eventsText">For retreats, milestones, workshops, and private programs that need a real place to gather.</p>
+      </div>
 
-      <section class="fh-section" id="fh-plan"><div class="fh-container fh-section-head fh-reveal"><div><p class="fh-kicker" data-i18n="planKicker">Planning sequence</p><h2 data-i18n="planTitle">Four simple steps.</h2></div><p data-i18n="planText">Send a clear inquiry, then the property can confirm availability, fit, logistics, and the right direct rate.</p></div><div class="fh-container fh-flow-grid fh-stagger"><article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Events%20%287%29.jpg')"><b>01</b><h3 data-i18n="flow1Title">Send the vision</h3><p data-i18n="flow1Text">Date, group size, overnight needs, and atmosphere.</p></article><article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Events%20%288%29.jpg')"><b>02</b><h3 data-i18n="flow2Title">Confirm the fit</h3><p data-i18n="flow2Text">Availability, capacity, access, and service needs are reviewed directly.</p></article><article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Love%20%288%29.jpg')"><b>03</b><h3 data-i18n="flow3Title">Shape the stay</h3><p data-i18n="flow3Text">Arrival, group rhythm, food needs, sauna option, and guest flow are clarified.</p></article><article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Love%20%289%29.jpg')"><b>04</b><h3 data-i18n="flow4Title">Prepare the house</h3><p data-i18n="flow4Text">The property becomes the private alpine setting for the weekend.</p></article></div></section>
+      <div class="fh-container fh-event-hero fh-reveal">
+        <div class="fh-event-hero-media">
+          <div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="0" aria-hidden="true"></div>
+        </div>
+        <div class="fh-event-hero-copy">
+          <p class="fh-kicker" data-fh-i18n="eventsHeroKicker">Bring the group together</p>
+          <h2 data-fh-i18n="eventsHeroTitle">Bring your people together.</h2>
+          <p data-fh-i18n="eventsHeroText">From leadership retreats and creative workshops to family milestones and private celebrations, Fletschhorn can become the base for a group that wants to arrive, connect, work, celebrate, and stay together.</p>
+        </div>
+      </div>
 
-      <section class="fh-section fh-alt" id="fh-event-inquiry"><div class="fh-container fh-form-grid"><div class="fh-editorial-card fh-reveal"><div class="fh-card-inner"><div><p class="fh-kicker" data-i18n="inquiryKicker">Event inquiry</p><h2 data-i18n="inquiryTitle">Tell us what you want to host.</h2><p data-i18n="inquiryText">For weddings, retreats, family milestones, presentations, and private gatherings, direct inquiry is the clearest way to confirm what is possible for your dates and group.</p></div><div class="fh-inline-carousel"><div class="fh-simple-carousel" data-fh-carousel="love" data-fh-carousel-offset="10" aria-hidden="true"></div><div class="fh-inline-caption"><small data-i18n="inquiryImageKicker">Start here</small><strong data-i18n="inquiryImageTitle">Tell us the moment.</strong></div></div><div class="fh-contact-lines"><div class="fh-contact-line"><span data-i18n="contactAddressLabel">Address</span><strong>Wildistrasse, 3906 Saas-Fee, Switzerland</strong></div><div class="fh-contact-line"><span data-i18n="contactPhoneLabel">Phone</span><strong>+41 27 957 2131</strong></div><div class="fh-contact-line"><span data-i18n="contactDirectLabel">Direct booking</span><strong data-i18n="contactDirectText">Best Rates Guaranteed when Booking Direct</strong></div></div></div></div>
-        <form class="fh-form-panel fh-reveal" id="fhEventMainForm"><div class="fh-form-fields"><div class="fh-form-field"><label for="fhName" data-i18n="formNameLabel">Name</label><input id="fhName" name="name" data-i18n-placeholder="formNamePlaceholder" placeholder="Your name"></div><div class="fh-form-field"><label for="fhContact" data-i18n="formContactLabel">Contact</label><input id="fhContact" name="contact" data-i18n-placeholder="formContactPlaceholder" placeholder="Email or phone"></div><div class="fh-form-field"><label for="fhEventType" data-i18n="formEventTypeLabel">Event type</label><select id="fhEventType" name="eventType"><option>Wedding</option><option>Private event</option><option>Retreat</option><option>Presentation / workshop</option><option>Family gathering</option><option>Other</option></select></div><div class="fh-form-field"><label for="fhDate" data-i18n="formDateLabel">Preferred date</label><input id="fhDate" name="date" data-i18n-placeholder="formDatePlaceholder" placeholder="Date or season"></div><div class="fh-form-field"><label for="fhGuests" data-i18n="formGuestsLabel">Guest count</label><input id="fhGuests" name="guests" data-i18n-placeholder="formGuestsPlaceholder" placeholder="Estimated number"></div><div class="fh-form-field"><label for="fhOvernight" data-i18n="formOvernightLabel">Overnight stay?</label><select id="fhOvernight" name="overnight"><option>To confirm</option><option>Yes</option><option>No</option><option>Some guests</option></select></div><div class="fh-form-field fh-full"><label for="fhNotes" data-i18n="formNotesLabel">Event vision</label><textarea id="fhNotes" name="notes" data-i18n-placeholder="formNotesPlaceholder" placeholder="Tell us about the mood, timing, group, and anything important for the event."></textarea></div></div><div class="fh-form-actions"><button class="fh-btn" type="submit" data-i18n="formSubmit">Send event inquiry</button><a class="fh-btn fh-btn-light" href="#booking" data-i18n="formBook">Book dates first</a></div><div class="fh-status" id="fhEventStatus"></div></form></div></section>
+      <div class="fh-container fh-event-types fh-stagger">
+        <article class="fh-event-card">
+          <img src="https://ik.imagekit.io/Redberry/Event%20(1).jpg" alt="Private alpine milestone event at Fletschhorn" />
+          <div class="fh-event-copy"><h3 data-fh-i18n="eventCard1Title">Milestones</h3><p data-fh-i18n="eventCard1Text">Birthdays, anniversaries, family reunions, and private celebrations with space to stay together.</p></div>
+        </article>
 
-      <section class="fh-final"><div class="fh-container fh-final-inner"><div><p class="fh-kicker" data-i18n="finalKicker">Fletschhorn · Saas-Fee</p><h2 data-i18n="finalTitle">A mountain house for moments people remember.</h2></div><a class="fh-btn" href="#booking" data-i18n="finalCta">Start booking</a></div></section>
-    </main>
+        <article class="fh-event-card">
+          <img src="https://ik.imagekit.io/Redberry/Event%20(2).jpg" alt="Group retreat at Fletschhorn" />
+          <div class="fh-event-copy"><h3 data-fh-i18n="eventCard2Title">Retreats</h3><p data-fh-i18n="eventCard2Text">A private base for teams, communities, families, and creative groups.</p></div>
+        </article>
+
+        <article class="fh-event-card">
+          <img src="https://ik.imagekit.io/Redberry/Event%20(3).jpg" alt="Workshop and gathering space at Fletschhorn" />
+          <div class="fh-event-copy"><h3 data-fh-i18n="eventCard3Title">Workshops</h3><p data-fh-i18n="eventCard3Text">A focused environment for presentations, planning sessions, and small private programs.</p></div>
+        </article>
+
+        <article class="fh-event-card">
+          <img src="https://ik.imagekit.io/Redberry/Event%20(4).jpg" alt="Private gathering at Fletschhorn" />
+          <div class="fh-event-copy"><h3 data-fh-i18n="eventCard4Title">Celebrations</h3><p data-fh-i18n="eventCard4Text">Food, music, speeches, conversation, and a house that gives the evening a center.</p></div>
+        </article>
+      </div>
+
+      <div class="fh-container fh-event-energy fh-stagger">
+        <article class="fh-energy-card">
+          <b>01</b>
+          <h4 data-fh-i18n="energy1Title">Gather with purpose</h4>
+          <p data-fh-i18n="energy1Text">Use the house as a base for people who need to meet, think, celebrate, and spend real time together.</p>
+        </article>
+        <article class="fh-energy-card">
+          <b>02</b>
+          <h4 data-fh-i18n="energy2Title">Shape the rhythm</h4>
+          <p data-fh-i18n="energy2Text">Morning sessions, mountain breaks, group meals, private moments, and evening energy can all be planned around the group.</p>
+        </article>
+        <article class="fh-energy-card">
+          <b>03</b>
+          <h4 data-fh-i18n="energy3Title">Stay in the story</h4>
+          <p data-fh-i18n="energy3Text">Because guests can stay on site, the event does not feel like a single appointment. It becomes a shared experience.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="fh-section fh-alt" id="fh-event-logistics">
+      <div class="fh-container fh-logistics-grid">
+        <article class="fh-logistics-card fh-reveal">
+          <p class="fh-kicker" data-fh-i18n="logisticsKicker">Planning clarity</p>
+          <h2 data-fh-i18n="logisticsTitle">Simple planning, clear details.</h2>
+          <p data-fh-i18n="logisticsText">This page should inspire first, then send the guest into an inquiry. The details can be confirmed directly for your dates and group.</p>
+          <div class="fh-inline-carousel">
+            <div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="16" aria-hidden="true"></div>
+            <div class="fh-inline-caption"><small data-fh-i18n="logisticsImageKicker">Event setup</small><strong data-fh-i18n="logisticsImageTitle">Clear planning, calm setting.</strong></div>
+          </div>
+        </article>
+
+        <div class="fh-logistics-card fh-reveal">
+          <div class="fh-logistics-list">
+            <div class="fh-logistics-line"><strong data-fh-i18n="log1Title">Food</strong><span data-fh-i18n="log1Text">Guests may use the kitchen depending on the arrangement. Catering or chef options can be discussed for an additional fee. This is not presented as restaurant service for the private stay.</span></div>
+            <div class="fh-logistics-line"><strong data-fh-i18n="log2Title">Stay</strong><span data-fh-i18n="log2Text">The public overnight capacity is 48 sleeping places. Event capacity, rooming, and layout should be confirmed directly.</span></div>
+            <div class="fh-logistics-line"><strong data-fh-i18n="log3Title">Access</strong><span data-fh-i18n="log3Text">The house is above the village rhythm. Shuttle timing, walking access, arrivals, and evening transport should be coordinated in advance.</span></div>
+            <div class="fh-logistics-line"><strong data-fh-i18n="log4Title">Wellness</strong><span data-fh-i18n="log4Text">A private sauna option can be discussed as part of the stay, depending on the group and event plan.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fh-section" id="fh-plan">
+      <div class="fh-container fh-section-head fh-reveal">
+        <div>
+          <p class="fh-kicker" data-fh-i18n="planKicker">Planning sequence</p>
+          <h2 data-fh-i18n="planTitle">Four simple steps.</h2>
+        </div>
+        <p data-fh-i18n="planText">The page does not need to overexplain everything. It should guide people to send a clear inquiry, then the property can confirm availability, fit, logistics, and the right direct rate.</p>
+      </div>
+
+      <div class="fh-container fh-flow-grid fh-stagger">
+        <article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Events%20%287%29.jpg')"><b>01</b><h3 data-fh-i18n="flow1Title">Send the vision</h3><p data-fh-i18n="flow1Text">Date, group size, overnight needs, and the atmosphere you imagine.</p></article>
+        <article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Events%20%288%29.jpg')"><b>02</b><h3 data-fh-i18n="flow2Title">Confirm the fit</h3><p data-fh-i18n="flow2Text">Availability, capacity, access, and service needs are reviewed directly.</p></article>
+        <article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Love%20%288%29.jpg')"><b>03</b><h3 data-fh-i18n="flow3Title">Shape the stay</h3><p data-fh-i18n="flow3Text">Arrival, group rhythm, food needs, sauna option, and guest flow are clarified.</p></article>
+        <article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Love%20%289%29.jpg')"><b>04</b><h3 data-fh-i18n="flow4Title">Prepare the house</h3><p data-fh-i18n="flow4Text">The property becomes the private alpine setting for the weekend.</p></article>
+      </div>
+      <div class="fh-container fh-inline-carousel fh-plan-visual fh-preclip">
+        <div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="19" aria-hidden="true"></div>
+        <div class="fh-inline-caption"><small data-fh-i18n="planImageKicker">The weekend flow</small><strong data-fh-i18n="planImageTitle">Simple, visual, easy to imagine.</strong></div>
+      </div>
+    </section>
+
+    <section class="fh-section fh-alt" id="fh-event-inquiry">
+      <div class="fh-container fh-form-grid">
+        <div class="fh-editorial-card fh-reveal">
+          <div class="fh-card-inner">
+            <div>
+              <p class="fh-kicker" data-fh-i18n="inquiryKicker">Event inquiry</p>
+              <h2 data-fh-i18n="inquiryTitle">Tell us what you want to host.</h2>
+              <p data-fh-i18n="inquiryText">For weddings, retreats, family milestones, presentations, and private gatherings, direct inquiry is the clearest way to confirm what is possible for your dates and group.</p>
+            </div>
+
+            <div class="fh-inline-carousel fh-form-visual">
+              <div class="fh-simple-carousel" data-fh-carousel="love" data-fh-carousel-offset="10" aria-hidden="true"></div>
+              <div class="fh-inline-caption"><small data-fh-i18n="inquiryImageKicker">Start here</small><strong data-fh-i18n="inquiryImageTitle">Tell us the moment.</strong></div>
+            </div>
+
+            <div class="fh-contact-lines">
+              <div class="fh-contact-line"><span data-fh-i18n="contactAddressLabel">Address</span><strong>Wildistrasse, 3906 Saas-Fee, Switzerland</strong></div>
+              <div class="fh-contact-line"><span data-fh-i18n="contactPhoneLabel">Phone</span><strong>+41 27 957 2131</strong></div>
+              <div class="fh-contact-line"><span data-fh-i18n="contactDirectLabel">Direct booking</span><strong data-fh-i18n="contactDirectText">Best Rates Guaranteed when Booking Direct</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <form class="fh-form-panel fh-reveal" data-fh-event-main-form>
+          <div class="fh-form-fields">
+            <div class="fh-form-field">
+              <label for="fhName" data-fh-i18n="formNameLabel">Name</label>
+              <input id="fhName" name="name" data-fh-i18n-placeholder="formNamePlaceholder" placeholder="Your name" />
+            </div>
+
+            <div class="fh-form-field">
+              <label for="fhContact" data-fh-i18n="formContactLabel">Contact</label>
+              <input id="fhContact" name="contact" data-fh-i18n-placeholder="formContactPlaceholder" placeholder="Email or phone" />
+            </div>
+
+            <div class="fh-form-field">
+              <label for="fhEventType" data-fh-i18n="formEventTypeLabel">Event type</label>
+              <select id="fhEventType" name="eventType" data-fh-select="eventType"></select>
+            </div>
+
+            <div class="fh-form-field">
+              <label for="fhDate" data-fh-i18n="formDateLabel">Preferred date</label>
+              <input id="fhDate" name="date" data-fh-i18n-placeholder="formDatePlaceholder" placeholder="Date or season" />
+            </div>
+
+            <div class="fh-form-field">
+              <label for="fhGuests" data-fh-i18n="formGuestsLabel">Guest count</label>
+              <input id="fhGuests" name="guests" data-fh-i18n-placeholder="formGuestsPlaceholder" placeholder="Estimated number" />
+            </div>
+
+            <div class="fh-form-field">
+              <label for="fhOvernight" data-fh-i18n="formOvernightLabel">Overnight stay?</label>
+              <select id="fhOvernight" name="overnight" data-fh-select="overnight"></select>
+            </div>
+
+            <div class="fh-form-field fh-full">
+              <label for="fhNotes" data-fh-i18n="formNotesLabel">Event vision</label>
+              <textarea id="fhNotes" name="notes" data-fh-i18n-placeholder="formNotesPlaceholder" placeholder="Tell us about the mood, timing, group, and anything important for the event."></textarea>
+            </div>
+          </div>
+
+          <div class="fh-form-actions">
+            <button class="fh-btn" type="submit" data-fh-i18n="formSubmit">Send event inquiry</button>
+            <button class="fh-btn fh-btn-light" type="button" data-fh-open-event-details data-fh-i18n="formMore">More details</button>
+          </div>
+
+          <div class="fh-status" data-fh-event-main-status></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="fh-final">
+      <div class="fh-container fh-final-inner">
+        <div>
+          <p class="fh-kicker" data-fh-i18n="finalKicker">Fletschhorn · Saas-Fee</p>
+          <h2 data-fh-i18n="finalTitle">A mountain house for moments people remember.</h2>
+        </div>
+        <a class="fh-btn" href="#fh-event-inquiry" data-fh-i18n="finalCta">Start inquiry</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="fh-modal" data-fh-event-modal aria-hidden="true">
+    <div class="fh-modal-panel" role="dialog" aria-modal="true" aria-labelledby="fhEventModalTitle">
+      <div class="fh-modal-head">
+        <h3 id="fhEventModalTitle" data-fh-i18n="modalTitle">Event details</h3>
+        <button class="fh-close" type="button" data-fh-close-event-details aria-label="Close">×</button>
+      </div>
+
+      <div class="fh-modal-body">
+        <div class="fh-detail-grid">
+          <div class="fh-detail-field">
+            <label for="fhDetailGuests" data-fh-i18n="modalGuestsLabel">Estimated guests</label>
+            <input id="fhDetailGuests" data-fh-i18n-placeholder="modalGuestsPlaceholder" placeholder="How many people?" />
+          </div>
+
+          <div class="fh-detail-field">
+            <label for="fhDetailNights" data-fh-i18n="modalNightsLabel">Number of nights</label>
+            <input id="fhDetailNights" data-fh-i18n-placeholder="modalNightsPlaceholder" placeholder="Optional" />
+          </div>
+
+          <div class="fh-detail-field">
+            <label for="fhDetailSeason" data-fh-i18n="modalSeasonLabel">Season</label>
+            <select id="fhDetailSeason" data-fh-select="season"></select>
+          </div>
+
+          <div class="fh-detail-field">
+            <label for="fhDetailSupport" data-fh-i18n="modalSupportLabel">Planning status</label>
+            <select id="fhDetailSupport" data-fh-select="support"></select>
+          </div>
+
+          <div class="fh-detail-field fh-full">
+            <label for="fhDetailNotes" data-fh-i18n="modalNotesLabel">Additional notes</label>
+            <textarea id="fhDetailNotes" data-fh-i18n-placeholder="modalNotesPlaceholder" placeholder="What should the property know before replying?"></textarea>
+          </div>
+        </div>
+
+        <div class="fh-modal-actions">
+          <button class="fh-link-btn" type="button" data-fh-clear-event-details data-fh-i18n="modalClear">Clear</button>
+          <button class="fh-btn" type="button" data-fh-apply-event-details data-fh-i18n="modalApply">Apply details</button>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div id="fh-footer-slot"></div>
+<script>
+(function(){
+  const root = document.querySelector('#fh-events');
+  if(!root || root.dataset.fhEventsReady === 'true') return;
+  root.dataset.fhEventsReady = 'true';
 
-  <script>
-    (function(){
-      "use strict";
-      document.body.classList.add("fh-github-version");
-      const ASSET_BASE = new URL("assets/", document.baseURI).href;
-      async function loadHtml(slotId, fileName){
-        const slot = document.getElementById(slotId);
-        if(!slot) return;
-        try{
-          const response = await fetch(ASSET_BASE + fileName, {cache:"no-cache"});
-          if(!response.ok) throw new Error(fileName + " failed: " + response.status);
-          slot.innerHTML = await response.text();
-          slot.querySelectorAll("script").forEach(function(oldScript){
-            const newScript = document.createElement("script");
-            Array.from(oldScript.attributes).forEach(function(attr){newScript.setAttribute(attr.name, attr.value);});
-            newScript.textContent = oldScript.textContent;
-            oldScript.replaceWith(newScript);
+  const WORKER_URL = "https://saas-fee.moshe-cohen-h1.workers.dev";
+  const EVENT_ENDPOINT = WORKER_URL + "/quote";
+
+  const IMAGEKIT_BASE = 'https://ik.imagekit.io/Redberry/';
+
+  function fhAsset(name){
+    return IMAGEKIT_BASE + encodeURIComponent(name).replace(/%2F/g,'/');
+  }
+
+  function fhImageCandidates(src){
+    const safeFallbacks = [
+      'https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg',
+      'https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg',
+      'https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg'
+    ];
+
+    const decoded = decodeURIComponent(String(src || '').replace(IMAGEKIT_BASE, ''));
+    const candidates = [src];
+
+    const match = decoded.match(/^(Events?|Love)\s*(?:\((\d+)\))?\.(jpg|jpeg|png)$/i);
+    if(match){
+      const family = match[1].toLowerCase();
+      const num = match[2];
+      const ext = match[3];
+
+      if(family.startsWith('event') && num){
+        ['Event','Events'].forEach(prefix=>{
+          ['jpg','JPG','jpeg','png'].forEach(extension=>{
+            candidates.push(fhAsset(`${prefix} (${num}).${extension}`));
+            candidates.push(IMAGEKIT_BASE + `${prefix}%20(${num}).${extension}`);
           });
-        }catch(error){console.error("Fletschhorn header/footer load error:", error);}
+        });
       }
-      loadHtml("fh-header-slot", "Header.html");
-      loadHtml("fh-footer-slot", "footer.html");
-    })();
-  </script>
 
-  <script>
-    (function(){
-      "use strict";
-      const root=document.getElementById("fh-events");
-      if(!root || root.dataset.ready === "1") return;
-      root.dataset.ready="1";
-
-      const CFG={bookingPageUrl:"booking.html",listingId:"6968339ab7d735001ca015ba",workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev"};
-      const IK="https://ik.imagekit.io/Redberry/";
-      const fallback=["https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg","https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg","https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg"];
-      const asset=name=>IK+encodeURIComponent(name).replace(/%2F/g,"/");
-      const LOVE=[asset("Love.jpg")].concat(Array.from({length:22},(_,i)=>asset(`Love (${i+1}).jpg`)));
-      const EVENTS=Array.from({length:23},(_,i)=>asset(`Event (${i+1}).jpg`));
-      const $=s=>root.querySelector(s); const $$=s=>Array.from(root.querySelectorAll(s));
-      let lang="en";
-
-      const T={
-        en:{heroEyebrow:"Private alpine house · weddings · retreats · events",heroTitle:"Weddings and events in the Alps.",heroLead:"A private alpine house in Saas-Fee for weddings, retreats, family milestones, and meaningful gatherings.",heroCtaWedding:"Your Wedding",heroCtaEvents:"Your Event",proof1Title:"Private",proof1Text:"A house for one group at a time",proof2Text:"Sleeping places for overnight groups",proof3Text:"Forest edge, alpine views, village access",fieldFirstName:"First name",fieldFirstNamePh:"First name",fieldLastName:"Last name",fieldLastNamePh:"Last name",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldArrival:"Arrival",fieldDeparture:"Departure",bookNow:"Book my stay now",bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",scrollCue:"See the venue story",introKicker:"A house for meaningful gatherings",introTitle:"A private house for meaningful gatherings.",introText:"Fletschhorn is made for moments that need privacy, mountain air, and time together.",introCardKicker:"The feeling",introCardTitle:"A place to gather, stay, and remember.",introCardText:"The house sits at the edge of the village rhythm: close enough to Saas-Fee, but quiet enough for the event to feel held apart. The forest, the snow, the stone, and the views become part of the atmosphere.",introList1Title:"For the whole group",introList1Text:"A private setting designed around staying together, moving together, and sharing the weekend.",introList2Title:"For the landscape",introList2Text:"Alpine air, forest arrival, mountain views, soft evening light, and winter or summer scenery.",introList3Title:"For the memory",introList3Text:"A place that can hold arrival, ceremony, gathering, music, rest, and the morning after.",introPhotoSmall:"Private alpine event setting",introPhotoTitle:"One house, one group, one shared weekend.",weddingBigLabel:"Your Wedding",weddingKicker:"Weddings at Fletschhorn",weddingTitle:"Your moment, here, forever.",weddingText:"In the middle of the Alps, your wedding can feel private, emotional, and beautifully held from arrival to the morning after.",weddingVisualKicker:"Your wedding weekend",weddingVisualTitle:"Your moment. Here. Forever.",weddingVisualText:"In the middle of the Alps, the weekend has room to breathe: preparation, ceremony, celebration, and the quiet morning after.",weddingMainKicker:"Why it works for weddings",weddingMainTitle:"A weekend that belongs to you.",weddingMainText:"The house feels intimate enough for a deeply personal celebration, but substantial enough for a full wedding stay.",weddingPill1:"Private house",weddingPill2:"Mountain photos",weddingPill3:"Overnight stay",weddingPill4:"Catering options",weddingPill5:"Direct planning",weddingMoment1Title:"The arrival",weddingMoment1Text:"Guests arrive into a mountain atmosphere before the celebration even begins.",weddingMoment2Title:"The ceremony",weddingMoment2Text:"A ceremony shaped by alpine air, natural materials, close people, and a cinematic landscape.",weddingMoment3Title:"The celebration",weddingMoment3Text:"Food, music, speeches, laughter, and the feeling that everyone is part of the same weekend.",weddingMoment4Title:"The morning after",weddingMoment4Text:"Guests wake up still together, still in the mountains, still inside the memory.",gallery1Title:"The first view",gallery1Text:"The weekend begins with the mountains already in the frame.",gallery2Title:"The people",gallery2Text:"The faces, laughter, and guests who make the weekend yours.",gallery3Title:"The memory",gallery3Text:"A wedding weekend that stays with people long after they leave.",eventBigLabel:"Your Event",eventsKicker:"Private events & retreats",eventsTitle:"Your event, gathered in the Alps.",eventsText:"For retreats, milestones, workshops, and private programs that need a real place to gather.",eventsHeroKicker:"Bring the group together",eventsHeroTitle:"Bring your people together.",eventsHeroText:"From leadership retreats and creative workshops to family milestones and private celebrations, Fletschhorn can become the base for a group that wants to arrive, connect, work, celebrate, and stay together.",eventCard1Title:"Milestones",eventCard1Text:"Birthdays, anniversaries, family reunions, and private celebrations with space to stay together.",eventCard2Title:"Retreats",eventCard2Text:"A private base for teams, communities, families, and creative groups.",eventCard3Title:"Workshops",eventCard3Text:"A focused environment for presentations, planning sessions, and small private programs.",eventCard4Title:"Celebrations",eventCard4Text:"Food, music, speeches, conversation, and a house that gives the evening a center.",energy1Title:"Gather with purpose",energy1Text:"Use the house as a base for people who need to meet, think, celebrate, and spend real time together.",energy2Title:"Shape the rhythm",energy2Text:"Morning sessions, mountain breaks, group meals, private moments, and evening energy can all be planned around the group.",energy3Title:"Stay in the story",energy3Text:"Because guests can stay on site, the event becomes a shared experience.",logisticsKicker:"Planning clarity",logisticsTitle:"Simple planning, clear details.",logisticsText:"This page should inspire first, then send the guest into an inquiry. The details can be confirmed directly for your dates and group.",logisticsImageKicker:"Event setup",logisticsImageTitle:"Clear planning, calm setting.",log1Title:"Food",log1Text:"Guests may use the kitchen depending on the arrangement. Catering or chef options can be discussed for an additional fee.",log2Title:"Stay",log2Text:"The public overnight capacity is 48 sleeping places. Event capacity, rooming, and layout should be confirmed directly.",log3Title:"Access",log3Text:"Shuttle timing, walking access, arrivals, and evening transport should be coordinated in advance.",log4Title:"Wellness",log4Text:"A private sauna option can be discussed as part of the stay.",planKicker:"Planning sequence",planTitle:"Four simple steps.",planText:"Send a clear inquiry, then the property can confirm availability, fit, logistics, and the right direct rate.",flow1Title:"Send the vision",flow1Text:"Date, group size, overnight needs, and atmosphere.",flow2Title:"Confirm the fit",flow2Text:"Availability, capacity, access, and service needs are reviewed directly.",flow3Title:"Shape the stay",flow3Text:"Arrival, group rhythm, food needs, sauna option, and guest flow are clarified.",flow4Title:"Prepare the house",flow4Text:"The property becomes the private alpine setting for the weekend.",inquiryKicker:"Event inquiry",inquiryTitle:"Tell us what you want to host.",inquiryText:"For weddings, retreats, family milestones, presentations, and private gatherings, direct inquiry is the clearest way to confirm what is possible for your dates and group.",inquiryImageKicker:"Start here",inquiryImageTitle:"Tell us the moment.",contactAddressLabel:"Address",contactPhoneLabel:"Phone",contactDirectLabel:"Direct booking",contactDirectText:"Best Rates Guaranteed when Booking Direct",formNameLabel:"Name",formNamePlaceholder:"Your name",formContactLabel:"Contact",formContactPlaceholder:"Email or phone",formEventTypeLabel:"Event type",formDateLabel:"Preferred date",formDatePlaceholder:"Date or season",formGuestsLabel:"Guest count",formGuestsPlaceholder:"Estimated number",formOvernightLabel:"Overnight stay?",formNotesLabel:"Event vision",formNotesPlaceholder:"Tell us about the mood, timing, group, and anything important for the event.",formSubmit:"Send event inquiry",formBook:"Book dates first",finalKicker:"Fletschhorn · Saas-Fee",finalTitle:"A mountain house for moments people remember.",finalCta:"Start booking",missingFirstName:"Please enter your first name.",missingLastName:"Please enter your last name.",missingEmail:"Please enter your email.",invalidEmail:"Please enter a valid email address.",missingDates:"Please choose arrival and departure dates.",badDates:"Departure must be after arrival.",redirecting:"Opening booking…",eventStatus:"Thanks. Please use the booking toolbar above to continue with dates, or contact the property directly."},
-        fr:{heroCtaWedding:"Votre Mariage",heroCtaEvents:"Votre Événement",weddingBigLabel:"Votre Mariage",eventBigLabel:"Votre Événement",bookNow:"Réserver mon séjour",fieldFirstName:"Prénom",fieldFirstNamePh:"Prénom",fieldLastName:"Nom",fieldLastNamePh:"Nom",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldArrival:"Arrivée",fieldDeparture:"Départ",bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",missingFirstName:"Veuillez entrer votre prénom.",missingLastName:"Veuillez entrer votre nom.",missingEmail:"Veuillez entrer votre email.",invalidEmail:"Veuillez entrer un email valide.",missingDates:"Veuillez choisir les dates d’arrivée et de départ.",badDates:"La date de départ doit être après l’arrivée.",redirecting:"Ouverture de la réservation…"},
-        de:{heroCtaWedding:"Ihre Hochzeit",heroCtaEvents:"Ihr Event",weddingBigLabel:"Ihre Hochzeit",eventBigLabel:"Ihr Event",bookNow:"Aufenthalt buchen",fieldFirstName:"Vorname",fieldFirstNamePh:"Vorname",fieldLastName:"Nachname",fieldLastNamePh:"Nachname",fieldEmail:"E-Mail",fieldEmailPh:"email@example.com",fieldArrival:"Anreise",fieldDeparture:"Abreise",bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",missingEmail:"Bitte geben Sie Ihre E-Mail ein.",invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",missingDates:"Bitte wählen Sie Anreise- und Abreisedatum.",badDates:"Die Abreise muss nach der Anreise liegen.",redirecting:"Buchung wird geöffnet…"},
-        ru:{heroCtaWedding:"Ваша свадьба",heroCtaEvents:"Ваше событие",weddingBigLabel:"Ваша свадьба",eventBigLabel:"Ваше событие",bookNow:"Забронировать",fieldFirstName:"Имя",fieldFirstNamePh:"Имя",fieldLastName:"Фамилия",fieldLastNamePh:"Фамилия",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldArrival:"Заезд",fieldDeparture:"Выезд",bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",missingFirstName:"Введите имя.",missingLastName:"Введите фамилию.",missingEmail:"Введите email.",invalidEmail:"Введите корректный email.",missingDates:"Выберите даты заезда и выезда.",badDates:"Дата выезда должна быть после даты заезда.",redirecting:"Открываем бронирование…"}
-      };
-      ["fr","de","ru"].forEach(l=>T[l]=Object.assign({},T.en,T[l]));
-      const t=k=>(T[lang]&&T[lang][k])||T.en[k]||"";
-
-      function buildCarousel(host, images, delay){
-        if(!host) return;
-        const offset=Number(host.getAttribute("data-fh-carousel-offset")||0);
-        const selected=(images||fallback).slice(offset).concat((images||fallback).slice(0,offset));
-        host.innerHTML="";
-        selected.forEach((src,i)=>{const slide=document.createElement("div");slide.className="fh-carousel-slide"+(i===0?" fh-active":"");slide.style.backgroundImage=`url("${src}")`;host.appendChild(slide);});
-        const slides=Array.from(host.querySelectorAll(".fh-carousel-slide"));let active=0;
-        if(slides.length>1)setInterval(()=>{slides[active].classList.remove("fh-active");active=(active+1)%slides.length;slides[active].classList.add("fh-active");},delay||5200);
+      if(family === 'love'){
+        const names = num ? [`Love (${num}).${ext}`, `Love (${num}).JPG`, `Love (${num}).png`] : ['Love.jpg','Love.JPG','Love.png'];
+        names.forEach(name=>candidates.push(fhAsset(name)));
       }
-      function buildHero(){
-        const host=$("[data-fh-event-slides]"); if(!host) return;
-        [LOVE[0],EVENTS[0],LOVE[3],EVENTS[5]].forEach((src,i)=>{const el=document.createElement("div");el.className="fh-slide"+(i===0?" fh-active":"");el.style.backgroundImage=`url("${src}")`;host.appendChild(el);});
-        const slides=Array.from(host.querySelectorAll(".fh-slide"));let active=0;setInterval(()=>{if(!slides.length)return;slides[active].classList.remove("fh-active");active=(active+1)%slides.length;slides[active].classList.add("fh-active");},9000);
-      }
-      function applyLanguage(next){
-        lang=T[next]?next:"en";
-        try{localStorage.setItem("fh_lang",lang);}catch(e){}
-        $$("[data-i18n]").forEach(el=>{const v=t(el.getAttribute("data-i18n")); if(v) el.textContent=v;});
-        $$("[data-i18n-placeholder]").forEach(el=>{const v=t(el.getAttribute("data-i18n-placeholder")); if(v) el.setAttribute("placeholder",v);});
-        $$(".fh-lang-switch button").forEach(btn=>btn.classList.toggle("active",btn.getAttribute("data-lang")===lang));
-        root.setAttribute("data-current-lang",lang);document.documentElement.setAttribute("lang",lang);
-      }
-      function setStatus(message,type){const box=$("#fhFormStatus"); if(!box)return; box.classList.add("show"); box.classList.toggle("error",type==="error"); box.classList.toggle("success",type==="success"); box.textContent=message;}
-      function emailIsValid(email){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email||"").trim());}
-      function getPayload(){return{listingId:CFG.listingId,workerBase:CFG.workerBase,firstName:$("#fhFirstName")?.value.trim()||"",lastName:$("#fhLastName")?.value.trim()||"",email:$("#fhEmail")?.value.trim()||"",checkIn:$("#fhArrival")?.value||"",checkOut:$("#fhDeparture")?.value||"",language:lang,source:"fletschhorn-weddings-events-toolbar",pageUrl:window.location.href,createdAt:new Date().toISOString()};}
-      function goToBookingPage(){
-        const p=getPayload();
-        if(!p.firstName){setStatus(t("missingFirstName"),"error");$("#fhFirstName")?.focus();return;}
-        if(!p.lastName){setStatus(t("missingLastName"),"error");$("#fhLastName")?.focus();return;}
-        if(!p.email){setStatus(t("missingEmail"),"error");$("#fhEmail")?.focus();return;}
-        if(!emailIsValid(p.email)){setStatus(t("invalidEmail"),"error");$("#fhEmail")?.focus();return;}
-        if(!p.checkIn||!p.checkOut){setStatus(t("missingDates"),"error");return;}
-        if(p.checkOut<=p.checkIn){setStatus(t("badDates"),"error");$("#fhDeparture")?.focus();return;}
-        try{localStorage.setItem("fhBookingStart",JSON.stringify(p));}catch(e){}
-        const params=new URLSearchParams();params.set("firstName",p.firstName);params.set("lastName",p.lastName);params.set("email",p.email);params.set("checkIn",p.checkIn);params.set("checkOut",p.checkOut);params.set("lang",p.language);params.set("source","homepage");
-        setStatus(t("redirecting"),"success"); const btn=$("#fhBookNowBtn"); if(btn){btn.disabled=true;btn.textContent=t("redirecting");}
-        window.location.href=CFG.bookingPageUrl+"?"+params.toString();
-      }
-      function initDates(){const today=new Date().toISOString().split("T")[0];const a=$("#fhArrival"),d=$("#fhDeparture");if(a)a.min=today;if(d)d.min=today;if(a)a.addEventListener("change",()=>{if(!d)return;d.min=a.value||today;if(d.value&&a.value&&d.value<=a.value)d.value="";});}
-      function prefillExisting(){let data={};try{data=JSON.parse(localStorage.getItem("fhBookingStart")||"{}");}catch(e){} if(data.firstName&&$("#fhFirstName"))$("#fhFirstName").value=data.firstName;if(data.lastName&&$("#fhLastName"))$("#fhLastName").value=data.lastName;if(data.email&&$("#fhEmail"))$("#fhEmail").value=data.email;if(data.checkIn&&$("#fhArrival"))$("#fhArrival").value=data.checkIn;if(data.checkOut&&$("#fhDeparture"))$("#fhDeparture").value=data.checkOut;}
-      function initReveal(){if("IntersectionObserver" in window){const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("fh-visible");obs.unobserve(entry.target);}});},{threshold:.10,rootMargin:"0px 0px -3% 0px"});$$('.fh-reveal,.fh-preclip,.fh-stagger').forEach(el=>obs.observe(el));}else{$$('.fh-reveal,.fh-preclip,.fh-stagger').forEach(el=>el.classList.add('fh-visible'));}}
+    }
 
-      buildHero();
-      $$("[data-fh-carousel='love']").forEach((host,i)=>{if(!host.getAttribute("data-fh-carousel-offset"))host.setAttribute("data-fh-carousel-offset",String(i*3));buildCarousel(host,LOVE,5200);});
-      $$("[data-fh-carousel='events']").forEach((host,i)=>{if(!host.getAttribute("data-fh-carousel-offset"))host.setAttribute("data-fh-carousel-offset",String(i*4));buildCarousel(host,EVENTS,5200);});
-      $$(".fh-lang-switch button").forEach(btn=>btn.addEventListener("click",e=>{e.preventDefault();applyLanguage(btn.getAttribute("data-lang"));}));
-      document.addEventListener("click",function(event){const external=event.target.closest("[data-fh-lang],[data-lang],[data-language]");if(!external)return;const l=(external.getAttribute("data-fh-lang")||external.getAttribute("data-lang")||external.getAttribute("data-language")||"").slice(0,2).toLowerCase();if(T[l])applyLanguage(l);});
-      $("#fhBookingFields")?.addEventListener("submit",e=>{e.preventDefault();goToBookingPage();});
-      $("#fhEventMainForm")?.addEventListener("submit",e=>{e.preventDefault();const box=$("#fhEventStatus");if(box){box.classList.add("show","success");box.textContent=t("eventStatus");}});
-      initDates();prefillExisting();initReveal();applyLanguage((localStorage.getItem("fh_lang")||document.documentElement.lang||"en").slice(0,2).toLowerCase());
-      console.log("Fletschhorn weddings/events page ready. Booking redirect:",CFG.bookingPageUrl);
-    })();
-  </script>
+    safeFallbacks.forEach(url=>candidates.push(url));
+    return [...new Set(candidates.filter(Boolean))];
+  }
+
+  function fhBackgroundStack(src){
+    return fhImageCandidates(src).slice(0,6).map(url => `url("${url}")`).join(',');
+  }
+
+  const LOVE_IMAGES = [
+    fhAsset('Love.jpg'),
+    ...Array.from({length:22}, (_,i)=>fhAsset(`Love (${i+1}).jpg`))
+  ];
+
+  const EVENT_IMAGES = Array.from({length:23}, (_,i)=>fhAsset(`Event (${i+1}).jpg`));
+
+  const IMG = {
+    exteriorA:'https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1b68ef5d-fcdf-4818-8644-77ce85f68263/1_9418_.jpg',
+    exteriorB:'https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756344115-UN1RO9UJ7JQZQ8U5LPNB/1521689.jpg',
+    kitchen:'https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/F0D4842C-DED9-4E2C-8C71-0182B84AA01B_1_105_c.jpg'
+  };
+
+  const translations = {
+    en:{
+      heroEyebrow:'Private alpine house · weddings · retreats · events',
+      heroTitle:'Weddings and events in the Alps.',
+      heroLead:'A private alpine house in Saas-Fee for weddings, retreats, family milestones, and meaningful gatherings.',
+      heroCtaWedding:'Your Wedding',
+      heroCtaEvents:'Your Event',
+      proof1Title:'Private',
+      proof1Text:'A house for one group at a time',
+      proof2Title:'48',
+      proof2Text:'Sleeping places for overnight groups',
+      proof3Title:'Saas-Fee',
+      proof3Text:'Forest edge, alpine views, village access',
+      quickEventLabel:'Event',
+      quickEventPlaceholder:'Wedding, retreat, private event',
+      quickWhenLabel:'When',
+      quickWhenPlaceholder:'Preferred date or season',
+      quickContactLabel:'Contact',
+      quickContactPlaceholder:'Email or phone',
+      quickSubmit:'Send inquiry',
+      quickNote:'Tell us the date, the group, and the type of moment you want to create. We will confirm the right format directly.',
+      scrollCue:'See the venue story',
+      introKicker:'A house for meaningful gatherings',
+      introTitle:'A private house for meaningful gatherings.',
+      introText:'Fletschhorn is made for moments that need privacy, mountain air, and time together.',
+      introCardKicker:'The feeling',
+      introCardTitle:'A place to gather, stay, and remember.',
+      introCardText:'The house sits at the edge of the village rhythm: close enough to Saas-Fee, but quiet enough for the event to feel held apart. The forest, the snow, the stone, and the views become part of the atmosphere.',
+      introList1Title:'For the whole group',
+      introList1Text:'A private setting designed around staying together, moving together, and sharing the weekend.',
+      introList2Title:'For the landscape',
+      introList2Text:'Alpine air, forest arrival, mountain views, soft evening light, and winter or summer scenery.',
+      introList3Title:'For the memory',
+      introList3Text:'A place that can hold arrival, ceremony, gathering, music, rest, and the morning after.',
+      introPhotoSmall:'Private alpine event setting',
+      introPhotoTitle:'A house people remember because they lived the moment there together.',
+      weddingBigLabel:'Your Wedding',
+      weddingKicker:'Weddings at Fletschhorn',
+      weddingTitle:'Your moment, here, forever — in the middle of the Alps.',
+      weddingText:'A private alpine house for the wedding weekend itself: the arrival, the vows, the meal, the music, the people you love, and the quiet morning after in the mountains.',
+      weddingVisualKicker:'Your wedding weekend',
+      weddingVisualTitle:'Your moment. Here. Forever.',
+      weddingVisualText:'In the middle of the Alps, surrounded by the people you love, Fletschhorn becomes the place where the whole weekend belongs to you.',
+      weddingMainKicker:'Why it works for weddings',
+      weddingMainTitle:'Simple, private, and deeply personal.',
+      weddingMainText:'The house gives the couple and their guests space to arrive, prepare, gather, celebrate, sleep, and wake up together — not scattered across different places, but held inside one alpine weekend.',
+      weddingPill1:'Private house',
+      weddingPill2:'Mountain photos',
+      weddingPill3:'Overnight stay',
+      weddingPill4:'Catering options',
+      weddingPill5:'Direct planning',
+      weddingMoment1Title:'The arrival',
+      weddingMoment1Text:'Guests arrive into a mountain atmosphere before the celebration even begins: the village, the climb, the house, the first glass, the first view.',
+      weddingMoment2Title:'The ceremony',
+      weddingMoment2Text:'A ceremony shaped by alpine air, natural materials, close people, and a landscape that already feels cinematic.',
+      weddingMoment3Title:'The celebration',
+      weddingMoment3Text:'The house becomes the center of the evening: food, music, speeches, laughter, and the feeling that everyone is part of the same weekend.',
+      weddingMoment4Title:'The morning after',
+      weddingMoment4Text:'The celebration does not disappear at midnight. Guests wake up still together, still in the mountains, still inside the memory.',
+      gallery1Title:'The first view',
+      gallery1Text:'The weekend begins with the mountains already in the frame.',
+      gallery2Title:'The people',
+      gallery2Text:'A private setting for the family, friends, speeches, meals, music, and small moments around the celebration.',
+      gallery3Title:'The memory',
+      gallery3Text:'Not only a wedding day — a place and a weekend that stay with people.',
+      eventBigLabel:'Your Event',
+      eventsKicker:'Private events & retreats',
+      eventsTitle:'A private alpine house for gatherings that need space, energy, and a real sense of place.',
+      eventsText:'For retreats, milestone weekends, workshops, family gatherings, and private programs, Fletschhorn gives the group one clear base: arrive together, move through the weekend together, and leave with a shared memory.',
+      eventsHeroKicker:'Bring the group together',
+      eventsHeroTitle:'Host something people remember being part of.',
+      eventsHeroText:'From retreats and workshops to family milestones and private celebrations, the house gives your group privacy, mountain air, shared spaces, and a weekend rhythm that feels complete.',
+      eventCard1Title:'Milestones',
+      eventCard1Text:'Birthdays, anniversaries, family reunions, and private celebrations with space to stay together.',
+      eventCard2Title:'Retreats',
+      eventCard2Text:'A private base for teams, communities, families, and creative groups.',
+      eventCard3Title:'Workshops',
+      eventCard3Text:'A focused environment for presentations, planning sessions, and small private programs.',
+      eventCard4Title:'Celebrations',
+      eventCard4Text:'Food, music, speeches, conversation, and a house that gives the evening a center.',
+      energy1Title:'Gather with purpose',
+      energy1Text:'Use the house as a base for people who need to meet, think, celebrate, and spend real time together.',
+      energy2Title:'Shape the rhythm',
+      energy2Text:'Morning sessions, mountain breaks, group meals, private moments, and evening energy can all be planned around the group.',
+      energy3Title:'Stay in the story',
+      energy3Text:'Because guests can stay on site, the event does not feel like a single appointment. It becomes a shared experience.',
+      logisticsKicker:'Planning clarity',
+      logisticsTitle:'Simple planning, clear details.',
+      logisticsText:'This page should inspire first, then send the guest into an inquiry. The details can be confirmed directly for your dates and group.',
+      logisticsImageKicker:'Event setup',
+      logisticsImageTitle:'Clear planning, calm setting.',
+      logisticsImageKicker:'Event setup',
+      logisticsImageTitle:'Clear planning, calm setting.',
+      log1Title:'Food',
+      log1Text:'Guests may use the kitchen depending on the arrangement. Catering or chef options can be discussed for an additional fee. This is not presented as restaurant service for the private stay.',
+      log2Title:'Stay',
+      log2Text:'The public overnight capacity is 48 sleeping places. Event capacity, rooming, and layout should be confirmed directly.',
+      log3Title:'Access',
+      log3Text:'The house is above the village rhythm. Shuttle timing, walking access, arrivals, and evening transport should be coordinated in advance.',
+      log4Title:'Wellness',
+      log4Text:'A private sauna option can be discussed as part of the stay, depending on the group and event plan.',
+      planKicker:'Planning sequence',
+      planTitle:'Four simple steps.',
+      planText:'The page does not need to overexplain everything. It should guide people to send a clear inquiry, then the property can confirm availability, fit, logistics, and the right direct rate.',
+      planImageKicker:'The weekend flow',
+      planImageTitle:'Simple, visual, easy to imagine.',
+      flow1Title:'Send the vision',
+      flow1Text:'Date, event type, group size, overnight needs, and what kind of atmosphere you imagine.',
+      flow2Title:'Confirm the fit',
+      flow2Text:'Availability, capacity, rooming, event flow, access, and service needs are reviewed directly.',
+      flow3Title:'Shape the stay',
+      flow3Text:'Arrival timing, group rhythm, chef or catering requests, sauna option, and guest experience are clarified.',
+      flow4Title:'Prepare the house',
+      flow4Text:'The property becomes the private alpine setting for the group, the event, and the weekend.',
+      inquiryKicker:'Event inquiry',
+      inquiryTitle:'Tell us what you want to host.',
+      inquiryText:'For weddings, retreats, family milestones, presentations, and private gatherings, direct inquiry is the clearest way to confirm what is possible for your dates and group.',
+      inquiryImageKicker:'Start here',
+      inquiryImageTitle:'Tell us the moment.',
+      contactAddressLabel:'Address',
+      contactPhoneLabel:'Phone',
+      contactDirectLabel:'Direct booking',
+      contactDirectText:'Best Rates Guaranteed when Booking Direct',
+      formNameLabel:'Name',
+      formNamePlaceholder:'Your name',
+      formContactLabel:'Contact',
+      formContactPlaceholder:'Email or phone',
+      formEventTypeLabel:'Event type',
+      formDateLabel:'Preferred date',
+      formDatePlaceholder:'Date or season',
+      formGuestsLabel:'Guest count',
+      formGuestsPlaceholder:'Estimated number',
+      formOvernightLabel:'Overnight stay?',
+      formNotesLabel:'Event vision',
+      formNotesPlaceholder:'Tell us about the mood, timing, group, and anything important for the event.',
+      formSubmit:'Send event inquiry',
+      formMore:'More details',
+      finalKicker:'Fletschhorn · Saas-Fee',
+      finalTitle:'A mountain house for moments people remember.',
+      finalCta:'Start inquiry',
+      modalTitle:'Event details',
+      modalGuestsLabel:'Estimated guests',
+      modalGuestsPlaceholder:'How many people?',
+      modalNightsLabel:'Number of nights',
+      modalNightsPlaceholder:'Optional',
+      modalSeasonLabel:'Season',
+      modalSupportLabel:'Planning status',
+      modalNotesLabel:'Additional notes',
+      modalNotesPlaceholder:'What should the property know before replying?',
+      modalClear:'Clear',
+      modalApply:'Apply details',
+      statusAdded:'Extra event details added.',
+      statusSending:'Sending inquiry...',
+      statusSuccess:'Thank you. Your event inquiry was sent.',
+      statusFail:'The form could not send automatically. Please contact us directly at welcome@fletschhorn.ch or call +41 27 957 2131.',
+      selectEventType:['Wedding','Private event','Retreat','Presentation / workshop','Family gathering','Other'],
+      selectOvernight:['To confirm','Yes','No','Some guests'],
+      selectSeason:['To confirm','Winter','Spring','Summer','Autumn'],
+      selectSupport:['Early idea','Looking for venue','Date already chosen','Ready to discuss details']
+    },
+    fr:{},
+    de:{},
+    ru:{}
+  };
+
+  translations.fr = Object.assign({}, translations.en, {
+    heroCtaWedding:'Votre Mariage',
+    heroCtaEvents:'Votre Événement',
+    weddingBigLabel:'Votre Mariage',
+    eventBigLabel:'Votre Événement',
+    quickSubmit:'Envoyer',
+    formSubmit:'Envoyer la demande',
+    finalCta:'Commencer la demande',
+    selectEventType:['Mariage','Événement privé','Retraite','Présentation / atelier','Réunion de famille','Autre'],
+    selectOvernight:['À confirmer','Oui','Non','Certains invités'],
+    selectSeason:['À confirmer','Hiver','Printemps','Été','Automne'],
+    selectSupport:['Idée initiale','Recherche de lieu','Date déjà choisie','Prêt à discuter']
+  });
+
+  translations.de = Object.assign({}, translations.en, {
+    heroCtaWedding:'Ihre Hochzeit',
+    heroCtaEvents:'Ihr Event',
+    weddingBigLabel:'Ihre Hochzeit',
+    eventBigLabel:'Ihr Event',
+    quickSubmit:'Anfrage senden',
+    formSubmit:'Eventanfrage senden',
+    finalCta:'Anfrage starten',
+    selectEventType:['Hochzeit','Privater Anlass','Retreat','Präsentation / Workshop','Familientreffen','Andere'],
+    selectOvernight:['Zu bestätigen','Ja','Nein','Einige Gäste'],
+    selectSeason:['Zu bestätigen','Winter','Frühling','Sommer','Herbst'],
+    selectSupport:['Erste Idee','Auf Venue-Suche','Datum gewählt','Bereit für Details']
+  });
+
+  translations.ru = Object.assign({}, translations.en, {
+    heroCtaWedding:'Ваша свадьба',
+    heroCtaEvents:'Ваше событие',
+    weddingBigLabel:'Ваша свадьба',
+    eventBigLabel:'Ваше событие',
+    quickSubmit:'Отправить',
+    formSubmit:'Отправить запрос',
+    finalCta:'Начать запрос',
+    selectEventType:['Свадьба','Частное событие','Ретрит','Презентация / воркшоп','Семейная встреча','Другое'],
+    selectOvernight:['Уточнить','Да','Нет','Некоторые гости'],
+    selectSeason:['Уточнить','Зима','Весна','Лето','Осень'],
+    selectSupport:['Ранняя идея','Ищем место','Дата выбрана','Готовы обсуждать детали']
+  });
+
+  function normalizeLang(lang){
+    lang = String(lang || '').toLowerCase();
+    if(lang.startsWith('fr')) return 'fr';
+    if(lang.startsWith('de')) return 'de';
+    if(lang.startsWith('ru')) return 'ru';
+    return 'en';
+  }
+
+  function getInitialLang(){
+    const params = new URLSearchParams(window.location.search);
+    const fromQuery = params.get('lang') || params.get('locale');
+    const fromRoot = root.getAttribute('data-lang');
+    const fromHtml = document.documentElement.getAttribute('lang') || document.documentElement.getAttribute('data-lang');
+    const fromStorage = localStorage.getItem('fh_lang') || localStorage.getItem('fletschhorn_lang') || localStorage.getItem('site_lang');
+    return normalizeLang(fromQuery || fromRoot || fromHtml || fromStorage || 'en');
+  }
+
+  function setSelectOptions(select, values){
+    if(!select || !Array.isArray(values)) return;
+    const current = select.value;
+    select.innerHTML = '';
+    values.forEach((text, index)=>{
+      const option = document.createElement('option');
+      option.textContent = text;
+      option.value = text;
+      if(index === 0) option.selected = true;
+      select.appendChild(option);
+    });
+    if(current){
+      Array.from(select.options).forEach(option=>{
+        if(option.value === current) option.selected = true;
+      });
+    }
+  }
+
+  function applyLanguage(lang){
+    const activeLang = normalizeLang(lang);
+    const dict = translations[activeLang] || translations.en;
+    root.dataset.lang = activeLang;
+
+    root.querySelectorAll('[data-fh-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-fh-i18n');
+      if(dict[key] !== undefined) el.textContent = dict[key];
+    });
+
+    root.querySelectorAll('[data-fh-i18n-placeholder]').forEach(el=>{
+      const key = el.getAttribute('data-fh-i18n-placeholder');
+      if(dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+    });
+
+    setSelectOptions(root.querySelector('[data-fh-select="eventType"]'), dict.selectEventType);
+    setSelectOptions(root.querySelector('[data-fh-select="overnight"]'), dict.selectOvernight);
+    setSelectOptions(root.querySelector('[data-fh-select="season"]'), dict.selectSeason);
+    setSelectOptions(root.querySelector('[data-fh-select="support"]'), dict.selectSupport);
+
+    localStorage.setItem('fh_lang', activeLang);
+  }
+
+  window.FHSetEventsLanguage = applyLanguage;
+  window.FHSetLanguage = applyLanguage;
+  applyLanguage(getInitialLang());
+
+  document.addEventListener('click', function(e){
+    const langTrigger = e.target.closest('[data-lang],[data-language],[data-locale]');
+    if(!langTrigger) return;
+    const lang = langTrigger.getAttribute('data-lang') || langTrigger.getAttribute('data-language') || langTrigger.getAttribute('data-locale');
+    if(lang) setTimeout(()=>applyLanguage(lang), 0);
+  });
+
+  new MutationObserver(()=>{
+    applyLanguage(getInitialLang());
+  }).observe(document.documentElement, {attributes:true, attributeFilter:['lang','data-lang']});
+
+
+  function buildCarousel(host, images, delay){
+    if(!host || !images || !images.length) return;
+    const offset = Number(host.getAttribute('data-fh-carousel-offset') || 0);
+    const selected = images.slice(offset).concat(images.slice(0, offset));
+    host.innerHTML = '';
+
+    selected.forEach((src, index)=>{
+      const slide = document.createElement('div');
+      slide.className = 'fh-carousel-slide' + (index === 0 ? ' fh-active' : '');
+      slide.style.backgroundImage = fhBackgroundStack(src);
+      host.appendChild(slide);
+    });
+
+    const slides = Array.from(host.querySelectorAll('.fh-carousel-slide'));
+    let active = 0;
+
+    if(slides.length > 1){
+      setInterval(()=>{
+        slides[active].classList.remove('fh-active');
+        active = (active + 1) % slides.length;
+        slides[active].classList.add('fh-active');
+      }, delay || 5200);
+    }
+  }
+
+  root.querySelectorAll('[data-fh-carousel="love"]').forEach((host, index)=>{
+    if(!host.getAttribute('data-fh-carousel-offset')) host.setAttribute('data-fh-carousel-offset', String(index * 3));
+    buildCarousel(host, LOVE_IMAGES, 5200);
+  });
+
+  root.querySelectorAll('[data-fh-carousel="events"]').forEach((host, index)=>{
+    if(!host.getAttribute('data-fh-carousel-offset')) host.setAttribute('data-fh-carousel-offset', String(index * 4));
+    buildCarousel(host, EVENT_IMAGES, 5200);
+  });
+
+
+  const heroSlides = [
+    {image:LOVE_IMAGES[0], theme:{green:'#345f46'}},
+    {image:EVENT_IMAGES[0], theme:{green:'#3f6f51'}},
+    {image:LOVE_IMAGES[3], theme:{green:'#2f5b43'}},
+    {image:EVENT_IMAGES[5], theme:{green:'#345f46'}}
+  ];
+
+  const slideHost = root.querySelector('[data-fh-event-slides]');
+  if(slideHost){
+    heroSlides.forEach((slide, index)=>{
+      const el = document.createElement('div');
+      el.className = 'fh-slide' + (index === 0 ? ' fh-active' : '');
+      el.style.backgroundImage = fhBackgroundStack(slide.image);
+      slideHost.appendChild(el);
+    });
+
+    const slideEls = Array.from(slideHost.querySelectorAll('.fh-slide'));
+    let active = 0;
+
+    setInterval(()=>{
+      if(!slideEls.length) return;
+      slideEls[active].classList.remove('fh-active');
+      active = (active + 1) % slideEls.length;
+      slideEls[active].classList.add('fh-active');
+      root.style.setProperty('--fh-green', heroSlides[active].theme.green);
+    }, 9000);
+  }
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('fh-visible');
+      }
+    });
+  }, {threshold:.10, rootMargin:'0px 0px -3% 0px'});
+
+  root.querySelectorAll('.fh-reveal,.fh-preclip,.fh-stagger').forEach(el=>revealObserver.observe(el));
+
+  const petalLayer = root.querySelector('.fh-petal-layer');
+  const petals = [];
+
+  if(petalLayer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const count = window.matchMedia('(max-width:720px)').matches ? 12 : 24;
+
+    for(let i=0; i<count; i++){
+      const petal = document.createElement('span');
+      petal.className = 'fh-petal';
+
+      const w = 12 + Math.random()*22;
+      const h = w * (0.55 + Math.random()*0.24);
+
+      petal.style.setProperty('--petal-w', w + 'px');
+      petal.style.setProperty('--petal-h', h + 'px');
+      petal.style.setProperty('--petal-opacity', (0.22 + Math.random()*0.30).toFixed(2));
+
+      petalLayer.appendChild(petal);
+
+      petals.push({
+        el:petal,
+        x:Math.random()*100,
+        y:Math.random()*100,
+        speed:0.16 + Math.random()*0.38,
+        wave:16 + Math.random()*38,
+        rotate:Math.random()*360,
+        spin:(Math.random()-.5)*1.2,
+        phase:Math.random()*Math.PI*2
+      });
+    }
+
+    function drawPetals(time){
+      const latestTime = time * 0.001;
+      const latestScroll = window.scrollY || 0;
+      const h = window.innerHeight || 800;
+      const w = window.innerWidth || 1200;
+
+      petals.forEach((p, idx)=>{
+        const scrollFall = latestScroll * p.speed;
+        const naturalFall = latestTime * (7 + idx % 6);
+        const y = ((p.y / 100) * h + scrollFall + naturalFall) % (h + 140) - 70;
+        const xBase = (p.x / 100) * w;
+        const x = xBase + Math.sin(latestTime * .8 + p.phase + latestScroll / 260) * p.wave;
+        const r = p.rotate + latestScroll * p.spin + latestTime * 22 * p.spin;
+        p.el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${r}deg)`;
+      });
+
+      requestAnimationFrame(drawPetals);
+    }
+
+    requestAnimationFrame(drawPetals);
+  }
+
+  const modal = root.querySelector('[data-fh-event-modal]');
+  const openButtons = root.querySelectorAll('[data-fh-open-event-details]');
+  const closeButton = root.querySelector('[data-fh-close-event-details]');
+  const applyButton = root.querySelector('[data-fh-apply-event-details]');
+  const clearButton = root.querySelector('[data-fh-clear-event-details]');
+  const quickWho = root.querySelector('#fhEventTypeQuick');
+  const mainGuests = root.querySelector('#fhGuests');
+  const mainNotes = root.querySelector('#fhNotes');
+
+  function activeDict(){
+    return translations[root.dataset.lang] || translations.en;
+  }
+
+  function openModal(){
+    if(!modal) return;
+    modal.classList.add('fh-open');
+    modal.setAttribute('aria-hidden','false');
+  }
+
+  function closeModal(){
+    if(!modal) return;
+    modal.classList.remove('fh-open');
+    modal.setAttribute('aria-hidden','true');
+  }
+
+  openButtons.forEach(btn=>btn.addEventListener('click', openModal));
+  if(closeButton) closeButton.addEventListener('click', closeModal);
+
+  if(modal){
+    modal.addEventListener('click', e=>{
+      if(e.target === modal) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape') closeModal();
+  });
+
+  function val(selector){
+    const el = root.querySelector(selector);
+    return el ? el.value : '';
+  }
+
+  function getDetailValues(){
+    return {
+      guests:val('#fhDetailGuests'),
+      nights:val('#fhDetailNights'),
+      season:val('#fhDetailSeason'),
+      support:val('#fhDetailSupport'),
+      notes:val('#fhDetailNotes')
+    };
+  }
+
+  if(applyButton){
+    applyButton.addEventListener('click', ()=>{
+      const d = getDetailValues();
+      const summary = [
+        d.guests && `${d.guests} guests`,
+        d.nights && `${d.nights} nights`,
+        d.season && d.season
+      ].filter(Boolean).join(' · ');
+
+      if(summary && quickWho) quickWho.value = summary;
+      if(d.guests && mainGuests) mainGuests.value = d.guests;
+
+      if(d.notes && mainNotes){
+        const existing = mainNotes.value ? mainNotes.value + "\n\n" : "";
+        mainNotes.value = existing + d.notes;
+      }
+
+      const status = root.querySelector('[data-fh-event-status]');
+      if(status){
+        status.classList.add('fh-show');
+        status.textContent = activeDict().statusAdded;
+      }
+
+      closeModal();
+    });
+  }
+
+  if(clearButton){
+    clearButton.addEventListener('click', ()=>{
+      ['#fhDetailGuests','#fhDetailNights','#fhDetailNotes'].forEach(sel=>{
+        const el = root.querySelector(sel);
+        if(el) el.value = '';
+      });
+
+      const season = root.querySelector('#fhDetailSeason');
+      if(season) season.selectedIndex = 0;
+
+      const support = root.querySelector('#fhDetailSupport');
+      if(support) support.selectedIndex = 0;
+    });
+  }
+
+  function formToObject(form){
+    const data = new FormData(form);
+    const obj = {};
+
+    data.forEach((value,key)=>{
+      obj[key] = value;
+    });
+
+    obj.source = form.hasAttribute('data-fh-event-main-form') ? 'wedding-events-main-form' : 'wedding-events-quick-bar';
+    obj.page = 'weddings-events';
+    obj.language = root.dataset.lang || 'en';
+    obj.eventDetails = getDetailValues();
+    obj.createdAt = new Date().toISOString();
+
+    return obj;
+  }
+
+  async function submitForm(form, status){
+    if(!status) return;
+
+    const dict = activeDict();
+    const payload = formToObject(form);
+
+    status.classList.add('fh-show');
+    status.textContent = dict.statusSending;
+
+    try{
+      const response = await fetch(EVENT_ENDPOINT, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)
+      });
+
+      if(!response.ok){
+        throw new Error('Request failed');
+      }
+
+      status.textContent = dict.statusSuccess;
+      form.reset();
+      applyLanguage(root.dataset.lang || 'en');
+    }catch(error){
+      const subject = encodeURIComponent('Fletschhorn event inquiry');
+      const body = encodeURIComponent('Event inquiry\n\n' + JSON.stringify(payload, null, 2));
+      status.innerHTML =
+        dict.statusFail.replace('welcome@fletschhorn.ch',
+        '<a href="mailto:welcome@fletschhorn.ch?subject=' + subject + '&body=' + body + '" style="text-decoration:underline;color:inherit;">welcome@fletschhorn.ch</a>');
+    }
+  }
+
+  const quickForm = root.querySelector('[data-fh-event-quick-form]');
+  const quickStatus = root.querySelector('[data-fh-event-status]');
+
+  if(quickForm){
+    quickForm.addEventListener('submit', e=>{
+      e.preventDefault();
+      submitForm(quickForm, quickStatus);
+    });
+  }
+
+  const mainForm = root.querySelector('[data-fh-event-main-form]');
+  const mainStatus = root.querySelector('[data-fh-event-main-status]');
+
+  if(mainForm){
+    mainForm.addEventListener('submit', e=>{
+      e.preventDefault();
+      submitForm(mainForm, mainStatus);
+    });
+  }
+
+  root.querySelectorAll('img').forEach(img=>{
+    img.dataset.fhTryIndex = '0';
+    img.dataset.fhCandidates = JSON.stringify(fhImageCandidates(img.getAttribute('src')));
+    img.addEventListener('load', ()=>{
+      img.style.opacity = '1';
+      img.classList.add('fh-loaded');
+    });
+    img.addEventListener('error', ()=>{
+      const candidates = JSON.parse(img.dataset.fhCandidates || '[]');
+      let next = Number(img.dataset.fhTryIndex || 0) + 1;
+      img.dataset.fhTryIndex = String(next);
+
+      if(candidates[next]){
+        img.style.opacity = '1';
+        img.src = candidates[next];
+        return;
+      }
+
+      img.style.opacity = '1';
+      img.src = 'https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg';
+    });
+  });
+})();
+</script>
+<div id="fh-footer-slot"></div>
+
+<script>
+(function(){
+  if(window.__fhStandardChromeReady) return;
+  window.__fhStandardChromeReady = true;
+  document.body.classList.add("fh-github-version");
+  const ASSET_BASE = new URL("assets/", document.baseURI).href;
+  const CFG = {bookingPageUrl:"booking.html",listingId:"6968339ab7d735001ca015ba",workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev"};
+  async function loadHtml(slotId,fileName){const slot=document.getElementById(slotId);if(!slot)return;try{const response=await fetch(ASSET_BASE+fileName,{cache:"no-cache"});if(!response.ok)throw new Error(fileName+" failed: "+response.status);slot.innerHTML=await response.text();slot.querySelectorAll("script").forEach(function(oldScript){const newScript=document.createElement("script");Array.from(oldScript.attributes).forEach(function(attr){newScript.setAttribute(attr.name,attr.value);});newScript.textContent=oldScript.textContent;oldScript.replaceWith(newScript);});}catch(error){console.error("Fletschhorn header/footer load error:",error);}}
+  loadHtml("fh-header-slot","Header.html");loadHtml("fh-footer-slot","footer.html");
+  const bookingCopy={en:{firstNameLabel:"First name",lastNameLabel:"Last name",emailLabel:"Email",arrivalLabel:"Arrival",departureLabel:"Departure",firstNamePlaceholder:"First name",lastNamePlaceholder:"Last name",emailPlaceholder:"Email address",bookButton:"Book my stay now",bookingNote:"Best Rates Guaranteed when Booking Direct",missing:"Please complete your first name, last name, email, arrival date, and departure date.",date:"Departure must be after arrival."},fr:{firstNameLabel:"Prénom",lastNameLabel:"Nom",emailLabel:"Email",arrivalLabel:"Arrivée",departureLabel:"Départ",firstNamePlaceholder:"Prénom",lastNamePlaceholder:"Nom",emailPlaceholder:"Adresse email",bookButton:"Réserver mon séjour",bookingNote:"Meilleurs tarifs garantis en réservant en direct",missing:"Veuillez compléter le prénom, le nom, l’email, la date d’arrivée et la date de départ.",date:"La date de départ doit être après la date d’arrivée."},de:{firstNameLabel:"Vorname",lastNameLabel:"Nachname",emailLabel:"E-Mail",arrivalLabel:"Anreise",departureLabel:"Abreise",firstNamePlaceholder:"Vorname",lastNamePlaceholder:"Nachname",emailPlaceholder:"E-Mail-Adresse",bookButton:"Aufenthalt buchen",bookingNote:"Beste Preise garantiert bei Direktbuchung",missing:"Bitte Vorname, Nachname, E-Mail, Anreise und Abreise ausfüllen.",date:"Die Abreise muss nach der Anreise liegen."},ru:{firstNameLabel:"Имя",lastNameLabel:"Фамилия",emailLabel:"Email",arrivalLabel:"Заезд",departureLabel:"Выезд",firstNamePlaceholder:"Имя",lastNamePlaceholder:"Фамилия",emailPlaceholder:"Email адрес",bookButton:"Забронировать",bookingNote:"Лучшие цены гарантированы при прямом бронировании",missing:"Заполните имя, фамилию, email, дату заезда и дату выезда.",date:"Дата выезда должна быть позже даты заезда."}};
+  function normalizeLang(value){value=String(value||"en").toLowerCase();if(value.startsWith("fr"))return"fr";if(value.startsWith("de"))return"de";if(value.startsWith("ru"))return"ru";return"en";}
+  function currentLang(){return normalizeLang(localStorage.getItem("fh_lang")||document.documentElement.lang||"en");}
+  function setLanguage(lang){const normalized=normalizeLang(lang);localStorage.setItem("fh_lang",normalized);document.documentElement.setAttribute("lang",normalized);document.querySelectorAll("#fh-events .fh-lang-switcher button").forEach(function(button){button.classList.toggle("is-active",button.dataset.fhLang===normalized);});const dict=bookingCopy[normalized]||bookingCopy.en;document.querySelectorAll("[data-booking-i18n]").forEach(function(el){const key=el.getAttribute("data-booking-i18n");if(dict[key])el.textContent=dict[key];});document.querySelectorAll("[data-booking-i18n-placeholder]").forEach(function(el){const key=el.getAttribute("data-booking-i18n-placeholder");if(dict[key])el.setAttribute("placeholder",dict[key]);});if(window.FHSetEventsLanguage)window.FHSetEventsLanguage(normalized);window.dispatchEvent(new CustomEvent("fh:language",{detail:{lang:normalized}}));}
+  function setupLanguageSwitcher(){document.querySelectorAll("#fh-events .fh-lang-switcher button").forEach(function(button){button.addEventListener("click",function(){setLanguage(button.dataset.fhLang||"en");});});document.addEventListener("click",function(event){const trigger=event.target.closest("[data-fh-lang], [data-lang], [data-language]");if(!trigger)return;const lang=trigger.dataset.fhLang||trigger.dataset.lang||trigger.dataset.language;if(lang)setTimeout(function(){setLanguage(lang);},0);});setLanguage(new URLSearchParams(window.location.search).get("lang")||currentLang());}
+  function setupBookingToolbar(){const form=document.getElementById("fh-standard-booking-form");const status=document.getElementById("fh-standard-booking-status");if(!form)return;const params=new URLSearchParams(window.location.search);let stored={};try{stored=JSON.parse(localStorage.getItem("fhBookingStart")||"{}");}catch(e){};["firstName","lastName","email","checkIn","checkOut"].forEach(function(key){const value=params.get(key)||stored[key]||"";if(value&&form.elements[key])form.elements[key].value=value;});form.addEventListener("submit",function(event){event.preventDefault();const lang=currentLang();const dict=bookingCopy[lang]||bookingCopy.en;const payload={firstName:String(form.elements.firstName.value||"").trim(),lastName:String(form.elements.lastName.value||"").trim(),email:String(form.elements.email.value||"").trim(),checkIn:form.elements.checkIn.value,checkOut:form.elements.checkOut.value,lang:lang,source:"wedding-events",listingId:CFG.listingId,workerBase:CFG.workerBase,createdAt:new Date().toISOString()};function show(message){if(!status)return;status.textContent=message;status.classList.add("is-visible");}if(!payload.firstName||!payload.lastName||!payload.email||!payload.checkIn||!payload.checkOut){show(dict.missing);return;}if(payload.checkOut<=payload.checkIn){show(dict.date);return;}localStorage.setItem("fhBookingStart",JSON.stringify(payload));const next=new URL(CFG.bookingPageUrl,document.baseURI);next.searchParams.set("firstName",payload.firstName);next.searchParams.set("lastName",payload.lastName);next.searchParams.set("email",payload.email);next.searchParams.set("checkIn",payload.checkIn);next.searchParams.set("checkOut",payload.checkOut);next.searchParams.set("lang",payload.lang);next.searchParams.set("source","homepage");window.location.href=next.toString();});}
+  function init(){setupLanguageSwitcher();setupBookingToolbar();}
+  document.addEventListener("DOMContentLoaded",init);if(document.readyState!=="loading")init();
+})();
+</script>
+
 </body>
 </html>
