@@ -836,10 +836,10 @@
             ? Number(rawPrice)
             : null;
 
-        if (!Number.isFinite(numericPrice)) {
+        if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
           return {
             price: null,
-            source: day.priceSource || "none"
+            source: "none"
           };
         }
 
@@ -868,7 +868,7 @@
           const priceInfo = getCalendarNightPrice(dateString);
           const numericPrice = Number(priceInfo.price);
 
-          if (!Number.isFinite(numericPrice)) {
+          if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
             allNightsHavePrice = false;
 
             return {
@@ -1020,7 +1020,7 @@
             ${
               unavailable
                 ? `<span class="fh-day-price">—</span><span class="fh-day-status">Blocked</span>`
-                : Number.isFinite(Number(priceInfo.price))
+                : Number.isFinite(Number(priceInfo.price)) && Number(priceInfo.price) > 0
                   ? `<span class="fh-day-price">${formatMoney(priceInfo.price)}</span><span class="fh-day-source">Live Guesty price</span>`
                   : `<span class="fh-day-price">—</span><span class="fh-day-source">Quote required</span>`
             }
