@@ -1,0 +1,1640 @@
+<style>
+/* Fletschhorn About page — Squarespace scoped block */
+#fh-about{
+  --page-a:#efe7dc;
+  --page-b:#fbf6ef;
+  --section:#f5eee5;
+  --paper:#fffaf3;
+  --clay:#b99f86;
+  --clay-dark:#876e58;
+  --ink:#1a1714;
+  --muted:rgba(26,23,20,.68);
+  --line:rgba(26,23,20,.14);
+  --white:#fffaf3;
+  --overlay-a:rgba(24,21,18,.48);
+  --overlay-b:rgba(24,21,18,.62);
+  --glow:rgba(191,171,146,.20);
+  --shadow:0 30px 80px rgba(0,0,0,.16);
+  --soft-shadow:0 16px 42px rgba(0,0,0,.07);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --edge:clamp(14px,3vw,28px);
+  --container:min(1180px,100%);
+  margin:0;
+  font-family:var(--sans);
+  color:var(--ink);
+  background:linear-gradient(180deg,var(--page-a),var(--page-b));
+  overflow-x:clip;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+#fh-about *{box-sizing:border-box}
+#fh-about a{color:inherit;text-decoration:none}
+#fh-about img{display:block;max-width:100%}
+#fh-about button,#fh-about input,#fh-about select,#fh-about textarea{font:inherit}
+#fh-about button{cursor:pointer}
+
+#fh-about .ambient{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  pointer-events:none;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 14%,rgba(255,255,255,.60),transparent 0 25%),
+    radial-gradient(circle at 88% 20%,var(--glow),transparent 0 22%),
+    radial-gradient(circle at 62% 84%,rgba(255,255,255,.34),transparent 0 24%);
+}
+#fh-about .ambient::before{
+  content:"";
+  position:absolute;
+  inset:-16%;
+  background:
+    linear-gradient(112deg,transparent 0 33%,rgba(255,255,255,.28) 44%,transparent 58%),
+    radial-gradient(circle at 22% 30%,rgba(255,255,255,.44),transparent 0 15%),
+    radial-gradient(circle at 74% 76%,rgba(150,135,118,.12),transparent 0 22%);
+  filter:blur(14px);
+  animation:fhAboutAtmosphere 22s ease-in-out infinite alternate;
+}
+#fh-about .ambient::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.14;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%238a7b69' stroke-opacity='.55' stroke-width='1.1'%3E%3Cpath d='M-50 130c205 54 364 56 500 12 128-42 265-39 407 14 154 58 313 59 502-10 78-28 148-32 217-18'/%3E%3Cpath d='M-50 288c214 38 394 31 538-18 125-42 256-38 392 12 164 61 326 55 503-10 82-30 153-33 217-20'/%3E%3Cpath d='M-50 444c230 26 415 17 570-24 120-31 247-30 388 4 160 38 314 37 480-10 90-25 157-27 222-16'/%3E%3Cpath d='M-50 604c238 18 432 7 596-28 122-26 246-24 380-3 150 23 295 22 438-8 88-18 156-18 218-10'/%3E%3Cpath d='M-50 762c264 8 468-8 635-35 120-20 241-18 365-4 146 16 283 16 422-8 88-14 151-13 213-8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:cover;
+  background-position:center;
+  animation:fhAboutContours 30s ease-in-out infinite alternate;
+}
+#fh-about .grain{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  pointer-events:none;
+  opacity:.055;
+  mix-blend-mode:multiply;
+  background-image:radial-gradient(rgba(0,0,0,.65) .45px,transparent .55px);
+  background-size:4px 4px;
+}
+@keyframes fhAboutAtmosphere{
+  from{transform:translate3d(0,0,0) scale(1)}
+  to{transform:translate3d(-1.6vw,1vh,0) scale(1.06)}
+}
+@keyframes fhAboutContours{
+  from{transform:translate3d(0,0,0) scale(1.02)}
+  to{transform:translate3d(1vw,-1vh,0) scale(1.06)}
+}
+
+#fh-about .hero{
+  position:relative;
+  min-height:92vh;
+  min-height:92svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#1b1915;
+}
+#fh-about .hero-media,
+#fh-about .hero-media::before,
+#fh-about .hero-media::after{position:absolute;inset:0}
+#fh-about .hero-media{z-index:0}
+#fh-about .hero-slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transform:scale(1.045);
+  transition:opacity 1.45s ease,transform 8.5s ease;
+}
+#fh-about .hero-slide.active{opacity:1;transform:scale(1)}
+#fh-about .hero-media::before{
+  content:"";
+  z-index:1;
+  background:
+    linear-gradient(180deg,var(--overlay-a) 0%,rgba(20,18,16,.22) 42%,var(--overlay-b) 100%),
+    radial-gradient(circle at 50% 12%,rgba(255,255,255,.13),transparent 0 26%),
+    radial-gradient(circle at 86% 20%,var(--glow),transparent 0 23%);
+}
+#fh-about .hero-media::after{
+  content:"";
+  z-index:1;
+  background:linear-gradient(180deg,transparent 70%,var(--page-b) 100%);
+}
+#fh-about .hero-inner{
+  position:relative;
+  z-index:2;
+  width:min(1180px,calc(100% - var(--edge)*2));
+  padding:clamp(118px,15vh,164px) 0 clamp(58px,8vh,78px);
+  text-align:left;
+  color:var(--white);
+}
+#fh-about .hero-title-system{
+  width:min(1120px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1.06fr) minmax(280px,.58fr);
+  gap:clamp(20px,4vw,58px);
+  align-items:end;
+}
+#fh-about .crest{
+  display:grid;
+  place-items:center;
+  width:clamp(64px,6.2vw,84px);
+  height:clamp(64px,6.2vw,84px);
+  margin:0 0 22px;
+  border:1px solid rgba(255,250,243,.42);
+  background:rgba(255,255,255,.045);
+  backdrop-filter:blur(8px);
+  font-family:var(--serif);
+  font-size:clamp(23px,2.5vw,29px);
+  letter-spacing:-.06em;
+  text-transform:lowercase;
+}
+#fh-about .eyebrow{
+  margin:0 0 16px;
+  text-transform:uppercase;
+  letter-spacing:.23em;
+  font-size:11px;
+  font-weight:850;
+  color:rgba(255,250,243,.82);
+}
+#fh-about h1{
+  margin:0;
+  max-width:780px;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(48px,7.4vw,104px);
+  line-height:.90;
+  letter-spacing:-.065em;
+  text-wrap:balance;
+}
+#fh-about .hero-dynamic-card{
+  position:relative;
+  padding:22px 0 22px 24px;
+  border-left:1px solid rgba(255,250,243,.34);
+  color:#fffaf3;
+}
+#fh-about .hero-dynamic-card::before{
+  content:"";
+  position:absolute;
+  left:-1px;
+  top:0;
+  width:1px;
+  height:42px;
+  background:#fffaf3;
+  opacity:.82;
+}
+#fh-about .hero-dynamic-kicker{
+  margin:0 0 11px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:10px;
+  font-weight:850;
+  color:rgba(255,250,243,.70);
+}
+#fh-about .hero-dynamic-title{
+  margin:0 0 10px;
+  max-width:390px;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(25px,2.7vw,38px);
+  line-height:.98;
+  letter-spacing:-.045em;
+  color:#fffaf3;
+  text-wrap:balance;
+}
+#fh-about .hero-lead{
+  margin:0;
+  max-width:410px;
+  font-size:clamp(13px,1.05vw,15px);
+  line-height:1.62;
+  color:rgba(255,250,243,.80);
+}
+#fh-about .peekaboo{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  margin:clamp(34px,4vw,46px) auto 0;
+  color:rgba(255,250,243,.88);
+  width:100%;
+}
+#fh-about .peekaboo span{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-weight:850;
+}
+#fh-about .peek-line{
+  position:relative;
+  width:1px;
+  height:48px;
+  background:rgba(255,250,243,.40);
+  overflow:hidden;
+}
+#fh-about .peek-line::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:-18px;
+  height:18px;
+  background:#fff;
+  animation:peekDrop 1.75s ease-in-out infinite;
+}
+#fh-about .peekaboo b{
+  font-size:20px;
+  line-height:1;
+  font-weight:400;
+  animation:bounce 1.75s ease-in-out infinite;
+}
+@keyframes peekDrop{
+  0%{transform:translateY(0);opacity:0}
+  24%{opacity:1}
+  100%{transform:translateY(66px);opacity:0}
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(5px)}
+}
+
+#fh-about .section{
+  padding:clamp(78px,9vw,104px) var(--edge);
+  background:transparent;
+}
+#fh-about .section.alt{
+  background:linear-gradient(180deg,var(--section),rgba(255,255,255,.18));
+}
+#fh-about .container{
+  width:var(--container);
+  margin:0 auto;
+  min-width:0;
+}
+#fh-about .section-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(260px,.84fr);
+  gap:clamp(20px,3vw,34px);
+  align-items:end;
+  margin-bottom:clamp(26px,3vw,34px);
+}
+#fh-about .kicker{
+  margin:0 0 12px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-weight:850;
+  color:var(--clay-dark);
+}
+#fh-about h2{
+  margin:0;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(38px,5vw,76px);
+  line-height:.94;
+  letter-spacing:-.055em;
+  text-wrap:balance;
+}
+#fh-about h3{
+  margin:0 0 12px;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(30px,3.8vw,50px);
+  line-height:.96;
+  letter-spacing:-.05em;
+  text-wrap:balance;
+}
+#fh-about p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.72;
+  font-size:clamp(15px,1.25vw,17px);
+}
+
+#fh-about .history-editorial{
+  display:grid;
+  grid-template-columns:minmax(300px,.82fr) minmax(0,1.18fr);
+  gap:24px;
+  align-items:start;
+}
+#fh-about .history-image-stack{
+  position:sticky;
+  top:110px;
+  min-height:650px;
+  background:#d7cabc;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+#fh-about .history-image-stack img{
+  position:absolute;
+  object-fit:cover;
+  box-shadow:0 22px 50px rgba(0,0,0,.22);
+}
+#fh-about .history-main-img{
+  inset:0;
+  width:100%;
+  height:100%;
+  filter:brightness(.92) contrast(1.05);
+}
+#fh-about .history-small-img{
+  right:24px;
+  top:24px;
+  width:42%;
+  height:28%;
+  z-index:2;
+}
+#fh-about .history-quote{
+  position:absolute;
+  left:24px;
+  right:24px;
+  bottom:24px;
+  z-index:3;
+  padding:24px;
+  background:rgba(255,250,243,.92);
+  border:1px solid rgba(255,255,255,.52);
+}
+#fh-about .history-quote span{
+  display:block;
+  font-family:var(--serif);
+  font-size:46px;
+  line-height:.9;
+  color:var(--clay-dark);
+  letter-spacing:-.05em;
+  margin-bottom:10px;
+}
+#fh-about .history-quote p{
+  font-size:15px;
+  color:rgba(26,23,20,.70);
+}
+#fh-about .timeline{
+  display:grid;
+  gap:10px;
+}
+#fh-about .time-row{
+  position:relative;
+  display:grid;
+  grid-template-columns:120px minmax(0,1fr);
+  gap:20px;
+  background:var(--paper);
+  border:1px solid #e4d8ca;
+  padding:clamp(20px,2vw,24px);
+  overflow:hidden;
+}
+#fh-about .time-row::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:var(--clay);
+}
+#fh-about .year{
+  font-family:var(--serif);
+  font-size:36px;
+  color:var(--clay-dark);
+}
+#fh-about .time-row strong{
+  display:block;
+  margin-bottom:6px;
+}
+
+#fh-about .story-led-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+  gap:clamp(18px,2.2vw,28px);
+  align-items:stretch;
+}
+#fh-about .story-lead-panel{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:560px;
+  padding:clamp(28px,3.5vw,44px);
+  background:#2a241e;
+  color:var(--white);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+#fh-about .story-lead-panel::before{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border:1px solid rgba(255,250,243,.18);
+  pointer-events:none;
+}
+#fh-about .story-lead-panel p{color:rgba(255,250,243,.72)}
+#fh-about .story-lead-panel .kicker{color:rgba(255,250,243,.70)}
+#fh-about .story-lead-panel h3{
+  font-size:clamp(40px,5.2vw,70px);
+  max-width:560px;
+  color:#fffaf3;
+}
+#fh-about .story-proof-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:32px;
+  border-top:1px solid rgba(255,250,243,.18);
+  padding-top:20px;
+}
+#fh-about .story-proof-row strong{
+  display:block;
+  font-family:var(--serif);
+  font-size:clamp(30px,4vw,46px);
+  font-weight:400;
+  letter-spacing:-.05em;
+  color:#fffaf3;
+}
+#fh-about .story-proof-row span{
+  display:block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:rgba(255,250,243,.58);
+}
+#fh-about .story-photo-wall{
+  position:relative;
+  min-height:560px;
+  background:#d7cabc;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+#fh-about .story-photo-wall img{
+  position:absolute;
+  object-fit:cover;
+  box-shadow:0 24px 54px rgba(0,0,0,.20);
+}
+#fh-about .story-photo-main{
+  inset:0;
+  width:100%;
+  height:100%;
+}
+#fh-about .story-photo-small.one{
+  right:24px;
+  top:24px;
+  width:32%;
+  height:28%;
+}
+#fh-about .story-photo-small.two{
+  left:24px;
+  bottom:24px;
+  width:34%;
+  height:30%;
+}
+#fh-about .image-caption-card{
+  position:absolute;
+  right:24px;
+  bottom:24px;
+  z-index:2;
+  width:min(360px,calc(100% - 48px));
+  padding:20px;
+  background:rgba(255,250,243,.93);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 18px 42px rgba(0,0,0,.16);
+}
+#fh-about .image-caption-card p{font-size:14px}
+
+#fh-about .facts{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+#fh-about .fact{
+  position:relative;
+  background:var(--paper);
+  border:1px solid #e4d8ca;
+  padding:clamp(20px,2vw,24px);
+  min-height:170px;
+}
+#fh-about .fact::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:var(--clay);
+}
+#fh-about .fact strong{
+  display:block;
+  font-family:var(--serif);
+  font-size:clamp(28px,3vw,34px);
+  font-weight:400;
+  letter-spacing:-.04em;
+  margin-bottom:10px;
+  color:var(--clay-dark);
+}
+#fh-about .fact span{
+  display:block;
+  font-size:14px;
+  line-height:1.52;
+  color:var(--muted);
+}
+
+#fh-about .two-col{
+  display:grid;
+  grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  gap:clamp(18px,2vw,24px);
+  align-items:stretch;
+}
+#fh-about .panel{
+  position:relative;
+  background:var(--paper);
+  border:1px solid #e4d8ca;
+  padding:clamp(28px,3.5vw,40px);
+  box-shadow:var(--soft-shadow);
+  overflow:hidden;
+  min-width:0;
+}
+#fh-about .panel::after{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border:1px solid rgba(26,23,20,.08);
+  pointer-events:none;
+}
+#fh-about .image-stage{
+  position:relative;
+  min-height:0;
+  height:clamp(500px,45vw,580px);
+  background:#d8cbbd;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  min-width:0;
+}
+#fh-about .image-stage img{
+  position:absolute;
+  object-fit:cover;
+  box-shadow:0 26px 54px rgba(0,0,0,.18);
+}
+#fh-about .image-stage .main{
+  inset:0;
+  width:100%;
+  height:100%;
+}
+#fh-about .image-stage .float-one{
+  width:34%;
+  height:30%;
+  right:-2%;
+  top:10%;
+}
+#fh-about .image-stage .float-two{
+  width:34%;
+  height:28%;
+  left:-2%;
+  bottom:9%;
+}
+#fh-about .mini-card{
+  position:absolute;
+  z-index:2;
+  left:clamp(16px,2vw,22px);
+  bottom:clamp(16px,2vw,22px);
+  width:min(360px,calc(100% - 44px));
+  background:rgba(255,250,243,.93);
+  padding:clamp(16px,2vw,22px);
+  border:1px solid rgba(255,255,255,.58);
+}
+#fh-about .kitchen-options-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  margin-top:18px;
+}
+#fh-about .kitchen-option{
+  position:relative;
+  background:var(--paper);
+  border:1px solid #e4d8ca;
+  padding:clamp(20px,2vw,24px);
+  min-height:170px;
+  box-shadow:var(--soft-shadow);
+}
+#fh-about .kitchen-option::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:var(--clay);
+}
+#fh-about .kitchen-option strong{
+  display:block;
+  font-family:var(--serif);
+  font-size:clamp(28px,3vw,34px);
+  font-weight:400;
+  letter-spacing:-.04em;
+  margin-bottom:10px;
+  color:var(--clay-dark);
+}
+#fh-about .kitchen-option span{
+  display:block;
+  font-size:14px;
+  line-height:1.52;
+  color:var(--muted);
+}
+
+#fh-about .inquiry-card{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(280px,.5fr);
+  gap:24px;
+  align-items:center;
+}
+#fh-about .cta-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:22px;
+  padding:14px 20px;
+  background:var(--clay);
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  font-size:11px;
+  font-weight:850;
+  border:0;
+}
+#fh-about .contact-line{
+  padding:16px 0;
+  border-top:1px solid #ded1c2;
+}
+#fh-about .contact-line span{
+  display:block;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-weight:850;
+  color:var(--clay-dark);
+  margin-bottom:5px;
+}
+#fh-about .contact-line strong{
+  display:block;
+  font-weight:600;
+  overflow-wrap:anywhere;
+}
+
+#fh-about .preFade{
+  opacity:0;
+  transition:opacity .72s ease var(--d,0s);
+}
+#fh-about .preFade.fadeIn{opacity:1}
+#fh-about .preSlide{
+  opacity:0;
+  transform:translateY(32px);
+  transition:opacity .72s ease var(--d,0s),transform .72s cubic-bezier(.2,.8,.2,1) var(--d,0s);
+}
+#fh-about .preSlide.slideIn{
+  opacity:1;
+  transform:translateY(0);
+}
+#fh-about .preScale{
+  opacity:0;
+  transform:scale(.965);
+  transition:opacity .78s ease var(--d,0s),transform .78s cubic-bezier(.2,.8,.2,1) var(--d,0s);
+}
+#fh-about .preScale.scaleIn{
+  opacity:1;
+  transform:scale(1);
+}
+
+@media(max-width:980px){
+  #fh-about .kitchen-options-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #fh-about .hero-title-system,
+  #fh-about .story-led-grid,
+  #fh-about .history-editorial,
+  #fh-about .two-col,
+  #fh-about .inquiry-card{grid-template-columns:1fr}
+  #fh-about .hero-title-system{text-align:center}
+  #fh-about .crest{margin-left:auto;margin-right:auto}
+  #fh-about h1{margin-left:auto;margin-right:auto}
+  #fh-about .hero-dynamic-card{
+    width:min(620px,100%);
+    margin:0 auto;
+    padding:18px 20px;
+    border-left:0;
+    border-top:1px solid rgba(255,250,243,.30);
+    text-align:center;
+    background:rgba(255,250,243,.08);
+    backdrop-filter:blur(10px);
+  }
+  #fh-about .hero-dynamic-card::before{
+    left:50%;
+    top:-1px;
+    width:60px;
+    height:1px;
+    transform:translateX(-50%);
+  }
+  #fh-about .history-image-stack{
+    position:relative;
+    top:0;
+    min-height:520px;
+  }
+  #fh-about .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  #fh-about .kitchen-options-grid{grid-template-columns:1fr}
+  #fh-about{--edge:12px}
+  #fh-about .hero{
+    align-items:flex-start;
+    min-height:auto;
+  }
+  #fh-about .hero-inner{
+    width:calc(100% - 24px);
+    padding-top:104px;
+    padding-bottom:58px;
+  }
+  #fh-about h1{
+    font-size:clamp(40px,13.2vw,62px);
+    line-height:.92;
+  }
+  #fh-about .section{padding:68px 16px}
+  #fh-about .story-lead-panel{
+    min-height:0;
+    padding:28px;
+  }
+  #fh-about .story-proof-row,
+  #fh-about .facts{grid-template-columns:1fr}
+  #fh-about .story-photo-wall{min-height:480px}
+  #fh-about .story-photo-small.one{
+    width:42%;
+    height:22%;
+    right:14px;
+    top:14px;
+  }
+  #fh-about .story-photo-small.two{
+    width:42%;
+    height:22%;
+    left:14px;
+    bottom:110px;
+  }
+  #fh-about .image-caption-card{
+    left:16px;
+    right:16px;
+    bottom:16px;
+    width:auto;
+  }
+  #fh-about .history-image-stack{min-height:470px}
+  #fh-about .history-small-img{
+    width:46%;
+    height:22%;
+    right:14px;
+    top:14px;
+  }
+  #fh-about .history-quote{
+    left:16px;
+    right:16px;
+    bottom:16px;
+    padding:18px;
+  }
+  #fh-about .time-row{
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+  #fh-about .year{font-size:32px}
+  #fh-about .image-stage{height:clamp(420px,112vw,540px)}
+  #fh-about .image-stage .float-one{
+    width:42%;
+    height:23%;
+    right:10px;
+    top:14px;
+  }
+  #fh-about .image-stage .float-two{
+    width:42%;
+    height:23%;
+    left:10px;
+    bottom:96px;
+  }
+  #fh-about .mini-card{
+    width:calc(100% - 32px);
+    left:16px;
+    bottom:16px;
+    padding:16px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #fh-about *,
+  #fh-about *::before,
+  #fh-about *::after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+}
+</style>
+
+<div id="fh-about" class="fh-about-squarespace" data-lang="en" data-page="about">
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <section class="hero" id="top">
+    <div class="hero-media" id="aboutHeroMedia" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <div class="hero-title-system preSlide" style="--d:.18s">
+        <div class="hero-static-title">
+          <div class="crest preScale" style="--d:.10s">fh</div>
+          <p class="eyebrow preFade" style="--d:.14s" data-i18n="hero.eyebrow">About Fletschhorn · Saas-Fee</p>
+          <h1 data-i18n="hero.title">A private mountain house with a living story.</h1>
+        </div>
+
+        <aside class="hero-dynamic-card preFade" aria-live="polite" style="--d:.26s">
+          <p class="hero-dynamic-kicker" id="aboutHeroEyebrow">Private Swiss chalet · Saas-Fee</p>
+          <h2 class="hero-dynamic-title" id="aboutHeroTitle">More than a place to sleep.</h2>
+          <p class="hero-lead" id="aboutHeroLead">Fletschhorn carries more than a century of alpine hospitality, culinary memory, and mountain life — now shaped into an exclusive whole-property stay for groups.</p>
+        </aside>
+      </div>
+
+      <a class="peekaboo preFade" style="--d:.48s" href="#heritage" aria-label="Scroll to the history section">
+        <span data-i18n="hero.scroll">Begin with the history</span>
+        <div class="peek-line"></div>
+        <b>⌄</b>
+      </a>
+    </div>
+  </section>
+
+  <main>
+    <section class="section alt" id="heritage">
+      <div class="container section-head">
+        <div class="preSlide">
+          <p class="kicker" data-i18n="heritage.kicker">The heritage</p>
+          <h2 data-i18n="heritage.title">A Saas-Fee address with more than a century behind it.</h2>
+        </div>
+        <p class="preFade" style="--d:.12s" data-i18n="heritage.lead">The depth of Fletschhorn comes from the life of the place: early mountain tourism, the growth of Saas-Fee, culinary ambition, wine culture, and generations of guests drawn to this quiet position above the village.</p>
+      </div>
+
+      <div class="container history-editorial">
+        <div class="history-image-stack preScale" style="--d:.08s">
+          <img class="history-main-img" data-guesty-img="1" src="https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg" alt="Historic mountain hospitality setting in Saas-Fee" />
+          <img class="history-small-img" data-guesty-img="46" src="https://assets.guesty.com/image/upload/v1769382057/production/686c48ada4bbacd7a82a4f83/nww8q4ksbnfcpgzqdvbo.jpg" alt="Fletschhorn heritage detail" />
+          <div class="history-quote">
+            <span>1906</span>
+            <p data-i18n="heritage.quote">A mountain story that began with the first travellers to Saas-Fee.</p>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="time-row preSlide" style="--d:.04s">
+            <div class="year">1906</div>
+            <div>
+              <strong data-i18n="timeline.1906.title">The story begins with Saas-Fee’s early travellers.</strong>
+              <p data-i18n="timeline.1906.text">A family builds mountain inns in Saas-Fee to welcome the first tourists coming to the village. This is where the Fletschhorn story starts.</p>
+            </div>
+          </div>
+
+          <div class="time-row preSlide" style="--d:.10s">
+            <div class="year">1951</div>
+            <div>
+              <strong data-i18n="timeline.1951.title">Saas-Fee opens further to the world.</strong>
+              <p data-i18n="timeline.1951.text">The first car reaches Saas-Fee, and the number of guests grows as the village develops into an international ski destination.</p>
+            </div>
+          </div>
+
+          <div class="time-row preSlide" style="--d:.16s">
+            <div class="year">1970s</div>
+            <div>
+              <strong data-i18n="timeline.1970.title">The Dütsch family grows the property.</strong>
+              <p data-i18n="timeline.1970.text">Fletschhorn develops into a place with a strong hospitality and culinary reputation, expanding toward its current size and presence.</p>
+            </div>
+          </div>
+
+          <div class="time-row preSlide" style="--d:.22s">
+            <div class="year">1980s</div>
+            <div>
+              <strong data-i18n="timeline.1980.title">Markus Neff shapes a mountain destination.</strong>
+              <p data-i18n="timeline.1980.text">A young chef joins the restaurant and helps turn Fletschhorn into a distinctive address high in the mountains.</p>
+            </div>
+          </div>
+
+          <div class="time-row preSlide" style="--d:.28s">
+            <div class="year">1994</div>
+            <div>
+              <strong data-i18n="timeline.1994.title">Irma Dütsch enters Swiss culinary history.</strong>
+              <p data-i18n="timeline.1994.text">Irma Dütsch, owner and chef of the property, becomes the first Swiss woman to receive a Michelin star.</p>
+            </div>
+          </div>
+
+          <div class="time-row preSlide" style="--d:.34s">
+            <div class="year">Today</div>
+            <div>
+              <strong data-i18n="timeline.today.title">The story continues through private gatherings.</strong>
+              <p data-i18n="timeline.today.text">The house now carries its history into a more intimate form: one group at a time, surrounded by forest, mountain views, and the quiet of Saas-Fee.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="house">
+      <div class="container section-head">
+        <div class="preSlide">
+          <p class="kicker" data-i18n="house.kicker">The house today</p>
+          <h2 data-i18n="house.title">One alpine address, entirely held for your group.</h2>
+        </div>
+        <p class="preFade" style="--d:.12s" data-i18n="house.lead">Fletschhorn is for people who want privacy without losing the scale and comfort of a larger property. The rooms, shared areas, terraces, sauna, kitchen, and surrounding forest work together as one complete private alpine setting.</p>
+      </div>
+
+      <div class="container story-led-grid">
+        <article class="story-lead-panel preSlide" style="--d:.04s">
+          <div class="story-lead-copy">
+            <p class="kicker" data-i18n="house.difference.kicker">What makes it different</p>
+            <h3 data-i18n="house.difference.title">The experience begins when the group takes over the house.</h3>
+            <p data-i18n="house.difference.text">Families, retreats, ski groups, wedding weekends, and private gatherings can settle in with the feeling of having their own mountain base above Saas-Fee. There is space to gather, space to step away, and enough structure to make the stay feel considered from arrival to departure.</p>
+          </div>
+
+          <div class="story-proof-row">
+            <div><strong>48</strong><span data-i18n="house.stat.sleeping">Sleeping places</span></div>
+            <div><strong>1</strong><span data-i18n="house.stat.group">Group at a time</span></div>
+            <div><strong>360°</strong><span data-i18n="house.stat.alpine">Alpine setting</span></div>
+          </div>
+        </article>
+
+        <div class="story-photo-wall preScale" style="--d:.12s">
+          <img class="story-photo-main" data-guesty-img="0" src="https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg" alt="Fletschhorn private Swiss chalet above Saas-Fee" />
+          <img class="story-photo-small one" data-guesty-img="48" src="https://assets.guesty.com/image/upload/v1769382042/production/686c48ada4bbacd7a82a4f83/mjjhmydnya1oyzd4scz3.jpg" alt="Fletschhorn room detail" />
+          <img class="story-photo-small two" data-guesty-img="56" src="https://assets.guesty.com/image/upload/v1769382038/production/686c48ada4bbacd7a82a4f83/pifyveloe4hifyue8kfn.jpg" alt="Fletschhorn interior detail" />
+          <div class="image-caption-card">
+            <p class="kicker" data-i18n="house.caption.kicker">A complete stay</p>
+            <p data-i18n="house.caption.text">Sleeping spaces, gathering rooms, terraces, kitchen, sauna, and mountain access — designed to support the full rhythm of a private group stay.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="now">
+      <div class="container section-head">
+        <div class="preSlide">
+          <p class="kicker" data-i18n="who.kicker">Who it is for</p>
+          <h2 data-i18n="who.title">Private, flexible, and made for gathering.</h2>
+        </div>
+        <p class="preFade" style="--d:.12s" data-i18n="who.lead">The house is suited to groups who want more than accommodation. It gives them a setting: a place to arrive together, eat together, rest, celebrate, work, ski, hike, and return to the same private alpine world.</p>
+      </div>
+
+      <div class="container facts">
+        <div class="fact preSlide" style="--d:.04s"><strong data-i18n="who.families.title">Families</strong><span data-i18n="who.families.text">A private alpine house for reunions, holidays, ski weeks, and multi-generational stays.</span></div>
+        <div class="fact preSlide" style="--d:.10s"><strong data-i18n="who.retreats.title">Retreats</strong><span data-i18n="who.retreats.text">Space for teams, creative groups, workshops, wellness formats, and focused time away.</span></div>
+        <div class="fact preSlide" style="--d:.16s"><strong data-i18n="who.weddings.title">Weddings</strong><span data-i18n="who.weddings.text">A mountain-house weekend shaped around the people staying, celebrating, and gathering together.</span></div>
+        <div class="fact preSlide" style="--d:.22s"><strong data-i18n="who.events.title">Events</strong><span data-i18n="who.events.text">Private celebrations and gatherings shaped around the season, group size, and food plan.</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="kitchen">
+      <div class="container section-head">
+        <div class="preSlide">
+          <p class="kicker" data-i18n="kitchen.kicker">The private kitchen concept</p>
+          <h2 data-i18n="kitchen.title">A professional kitchen, available to use your way.</h2>
+        </div>
+        <p class="preFade" style="--d:.12s" data-i18n="kitchen.lead">At the heart of Fletschhorn is a professional kitchen for groups who want freedom around food. Use it independently, bring your own team, or ask us to help arrange a private chef or caterer for your event.</p>
+      </div>
+
+      <div class="container two-col">
+        <div class="panel preSlide">
+          <p class="kicker" data-i18n="kitchen.panel.kicker">Food, your way</p>
+          <h2 data-i18n="kitchen.panel.title">Your kitchen for the stay — with support available on request.</h2>
+          <p data-i18n="kitchen.panel.p1">The chalet provides the space and the professional kitchen. Your group can cook for itself, bring its own chef, or request help arranging one of our available chefs or catering partners.</p>
+          <br>
+          <p data-i18n="kitchen.panel.p2">Chef and catering services are optional and quoted separately. This keeps the experience flexible: simple self-catering for some groups, a private chef for others, catering for events, or a mix depending on the schedule.</p>
+          <br>
+          <p data-i18n="kitchen.panel.p3">The food experience belongs to your group, your budget, your event, and the atmosphere you want to create.</p>
+        </div>
+
+        <div class="image-stage preScale" style="--d:.12s">
+          <img class="main" src="https://ik.imagekit.io/Redberry/Kitchen%20(3).png" alt="Private kitchen at Fletschhorn" />
+          <img class="float-one preSlide" style="--d:.20s" src="https://ik.imagekit.io/Redberry/Kitchen%20(1).png" alt="Kitchen detail at Fletschhorn" />
+          <img class="float-two preSlide" style="--d:.28s" src="https://ik.imagekit.io/Redberry/Kitchen%20(5).png" alt="Kitchen preparation area at Fletschhorn" />
+          <div class="mini-card preFade" style="--d:.36s">
+            <p class="kicker" data-i18n="kitchen.card.kicker">Flexible food planning</p>
+            <p data-i18n="kitchen.card.text">Self-catering is part of the stay. Chefs and caterers can be arranged on request for an additional fee.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container kitchen-options-grid">
+        <div class="kitchen-option preSlide" style="--d:.04s"><strong data-i18n="kitchen.option1.title">Use it yourself</strong><span data-i18n="kitchen.option1.text">The kitchen is available for groups who want to self-cater and keep meals simple, flexible, and private.</span></div>
+        <div class="kitchen-option preSlide" style="--d:.10s"><strong data-i18n="kitchen.option2.title">Bring your own chef</strong><span data-i18n="kitchen.option2.text">Your group may bring its own chef or food team, depending on the format of the stay.</span></div>
+        <div class="kitchen-option preSlide" style="--d:.16s"><strong data-i18n="kitchen.option3.title">Ask us to arrange someone</strong><span data-i18n="kitchen.option3.text">We can help connect you with available chefs or caterers for events, retreats, and group meals.</span></div>
+        <div class="kitchen-option preSlide" style="--d:.22s"><strong data-i18n="kitchen.option4.title">Additional fee</strong><span data-i18n="kitchen.option4.text">Chef and catering services are optional extras and are quoted separately from the chalet rental.</span></div>
+      </div>
+    </section>
+
+    <section class="section alt" id="inquiry">
+      <div class="container inquiry-card">
+        <div class="panel preSlide">
+          <p class="kicker" data-i18n="inquiry.kicker">Begin your group stay</p>
+          <h2 data-i18n="inquiry.title">Tell us what kind of stay you want to build.</h2>
+          <p data-i18n="inquiry.text">Share your dates, guest count, and the type of stay you are planning. The team can help you understand the best setup for the house, including room allocation, kitchen use, sauna, arrival, and direct booking options.</p>
+          <a class="cta-button" href="/contact-booking" data-i18n="inquiry.cta">Send an Inquiry</a>
+        </div>
+
+        <div class="panel preSlide" style="--d:.12s">
+          <div class="contact-line"><span data-i18n="contact.property.label">Property</span><strong data-i18n="contact.property.value">Fletschhorn Private Swiss Chalet</strong></div>
+          <div class="contact-line"><span data-i18n="contact.location.label">Location</span><strong data-i18n="contact.location.value">Saas-Fee, Switzerland</strong></div>
+          <div class="contact-line"><span data-i18n="contact.direct.label">Direct note</span><strong data-i18n="contact.direct.value">Best Rates Guaranteed when Booking Direct</strong></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  const WORKER_URL = "https://saas-fee.moshe-cohen-h1.workers.dev";
+
+  const FH_CONFIG = {
+    workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
+    cloudflarePropertyEndpoint: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/api/listing",
+    cloudflareInquiryEndpoint: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/api/inquiry",
+    bookingWorkerUrl: WORKER_URL,
+    propertyId: "6968339ab7d735001ca015ba"
+  };
+
+  window.FH_WORKER_BASE = FH_CONFIG.workerBase;
+  window.FH_WORKER_ENDPOINT = FH_CONFIG.workerBase;
+  window.FH_INQUIRY_ENDPOINT = FH_CONFIG.cloudflareInquiryEndpoint;
+  window.CLOUDFLARE_INQUIRY_ENDPOINT = FH_CONFIG.cloudflareInquiryEndpoint;
+  window.FH_BOOKING_WORKER_URL = WORKER_URL;
+
+  const FH_LANGUAGES = ["en","fr","de","ru"];
+  const FH_LANG_LABELS = {
+    en:"English",
+    fr:"Français",
+    de:"Deutsch",
+    ru:"Русский"
+  };
+
+  const fallbackImages = [
+    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
+    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
+    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg",
+    "https://assets.guesty.com/image/upload/v1769381683/production/686c48ada4bbacd7a82a4f83/gdkntjfg2shhfc8sjsox.jpg",
+    "https://assets.guesty.com/image/upload/v1769381684/production/686c48ada4bbacd7a82a4f83/kzwdncmnkciaw508jnk7.jpg",
+    "https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg"
+  ];
+
+  const heroCopyByLang = {
+    en: [
+      {eyebrow:"Private Swiss chalet · Saas-Fee",title:"More than a place to sleep.",lead:"Fletschhorn carries more than a century of alpine hospitality, culinary memory, and mountain life — now shaped into an exclusive whole-property stay for groups."},
+      {eyebrow:"A house with history",title:"The past gives the chalet its depth.",lead:"From early mountain inns to a celebrated culinary chapter, the property holds a story that cannot be created from scratch."},
+      {eyebrow:"New private concept",title:"One group, one house, one rhythm.",lead:"The rooms, kitchen, shared spaces, terraces, sauna, and mountain setting come together as one private alpine base."},
+      {eyebrow:"Culinary memory",title:"A food story, reimagined privately.",lead:"Fletschhorn’s culinary past now lives through a flexible private kitchen concept for exclusive group stays."}
+    ],
+    fr: [
+      {eyebrow:"Chalet suisse privé · Saas-Fee",title:"Bien plus qu’un lieu où dormir.",lead:"Fletschhorn réunit plus d’un siècle d’hospitalité alpine, de mémoire culinaire et de vie en montagne — aujourd’hui pensé comme une propriété entière réservée à un seul groupe."},
+      {eyebrow:"Une maison avec une histoire",title:"Le passé donne sa profondeur au chalet.",lead:"Des premières auberges de montagne à un chapitre culinaire reconnu, la propriété porte une histoire impossible à inventer."},
+      {eyebrow:"Nouveau concept privé",title:"Un groupe, une maison, un rythme.",lead:"Les chambres, la cuisine, les espaces communs, les terrasses, le sauna et le paysage alpin se rassemblent en une seule base privée en montagne."},
+      {eyebrow:"Mémoire culinaire",title:"Une histoire de cuisine, réimaginée en privé.",lead:"Le passé culinaire de Fletschhorn se prolonge aujourd’hui dans un concept de cuisine privée, flexible, pour des séjours de groupe exclusifs."}
+    ],
+    de: [
+      {eyebrow:"Privates Schweizer Chalet · Saas-Fee",title:"Mehr als ein Ort zum Schlafen.",lead:"Fletschhorn verbindet mehr als ein Jahrhundert alpine Gastlichkeit, kulinarische Erinnerung und Bergleben — heute als exklusives Ganzhaus-Erlebnis für Gruppen."},
+      {eyebrow:"Ein Haus mit Geschichte",title:"Die Vergangenheit gibt dem Chalet seine Tiefe.",lead:"Von den frühen Berggasthäusern bis zu einem gefeierten kulinarischen Kapitel trägt das Haus eine Geschichte, die man nicht neu erfinden kann."},
+      {eyebrow:"Neues privates Konzept",title:"Eine Gruppe, ein Haus, ein Rhythmus.",lead:"Zimmer, Küche, Gemeinschaftsräume, Terrassen, Sauna und Berglage verbinden sich zu einem privaten alpinen Zuhause."},
+      {eyebrow:"Kulinarische Erinnerung",title:"Eine Food-Geschichte, privat neu gedacht.",lead:"Die kulinarische Vergangenheit von Fletschhorn lebt heute in einem flexiblen privaten Küchenkonzept für exklusive Gruppenaufenthalte weiter."}
+    ],
+    ru: [
+      {eyebrow:"Частное швейцарское шале · Саас-Фе",title:"Больше, чем место для ночлега.",lead:"Fletschhorn объединяет более века альпийского гостеприимства, кулинарной памяти и горной жизни — теперь как эксклюзивное проживание целым домом для одной группы."},
+      {eyebrow:"Дом с историей",title:"Прошлое придает шале глубину.",lead:"От первых горных постоялых дворов до знаменитой кулинарной главы — у этого места есть история, которую невозможно создать с нуля."},
+      {eyebrow:"Новая частная концепция",title:"Одна группа, один дом, один ритм.",lead:"Комнаты, кухня, общие пространства, террасы, сауна и горное окружение складываются в одну частную альпийскую базу."},
+      {eyebrow:"Кулинарная память",title:"История кухни, переосмысленная в частном формате.",lead:"Кулинарное прошлое Fletschhorn сегодня живет в гибкой концепции частной кухни для эксклюзивных групповых проживаний."}
+    ]
+  };
+
+  const I18N = {
+    en: {
+      "hero.eyebrow":"About Fletschhorn · Saas-Fee",
+      "hero.title":"A private mountain house with a living story.",
+      "hero.scroll":"Begin with the history",
+
+      "heritage.kicker":"The heritage",
+      "heritage.title":"A Saas-Fee address with more than a century behind it.",
+      "heritage.lead":"The depth of Fletschhorn comes from the life of the place: early mountain tourism, the growth of Saas-Fee, culinary ambition, wine culture, and generations of guests drawn to this quiet position above the village.",
+      "heritage.quote":"A mountain story that began with the first travellers to Saas-Fee.",
+
+      "timeline.1906.title":"The story begins with Saas-Fee’s early travellers.",
+      "timeline.1906.text":"A family builds mountain inns in Saas-Fee to welcome the first tourists coming to the village. This is where the Fletschhorn story starts.",
+      "timeline.1951.title":"Saas-Fee opens further to the world.",
+      "timeline.1951.text":"The first car reaches Saas-Fee, and the number of guests grows as the village develops into an international ski destination.",
+      "timeline.1970.title":"The Dütsch family grows the property.",
+      "timeline.1970.text":"Fletschhorn develops into a place with a strong hospitality and culinary reputation, expanding toward its current size and presence.",
+      "timeline.1980.title":"Markus Neff shapes a mountain destination.",
+      "timeline.1980.text":"A young chef joins the restaurant and helps turn Fletschhorn into a distinctive address high in the mountains.",
+      "timeline.1994.title":"Irma Dütsch enters Swiss culinary history.",
+      "timeline.1994.text":"Irma Dütsch, owner and chef of the property, becomes the first Swiss woman to receive a Michelin star.",
+      "timeline.today.title":"The story continues through private gatherings.",
+      "timeline.today.text":"The house now carries its history into a more intimate form: one group at a time, surrounded by forest, mountain views, and the quiet of Saas-Fee.",
+
+      "house.kicker":"The house today",
+      "house.title":"One alpine address, entirely held for your group.",
+      "house.lead":"Fletschhorn is for people who want privacy without losing the scale and comfort of a larger property. The rooms, shared areas, terraces, sauna, kitchen, and surrounding forest work together as one complete private alpine setting.",
+      "house.difference.kicker":"What makes it different",
+      "house.difference.title":"The experience begins when the group takes over the house.",
+      "house.difference.text":"Families, retreats, ski groups, wedding weekends, and private gatherings can settle in with the feeling of having their own mountain base above Saas-Fee. There is space to gather, space to step away, and enough structure to make the stay feel considered from arrival to departure.",
+      "house.stat.sleeping":"Sleeping places",
+      "house.stat.group":"Group at a time",
+      "house.stat.alpine":"Alpine setting",
+      "house.caption.kicker":"A complete stay",
+      "house.caption.text":"Sleeping spaces, gathering rooms, terraces, kitchen, sauna, and mountain access — designed to support the full rhythm of a private group stay.",
+
+      "who.kicker":"Who it is for",
+      "who.title":"Private, flexible, and made for gathering.",
+      "who.lead":"The house is suited to groups who want more than accommodation. It gives them a setting: a place to arrive together, eat together, rest, celebrate, work, ski, hike, and return to the same private alpine world.",
+      "who.families.title":"Families",
+      "who.families.text":"A private alpine house for reunions, holidays, ski weeks, and multi-generational stays.",
+      "who.retreats.title":"Retreats",
+      "who.retreats.text":"Space for teams, creative groups, workshops, wellness formats, and focused time away.",
+      "who.weddings.title":"Weddings",
+      "who.weddings.text":"A mountain-house weekend shaped around the people staying, celebrating, and gathering together.",
+      "who.events.title":"Events",
+      "who.events.text":"Private celebrations and gatherings shaped around the season, group size, and food plan.",
+
+      "kitchen.kicker":"The private kitchen concept",
+      "kitchen.title":"A professional kitchen, available to use your way.",
+      "kitchen.lead":"At the heart of Fletschhorn is a professional kitchen for groups who want freedom around food. Use it independently, bring your own team, or ask us to help arrange a private chef or caterer for your event.",
+      "kitchen.panel.kicker":"Food, your way",
+      "kitchen.panel.title":"Your kitchen for the stay — with support available on request.",
+      "kitchen.panel.p1":"The chalet provides the space and the professional kitchen. Your group can cook for itself, bring its own chef, or request help arranging one of our available chefs or catering partners.",
+      "kitchen.panel.p2":"Chef and catering services are optional and quoted separately. This keeps the experience flexible: simple self-catering for some groups, a private chef for others, catering for events, or a mix depending on the schedule.",
+      "kitchen.panel.p3":"The food experience belongs to your group, your budget, your event, and the atmosphere you want to create.",
+      "kitchen.card.kicker":"Flexible food planning",
+      "kitchen.card.text":"Self-catering is part of the stay. Chefs and caterers can be arranged on request for an additional fee.",
+      "kitchen.option1.title":"Use it yourself",
+      "kitchen.option1.text":"The kitchen is available for groups who want to self-cater and keep meals simple, flexible, and private.",
+      "kitchen.option2.title":"Bring your own chef",
+      "kitchen.option2.text":"Your group may bring its own chef or food team, depending on the format of the stay.",
+      "kitchen.option3.title":"Ask us to arrange someone",
+      "kitchen.option3.text":"We can help connect you with available chefs or caterers for events, retreats, and group meals.",
+      "kitchen.option4.title":"Additional fee",
+      "kitchen.option4.text":"Chef and catering services are optional extras and are quoted separately from the chalet rental.",
+
+      "inquiry.kicker":"Begin your group stay",
+      "inquiry.title":"Tell us what kind of stay you want to build.",
+      "inquiry.text":"Share your dates, guest count, and the type of stay you are planning. The team can help you understand the best setup for the house, including room allocation, kitchen use, sauna, arrival, and direct booking options.",
+      "inquiry.cta":"Send an Inquiry",
+
+      "contact.property.label":"Property",
+      "contact.property.value":"Fletschhorn Private Swiss Chalet",
+      "contact.location.label":"Location",
+      "contact.location.value":"Saas-Fee, Switzerland",
+      "contact.direct.label":"Direct note",
+      "contact.direct.value":"Best Rates Guaranteed when Booking Direct"
+    },
+
+    fr: {
+      "hero.eyebrow":"À propos de Fletschhorn · Saas-Fee",
+      "hero.title":"Une maison de montagne privée, avec une histoire vivante.",
+      "hero.scroll":"Commencer par l’histoire",
+
+      "heritage.kicker":"L’héritage",
+      "heritage.title":"Une adresse de Saas-Fee avec plus d’un siècle d’histoire.",
+      "heritage.lead":"La profondeur de Fletschhorn vient de la vie du lieu : les débuts du tourisme alpin, le développement de Saas-Fee, l’ambition culinaire, la culture du vin et les générations de voyageurs attirés par cette position calme au-dessus du village.",
+      "heritage.quote":"Une histoire de montagne qui commence avec les premiers voyageurs de Saas-Fee.",
+
+      "timeline.1906.title":"L’histoire commence avec les premiers voyageurs de Saas-Fee.",
+      "timeline.1906.text":"Une famille construit des auberges de montagne à Saas-Fee pour accueillir les premiers touristes arrivant au village. C’est là que commence l’histoire de Fletschhorn.",
+      "timeline.1951.title":"Saas-Fee s’ouvre davantage au monde.",
+      "timeline.1951.text":"La première voiture atteint Saas-Fee, et le nombre de visiteurs augmente tandis que le village devient progressivement une destination de ski internationale.",
+      "timeline.1970.title":"La famille Dütsch développe la propriété.",
+      "timeline.1970.text":"Fletschhorn devient une adresse reconnue pour son hospitalité et sa réputation culinaire, tout en évoluant vers sa taille et sa présence actuelles.",
+      "timeline.1980.title":"Markus Neff façonne une destination de montagne.",
+      "timeline.1980.text":"Un jeune chef rejoint le restaurant et contribue à faire de Fletschhorn une adresse singulière, haut dans les montagnes.",
+      "timeline.1994.title":"Irma Dütsch entre dans l’histoire culinaire suisse.",
+      "timeline.1994.text":"Irma Dütsch, propriétaire et cheffe de la maison, devient la première femme suisse à recevoir une étoile Michelin.",
+      "timeline.today.title":"L’histoire continue à travers les rassemblements privés.",
+      "timeline.today.text":"La maison porte aujourd’hui son histoire dans une forme plus intime : un seul groupe à la fois, entouré par la forêt, les vues de montagne et le calme de Saas-Fee.",
+
+      "house.kicker":"La maison aujourd’hui",
+      "house.title":"Une adresse alpine entièrement réservée à votre groupe.",
+      "house.lead":"Fletschhorn s’adresse aux groupes qui veulent de l’intimité sans perdre l’échelle et le confort d’une grande propriété. Les chambres, les espaces communs, les terrasses, le sauna, la cuisine et la forêt environnante forment un cadre alpin privé complet.",
+      "house.difference.kicker":"Ce qui le rend différent",
+      "house.difference.title":"L’expérience commence lorsque le groupe prend possession de la maison.",
+      "house.difference.text":"Familles, retraites, groupes de ski, week-ends de mariage et rassemblements privés peuvent s’installer avec le sentiment d’avoir leur propre base de montagne au-dessus de Saas-Fee. Il y a de l’espace pour se réunir, de l’espace pour respirer, et assez de structure pour que le séjour semble pensé du début à la fin.",
+      "house.stat.sleeping":"Couchages",
+      "house.stat.group":"Groupe à la fois",
+      "house.stat.alpine":"Cadre alpin",
+      "house.caption.kicker":"Un séjour complet",
+      "house.caption.text":"Chambres, espaces de réunion, terrasses, cuisine, sauna et accès à la montagne — pensés pour soutenir tout le rythme d’un séjour de groupe privé.",
+
+      "who.kicker":"Pour qui",
+      "who.title":"Privé, flexible et pensé pour se retrouver.",
+      "who.lead":"La maison convient aux groupes qui veulent plus qu’un hébergement. Elle leur donne un cadre : un lieu pour arriver ensemble, manger ensemble, se reposer, célébrer, travailler, skier, marcher, puis revenir au même monde alpin privé.",
+      "who.families.title":"Familles",
+      "who.families.text":"Une maison alpine privée pour les retrouvailles, les vacances, les semaines de ski et les séjours intergénérationnels.",
+      "who.retreats.title":"Retraites",
+      "who.retreats.text":"Un espace pour les équipes, les groupes créatifs, les ateliers, les formats bien-être et les temps de concentration.",
+      "who.weddings.title":"Mariages",
+      "who.weddings.text":"Un week-end en maison de montagne façonné autour des personnes qui séjournent, célèbrent et se retrouvent ensemble.",
+      "who.events.title":"Événements",
+      "who.events.text":"Des célébrations privées et des rassemblements adaptés à la saison, à la taille du groupe et au plan culinaire.",
+
+      "kitchen.kicker":"Le concept de cuisine privée",
+      "kitchen.title":"Une cuisine professionnelle, disponible selon votre manière de vivre le séjour.",
+      "kitchen.lead":"Au cœur de Fletschhorn se trouve une cuisine professionnelle pour les groupes qui veulent de la liberté autour des repas. Utilisez-la en autonomie, venez avec votre propre équipe, ou demandez-nous de vous aider à organiser un chef privé ou un traiteur.",
+      "kitchen.panel.kicker":"La cuisine, à votre manière",
+      "kitchen.panel.title":"Votre cuisine pour le séjour — avec un soutien disponible sur demande.",
+      "kitchen.panel.p1":"Le chalet fournit l’espace et la cuisine professionnelle. Votre groupe peut cuisiner lui-même, venir avec son propre chef, ou demander de l’aide pour organiser un chef ou un traiteur disponible.",
+      "kitchen.panel.p2":"Les services de chef et de traiteur sont optionnels et devisés séparément. Cela garde l’expérience flexible : autonomie simple pour certains groupes, chef privé pour d’autres, traiteur pour les événements, ou un mélange selon le programme.",
+      "kitchen.panel.p3":"L’expérience culinaire appartient à votre groupe, à votre budget, à votre événement et à l’atmosphère que vous souhaitez créer.",
+      "kitchen.card.kicker":"Organisation flexible des repas",
+      "kitchen.card.text":"L’autonomie fait partie du séjour. Des chefs et traiteurs peuvent être organisés sur demande, avec supplément.",
+      "kitchen.option1.title":"L’utiliser vous-même",
+      "kitchen.option1.text":"La cuisine est disponible pour les groupes qui souhaitent cuisiner eux-mêmes et garder des repas simples, flexibles et privés.",
+      "kitchen.option2.title":"Venir avec votre chef",
+      "kitchen.option2.text":"Votre groupe peut venir avec son propre chef ou son équipe cuisine, selon le format du séjour.",
+      "kitchen.option3.title":"Nous demander de l’aide",
+      "kitchen.option3.text":"Nous pouvons vous mettre en relation avec des chefs ou traiteurs disponibles pour les événements, retraites et repas de groupe.",
+      "kitchen.option4.title":"Frais supplémentaires",
+      "kitchen.option4.text":"Les services de chef et de traiteur sont des options supplémentaires, devisées séparément de la location du chalet.",
+
+      "inquiry.kicker":"Commencer votre séjour de groupe",
+      "inquiry.title":"Dites-nous quel type de séjour vous souhaitez construire.",
+      "inquiry.text":"Partagez vos dates, le nombre d’invités et le type de séjour prévu. L’équipe peut vous aider à comprendre la meilleure configuration de la maison, incluant les chambres, l’utilisation de la cuisine, le sauna, l’arrivée et les options de réservation directe.",
+      "inquiry.cta":"Envoyer une demande",
+
+      "contact.property.label":"Propriété",
+      "contact.property.value":"Fletschhorn Chalet Suisse Privé",
+      "contact.location.label":"Emplacement",
+      "contact.location.value":"Saas-Fee, Suisse",
+      "contact.direct.label":"Note directe",
+      "contact.direct.value":"Meilleurs tarifs garantis en réservant en direct"
+    },
+
+    de: {
+      "hero.eyebrow":"Über Fletschhorn · Saas-Fee",
+      "hero.title":"Ein privates Berghaus mit lebendiger Geschichte.",
+      "hero.scroll":"Mit der Geschichte beginnen",
+
+      "heritage.kicker":"Die Geschichte",
+      "heritage.title":"Eine Adresse in Saas-Fee mit mehr als einem Jahrhundert Geschichte.",
+      "heritage.lead":"Die Tiefe von Fletschhorn entsteht aus dem Leben dieses Ortes: frühem Bergtourismus, dem Wachstum von Saas-Fee, kulinarischem Anspruch, Weinkultur und Generationen von Gästen, die diese ruhige Lage oberhalb des Dorfes gesucht haben.",
+      "heritage.quote":"Eine Berggeschichte, die mit den ersten Reisenden nach Saas-Fee begann.",
+
+      "timeline.1906.title":"Die Geschichte beginnt mit den frühen Reisenden nach Saas-Fee.",
+      "timeline.1906.text":"Eine Familie baut Berghäuser in Saas-Fee, um die ersten Touristen im Dorf zu empfangen. Hier beginnt die Geschichte von Fletschhorn.",
+      "timeline.1951.title":"Saas-Fee öffnet sich weiter der Welt.",
+      "timeline.1951.text":"Das erste Auto erreicht Saas-Fee, und die Zahl der Gäste wächst, während sich das Dorf zu einer internationalen Skidestination entwickelt.",
+      "timeline.1970.title":"Die Familie Dütsch entwickelt das Anwesen weiter.",
+      "timeline.1970.text":"Fletschhorn wird zu einem Ort mit starker Gastlichkeit und kulinarischem Ruf und wächst in Richtung seiner heutigen Größe und Präsenz.",
+      "timeline.1980.title":"Markus Neff prägt eine Bergdestination.",
+      "timeline.1980.text":"Ein junger Koch kommt ins Restaurant und trägt dazu bei, Fletschhorn zu einer besonderen Adresse hoch in den Bergen zu machen.",
+      "timeline.1994.title":"Irma Dütsch schreibt Schweizer Kulinarikgeschichte.",
+      "timeline.1994.text":"Irma Dütsch, Eigentümerin und Köchin des Hauses, wird die erste Schweizer Frau, die mit einem Michelin-Stern ausgezeichnet wird.",
+      "timeline.today.title":"Die Geschichte geht durch private Zusammenkünfte weiter.",
+      "timeline.today.text":"Das Haus trägt seine Geschichte heute in eine intimere Form: eine Gruppe zur Zeit, umgeben von Wald, Bergblick und der Ruhe von Saas-Fee.",
+
+      "house.kicker":"Das Haus heute",
+      "house.title":"Eine alpine Adresse, ganz für Ihre Gruppe.",
+      "house.lead":"Fletschhorn ist für Gruppen, die Privatsphäre wünschen, ohne auf die Größe und den Komfort eines größeren Hauses zu verzichten. Zimmer, Aufenthaltsräume, Terrassen, Sauna, Küche und der umliegende Wald bilden gemeinsam eine vollständige private alpine Umgebung.",
+      "house.difference.kicker":"Was es besonders macht",
+      "house.difference.title":"Das Erlebnis beginnt, wenn die Gruppe das Haus übernimmt.",
+      "house.difference.text":"Familien, Retreats, Skigruppen, Hochzeitswochenenden und private Treffen können sich wie in einer eigenen Bergbasis oberhalb von Saas-Fee einrichten. Es gibt Raum zum Zusammenkommen, Raum zum Rückzug und genug Struktur, damit sich der Aufenthalt vom Ankommen bis zur Abreise durchdacht anfühlt.",
+      "house.stat.sleeping":"Schlafplätze",
+      "house.stat.group":"Gruppe zur Zeit",
+      "house.stat.alpine":"Alpine Lage",
+      "house.caption.kicker":"Ein vollständiger Aufenthalt",
+      "house.caption.text":"Schlafbereiche, Gemeinschaftsräume, Terrassen, Küche, Sauna und Zugang zur Bergwelt — gestaltet für den ganzen Rhythmus eines privaten Gruppenaufenthalts.",
+
+      "who.kicker":"Für wen es gedacht ist",
+      "who.title":"Privat, flexibel und fürs Zusammenkommen gemacht.",
+      "who.lead":"Das Haus eignet sich für Gruppen, die mehr als Unterkunft suchen. Es bietet einen Rahmen: gemeinsam ankommen, essen, ruhen, feiern, arbeiten, Ski fahren, wandern und in dieselbe private alpine Welt zurückkehren.",
+      "who.families.title":"Familien",
+      "who.families.text":"Ein privates alpines Haus für Wiedersehen, Ferien, Skiwochen und generationenübergreifende Aufenthalte.",
+      "who.retreats.title":"Retreats",
+      "who.retreats.text":"Raum für Teams, kreative Gruppen, Workshops, Wellnessformate und konzentrierte Zeit abseits des Alltags.",
+      "who.weddings.title":"Hochzeiten",
+      "who.weddings.text":"Ein Berghaus-Wochenende, gestaltet rund um die Menschen, die bleiben, feiern und zusammenkommen.",
+      "who.events.title":"Events",
+      "who.events.text":"Private Feiern und Zusammenkünfte, abgestimmt auf Saison, Gruppengröße und Essenskonzept.",
+
+      "kitchen.kicker":"Das private Küchenkonzept",
+      "kitchen.title":"Eine professionelle Küche, nutzbar nach Ihrem eigenen Rhythmus.",
+      "kitchen.lead":"Im Herzen von Fletschhorn befindet sich eine professionelle Küche für Gruppen, die Freiheit rund ums Essen wünschen. Nutzen Sie sie selbstständig, bringen Sie Ihr eigenes Team mit oder bitten Sie uns, einen privaten Koch oder Caterer zu organisieren.",
+      "kitchen.panel.kicker":"Essen nach Ihrem Rhythmus",
+      "kitchen.panel.title":"Ihre Küche für den Aufenthalt — Unterstützung auf Anfrage verfügbar.",
+      "kitchen.panel.p1":"Das Chalet stellt den Raum und die professionelle Küche. Ihre Gruppe kann selbst kochen, einen eigenen Koch mitbringen oder Unterstützung bei der Organisation eines verfügbaren Kochs oder Caterers anfragen.",
+      "kitchen.panel.p2":"Koch- und Cateringservices sind optional und werden separat angeboten. So bleibt das Erlebnis flexibel: einfache Selbstversorgung für manche Gruppen, ein privater Koch für andere, Catering für Events oder eine Mischung je nach Ablauf.",
+      "kitchen.panel.p3":"Das kulinarische Erlebnis gehört Ihrer Gruppe, Ihrem Budget, Ihrem Anlass und der Atmosphäre, die Sie schaffen möchten.",
+      "kitchen.card.kicker":"Flexible Essensplanung",
+      "kitchen.card.text":"Selbstversorgung ist Teil des Aufenthalts. Köche und Caterer können auf Anfrage gegen Aufpreis organisiert werden.",
+      "kitchen.option1.title":"Selbst nutzen",
+      "kitchen.option1.text":"Die Küche steht Gruppen zur Verfügung, die selbst kochen und ihre Mahlzeiten einfach, flexibel und privat halten möchten.",
+      "kitchen.option2.title":"Eigenen Koch mitbringen",
+      "kitchen.option2.text":"Ihre Gruppe kann je nach Aufenthaltsformat einen eigenen Koch oder ein eigenes Küchenteam mitbringen.",
+      "kitchen.option3.title":"Uns um Hilfe bitten",
+      "kitchen.option3.text":"Wir können Sie mit verfügbaren Köchen oder Caterern für Events, Retreats und Gruppenmahlzeiten verbinden.",
+      "kitchen.option4.title":"Zusätzliche Kosten",
+      "kitchen.option4.text":"Koch- und Cateringservices sind optionale Extras und werden separat von der Chaletmiete angeboten.",
+
+      "inquiry.kicker":"Beginnen Sie Ihren Gruppenaufenthalt",
+      "inquiry.title":"Erzählen Sie uns, welchen Aufenthalt Sie gestalten möchten.",
+      "inquiry.text":"Teilen Sie Ihre Daten, Gästezahl und die Art des geplanten Aufenthalts mit. Das Team kann Ihnen helfen, die beste Einrichtung des Hauses zu verstehen, einschließlich Zimmeraufteilung, Küchennutzung, Sauna, Anreise und Direktbuchungsoptionen.",
+      "inquiry.cta":"Anfrage senden",
+
+      "contact.property.label":"Objekt",
+      "contact.property.value":"Fletschhorn Privates Schweizer Chalet",
+      "contact.location.label":"Ort",
+      "contact.location.value":"Saas-Fee, Schweiz",
+      "contact.direct.label":"Direkter Hinweis",
+      "contact.direct.value":"Beste Preise garantiert bei Direktbuchung"
+    },
+
+    ru: {
+      "hero.eyebrow":"О Fletschhorn · Саас-Фе",
+      "hero.title":"Частный горный дом с живой историей.",
+      "hero.scroll":"Начать с истории",
+
+      "heritage.kicker":"История",
+      "heritage.title":"Адрес в Саас-Фе с более чем вековой историей.",
+      "heritage.lead":"Глубина Fletschhorn рождается из жизни этого места: раннего горного туризма, развития Саас-Фе, кулинарных амбиций, винной культуры и поколений гостей, которых привлекало это тихое положение над деревней.",
+      "heritage.quote":"Горная история, начавшаяся с первых путешественников Саас-Фе.",
+
+      "timeline.1906.title":"История начинается с первых путешественников Саас-Фе.",
+      "timeline.1906.text":"Семья строит горные гостиницы в Саас-Фе, чтобы принимать первых туристов, приезжавших в деревню. Здесь начинается история Fletschhorn.",
+      "timeline.1951.title":"Саас-Фе все больше открывается миру.",
+      "timeline.1951.text":"Первый автомобиль достигает Саас-Фе, и число гостей растет по мере того, как деревня развивается в международное горнолыжное направление.",
+      "timeline.1970.title":"Семья Dütsch развивает собственность.",
+      "timeline.1970.text":"Fletschhorn становится местом с сильной традицией гостеприимства и кулинарной репутацией, постепенно приближаясь к своему нынешнему масштабу.",
+      "timeline.1980.title":"Маркус Нефф формирует горное направление.",
+      "timeline.1980.text":"Молодой шеф-повар приходит в ресторан и помогает превратить Fletschhorn в особый адрес высоко в горах.",
+      "timeline.1994.title":"Ирма Дюч входит в историю швейцарской кухни.",
+      "timeline.1994.text":"Ирма Дюч, владелица и шеф-повар дома, становится первой швейцарской женщиной, получившей звезду Michelin.",
+      "timeline.today.title":"История продолжается через частные встречи.",
+      "timeline.today.text":"Сегодня дом переносит свою историю в более интимный формат: одна группа за раз, среди леса, горных видов и тишины Саас-Фе.",
+
+      "house.kicker":"Дом сегодня",
+      "house.title":"Один альпийский адрес, полностью для вашей группы.",
+      "house.lead":"Fletschhorn создан для тех, кто хочет приватности, не теряя масштаба и комфорта большого дома. Комнаты, общие пространства, террасы, сауна, кухня и окружающий лес складываются в полноценную частную альпийскую среду.",
+      "house.difference.kicker":"Что делает его особенным",
+      "house.difference.title":"Опыт начинается, когда группа занимает весь дом.",
+      "house.difference.text":"Семьи, ретриты, лыжные группы, свадебные уикенды и частные встречи могут почувствовать себя так, будто у них есть собственная горная база над Саас-Фе. Здесь есть место собраться вместе, место отойти в сторону и достаточно структуры, чтобы весь отдых ощущался продуманным от прибытия до отъезда.",
+      "house.stat.sleeping":"Спальных мест",
+      "house.stat.group":"Группа за раз",
+      "house.stat.alpine":"Альпийская среда",
+      "house.caption.kicker":"Полный формат проживания",
+      "house.caption.text":"Спальные пространства, комнаты для встреч, террасы, кухня, сауна и доступ к горам — все создано для полного ритма частного группового проживания.",
+
+      "who.kicker":"Для кого",
+      "who.title":"Приватно, гибко и создано для встреч.",
+      "who.lead":"Дом подходит группам, которым нужно больше, чем просто размещение. Он дает им пространство: место, чтобы приехать вместе, есть вместе, отдыхать, праздновать, работать, кататься на лыжах, гулять и возвращаться в один и тот же частный альпийский мир.",
+      "who.families.title":"Семьи",
+      "who.families.text":"Частный альпийский дом для встреч, каникул, лыжных недель и проживания разных поколений.",
+      "who.retreats.title":"Ретриты",
+      "who.retreats.text":"Пространство для команд, творческих групп, мастерских, wellness-форматов и сосредоточенного времени вдали.",
+      "who.weddings.title":"Свадьбы",
+      "who.weddings.text":"Горный уикенд-дом, созданный вокруг людей, которые живут здесь, празднуют и собираются вместе.",
+      "who.events.title":"События",
+      "who.events.text":"Частные праздники и встречи, сформированные вокруг сезона, размера группы и плана питания.",
+
+      "kitchen.kicker":"Концепция частной кухни",
+      "kitchen.title":"Профессиональная кухня, доступная в вашем ритме.",
+      "kitchen.lead":"В центре Fletschhorn находится профессиональная кухня для групп, которым важна свобода вокруг еды. Используйте ее самостоятельно, приезжайте со своей командой или попросите нас помочь организовать частного шеф-повара или кейтеринг.",
+      "kitchen.panel.kicker":"Еда по вашему ритму",
+      "kitchen.panel.title":"Ваша кухня на время проживания — с поддержкой по запросу.",
+      "kitchen.panel.p1":"Шале предоставляет пространство и профессиональную кухню. Ваша группа может готовить сама, привезти собственного шеф-повара или попросить помощи в организации доступного шеф-повара или кейтеринга.",
+      "kitchen.panel.p2":"Услуги шеф-повара и кейтеринга являются дополнительными и рассчитываются отдельно. Это сохраняет гибкость: простая самостоятельная готовка для одних групп, частный шеф-повар для других, кейтеринг для событий или смешанный формат по расписанию.",
+      "kitchen.panel.p3":"Кулинарный опыт принадлежит вашей группе, вашему бюджету, вашему событию и атмосфере, которую вы хотите создать.",
+      "kitchen.card.kicker":"Гибкое планирование питания",
+      "kitchen.card.text":"Самостоятельная готовка является частью проживания. Шеф-повара и кейтеринг могут быть организованы по запросу за дополнительную плату.",
+      "kitchen.option1.title":"Готовить самим",
+      "kitchen.option1.text":"Кухня доступна группам, которые хотят готовить самостоятельно и сохранять питание простым, гибким и приватным.",
+      "kitchen.option2.title":"Привезти своего шефа",
+      "kitchen.option2.text":"Ваша группа может привезти собственного шеф-повара или кухонную команду, в зависимости от формата проживания.",
+      "kitchen.option3.title":"Попросить нас помочь",
+      "kitchen.option3.text":"Мы можем связать вас с доступными шеф-поварами или кейтерингом для событий, ретритов и групповых приемов пищи.",
+      "kitchen.option4.title":"Дополнительная плата",
+      "kitchen.option4.text":"Услуги шеф-повара и кейтеринга являются дополнительными опциями и рассчитываются отдельно от аренды шале.",
+
+      "inquiry.kicker":"Начните групповое проживание",
+      "inquiry.title":"Расскажите, какой формат проживания вы хотите создать.",
+      "inquiry.text":"Поделитесь датами, количеством гостей и типом проживания, который вы планируете. Команда поможет понять лучшую конфигурацию дома, включая распределение комнат, использование кухни, сауну, прибытие и варианты прямого бронирования.",
+      "inquiry.cta":"Отправить запрос",
+
+      "contact.property.label":"Объект",
+      "contact.property.value":"Fletschhorn Частное швейцарское шале",
+      "contact.location.label":"Локация",
+      "contact.location.value":"Саас-Фе, Швейцария",
+      "contact.direct.label":"Примечание",
+      "contact.direct.value":"Лучшие цены гарантированы при прямом бронировании"
+    }
+  };
+
+  let activeLang = "en";
+  let heroCopy = heroCopyByLang.en;
+  let slides = [];
+  let current = 0;
+  let timer = null;
+
+  function normalizeLang(lang){
+    const clean = String(lang || "en").toLowerCase().slice(0,2);
+    return FH_LANGUAGES.includes(clean) ? clean : "en";
+  }
+
+  function init(){
+    const root = document.getElementById("fh-about");
+    if(!root || root.dataset.fhInitialized === "1") return;
+    root.dataset.fhInitialized = "1";
+
+    const qs = s => root.querySelector(s);
+    const qsa = s => Array.from(root.querySelectorAll(s));
+
+    const heroMedia = qs("#aboutHeroMedia");
+    const eyebrow = qs("#aboutHeroEyebrow");
+    const title = qs("#aboutHeroTitle");
+    const lead = qs("#aboutHeroLead");
+
+    function applyStaticTranslations(lang){
+      const dict = I18N[lang] || I18N.en;
+      qsa("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        const next = dict[key] || I18N.en[key] || "";
+        if(next) el.textContent = next;
+      });
+      root.dataset.lang = lang;
+      root.dataset.languageLabel = FH_LANG_LABELS[lang] || FH_LANG_LABELS.en;
+      document.documentElement.setAttribute("lang", lang);
+    }
+
+    function applyHeroCopy(index){
+      const slide = slides[index];
+      if(!slide) return;
+      if(eyebrow) eyebrow.textContent = slide.eyebrow;
+      if(title) title.textContent = slide.title;
+      if(lead) lead.textContent = slide.lead;
+    }
+
+    function buildSlides(){
+      if(!heroMedia) return;
+      heroMedia.innerHTML = "";
+      slides.forEach((slide,i) => {
+        const el = document.createElement("div");
+        el.className = "hero-slide" + (i === current ? " active" : "");
+        el.style.backgroundImage = `url("${slide.image}")`;
+        heroMedia.appendChild(el);
+      });
+      applyHeroCopy(current);
+    }
+
+    function setSlideImages(images){
+      slides = images.slice(0,8).map((image,i) => ({
+        image,
+        ...heroCopy[i % heroCopy.length]
+      }));
+      current = 0;
+      buildSlides();
+    }
+
+    function showSlide(index){
+      const els = qsa(".hero-slide");
+      if(!els.length) return;
+      els[current]?.classList.remove("active");
+      current = index % els.length;
+      els[current]?.classList.add("active");
+      applyHeroCopy(current);
+    }
+
+    function startSlideshow(){
+      if(timer) window.clearInterval(timer);
+      timer = window.setInterval(() => showSlide(current + 1), 8000);
+    }
+
+    function setFletschhornLanguage(lang){
+      activeLang = normalizeLang(lang);
+      heroCopy = heroCopyByLang[activeLang] || heroCopyByLang.en;
+      slides = slides.map((slide,i) => ({
+        image: slide.image,
+        ...heroCopy[i % heroCopy.length]
+      }));
+      applyStaticTranslations(activeLang);
+      applyHeroCopy(current);
+      try{ localStorage.setItem("fh_lang", activeLang); }catch(e){}
+      document.dispatchEvent(new CustomEvent("fletschhorn:languageChanged",{detail:{lang:activeLang}}));
+      return activeLang;
+    }
+
+    window.setFletschhornLanguage = setFletschhornLanguage;
+    window.FHSetLanguage = setFletschhornLanguage;
+    window.FLETCHHORN_LANGUAGES = FH_LANGUAGES;
+
+    document.addEventListener("fletschhorn:language", event => {
+      setFletschhornLanguage(event.detail?.lang || event.detail?.language);
+    });
+
+    document.addEventListener("fh:language", event => {
+      setFletschhornLanguage(event.detail?.lang || event.detail?.language);
+    });
+
+    document.addEventListener("click", event => {
+      const trigger = event.target.closest("[data-fh-lang], [data-lang-switch], [data-language]");
+      if(!trigger) return;
+      const lang = trigger.getAttribute("data-fh-lang") || trigger.getAttribute("data-lang-switch") || trigger.getAttribute("data-language");
+      if(FH_LANGUAGES.includes(normalizeLang(lang))) setFletschhornLanguage(lang);
+    });
+
+    window.addEventListener("storage", event => {
+      if(event.key === "fh_lang" && event.newValue) setFletschhornLanguage(event.newValue);
+    });
+
+    function firstUrl(value){
+      if(!value) return "";
+      if(typeof value === "string") return value.startsWith("http") ? value : "";
+      for(const key of ["original","large","regular","url","src","medium","thumbnail","pictureUrl","imageUrl","downloadUrl"]){
+        const next = value[key];
+        if(typeof next === "string" && next.startsWith("http")) return next;
+        if(next && typeof next === "object"){
+          const nested = firstUrl(next);
+          if(nested) return nested;
+        }
+      }
+      return "";
+    }
+
+    function collectImages(payload){
+      const listing = payload?.listing || payload?.data || payload || {};
+      const candidates = [];
+
+      if(listing.picture){
+        const url = firstUrl(listing.picture);
+        if(url) candidates.push(url);
+      }
+
+      if(Array.isArray(listing.pictures)){
+        listing.pictures.forEach(item => {
+          const url = firstUrl(item);
+          if(url) candidates.push(url);
+        });
+      }
+
+      [payload?.images, listing.images, listing.photos, listing.media, listing.mediaFiles].forEach(arr => {
+        if(!Array.isArray(arr)) return;
+        arr.forEach(item => {
+          const url = firstUrl(item);
+          if(url) candidates.push(url);
+        });
+      });
+
+      return [...new Set(candidates)];
+    }
+
+    async function loadGuestyImages(){
+      try{
+        const response = await fetch(FH_CONFIG.cloudflarePropertyEndpoint,{
+          method:"GET",
+          headers:{"Accept":"application/json"}
+        });
+        if(!response.ok) throw new Error(`Listing response failed: ${response.status}`);
+
+        const data = await response.json();
+        const images = collectImages(data);
+        if(!images.length) return;
+
+        qsa("[data-guesty-img]").forEach((el,i) => {
+          const requested = Number(el.getAttribute("data-guesty-img"));
+          const imageIndex = Number.isFinite(requested) && requested >= 0 ? requested % images.length : i % images.length;
+          el.src = images[imageIndex];
+        });
+
+        setSlideImages(images);
+      }catch(error){
+        console.warn("Live property feed not loaded. Keeping direct property image fallbacks.", error);
+      }
+    }
+
+    qsa("img").forEach(img => {
+      img.addEventListener("error", () => {
+        img.style.opacity = "0";
+        img.parentElement.style.background = "linear-gradient(135deg,#efe7dc,#d8cbbd)";
+      }, {once:true});
+    });
+
+    const savedLang = (() => {
+      try{ return localStorage.getItem("fh_lang"); }catch(e){ return null; }
+    })();
+
+    activeLang = normalizeLang(savedLang || root.getAttribute("data-lang") || document.documentElement.lang || "en");
+    heroCopy = heroCopyByLang[activeLang] || heroCopyByLang.en;
+
+    setSlideImages(fallbackImages);
+    loadGuestyImages();
+    startSlideshow();
+    setFletschhornLanguage(activeLang);
+
+    const observer = "IntersectionObserver" in window ? new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(!entry.isIntersecting) return;
+        entry.target.classList.add("fadeIn","slideIn","scaleIn");
+        observer.unobserve(entry.target);
+      });
+    },{threshold:.16,rootMargin:"0px 0px -8% 0px"}) : null;
+
+    qsa(".preFade,.preSlide,.preScale").forEach(el => {
+      if(observer) observer.observe(el);
+      else el.classList.add("fadeIn","slideIn","scaleIn");
+    });
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+
+  window.addEventListener("load", init);
+  document.addEventListener("mercury:load", init);
+})();
+</script>
