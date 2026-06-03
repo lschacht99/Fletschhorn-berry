@@ -7,7 +7,7 @@
 
 #fh-checkout-main{
   --ink:#1a1714;
-  --muted:rgba(26,23,20,.68);
+  --muted:rgba(26,23,20,.66);
   --line:rgba(26,23,20,.13);
   --paper:#fffaf3;
   --paper2:#f8f1e8;
@@ -20,13 +20,13 @@
   --soft-shadow:0 14px 40px rgba(0,0,0,.07);
   --serif:Georgia,"Times New Roman",serif;
   --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  min-height:100svh;
   color:var(--ink);
   font-family:var(--sans);
   background:
     radial-gradient(circle at 12% 8%,rgba(255,255,255,.72),transparent 0 26%),
     radial-gradient(circle at 90% 10%,rgba(185,159,134,.18),transparent 0 25%),
     linear-gradient(180deg,#efe7dc 0%,#fbf6ef 52%,#efe7dc 100%);
+  min-height:100svh;
   overflow:hidden;
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
@@ -54,17 +54,23 @@
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23876e58' stroke-opacity='.50' stroke-width='1.1'%3E%3Cpath d='M-50 130c205 54 364 56 500 12 128-42 265-39 407 14 154 58 313 59 502-10 78-28 148-32 217-18'/%3E%3Cpath d='M-50 288c214 38 394 31 538-18 125-42 256-38 392 12 164 61 326 55 503-10 82-30 153-33 217-20'/%3E%3Cpath d='M-50 444c230 26 415 17 570-24 120-31 247-30 388 4 160 38 314 37 480-10 90-25 157-27 222-16'/%3E%3Cpath d='M-50 604c238 18 432 7 596-28 122-26 246-24 380-3 150 23 295 22 438-8 88-18 156-18 218-10'/%3E%3Cpath d='M-50 762c264 8 468-8 635-35 120-20 241-18 365-4 146 16 283 16 422-8 88-14 151-13 213-8'/%3E%3C/g%3E%3C/svg%3E");
   background-size:cover;
   background-position:center;
+  animation:fhTopo 28s ease-in-out infinite alternate;
 }
 
 #fh-checkout-main .fh-grain{
   position:fixed;
   inset:0;
-  z-index:50;
+  z-index:80;
   pointer-events:none;
   opacity:.052;
   mix-blend-mode:multiply;
   background-image:radial-gradient(rgba(0,0,0,.55) .45px,transparent .55px);
   background-size:4px 4px;
+}
+
+@keyframes fhTopo{
+  from{transform:translate3d(0,0,0) scale(1.02)}
+  to{transform:translate3d(1vw,-1vh,0) scale(1.06)}
 }
 
 #fh-checkout-main .fh-langbar{
@@ -102,20 +108,101 @@
   color:#fff;
 }
 
-#fh-checkout-main .fh-page{
+#fh-checkout-main .fh-hero{
   position:relative;
   z-index:1;
-  min-height:100svh;
-  padding:148px 20px 92px;
+  min-height:56svh;
   display:flex;
   align-items:center;
   justify-content:center;
+  padding:150px 20px 118px;
+  overflow:hidden;
+  background:#1f1d19;
+  color:var(--white);
 }
 
-#fh-checkout-main .fh-shell{
-  width:min(1080px,100%);
+#fh-checkout-main .fh-hero-media{
+  position:absolute;
+  inset:0;
+  background:center/cover no-repeat;
+  opacity:.78;
+  transform:scale(1.02);
+}
+
+#fh-checkout-main .fh-hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:
+    linear-gradient(180deg,rgba(22,19,17,.74),rgba(22,19,17,.34) 44%,rgba(22,19,17,.72)),
+    radial-gradient(circle at 50% 16%,rgba(255,255,255,.12),transparent 0 28%);
+}
+
+#fh-checkout-main .fh-hero:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-1px;
+  height:160px;
+  z-index:1;
+  background:linear-gradient(180deg,transparent,#efe7dc);
+}
+
+#fh-checkout-main .fh-hero-inner{
+  position:relative;
+  z-index:2;
+  width:min(1040px,100%);
+  text-align:center;
+  margin:0 auto;
+}
+
+#fh-checkout-main .fh-kicker,
+#fh-checkout-main .fh-eyebrow{
+  margin:0 0 12px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-weight:850;
+  color:var(--clay2);
+}
+
+#fh-checkout-main .fh-hero .fh-eyebrow{color:rgba(255,250,243,.84)}
+#fh-checkout-main h1,
+#fh-checkout-main h2,
+#fh-checkout-main h3,
+#fh-checkout-main p{margin-top:0}
+
+#fh-checkout-main h1{
+  margin:0 auto 18px;
+  max-width:980px;
+  font-family:var(--serif);
+  font-size:clamp(46px,7.4vw,100px);
+  line-height:.92;
+  letter-spacing:-.07em;
+  font-weight:400;
+  text-wrap:balance;
+}
+
+#fh-checkout-main .fh-hero-lead{
+  margin:0 auto;
+  max-width:780px;
+  font-size:clamp(16px,1.6vw,20px);
+  line-height:1.62;
+  color:rgba(255,250,243,.84);
+}
+
+#fh-checkout-main .fh-wrap{
+  position:relative;
+  z-index:4;
+  width:min(1060px,calc(100% - 28px));
+  margin:-74px auto 92px;
+}
+
+#fh-checkout-main .fh-card{
   display:grid;
-  grid-template-columns:.92fr 1.08fr;
+  grid-template-columns:.88fr 1.12fr;
   background:rgba(255,250,243,.96);
   border:1px solid #e5d8c9;
   box-shadow:var(--shadow);
@@ -123,83 +210,55 @@
 }
 
 #fh-checkout-main .fh-photo{
-  min-height:650px;
+  min-height:520px;
   background:#d8cbbb center/cover no-repeat;
-  position:relative;
 }
 
-#fh-checkout-main .fh-photo:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,rgba(26,23,20,.06),rgba(26,23,20,.38));
-}
+#fh-checkout-main .fh-body{padding:34px}
 
-#fh-checkout-main .fh-content{
-  padding:42px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-
-#fh-checkout-main .fh-kicker{
-  margin:0 0 12px;
-  color:var(--clay2);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.22em;
-  font-weight:850;
-}
-
-#fh-checkout-main h1{
-  margin:0 0 18px;
-  max-width:720px;
+#fh-checkout-main h2{
+  margin:0 0 14px;
   font-family:var(--serif);
-  font-size:clamp(44px,6vw,82px);
-  line-height:.92;
-  letter-spacing:-.065em;
+  font-size:clamp(34px,4vw,58px);
   font-weight:400;
+  line-height:.98;
+  letter-spacing:-.055em;
   text-wrap:balance;
 }
 
-#fh-checkout-main p{
-  margin:0;
-  color:var(--muted);
-  font-size:16px;
-  line-height:1.68;
-}
-
 #fh-checkout-main .fh-lead{
-  max-width:620px;
-  font-size:17px;
+  margin:0 0 22px;
+  max-width:720px;
+  color:var(--muted);
+  line-height:1.68;
+  font-size:16px;
 }
 
 #fh-checkout-main .fh-summary{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
-  margin:28px 0 0;
+  margin:24px 0;
 }
 
-#fh-checkout-main .fh-item{
+#fh-checkout-main .fh-summary div{
   padding:15px;
-  background:#f8f1e8;
-  border:1px solid rgba(26,23,20,.08);
+  background:#f5eee5;
+  border:1px solid #e3d5c6;
 }
 
-#fh-checkout-main .fh-item.full{grid-column:1/-1}
-
-#fh-checkout-main .fh-item span{
+#fh-checkout-main .fh-summary .wide{grid-column:1/-1}
+#fh-checkout-main .fh-summary span{
   display:block;
-  margin-bottom:6px;
-  color:rgba(26,23,20,.48);
+  margin-bottom:7px;
   font-size:10px;
   text-transform:uppercase;
-  letter-spacing:.14em;
+  letter-spacing:.13em;
   font-weight:850;
+  color:rgba(26,23,20,.50);
 }
 
-#fh-checkout-main .fh-item strong{
+#fh-checkout-main .fh-summary strong{
   display:block;
   color:var(--ink);
   font-size:15px;
@@ -208,26 +267,20 @@
 }
 
 #fh-checkout-main .fh-note{
-  margin-top:24px;
   padding-top:18px;
   border-top:1px solid rgba(26,23,20,.10);
-  font-size:13px;
   color:rgba(26,23,20,.58);
+  font-size:13px;
+  line-height:1.6;
 }
 
-#fh-checkout-main .fh-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:24px;
-}
-
+#fh-checkout-main .fh-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 #fh-checkout-main .fh-btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   min-height:52px;
-  padding:14px 20px;
+  padding:15px 20px;
   border:0;
   background:#1d1a17;
   color:#fff;
@@ -236,20 +289,16 @@
   font-size:11px;
   font-weight:850;
 }
+#fh-checkout-main .fh-btn.light{background:#fffaf3;color:var(--ink);border:1px solid rgba(26,23,20,.14)}
 
-#fh-checkout-main .fh-btn.light{
-  background:#fffaf3;
-  color:var(--ink);
-  border:1px solid rgba(26,23,20,.14);
-}
-
-@media(max-width:860px){
-  #fh-checkout-main .fh-page{padding:120px 12px 70px;align-items:flex-start}
-  #fh-checkout-main .fh-langbar{top:68px;padding:5px;gap:4px}
-  #fh-checkout-main .fh-langbar button{min-height:29px;padding:6px 8px;font-size:9px}
-  #fh-checkout-main .fh-shell{grid-template-columns:1fr}
-  #fh-checkout-main .fh-photo{min-height:230px;order:0}
-  #fh-checkout-main .fh-content{padding:26px;order:1}
+@media(max-width:820px){
+  #fh-checkout-main .fh-langbar{top:68px}
+  #fh-checkout-main .fh-hero{padding:120px 16px 96px;min-height:auto}
+  #fh-checkout-main h1{font-size:clamp(42px,13vw,66px)}
+  #fh-checkout-main .fh-wrap{width:calc(100% - 20px);margin-top:-58px}
+  #fh-checkout-main .fh-card{grid-template-columns:1fr}
+  #fh-checkout-main .fh-photo{min-height:230px}
+  #fh-checkout-main .fh-body{padding:24px}
   #fh-checkout-main .fh-summary{grid-template-columns:1fr}
   #fh-checkout-main .fh-actions{flex-direction:column}
   #fh-checkout-main .fh-btn{width:100%}
@@ -267,33 +316,42 @@
     <button type="button" data-fh-lang="ru">RU</button>
   </div>
 
-  <main class="fh-page">
-    <section class="fh-shell" aria-labelledby="fhCheckoutTitle">
-      <div class="fh-photo" id="fhCheckoutPhoto"></div>
-      <div class="fh-content">
-        <p class="fh-kicker" data-i18n="kicker">Booking request received</p>
-        <h1 id="fhCheckoutTitle" data-i18n="title">Thank you. We received your booking request.</h1>
-        <p class="fh-lead" data-i18n="lead">Your booking request has been sent successfully. You will receive confirmation, payment details, and next steps by email.</p>
+  <section class="fh-hero">
+    <div class="fh-hero-media" id="fhCheckoutHero" aria-hidden="true"></div>
+    <div class="fh-hero-inner">
+      <p class="fh-eyebrow" data-i18n="eyebrow">Booking request received</p>
+      <h1 data-i18n="title">Thank you.</h1>
+      <p class="fh-hero-lead" data-i18n="lead">We have received your booking request. The details will be reviewed and sent to you by email.</p>
+    </div>
+  </section>
 
-        <div class="fh-summary" aria-label="Booking summary">
-          <div class="fh-item">
+  <main class="fh-wrap">
+    <section class="fh-card">
+      <div class="fh-photo" id="fhCheckoutPhoto" aria-hidden="true"></div>
+      <div class="fh-body">
+        <p class="fh-kicker" data-i18n="cardKicker">Confirmation</p>
+        <h2 data-i18n="cardTitle">Your request has been sent.</h2>
+        <p class="fh-lead" data-i18n="cardLead">Our team will review your stay details and send confirmation, payment information, and next steps by email.</p>
+
+        <div class="fh-summary">
+          <div>
             <span data-i18n="guestLabel">Guest</span>
             <strong id="fhGuest">—</strong>
           </div>
-          <div class="fh-item">
+          <div>
             <span data-i18n="emailLabel">Email</span>
             <strong id="fhEmail">—</strong>
           </div>
-          <div class="fh-item">
+          <div>
             <span data-i18n="datesLabel">Dates</span>
             <strong id="fhDates">—</strong>
           </div>
-          <div class="fh-item">
+          <div>
             <span data-i18n="guestsLabel">Guests</span>
             <strong id="fhGuests">—</strong>
           </div>
-          <div class="fh-item full">
-            <span data-i18n="referenceLabel">Reference</span>
+          <div class="wide">
+            <span data-i18n="requestLabel">Request reference</span>
             <strong id="fhReference">Sent by email</strong>
           </div>
         </div>
@@ -301,8 +359,8 @@
         <p class="fh-note" data-i18n="note">Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.</p>
 
         <div class="fh-actions">
-          <a class="fh-btn" href="index.html" data-i18n="home">Return to homepage</a>
-          <a class="fh-btn light" href="booking.html" data-i18n="newBooking">Start another request</a>
+          <a class="fh-btn" href="index.html" data-i18n="homeBtn">Return home</a>
+          <a class="fh-btn light" href="booking.html" data-i18n="newBtn">Start another request</a>
         </div>
       </div>
     </section>
@@ -319,7 +377,6 @@
   async function loadHtml(slotId, fileName){
     const slot = document.getElementById(slotId);
     if(!slot) return;
-
     try{
       const response = await fetch(ASSET_BASE + fileName, {cache:"no-cache"});
       if(!response.ok) throw new Error(fileName + " failed: " + response.status);
@@ -331,9 +388,7 @@
         newScript.textContent = oldScript.textContent;
         oldScript.replaceWith(newScript);
       });
-    }catch(error){
-      console.error("Fletschhorn header/footer load error:", error);
-    }
+    }catch(error){console.error("Fletschhorn header/footer load error:", error)}
   }
 
   loadHtml("fh-header-slot", "Header.html");
@@ -347,85 +402,51 @@
   if(!root || root.dataset.ready === "1") return;
   root.dataset.ready = "1";
 
-  const FALLBACK_IMAGE = "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg";
-  const LANGS = ["en","fr","de","ru"];
+  const FALLBACK_IMAGES = [
+    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
+    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg"
+  ];
 
+  const LANGS = ["en","fr","de","ru"];
   const I18N = {
-    en:{
-      kicker:"Booking request received",
-      title:"Thank you. We received your booking request.",
-      lead:"Your booking request has been sent successfully. You will receive confirmation, payment details, and next steps by email.",
-      guestLabel:"Guest",
-      emailLabel:"Email",
-      datesLabel:"Dates",
-      guestsLabel:"Guests",
-      referenceLabel:"Reference",
-      note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",
-      home:"Return to homepage",
-      newBooking:"Start another request",
-      sentByEmail:"Sent by email",
-      nights:"nights",
-      night:"night"
-    },
-    fr:{
-      kicker:"Demande de réservation reçue",
-      title:"Merci. Nous avons bien reçu votre demande de réservation.",
-      lead:"Votre demande a été envoyée avec succès. Vous recevrez la confirmation, les détails de paiement et les prochaines étapes par email.",
-      guestLabel:"Client",
-      emailLabel:"Email",
-      datesLabel:"Dates",
-      guestsLabel:"Invités",
-      referenceLabel:"Référence",
-      note:"Veuillez vérifier votre boîte email. Si un détail doit être ajusté, répondez directement au message de confirmation.",
-      home:"Retour à l’accueil",
-      newBooking:"Nouvelle demande",
-      sentByEmail:"Envoyé par email",
-      nights:"nuits",
-      night:"nuit"
-    },
-    de:{
-      kicker:"Buchungsanfrage erhalten",
-      title:"Vielen Dank. Wir haben Ihre Buchungsanfrage erhalten.",
-      lead:"Ihre Anfrage wurde erfolgreich gesendet. Bestätigung, Zahlungsdetails und nächste Schritte erhalten Sie per E-Mail.",
-      guestLabel:"Gast",
-      emailLabel:"E-Mail",
-      datesLabel:"Daten",
-      guestsLabel:"Gäste",
-      referenceLabel:"Referenz",
-      note:"Bitte prüfen Sie Ihr Postfach. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",
-      home:"Zur Startseite",
-      newBooking:"Neue Anfrage starten",
-      sentByEmail:"Per E-Mail gesendet",
-      nights:"Nächte",
-      night:"Nacht"
-    },
-    ru:{
-      kicker:"Запрос на бронирование получен",
-      title:"Спасибо. Мы получили ваш запрос на бронирование.",
-      lead:"Ваш запрос успешно отправлен. Подтверждение, детали оплаты и следующие шаги будут отправлены по email.",
-      guestLabel:"Гость",
-      emailLabel:"Email",
-      datesLabel:"Даты",
-      guestsLabel:"Гости",
-      referenceLabel:"Номер / ссылка",
-      note:"Проверьте почту. Если нужно что-то изменить, ответьте напрямую на письмо с подтверждением.",
-      home:"На главную",
-      newBooking:"Новый запрос",
-      sentByEmail:"Отправлено по email",
-      nights:"ночей",
-      night:"ночь"
-    }
+    en:{eyebrow:"Booking request received",title:"Thank you.",lead:"We have received your booking request. The details will be reviewed and sent to you by email.",cardKicker:"Confirmation",cardTitle:"Your request has been sent.",cardLead:"Our team will review your stay details and send confirmation, payment information, and next steps by email.",guestLabel:"Guest",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Guests",requestLabel:"Request reference",note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",homeBtn:"Return home",newBtn:"Start another request",sentByEmail:"Sent by email",night:"night",nights:"nights"},
+    fr:{eyebrow:"Demande de réservation reçue",title:"Merci.",lead:"Nous avons bien reçu votre demande de réservation. Les détails seront vérifiés et envoyés par email.",cardKicker:"Confirmation",cardTitle:"Votre demande a été envoyée.",cardLead:"Notre équipe vérifiera les détails du séjour et vous enverra la confirmation, les informations de paiement et les prochaines étapes par email.",guestLabel:"Client",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Invités",requestLabel:"Référence",note:"Veuillez vérifier votre boîte mail. Si quelque chose doit être ajusté, répondez directement à l’email de confirmation.",homeBtn:"Retour à l’accueil",newBtn:"Nouvelle demande",sentByEmail:"Envoyé par email",night:"nuit",nights:"nuits"},
+    de:{eyebrow:"Buchungsanfrage erhalten",title:"Vielen Dank.",lead:"Wir haben Ihre Buchungsanfrage erhalten. Die Details werden geprüft und per E-Mail gesendet.",cardKicker:"Bestätigung",cardTitle:"Ihre Anfrage wurde gesendet.",cardLead:"Unser Team prüft die Aufenthaltsdetails und sendet Bestätigung, Zahlungsinformationen und nächste Schritte per E-Mail.",guestLabel:"Gast",emailLabel:"E-Mail",datesLabel:"Daten",guestsLabel:"Gäste",requestLabel:"Referenz",note:"Bitte prüfen Sie Ihren Posteingang. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",homeBtn:"Zur Startseite",newBtn:"Neue Anfrage",sentByEmail:"Per E-Mail gesendet",night:"Nacht",nights:"Nächte"},
+    ru:{eyebrow:"Запрос на бронирование получен",title:"Спасибо.",lead:"Мы получили ваш запрос на бронирование. Детали будут проверены и отправлены вам по email.",cardKicker:"Подтверждение",cardTitle:"Ваш запрос отправлен.",cardLead:"Наша команда проверит детали проживания и отправит подтверждение, информацию об оплате и следующие шаги по email.",guestLabel:"Гость",emailLabel:"Email",datesLabel:"Даты",guestsLabel:"Гости",requestLabel:"Номер запроса",note:"Проверьте вашу почту. Если нужно что-то изменить, ответьте прямо на письмо с подтверждением.",homeBtn:"На главную",newBtn:"Новый запрос",sentByEmail:"Отправлено по email",night:"ночь",nights:"ночей"}
   };
 
-  const qs = (s) => root.querySelector(s);
-  const qsa = (s) => Array.from(root.querySelectorAll(s));
-
-  function normalizeLang(lang){
-    const v = String(lang || "en").toLowerCase().slice(0,2);
-    return LANGS.includes(v) ? v : "en";
+  function normalizeLang(lang){const v = String(lang || "en").toLowerCase().slice(0,2); return LANGS.includes(v) ? v : "en"}
+  function getStored(){
+    try{return JSON.parse(localStorage.getItem("fhBookingComplete") || localStorage.getItem("fhBookingStart") || "{}") || {}}catch(e){return {}}
+  }
+  function setText(id,value){const el = document.getElementById(id); if(el) el.textContent = value || "—"}
+  function nightsBetween(checkIn,checkOut){
+    if(!checkIn || !checkOut) return 0;
+    const start = new Date(checkIn + "T00:00:00");
+    const end = new Date(checkOut + "T00:00:00");
+    const n = Math.round((end - start) / 86400000);
+    return Number.isFinite(n) ? n : 0;
+  }
+  function readData(){
+    const params = new URLSearchParams(window.location.search);
+    const stored = getStored();
+    return {
+      firstName:params.get("firstName") || stored.firstName || "",
+      lastName:params.get("lastName") || stored.lastName || "",
+      email:params.get("email") || stored.email || "",
+      phone:params.get("phone") || stored.phone || "",
+      checkIn:params.get("checkIn") || stored.checkIn || "",
+      checkOut:params.get("checkOut") || stored.checkOut || "",
+      guests:params.get("guests") || stored.guests || "",
+      lang:params.get("lang") || stored.language || localStorage.getItem("fh_lang") || "en",
+      reservationId:params.get("reservationId") || stored.reservationId || "",
+      confirmationCode:params.get("confirmationCode") || stored.confirmationCode || ""
+    };
   }
 
-  let currentLang = normalizeLang(new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("fh_lang") || root.dataset.lang || "en");
+  let data = readData();
+  let currentLang = normalizeLang(data.lang);
+
   function t(key){return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key}
 
   function setLang(lang){
@@ -433,19 +454,17 @@
     try{localStorage.setItem("fh_lang", currentLang)}catch(e){}
     root.dataset.lang = currentLang;
     document.documentElement.setAttribute("lang", currentLang);
-
-    qsa("[data-i18n]").forEach(function(el){
+    root.querySelectorAll("[data-i18n]").forEach(function(el){
       const key = el.getAttribute("data-i18n");
       if(t(key)) el.textContent = t(key);
     });
-
-    qsa("[data-fh-lang]").forEach(function(btn){
+    root.querySelectorAll("[data-fh-lang]").forEach(function(btn){
       const active = normalizeLang(btn.getAttribute("data-fh-lang")) === currentLang;
       btn.classList.toggle("is-active", active);
       btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
-
-    renderSummary();
+    renderData();
+    return currentLang;
   }
 
   window.setFletschhornLanguage = setLang;
@@ -458,58 +477,30 @@
     if(LANGS.includes(normalizeLang(lang))) setLang(lang);
   });
 
-  function readStored(){
-    let result = {};
-    let start = {};
-    try{result = JSON.parse(localStorage.getItem("fhBookingResult") || "{}")}catch(e){result = {}}
-    try{start = JSON.parse(localStorage.getItem("fhBookingStart") || "{}")}catch(e){start = {}}
-    return Object.assign({}, start, result);
-  }
-
-  function paramsData(){
-    const params = new URLSearchParams(window.location.search);
-    const data = {};
-    ["firstName","lastName","email","phone","checkIn","checkOut","guests","reservationId","confirmationCode"].forEach(function(key){
-      const value = params.get(key);
-      if(value) data[key] = value;
-    });
-    return data;
-  }
-
-  function nightsBetween(checkIn, checkOut){
-    if(!checkIn || !checkOut) return 0;
-    const start = new Date(checkIn + "T00:00:00");
-    const end = new Date(checkOut + "T00:00:00");
-    return Math.round((end - start) / 86400000);
-  }
-
-  function text(value, fallback){
-    const v = value === undefined || value === null ? "" : String(value).trim();
-    return v || fallback || "—";
-  }
-
-  function renderSummary(){
-    const data = Object.assign({}, readStored(), paramsData());
-    const fullName = [data.firstName, data.lastName].filter(Boolean).join(" ");
-    const nights = Number(data.nights || nightsBetween(data.checkIn, data.checkOut));
-    const dateText = data.checkIn && data.checkOut
-      ? `${data.checkIn} → ${data.checkOut}${nights > 0 ? " · " + nights + " " + (nights === 1 ? t("night") : t("nights")) : ""}`
+  function renderData(){
+    const nights = nightsBetween(data.checkIn, data.checkOut);
+    const guest = [data.firstName,data.lastName].filter(Boolean).join(" ");
+    const dates = data.checkIn && data.checkOut
+      ? `${data.checkIn} → ${data.checkOut}${nights ? " · " + nights + " " + (nights === 1 ? t("night") : t("nights")) : ""}`
       : "—";
-    const refText = data.confirmationCode
-      ? `Confirmation ${data.confirmationCode}`
+    const reference = data.confirmationCode
+      ? `${t("sentByEmail")} · Confirmation ${data.confirmationCode}`
       : data.reservationId
-        ? `Request ${data.reservationId}`
+        ? `${t("sentByEmail")} · Request ${data.reservationId}`
         : t("sentByEmail");
 
-    qs("#fhGuest").textContent = text(fullName);
-    qs("#fhEmail").textContent = text(data.email);
-    qs("#fhDates").textContent = dateText;
-    qs("#fhGuests").textContent = data.guests ? `${data.guests}` : "—";
-    qs("#fhReference").textContent = refText;
+    setText("fhGuest", guest);
+    setText("fhEmail", data.email);
+    setText("fhDates", dates);
+    setText("fhGuests", data.guests ? `${data.guests} guests` : "—");
+    setText("fhReference", reference);
   }
 
-  const photo = qs("#fhCheckoutPhoto");
-  if(photo) photo.style.backgroundImage = `url("${FALLBACK_IMAGE}")`;
+  const hero = document.getElementById("fhCheckoutHero");
+  const photo = document.getElementById("fhCheckoutPhoto");
+  if(hero) hero.style.backgroundImage = `url("${FALLBACK_IMAGES[0]}")`;
+  if(photo) photo.style.backgroundImage = `url("${FALLBACK_IMAGES[1]}")`;
+
   setLang(currentLang);
 })();
 </script>
