@@ -1,7 +1,10 @@
 <!-- ==========================================================
 Fletschhorn — Global Footer Only
 Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
+GitHub/page-file version updated to match actual repo files.
+Mobile footer is intentionally short.
 ========================================================== -->
+
 <script>
 (function(){
 
@@ -14,27 +17,28 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
   window.CLOUDFLARE_INQUIRY_ENDPOINT = FH_INQUIRY_ENDPOINT;
 
   const FH_FOOTER_PAGES = [
-    { label:'Home', href:'/Home' },
-    { label:'The Property', href:'/the-property' },
-    { label:'Experiences', href:'/experiences' },
-    { label:'Wedding & Events', href:'/your-wedding-or-event' },
-    { label:'Booking', href:'/booking' },
-    { label:'About Us', href:'/about-us' }
+    { label: "Home", href: "index.html" },
+    { label: "Property", href: "Property.html" },
+    { label: "Experiences", href: "Experiences.html" },
+    { label: "Events", href: "Wedding-event.html" },
+    { label: "Location", href: "Location.html" },
+    { label: "Booking", href: "Booking.html" },
+    { label: "About", href: "About-us.html" }
   ];
 
   function makeFooter(){
     const links = FH_FOOTER_PAGES.map(page => `
       <a href="${page.href}">${page.label}</a>
-    `).join('');
+    `).join("");
 
     return `
       <footer class="fh-global-footer" id="fhGlobalFooter">
         <div class="fh-footer-inner">
 
           <div class="fh-footer-brand">
-            <a href="/home" class="fh-footer-logo" aria-label="Fletschhorn home">
+            <a href="index.html" class="fh-footer-logo" aria-label="Fletschhorn home">
               <span class="fh-footer-mark">
-                <img src="/s/Saas-Fee-Logo.jpeg" alt="Fletschhorn" onerror="this.style.display='none'; this.parentElement.textContent='fh';" />
+                <img src="assets/Saas-Fee-Logo.jpeg" alt="Fletschhorn" onerror="this.style.display='none'; this.parentElement.textContent='fh';" />
               </span>
               <span>
                 <strong>Fletschhorn</strong>
@@ -43,20 +47,20 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
             </a>
 
             <p>
-              A calm private alpine house for stays, weddings, retreats and meaningful events in Saas-Fee.
+              A private alpine house for whole-property stays, weddings, retreats and gatherings in the quiet mountain setting of Saas-Fee.
             </p>
 
-            <a class="fh-footer-cta" href="/booking">Send an inquiry</a>
+            <a class="fh-footer-cta" href="Booking.html">Book my stay now</a>
           </div>
 
-          <div class="fh-footer-col">
+          <div class="fh-footer-col fh-footer-explore">
             <h3>Explore</h3>
             <nav class="fh-footer-links" aria-label="Footer navigation">
               ${links}
             </nav>
           </div>
 
-          <div class="fh-footer-col">
+          <div class="fh-footer-col fh-footer-contact">
             <h3>Contact</h3>
             <p>
               Waldhotel Fletschhorn<br>
@@ -69,21 +73,17 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
             </p>
           </div>
 
-          <div class="fh-footer-col">
-            <h3>Direct booking</h3>
+          <div class="fh-footer-col fh-footer-stay">
+            <h3>Private stay</h3>
             <p>
-              Best rates guaranteed when booking direct.
-            </p>
-            <p class="fh-footer-small">
-              Inquiry endpoint connected through Cloudflare Worker:<br>
-              <span>${FH_INQUIRY_ENDPOINT}</span>
+              14 rooms reserved for your group, private access to the property, daily shuttles, refreshments, kitchen access and optional catering on request.
             </p>
           </div>
 
         </div>
 
         <div class="fh-footer-bottom">
-          <span>© ${new Date().getFullYear()} Fletschhorn. All rights reserved.</span>
+          <span>© ${new Date().getFullYear()} Fletschhorn</span>
           <span>Saas-Fee · Switzerland</span>
         </div>
       </footer>
@@ -91,18 +91,18 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
   }
 
   function initFooter(){
-    if(document.getElementById('fhGlobalFooter')) return;
+    if(document.getElementById("fhGlobalFooter")) return;
 
-    const nativeFooter = document.querySelector('footer:not(#fhGlobalFooter), .Footer, .SiteFooter, [data-test="footer"]');
+    const nativeFooter = document.querySelector("footer:not(#fhGlobalFooter), .Footer, .SiteFooter, [data-test='footer']");
     if(nativeFooter){
-      nativeFooter.style.display = 'none';
+      nativeFooter.style.display = "none";
     }
 
-    document.body.insertAdjacentHTML('beforeend', makeFooter());
+    document.body.insertAdjacentHTML("beforeend", makeFooter());
   }
 
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', initFooter);
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", initFooter);
   }else{
     initFooter();
   }
@@ -115,11 +115,12 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
   position:relative;
   z-index:20;
   margin-top:0;
-  padding:70px 6vw 34px;
+  padding:64px 6vw 30px;
   background:
-    radial-gradient(circle at 16% 10%, rgba(255,255,255,.74), transparent 28%),
-    radial-gradient(circle at 84% 18%, rgba(199,206,197,.34), transparent 30%),
-    linear-gradient(135deg,#f7f4ed 0%,#ebe6dc 48%,#dde3d8 100%);
+    radial-gradient(circle at 18% 0%, rgba(255,255,255,.82), transparent 30%),
+    radial-gradient(circle at 86% 22%, rgba(164,177,160,.22), transparent 34%),
+    radial-gradient(circle at 52% 100%, rgba(126,142,118,.16), transparent 36%),
+    linear-gradient(135deg,#f8f5ef 0%,#eee8dc 48%,#dfe7dc 100%);
   color:#172018;
   border-top:1px solid rgba(23,32,24,.10);
   overflow:hidden;
@@ -130,16 +131,27 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
   position:absolute;
   inset:0;
   background:
-    linear-gradient(120deg, transparent 0 34%, rgba(255,255,255,.28) 46%, transparent 58%),
-    radial-gradient(circle at 50% 100%, rgba(23,74,42,.08), transparent 38%);
+    linear-gradient(118deg, transparent 0 34%, rgba(255,255,255,.30) 46%, transparent 58%),
+    radial-gradient(circle at 12% 84%, rgba(23,74,42,.07), transparent 34%);
+  pointer-events:none;
+}
+
+.fh-global-footer::after{
+  content:"";
+  position:absolute;
+  left:6vw;
+  right:6vw;
+  top:0;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(23,32,24,.18), transparent);
   pointer-events:none;
 }
 
 .fh-footer-inner{
   position:relative;
   display:grid;
-  grid-template-columns:minmax(260px,1.35fr) minmax(160px,.7fr) minmax(210px,.8fr) minmax(220px,.8fr);
-  gap:42px;
+  grid-template-columns:minmax(260px,1.25fr) minmax(150px,.65fr) minmax(210px,.8fr) minmax(220px,.85fr);
+  gap:38px;
   align-items:start;
   max-width:1280px;
   margin:0 auto;
@@ -160,10 +172,10 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(255,255,255,.68);
+  background:rgba(255,255,255,.70);
   border:1px solid rgba(23,32,24,.10);
   overflow:hidden;
-  font-family:Georgia,serif;
+  font-family:Georgia,"Times New Roman",serif;
   font-style:italic;
   font-size:20px;
   box-shadow:0 14px 34px rgba(23,32,24,.08);
@@ -196,7 +208,7 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
 .fh-footer-brand p,
 .fh-footer-col p{
   max-width:390px;
-  margin:22px 0 0;
+  margin:20px 0 0;
   font-size:15px;
   line-height:1.65;
   color:rgba(23,32,24,.66);
@@ -213,7 +225,7 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
 
 .fh-footer-links{
   display:grid;
-  gap:11px;
+  gap:10px;
 }
 
 .fh-footer-links a,
@@ -238,7 +250,7 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  margin-top:28px;
+  margin-top:26px;
   padding:13px 18px;
   border-radius:999px;
   background:#173f28;
@@ -249,21 +261,11 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
   box-shadow:0 16px 36px rgba(23,63,40,.22);
 }
 
-.fh-footer-small{
-  font-size:12px !important;
-  line-height:1.55 !important;
-  color:rgba(23,32,24,.46) !important;
-}
-
-.fh-footer-small span{
-  word-break:break-word;
-}
-
 .fh-footer-bottom{
   position:relative;
   max-width:1280px;
-  margin:50px auto 0;
-  padding-top:22px;
+  margin:44px auto 0;
+  padding-top:20px;
   border-top:1px solid rgba(23,32,24,.10);
   display:flex;
   justify-content:space-between;
@@ -273,25 +275,114 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
   color:rgba(23,32,24,.48);
 }
 
+/* Tablet */
 @media(max-width:980px){
   .fh-footer-inner{
     grid-template-columns:1fr 1fr;
   }
 }
 
+/* Mobile: short, clean, not a huge footer */
 @media(max-width:640px){
   .fh-global-footer{
-    padding:52px 24px 28px;
+    padding:24px 20px 18px;
+    background:
+      radial-gradient(circle at 18% 0%, rgba(255,255,255,.82), transparent 34%),
+      linear-gradient(135deg,#f8f5ef 0%,#e6eadf 100%);
+  }
+
+  .fh-global-footer::before{
+    opacity:.55;
   }
 
   .fh-footer-inner{
-    grid-template-columns:1fr;
-    gap:34px;
+    display:block;
+    max-width:100%;
+  }
+
+  .fh-footer-logo{
+    gap:10px;
+  }
+
+  .fh-footer-mark{
+    width:38px;
+    height:38px;
+    box-shadow:0 8px 20px rgba(23,32,24,.07);
+  }
+
+  .fh-footer-logo strong{
+    font-size:24px;
+  }
+
+  .fh-footer-logo small{
+    font-size:8px;
+    letter-spacing:.13em;
+    margin-top:4px;
+  }
+
+  .fh-footer-brand p{
+    margin:12px 0 0;
+    font-size:13px;
+    line-height:1.45;
+    max-width:310px;
+  }
+
+  .fh-footer-cta{
+    margin-top:14px;
+    padding:11px 15px;
+    font-size:13px;
+  }
+
+  .fh-footer-explore{
+    margin-top:18px;
+  }
+
+  .fh-footer-explore h3,
+  .fh-footer-contact h3,
+  .fh-footer-stay{
+    display:none;
+  }
+
+  .fh-footer-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 12px;
+  }
+
+  .fh-footer-links a{
+    font-size:13px;
+    line-height:1.2;
+    color:rgba(23,32,24,.64);
+  }
+
+  .fh-footer-contact{
+    margin-top:14px;
+  }
+
+  .fh-footer-contact p{
+    display:none;
+  }
+
+  .fh-footer-contact p:last-child{
+    display:block;
+    margin:0;
+    font-size:13px;
+    line-height:1.45;
   }
 
   .fh-footer-bottom{
-    flex-direction:column;
-    margin-top:38px;
+    margin-top:16px;
+    padding-top:12px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    gap:10px;
+    font-size:10px;
+    line-height:1.3;
+  }
+
+  .fh-footer-bottom span:last-child{
+    text-align:right;
   }
 }
 </style>
