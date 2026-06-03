@@ -1,1795 +1,1340 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fletschhorn — Location</title>
-<link rel="stylesheet" href="assets/fh-global.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Location | Fletschhorn Saas-Fee</title>
+  <meta name="description" content="Fletschhorn in Saas-Fee: a private alpine house surrounded by forest, mountains, village life, ski lifts, trails and nature." />
+
+  <link rel="stylesheet" href="assets/fh-global.css">
+
+  <style>
+    :root{
+      --fh-ink:#1f261f;
+      --fh-muted:rgba(31,38,31,.68);
+      --fh-soft:rgba(31,38,31,.1);
+      --fh-line:rgba(31,38,31,.14);
+      --fh-cream:#f7f2e8;
+      --fh-cream2:#efe6d7;
+      --fh-green:#344936;
+      --fh-green2:#607257;
+      --fh-stone:#c9bda8;
+      --fh-white:#fffaf1;
+      --fh-shadow:0 26px 80px rgba(29,37,30,.16);
+      --fh-shadow-soft:0 18px 48px rgba(29,37,30,.10);
+      --fh-radius:34px;
+      --fh-serif:Georgia,"Times New Roman",serif;
+      --fh-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--fh-sans);
+      color:var(--fh-ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255,255,255,.82), transparent 32%),
+        radial-gradient(circle at 80% 16%, rgba(207,219,199,.55), transparent 30%),
+        linear-gradient(180deg,#fbf7ef 0%,#efe7d9 46%,#f8f3ea 100%);
+      overflow-x:hidden;
+    }
+
+    body.fh-github-version{
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255,255,255,.82), transparent 32%),
+        radial-gradient(circle at 80% 16%, rgba(207,219,199,.55), transparent 30%),
+        linear-gradient(180deg,#fbf7ef 0%,#efe7d9 46%,#f8f3ea 100%);
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+
+    .fh-location-page{
+      position:relative;
+      overflow:hidden;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 15% 9%, rgba(255,255,255,.86), transparent 0 28%),
+        radial-gradient(circle at 84% 25%, rgba(144,163,128,.24), transparent 0 26%),
+        radial-gradient(circle at 16% 82%, rgba(201,189,168,.24), transparent 0 26%);
+    }
+
+    .fh-location-page:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:.42;
+      background-image:
+        radial-gradient(rgba(52,73,54,.08) .8px, transparent .9px);
+      background-size:18px 18px;
+      mask-image:linear-gradient(180deg,transparent 0%,#000 14%,#000 80%,transparent 100%);
+    }
+
+    .fh-location-page > *{
+      position:relative;
+      z-index:1;
+    }
+
+    .fh-container{
+      width:min(1180px,calc(100% - 40px));
+      margin:0 auto;
+    }
+
+    .fh-hero{
+      min-height:86vh;
+      display:grid;
+      align-items:center;
+      padding:128px 0 70px;
+    }
+
+    .fh-hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(360px,.74fr);
+      gap:54px;
+      align-items:center;
+    }
+
+    .fh-kicker{
+      margin:0 0 16px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:12px;
+      line-height:1.4;
+      font-weight:800;
+      color:rgba(52,73,54,.64);
+    }
+
+    .fh-title{
+      margin:0;
+      font-family:var(--fh-serif);
+      font-weight:400;
+      font-size:clamp(54px,7vw,104px);
+      line-height:.9;
+      letter-spacing:-.07em;
+      max-width:840px;
+    }
+
+    .fh-title em{
+      color:var(--fh-green2);
+      font-style:italic;
+    }
+
+    .fh-lead{
+      margin:26px 0 0;
+      max-width:710px;
+      font-size:clamp(18px,2vw,23px);
+      line-height:1.55;
+      color:var(--fh-muted);
+    }
+
+    .fh-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:34px;
+    }
+
+    .fh-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:14px 21px;
+      border-radius:999px;
+      border:1px solid var(--fh-line);
+      background:rgba(255,250,241,.72);
+      color:var(--fh-ink);
+      font-weight:800;
+      box-shadow:0 12px 34px rgba(29,37,30,.08);
+      backdrop-filter:blur(14px);
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .fh-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 42px rgba(29,37,30,.14);
+    }
+
+    .fh-btn-dark{
+      background:var(--fh-green);
+      color:#fffaf1;
+      border-color:transparent;
+    }
+
+    .fh-hero-card{
+      border-radius:42px;
+      overflow:hidden;
+      min-height:560px;
+      background:#d9d0c0;
+      box-shadow:var(--fh-shadow);
+      position:relative;
+      isolation:isolate;
+    }
+
+    .fh-hero-card img{
+      width:100%;
+      height:100%;
+      min-height:560px;
+      object-fit:cover;
+      filter:saturate(.9) contrast(1.03);
+    }
+
+    .fh-hero-card:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg,rgba(15,22,16,.05),rgba(15,22,16,.54)),
+        radial-gradient(circle at 24% 18%, rgba(255,255,255,.22), transparent 32%);
+      z-index:1;
+    }
+
+    .fh-hero-badge{
+      position:absolute;
+      left:22px;
+      right:22px;
+      bottom:22px;
+      z-index:2;
+      border-radius:28px;
+      padding:22px;
+      color:#fffaf1;
+      background:rgba(20,28,20,.38);
+      border:1px solid rgba(255,255,255,.24);
+      backdrop-filter:blur(18px);
+    }
+
+    .fh-hero-badge b{
+      display:block;
+      font-family:var(--fh-serif);
+      font-size:36px;
+      line-height:1;
+      font-weight:400;
+      letter-spacing:-.04em;
+    }
+
+    .fh-hero-badge span{
+      display:block;
+      margin-top:8px;
+      color:rgba(255,250,241,.78);
+      line-height:1.5;
+    }
+
+    .fh-quick{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:34px;
+    }
+
+    .fh-quick-item{
+      border-radius:26px;
+      padding:18px;
+      background:rgba(255,250,241,.68);
+      border:1px solid rgba(255,255,255,.7);
+      box-shadow:var(--fh-shadow-soft);
+      backdrop-filter:blur(14px);
+    }
+
+    .fh-quick-item strong{
+      display:block;
+      font-family:var(--fh-serif);
+      font-size:28px;
+      line-height:1;
+      font-weight:400;
+      letter-spacing:-.03em;
+    }
+
+    .fh-quick-item span{
+      display:block;
+      margin-top:8px;
+      color:var(--fh-muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .fh-section{
+      padding:92px 0;
+    }
+
+    .fh-section-head{
+      display:grid;
+      grid-template-columns:minmax(0,.9fr) minmax(320px,.64fr);
+      gap:52px;
+      align-items:end;
+      margin-bottom:36px;
+    }
+
+    .fh-section-title{
+      margin:0;
+      font-family:var(--fh-serif);
+      font-weight:400;
+      font-size:clamp(42px,5vw,78px);
+      line-height:.94;
+      letter-spacing:-.06em;
+    }
+
+    .fh-section-text{
+      margin:0;
+      color:var(--fh-muted);
+      font-size:17px;
+      line-height:1.72;
+    }
+
+    .fh-location-intro{
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(360px,.74fr);
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .fh-panel{
+      border-radius:var(--fh-radius);
+      padding:36px;
+      background:
+        linear-gradient(145deg,rgba(255,250,241,.82),rgba(247,242,232,.58));
+      border:1px solid rgba(255,255,255,.72);
+      box-shadow:var(--fh-shadow-soft);
+      backdrop-filter:blur(16px);
+    }
+
+    .fh-panel h3{
+      margin:0 0 14px;
+      font-family:var(--fh-serif);
+      font-weight:400;
+      font-size:clamp(34px,4vw,58px);
+      line-height:.98;
+      letter-spacing:-.05em;
+    }
+
+    .fh-panel p{
+      margin:0;
+      color:var(--fh-muted);
+      font-size:17px;
+      line-height:1.72;
+    }
+
+    .fh-list{
+      display:grid;
+      gap:12px;
+      margin-top:24px;
+    }
+
+    .fh-list-item{
+      display:grid;
+      grid-template-columns:38px 1fr;
+      gap:14px;
+      align-items:start;
+      padding:15px;
+      border-radius:22px;
+      background:rgba(255,255,255,.38);
+      border:1px solid rgba(31,38,31,.08);
+    }
+
+    .fh-list-icon{
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:rgba(96,114,87,.14);
+      color:var(--fh-green);
+      font-weight:900;
+    }
+
+    .fh-list-item b{
+      display:block;
+      margin-bottom:3px;
+      color:var(--fh-ink);
+    }
+
+    .fh-list-item span{
+      color:var(--fh-muted);
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .fh-image-tile{
+      border-radius:var(--fh-radius);
+      overflow:hidden;
+      min-height:520px;
+      position:relative;
+      box-shadow:var(--fh-shadow);
+      background:#d7ccb9;
+    }
+
+    .fh-image-tile img{
+      width:100%;
+      height:100%;
+      min-height:520px;
+      object-fit:cover;
+    }
+
+    .fh-image-tile:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.48));
+    }
+
+    .fh-image-caption{
+      position:absolute;
+      left:24px;
+      right:24px;
+      bottom:24px;
+      z-index:2;
+      color:#fffaf1;
+    }
+
+    .fh-image-caption b{
+      display:block;
+      font-family:var(--fh-serif);
+      font-size:36px;
+      font-weight:400;
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+
+    .fh-image-caption span{
+      display:block;
+      margin-top:8px;
+      color:rgba(255,250,241,.78);
+      line-height:1.5;
+    }
+
+    .fh-shuttle-grid{
+      display:grid;
+      grid-template-columns:minmax(0,.84fr) minmax(0,1fr);
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .fh-photo-carousel{
+      position:relative;
+      border-radius:var(--fh-radius);
+      overflow:hidden;
+      min-height:520px;
+      background:#d8cfbd;
+      box-shadow:var(--fh-shadow);
+    }
+
+    .fh-slide{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transition:opacity .75s ease;
+    }
+
+    .fh-slide.active{
+      opacity:1;
+    }
+
+    .fh-slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .fh-carousel-controls{
+      position:absolute;
+      z-index:4;
+      left:22px;
+      right:22px;
+      bottom:22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+
+    .fh-dots{
+      display:flex;
+      gap:7px;
+      padding:9px 10px;
+      border-radius:999px;
+      background:rgba(20,28,20,.34);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter:blur(14px);
+    }
+
+    .fh-dot{
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      border:0;
+      background:rgba(255,255,255,.44);
+      cursor:pointer;
+    }
+
+    .fh-dot.active{
+      background:#fffaf1;
+    }
+
+    .fh-arrow{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.28);
+      background:rgba(20,28,20,.34);
+      color:#fffaf1;
+      cursor:pointer;
+      backdrop-filter:blur(14px);
+      font-size:20px;
+    }
+
+    .fh-map-wrap{
+      border-radius:var(--fh-radius);
+      overflow:hidden;
+      background:rgba(255,250,241,.72);
+      border:1px solid rgba(255,255,255,.74);
+      box-shadow:var(--fh-shadow-soft);
+    }
+
+    .fh-map{
+      width:100%;
+      height:460px;
+      border:0;
+      display:block;
+      filter:saturate(.88) contrast(.98);
+    }
+
+    .fh-map-info{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      padding:18px;
+    }
+
+    .fh-map-info div{
+      border-radius:22px;
+      padding:17px;
+      background:rgba(255,255,255,.48);
+      border:1px solid rgba(31,38,31,.08);
+    }
+
+    .fh-map-info b{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .fh-map-info span{
+      display:block;
+      color:var(--fh-muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .fh-around-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .fh-around-card{
+      min-height:360px;
+      border-radius:32px;
+      overflow:hidden;
+      position:relative;
+      background:#d7ccb8;
+      box-shadow:var(--fh-shadow-soft);
+    }
+
+    .fh-around-card img{
+      width:100%;
+      height:100%;
+      min-height:360px;
+      object-fit:cover;
+      transition:transform .7s ease;
+    }
+
+    .fh-around-card:hover img{
+      transform:scale(1.04);
+    }
+
+    .fh-around-card:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(10,16,10,.02),rgba(10,16,10,.62));
+    }
+
+    .fh-around-copy{
+      position:absolute;
+      left:22px;
+      right:22px;
+      bottom:22px;
+      z-index:2;
+      color:#fffaf1;
+    }
+
+    .fh-around-copy small{
+      display:block;
+      margin-bottom:8px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:11px;
+      font-weight:900;
+      color:rgba(255,250,241,.72);
+    }
+
+    .fh-around-copy h3{
+      margin:0;
+      font-family:var(--fh-serif);
+      font-weight:400;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+
+    .fh-around-copy p{
+      margin:10px 0 0;
+      color:rgba(255,250,241,.8);
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .fh-booking-bar-section{
+      padding:76px 0 106px;
+    }
+
+    .fh-booking-panel{
+      border-radius:38px;
+      padding:34px;
+      background:
+        radial-gradient(circle at 20% 10%,rgba(255,255,255,.62),transparent 30%),
+        linear-gradient(135deg,rgba(52,73,54,.94),rgba(82,101,72,.92));
+      color:#fffaf1;
+      box-shadow:var(--fh-shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .fh-booking-panel:before{
+      content:"";
+      position:absolute;
+      inset:auto -10% -46% auto;
+      width:390px;
+      height:390px;
+      border-radius:50%;
+      background:rgba(255,255,255,.1);
+      pointer-events:none;
+    }
+
+    .fh-booking-panel h2{
+      position:relative;
+      margin:0;
+      font-family:var(--fh-serif);
+      font-weight:400;
+      font-size:clamp(38px,5vw,72px);
+      line-height:.95;
+      letter-spacing:-.06em;
+      max-width:780px;
+    }
+
+    .fh-booking-panel p{
+      position:relative;
+      margin:16px 0 28px;
+      color:rgba(255,250,241,.76);
+      font-size:17px;
+      line-height:1.65;
+      max-width:720px;
+    }
+
+    .fh-booking-toolbar{
+      position:relative;
+      display:grid;
+      grid-template-columns:1fr 1fr 1.3fr 1fr 1fr auto;
+      gap:10px;
+      padding:12px;
+      border-radius:26px;
+      background:rgba(255,250,241,.14);
+      border:1px solid rgba(255,255,255,.22);
+      backdrop-filter:blur(16px);
+    }
+
+    .fh-field{
+      position:relative;
+    }
+
+    .fh-field label{
+      display:block;
+      margin:0 0 6px;
+      font-size:10px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:900;
+      color:rgba(255,250,241,.7);
+    }
+
+    .fh-field input{
+      width:100%;
+      height:46px;
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:16px;
+      padding:0 13px;
+      background:rgba(255,250,241,.9);
+      color:var(--fh-ink);
+      font:inherit;
+      outline:none;
+    }
+
+    .fh-booking-toolbar button{
+      align-self:end;
+      height:46px;
+      border:0;
+      border-radius:16px;
+      padding:0 18px;
+      background:#fffaf1;
+      color:var(--fh-green);
+      font-weight:900;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+
+    .fh-booking-error{
+      display:none;
+      margin-top:12px;
+      color:#fff0d9;
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .fh-lang-hidden{
+      display:none !important;
+    }
+
+    .fh-reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .75s ease, transform .75s ease;
+    }
+
+    .fh-reveal.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media(max-width:1050px){
+      .fh-hero-grid,
+      .fh-section-head,
+      .fh-location-intro,
+      .fh-shuttle-grid{
+        grid-template-columns:1fr;
+      }
+
+      .fh-quick{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .fh-booking-toolbar{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .fh-booking-toolbar button{
+        grid-column:1 / -1;
+      }
+    }
+
+    @media(max-width:760px){
+      .fh-container{
+        width:min(100% - 28px,1180px);
+      }
+
+      .fh-hero{
+        padding:104px 0 54px;
+        min-height:auto;
+      }
+
+      .fh-title{
+        font-size:clamp(48px,14vw,70px);
+      }
+
+      .fh-hero-card,
+      .fh-hero-card img,
+      .fh-image-tile,
+      .fh-image-tile img,
+      .fh-photo-carousel{
+        min-height:390px;
+      }
+
+      .fh-quick,
+      .fh-around-grid,
+      .fh-map-info,
+      .fh-booking-toolbar{
+        grid-template-columns:1fr;
+      }
+
+      .fh-section{
+        padding:64px 0;
+      }
+
+      .fh-panel{
+        padding:24px;
+      }
+
+      .fh-map{
+        height:360px;
+      }
+
+      .fh-booking-panel{
+        padding:24px;
+        border-radius:30px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div id="fh-header-slot"></div>
-<style>
+  <div id="fh-header-slot"></div>
 
-section:has(#fh-experiences){
-  padding:0!important;
-  margin:0!important;
-}
-section:has(#fh-experiences) .content-wrapper,
-section:has(#fh-experiences) .sqs-layout,
-section:has(#fh-experiences) .sqs-row,
-section:has(#fh-experiences) .sqs-block,
-section:has(#fh-experiences) .sqs-block-content,
-section:has(#fh-experiences) .sqs-block-code{
-  width:100%!important;
-  max-width:none!important;
-  margin:0!important;
-  padding:0!important;
-}
+  <main class="fh-location-page">
+    <section class="fh-hero" id="top">
+      <div class="fh-container">
+        <div class="fh-hero-grid">
+          <div>
+            <div data-i18n="en">
+              <p class="fh-kicker">Location · Saas-Fee · Switzerland</p>
+              <h1 class="fh-title">Surrounded by nature, close to everything that matters.</h1>
+              <p class="fh-lead">Fletschhorn sits above Saas-Fee in a calm forest setting: private, quiet, and still connected to the village, lifts, trails, restaurants and mountain life.</p>
+            </div>
 
-#fh-experiences,
-#fh-experiences *{box-sizing:border-box}
+            <div data-i18n="fr" class="fh-lang-hidden">
+              <p class="fh-kicker">Emplacement · Saas-Fee · Suisse</p>
+              <h1 class="fh-title">Entouré par la nature, proche de tout ce qui compte.</h1>
+              <p class="fh-lead">Le Fletschhorn se situe au-dessus de Saas-Fee, dans un cadre forestier calme : privé, paisible, mais toujours connecté au village, aux remontées mécaniques, aux sentiers et à la vie alpine.</p>
+            </div>
 
-#fh-experiences{
-  --fh-bg:#f4eee6;
-  --fh-bg-2:#ebe1d6;
-  --fh-paper:#fffaf3;
-  --fh-paper-soft:rgba(255,250,243,.82);
-  --fh-ink:#191715;
-  --fh-ink-soft:rgba(25,23,21,.68);
-  --fh-muted:rgba(25,23,21,.48);
-  --fh-line:rgba(25,23,21,.14);
-  --fh-clay:#b99f86;
-  --fh-clay-dark:#846c56;
-  --fh-stone:#d9d1c7;
-  --fh-snow:#f8f5ef;
-  --fh-blue:#9faeaf;
-  --fh-shadow:0 28px 72px rgba(18,16,14,.14);
-  --fh-shadow-soft:0 14px 42px rgba(18,16,14,.07);
-  --fh-serif:Georgia,"Times New Roman",serif;
-  --fh-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  width:100%!important;
-  max-width:none!important;
-  margin:0!important;
-  overflow-x:hidden!important;
-  color:var(--fh-ink);
-  background:
-    radial-gradient(circle at 10% 8%,rgba(255,255,255,.68),transparent 24%),
-    radial-gradient(circle at 90% 12%,rgba(159,174,175,.22),transparent 25%),
-    linear-gradient(180deg,var(--fh-bg),var(--fh-bg-2));
-  font-family:var(--fh-sans);
-  text-rendering:geometricPrecision;
-}
+            <div data-i18n="de" class="fh-lang-hidden">
+              <p class="fh-kicker">Lage · Saas-Fee · Schweiz</p>
+              <h1 class="fh-title">Von Natur umgeben, nah an allem, was zählt.</h1>
+              <p class="fh-lead">Das Fletschhorn liegt oberhalb von Saas-Fee in einer ruhigen Waldlage: privat, still und dennoch verbunden mit Dorf, Bergbahnen, Wegen, Restaurants und alpinem Leben.</p>
+            </div>
 
-#fh-experiences a{color:inherit;text-decoration:none}
-#fh-experiences img{display:block;max-width:100%}
-#fh-experiences button,
-#fh-experiences input,
-#fh-experiences select,
-#fh-experiences textarea{font:inherit}
-#fh-experiences button{cursor:pointer}
+            <div data-i18n="ru" class="fh-lang-hidden">
+              <p class="fh-kicker">Локация · Саас-Фе · Швейцария</p>
+              <h1 class="fh-title">В окружении природы, рядом со всем важным.</h1>
+              <p class="fh-lead">Fletschhorn расположен над Саас-Фе в спокойной лесной зоне: уединённо и тихо, но с удобным доступом к деревне, подъёмникам, маршрутам, ресторанам и горной жизни.</p>
+            </div>
 
-#fh-experiences .fh-topography{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  opacity:.18;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23846c56' stroke-opacity='.46' stroke-width='1.1'%3E%3Cpath d='M-50 134c198 48 354 52 492 8 133-42 270-37 412 16 154 58 315 57 506-12 80-28 149-29 218-12'/%3E%3Cpath d='M-50 284c220 36 397 29 536-18 124-42 255-38 392 8 169 56 329 51 507-12 82-30 152-33 214-18'/%3E%3Cpath d='M-50 432c228 27 416 15 570-25 119-31 248-28 386 4 159 37 313 36 482-10 87-24 160-26 229-16'/%3E%3Cpath d='M-50 590c242 17 433 6 592-28 123-26 247-24 380-4 149 22 292 21 442-8 92-17 166-17 224-9'/%3E%3Cpath d='M-50 750c261 7 469-7 636-34 121-19 240-16 368-3 142 15 282 15 425-8 84-13 150-12 212-7'/%3E%3C/g%3E%3C/svg%3E");
-  background-size:cover;
-  background-position:center;
-  animation:fhTopoDrift 28s ease-in-out infinite alternate;
-}
-@keyframes fhTopoDrift{from{transform:translate3d(0,0,0) scale(1.02)}to{transform:translate3d(-1.2vw,-1vh,0) scale(1.06)}}
+            <div class="fh-actions">
+              <a class="fh-btn fh-btn-dark" href="#booking" data-i18n-text='{"en":"Book my stay now","fr":"Réserver mon séjour","de":"Aufenthalt buchen","ru":"Забронировать"}'>Book my stay now</a>
+              <a class="fh-btn" href="#map" data-i18n-text='{"en":"View the map","fr":"Voir la carte","de":"Karte ansehen","ru":"Посмотреть карту"}'>View the map</a>
+            </div>
 
-#fh-experiences .fh-shell{position:relative;z-index:1}
+            <div class="fh-quick">
+              <div class="fh-quick-item">
+                <strong>Car-free</strong>
+                <span data-i18n-text='{"en":"Saas-Fee village is calm, walkable and mountain-focused.","fr":"Saas-Fee est calme, piétonne et tournée vers la montagne.","de":"Saas-Fee ist ruhig, autofrei und bergnah.","ru":"Саас-Фе — тихая пешеходная альпийская деревня."}'>Saas-Fee village is calm, walkable and mountain-focused.</span>
+              </div>
+              <div class="fh-quick-item">
+                <strong>18 peaks</strong>
+                <span data-i18n-text='{"en":"Surrounded by dramatic four-thousand-meter summits.","fr":"Entouré de sommets spectaculaires de plus de 4 000 m.","de":"Umgeben von eindrucksvollen Viertausendern.","ru":"В окружении впечатляющих четырёхтысячников."}'>Surrounded by dramatic four-thousand-meter summits.</span>
+              </div>
+              <div class="fh-quick-item">
+                <strong>Shuttles</strong>
+                <span data-i18n-text='{"en":"Private transfers and ski-lift shuttle rhythm for groups.","fr":"Transferts privés et navettes vers les remontées pour les groupes.","de":"Private Transfers und Shuttle zu den Bergbahnen.","ru":"Частные трансферы и шаттлы к подъёмникам."}'>Private transfers and ski-lift shuttle rhythm for groups.</span>
+              </div>
+              <div class="fh-quick-item">
+                <strong>All seasons</strong>
+                <span data-i18n-text='{"en":"Skiing, hiking, events, weddings and quiet retreats.","fr":"Ski, randonnée, événements, mariages et séjours calmes.","de":"Ski, Wandern, Events, Hochzeiten und ruhige Retreats.","ru":"Лыжи, походы, события, свадьбы и спокойный отдых."}'>Skiing, hiking, events, weddings and quiet retreats.</span>
+              </div>
+            </div>
+          </div>
 
-#fh-experiences .fh-header{
-  position:fixed;
-  top:18px;
-  left:18px;
-  right:18px;
-  z-index:30;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  padding:14px 18px;
-  color:var(--fh-paper);
-  border:1px solid rgba(255,250,243,.28);
-  background:rgba(28,25,22,.34);
-  -webkit-backdrop-filter:blur(16px);
-  backdrop-filter:blur(16px);
-}
-
-#fh-experiences .fh-brand{display:flex;align-items:center;gap:12px;min-width:0}
-#fh-experiences .fh-brand-mark{
-  display:grid;
-  place-items:center;
-  width:44px;
-  height:44px;
-  border:1px solid rgba(255,250,243,.44);
-  font-family:var(--fh-serif);
-  font-size:20px;
-  letter-spacing:-.05em;
-  flex:0 0 auto;
-}
-#fh-experiences .fh-brand-title{
-  font-family:var(--fh-serif);
-  font-size:27px;
-  line-height:.88;
-  letter-spacing:-.055em;
-  white-space:nowrap;
-}
-#fh-experiences .fh-brand-title span{
-  display:block;
-  margin-top:6px;
-  font-family:var(--fh-sans);
-  font-size:10px;
-  line-height:1;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:rgba(255,250,243,.68);
-}
-#fh-experiences .fh-nav{display:flex;align-items:center;gap:20px;color:rgba(255,250,243,.80);font-size:13px}
-#fh-experiences .fh-nav a:not(.fh-nav-cta){position:relative}
-#fh-experiences .fh-nav a:not(.fh-nav-cta)::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-6px;
-  width:0;
-  height:1px;
-  background:currentColor;
-  transition:width .26s ease;
-}
-#fh-experiences .fh-nav a:hover::after{width:100%}
-#fh-experiences .fh-nav-cta{
-  padding:12px 18px;
-  background:var(--fh-clay);
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  font-size:11px;
-  font-weight:850;
-}
-
-#fh-experiences .fh-hero{
-  position:relative;
-  min-height:100svh;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  background:#171411;
-  color:var(--fh-paper);
-}
-#fh-experiences .fh-hero-media,
-#fh-experiences .fh-hero-slide{position:absolute;inset:0}
-#fh-experiences .fh-hero-slide{
-  background-size:cover;
-  background-position:center;
-  opacity:0;
-  transform:scale(1.045);
-  transition:opacity 1.4s ease, transform 8s ease;
-}
-#fh-experiences .fh-hero-slide.is-active{opacity:1;transform:scale(1)}
-#fh-experiences .fh-hero-media::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:2;
-  background:
-    linear-gradient(180deg,rgba(20,18,16,.50),rgba(20,18,16,.34) 40%,rgba(20,18,16,.68)),
-    radial-gradient(circle at 74% 18%,rgba(185,159,134,.22),transparent 28%);
-}
-#fh-experiences .fh-hero-media::before{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:3;
-  height:150px;
-  background:linear-gradient(180deg,transparent,var(--fh-bg));
-}
-#fh-experiences .fh-hero-inner{
-  position:relative;
-  z-index:4;
-  width:min(1180px,calc(100% - 40px));
-  padding:146px 0 52px;
-  text-align:center;
-}
-#fh-experiences .fh-kicker{
-  margin:0 0 14px;
-  text-transform:uppercase;
-  letter-spacing:.22em;
-  font-size:11px;
-  font-weight:850;
-  color:var(--fh-clay-dark);
-}
-#fh-experiences .fh-hero .fh-kicker{color:rgba(255,250,243,.80)}
-#fh-experiences h1,#fh-experiences h2,#fh-experiences h3,#fh-experiences p{margin-top:0}
-#fh-experiences h1{
-  margin:0 auto 18px;
-  max-width:980px;
-  font-family:var(--fh-serif);
-  font-weight:400;
-  font-size:clamp(48px,8.1vw,104px);
-  line-height:.9;
-  letter-spacing:-.068em;
-}
-#fh-experiences .fh-hero-lead{
-  max-width:760px;
-  margin:0 auto 28px;
-  color:rgba(255,250,243,.86);
-  font-size:clamp(16px,2vw,20px);
-  line-height:1.65;
-}
-
-#fh-experiences .fh-season-jump{
-  width:min(1030px,100%);
-  margin:0 auto 18px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-#fh-experiences .fh-season-choice{
-  border:1px solid rgba(255,250,243,.24);
-  background:rgba(255,250,243,.12);
-  color:var(--fh-paper);
-  padding:16px 14px;
-  text-align:left;
-  -webkit-backdrop-filter:blur(10px);
-  backdrop-filter:blur(10px);
-  transition:.25s ease;
-}
-#fh-experiences .fh-season-choice:hover,
-#fh-experiences .fh-season-choice.is-active{
-  background:rgba(255,250,243,.92);
-  color:var(--fh-ink);
-  transform:translateY(-2px);
-}
-#fh-experiences .fh-season-choice b{
-  display:block;
-  font-family:var(--fh-serif);
-  font-weight:400;
-  font-size:28px;
-  line-height:1;
-  letter-spacing:-.045em;
-  margin-bottom:7px;
-}
-#fh-experiences .fh-season-choice span{
-  display:block;
-  font-size:12px;
-  line-height:1.35;
-  color:currentColor;
-  opacity:.78;
-}
-
-#fh-experiences .fh-quickbar{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr 168px;
-  width:min(1030px,100%);
-  margin:0 auto;
-  background:rgba(255,250,243,.94);
-  color:var(--fh-ink);
-  box-shadow:var(--fh-shadow);
-  border:1px solid rgba(255,250,243,.28);
-}
-#fh-experiences .fh-qitem{
-  min-width:0;
-  text-align:left;
-  padding:17px 18px;
-  border-right:1px solid var(--fh-line);
-}
-#fh-experiences .fh-qitem label{
-  display:block;
-  margin-bottom:6px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.17em;
-  font-weight:850;
-  color:rgba(25,23,21,.52);
-}
-#fh-experiences .fh-qitem input{
-  width:100%;
-  border:0;
-  outline:none;
-  background:transparent;
-  color:var(--fh-ink);
-  font-size:15px;
-  min-width:0;
-}
-#fh-experiences .fh-qitem input::placeholder{color:rgba(25,23,21,.45)}
-#fh-experiences .fh-book-btn{
-  border:0;
-  background:var(--fh-clay);
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.15em;
-  font-size:11px;
-  font-weight:850;
-}
-#fh-experiences .fh-hero-note{margin:14px auto 0;color:rgba(255,250,243,.76);font-size:13px}
-#fh-experiences .fh-peek{display:inline-flex;flex-direction:column;align-items:center;gap:10px;margin-top:32px;color:rgba(255,250,243,.88)}
-#fh-experiences .fh-peek span{font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:850}
-#fh-experiences .fh-peek-line{position:relative;width:1px;height:44px;overflow:hidden;background:rgba(255,250,243,.44)}
-#fh-experiences .fh-peek-line::after{
-  content:"";
-  position:absolute;
-  inset:auto 0 100% 0;
-  height:18px;
-  background:#fff;
-  animation:fhPeekDrop 1.8s ease-in-out infinite;
-}
-@keyframes fhPeekDrop{0%{transform:translateY(0);opacity:0}25%{opacity:1}100%{transform:translateY(66px);opacity:0}}
-
-#fh-experiences .fh-section{position:relative;padding:96px 20px}
-#fh-experiences .fh-section-alt{background:linear-gradient(180deg,rgba(255,250,243,.44),rgba(225,214,202,.42))}
-#fh-experiences .fh-container{width:min(1180px,100%);margin:0 auto}
-#fh-experiences .fh-section-head{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(280px,.72fr);
-  gap:30px;
-  align-items:end;
-  margin-bottom:34px;
-}
-#fh-experiences h2{
-  margin:0;
-  font-family:var(--fh-serif);
-  font-size:clamp(42px,5.3vw,76px);
-  line-height:.94;
-  letter-spacing:-.058em;
-  font-weight:400;
-}
-#fh-experiences h3{
-  margin:0 0 12px;
-  font-family:var(--fh-serif);
-  font-size:clamp(30px,3.6vw,46px);
-  line-height:.96;
-  letter-spacing:-.052em;
-  font-weight:400;
-}
-#fh-experiences p{color:var(--fh-ink-soft);font-size:17px;line-height:1.7}
-
-#fh-experiences .fh-intro-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:24px;align-items:stretch}
-#fh-experiences .fh-panel{background:var(--fh-paper);border:1px solid rgba(132,108,86,.18);box-shadow:var(--fh-shadow-soft);padding:38px}
-#fh-experiences .fh-panel-dark{color:var(--fh-paper);background:linear-gradient(135deg,rgba(45,39,34,.92),rgba(132,108,86,.88))}
-#fh-experiences .fh-panel-dark p,#fh-experiences .fh-panel-dark .fh-kicker{color:rgba(255,250,243,.78)}
-#fh-experiences .fh-proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
-#fh-experiences .fh-proof{padding:18px;border:1px solid rgba(255,250,243,.28);background:rgba(255,255,255,.09)}
-#fh-experiences .fh-proof strong{display:block;margin-bottom:6px;font-family:var(--fh-serif);font-size:28px;font-weight:400}
-#fh-experiences .fh-proof span{font-size:13px;line-height:1.5;color:rgba(255,250,243,.75)}
-
-#fh-experiences .fh-photo-strip{
-  display:grid;
-  grid-template-columns:1.2fr .8fr .8fr;
-  gap:14px;
-  margin-top:24px;
-}
-#fh-experiences .fh-photo-tile{
-  min-height:260px;
-  position:relative;
-  overflow:hidden;
-  background:#d5cabf;
-  box-shadow:var(--fh-shadow-soft);
-}
-#fh-experiences .fh-photo-tile.tall{min-height:360px}
-#fh-experiences .fh-photo-tile img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .7s ease}
-#fh-experiences .fh-photo-tile:hover img{transform:scale(1.06)}
-#fh-experiences .fh-photo-tile span{
-  position:absolute;
-  left:16px;
-  bottom:16px;
-  right:16px;
-  z-index:2;
-  background:rgba(255,250,243,.88);
-  padding:12px 14px;
-  color:var(--fh-ink);
-  font-size:13px;
-  font-weight:700;
-}
-#fh-experiences .fh-photo-tile:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,transparent 50%,rgba(18,16,14,.38));
-}
-
-#fh-experiences .fh-filter-board{
-  position:sticky;
-  top:88px;
-  z-index:5;
-  margin-bottom:22px;
-  padding:12px;
-  background:rgba(244,238,230,.82);
-  border:1px solid rgba(132,108,86,.16);
-  -webkit-backdrop-filter:blur(14px);
-  backdrop-filter:blur(14px);
-}
-#fh-experiences .fh-filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-#fh-experiences .fh-filter{
-  border:1px solid rgba(132,108,86,.22);
-  background:rgba(255,250,243,.82);
-  color:var(--fh-ink);
-  padding:10px 14px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  font-size:10px;
-  font-weight:850;
-}
-#fh-experiences .fh-filter.is-active{background:var(--fh-clay);color:#fff;border-color:var(--fh-clay)}
-
-#fh-experiences .fh-map-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 380px;
-  gap:20px;
-  align-items:stretch;
-}
-#fh-experiences .fh-map-card{
-  min-height:660px;
-  background:#d7cdc2;
-  border:1px solid rgba(132,108,86,.20);
-  box-shadow:var(--fh-shadow);
-  overflow:hidden;
-  position:relative;
-}
-#fh-experiences .fh-map-iframe{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:0;
-  z-index:1;
-  filter:saturate(.9) contrast(.98);
-}
-#fh-experiences .fh-map-overlay{
-  position:absolute;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-}
-#fh-experiences .fh-map-pin{
-  --x:50%;
-  --y:50%;
-  position:absolute;
-  left:var(--x);
-  top:var(--y);
-  transform:translate(-50%,-50%);
-  width:24px;
-  height:24px;
-  border:0;
-  background:transparent;
-  pointer-events:auto;
-  z-index:4;
-}
-#fh-experiences .fh-map-pin::before{
-  content:"";
-  position:absolute;
-  inset:3px;
-  background:var(--fh-clay);
-  border:2px solid #fff;
-  box-shadow:0 12px 24px rgba(0,0,0,.28);
-  transition:.2s ease;
-}
-#fh-experiences .fh-map-pin:hover::before,
-#fh-experiences .fh-map-pin.is-active::before{
-  background:#2c2520;
-  transform:scale(1.18);
-}
-#fh-experiences .fh-map-pin span{
-  position:absolute;
-  left:50%;
-  bottom:30px;
-  transform:translateX(-50%);
-  white-space:nowrap;
-  background:rgba(255,250,243,.95);
-  color:var(--fh-ink);
-  padding:7px 9px;
-  font-size:11px;
-  font-weight:850;
-  letter-spacing:.04em;
-  box-shadow:var(--fh-shadow-soft);
-  opacity:0;
-  pointer-events:none;
-  transition:.2s ease;
-}
-#fh-experiences .fh-map-pin:hover span,
-#fh-experiences .fh-map-pin.is-active span{opacity:1}
-#fh-experiences .fh-map-pin.is-hidden{display:none}
-
-#fh-experiences .fh-map-info{
-  position:absolute;
-  left:18px;
-  right:18px;
-  bottom:18px;
-  z-index:5;
-  background:rgba(255,250,243,.94);
-  border:1px solid rgba(255,255,255,.55);
-  box-shadow:var(--fh-shadow-soft);
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
-  padding:18px;
-}
-#fh-experiences .fh-map-info small{
-  display:block;
-  margin-bottom:6px;
-  color:var(--fh-clay-dark);
-  text-transform:uppercase;
-  letter-spacing:.15em;
-  font-size:10px;
-  font-weight:850;
-}
-#fh-experiences .fh-map-info h3{font-size:30px;margin-bottom:7px}
-#fh-experiences .fh-map-info p{font-size:14px;line-height:1.55;margin:0}
-
-#fh-experiences .fh-map-sidebar{
-  display:grid;
-  gap:10px;
-  max-height:660px;
-  overflow:auto;
-  padding-right:4px;
-}
-#fh-experiences .fh-place{
-  display:grid;
-  grid-template-columns:32px 1fr;
-  gap:12px;
-  align-items:start;
-  padding:15px;
-  background:var(--fh-paper);
-  border:1px solid rgba(132,108,86,.18);
-  box-shadow:var(--fh-shadow-soft);
-  text-align:left;
-}
-#fh-experiences .fh-place.is-active{outline:2px solid var(--fh-clay)}
-#fh-experiences .fh-place.is-hidden{display:none}
-#fh-experiences .fh-place b{
-  display:grid;
-  place-items:center;
-  width:32px;
-  height:32px;
-  background:var(--fh-clay);
-  color:#fff;
-  font-family:var(--fh-serif);
-  font-weight:400;
-}
-#fh-experiences .fh-place strong{display:block;margin-bottom:4px}
-#fh-experiences .fh-place span{display:block;color:var(--fh-ink-soft);font-size:13px;line-height:1.45}
-#fh-experiences .fh-place em{
-  display:block;
-  margin-top:7px;
-  font-style:normal;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.11em;
-  color:var(--fh-clay-dark);
-  font-weight:850;
-}
-
-#fh-experiences .fh-activity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-#fh-experiences .fh-activity{
-  position:relative;
-  min-height:282px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  overflow:hidden;
-  background:#d6ccbf;
-  border:1px solid rgba(132,108,86,.18);
-  box-shadow:var(--fh-shadow-soft);
-}
-#fh-experiences .fh-activity::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,rgba(20,18,16,.10),rgba(20,18,16,.62));
-  z-index:1;
-}
-#fh-experiences .fh-activity::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image:var(--activity-image);
-  background-size:cover;
-  background-position:center;
-  z-index:0;
-  transform:scale(1.03);
-  transition:transform .65s cubic-bezier(.2,.8,.2,1), filter .65s ease;
-  filter:saturate(.92) contrast(1.02);
-}
-#fh-experiences .fh-activity:hover::after{transform:scale(1.09)}
-#fh-experiences .fh-activity-copy{position:relative;z-index:2;padding:22px;color:var(--fh-paper)}
-#fh-experiences .fh-activity-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-#fh-experiences .fh-activity-tags span{
-  display:inline-flex;
-  padding:6px 8px;
-  background:rgba(255,250,243,.16);
-  border:1px solid rgba(255,250,243,.22);
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  font-weight:800;
-}
-#fh-experiences .fh-activity h3{margin:0 0 8px;font-size:31px;color:var(--fh-paper)}
-#fh-experiences .fh-activity p{margin:0;color:rgba(255,250,243,.82);font-size:14px;line-height:1.55}
-#fh-experiences .fh-activity.is-hidden{display:none}
-
-#fh-experiences .fh-route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-#fh-experiences .fh-route{background:var(--fh-paper);border:1px solid rgba(132,108,86,.18);box-shadow:var(--fh-shadow-soft);overflow:hidden}
-#fh-experiences .fh-route-img{height:220px;background-size:cover;background-position:center;position:relative}
-#fh-experiences .fh-route-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.28))}
-#fh-experiences .fh-route-copy{padding:24px}
-#fh-experiences .fh-route-meta{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 18px}
-#fh-experiences .fh-route-meta span{
-  padding:7px 9px;
-  background:#efe6dc;
-  color:var(--fh-clay-dark);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.11em;
-  font-weight:850;
-}
-#fh-experiences .fh-text-link{display:inline-flex;align-items:center;gap:8px;color:var(--fh-clay-dark);font-weight:850;text-transform:uppercase;font-size:11px;letter-spacing:.14em}
-#fh-experiences .fh-text-link::after{content:"→";font-size:14px;line-height:1}
-
-#fh-experiences .fh-itinerary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-#fh-experiences .fh-itinerary{padding:28px;background:var(--fh-paper);border:1px solid rgba(132,108,86,.18);box-shadow:var(--fh-shadow-soft)}
-#fh-experiences .fh-itinerary ol{margin:18px 0 0;padding:0 0 0 20px}
-#fh-experiences .fh-itinerary li{margin:0 0 12px;color:var(--fh-ink-soft);line-height:1.55}
-
-#fh-experiences .fh-cta{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:stretch}
-#fh-experiences .fh-cta .fh-panel:first-child{padding:46px}
-#fh-experiences .fh-cta-btn{
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
-  margin-top:24px;
-  padding:15px 22px;
-  background:var(--fh-clay);
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  font-size:11px;
-  font-weight:850;
-}
-#fh-experiences .fh-small-note{margin-top:16px;font-size:13px;color:var(--fh-muted)}
-
-#fh-experiences .fh-modal{
-  position:fixed;
-  inset:0;
-  z-index:80;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  background:rgba(15,13,11,.62);
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
-}
-#fh-experiences .fh-modal.is-open{display:flex}
-#fh-experiences .fh-modal-panel{
-  width:min(720px,100%);
-  max-height:calc(100svh - 48px);
-  overflow:auto;
-  background:var(--fh-paper);
-  border:1px solid rgba(255,250,243,.52);
-  box-shadow:0 32px 90px rgba(0,0,0,.32);
-}
-#fh-experiences .fh-modal-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  padding:22px 26px;
-  border-bottom:1px solid rgba(132,108,86,.18);
-}
-#fh-experiences .fh-modal-head h3{margin:0;font-size:36px}
-#fh-experiences .fh-close{border:0;background:transparent;color:var(--fh-muted);font-size:30px;line-height:1}
-#fh-experiences .fh-modal-body{padding:26px}
-#fh-experiences .fh-modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-#fh-experiences .fh-modal-field.full{grid-column:1/-1}
-#fh-experiences .fh-modal-field label{
-  display:block;
-  margin-bottom:7px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.16em;
-  font-weight:850;
-  color:rgba(25,23,21,.52);
-}
-#fh-experiences .fh-modal-field input,
-#fh-experiences .fh-modal-field select,
-#fh-experiences .fh-modal-field textarea{
-  width:100%;
-  padding:13px 14px;
-  border:1px solid rgba(132,108,86,.24);
-  outline:none;
-  background:#fbf6ef;
-  color:var(--fh-ink);
-}
-#fh-experiences .fh-modal-field textarea{min-height:110px;resize:vertical}
-#fh-experiences .fh-submit{
-  margin-top:18px;
-  width:100%;
-  border:0;
-  padding:15px 20px;
-  background:var(--fh-clay);
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  font-size:11px;
-  font-weight:850;
-}
-#fh-experiences .fh-status{
-  display:none;
-  margin-top:12px;
-  padding:12px 14px;
-  background:#efe6dc;
-  color:var(--fh-clay-dark);
-  font-size:14px;
-}
-#fh-experiences .fh-status.is-visible{display:block}
-
-/* apparitions */
-#fh-experiences .preFade,#fh-experiences .preSlide,#fh-experiences .preScale,#fh-experiences .preClip{opacity:0;will-change:transform,opacity,clip-path}
-#fh-experiences .preSlide{transform:translateY(38px)}
-#fh-experiences .preScale{transform:scale(.97)}
-#fh-experiences .preClip{clip-path:inset(0 0 100% 0)}
-#fh-experiences .fadeIn{opacity:1;transition:opacity .8s ease var(--d,0s)}
-#fh-experiences .slideIn{opacity:1;transform:translateY(0);transition:opacity .82s ease var(--d,0s), transform .82s cubic-bezier(.2,.8,.2,1) var(--d,0s)}
-#fh-experiences .scaleIn{opacity:1;transform:scale(1);transition:opacity .9s ease var(--d,0s), transform .9s cubic-bezier(.2,.8,.2,1) var(--d,0s)}
-#fh-experiences .clipIn{opacity:1;clip-path:inset(0 0 0 0);transition:opacity .8s ease var(--d,0s), clip-path 1s cubic-bezier(.2,.8,.2,1) var(--d,0s)}
-
-@media(max-width:1100px){
-  #fh-experiences .fh-section-head,
-  #fh-experiences .fh-intro-grid,
-  #fh-experiences .fh-map-grid,
-  #fh-experiences .fh-cta{grid-template-columns:1fr}
-  #fh-experiences .fh-activity-grid,
-  #fh-experiences .fh-route-grid,
-  #fh-experiences .fh-itinerary-grid{grid-template-columns:repeat(2,1fr)}
-  #fh-experiences .fh-map-sidebar{grid-template-columns:repeat(2,1fr);max-height:none;overflow:visible}
-  #fh-experiences .fh-quickbar{grid-template-columns:1fr 1fr}
-  #fh-experiences .fh-book-btn{min-height:58px;grid-column:1/-1}
-  #fh-experiences .fh-qitem:nth-child(2){border-right:0}
-  #fh-experiences .fh-season-jump{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:760px){
-  #fh-experiences .fh-header{top:10px;left:10px;right:10px;padding:12px 14px}
-  #fh-experiences .fh-brand-mark{width:38px;height:38px;font-size:18px}
-  #fh-experiences .fh-brand-title{font-size:23px}
-  #fh-experiences .fh-brand-title span,
-  #fh-experiences .fh-nav a:not(.fh-nav-cta){display:none}
-  #fh-experiences .fh-nav{gap:0}
-  #fh-experiences .fh-nav-cta{padding:11px 13px;font-size:10px}
-  #fh-experiences .fh-hero-inner{width:calc(100% - 20px);padding-top:122px;padding-bottom:42px}
-  #fh-experiences h1{font-size:clamp(42px,14vw,66px)}
-  #fh-experiences .fh-hero-lead{font-size:16px;margin-bottom:22px}
-  #fh-experiences .fh-season-jump{grid-template-columns:1fr}
-  #fh-experiences .fh-quickbar{grid-template-columns:1fr}
-  #fh-experiences .fh-qitem{border-right:0;border-bottom:1px solid var(--fh-line);padding:15px 16px}
-  #fh-experiences .fh-book-btn{min-height:56px}
-  #fh-experiences .fh-section{padding:72px 16px}
-  #fh-experiences .fh-section-head{gap:16px;margin-bottom:24px}
-  #fh-experiences h2{font-size:clamp(38px,12vw,56px)}
-  #fh-experiences .fh-panel{padding:26px}
-  #fh-experiences .fh-proof-grid,
-  #fh-experiences .fh-map-sidebar,
-  #fh-experiences .fh-activity-grid,
-  #fh-experiences .fh-route-grid,
-  #fh-experiences .fh-itinerary-grid,
-  #fh-experiences .fh-photo-strip{grid-template-columns:1fr}
-  #fh-experiences .fh-map-card{min-height:560px}
-  #fh-experiences .fh-filter-board{position:relative;top:auto;margin-left:-6px;margin-right:-6px}
-  #fh-experiences .fh-filters{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;scrollbar-width:none}
-  #fh-experiences .fh-filters::-webkit-scrollbar{display:none}
-  #fh-experiences .fh-filter{white-space:nowrap;flex:0 0 auto}
-  #fh-experiences .fh-activity{min-height:245px}
-  #fh-experiences .fh-route-img{height:190px}
-  #fh-experiences .fh-modal{padding:12px}
-  #fh-experiences .fh-modal-head,
-  #fh-experiences .fh-modal-body{padding:20px}
-  #fh-experiences .fh-modal-grid{grid-template-columns:1fr}
-  #fh-experiences .fh-modal-field.full{grid-column:auto}
-}
-@media(prefers-reduced-motion:reduce){
-  #fh-experiences *,#fh-experiences *::before,#fh-experiences *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  #fh-experiences .preFade,#fh-experiences .preSlide,#fh-experiences .preScale,#fh-experiences .preClip{opacity:1!important;transform:none!important;clip-path:none!important}
-}
-
-/* HARD MAP FIX — reliable Google Maps iframe visible in Squarespace */
-#fh-experiences .fh-map-card{
-  position:relative !important;
-  display:block !important;
-  width:100% !important;
-  height:clamp(560px, 72vh, 780px) !important;
-  min-height:560px !important;
-  overflow:hidden !important;
-  background:#d7cdc2 !important;
-  border:1px solid rgba(132,108,86,.20) !important;
-  box-shadow:var(--fh-shadow) !important;
-}
-
-#fh-experiences .fh-map-iframe,
-#fh-experiences iframe#fh-osm-map{
-  position:absolute !important;
-  inset:0 !important;
-  display:block !important;
-  width:100% !important;
-  height:100% !important;
-  min-height:560px !important;
-  border:0 !important;
-  opacity:1 !important;
-  visibility:visible !important;
-  z-index:1 !important;
-  filter:saturate(.9) contrast(.98);
-}
-
-#fh-experiences .fh-map-overlay{
-  position:absolute !important;
-  inset:0 !important;
-  z-index:2 !important;
-  pointer-events:none !important;
-}
-
-#fh-experiences .fh-map-pin{
-  pointer-events:auto !important;
-}
-
-#fh-experiences .fh-map-open{
-  position:absolute !important;
-  right:16px !important;
-  top:16px !important;
-  z-index:7 !important;
-  padding:12px 16px !important;
-  background:rgba(255,250,243,.94) !important;
-  color:#191715 !important;
-  border:1px solid rgba(25,23,21,.16) !important;
-  font-size:11px !important;
-  text-transform:uppercase !important;
-  letter-spacing:.14em !important;
-  font-weight:850 !important;
-  box-shadow:0 14px 34px rgba(18,16,14,.16) !important;
-}
-
-@media(max-width:760px){
-  #fh-experiences .fh-map-card{
-    height:500px !important;
-    min-height:500px !important;
-  }
-  #fh-experiences .fh-map-iframe,
-  #fh-experiences iframe#fh-osm-map{
-    min-height:500px !important;
-  }
-}
-
-
-#fh-experiences a.fh-activity,
-#fh-experiences a.fh-route{
-  color:inherit;
-  text-decoration:none;
-}
-#fh-experiences .fh-activity:hover .fh-activity-copy,
-#fh-experiences .fh-route:hover .fh-route-copy{
-  transform:translateY(-2px);
-}
-#fh-experiences .fh-activity-copy,
-#fh-experiences .fh-route-copy{
-  transition:transform .25s ease;
-}
-
-
-/* Fletschhorn standard booking toolbar + GitHub asset behavior */
-body.fh-github-version{margin:0;overflow-x:hidden;background:#f7f2e8;}
-#fh-header-slot,#fh-footer-slot{position:relative;z-index:100;}
-#fh-location-clean .fh-standard-booking-shell{
-  width:min(1080px,100%);
-  margin:26px 0 0;
-  padding:9px;
-  border:1px solid rgba(255,250,242,.24);
-  background:rgba(255,250,242,.12);
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
-  box-shadow:var(--shadow);
-}
-#fh-location-clean .fh-standard-booking-bar{
-  display:grid;
-  grid-template-columns:1fr 1fr 1.35fr 1fr 1fr 175px;
-  background:rgba(255,250,242,.95);
-  color:var(--ink);
-}
-#fh-location-clean .fh-standard-booking-field{
-  min-width:0;
-  padding:14px 15px;
-  border-right:1px solid var(--line);
-  background:rgba(255,250,242,.90);
-  text-align:left;
-}
-#fh-location-clean .fh-standard-booking-field label{
-  display:block;
-  margin:0 0 5px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.17em;
-  font-weight:850;
-  color:rgba(25,22,18,.50);
-}
-#fh-location-clean .fh-standard-booking-field input{
-  width:100%;
-  border:0;
-  background:transparent;
-  outline:none;
-  color:var(--ink);
-  font-size:15px;
-  padding:0;
-  margin:0;
-  min-height:22px;
-}
-#fh-location-clean .fh-standard-booking-field input::placeholder{color:rgba(25,22,18,.44)}
-#fh-location-clean .fh-standard-booking-btn{
-  border:0;
-  margin:0;
-  background:var(--green-dark);
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  font-size:11px;
-  font-weight:850;
-  min-height:58px;
-}
-#fh-location-clean .fh-standard-booking-note{
-  margin-top:11px;
-  color:rgba(255,250,242,.78);
-  font-size:13px;
-  text-align:center;
-}
-#fh-location-clean .fh-standard-booking-status{
-  display:none;
-  margin-top:11px;
-  padding:12px 14px;
-  border:1px solid rgba(255,250,242,.22);
-  background:rgba(255,250,242,.12);
-  color:#fffaf2;
-  font-size:13px;
-  text-align:center;
-}
-#fh-location-clean .fh-standard-booking-status.is-visible{display:block;}
-@media(max-width:1120px){
-  #fh-location-clean .fh-standard-booking-bar{grid-template-columns:1fr 1fr;}
-  #fh-location-clean .fh-standard-booking-field:nth-child(2n){border-right:0;}
-  #fh-location-clean .fh-standard-booking-btn{grid-column:1/-1;}
-}
-@media(max-width:720px){
-  #fh-location-clean .fh-standard-booking-shell{padding:7px;margin-top:20px;}
-  #fh-location-clean .fh-standard-booking-bar{grid-template-columns:1fr;}
-  #fh-location-clean .fh-standard-booking-field{border-right:0;border-bottom:1px solid var(--line);padding:12px 13px;}
-  #fh-location-clean .fh-standard-booking-btn{min-height:50px;}
-}
-</style>
-
-<style>
-#fh-experiences [data-lang-only]{display:none}
-#fh-experiences [data-lang-only].is-lang-active{display:initial}
-#fh-experiences .fh-language-note{display:none}
-#fh-experiences .fh-route.is-hidden{display:none}
-</style>
-
-
-<div id="fh-experiences" data-page="experiences">
-  <div class="fh-topography" aria-hidden="true"></div>
-  <div class="fh-shell">
-
-    <!-- BLOCK 1 / HERO + SEASON FILTER + BOOKING INQUIRY BAR -->
-    <section class="fh-hero" id="fh-experiences-top">
-      <div class="fh-hero-media" id="fh-exp-slides" aria-hidden="true"></div>
-      <div class="fh-hero-inner">
-        <p class="fh-kicker preFade" style="--d:.10s" data-i18n="hero.kicker">Experiences around Saas-Fee</p>
-        <h1 class="preSlide" style="--d:.16s" data-i18n="hero.title">A private base for every season in Saas-Fee.</h1>
-        <p class="fh-hero-lead preSlide" style="--d:.24s" data-i18n="hero.lead">From glacier skiing and winter sledging to summer hikes, marmots, mountain lakes, rope parks, and slow alpine days, Saas-Fee offers something for every kind of group. Fletschhorn gives you a private alpine base above the village, close to the experiences that make the valley special.</p>
-
-        <div class="fh-season-jump preSlide" style="--d:.28s" aria-label="Quick seasonal filters">
-          <button class="fh-season-choice is-active" type="button" data-filter="all"><b data-i18n="filters.all">Everything</b><span data-i18n="filters.allText">Show the whole valley around the house.</span></button>
-          <button class="fh-season-choice" type="button" data-filter="winter"><b data-i18n="filters.winter">Winter</b><span data-i18n="filters.winterText">Ski, snow, sledging, glacier, cozy resets.</span></button>
-          <button class="fh-season-choice" type="button" data-filter="summer"><b data-i18n="filters.summer">Summer</b><span data-i18n="filters.summerText">Marmots, hikes, scooters, lakes, ropes.</span></button>
-          <button class="fh-season-choice" type="button" data-filter="calm"><b data-i18n="filters.calm">Soft days</b><span data-i18n="filters.calmText">Wellness, village walks, gentle trails.</span></button>
+          <aside class="fh-hero-card fh-reveal visible">
+            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756344115-UN1RO9UJ7JQZQ8U5LPNB/1521689.jpg" alt="Fletschhorn exterior in Saas-Fee">
+            <div class="fh-hero-badge">
+              <b data-i18n-text='{"en":"Your own alpine base.","fr":"Votre base alpine privée.","de":"Ihre eigene alpine Basis.","ru":"Ваша частная альпийская база."}'>Your own alpine base.</b>
+              <span data-i18n-text='{"en":"A peaceful house for private stays, family gatherings, celebrations and mountain weeks.","fr":"Une maison paisible pour séjours privés, familles, célébrations et semaines à la montagne.","de":"Ein ruhiges Haus für private Aufenthalte, Familien, Feiern und Bergwochen.","ru":"Спокойный дом для частного проживания, семейных встреч, праздников и горных недель."}'>A peaceful house for private stays, family gatherings, celebrations and mountain weeks.</span>
+            </div>
+          </aside>
         </div>
-
-        <form class="fh-quickbar preSlide" id="fh-exp-quick-form" style="--d:.34s">
-          <div class="fh-qitem">
-            <label for="fh-exp-guests" data-i18n="form.guestsLabel">Guests</label>
-            <input id="fh-exp-guests" name="guests" inputmode="numeric" placeholder="Family, group, retreat…" data-i18n-placeholder="form.guestsPlaceholder" />
-          </div>
-          <div class="fh-qitem">
-            <label for="fh-exp-dates" data-i18n="form.datesLabel">Dates</label>
-            <input id="fh-exp-dates" name="dates" placeholder="Winter, summer, exact dates…" data-i18n-placeholder="form.datesPlaceholder" />
-          </div>
-          <div class="fh-qitem">
-            <label for="fh-exp-contact" data-i18n="form.contactLabel">Contact</label>
-            <input id="fh-exp-contact" name="contact" placeholder="Email or phone" data-i18n-placeholder="form.contactPlaceholder" />
-          </div>
-          <button class="fh-book-btn" type="submit" data-i18n="form.planBtn">Send Inquiry</button>
-        </form>
-        <p class="fh-hero-note preFade" id="fh-exp-status" style="--d:.40s" data-i18n="hero.note">Best Rates Guaranteed when Booking Direct</p>
-
-        <a href="#fh-area" class="fh-peek preFade" style="--d:.48s" aria-label="Scroll to the area map">
-          <span data-i18n="hero.scroll">Open the area</span>
-          <div class="fh-peek-line"></div>
-        </a>
       </div>
     </section>
 
-    <main>
-      <!-- BLOCK 2 / INTRO -->
-      <section class="fh-section fh-section-alt" id="fh-area">
-        <div class="fh-container fh-section-head">
+    <section class="fh-section" id="where">
+      <div class="fh-container">
+        <div class="fh-section-head fh-reveal">
           <div>
-            <p class="fh-kicker preFade" data-i18n="area.kicker">The area</p>
-            <h2 class="preSlide" data-i18n="area.title">A mountain region built for groups, families, skiers, hikers, and slow days.</h2>
+            <p class="fh-kicker" data-i18n-text='{"en":"Where it is","fr":"Où se trouve la maison","de":"Wo es liegt","ru":"Где находится"}'>Where it is</p>
+            <h2 class="fh-section-title" data-i18n-text='{"en":"Above the village, inside the alpine calm.","fr":"Au-dessus du village, dans le calme alpin.","de":"Oberhalb des Dorfes, mitten in alpiner Ruhe.","ru":"Над деревней, в альпийском спокойствии."}'>Above the village, inside the alpine calm.</h2>
           </div>
-          <p class="preFade" data-i18n="area.lead">Saas-Fee is surrounded by eighteen 4,000-metre peaks. This page turns the region into a practical guest tool: first a map, then filtered activities, routes, and day rhythms.</p>
+          <p class="fh-section-text" data-i18n-text='{"en":"Fletschhorn is not in the noisy center. It gives your group a calmer private setting, while keeping the village, ski access, restaurants, shops and nature routes within reach.","fr":"Le Fletschhorn n’est pas au centre bruyant. Il offre à votre groupe un cadre plus calme et privé, tout en restant proche du village, du ski, des restaurants, des commerces et des chemins de nature.","de":"Das Fletschhorn liegt nicht im lauten Zentrum. Es bietet Ihrer Gruppe einen ruhigeren privaten Rahmen, bleibt aber nah am Dorf, Ski-Zugang, Restaurants, Geschäften und Naturwegen.","ru":"Fletschhorn находится не в шумном центре. Он даёт группе более спокойную частную атмосферу, при этом деревня, лыжи, рестораны, магазины и маршруты остаются рядом."}'>Fletschhorn is not in the noisy center. It gives your group a calmer private setting, while keeping the village, ski access, restaurants, shops and nature routes within reach.</p>
         </div>
 
-        <div class="fh-container fh-intro-grid">
-          <article class="fh-panel fh-panel-dark preSlide">
-            <p class="fh-kicker" data-i18n="area.howKicker">How this page works</p>
-            <h3 data-i18n="area.howTitle">Choose by season, mood, or energy level.</h3>
-            <p data-i18n="area.howText">Tap Winter, Summer, Soft days, Family, Trek, or Adrenaline. The map, sidebar, activity cards, and helper copy update together.</p>
-            <div class="fh-proof-grid">
-              <div class="fh-proof"><strong data-i18n="filters.winter">Winter</strong><span data-i18n="area.proofWinter">Skiing, sledging, glacier, snow paths, group thrill days.</span></div>
-              <div class="fh-proof"><strong data-i18n="filters.summer">Summer</strong><span data-i18n="area.proofSummer">Marmots, hikes, biking, rope park, glacier access, mountain lakes.</span></div>
-              <div class="fh-proof"><strong data-i18n="filters.calm">Soft days</strong><span data-i18n="area.proofCalm">Aqua Allalin, village walks, family trails, cable-car viewpoints.</span></div>
-            </div>
-          </article>
-          <article class="fh-panel preSlide" style="--d:.08s">
-            <p class="fh-kicker" data-i18n="area.privateKicker">Private base, active valley</p>
-            <h3 data-i18n="area.privateTitle">The house is calm; the region is full.</h3>
-            <p data-i18n="area.privateText">The stay does not depend on one single activity. Guests can split by age, weather, energy level, or season, then return to one private house at the end of the day.</p>
-            <p class="fh-small-note" data-i18n="area.safety"><strong>Safety note:</strong> mountain conditions change quickly. Route openings, lifts, weather, and guide requirements should always be checked with the official Saas-Fee/Saastal information before guests go.</p>
-          </article>
-        </div>
+        <div class="fh-location-intro">
+          <article class="fh-panel fh-reveal">
+            <h3 data-i18n-text='{"en":"A practical location for a private group stay.","fr":"Un emplacement pratique pour un séjour de groupe privé.","de":"Eine praktische Lage für einen privaten Gruppenaufenthalt.","ru":"Практичное место для частного группового отдыха."}'>A practical location for a private group stay.</h3>
+            <p data-i18n-text='{"en":"The point of the location is simple: you can retreat into your own quiet place, then move easily toward ski lifts, hikes, village activities, restaurants and arrival/departure logistics.","fr":"L’idée est simple : vous pouvez vous retirer dans votre propre lieu calme, puis rejoindre facilement les remontées, randonnées, activités du village, restaurants et transferts.","de":"Die Idee ist einfach: Sie ziehen sich in Ihren ruhigen privaten Ort zurück und erreichen dennoch Bergbahnen, Wanderwege, Dorfaktivitäten, Restaurants und Transfers einfach.","ru":"Идея проста: вы отдыхаете в своём спокойном месте и легко добираетесь до подъёмников, маршрутов, деревенской жизни, ресторанов и трансферов."}'>The point of the location is simple: you can retreat into your own quiet place, then move easily toward ski lifts, hikes, village activities, restaurants and arrival/departure logistics.</p>
 
-        <div class="fh-container fh-photo-strip">
-          <figure class="fh-photo-tile tall preClip"><img data-fh-img="0" src="https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg" alt="Fletschhorn property and alpine region"><span data-i18n="photos.one">Start from one private house</span></figure>
-          <figure class="fh-photo-tile preClip" style="--d:.08s"><img data-fh-img="2" src="https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg" alt="Saas-Fee alpine view"><span data-i18n="photos.two">Move through the valley</span></figure>
-          <figure class="fh-photo-tile preClip" style="--d:.16s"><img data-fh-img="5" src="https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg" alt="Mountain stay atmosphere"><span data-i18n="photos.three">Return to calm</span></figure>
-        </div>
-      </section>
-
-      <!-- BLOCK 3 / INTERACTIVE MAP -->
-      <section class="fh-section" id="fh-map-section">
-        <div class="fh-container fh-section-head">
-          <div>
-            <p class="fh-kicker preFade" data-i18n="map.kicker">Interactive map</p>
-            <h2 class="preSlide" data-i18n="map.title">The map is the orientation tool for the whole stay.</h2>
-          </div>
-          <p class="preFade" id="fh-map-helper" data-helper-key="all">Showing the full area: house, village, lifts, glacier points, wellness, family activities, and bigger mountain days.</p>
-        </div>
-
-        <div class="fh-container">
-          <div class="fh-filter-board preFade">
-            <div class="fh-filters" role="list" aria-label="Map and activity filters">
-              <button type="button" class="fh-filter is-active" data-filter="all" data-i18n="filters.all">Everything</button>
-              <button type="button" class="fh-filter" data-filter="house" data-i18n="filters.house">House & village</button>
-              <button type="button" class="fh-filter" data-filter="winter" data-i18n="filters.winter">Winter</button>
-              <button type="button" class="fh-filter" data-filter="summer" data-i18n="filters.summer">Summer</button>
-              <button type="button" class="fh-filter" data-filter="family" data-i18n="filters.family">Family</button>
-              <button type="button" class="fh-filter" data-filter="adrenaline" data-i18n="filters.adrenaline">Adrenaline</button>
-              <button type="button" class="fh-filter" data-filter="trek" data-i18n="filters.trek">Trek</button>
-              <button type="button" class="fh-filter" data-filter="calm" data-i18n="filters.calm">Calm</button>
-            </div>
-          </div>
-
-          <div class="fh-map-grid">
-            <div class="fh-map-card">
-              <iframe class="fh-map-iframe" id="fh-osm-map" title="Fletschhorn Saas-Fee area map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=46.1237861,7.929103&z=13&output=embed"></iframe>
-              <a class="fh-map-open" id="fh-map-open" href="https://www.google.com/maps/search/?api=1&query=46.1237861,7.929103" target="_blank" rel="noopener" data-i18n="map.open">Open full map</a>
-
-              <div class="fh-map-overlay" aria-label="Clickable Fletschhorn area markers">
-                <button class="fh-map-pin" style="--x:49%;--y:19%;" data-place-id="fletschhorn" data-tags="all house calm family"><span>Fletschhorn</span></button>
-                <button class="fh-map-pin" style="--x:48%;--y:31%;" data-place-id="village" data-tags="all house family calm winter summer"><span>Saas-Fee Village</span></button>
-                <button class="fh-map-pin" style="--x:36%;--y:29%;" data-place-id="hannig" data-tags="all winter summer family calm adrenaline"><span>Hannig</span></button>
-                <button class="fh-map-pin" style="--x:58%;--y:38%;" data-place-id="spielboden" data-tags="all summer family trek calm"><span>Spielboden</span></button>
-                <button class="fh-map-pin" style="--x:61%;--y:47%;" data-place-id="langfluh" data-tags="all winter summer glacier trek"><span>Längfluh</span></button>
-                <button class="fh-map-pin" style="--x:35%;--y:73%;" data-place-id="mittelallalin" data-tags="all winter summer glacier family"><span>Mittelallalin</span></button>
-                <button class="fh-map-pin" style="--x:49%;--y:34%;" data-place-id="feeblitz" data-tags="all summer family adrenaline"><span>Feeblitz</span></button>
-                <button class="fh-map-pin" style="--x:52%;--y:35%;" data-place-id="ropepark" data-tags="all summer family adrenaline"><span>Rope Park</span></button>
-                <button class="fh-map-pin" style="--x:46%;--y:32%;" data-place-id="aqua" data-tags="all calm family winter summer"><span>Aqua Allalin</span></button>
-                <button class="fh-map-pin" style="--x:73%;--y:85%;" data-place-id="mattmark" data-tags="all summer trek calm family"><span>Mattmark</span></button>
-                <button class="fh-map-pin" style="--x:30%;--y:57%;" data-place-id="almageller" data-tags="all summer trek adrenaline"><span>Almageller Trail</span></button>
-                <button class="fh-map-pin" style="--x:58%;--y:27%;" data-place-id="gorge" data-tags="all winter summer adrenaline trek"><span>Gorge Alpine</span></button>
+            <div class="fh-list">
+              <div class="fh-list-item">
+                <div class="fh-list-icon">1</div>
+                <div>
+                  <b data-i18n-text='{"en":"Quiet private setting","fr":"Cadre privé et calme","de":"Ruhiger privater Rahmen","ru":"Тихая частная обстановка"}'>Quiet private setting</b>
+                  <span data-i18n-text='{"en":"Ideal for families, retreats, weddings and groups who want their own base.","fr":"Idéal pour familles, retraites, mariages et groupes qui veulent leur propre base.","de":"Ideal für Familien, Retreats, Hochzeiten und Gruppen, die ihre eigene Basis möchten.","ru":"Идеально для семей, ретритов, свадеб и групп, которым нужна своя база."}'>Ideal for families, retreats, weddings and groups who want their own base.</span>
+                </div>
               </div>
 
-              <div class="fh-map-info" id="fh-map-info">
-                <small data-i18n="map.selected">Selected area</small>
-                <h3>Fletschhorn / Wildistrasse</h3>
-                <p>Private alpine house base. Use this as the anchor point for the whole stay.</p>
+              <div class="fh-list-item">
+                <div class="fh-list-icon">2</div>
+                <div>
+                  <b data-i18n-text='{"en":"Village and mountain access","fr":"Accès au village et à la montagne","de":"Zugang zu Dorf und Berg","ru":"Доступ к деревне и горам"}'>Village and mountain access</b>
+                  <span data-i18n-text='{"en":"Saas-Fee stays close: lifts, routes, shops, restaurants and local services.","fr":"Saas-Fee reste proche : remontées, sentiers, commerces, restaurants et services.","de":"Saas-Fee bleibt nah: Bahnen, Wege, Geschäfte, Restaurants und lokale Dienste.","ru":"Саас-Фе рядом: подъёмники, маршруты, магазины, рестораны и сервисы."}'>Saas-Fee stays close: lifts, routes, shops, restaurants and local services.</span>
+                </div>
+              </div>
+
+              <div class="fh-list-item">
+                <div class="fh-list-icon">3</div>
+                <div>
+                  <b data-i18n-text='{"en":"Made easier with shuttles","fr":"Plus simple avec les navettes","de":"Einfacher mit Shuttle","ru":"Удобнее с шаттлами"}'>Made easier with shuttles</b>
+                  <span data-i18n-text='{"en":"Arrival/departure transfers plus daily morning and afternoon shuttles to the lifts can support the rhythm of the stay.","fr":"Les transferts arrivée/départ et les navettes matin/après-midi vers les remontées structurent facilement le séjour.","de":"Transfers bei An- und Abreise sowie tägliche Shuttle am Morgen und Nachmittag zu den Bahnen unterstützen den Aufenthalt.","ru":"Трансферы по приезду/отъезду и утренние/дневные шаттлы к подъёмникам помогают организовать пребывание."}'>Arrival/departure transfers plus daily morning and afternoon shuttles to the lifts can support the rhythm of the stay.</span>
+                </div>
               </div>
             </div>
-
-            <aside class="fh-map-sidebar" id="fh-map-sidebar" aria-label="Map places">
-              <button class="fh-place" data-place-id="fletschhorn" data-tags="all house calm family"><b>01</b><div><strong>Fletschhorn / Wildistrasse</strong><span data-i18n="places.fletschhorn.text">Private alpine house base. Anchor point for the stay.</span><em data-i18n="places.fletschhorn.tag">House · calm · family</em></div></button>
-              <button class="fh-place" data-place-id="village" data-tags="all house family calm winter summer"><b>02</b><div><strong>Saas-Fee village</strong><span data-i18n="places.village.text">Car-free center, lifts, shops, Foxtrail, and arrival logistics.</span><em data-i18n="places.village.tag">Village · all seasons</em></div></button>
-              <button class="fh-place" data-place-id="hannig" data-tags="all winter summer family calm adrenaline"><b>03</b><div><strong>Hannig</strong><span data-i18n="places.hannig.text">Sunny mountain, sledging, Trotti scooters, mountaincarts, playgrounds, and themed trails.</span><em data-i18n="places.hannig.tag">Winter · summer · family</em></div></button>
-              <button class="fh-place" data-place-id="spielboden" data-tags="all summer family trek calm"><b>04</b><div><strong>Spielboden</strong><span data-i18n="places.spielboden.text">Marmots, family mountain days, and access toward higher alpine scenery.</span><em data-i18n="places.spielboden.tag">Summer · family · calm</em></div></button>
-              <button class="fh-place" data-place-id="langfluh" data-tags="all winter summer glacier trek"><b>05</b><div><strong>Längfluh</strong><span data-i18n="places.langfluh.text">Close-up glacier views and stronger high-altitude feeling.</span><em data-i18n="places.langfluh.tag">Glacier · trek</em></div></button>
-              <button class="fh-place" data-place-id="mittelallalin" data-tags="all winter summer glacier family"><b>06</b><div><strong>Mittelallalin</strong><span data-i18n="places.mittelallalin.text">Metro Alpin, Ice Pavilion, glacier atmosphere, and summer snow access.</span><em data-i18n="places.mittelallalin.tag">Glacier · family</em></div></button>
-              <button class="fh-place" data-place-id="feeblitz" data-tags="all summer family adrenaline"><b>07</b><div><strong>Feeblitz mountain coaster</strong><span data-i18n="places.feeblitz.text">Fast, simple, close to the village, good for mixed-age groups.</span><em data-i18n="places.feeblitz.tag">Summer · adrenaline</em></div></button>
-              <button class="fh-place" data-place-id="ropepark" data-tags="all summer family adrenaline"><b>08</b><div><strong>Saas-Fee Rope Park</strong><span data-i18n="places.ropepark.text">Forest ropes course with zip-line energy for active groups.</span><em data-i18n="places.ropepark.tag">Summer · forest</em></div></button>
-              <button class="fh-place" data-place-id="aqua" data-tags="all calm family winter summer"><b>09</b><div><strong>Aqua Allalin</strong><span data-i18n="places.aqua.text">Pool and wellness center for soft days, weather shifts, and mixed groups.</span><em data-i18n="places.aqua.tag">Calm · family</em></div></button>
-              <button class="fh-place" data-place-id="mattmark" data-tags="all summer trek calm family"><b>10</b><div><strong>Mattmark reservoir</strong><span data-i18n="places.mattmark.text">Turquoise reservoir, dam views, quieter valley walks, and longer routes.</span><em data-i18n="places.mattmark.tag">Lake · trek · calm</em></div></button>
-              <button class="fh-place" data-place-id="almageller" data-tags="all summer trek adrenaline"><b>11</b><div><strong>Almageller Adventure Trail</strong><span data-i18n="places.almageller.text">Suspension bridges and a stronger summer hiking day.</span><em data-i18n="places.almageller.tag">Trek · bridges</em></div></button>
-              <button class="fh-place" data-place-id="gorge" data-tags="all winter summer adrenaline trek"><b>12</b><div><strong>Gorge Alpine</strong><span data-i18n="places.gorge.text">Guided canyon / via ferrata-style route between Saas-Fee and Saas-Grund.</span><em data-i18n="places.gorge.tag">Guide · adrenaline</em></div></button>
-            </aside>
-          </div>
-        </div>
-      </section>
-
-      <!-- BLOCK 4 / ACTIVITY FINDER -->
-      <section class="fh-section fh-section-alt" id="fh-activities">
-        <div class="fh-container fh-section-head">
-          <div>
-            <p class="fh-kicker preFade" data-i18n="activities.kicker">Activity finder</p>
-            <h2 class="preSlide" data-i18n="activities.title">Filter the region like a concierge board.</h2>
-          </div>
-          <p class="preFade" data-i18n="activities.lead">The same filters control the map and the cards. Guests can choose what kind of day they want without reading the whole page.</p>
-        </div>
-
-        <div class="fh-container">
-          <div class="fh-activity-grid" id="fh-activity-grid">
-            <a href="https://www.saas-fee.ch/en/winter-activities/skiing-snowboarding" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all winter ski adrenaline group" style="--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_crop%2Ch_1873%2Cw_3330%2Cx_834%2Cy_809/c_limit/f_auto%2Cq_80/v1/Webseite/new/Skifahren-Saas-Fee-Winter-2023__7_')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span data-i18n="filters.winter">Winter</span><span>Ski</span></div><h3 data-i18n="cards.ski.title">Skiing & Snowboarding</h3><p data-i18n="cards.ski.text">High-altitude slopes, group ski days, blue to black runs, and snow reliability at altitude.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/winter-activities/winter-experiences/sunrise-skiing" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all winter ski family group" style="--d:.02s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_crop%2Ch_1873%2Cw_3330%2Cx_834%2Cy_809/c_limit/f_auto%2Cq_80/v1/Webseite/new/Skifahren-Saas-Fee-Winter-2023__7_')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span data-i18n="filters.winter">Winter</span><span>Early</span></div><h3 data-i18n="cards.sunrise.title">Sunrise Skiing</h3><p data-i18n="cards.sunrise.text">A special group experience for early risers: first mountain light, first tracks, and breakfast at altitude.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/family/winter-for-families/family-activities-in-winter/kians-adventure-land" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all winter family" style="--d:.04s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Winter/Aktivitaeten/Kians-05386')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span data-i18n="filters.winter">Winter</span><span data-i18n="filters.family">Family</span></div><h3 data-i18n="cards.kian.title">Kian’s Adventure Land</h3><p data-i18n="cards.kian.text">A helpful snow area for children learning to ski and families who need a gentle winter setup.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/winter-activities/winter-experiences/sledging" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all winter family adrenaline" style="--d:.06s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Winter/Aktivitaeten/Kians-05386')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span data-i18n="filters.winter">Winter</span><span>Group</span></div><h3 data-i18n="cards.sledging.title">Night Sledging</h3><p data-i18n="cards.sledging.text">A memorable non-ski activity from Hannig back toward the village when conditions allow.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/world-of-adventures/mittelallalin-in-summer" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all winter summer glacier family calm" style="--d:.08s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Aktivitaeten/20140719_Saas-Fee_55B1606__c__Dominic_Steinmann')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span>Glacier</span><span>Viewpoint</span></div><h3 data-i18n="cards.ice.title">Metro Alpin & Ice Pavilion</h3><p data-i18n="cards.ice.text">Go high above the valley for glacier atmosphere, ice spaces, and the Mittelallalin experience.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/summer-activities/foxtrail-in-summer" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all winter summer family calm house" style="--d:.10s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Familien/Foxtrail_Saas-Grund_to_Saas-Fee_2020_Puzzle_Media-06304')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span>Village</span><span data-i18n="filters.family">Family</span></div><h3 data-i18n="cards.foxtrail.title">Foxtrail</h3><p data-i18n="cards.foxtrail.text">An interactive treasure-hunt-style experience through the village for families and larger groups.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/wellness-fitness/public-wellness/aqua-allalin" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all winter summer calm family" style="--d:.12s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Wellness/wellnessHostel4000_Sauna__c_SJH')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span data-i18n="filters.calm">Calm</span><span>Wellness</span></div><h3 data-i18n="cards.aqua.title">Aqua Allalin</h3><p data-i18n="cards.aqua.text">Pool and wellness center in the village — useful for soft days, weather shifts, and mixed groups.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/family/summer/family-activities-in-summer/marmots" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all summer family calm" style="--d:.14s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_crop%2Ch_4300%2Cw_4000%2Cx_0%2Cy_690/c_limit/f_auto%2Cq_80/v1/Webseite/new/Sommer/Tiere/Murmeltiere-Saas-Fee')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span data-i18n="filters.summer">Summer</span><span data-i18n="filters.family">Family</span></div><h3 data-i18n="cards.marmots.title">Marmot Feeding at Spielboden</h3><p data-i18n="cards.marmots.text">A signature Saas-Fee family moment: see the famous mountain marmots and build it into a light mountain day.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/family/summer/family-activities-in-summer/feeblitz-toboggan-run-summer" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all summer family adrenaline" style="--d:.16s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Aktivitaeten/Feeblitz')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span data-i18n="filters.summer">Summer</span><span>Fun</span></div><h3 data-i18n="cards.feeblitz.title">Feeblitz Mountain Coaster</h3><p data-i18n="cards.feeblitz.text">Fast, easy, close to the village — good for mixed-age groups who want a simple thrill.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/family/summer/family-activities-in-summer/maerli-trail" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all summer family calm trek" style="--d:.18s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Familien/Maerliweg_02')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span>Trail</span><span data-i18n="filters.family">Family</span></div><h3 data-i18n="cards.fairy.title">Fairy Tale Trail</h3><p data-i18n="cards.fairy.text">A gentle forest walk with story stations, ideal for younger children and slower family days.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/family/summer/family-activities-in-summer/eddie-and-the-mountain-weather" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all summer family trek calm" style="--d:.20s;--activity-image:url('https://cdn.saas-fee.ch/fileadmin/user_upload/Themenweg_Hannig_1.jpeg')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span>Trail</span><span>App</span></div><h3 data-i18n="cards.eddie.title">Eddie & the Mountain Weather</h3><p data-i18n="cards.eddie.text">Interactive app-guided themed walk from Hannig toward Saas-Fee, made for curious families.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/summer-activities/summer-ski" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all summer winter glacier ski family" style="--d:.22s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Aktivitaeten/20140719_Saas-Fee_55B1606__c__Dominic_Steinmann')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span>Glacier</span><span>Ski</span></div><h3 data-i18n="cards.summerSki.title">Summer Skiing</h3><p data-i18n="cards.summerSki.text">Saas-Fee is known for glacier skiing, even during summer months, when conditions and operations allow.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/family/summer/family-activities-in-summer/rope-park" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all summer adrenaline family" style="--d:.24s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Aktivitaeten/Abenteuerwald-2018-0007')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span>Forest</span><span data-i18n="filters.adrenaline">Adrenaline</span></div><h3 data-i18n="cards.rope.title">Saas-Fee Rope Park</h3><p data-i18n="cards.rope.text">A forest-based ropes course with difficulty levels and a strong group-energy feel.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/world-of-adventures/hannig-in-summer" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all summer adrenaline group" style="--d:.26s;--activity-image:url('https://cdn.saas-fee.ch/fileadmin/_processed_/5/a/csm_Comickarte_Hannig-26-EN_d1e671ed0f.jpg')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span>Bike</span><span>Group</span></div><h3 data-i18n="cards.trotti.title">Trotti Scooters & Mountaincarts</h3><p data-i18n="cards.trotti.text">Ride down from Hannig on mountain paths — easy to understand, memorable for groups.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/accommodations/mountain-huts/almagelleralp" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all summer trek adrenaline guide" style="--d:.28s;--activity-image:url('https://cdn.saas-fee.ch/fileadmin/_processed_/3/6/csm_IMG_9009_7b4eff14ba.jpg')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span data-i18n="filters.trek">Trek</span><span>Bridge</span></div><h3 data-i18n="cards.almageller.title">Almageller Adventure Trail</h3><p data-i18n="cards.almageller.text">Suspension bridges, alpine path atmosphere, and a stronger hiking option for active guests.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/world-of-adventures/mattmark-dam-in-summer" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all summer trek calm family" style="--d:.30s;--activity-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Aktivitaeten/20140719_Saas-Fee_55B1606__c__Dominic_Steinmann')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span>Lake</span><span>Walk</span></div><h3 data-i18n="cards.mattmark.title">Mattmark Reservoir</h3><p data-i18n="cards.mattmark.text">Turquoise water, dam views, quieter valley energy, and route options from easy to demanding.</p></div></a>
-            <a href="https://www.saas-fee.ch/en/summer-activities/gorge-alpine-alpine-canyon" target="_blank" rel="noopener" data-official-image="true" class="fh-activity preScale" data-tags="all summer winter adrenaline trek guide group" style="--d:.32s;--activity-image:url('https://cdn.saas-fee.ch/fileadmin/user_upload/Gorge-Alpine-Sommer-2021-0009.jpg')"><div class="fh-activity-copy"><div class="fh-activity-tags"><span>Guide</span><span data-i18n="filters.adrenaline">Adrenaline</span></div><h3 data-i18n="cards.gorge.title">Gorge Alpine</h3><p data-i18n="cards.gorge.text">Via ferrata-style canyon crossing between Saas-Fee and Saas-Grund with a mountain guide.</p></div></a>
-          </div>
-        </div>
-      </section>
-
-      <!-- BLOCK 5 / TREKS + ROUTES -->
-      <section class="fh-section" id="fh-treks">
-        <div class="fh-container fh-section-head">
-          <div>
-            <p class="fh-kicker preFade" data-i18n="routes.kicker">Treks & route ideas</p>
-            <h2 class="preSlide" data-i18n="routes.title">From stroller-friendly walks to serious mountain days.</h2>
-          </div>
-          <p class="preFade" data-i18n="routes.lead">Route type, energy level, season, and a quick search link help guests understand what kind of day they are choosing.</p>
-        </div>
-
-        <div class="fh-container fh-route-grid">
-          <a href="https://www.saas-fee.ch/en/family/summer/family-activities-in-summer/maerli-trail" target="_blank" rel="noopener" data-official-image="true" class="fh-route preSlide" data-tags="all summer family calm trek">
-            <div class="fh-route-img" style="background-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Familien/Maerliweg_02')"></div>
-            <div class="fh-route-copy"><p class="fh-kicker" data-i18n="routes.easy">Easy / family</p><h3 data-i18n="routes.fairy.title">Fairy Tale Trail & forest paths</h3><p data-i18n="routes.fairy.text">Gentle story-led route energy for families and guests who want a soft introduction to the forest around Saas-Fee.</p><div class="fh-route-meta"><span data-i18n="routes.low">Low effort</span><span data-i18n="filters.family">Family</span><span data-i18n="filters.summer">Summer</span></div><span class="fh-text-link" data-i18n="routes.details">Official details</span></div>
-          </a>
-          <a href="https://www.saas-fee.ch/en/world-of-adventures/hannig-in-summer" target="_blank" rel="noopener" data-official-image="true" class="fh-route preSlide" style="--d:.07s" data-tags="all summer winter family calm adrenaline">
-            <div class="fh-route-img" style="background-image:url('https://cdn.saas-fee.ch/fileadmin/_processed_/5/a/csm_Comickarte_Hannig-26-EN_d1e671ed0f.jpg')"></div>
-            <div class="fh-route-copy"><p class="fh-kicker" data-i18n="routes.medium">Medium / scenic</p><h3 data-i18n="routes.hannig.title">Hannig to Saas-Fee</h3><p data-i18n="routes.hannig.text">Good for active families, themed trail users, scooter days, sledging days, and guests who want elevation without a full alpine trek.</p><div class="fh-route-meta"><span>Hannig</span><span data-i18n="routes.trailOption">Trail option</span><span data-i18n="routes.views">Views</span></div><span class="fh-text-link" data-i18n="routes.details">Official details</span></div>
-          </a>
-          <a href="https://www.saas-fee.ch/en/world-of-adventures/laengfluh-in-summer" target="_blank" rel="noopener" data-official-image="true" class="fh-route preSlide" style="--d:.14s" data-tags="all winter summer glacier trek">
-            <div class="fh-route-img" style="background-image:url('https://cdn.saas-fee.ch/fileadmin/_processed_/4/0/csm_Laengfluh-Steinhuette-05_89f54f3783.jpg')"></div>
-            <div class="fh-route-copy"><p class="fh-kicker" data-i18n="routes.high">High alpine</p><h3 data-i18n="routes.langfluh.title">Spielboden / Längfluh glacier view</h3><p data-i18n="routes.langfluh.text">For guests who want to feel close to the glacier without necessarily committing to a major summit day.</p><div class="fh-route-meta"><span>Glacier</span><span data-i18n="routes.cableCar">Cable car</span><span data-i18n="routes.summerWinter">Summer / winter</span></div><span class="fh-text-link" data-i18n="routes.details">Official details</span></div>
-          </a>
-          <a href="https://www.saas-fee.ch/blog/2020/09/saas-almagell-adventure-trail/" target="_blank" rel="noopener" data-official-image="true" class="fh-route preSlide" style="--d:.21s" data-tags="all summer trek adrenaline">
-            <div class="fh-route-img" style="background-image:url('https://cdn.saas-fee.ch/fileadmin/_processed_/3/6/csm_IMG_9009_7b4eff14ba.jpg')"></div>
-            <div class="fh-route-copy"><p class="fh-kicker" data-i18n="routes.active">Active / bridge</p><h3 data-i18n="routes.almageller.title">Almageller Adventure Trail</h3><p data-i18n="routes.almageller.text">For active families and groups who want a stronger mountain path with suspension bridges and alpine texture.</p><div class="fh-route-meta"><span data-i18n="routes.bridges">Suspension bridges</span><span data-i18n="routes.activeShort">Active</span><span data-i18n="filters.summer">Summer</span></div><span class="fh-text-link" data-i18n="routes.details">Official details</span></div>
-          </a>
-          <a href="https://www.saas-fee.ch/en/world-of-adventures/mattmark-dam-in-summer" target="_blank" rel="noopener" data-official-image="true" class="fh-route preSlide" style="--d:.28s" data-tags="all summer family calm trek">
-            <div class="fh-route-img" style="background-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Aktivitaeten/20140719_Saas-Fee_55B1606__c__Dominic_Steinmann')"></div>
-            <div class="fh-route-copy"><p class="fh-kicker" data-i18n="routes.lake">Lake / valley</p><h3 data-i18n="routes.mattmark.title">Mattmark Reservoir</h3><p data-i18n="routes.mattmark.text">A quieter valley destination with dam views. It can be treated as a scenic walk or built into a longer route.</p><div class="fh-route-meta"><span data-i18n="routes.reservoir">Reservoir</span><span data-i18n="filters.calm">Calm</span><span data-i18n="routes.summerWinter">Summer / winter</span></div><span class="fh-text-link" data-i18n="routes.details">Official details</span></div>
-          </a>
-          <a href="https://www.saas-fee.ch/en/accommodations/packages-and-deals/allalin-my-first-4000-metre-peak" target="_blank" rel="noopener" data-official-image="true" class="fh-route preSlide" style="--d:.35s" data-tags="all summer winter trek adrenaline guide">
-            <div class="fh-route-img" style="background-image:url('https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Aktivitaeten/20140719_Saas-Fee_55B1606__c__Dominic_Steinmann')"></div>
-            <div class="fh-route-copy"><p class="fh-kicker" data-i18n="routes.guided">Guided / summit</p><h3 data-i18n="routes.allalin.title">First four-thousander / Allalin</h3><p data-i18n="routes.allalin.text">For guests who want a guided high-alpine objective. This should always be treated as a mountain-guide route, not a casual walk.</p><div class="fh-route-meta"><span>Guide</span><span data-i18n="routes.advanced">Advanced</span><span data-i18n="routes.weather">Weather dependent</span></div><span class="fh-text-link" data-i18n="routes.details">Official details</span></div>
-          </a>
-        </div>
-      </section>
-
-      <!-- BLOCK 6 / FAMILIES + GROUPS -->
-      <section class="fh-section fh-section-alt" id="fh-groups">
-        <div class="fh-container fh-section-head">
-          <div>
-            <p class="fh-kicker preFade" data-i18n="groups.kicker">Families, groups & retreats</p>
-            <h2 class="preSlide" data-i18n="groups.title">Easy activities for mixed ages. Shared experiences for groups.</h2>
-          </div>
-          <p class="preFade" data-i18n="groups.lead">Families and multi-generational groups can choose from gentle walks, playground areas, cable-car outings, marmot encounters, winter snow play, treasure hunts, and village-based activities.</p>
-        </div>
-
-        <div class="fh-container fh-intro-grid">
-          <article class="fh-panel preSlide">
-            <p class="fh-kicker" data-i18n="groups.familyKicker">For families</p>
-            <h3 data-i18n="groups.familyTitle">Separate and reconnect easily.</h3>
-            <p data-i18n="groups.familyText">Some guests can ski while others choose Aqua Allalin, village walks, a cable-car viewpoint, or a gentler forest trail. The advantage of Fletschhorn is that the group has one private place to come back to.</p>
           </article>
-          <article class="fh-panel fh-panel-dark preSlide" style="--d:.08s">
-            <p class="fh-kicker" data-i18n="groups.retreatKicker">For retreats</p>
-            <h3 data-i18n="groups.retreatTitle">Activity and reflection in the same valley.</h3>
-            <p data-i18n="groups.retreatText">For retreats, companies, and private groups, Saas-Fee offers a natural setting for both movement and calm: guided hikes, ski sessions, team challenges, wellness time, or slower moments in the village and forest.</p>
-          </article>
-        </div>
-      </section>
 
-      <!-- BLOCK 7 / DAY PLANS -->
-      <section class="fh-section" id="fh-dayplans">
-        <div class="fh-container fh-section-head">
-          <div>
-            <p class="fh-kicker preFade" data-i18n="dayplans.kicker">Ready-made rhythms</p>
-            <h2 class="preSlide" data-i18n="dayplans.title">Simple day plans guests can understand in seconds.</h2>
-          </div>
-          <p class="preFade" data-i18n="dayplans.lead">This makes the page usable for real visitors: not only a list of activities, but a clear way to imagine a day around the house.</p>
+          <figure class="fh-image-tile fh-reveal">
+            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1b68ef5d-fcdf-4818-8644-77ce85f68263/1_9418_.jpg" alt="Fletschhorn and surrounding Saas-Fee nature">
+            <figcaption class="fh-image-caption">
+              <b data-i18n-text='{"en":"A house held by the landscape.","fr":"Une maison portée par le paysage.","de":"Ein Haus, getragen von der Landschaft.","ru":"Дом, окружённый пейзажем."}'>A house held by the landscape.</b>
+              <span data-i18n-text='{"en":"Forest, air, mountain views and a real sense of separation from ordinary hotel life.","fr":"Forêt, air pur, vues de montagne et vraie distance avec l’ambiance d’un hôtel classique.","de":"Wald, Luft, Bergblick und echte Distanz zum klassischen Hotelleben.","ru":"Лес, воздух, горные виды и ощущение отделённости от обычной гостиничной жизни."}'>Forest, air, mountain views and a real sense of separation from ordinary hotel life.</span>
+            </figcaption>
+          </figure>
         </div>
-        <div class="fh-container fh-itinerary-grid">
-          <article class="fh-itinerary preSlide"><p class="fh-kicker" data-i18n="dayplans.softKicker">Soft family day</p><h3 data-i18n="dayplans.softTitle">Village + marmots + pool</h3><ol><li data-i18n="dayplans.soft1">Start slow at the house.</li><li data-i18n="dayplans.soft2">Walk or take transport toward the village and lifts.</li><li data-i18n="dayplans.soft3">Visit Spielboden for marmots when in season.</li><li data-i18n="dayplans.soft4">End with Aqua Allalin or a calm village walk.</li></ol></article>
-          <article class="fh-itinerary preSlide" style="--d:.08s"><p class="fh-kicker" data-i18n="dayplans.activeKicker">Active summer day</p><h3 data-i18n="dayplans.activeTitle">Hannig + themed trail + scooters</h3><ol><li data-i18n="dayplans.active1">Take the Hannig lift when operating.</li><li data-i18n="dayplans.active2">Use the Eddie trail or a scenic descent.</li><li data-i18n="dayplans.active3">Add mountaincarts or Trotti scooters for the group.</li><li data-i18n="dayplans.active4">Return to the house before evening.</li></ol></article>
-          <article class="fh-itinerary preSlide" style="--d:.16s"><p class="fh-kicker" data-i18n="dayplans.winterKicker">Winter group day</p><h3 data-i18n="dayplans.winterTitle">Ski + sledging + warm reset</h3><ol><li data-i18n="dayplans.winter1">Morning skiing, snowboarding, or ski school.</li><li data-i18n="dayplans.winter2">Village break for mixed groups.</li><li data-i18n="dayplans.winter3">Night sledging if available and safe.</li><li data-i18n="dayplans.winter4">Return to the house as the private base.</li></ol></article>
-        </div>
-      </section>
-
-      <!-- BLOCK 8 / FINAL CTA + BOOKING MODAL -->
-      <section class="fh-section fh-section-alt" id="fh-plan">
-        <div class="fh-container fh-cta">
-          <article class="fh-panel preSlide">
-            <p class="fh-kicker" data-i18n="cta.kicker">Planning your stay</p>
-            <h2 data-i18n="cta.title">Build the rhythm that fits your group.</h2>
-            <p data-i18n="cta.text">Some groups come for skiing. Others come for family time, wellness, hiking, work sessions, or a private celebration. Tell us when you are coming, who is joining, and what kind of experience you want.</p>
-            <a class="fh-cta-btn" href="#fh-experiences-top" data-i18n="cta.button">Send an Inquiry</a>
-            <p class="fh-small-note" data-i18n="cta.note">Best Rates Guaranteed when Booking Direct</p>
-          </article>
-          <aside class="fh-panel preSlide" style="--d:.10s">
-            <p class="fh-kicker" data-i18n="cta.seasonKicker">Season by season</p>
-            <p><strong data-i18n="filters.winter">Winter</strong><br><span data-i18n="cta.winter">Skiing, snowboarding, sledging, glacier experiences, village treasure hunts, and wellness resets.</span></p>
-            <p><strong data-i18n="filters.summer">Summer</strong><br><span data-i18n="cta.summer">Marmots, hiking, mountain lakes, rope park, scooters, cable cars, and glacier views.</span></p>
-          </aside>
-        </div>
-      </section>
-    </main>
-
-    <div class="fh-modal" id="fh-exp-modal" aria-hidden="true">
-      <div class="fh-modal-panel" role="dialog" aria-modal="true" aria-labelledby="fh-exp-modal-title">
-        <div class="fh-modal-head">
-          <h3 id="fh-exp-modal-title" data-i18n="modal.title">Send a stay inquiry</h3>
-          <button class="fh-close" type="button" id="fh-exp-close" aria-label="Close">×</button>
-        </div>
-        <form class="fh-modal-body" id="fh-exp-modal-form">
-          <div class="fh-modal-grid">
-            <div class="fh-modal-field"><label for="fh-modal-name" data-i18n="modal.name">Name</label><input id="fh-modal-name" name="name" placeholder="Your name" data-i18n-placeholder="modal.namePh" /></div>
-            <div class="fh-modal-field"><label for="fh-modal-contact" data-i18n="form.contactLabel">Contact</label><input id="fh-modal-contact" name="contact" placeholder="Email or phone" data-i18n-placeholder="form.contactPlaceholder" /></div>
-            <div class="fh-modal-field"><label for="fh-modal-checkin" data-i18n="modal.checkin">Check-in</label><input id="fh-modal-checkin" name="checkin" type="date" /></div>
-            <div class="fh-modal-field"><label for="fh-modal-checkout" data-i18n="modal.checkout">Check-out</label><input id="fh-modal-checkout" name="checkout" type="date" /></div>
-            <div class="fh-modal-field"><label for="fh-modal-guests" data-i18n="form.guestsLabel">Guests</label><input id="fh-modal-guests" name="guests" inputmode="numeric" placeholder="48 max sleeping places" data-i18n-placeholder="modal.guestsPh" /></div>
-            <div class="fh-modal-field"><label for="fh-modal-season" data-i18n="modal.season">Season</label><select id="fh-modal-season" name="season"><option>Winter</option><option>Summer</option><option>Shoulder season</option><option>Not sure yet</option></select></div>
-            <div class="fh-modal-field full"><label for="fh-modal-notes" data-i18n="modal.notes">Notes</label><textarea id="fh-modal-notes" name="notes" placeholder="Age range, mobility needs, dates, activities you like, guide needs…" data-i18n-placeholder="modal.notesPh"></textarea></div>
-          </div>
-          <button class="fh-submit" type="submit" data-i18n="modal.submit">Send inquiry</button>
-          <div class="fh-status" id="fh-modal-status"></div>
-        </form>
       </div>
-    </div>
-  </div>
-</div>
+    </section>
 
-<script>
-(function(){
-  const root = document.getElementById('fh-experiences');
-  if(!root || root.dataset.ready === '1') return;
-  root.dataset.ready = '1';
+    <section class="fh-section" id="shuttle">
+      <div class="fh-container">
+        <div class="fh-section-head fh-reveal">
+          <div>
+            <p class="fh-kicker" data-i18n-text='{"en":"Private shuttles","fr":"Navettes privées","de":"Private Shuttle","ru":"Частные шаттлы"}'>Private shuttles</p>
+            <h2 class="fh-section-title" data-i18n-text='{"en":"Easy movement for a whole group.","fr":"Des déplacements faciles pour tout le groupe.","de":"Einfache Bewegung für die ganze Gruppe.","ru":"Удобное передвижение для всей группы."}'>Easy movement for a whole group.</h2>
+          </div>
+          <p class="fh-section-text" data-i18n-text='{"en":"For a private-property stay, logistics matter. The shuttle rhythm keeps arrival, departure and ski-lift access clean, especially for larger families, weddings, retreats and corporate groups.","fr":"Pour un séjour en propriété privée, la logistique compte. Le rythme des navettes facilite l’arrivée, le départ et l’accès aux remontées, surtout pour grandes familles, mariages, retraites et groupes d’entreprise.","de":"Bei einem privaten Aufenthalt zählt Logistik. Der Shuttle-Rhythmus erleichtert Ankunft, Abreise und Zugang zu den Bergbahnen, besonders für größere Familien, Hochzeiten, Retreats und Firmengruppen.","ru":"Для частного группового проживания логистика важна. Шаттлы упрощают приезд, отъезд и доступ к подъёмникам, особенно для больших семей, свадеб, ретритов и корпоративных групп."}'>For a private-property stay, logistics matter. The shuttle rhythm keeps arrival, departure and ski-lift access clean, especially for larger families, weddings, retreats and corporate groups.</p>
+        </div>
 
-  const WORKER_URL = "https://saas-fee.moshe-cohen-h1.workers.dev";
-  const SEARCH_ENDPOINT = WORKER_URL + "/search";
+        <div class="fh-shuttle-grid">
+          <div class="fh-photo-carousel fh-reveal" data-carousel>
+            <div class="fh-slide active">
+              <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756344115-UN1RO9UJ7JQZQ8U5LPNB/1521689.jpg" alt="Fletschhorn exterior">
+            </div>
+            <div class="fh-slide">
+              <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756425144-LGR2PVN9RQ0IIWIOETEI/1504170.jpg" alt="Saas-Fee mountain setting">
+            </div>
+            <div class="fh-slide">
+              <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/5143310-1521705_0_0_4800_3200_1200_800.jpg" alt="Fletschhorn interior gathering space">
+            </div>
 
-  const fallbackImages = [
-    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
-    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
-    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg",
-    "https://assets.guesty.com/image/upload/v1769381683/production/686c48ada4bbacd7a82a4f83/gdkntjfg2shhfc8sjsox.jpg",
-    "https://assets.guesty.com/image/upload/v1769381684/production/686c48ada4bbacd7a82a4f83/kzwdncmnkciaw508jnk7.jpg",
-    "https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg",
-    "https://assets.guesty.com/image/upload/v1769381550/production/686c48ada4bbacd7a82a4f83/vzgtukkezd2kk28kcphi.jpg",
-    "https://assets.guesty.com/image/upload/v1769381488/production/686c48ada4bbacd7a82a4f83/tgbuyyre4bz9oyczaasv.jpg"
-  ];
+            <div class="fh-carousel-controls">
+              <button class="fh-arrow" type="button" data-prev aria-label="Previous image">‹</button>
+              <div class="fh-dots">
+                <button class="fh-dot active" type="button" data-go="0" aria-label="Image 1"></button>
+                <button class="fh-dot" type="button" data-go="1" aria-label="Image 2"></button>
+                <button class="fh-dot" type="button" data-go="2" aria-label="Image 3"></button>
+              </div>
+              <button class="fh-arrow" type="button" data-next aria-label="Next image">›</button>
+            </div>
+          </div>
 
-  const i18n = {
-    en:{
-      "hero.kicker":"Experiences around Saas-Fee","hero.title":"A private base for every season in Saas-Fee.","hero.lead":"From glacier skiing and winter sledging to summer hikes, marmots, mountain lakes, rope parks, and slow alpine days, Saas-Fee offers something for every kind of group. Fletschhorn gives you a private alpine base above the village, close to the experiences that make the valley special.","hero.note":"Best Rates Guaranteed when Booking Direct","hero.scroll":"Open the area",
-      "filters.all":"Everything","filters.allText":"Show the whole valley around the house.","filters.winter":"Winter","filters.winterText":"Ski, snow, sledging, glacier, cozy resets.","filters.summer":"Summer","filters.summerText":"Marmots, hikes, scooters, lakes, ropes.","filters.calm":"Soft days","filters.calmText":"Wellness, village walks, gentle trails.","filters.house":"House & village","filters.family":"Family","filters.adrenaline":"Adrenaline","filters.trek":"Trek",
-      "form.guestsLabel":"Guests","form.guestsPlaceholder":"Family, group, retreat…","form.datesLabel":"Dates","form.datesPlaceholder":"Winter, summer, exact dates…","form.contactLabel":"Contact","form.contactPlaceholder":"Email or phone","form.planBtn":"Send Inquiry",
-      "area.kicker":"The area","area.title":"A mountain region built for groups, families, skiers, hikers, and slow days.","area.lead":"Saas-Fee is surrounded by eighteen 4,000-metre peaks. This page turns the region into a practical guest tool: first a map, then filtered activities, routes, and day rhythms.","area.howKicker":"How this page works","area.howTitle":"Choose by season, mood, or energy level.","area.howText":"Tap Winter, Summer, Soft days, Family, Trek, or Adrenaline. The map, sidebar, activity cards, and helper copy update together.","area.proofWinter":"Skiing, sledging, glacier, snow paths, group thrill days.","area.proofSummer":"Marmots, hikes, biking, rope park, glacier access, mountain lakes.","area.proofCalm":"Aqua Allalin, village walks, family trails, cable-car viewpoints.","area.privateKicker":"Private base, active valley","area.privateTitle":"The house is calm; the region is full.","area.privateText":"The stay does not depend on one single activity. Guests can split by age, weather, energy level, or season, then return to one private house at the end of the day.","area.safety":"Safety note: mountain conditions change quickly. Route openings, lifts, weather, and guide requirements should always be checked with the official Saas-Fee/Saastal information before guests go.",
-      "photos.one":"Start from one private house","photos.two":"Move through the valley","photos.three":"Return to calm",
-      "map.kicker":"Interactive map","map.title":"The map is the orientation tool for the whole stay.","map.open":"Open full map","map.selected":"Selected area",
-      "helper.all":"Showing the full area: house, village, lifts, glacier points, wellness, family activities, and bigger mountain days.","helper.house":"Showing the house and village orientation points: arrival, village center, nearby wellness, and practical movement.","helper.winter":"Showing winter-focused ideas: ski terrain, sledging, glacier access, Ice Pavilion, and snow-day options.","helper.summer":"Showing summer-focused ideas: marmots, hikes, scooters, coaster, ropes, reservoir, and glacier viewpoints.","helper.family":"Showing family-friendly options: village activities, Spielboden marmots, Hannig, Feeblitz, Aqua Allalin, and easy routes.","helper.adrenaline":"Showing higher-energy ideas: Gorge Alpine, rope park, Feeblitz, sledging, scooters, and stronger mountain routes.","helper.trek":"Showing trek and route ideas: Längfluh, Almageller Adventure Trail, Mattmark, Gorge Alpine, and high-alpine access.","helper.calm":"Showing softer days: Fletschhorn base, village walks, Aqua Allalin, Spielboden, Mattmark, and low-pressure mountain time.",
-      "places.fletschhorn.text":"Private alpine house base. Anchor point for the stay.","places.fletschhorn.tag":"House · calm · family","places.village.text":"Car-free center, lifts, shops, Foxtrail, and arrival logistics.","places.village.tag":"Village · all seasons","places.hannig.text":"Sunny mountain, sledging, Trotti scooters, mountaincarts, playgrounds, and themed trails.","places.hannig.tag":"Winter · summer · family","places.spielboden.text":"Marmots, family mountain days, and access toward higher alpine scenery.","places.spielboden.tag":"Summer · family · calm","places.langfluh.text":"Close-up glacier views and stronger high-altitude feeling.","places.langfluh.tag":"Glacier · trek","places.mittelallalin.text":"Metro Alpin, Ice Pavilion, glacier atmosphere, and summer snow access.","places.mittelallalin.tag":"Glacier · family","places.feeblitz.text":"Fast, simple, close to the village, good for mixed-age groups.","places.feeblitz.tag":"Summer · adrenaline","places.ropepark.text":"Forest ropes course with zip-line energy for active groups.","places.ropepark.tag":"Summer · forest","places.aqua.text":"Pool and wellness center for soft days, weather shifts, and mixed groups.","places.aqua.tag":"Calm · family","places.mattmark.text":"Turquoise reservoir, dam views, quieter valley walks, and longer routes.","places.mattmark.tag":"Lake · trek · calm","places.almageller.text":"Suspension bridges and a stronger summer hiking day.","places.almageller.tag":"Trek · bridges","places.gorge.text":"Guided canyon / via ferrata-style route between Saas-Fee and Saas-Grund.","places.gorge.tag":"Guide · adrenaline",
-      "activities.kicker":"Activity finder","activities.title":"Filter the region like a concierge board.","activities.lead":"The same filters control the map and the cards. Guests can choose what kind of day they want without reading the whole page.",
-      "cards.ski.title":"Skiing & Snowboarding","cards.ski.text":"High-altitude slopes, group ski days, blue to black runs, and snow reliability at altitude.","cards.sunrise.title":"Sunrise Skiing","cards.sunrise.text":"A special group experience for early risers: first mountain light, first tracks, and breakfast at altitude.","cards.kian.title":"Kian’s Adventure Land","cards.kian.text":"A helpful snow area for children learning to ski and families who need a gentle winter setup.","cards.sledging.title":"Night Sledging","cards.sledging.text":"A memorable non-ski activity from Hannig back toward the village when conditions allow.","cards.ice.title":"Metro Alpin & Ice Pavilion","cards.ice.text":"Go high above the valley for glacier atmosphere, ice spaces, and the Mittelallalin experience.","cards.foxtrail.title":"Foxtrail","cards.foxtrail.text":"An interactive treasure-hunt-style experience through the village for families and larger groups.","cards.aqua.title":"Aqua Allalin","cards.aqua.text":"Pool and wellness center in the village — useful for soft days, weather shifts, and mixed groups.","cards.marmots.title":"Marmot Feeding at Spielboden","cards.marmots.text":"A signature Saas-Fee family moment: see the famous mountain marmots and build it into a light mountain day.","cards.feeblitz.title":"Feeblitz Mountain Coaster","cards.feeblitz.text":"Fast, easy, close to the village — good for mixed-age groups who want a simple thrill.","cards.fairy.title":"Fairy Tale Trail","cards.fairy.text":"A gentle forest walk with story stations, ideal for younger children and slower family days.","cards.eddie.title":"Eddie & the Mountain Weather","cards.eddie.text":"Interactive app-guided themed walk from Hannig toward Saas-Fee, made for curious families.","cards.summerSki.title":"Summer Skiing","cards.summerSki.text":"Saas-Fee is known for glacier skiing, even during summer months, when conditions and operations allow.","cards.rope.title":"Saas-Fee Rope Park","cards.rope.text":"A forest-based ropes course with difficulty levels and a strong group-energy feel.","cards.trotti.title":"Trotti Scooters & Mountaincarts","cards.trotti.text":"Ride down from Hannig on mountain paths — easy to understand, memorable for groups.","cards.almageller.title":"Almageller Adventure Trail","cards.almageller.text":"Suspension bridges, alpine path atmosphere, and a stronger hiking option for active guests.","cards.mattmark.title":"Mattmark Reservoir","cards.mattmark.text":"Turquoise water, dam views, quieter valley energy, and route options from easy to demanding.","cards.gorge.title":"Gorge Alpine","cards.gorge.text":"Via ferrata-style canyon crossing between Saas-Fee and Saas-Grund with a mountain guide.",
-      "routes.kicker":"Treks & route ideas","routes.title":"From stroller-friendly walks to serious mountain days.","routes.lead":"Route type, energy level, season, and a quick search link help guests understand what kind of day they are choosing.","routes.easy":"Easy / family","routes.low":"Low effort","routes.medium":"Medium / scenic","routes.high":"High alpine","routes.active":"Active / bridge","routes.lake":"Lake / valley","routes.guided":"Guided / summit","routes.search":"Search map","routes.details":"Official details","routes.details":"Official details","routes.trailOption":"Trail option","routes.views":"Views","routes.cableCar":"Cable car","routes.summerWinter":"Summer / winter","routes.bridges":"Suspension bridges","routes.activeShort":"Active","routes.reservoir":"Reservoir","routes.advanced":"Advanced","routes.weather":"Weather dependent","routes.fairy.title":"Fairy Tale Trail & forest paths","routes.fairy.text":"Gentle story-led route energy for families and guests who want a soft introduction to the forest around Saas-Fee.","routes.hannig.title":"Hannig to Saas-Fee","routes.hannig.text":"Good for active families, themed trail users, scooter days, sledging days, and guests who want elevation without a full alpine trek.","routes.langfluh.title":"Spielboden / Längfluh glacier view","routes.langfluh.text":"For guests who want to feel close to the glacier without necessarily committing to a major summit day.","routes.almageller.title":"Almageller Adventure Trail","routes.almageller.text":"For active families and groups who want a stronger mountain path with suspension bridges and alpine texture.","routes.mattmark.title":"Mattmark Reservoir","routes.mattmark.text":"A quieter valley destination with dam views. It can be treated as a scenic walk or built into a longer route.","routes.allalin.title":"First four-thousander / Allalin","routes.allalin.text":"For guests who want a guided high-alpine objective. This should always be treated as a mountain-guide route, not a casual walk.",
-      "groups.kicker":"Families, groups & retreats","groups.title":"Easy activities for mixed ages. Shared experiences for groups.","groups.lead":"Families and multi-generational groups can choose from gentle walks, playground areas, cable-car outings, marmot encounters, winter snow play, treasure hunts, and village-based activities.","groups.familyKicker":"For families","groups.familyTitle":"Separate and reconnect easily.","groups.familyText":"Some guests can ski while others choose Aqua Allalin, village walks, a cable-car viewpoint, or a gentler forest trail. The advantage of Fletschhorn is that the group has one private place to come back to.","groups.retreatKicker":"For retreats","groups.retreatTitle":"Activity and reflection in the same valley.","groups.retreatText":"For retreats, companies, and private groups, Saas-Fee offers a natural setting for both movement and calm: guided hikes, ski sessions, team challenges, wellness time, or slower moments in the village and forest.",
-      "dayplans.kicker":"Ready-made rhythms","dayplans.title":"Simple day plans guests can understand in seconds.","dayplans.lead":"This makes the page usable for real visitors: not only a list of activities, but a clear way to imagine a day around the house.","dayplans.softKicker":"Soft family day","dayplans.softTitle":"Village + marmots + pool","dayplans.soft1":"Start slow at the house.","dayplans.soft2":"Walk or take transport toward the village and lifts.","dayplans.soft3":"Visit Spielboden for marmots when in season.","dayplans.soft4":"End with Aqua Allalin or a calm village walk.","dayplans.activeKicker":"Active summer day","dayplans.activeTitle":"Hannig + themed trail + scooters","dayplans.active1":"Take the Hannig lift when operating.","dayplans.active2":"Use the Eddie trail or a scenic descent.","dayplans.active3":"Add mountaincarts or Trotti scooters for the group.","dayplans.active4":"Return to the house before evening.","dayplans.winterKicker":"Winter group day","dayplans.winterTitle":"Ski + sledging + warm reset","dayplans.winter1":"Morning skiing, snowboarding, or ski school.","dayplans.winter2":"Village break for mixed groups.","dayplans.winter3":"Night sledging if available and safe.","dayplans.winter4":"Return to the house as the private base.",
-      "cta.kicker":"Planning your stay","cta.title":"Build the rhythm that fits your group.","cta.text":"Some groups come for skiing. Others come for family time, wellness, hiking, work sessions, or a private celebration. Tell us when you are coming, who is joining, and what kind of experience you want.","cta.button":"Send an Inquiry","cta.note":"Best Rates Guaranteed when Booking Direct","cta.seasonKicker":"Season by season","cta.winter":"Skiing, snowboarding, sledging, glacier experiences, village treasure hunts, and wellness resets.","cta.summer":"Marmots, hiking, mountain lakes, rope park, scooters, cable cars, and glacier views.",
-      "modal.title":"Send a stay inquiry","modal.name":"Name","modal.namePh":"Your name","modal.checkin":"Check-in","modal.checkout":"Check-out","modal.guestsPh":"48 max sleeping places","modal.season":"Season","modal.notes":"Notes","modal.notesPh":"Age range, mobility needs, dates, activities you like, guide needs…","modal.submit":"Send inquiry","modal.sending":"Checking availability…","modal.sent":"Request sent through the booking worker.","modal.failed":"The request could not be sent from this page. Please try again or contact the property directly."
-    }
-  };
+          <article class="fh-panel fh-reveal">
+            <h3 data-i18n-text='{"en":"Less friction, more mountain time.","fr":"Moins de friction, plus de temps en montagne.","de":"Weniger Aufwand, mehr Bergzeit.","ru":"Меньше сложностей, больше времени в горах."}'>Less friction, more mountain time.</h3>
+            <p data-i18n-text='{"en":"The location works best when the group does not have to think about every movement. Build the stay around simple transfer moments: arrive together, reach the lifts, return calmly, and use the property as the private base.","fr":"L’emplacement fonctionne mieux quand le groupe n’a pas besoin de penser à chaque déplacement. Structurez le séjour autour de moments simples : arriver ensemble, rejoindre les remontées, revenir tranquillement et utiliser la propriété comme base privée.","de":"Die Lage funktioniert am besten, wenn die Gruppe nicht jede Bewegung planen muss. Der Aufenthalt kann um einfache Transfermomente gebaut werden: gemeinsam ankommen, die Bahnen erreichen, ruhig zurückkehren und das Haus als private Basis nutzen.","ru":"Локация работает лучше всего, когда группе не нужно думать о каждом перемещении. Постройте пребывание вокруг простых трансферов: приехать вместе, добраться до подъёмников, спокойно вернуться и использовать дом как частную базу."}'>The location works best when the group does not have to think about every movement. Build the stay around simple transfer moments: arrive together, reach the lifts, return calmly, and use the property as the private base.</p>
 
-  const fr = {
-    "hero.kicker":"Expériences autour de Saas-Fee","hero.title":"Une base privée pour chaque saison à Saas-Fee.","hero.lead":"Du ski sur glacier et de la luge d’hiver aux randonnées d’été, marmottes, lacs de montagne, parcs aventure et journées alpines plus calmes, Saas-Fee offre des expériences pour chaque type de groupe. Fletschhorn donne à vos invités une base alpine privée au-dessus du village, proche de ce qui rend la vallée spéciale.","hero.note":"Meilleurs tarifs garantis en réservant en direct","hero.scroll":"Découvrir la région",
-    "filters.all":"Tout","filters.allText":"Afficher toute la vallée autour de la maison.","filters.winter":"Hiver","filters.winterText":"Ski, neige, luge, glacier, moments chaleureux.","filters.summer":"Été","filters.summerText":"Marmottes, randonnées, trottinettes, lacs, accrobranche.","filters.calm":"Journées douces","filters.calmText":"Bien-être, village, chemins faciles.","filters.house":"Maison & village","filters.family":"Famille","filters.adrenaline":"Adrénaline","filters.trek":"Randonnée",
-    "form.guestsLabel":"Invités","form.guestsPlaceholder":"Famille, groupe, retraite…","form.datesLabel":"Dates","form.datesPlaceholder":"Hiver, été, dates précises…","form.contactLabel":"Contact","form.contactPlaceholder":"Email ou téléphone","form.planBtn":"Envoyer une demande",
-    "area.kicker":"La région","area.title":"Une région de montagne pensée pour les groupes, familles, skieurs, randonneurs et journées lentes.","area.lead":"Saas-Fee est entourée de dix-huit sommets de 4 000 mètres. Cette page transforme la région en outil pratique pour les invités : une carte, puis des activités, itinéraires et rythmes de journée filtrables.","area.howKicker":"Comment utiliser la page","area.howTitle":"Choisir par saison, ambiance ou niveau d’énergie.","area.howText":"Cliquez sur Hiver, Été, Journées douces, Famille, Randonnée ou Adrénaline. La carte, les cartes d’activités et le texte d’aide se mettent à jour ensemble.","area.proofWinter":"Ski, luge, glacier, chemins de neige, expériences de groupe.","area.proofSummer":"Marmottes, randonnées, vélo, accrobranche, glacier, lacs de montagne.","area.proofCalm":"Aqua Allalin, promenades au village, sentiers faciles, points de vue.","area.privateKicker":"Base privée, vallée active","area.privateTitle":"La maison est calme ; la région est pleine de possibilités.","area.privateText":"Le séjour ne dépend pas d’une seule activité. Les invités peuvent se répartir selon l’âge, la météo, l’énergie ou la saison, puis revenir dans une maison privée commune.","area.safety":"Note sécurité : les conditions de montagne changent vite. Les ouvertures de routes, remontées, la météo et les besoins en guide doivent toujours être vérifiés auprès des informations officielles de Saas-Fee/Saastal.",
-    "photos.one":"Commencer depuis une maison privée","photos.two":"Explorer la vallée","photos.three":"Revenir au calme",
-    "map.kicker":"Carte interactive","map.title":"La carte devient l’outil d’orientation du séjour.","map.open":"Ouvrir la carte","map.selected":"Lieu sélectionné",
-    "helper.all":"Affichage de toute la région : maison, village, remontées, glacier, bien-être, activités familiales et grandes journées de montagne.","helper.house":"Affichage des points maison et village : arrivée, centre, bien-être proche et déplacements pratiques.","helper.winter":"Affichage des idées d’hiver : pistes, luge, glacier, Pavillon de Glace et options neige.","helper.summer":"Affichage des idées d’été : marmottes, randonnées, trottinettes, coaster, accrobranche, barrage et vues glacier.","helper.family":"Affichage des options famille : village, marmottes à Spielboden, Hannig, Feeblitz, Aqua Allalin et chemins faciles.","helper.adrenaline":"Affichage des idées plus intenses : Gorge Alpine, accrobranche, Feeblitz, luge, trottinettes et itinéraires plus sportifs.","helper.trek":"Affichage des randonnées : Längfluh, Almageller Adventure Trail, Mattmark, Gorge Alpine et accès haute montagne.","helper.calm":"Affichage des journées douces : Fletschhorn, village, Aqua Allalin, Spielboden, Mattmark et montagne sans pression.",
-    "activities.kicker":"Activités","activities.title":"Filtrer la région comme un tableau de concierge.","activities.lead":"Les mêmes filtres contrôlent la carte et les cartes d’activités. Les invités choisissent leur journée sans devoir tout lire.",
-    "groups.kicker":"Familles, groupes & retraites","groups.title":"Des activités simples pour les âges mixtes. Des expériences partagées pour les groupes.","groups.lead":"Les familles et groupes multigénérationnels peuvent choisir entre promenades douces, aires de jeux, remontées, marmottes, neige, chasses au trésor et activités au village.","groups.familyKicker":"Pour les familles","groups.familyTitle":"Se séparer et se retrouver facilement.","groups.familyText":"Certains invités peuvent skier pendant que d’autres choisissent Aqua Allalin, le village, un point de vue ou un sentier plus doux. L’avantage de Fletschhorn est d’avoir un lieu privé où tout le groupe revient.","groups.retreatKicker":"Pour les retraites","groups.retreatTitle":"Activité et calme dans la même vallée.","groups.retreatText":"Pour retraites, entreprises et groupes privés, Saas-Fee offre un cadre naturel pour bouger et ralentir : randonnées guidées, ski, défis d’équipe, bien-être ou moments plus calmes au village et en forêt.",
-    "cta.kicker":"Planifier le séjour","cta.title":"Construire le rythme qui correspond à votre groupe.","cta.text":"Certains groupes viennent pour skier. D’autres pour la famille, le bien-être, la randonnée, le travail ou une célébration privée. Dites-nous quand vous venez, qui participe et quel type d’expérience vous recherchez.","cta.button":"Envoyer une demande","cta.note":"Meilleurs tarifs garantis en réservant en direct","cta.seasonKicker":"Saison par saison","cta.winter":"Ski, snowboard, luge, glacier, chasse au trésor au village et moments bien-être.","cta.summer":"Marmottes, randonnée, lacs de montagne, accrobranche, trottinettes, remontées et vues glacier.",
-    "modal.title":"Envoyer une demande de séjour","modal.name":"Nom","modal.namePh":"Votre nom","modal.checkin":"Arrivée","modal.checkout":"Départ","modal.guestsPh":"48 couchages maximum","modal.season":"Saison","modal.notes":"Notes","modal.notesPh":"Âges, mobilité, dates, activités souhaitées, besoin de guide…","modal.submit":"Envoyer la demande","modal.sending":"Vérification des disponibilités…","modal.sent":"Demande envoyée via le worker de réservation.","modal.failed":"La demande n’a pas pu être envoyée depuis cette page. Veuillez réessayer ou contacter directement la propriété."
-  };
+            <div class="fh-list">
+              <div class="fh-list-item">
+                <div class="fh-list-icon">↗</div>
+                <div>
+                  <b data-i18n-text='{"en":"Arrival and departure transfers","fr":"Transferts arrivée et départ","de":"Transfers bei An- und Abreise","ru":"Трансферы по приезду и отъезду"}'>Arrival and departure transfers</b>
+                  <span data-i18n-text='{"en":"A cleaner start and end for guests arriving with bags, children, ski gear or event materials.","fr":"Un début et une fin plus simples pour les invités avec bagages, enfants, matériel de ski ou matériel d’événement.","de":"Ein sauberer Start und Abschluss für Gäste mit Gepäck, Kindern, Skiausrüstung oder Eventmaterial.","ru":"Более простой старт и завершение для гостей с багажом, детьми, лыжным снаряжением или материалами для события."}'>A cleaner start and end for guests arriving with bags, children, ski gear or event materials.</span>
+                </div>
+              </div>
 
-  const de = {
-    "hero.kicker":"Erlebnisse rund um Saas-Fee","hero.title":"Eine private Basis für jede Saison in Saas-Fee.","hero.lead":"Von Gletscherski und Winterrodeln bis zu Sommerwanderungen, Murmeltieren, Bergseen, Seilparks und ruhigen Alpentagen bietet Saas-Fee für jede Gruppe etwas. Fletschhorn ist eine private alpine Basis oberhalb des Dorfes, nahe an den Erlebnissen, die das Tal besonders machen.","hero.note":"Beste Preise garantiert bei Direktbuchung","hero.scroll":"Region öffnen",
-    "filters.all":"Alles","filters.allText":"Das ganze Tal rund um das Haus anzeigen.","filters.winter":"Winter","filters.winterText":"Ski, Schnee, Rodeln, Gletscher, gemütliche Pausen.","filters.summer":"Sommer","filters.summerText":"Murmeltiere, Wanderungen, Scooter, Seen, Seilpark.","filters.calm":"Ruhige Tage","filters.calmText":"Wellness, Dorfspaziergänge, leichte Wege.","filters.house":"Haus & Dorf","filters.family":"Familie","filters.adrenaline":"Adrenalin","filters.trek":"Wandern",
-    "form.guestsLabel":"Gäste","form.guestsPlaceholder":"Familie, Gruppe, Retreat…","form.datesLabel":"Daten","form.datesPlaceholder":"Winter, Sommer, genaue Daten…","form.contactLabel":"Kontakt","form.contactPlaceholder":"E-Mail oder Telefon","form.planBtn":"Anfrage senden",
-    "area.kicker":"Die Region","area.title":"Eine Bergregion für Gruppen, Familien, Skifahrer, Wanderer und ruhige Tage.","area.lead":"Saas-Fee ist von achtzehn Viertausendern umgeben. Diese Seite macht die Region zu einem praktischen Gästetool: zuerst Karte, dann gefilterte Aktivitäten, Routen und Tagesrhythmen.","area.howKicker":"So funktioniert die Seite","area.howTitle":"Nach Saison, Stimmung oder Energie wählen.","area.howText":"Wählen Sie Winter, Sommer, ruhige Tage, Familie, Wandern oder Adrenalin. Karte, Seitenleiste, Aktivitäten und Hilfetext aktualisieren sich gemeinsam.","area.proofWinter":"Skifahren, Rodeln, Gletscher, Schneewege, Gruppenerlebnisse.","area.proofSummer":"Murmeltiere, Wanderungen, Bike, Seilpark, Gletscher, Bergseen.","area.proofCalm":"Aqua Allalin, Dorfspaziergänge, Familienwege, Bergbahn-Aussichten.","area.privateKicker":"Private Basis, aktives Tal","area.privateTitle":"Das Haus ist ruhig; die Region ist voller Möglichkeiten.","area.privateText":"Der Aufenthalt hängt nicht von einer einzigen Aktivität ab. Gäste können sich nach Alter, Wetter, Energie oder Saison aufteilen und am Ende des Tages in ein privates Haus zurückkehren.","area.safety":"Sicherheitshinweis: Bergbedingungen ändern sich schnell. Wege, Bahnen, Wetter und erforderliche Bergführer sollten immer mit den offiziellen Saas-Fee/Saastal-Informationen geprüft werden.",
-    "photos.one":"Von einem privaten Haus starten","photos.two":"Durch das Tal bewegen","photos.three":"Zur Ruhe zurückkehren",
-    "map.kicker":"Interaktive Karte","map.title":"Die Karte ist das Orientierungstool für den ganzen Aufenthalt.","map.open":"Karte öffnen","map.selected":"Ausgewählter Ort",
-    "helper.all":"Gesamte Region: Haus, Dorf, Bahnen, Gletscherpunkte, Wellness, Familienaktivitäten und größere Bergtage.","helper.house":"Haus- und Dorfpunkte: Ankunft, Dorfzentrum, nahe Wellness und praktische Bewegung.","helper.winter":"Winterideen: Skigebiet, Rodeln, Gletscherzugang, Eispavillon und Schneeoptionen.","helper.summer":"Sommerideen: Murmeltiere, Wanderungen, Scooter, Coaster, Seilpark, Stausee und Gletscherblicke.","helper.family":"Familienoptionen: Dorf, Murmeltiere, Hannig, Feeblitz, Aqua Allalin und leichte Routen.","helper.adrenaline":"Energiegeladene Ideen: Gorge Alpine, Seilpark, Feeblitz, Rodeln, Scooter und stärkere Bergrouten.","helper.trek":"Wander- und Routenideen: Längfluh, Almageller Adventure Trail, Mattmark, Gorge Alpine und Hochgebirgszugang.","helper.calm":"Ruhige Tage: Fletschhorn, Dorfspaziergänge, Aqua Allalin, Spielboden, Mattmark und entspannte Bergzeit.",
-    "activities.kicker":"Aktivitätenfinder","activities.title":"Die Region wie ein Concierge-Board filtern.","activities.lead":"Dieselben Filter steuern Karte und Karten. Gäste wählen ihren Tag, ohne die ganze Seite zu lesen.",
-    "groups.kicker":"Familien, Gruppen & Retreats","groups.title":"Leichte Aktivitäten für gemischte Altersgruppen. Gemeinsame Erlebnisse für Gruppen.","groups.lead":"Familien und Mehrgenerationengruppen finden leichte Wege, Spielplätze, Bergbahnen, Murmeltiere, Winterspiel, Schatzsuche und Dorfaktivitäten.","groups.familyKicker":"Für Familien","groups.familyTitle":"Einfach aufteilen und wieder zusammenkommen.","groups.familyText":"Einige Gäste können Ski fahren, während andere Aqua Allalin, Dorfspaziergänge, Aussichtspunkte oder leichte Waldwege wählen. Der Vorteil von Fletschhorn ist ein privater Ort, an den alle zurückkehren.","groups.retreatKicker":"Für Retreats","groups.retreatTitle":"Aktivität und Ruhe im selben Tal.","groups.retreatText":"Für Retreats, Unternehmen und private Gruppen bietet Saas-Fee Natur für Bewegung und Ruhe: geführte Wanderungen, Skitage, Team-Challenges, Wellness oder ruhigere Momente im Dorf und Wald.",
-    "cta.kicker":"Aufenthalt planen","cta.title":"Den Rhythmus bauen, der zu Ihrer Gruppe passt.","cta.text":"Manche Gruppen kommen zum Skifahren, andere für Familienzeit, Wellness, Wandern, Arbeit oder eine private Feier. Sagen Sie uns, wann Sie kommen, wer dabei ist und welche Art Erlebnis Sie suchen.","cta.button":"Anfrage senden","cta.note":"Beste Preise garantiert bei Direktbuchung","cta.seasonKicker":"Saison für Saison","cta.winter":"Ski, Snowboard, Rodeln, Gletschererlebnisse, Dorf-Schatzsuche und Wellness.","cta.summer":"Murmeltiere, Wandern, Bergseen, Seilpark, Scooter, Bergbahnen und Gletscherblicke.",
-    "modal.title":"Aufenthaltsanfrage senden","modal.name":"Name","modal.namePh":"Ihr Name","modal.checkin":"Anreise","modal.checkout":"Abreise","modal.guestsPh":"Maximal 48 Schlafplätze","modal.season":"Saison","modal.notes":"Notizen","modal.notesPh":"Alter, Mobilität, Daten, gewünschte Aktivitäten, Bergführerbedarf…","modal.submit":"Anfrage senden","modal.sending":"Verfügbarkeit wird geprüft…","modal.sent":"Anfrage über den Buchungs-Worker gesendet.","modal.failed":"Die Anfrage konnte von dieser Seite nicht gesendet werden. Bitte erneut versuchen oder die Unterkunft direkt kontaktieren."
-  };
+              <div class="fh-list-item">
+                <div class="fh-list-icon">☼</div>
+                <div>
+                  <b data-i18n-text='{"en":"Morning lift shuttle","fr":"Navette du matin vers les remontées","de":"Morgenshuttle zu den Bergbahnen","ru":"Утренний шаттл к подъёмникам"}'>Morning lift shuttle</b>
+                  <span data-i18n-text='{"en":"Helps the group begin the mountain day together without complicated coordination.","fr":"Permet au groupe de commencer la journée en montagne ensemble, sans coordination compliquée.","de":"Hilft der Gruppe, den Bergtag gemeinsam und ohne komplizierte Koordination zu beginnen.","ru":"Помогает группе начать горный день вместе без сложной координации."}'>Helps the group begin the mountain day together without complicated coordination.</span>
+                </div>
+              </div>
 
-  const ru = {
-    "hero.kicker":"Впечатления вокруг Саас-Фе","hero.title":"Частная база для каждого сезона в Саас-Фе.","hero.lead":"От катания на леднике и зимних санок до летних маршрутов, сурков, горных озёр, верёвочных парков и спокойных альпийских дней — Саас-Фе подходит для разных групп. Fletschhorn даёт частную альпийскую базу над деревней, рядом с главными впечатлениями долины.","hero.note":"Лучшие цены гарантированы при прямом бронировании","hero.scroll":"Открыть регион",
-    "filters.all":"Всё","filters.allText":"Показать всю долину вокруг дома.","filters.winter":"Зима","filters.winterText":"Лыжи, снег, санки, ледник, уютные паузы.","filters.summer":"Лето","filters.summerText":"Сурки, походы, самокаты, озёра, верёвочный парк.","filters.calm":"Спокойные дни","filters.calmText":"Велнес, прогулки по деревне, лёгкие тропы.","filters.house":"Дом и деревня","filters.family":"Семья","filters.adrenaline":"Адреналин","filters.trek":"Походы",
-    "form.guestsLabel":"Гости","form.guestsPlaceholder":"Семья, группа, ретрит…","form.datesLabel":"Даты","form.datesPlaceholder":"Зима, лето, точные даты…","form.contactLabel":"Контакт","form.contactPlaceholder":"Email или телефон","form.planBtn":"Отправить запрос",
-    "area.kicker":"Регион","area.title":"Горный регион для групп, семей, лыжников, туристов и спокойных дней.","area.lead":"Саас-Фе окружён восемнадцатью вершинами высотой 4 000 метров. Эта страница превращает регион в практичный инструмент для гостей: карта, затем фильтры активностей, маршрутов и ритмов дня.","area.howKicker":"Как работает страница","area.howTitle":"Выбирайте по сезону, настроению или уровню энергии.","area.howText":"Нажмите Зима, Лето, Спокойные дни, Семья, Походы или Адреналин. Карта, список мест, карточки и подсказки обновятся вместе.","area.proofWinter":"Лыжи, санки, ледник, снежные тропы, групповые впечатления.","area.proofSummer":"Сурки, походы, велосипед, верёвочный парк, ледник, горные озёра.","area.proofCalm":"Aqua Allalin, прогулки по деревне, семейные тропы, виды с подъёмников.","area.privateKicker":"Частная база, активная долина","area.privateTitle":"Дом спокойный; регион насыщенный.","area.privateText":"Пребывание не зависит от одной активности. Гости могут разделиться по возрасту, погоде, энергии или сезону, а затем вернуться в один частный дом.","area.safety":"Важно: горные условия быстро меняются. Маршруты, подъёмники, погоду и необходимость гида всегда следует проверять по официальной информации Saas-Fee/Saastal.",
-    "photos.one":"Начать из частного дома","photos.two":"Двигаться по долине","photos.three":"Вернуться к тишине",
-    "map.kicker":"Интерактивная карта","map.title":"Карта — инструмент ориентации на весь период проживания.","map.open":"Открыть карту","map.selected":"Выбранное место",
-    "helper.all":"Показан весь регион: дом, деревня, подъёмники, ледник, велнес, семейные активности и большие горные дни.","helper.house":"Показаны дом и деревня: прибытие, центр, ближайший велнес и практичное перемещение.","helper.winter":"Зимние идеи: лыжные зоны, санки, ледник, Ice Pavilion и снежные варианты.","helper.summer":"Летние идеи: сурки, походы, самокаты, coaster, верёвочный парк, водохранилище и виды на ледник.","helper.family":"Семейные варианты: деревня, сурки Spielboden, Hannig, Feeblitz, Aqua Allalin и лёгкие маршруты.","helper.adrenaline":"Более активные идеи: Gorge Alpine, rope park, Feeblitz, санки, самокаты и сильные горные маршруты.","helper.trek":"Маршруты и походы: Längfluh, Almageller Adventure Trail, Mattmark, Gorge Alpine и доступ к высокогорью.","helper.calm":"Спокойные дни: база Fletschhorn, деревня, Aqua Allalin, Spielboden, Mattmark и мягкое горное время.",
-    "activities.kicker":"Подбор активностей","activities.title":"Фильтруйте регион как concierge-доску.","activities.lead":"Одни и те же фильтры управляют картой и карточками. Гости выбирают день, не читая всю страницу.",
-    "groups.kicker":"Семьи, группы и ретриты","groups.title":"Лёгкие активности для разных возрастов. Общие впечатления для групп.","groups.lead":"Семьи и группы разных поколений могут выбрать лёгкие прогулки, детские зоны, подъёмники, сурков, снежные игры, квесты и активности в деревне.","groups.familyKicker":"Для семей","groups.familyTitle":"Легко разделиться и снова собраться.","groups.familyText":"Кто-то может кататься на лыжах, а кто-то выбрать Aqua Allalin, деревню, смотровую точку или лёгкую лесную тропу. Преимущество Fletschhorn — частное место, куда все возвращаются.","groups.retreatKicker":"Для ретритов","groups.retreatTitle":"Движение и тишина в одной долине.","groups.retreatText":"Для ретритов, компаний и частных групп Saas-Fee даёт природную среду для активности и спокойствия: гиды, лыжи, командные задачи, велнес или медленные моменты в деревне и лесу.",
-    "cta.kicker":"Планирование проживания","cta.title":"Постройте ритм, который подходит вашей группе.","cta.text":"Одни группы приезжают ради лыж, другие — ради семьи, велнеса, походов, работы или частного события. Расскажите, когда вы приезжаете, кто будет с вами и какой опыт вы хотите.","cta.button":"Отправить запрос","cta.note":"Лучшие цены гарантированы при прямом бронировании","cta.seasonKicker":"Сезон за сезоном","cta.winter":"Лыжи, сноуборд, санки, ледник, квесты в деревне и велнес.","cta.summer":"Сурки, походы, горные озёра, верёвочный парк, самокаты, подъёмники и виды на ледник.",
-    "modal.title":"Отправить запрос на проживание","modal.name":"Имя","modal.namePh":"Ваше имя","modal.checkin":"Заезд","modal.checkout":"Выезд","modal.guestsPh":"До 48 спальных мест","modal.season":"Сезон","modal.notes":"Заметки","modal.notesPh":"Возраст, мобильность, даты, желаемые активности, нужен ли гид…","modal.submit":"Отправить запрос","modal.sending":"Проверяем доступность…","modal.sent":"Запрос отправлен через booking worker.","modal.failed":"Запрос не удалось отправить с этой страницы. Попробуйте ещё раз или свяжитесь с объектом напрямую."
-  };
+              <div class="fh-list-item">
+                <div class="fh-list-icon">☾</div>
+                <div>
+                  <b data-i18n-text='{"en":"Afternoon return rhythm","fr":"Retour l’après-midi","de":"Rückkehr am Nachmittag","ru":"Возвращение во второй половине дня"}'>Afternoon return rhythm</b>
+                  <span data-i18n-text='{"en":"A simple return structure for ski days, hikes, village time or mixed group schedules.","fr":"Une structure de retour simple pour ski, randonnée, temps au village ou agendas de groupe mixtes.","de":"Eine einfache Rückkehrstruktur für Skitage, Wanderungen, Dorfzeit oder gemischte Gruppenpläne.","ru":"Простой порядок возвращения после лыж, походов, прогулок по деревне или разных программ группы."}'>A simple return structure for ski days, hikes, village time or mixed group schedules.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  i18n.fr = {...i18n.en, ...fr};
-  i18n.de = {...i18n.en, ...de};
-  i18n.ru = {...i18n.en, ...ru};
+    <section class="fh-section" id="around">
+      <div class="fh-container">
+        <div class="fh-section-head fh-reveal">
+          <div>
+            <p class="fh-kicker" data-i18n-text='{"en":"What is around","fr":"Ce qu’il y a autour","de":"Was in der Nähe ist","ru":"Что рядом"}'>What is around</p>
+            <h2 class="fh-section-title" data-i18n-text='{"en":"From ski mornings to quiet forest walks.","fr":"Des matins de ski aux promenades calmes en forêt.","de":"Von Skimorgen bis zu ruhigen Waldwegen.","ru":"От лыжного утра до тихих лесных прогулок."}'>From ski mornings to quiet forest walks.</h2>
+          </div>
+          <p class="fh-section-text" data-i18n-text='{"en":"The area adapts to each stay: sport, skiing, hiking, summer routes, group activities, weddings, events, rest and village time.","fr":"La région s’adapte à chaque séjour : sport, ski, randonnée, été, activités de groupe, mariages, événements, repos et vie de village.","de":"Die Gegend passt sich jedem Aufenthalt an: Sport, Ski, Wandern, Sommerwege, Gruppenaktivitäten, Hochzeiten, Events, Ruhe und Dorfzeit.","ru":"Место подходит для разных форматов: спорт, лыжи, походы, летние маршруты, групповые активности, свадьбы, события, отдых и деревенская жизнь."}'>The area adapts to each stay: sport, skiing, hiking, summer routes, group activities, weddings, events, rest and village time.</p>
+        </div>
 
-  const placeBase = {
-    fletschhorn:{name:"Fletschhorn / Wildistrasse", lat:46.1237861, lon:7.929103, filter:"house"},
-    village:{name:"Saas-Fee village", lat:46.1080, lon:7.9270, filter:"house"},
-    hannig:{name:"Hannig", lat:46.113, lon:7.914, filter:"winter"},
-    spielboden:{name:"Spielboden", lat:46.102, lon:7.939, filter:"summer"},
-    langfluh:{name:"Längfluh", lat:46.094, lon:7.956, filter:"trek"},
-    mittelallalin:{name:"Mittelallalin", lat:46.057, lon:7.906, filter:"winter"},
-    feeblitz:{name:"Feeblitz mountain coaster", lat:46.106, lon:7.929, filter:"summer"},
-    ropepark:{name:"Saas-Fee Rope Park", lat:46.105, lon:7.935, filter:"adrenaline"},
-    aqua:{name:"Aqua Allalin", lat:46.109, lon:7.928, filter:"calm"},
-    mattmark:{name:"Mattmark reservoir", lat:46.030, lon:7.957, filter:"calm"},
-    almageller:{name:"Almageller Adventure Trail", lat:46.079, lon:7.957, filter:"trek"},
-    gorge:{name:"Gorge Alpine", lat:46.114, lon:7.943, filter:"adrenaline"}
-  };
+        <div class="fh-around-grid">
+          <article class="fh-around-card fh-reveal">
+            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756425144-LGR2PVN9RQ0IIWIOETEI/1504170.jpg" alt="Saas-Fee mountain wellness and calm">
+            <div class="fh-around-copy">
+              <small data-i18n-text='{"en":"Nature","fr":"Nature","de":"Natur","ru":"Природа"}'>Nature</small>
+              <h3 data-i18n-text='{"en":"Forest calm","fr":"Calme forestier","de":"Waldruhe","ru":"Лесная тишина"}'>Forest calm</h3>
+              <p data-i18n-text='{"en":"Slow mornings, quiet walks, alpine air and enough separation to feel private.","fr":"Matins lents, promenades calmes, air alpin et assez de distance pour se sentir privé.","de":"Langsame Morgen, ruhige Spaziergänge, alpine Luft und genug Abstand für Privatsphäre.","ru":"Спокойные утра, тихие прогулки, альпийский воздух и ощущение уединения."}'>Slow mornings, quiet walks, alpine air and enough separation to feel private.</p>
+            </div>
+          </article>
 
-  const $ = (selector) => root.querySelector(selector);
-  const $all = (selector) => Array.from(root.querySelectorAll(selector));
-  let currentLang = normalizeLang(localStorage.getItem('fhLang') || document.documentElement.lang || 'en');
-  let currentPlace = 'fletschhorn';
+          <article class="fh-around-card fh-reveal">
+            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1b68ef5d-fcdf-4818-8644-77ce85f68263/1_9418_.jpg" alt="Saas-Fee alpine exterior">
+            <div class="fh-around-copy">
+              <small data-i18n-text='{"en":"Mountain access","fr":"Accès montagne","de":"Bergzugang","ru":"Доступ к горам"}'>Mountain access</small>
+              <h3 data-i18n-text='{"en":"Lifts and trails","fr":"Remontées et sentiers","de":"Bahnen und Wege","ru":"Подъёмники и тропы"}'>Lifts and trails</h3>
+              <p data-i18n-text='{"en":"Ski days, summer hikes, glacier views and family-friendly alpine activities.","fr":"Journées de ski, randonnées d’été, vues glacier et activités alpines en famille.","de":"Skitage, Sommerwanderungen, Gletscherblicke und familienfreundliche alpine Aktivitäten.","ru":"Лыжные дни, летние походы, виды на ледник и семейные альпийские активности."}'>Ski days, summer hikes, glacier views and family-friendly alpine activities.</p>
+            </div>
+          </article>
 
-  function normalizeLang(value){
-    value = String(value || 'en').toLowerCase();
-    if(value.startsWith('fr')) return 'fr';
-    if(value.startsWith('de')) return 'de';
-    if(value.startsWith('ru')) return 'ru';
-    return 'en';
-  }
+          <article class="fh-around-card fh-reveal">
+            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/5143310-1521705_0_0_4800_3200_1200_800.jpg" alt="Private gathering in Saas-Fee">
+            <div class="fh-around-copy">
+              <small data-i18n-text='{"en":"Private base","fr":"Base privée","de":"Private Basis","ru":"Частная база"}'>Private base</small>
+              <h3 data-i18n-text='{"en":"Events and weeks","fr":"Événements et semaines","de":"Events und Wochen","ru":"События и недели"}'>Events and weeks</h3>
+              <p data-i18n-text='{"en":"The house works for weddings, family gatherings, retreats and full-property stays.","fr":"La maison convient aux mariages, réunions familiales, retraites et séjours en propriété entière.","de":"Das Haus eignet sich für Hochzeiten, Familientreffen, Retreats und Aufenthalte im ganzen Haus.","ru":"Дом подходит для свадеб, семейных встреч, ретритов и аренды всей собственности."}'>The house works for weddings, family gatherings, retreats and full-property stays.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  function t(key){
-    return (i18n[currentLang] && i18n[currentLang][key]) || i18n.en[key] || key;
-  }
+    <section class="fh-section" id="map">
+      <div class="fh-container">
+        <div class="fh-section-head fh-reveal">
+          <div>
+            <p class="fh-kicker" data-i18n-text='{"en":"Map and address","fr":"Carte et adresse","de":"Karte und Adresse","ru":"Карта и адрес"}'>Map and address</p>
+            <h2 class="fh-section-title" data-i18n-text='{"en":"Find us in Saas-Fee.","fr":"Nous trouver à Saas-Fee.","de":"Finden Sie uns in Saas-Fee.","ru":"Найдите нас в Саас-Фе."}'>Find us in Saas-Fee.</h2>
+          </div>
+          <p class="fh-section-text" data-i18n-text='{"en":"Use this section for orientation only. Final arrival details, transfer timing and shuttle coordination can be confirmed with the booking team before arrival.","fr":"Cette section sert à vous situer. Les détails d’arrivée, horaires de transfert et navettes peuvent être confirmés avec l’équipe avant votre arrivée.","de":"Dieser Bereich dient zur Orientierung. Ankunftsdetails, Transferzeiten und Shuttle-Koordination können vor der Anreise bestätigt werden.","ru":"Этот раздел для ориентира. Детали приезда, время трансфера и шаттлы можно подтвердить с командой бронирования до прибытия."}'>Use this section for orientation only. Final arrival details, transfer timing and shuttle coordination can be confirmed with the booking team before arrival.</p>
+        </div>
 
-  function applyLanguage(lang){
-    currentLang = normalizeLang(lang);
-    localStorage.setItem('fhLang', currentLang);
-    root.setAttribute('data-current-lang', currentLang);
-    document.documentElement.setAttribute('lang', currentLang);
-    $all('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
-    $all('[data-i18n-placeholder]').forEach(el => { el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder)); });
-    const helper = $('#fh-map-helper');
-    if(helper) helper.textContent = t('helper.' + (helper.dataset.helperKey || 'all'));
-    selectPlace(currentPlace, false, true);
-  }
+        <div class="fh-map-wrap fh-reveal">
+          <iframe
+            class="fh-map"
+            title="Fletschhorn Saas-Fee map"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Wildistrasse%2C%203906%20Saas-Fee%2C%20Switzerland&output=embed">
+          </iframe>
 
-  function watchGlobalLanguageSwitcher(){
-    document.addEventListener('click', function(e){
-      const trigger = e.target.closest('[data-lang], [data-language], [data-fh-lang], [lang]');
-      if(!trigger || root.contains(trigger)) return;
-      const lang = trigger.dataset.lang || trigger.dataset.language || trigger.dataset.fhLang || trigger.getAttribute('lang');
-      if(lang) applyLanguage(lang);
-    });
-    document.addEventListener('change', function(e){
-      const target = e.target;
-      if(!target || root.contains(target)) return;
-      const idName = ((target.id || '') + ' ' + (target.name || '') + ' ' + (target.className || '')).toLowerCase();
-      if(idName.includes('lang') || idName.includes('language')) applyLanguage(target.value);
-    });
-    window.addEventListener('fh:language', e => applyLanguage(e.detail?.lang || e.detail || 'en'));
-    window.addEventListener('languagechange', () => applyLanguage(document.documentElement.lang || 'en'));
-    const urlLang = new URLSearchParams(window.location.search).get('lang');
-    if(urlLang) applyLanguage(urlLang);
-  }
+          <div class="fh-map-info">
+            <div>
+              <b data-i18n-text='{"en":"Address","fr":"Adresse","de":"Adresse","ru":"Адрес"}'>Address</b>
+              <span>Wildistrasse, 3906 Saas-Fee, Switzerland</span>
+            </div>
+            <div>
+              <b data-i18n-text='{"en":"Booking contact","fr":"Contact réservation","de":"Buchungskontakt","ru":"Контакт для бронирования"}'>Booking contact</b>
+              <span>+41 27 957 2131</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  function buildHero(images){
-    const host = $('#fh-exp-slides');
-    if(!host) return;
-    host.innerHTML = "";
-    images.slice(0, 8).forEach((src, index) => {
-      const slide = document.createElement('div');
-      slide.className = 'fh-hero-slide' + (index === 0 ? ' is-active' : '');
-      slide.style.backgroundImage = `url("${src}")`;
-      host.appendChild(slide);
-    });
-    const slides = $all('.fh-hero-slide');
-    let active = 0;
-    if(slides.length > 1){
-      window.setInterval(() => {
-        slides[active]?.classList.remove('is-active');
-        active = (active + 1) % slides.length;
-        slides[active]?.classList.add('is-active');
-      }, 8500);
-    }
-  }
+    <section class="fh-booking-bar-section" id="booking">
+      <div class="fh-container">
+        <div class="fh-booking-panel fh-reveal">
+          <div data-i18n="en">
+            <p class="fh-kicker" style="color:rgba(255,250,241,.72)">Start your booking</p>
+            <h2>Your private Chalet in few clicks.</h2>
+            <p>Send the essential information first. The booking page will continue with final availability, pricing and inquiry details.</p>
+          </div>
 
-  function applyImages(images){
-    buildHero(images);
-    $all('[data-fh-img]').forEach(el => {
-      const index = Number(el.getAttribute('data-fh-img')) || 0;
-      if(images[index % images.length]) el.src = images[index % images.length];
-    });
-    $all('[data-bg-img]').forEach(el => {
-      if(el.closest('[data-official-image="true"]')) return;
-      const index = Number(el.getAttribute('data-bg-img')) || 0;
-      if(images[index % images.length]) el.style.backgroundImage = `url("${images[index % images.length]}")`;
-    });
-    $all('.fh-activity').forEach((el, index) => {
-      if(el.dataset.officialImage === 'true') return;
-      if(images[index % images.length]) el.style.setProperty('--activity-image', `url("${images[index % images.length]}")`);
-    });
-  }
+          <div data-i18n="fr" class="fh-lang-hidden">
+            <p class="fh-kicker" style="color:rgba(255,250,241,.72)">Commencer la réservation</p>
+            <h2>Votre chalet privé en quelques clics.</h2>
+            <p>Envoyez d’abord les informations essentielles. La page de réservation continuera avec disponibilité, prix et demande finale.</p>
+          </div>
 
-  function mapSrc(place){ return `https://www.google.com/maps?q=${place.lat},${place.lon}&z=13&output=embed`; }
-  function mapOpenUrl(place){ return `https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lon}`; }
+          <div data-i18n="de" class="fh-lang-hidden">
+            <p class="fh-kicker" style="color:rgba(255,250,241,.72)">Buchung starten</p>
+            <h2>Ihr privates Chalet in wenigen Klicks.</h2>
+            <p>Senden Sie zuerst die wichtigsten Informationen. Die Buchungsseite führt dann Verfügbarkeit, Preis und Anfrage weiter.</p>
+          </div>
 
-  function selectPlace(id, shouldScroll, silent){
-    currentPlace = id || 'fletschhorn';
-    const place = placeBase[currentPlace] || placeBase.fletschhorn;
-    const iframe = $('#fh-osm-map');
-    const info = $('#fh-map-info');
-    if(iframe) iframe.src = mapSrc(place);
-    if(info){
-      const textKey = 'places.' + currentPlace + '.text';
-      info.innerHTML = `<small>${t('map.selected')}</small><h3>${place.name}</h3><p>${t(textKey)}</p>`;
-    }
-    const openLink = $('#fh-map-open');
-    if(openLink) openLink.href = mapOpenUrl(place);
-    $all('[data-place-id]').forEach(el => el.classList.toggle('is-active', el.dataset.placeId === currentPlace));
-    if(shouldScroll && !silent) $('#fh-map-section')?.scrollIntoView({behavior:'smooth', block:'start'});
-  }
+          <div data-i18n="ru" class="fh-lang-hidden">
+            <p class="fh-kicker" style="color:rgba(255,250,241,.72)">Начать бронирование</p>
+            <h2>Ваше частное шале в несколько кликов.</h2>
+            <p>Сначала отправьте основную информацию. Страница бронирования продолжит с доступностью, ценой и финальным запросом.</p>
+          </div>
 
-  function hasFilter(el, filter){
-    if(filter === "all") return true;
-    const tags = (el.dataset.tags || "").split(/\s+/);
-    return tags.includes(filter);
-  }
+          <form class="fh-booking-toolbar" id="fhBookingToolbar">
+            <div class="fh-field">
+              <label for="fhFirstName" data-i18n-text='{"en":"First name","fr":"Prénom","de":"Vorname","ru":"Имя"}'>First name</label>
+              <input id="fhFirstName" name="firstName" autocomplete="given-name" required>
+            </div>
 
-  function applyFilter(filter, scrollToMap){
-    filter = filter || 'all';
-    $all('.fh-filter').forEach(btn => btn.classList.toggle('is-active', btn.dataset.filter === filter));
-    $all('.fh-season-choice').forEach(btn => btn.classList.toggle('is-active', btn.dataset.filter === filter));
-    $all('.fh-map-pin').forEach(pin => pin.classList.toggle('is-hidden', !hasFilter(pin, filter)));
-    $all('.fh-place').forEach(place => place.classList.toggle('is-hidden', !hasFilter(place, filter)));
-    $all('.fh-activity').forEach(card => card.classList.toggle('is-hidden', !hasFilter(card, filter)));
-    $all('.fh-route').forEach(card => card.classList.toggle('is-hidden', !hasFilter(card, filter)));
-    const helper = $('#fh-map-helper');
-    if(helper){
-      helper.dataset.helperKey = filter;
-      helper.textContent = t('helper.' + filter);
-    }
-    const firstVisiblePlace = $all('.fh-place').find(el => !el.classList.contains('is-hidden'));
-    if(firstVisiblePlace) selectPlace(firstVisiblePlace.dataset.placeId, false);
-    if(scrollToMap) $('#fh-map-section')?.scrollIntoView({behavior:'smooth', block:'start'});
-  }
+            <div class="fh-field">
+              <label for="fhLastName" data-i18n-text='{"en":"Last name","fr":"Nom","de":"Nachname","ru":"Фамилия"}'>Last name</label>
+              <input id="fhLastName" name="lastName" autocomplete="family-name" required>
+            </div>
 
-  $all('.fh-filter').forEach(button => button.addEventListener('click', () => applyFilter(button.dataset.filter || 'all', false)));
-  $all('.fh-season-choice').forEach(button => button.addEventListener('click', () => applyFilter(button.dataset.filter || 'all', true)));
-  $all('.fh-place').forEach(button => button.addEventListener('click', () => selectPlace(button.dataset.placeId, false)));
-  $all('.fh-map-pin').forEach(button => button.addEventListener('click', () => selectPlace(button.dataset.placeId, false)));
+            <div class="fh-field">
+              <label for="fhEmail" data-i18n-text='{"en":"Email","fr":"Email","de":"E-Mail","ru":"Email"}'>Email</label>
+              <input id="fhEmail" name="email" type="email" autocomplete="email" required>
+            </div>
 
-  const appearObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if(!entry.isIntersecting) return;
-      const el = entry.target;
-      if(el.classList.contains('preFade')) el.classList.add('fadeIn');
-      if(el.classList.contains('preSlide')) el.classList.add('slideIn');
-      if(el.classList.contains('preScale')) el.classList.add('scaleIn');
-      if(el.classList.contains('preClip')) el.classList.add('clipIn');
-      appearObserver.unobserve(el);
-    });
-  }, { threshold:.16, rootMargin:'0px 0px -6% 0px' }) : null;
+            <div class="fh-field">
+              <label for="fhCheckIn" data-i18n-text='{"en":"Arrival","fr":"Arrivée","de":"Anreise","ru":"Заезд"}'>Arrival</label>
+              <input id="fhCheckIn" name="checkIn" type="date" required>
+            </div>
 
-  $all('.preFade,.preSlide,.preScale,.preClip').forEach((el) => {
-    if(appearObserver) appearObserver.observe(el);
-    else el.classList.add('fadeIn','slideIn','scaleIn','clipIn');
-  });
+            <div class="fh-field">
+              <label for="fhCheckOut" data-i18n-text='{"en":"Departure","fr":"Départ","de":"Abreise","ru":"Выезд"}'>Departure</label>
+              <input id="fhCheckOut" name="checkOut" type="date" required>
+            </div>
 
-  const quickForm = $('#fh-exp-quick-form');
-  const heroStatus = $('#fh-exp-status');
-  const modal = $('#fh-exp-modal');
-  const modalClose = $('#fh-exp-close');
-  const modalForm = $('#fh-exp-modal-form');
-  const modalStatus = $('#fh-modal-status');
+            <button type="submit" data-i18n-text='{"en":"Book my stay now","fr":"Réserver mon séjour","de":"Aufenthalt buchen","ru":"Забронировать"}'>Book my stay now</button>
+          </form>
 
-  function openModal(){
-    if(!modal) return;
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden','false');
-  }
-  function closeModal(){
-    if(!modal) return;
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden','true');
-  }
+          <div class="fh-booking-error" id="fhBookingError"></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-  function parseDates(input){
-    const value = String(input || '');
-    const matches = value.match(/\d{4}-\d{2}-\d{2}/g) || [];
-    return { checkInDate: matches[0] || '', checkOutDate: matches[1] || '' };
-  }
+  <div id="fh-footer-slot"></div>
 
-  if(quickForm){
-    quickForm.addEventListener('submit', function(e){
-      e.preventDefault();
-      const contact = $('#fh-exp-contact')?.value || '';
-      const guests = $('#fh-exp-guests')?.value || '';
-      const dates = $('#fh-exp-dates')?.value || '';
-      const parsed = parseDates(dates);
+  <script>
+    document.body.classList.add("fh-github-version");
 
-      const modalContact = $('#fh-modal-contact');
-      const modalGuests = $('#fh-modal-guests');
-      const modalCheckin = $('#fh-modal-checkin');
-      const modalCheckout = $('#fh-modal-checkout');
-      const modalSeason = $('#fh-modal-season');
-      const modalNotes = $('#fh-modal-notes');
-      if(modalContact) modalContact.value = contact;
-      if(modalGuests) modalGuests.value = guests;
-      if(parsed.checkInDate && modalCheckin) modalCheckin.value = parsed.checkInDate;
-      if(parsed.checkOutDate && modalCheckout) modalCheckout.value = parsed.checkOutDate;
-      if(modalNotes && dates && !parsed.checkInDate) modalNotes.value = dates;
-      if(modalSeason && /summer|été|sommer|лет/i.test(dates)) modalSeason.value = 'Summer';
-      if(modalSeason && /winter|hiver|ski|snow|schnee|зим|снег/i.test(dates)) modalSeason.value = 'Winter';
-      openModal();
-    });
-  }
+    const FH_CONFIG = {
+      listingId: "6968339ab7d735001ca015ba",
+      workerBase: "https://guetsyapi.moshe-cohen-h1.workers.dev",
+      bookingPage: "booking.html",
+      langStorageKey: "fh_lang"
+    };
 
-  $('.fh-cta-btn')?.addEventListener('click', function(e){
-    e.preventDefault();
-    openModal();
-  });
+    const ASSET_BASE = new URL("assets/", document.baseURI).href;
 
-  if(modalClose) modalClose.addEventListener('click', closeModal);
-  if(modal) modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
-  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
-
-  if(modalForm){
-    modalForm.addEventListener('submit', async function(e){
-      e.preventDefault();
-      const payload = {
-        source: 'experiences-page',
-        name: $('#fh-modal-name')?.value || '',
-        contact: $('#fh-modal-contact')?.value || '',
-        checkInDate: $('#fh-modal-checkin')?.value || '',
-        checkOutDate: $('#fh-modal-checkout')?.value || '',
-        guestsCount: Number(($('#fh-modal-guests')?.value || '').replace(/\D/g,'')) || undefined,
-        season: $('#fh-modal-season')?.value || '',
-        notes: $('#fh-modal-notes')?.value || '',
-        createdAt: new Date().toISOString()
-      };
-
-      if(modalStatus){
-        modalStatus.classList.add('is-visible');
-        modalStatus.textContent = t('modal.sending');
-      }
+    async function fhLoadHtml(slotId, fileName){
+      const slot = document.getElementById(slotId);
+      if (!slot) return;
 
       try{
-        const response = await fetch(SEARCH_ENDPOINT, {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify(payload)
+        const response = await fetch(new URL(fileName, ASSET_BASE).href, { cache: "no-cache" });
+        if (!response.ok) throw new Error(fileName + " failed");
+        const html = await response.text();
+
+        slot.innerHTML = html;
+
+        slot.querySelectorAll("script").forEach(oldScript => {
+          const script = document.createElement("script");
+          Array.from(oldScript.attributes).forEach(attr => script.setAttribute(attr.name, attr.value));
+          script.textContent = oldScript.textContent;
+          oldScript.replaceWith(script);
         });
-        if(!response.ok) throw new Error('Booking worker failed: ' + response.status);
-        const result = await response.json().catch(() => ({}));
-        if(modalStatus) modalStatus.textContent = t('modal.sent');
-        if(heroStatus) heroStatus.textContent = t('modal.sent');
-        modalForm.reset();
-        window.dispatchEvent(new CustomEvent('fh:booking-search-complete', { detail:{ payload, result }}));
-      }catch(err){
-        console.warn('Fletschhorn booking worker request failed', err, payload);
-        if(modalStatus) modalStatus.textContent = t('modal.failed');
-        if(heroStatus) heroStatus.textContent = t('modal.failed');
+
+        fhApplyLanguage(fhGetLang());
+      } catch(error){
+        console.warn("Fletschhorn asset load failed:", fileName, error);
       }
-    });
-  }
-
-  applyImages(fallbackImages);
-  watchGlobalLanguageSwitcher();
-  applyLanguage(currentLang);
-  applyFilter('all', false);
-})();
-</script>
-
-<div id="fh-footer-slot"></div>
-
-<script>
-(function(){
-  if(window.__fhStandardChromeReady) return;
-  window.__fhStandardChromeReady = true;
-
-  document.body.classList.add("fh-github-version");
-
-  const ASSET_BASE = new URL("assets/", document.baseURI).href;
-  const CFG = {
-    bookingPageUrl:"booking.html",
-    listingId:"6968339ab7d735001ca015ba",
-    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev"
-  };
-
-  async function loadHtml(slotId,fileName){
-    const slot=document.getElementById(slotId);
-    if(!slot) return;
-    try{
-      const response=await fetch(ASSET_BASE+fileName,{cache:"no-cache"});
-      if(!response.ok) throw new Error(fileName+" failed: "+response.status);
-      slot.innerHTML=await response.text();
-      slot.querySelectorAll("script").forEach(function(oldScript){
-        const newScript=document.createElement("script");
-        Array.from(oldScript.attributes).forEach(function(attr){newScript.setAttribute(attr.name,attr.value);});
-        newScript.textContent=oldScript.textContent;
-        oldScript.replaceWith(newScript);
-      });
-    }catch(error){
-      console.error("Fletschhorn header/footer load error:",error);
     }
-  }
 
-  loadHtml("fh-header-slot","Header.html");
-  loadHtml("fh-footer-slot","footer.html");
+    function fhGetLang(){
+      const saved = localStorage.getItem(FH_CONFIG.langStorageKey);
+      if (["en","fr","de","ru"].includes(saved)) return saved;
 
-  const bookingCopy={
-    en:{firstNameLabel:"First name",lastNameLabel:"Last name",emailLabel:"Email",arrivalLabel:"Arrival",departureLabel:"Departure",firstNamePlaceholder:"First name",lastNamePlaceholder:"Last name",emailPlaceholder:"Email address",bookButton:"Book my stay now",bookingNote:"Best Rates Guaranteed when Booking Direct",missing:"Please complete your first name, last name, email, arrival date, and departure date.",date:"Departure must be after arrival."},
-    fr:{firstNameLabel:"Prénom",lastNameLabel:"Nom",emailLabel:"Email",arrivalLabel:"Arrivée",departureLabel:"Départ",firstNamePlaceholder:"Prénom",lastNamePlaceholder:"Nom",emailPlaceholder:"Adresse email",bookButton:"Réserver mon séjour",bookingNote:"Meilleurs tarifs garantis en réservant en direct",missing:"Veuillez compléter le prénom, le nom, l’email, la date d’arrivée et la date de départ.",date:"La date de départ doit être après la date d’arrivée."},
-    de:{firstNameLabel:"Vorname",lastNameLabel:"Nachname",emailLabel:"E-Mail",arrivalLabel:"Anreise",departureLabel:"Abreise",firstNamePlaceholder:"Vorname",lastNamePlaceholder:"Nachname",emailPlaceholder:"E-Mail-Adresse",bookButton:"Aufenthalt buchen",bookingNote:"Beste Preise garantiert bei Direktbuchung",missing:"Bitte Vorname, Nachname, E-Mail, Anreise und Abreise ausfüllen.",date:"Die Abreise muss nach der Anreise liegen."},
-    ru:{firstNameLabel:"Имя",lastNameLabel:"Фамилия",emailLabel:"Email",arrivalLabel:"Заезд",departureLabel:"Выезд",firstNamePlaceholder:"Имя",lastNamePlaceholder:"Фамилия",emailPlaceholder:"Email адрес",bookButton:"Забронировать",bookingNote:"Лучшие цены гарантированы при прямом бронировании",missing:"Заполните имя, фамилию, email, дату заезда и дату выезда.",date:"Дата выезда должна быть позже даты заезда."}
-  };
+      const htmlLang = (document.documentElement.lang || "en").slice(0,2).toLowerCase();
+      if (["en","fr","de","ru"].includes(htmlLang)) return htmlLang;
 
-  function normalizeLang(value){
-    value=String(value||"en").toLowerCase();
-    if(value.startsWith("fr")) return "fr";
-    if(value.startsWith("de")) return "de";
-    if(value.startsWith("ru")) return "ru";
-    return "en";
-  }
+      return "en";
+    }
 
-  function currentLang(){
-    return normalizeLang(localStorage.getItem("fh_lang")||localStorage.getItem("fh_language")||document.documentElement.lang||"en");
-  }
+    function fhApplyLanguage(lang){
+      if (!["en","fr","de","ru"].includes(lang)) lang = "en";
 
-  function setLanguage(lang){
-    const normalized=normalizeLang(lang);
-    localStorage.setItem("fh_lang",normalized);
-    localStorage.setItem("fh_language",normalized);
-    document.documentElement.setAttribute("lang",normalized);
+      localStorage.setItem(FH_CONFIG.langStorageKey, lang);
+      document.documentElement.lang = lang;
 
-    const dict=bookingCopy[normalized]||bookingCopy.en;
-    document.querySelectorAll("[data-booking-i18n]").forEach(function(el){
-      const key=el.getAttribute("data-booking-i18n");
-      if(dict[key]) el.textContent=dict[key];
-    });
-    document.querySelectorAll("[data-booking-i18n-placeholder]").forEach(function(el){
-      const key=el.getAttribute("data-booking-i18n-placeholder");
-      if(dict[key]) el.setAttribute("placeholder",dict[key]);
-    });
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        el.classList.toggle("fh-lang-hidden", el.getAttribute("data-i18n") !== lang);
+      });
 
-    if(window.FHSetLanguage) window.FHSetLanguage(normalized);
-    window.dispatchEvent(new CustomEvent("fh:language",{detail:{lang:normalized}}));
-  }
+      document.querySelectorAll("[data-i18n-text]").forEach(el => {
+        try{
+          const map = JSON.parse(el.getAttribute("data-i18n-text"));
+          if (map[lang]) el.textContent = map[lang];
+        } catch(error){}
+      });
 
-  function setupLanguageSwitcher(){
-    document.addEventListener("click",function(event){
-      const trigger=event.target.closest("[data-fh-lang], [data-lang], [data-language]");
-      if(!trigger) return;
-      const lang=trigger.dataset.fhLang||trigger.dataset.lang||trigger.dataset.language;
-      if(lang) setTimeout(function(){setLanguage(lang);},0);
-    });
-    setLanguage(new URLSearchParams(window.location.search).get("lang")||currentLang());
-  }
+      document.querySelectorAll("[data-fh-lang], [data-lang], [data-language]").forEach(el => {
+        const value = el.getAttribute("data-fh-lang") || el.getAttribute("data-lang") || el.getAttribute("data-language");
+        if (value) el.classList.toggle("active", value === lang);
+      });
+    }
 
-  function setupBookingToolbar(){
-    const form=document.getElementById("fh-standard-booking-form");
-    const status=document.getElementById("fh-standard-booking-status");
-    if(!form) return;
+    document.addEventListener("click", event => {
+      const langButton = event.target.closest("[data-fh-lang], [data-lang], [data-language]");
+      if (!langButton) return;
 
-    const params=new URLSearchParams(window.location.search);
-    let stored={};
-    try{stored=JSON.parse(localStorage.getItem("fhBookingStart")||"{}");}catch(e){}
+      const lang = langButton.getAttribute("data-fh-lang") || langButton.getAttribute("data-lang") || langButton.getAttribute("data-language");
+      if (!["en","fr","de","ru"].includes(lang)) return;
 
-    ["firstName","lastName","email","checkIn","checkOut"].forEach(function(key){
-      const value=params.get(key)||stored[key]||"";
-      if(value&&form.elements[key]) form.elements[key].value=value;
-    });
-
-    form.addEventListener("submit",function(event){
       event.preventDefault();
-      const lang=currentLang();
-      const dict=bookingCopy[lang]||bookingCopy.en;
-      const payload={
-        firstName:String(form.elements.firstName.value||"").trim(),
-        lastName:String(form.elements.lastName.value||"").trim(),
-        email:String(form.elements.email.value||"").trim(),
-        checkIn:form.elements.checkIn.value,
-        checkOut:form.elements.checkOut.value,
-        lang:lang,
-        source:"location",
-        listingId:CFG.listingId,
-        workerBase:CFG.workerBase,
-        createdAt:new Date().toISOString()
-      };
-
-      function show(message){
-        if(!status) return;
-        status.textContent=message;
-        status.classList.add("is-visible");
-      }
-
-      if(!payload.firstName||!payload.lastName||!payload.email||!payload.checkIn||!payload.checkOut){
-        show(dict.missing);
-        return;
-      }
-
-      if(payload.checkOut<=payload.checkIn){
-        show(dict.date);
-        return;
-      }
-
-      localStorage.setItem("fhBookingStart",JSON.stringify(payload));
-
-      const next=new URL(CFG.bookingPageUrl,document.baseURI);
-      next.searchParams.set("firstName",payload.firstName);
-      next.searchParams.set("lastName",payload.lastName);
-      next.searchParams.set("email",payload.email);
-      next.searchParams.set("checkIn",payload.checkIn);
-      next.searchParams.set("checkOut",payload.checkOut);
-      next.searchParams.set("lang",payload.lang);
-      next.searchParams.set("source","homepage");
-      window.location.href=next.toString();
+      fhApplyLanguage(lang);
     });
-  }
 
-  function init(){
-    setupLanguageSwitcher();
-    setupBookingToolbar();
-  }
+    window.addEventListener("storage", event => {
+      if (event.key === FH_CONFIG.langStorageKey) fhApplyLanguage(fhGetLang());
+    });
 
-  document.addEventListener("DOMContentLoaded",init);
-  if(document.readyState!=="loading") init();
-})();
-</script>
+    fhLoadHtml("fh-header-slot", "Header.html");
+    fhLoadHtml("fh-footer-slot", "footer.html");
+    fhApplyLanguage(fhGetLang());
 
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: .12 });
+
+    document.querySelectorAll(".fh-reveal").forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll("[data-carousel]").forEach(carousel => {
+      const slides = Array.from(carousel.querySelectorAll(".fh-slide"));
+      const dots = Array.from(carousel.querySelectorAll(".fh-dot"));
+      const prev = carousel.querySelector("[data-prev]");
+      const next = carousel.querySelector("[data-next]");
+      let index = 0;
+
+      function show(i){
+        index = (i + slides.length) % slides.length;
+        slides.forEach((slide, n) => slide.classList.toggle("active", n === index));
+        dots.forEach((dot, n) => dot.classList.toggle("active", n === index));
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener("click", () => show(Number(dot.getAttribute("data-go") || 0)));
+      });
+
+      if (prev) prev.addEventListener("click", () => show(index - 1));
+      if (next) next.addEventListener("click", () => show(index + 1));
+
+      setInterval(() => show(index + 1), 6500);
+    });
+
+    document.querySelectorAll("img").forEach(img => {
+      img.addEventListener("error", () => {
+        img.style.opacity = "0";
+        const parent = img.parentElement;
+        if (parent) parent.style.background = "linear-gradient(135deg,#efe6d7,#c9bda8,#607257)";
+      });
+    });
+
+    function fhValidEmail(email){
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
+    }
+
+    function fhShowBookingError(message){
+      const box = document.getElementById("fhBookingError");
+      if (!box) return;
+      box.textContent = message;
+      box.style.display = "block";
+    }
+
+    function fhHideBookingError(){
+      const box = document.getElementById("fhBookingError");
+      if (!box) return;
+      box.textContent = "";
+      box.style.display = "none";
+    }
+
+    const bookingForm = document.getElementById("fhBookingToolbar");
+
+    if (bookingForm){
+      bookingForm.addEventListener("submit", event => {
+        event.preventDefault();
+        fhHideBookingError();
+
+        const formData = new FormData(bookingForm);
+        const payload = {
+          firstName: String(formData.get("firstName") || "").trim(),
+          lastName: String(formData.get("lastName") || "").trim(),
+          email: String(formData.get("email") || "").trim(),
+          checkIn: String(formData.get("checkIn") || "").trim(),
+          checkOut: String(formData.get("checkOut") || "").trim(),
+          lang: fhGetLang(),
+          source: "location",
+          listingId: FH_CONFIG.listingId,
+          workerBase: FH_CONFIG.workerBase
+        };
+
+        const currentLang = fhGetLang();
+
+        const messages = {
+          en: {
+            missing: "Please complete first name, last name, email, arrival and departure.",
+            email: "Please enter a valid email address.",
+            dates: "Departure must be after arrival."
+          },
+          fr: {
+            missing: "Veuillez compléter prénom, nom, email, arrivée et départ.",
+            email: "Veuillez entrer une adresse email valide.",
+            dates: "Le départ doit être après l’arrivée."
+          },
+          de: {
+            missing: "Bitte Vorname, Nachname, E-Mail, Anreise und Abreise ausfüllen.",
+            email: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+            dates: "Die Abreise muss nach der Anreise liegen."
+          },
+          ru: {
+            missing: "Заполните имя, фамилию, email, дату заезда и дату выезда.",
+            email: "Введите корректный email.",
+            dates: "Дата выезда должна быть позже даты заезда."
+          }
+        };
+
+        const t = messages[currentLang] || messages.en;
+
+        if (!payload.firstName || !payload.lastName || !payload.email || !payload.checkIn || !payload.checkOut){
+          fhShowBookingError(t.missing);
+          return;
+        }
+
+        if (!fhValidEmail(payload.email)){
+          fhShowBookingError(t.email);
+          return;
+        }
+
+        if (new Date(payload.checkOut) <= new Date(payload.checkIn)){
+          fhShowBookingError(t.dates);
+          return;
+        }
+
+        localStorage.setItem("fhBookingStart", JSON.stringify(payload));
+
+        const params = new URLSearchParams({
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          email: payload.email,
+          checkIn: payload.checkIn,
+          checkOut: payload.checkOut,
+          lang: payload.lang,
+          source: "location"
+        });
+
+        window.location.href = FH_CONFIG.bookingPage + "?" + params.toString();
+      });
+    }
+  </script>
 </body>
 </html>
