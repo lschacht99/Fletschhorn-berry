@@ -1,4 +1,84 @@
+<link rel="stylesheet" href="assets/fh-global.css">
+
+<div id="fh-header-slot"></div>
+
 <style>
+
+/* Shared Fletschhorn booking toolbar — same flow as homepage */
+.fh-booking-toolbar-wrap{
+  position:relative;
+  z-index:30;
+  margin:-42px auto 0;
+  width:min(1180px,calc(100% - 28px));
+}
+.fh-booking-toolbar{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr)) auto;
+  gap:10px;
+  align-items:end;
+  padding:14px;
+  border:1px solid rgba(255,250,243,.58);
+  background:rgba(255,250,243,.90);
+  box-shadow:0 24px 70px rgba(0,0,0,.18);
+  backdrop-filter:blur(18px);
+}
+.fh-booking-toolbar .fh-field{min-width:0}
+.fh-booking-toolbar label{
+  display:block;
+  margin:0 0 6px;
+  font-size:10px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:850;
+  color:rgba(26,23,20,.58);
+}
+.fh-booking-toolbar input{
+  width:100%;
+  min-height:44px;
+  border:1px solid rgba(26,23,20,.12);
+  background:#fffaf3;
+  color:#1a1714;
+  padding:12px 12px;
+  border-radius:0;
+  outline:none;
+  font:inherit;
+  box-shadow:none;
+}
+.fh-booking-toolbar input:focus{border-color:rgba(135,110,88,.55)}
+.fh-booking-toolbar button{
+  min-height:44px;
+  border:0;
+  background:#876e58;
+  color:#fffaf3;
+  padding:12px 18px;
+  white-space:nowrap;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+}
+.fh-booking-toolbar .fh-toolbar-error{
+  grid-column:1/-1;
+  display:none;
+  margin:2px 0 0;
+  color:#8b2f24;
+  font-size:13px;
+  line-height:1.35;
+}
+.fh-booking-toolbar .fh-toolbar-error.is-visible{display:block}
+@media(max-width:980px){
+  .fh-booking-toolbar-wrap{margin:-18px auto 0}
+  .fh-booking-toolbar{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .fh-booking-toolbar button{grid-column:1/-1;width:100%;}
+}
+@media(max-width:640px){
+  .fh-booking-toolbar-wrap{width:calc(100% - 24px);margin:0 auto;}
+  .fh-booking-toolbar{grid-template-columns:1fr;padding:12px;gap:9px;}
+  .fh-booking-toolbar input,.fh-booking-toolbar button{min-height:42px;}
+}
+
 /* Fletschhorn About page — Squarespace scoped block */
 #fh-about{
   --page-a:#efe7dc;
@@ -854,6 +934,33 @@
     </div>
   </section>
 
+  <section class="fh-booking-toolbar-wrap" aria-label="Quick booking">
+    <form class="fh-booking-toolbar" id="fhBookingToolbar" novalidate>
+      <div class="fh-field">
+        <label for="fhFirstName">First name</label>
+        <input id="fhFirstName" name="firstName" type="text" autocomplete="given-name" required>
+      </div>
+      <div class="fh-field">
+        <label for="fhLastName">Last name</label>
+        <input id="fhLastName" name="lastName" type="text" autocomplete="family-name" required>
+      </div>
+      <div class="fh-field">
+        <label for="fhEmail">Email</label>
+        <input id="fhEmail" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="fh-field">
+        <label for="fhArrival">Arrival</label>
+        <input id="fhArrival" name="checkIn" type="date" required>
+      </div>
+      <div class="fh-field">
+        <label for="fhDeparture">Departure</label>
+        <input id="fhDeparture" name="checkOut" type="date" required>
+      </div>
+      <button type="submit">Book my stay now</button>
+      <p class="fh-toolbar-error" id="fhBookingToolbarError" role="alert"></p>
+    </form>
+  </section>
+
   <main>
     <section class="section alt" id="heritage">
       <div class="container section-head">
@@ -1636,5 +1743,165 @@
 
   window.addEventListener("load", init);
   document.addEventListener("mercury:load", init);
+})();
+</script>
+
+<div id="fh-footer-slot"></div>
+
+<script>
+(function(){
+  document.body.classList.add("fh-github-version");
+
+  const ASSET_BASE = new URL("assets/", document.baseURI).href;
+  const FH_LANGUAGES = ["en","fr","de","ru"];
+  const LISTING_ID = "6968339ab7d735001ca015ba";
+  const WORKER_BASE = "https://guetsyapi.moshe-cohen-h1.workers.dev";
+
+  async function loadHtml(slotId, fileName){
+    const slot = document.getElementById(slotId);
+    if(!slot) return;
+    try{
+      const response = await fetch(new URL(fileName, ASSET_BASE), {cache:"no-cache"});
+      if(!response.ok) throw new Error(`${fileName} failed: ${response.status}`);
+      const html = await response.text();
+      slot.innerHTML = html;
+
+      slot.querySelectorAll("script").forEach(oldScript => {
+        const next = document.createElement("script");
+        Array.from(oldScript.attributes).forEach(attr => next.setAttribute(attr.name, attr.value));
+        next.textContent = oldScript.textContent;
+        oldScript.replaceWith(next);
+      });
+
+      document.dispatchEvent(new CustomEvent("fh:assetLoaded", {detail:{slotId,fileName}}));
+    }catch(error){
+      console.warn(`Could not load ${fileName} into #${slotId}`, error);
+    }
+  }
+
+  function normalizeLang(lang){
+    const clean = String(lang || "en").toLowerCase().slice(0,2);
+    return FH_LANGUAGES.includes(clean) ? clean : "en";
+  }
+
+  function getLang(){
+    try{return normalizeLang(localStorage.getItem("fh_lang") || document.documentElement.lang || "en");}
+    catch(e){return normalizeLang(document.documentElement.lang || "en");}
+  }
+
+  function setLang(lang){
+    const next = normalizeLang(lang);
+    document.documentElement.setAttribute("lang", next);
+    try{localStorage.setItem("fh_lang", next);}catch(e){}
+
+    if(typeof window.setFletschhornLanguage === "function") window.setFletschhornLanguage(next);
+    if(typeof window.FHSetLanguage === "function") window.FHSetLanguage(next);
+
+    document.dispatchEvent(new CustomEvent("fletschhorn:language", {detail:{lang:next}}));
+    document.dispatchEvent(new CustomEvent("fh:language", {detail:{lang:next}}));
+    return next;
+  }
+
+  document.addEventListener("click", event => {
+    const trigger = event.target.closest("[data-fh-lang], [data-lang], [data-language]");
+    if(!trigger) return;
+    const lang = trigger.getAttribute("data-fh-lang") || trigger.getAttribute("data-lang") || trigger.getAttribute("data-language");
+    if(FH_LANGUAGES.includes(normalizeLang(lang))) setLang(lang);
+  });
+
+  window.addEventListener("storage", event => {
+    if(event.key === "fh_lang" && event.newValue) setLang(event.newValue);
+  });
+
+  function initBookingToolbar(){
+    const form = document.getElementById("fhBookingToolbar");
+    if(!form || form.dataset.ready === "1") return;
+    form.dataset.ready = "1";
+
+    const errorBox = document.getElementById("fhBookingToolbarError");
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const todayISO = today.toISOString().slice(0,10);
+
+    const arrival = form.querySelector("[name='checkIn']");
+    const departure = form.querySelector("[name='checkOut']");
+    if(arrival) arrival.min = todayISO;
+    if(departure) departure.min = todayISO;
+
+    function showError(message){
+      if(!errorBox) return;
+      errorBox.textContent = message;
+      errorBox.classList.add("is-visible");
+    }
+    function clearError(){
+      if(!errorBox) return;
+      errorBox.textContent = "";
+      errorBox.classList.remove("is-visible");
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      clearError();
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      const firstName = String(data.firstName || "").trim();
+      const lastName = String(data.lastName || "").trim();
+      const email = String(data.email || "").trim();
+      const checkIn = String(data.checkIn || "").trim();
+      const checkOut = String(data.checkOut || "").trim();
+
+      if(!firstName || !lastName || !email || !checkIn || !checkOut){
+        showError("Please complete your first name, last name, email, arrival, and departure dates.");
+        return;
+      }
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        showError("Please enter a valid email address.");
+        return;
+      }
+      if(new Date(checkOut) <= new Date(checkIn)){
+        showError("Departure must be after arrival.");
+        return;
+      }
+
+      const payload = {
+        firstName,
+        lastName,
+        email,
+        checkIn,
+        checkOut,
+        lang:getLang(),
+        source:"about-page-toolbar",
+        listingId:LISTING_ID,
+        workerBase:WORKER_BASE
+      };
+
+      try{localStorage.setItem("fhBookingStart", JSON.stringify(payload));}catch(e){}
+
+      const params = new URLSearchParams({
+        firstName,
+        lastName,
+        email,
+        checkIn,
+        checkOut,
+        lang:payload.lang,
+        source:"homepage"
+      });
+
+      window.location.href = `booking.html?${params.toString()}`;
+    });
+  }
+
+  function boot(){
+    loadHtml("fh-header-slot", "Header.html");
+    loadHtml("fh-footer-slot", "footer.html");
+    setLang(getLang());
+    initBookingToolbar();
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+
+  window.addEventListener("load", boot);
+  document.addEventListener("mercury:load", boot);
 })();
 </script>
