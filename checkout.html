@@ -645,6 +645,224 @@
   }
 }
 
+
+/* =========================================================
+   TRUE INDEPENDENT MOBILE EXPERIENCE
+   This is not a squeezed desktop confirmation page.
+   On phones, the desktop hero/card is hidden and replaced by a native-feeling
+   mobile confirmation flow: compact image header, bottom CTAs, horizontal summary.
+   Header/footer loading, language switching, localStorage and booking data stay intact.
+   ========================================================= */
+#fh-checkout-main .fh-mobile-only{display:none}
+
+@media(max-width:760px){
+  #fh-checkout-main .fh-hero,
+  #fh-checkout-main .fh-wrap{
+    display:none !important;
+  }
+
+  #fh-checkout-main .fh-mobile-only{
+    position:relative;
+    z-index:4;
+    display:block;
+    min-height:100svh;
+    padding:78px 0 96px;
+    background:
+      radial-gradient(circle at 20% 0%,rgba(255,255,255,.78),transparent 0 30%),
+      linear-gradient(180deg,#efe7dc 0%,#fffaf3 42%,#efe7dc 100%);
+  }
+
+  #fh-checkout-main .fh-mobile-visual{
+    position:relative;
+    width:calc(100% - 18px);
+    height:178px;
+    margin:0 auto;
+    overflow:hidden;
+    border:1px solid rgba(255,250,243,.42);
+    background:#d8cbbb center/cover no-repeat;
+    box-shadow:0 18px 42px rgba(0,0,0,.16);
+  }
+
+  #fh-checkout-main .fh-mobile-visual:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg,rgba(22,19,17,.18),rgba(22,19,17,.62)),
+      radial-gradient(circle at 50% 20%,rgba(255,255,255,.18),transparent 0 34%);
+  }
+
+  #fh-checkout-main .fh-mobile-status{
+    position:absolute;
+    left:12px;
+    right:12px;
+    bottom:12px;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    color:#fffaf3;
+  }
+
+  #fh-checkout-main .fh-mobile-status span{
+    display:inline-flex;
+    align-items:center;
+    min-height:30px;
+    padding:7px 10px;
+    background:rgba(255,250,243,.16);
+    border:1px solid rgba(255,250,243,.28);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    font-size:9px;
+    font-weight:850;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+  }
+
+  #fh-checkout-main .fh-mobile-status b{
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:24px;
+    line-height:1;
+    letter-spacing:-.045em;
+  }
+
+  #fh-checkout-main .fh-mobile-panel{
+    width:calc(100% - 18px);
+    margin:-18px auto 0;
+    position:relative;
+    z-index:3;
+    padding:18px 14px 15px;
+    background:rgba(255,250,243,.97);
+    border:1px solid rgba(26,23,20,.10);
+    box-shadow:0 18px 46px rgba(0,0,0,.11);
+  }
+
+  #fh-checkout-main .fh-mobile-panel h2{
+    margin:0 0 8px;
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:clamp(30px,9.2vw,42px);
+    line-height:.96;
+    letter-spacing:-.052em;
+  }
+
+  #fh-checkout-main .fh-mobile-panel p{
+    margin:0;
+    color:rgba(26,23,20,.66);
+    font-size:13.5px;
+    line-height:1.48;
+  }
+
+  #fh-checkout-main .fh-mobile-strip{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    margin:14px -14px 0;
+    padding:0 14px 3px;
+  }
+
+  #fh-checkout-main .fh-mobile-strip::-webkit-scrollbar{display:none}
+
+  #fh-checkout-main .fh-mobile-chip{
+    flex:0 0 74%;
+    min-width:0;
+    scroll-snap-align:start;
+    padding:12px;
+    background:#f5eee5;
+    border:1px solid #e3d5c6;
+  }
+
+  #fh-checkout-main .fh-mobile-chip.small{
+    flex-basis:48%;
+  }
+
+  #fh-checkout-main .fh-mobile-chip span{
+    display:block;
+    margin-bottom:5px;
+    font-size:8.5px;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:.11em;
+    font-weight:850;
+    color:rgba(26,23,20,.48);
+  }
+
+  #fh-checkout-main .fh-mobile-chip strong{
+    display:block;
+    font-size:13px;
+    line-height:1.32;
+    overflow-wrap:anywhere;
+    color:var(--ink);
+  }
+
+  #fh-checkout-main .fh-mobile-note{
+    width:calc(100% - 18px);
+    margin:10px auto 0;
+    padding:12px;
+    background:rgba(255,250,243,.58);
+    border:1px solid rgba(26,23,20,.09);
+    color:rgba(26,23,20,.62);
+    font-size:12.5px;
+    line-height:1.45;
+  }
+
+  #fh-checkout-main .fh-mobile-actions{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:70;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    padding:10px 10px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(239,231,220,.88);
+    border-top:1px solid rgba(26,23,20,.10);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+  }
+
+  #fh-checkout-main .fh-mobile-actions .fh-btn{
+    min-height:48px;
+    padding:12px 10px;
+    font-size:9.5px;
+    letter-spacing:.10em;
+  }
+
+  #fh-checkout-main .fh-mobile-actions .fh-btn.light{
+    background:rgba(255,250,243,.84);
+  }
+}
+
+@media(max-width:380px){
+  #fh-checkout-main .fh-mobile-only{
+    padding-top:72px;
+  }
+
+  #fh-checkout-main .fh-mobile-visual{
+    height:152px;
+    width:calc(100% - 12px);
+  }
+
+  #fh-checkout-main .fh-mobile-panel,
+  #fh-checkout-main .fh-mobile-note{
+    width:calc(100% - 12px);
+  }
+
+  #fh-checkout-main .fh-mobile-chip{
+    flex-basis:82%;
+  }
+
+  #fh-checkout-main .fh-mobile-chip.small{
+    flex-basis:58%;
+  }
+}
+
 @media(prefers-reduced-motion:reduce){
   #fh-checkout-main .fh-bg:before{
     animation:none;
@@ -669,6 +887,53 @@
     <button type="button" data-fh-lang="de">DE</button>
     <button type="button" data-fh-lang="ru">RU</button>
   </div>
+
+
+  <section class="fh-mobile-only" aria-label="Mobile booking confirmation">
+    <div class="fh-mobile-visual" id="fhMobileVisual" aria-hidden="true">
+      <div class="fh-mobile-status">
+        <span data-i18n="mobileStatus">Request sent</span>
+        <b data-i18n="mobileThanks">Thank you</b>
+      </div>
+    </div>
+
+    <div class="fh-mobile-panel">
+      <p class="fh-kicker" data-i18n="cardKicker">Confirmation</p>
+      <h2 data-i18n="cardTitle">Your request has been sent.</h2>
+      <p data-i18n="cardLead">Our team will review your stay details and send confirmation, payment information, and next steps by email.</p>
+
+      <div class="fh-mobile-strip" aria-label="Booking request summary">
+        <div class="fh-mobile-chip">
+          <span data-i18n="guestLabel">Guest</span>
+          <strong id="fhMGuest">—</strong>
+        </div>
+        <div class="fh-mobile-chip">
+          <span data-i18n="datesLabel">Dates</span>
+          <strong id="fhMDates">—</strong>
+        </div>
+        <div class="fh-mobile-chip small">
+          <span data-i18n="guestsLabel">Guests</span>
+          <strong id="fhMGuests">—</strong>
+        </div>
+        <div class="fh-mobile-chip">
+          <span data-i18n="emailLabel">Email</span>
+          <strong id="fhMEmail">—</strong>
+        </div>
+        <div class="fh-mobile-chip">
+          <span data-i18n="requestLabel">Request reference</span>
+          <strong id="fhMReference">Sent by email</strong>
+        </div>
+      </div>
+    </div>
+
+    <p class="fh-mobile-note" data-i18n="note">Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.</p>
+
+    <div class="fh-mobile-actions">
+      <a class="fh-btn light" href="index.html" data-i18n="homeBtn">Return home</a>
+      <a class="fh-btn" href="booking.html" data-i18n="newBtn">Start another request</a>
+    </div>
+  </section>
+
 
   <section class="fh-hero">
     <div class="fh-hero-media" id="fhCheckoutHero" aria-hidden="true"></div>
@@ -790,10 +1055,10 @@
 
   const LANGS = ["en","fr","de","ru"];
   const I18N = {
-    en:{eyebrow:"Booking request received",title:"Thank you.",lead:"We have received your booking request. The details will be reviewed and sent to you by email.",cardKicker:"Confirmation",cardTitle:"Your request has been sent.",cardLead:"Our team will review your stay details and send confirmation, payment information, and next steps by email.",guestLabel:"Guest",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Guests",requestLabel:"Request reference",note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",homeBtn:"Return home",newBtn:"Start another request",sentByEmail:"Sent by email",night:"night",nights:"nights",guestWord:"guests"},
-    fr:{eyebrow:"Demande de réservation reçue",title:"Merci.",lead:"Nous avons bien reçu votre demande de réservation. Les détails seront vérifiés et envoyés par email.",cardKicker:"Confirmation",cardTitle:"Votre demande a été envoyée.",cardLead:"Notre équipe vérifiera les détails du séjour et vous enverra la confirmation, les informations de paiement et les prochaines étapes par email.",guestLabel:"Client",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Invités",requestLabel:"Référence",note:"Veuillez vérifier votre boîte mail. Si quelque chose doit être ajusté, répondez directement à l’email de confirmation.",homeBtn:"Retour à l’accueil",newBtn:"Nouvelle demande",sentByEmail:"Envoyé par email",night:"nuit",nights:"nuits",guestWord:"invités"},
-    de:{eyebrow:"Buchungsanfrage erhalten",title:"Vielen Dank.",lead:"Wir haben Ihre Buchungsanfrage erhalten. Die Details werden geprüft und per E-Mail gesendet.",cardKicker:"Bestätigung",cardTitle:"Ihre Anfrage wurde gesendet.",cardLead:"Unser Team prüft die Aufenthaltsdetails und sendet Bestätigung, Zahlungsinformationen und nächste Schritte per E-Mail.",guestLabel:"Gast",emailLabel:"E-Mail",datesLabel:"Daten",guestsLabel:"Gäste",requestLabel:"Referenz",note:"Bitte prüfen Sie Ihren Posteingang. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",homeBtn:"Zur Startseite",newBtn:"Neue Anfrage",sentByEmail:"Per E-Mail gesendet",night:"Nacht",nights:"Nächte",guestWord:"Gäste"},
-    ru:{eyebrow:"Запрос на бронирование получен",title:"Спасибо.",lead:"Мы получили ваш запрос на бронирование. Детали будут проверены и отправлены вам по email.",cardKicker:"Подтверждение",cardTitle:"Ваш запрос отправлен.",cardLead:"Наша команда проверит детали проживания и отправит подтверждение, информацию об оплате и следующие шаги по email.",guestLabel:"Гость",emailLabel:"Email",datesLabel:"Даты",guestsLabel:"Гости",requestLabel:"Номер запроса",note:"Проверьте вашу почту. Если нужно что-то изменить, ответьте прямо на письмо с подтверждением.",homeBtn:"На главную",newBtn:"Новый запрос",sentByEmail:"Отправлено по email",night:"ночь",nights:"ночей",guestWord:"гостей"}
+    en:{mobileStatus:"Request sent",mobileThanks:"Thank you",eyebrow:"Booking request received",title:"Thank you.",lead:"We have received your booking request. The details will be reviewed and sent to you by email.",cardKicker:"Confirmation",cardTitle:"Your request has been sent.",cardLead:"Our team will review your stay details and send confirmation, payment information, and next steps by email.",guestLabel:"Guest",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Guests",requestLabel:"Request reference",note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",homeBtn:"Return home",newBtn:"Start another request",sentByEmail:"Sent by email",night:"night",nights:"nights",guestWord:"guests"},
+    fr:{mobileStatus:"Demande envoyée",mobileThanks:"Merci",eyebrow:"Demande de réservation reçue",title:"Merci.",lead:"Nous avons bien reçu votre demande de réservation. Les détails seront vérifiés et envoyés par email.",cardKicker:"Confirmation",cardTitle:"Votre demande a été envoyée.",cardLead:"Notre équipe vérifiera les détails du séjour et vous enverra la confirmation, les informations de paiement et les prochaines étapes par email.",guestLabel:"Client",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Invités",requestLabel:"Référence",note:"Veuillez vérifier votre boîte mail. Si quelque chose doit être ajusté, répondez directement à l’email de confirmation.",homeBtn:"Retour à l’accueil",newBtn:"Nouvelle demande",sentByEmail:"Envoyé par email",night:"nuit",nights:"nuits",guestWord:"invités"},
+    de:{mobileStatus:"Anfrage gesendet",mobileThanks:"Danke",eyebrow:"Buchungsanfrage erhalten",title:"Vielen Dank.",lead:"Wir haben Ihre Buchungsanfrage erhalten. Die Details werden geprüft und per E-Mail gesendet.",cardKicker:"Bestätigung",cardTitle:"Ihre Anfrage wurde gesendet.",cardLead:"Unser Team prüft die Aufenthaltsdetails und sendet Bestätigung, Zahlungsinformationen und nächste Schritte per E-Mail.",guestLabel:"Gast",emailLabel:"E-Mail",datesLabel:"Daten",guestsLabel:"Gäste",requestLabel:"Referenz",note:"Bitte prüfen Sie Ihren Posteingang. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",homeBtn:"Zur Startseite",newBtn:"Neue Anfrage",sentByEmail:"Per E-Mail gesendet",night:"Nacht",nights:"Nächte",guestWord:"Gäste"},
+    ru:{mobileStatus:"Запрос отправлен",mobileThanks:"Спасибо",eyebrow:"Запрос на бронирование получен",title:"Спасибо.",lead:"Мы получили ваш запрос на бронирование. Детали будут проверены и отправлены вам по email.",cardKicker:"Подтверждение",cardTitle:"Ваш запрос отправлен.",cardLead:"Наша команда проверит детали проживания и отправит подтверждение, информацию об оплате и следующие шаги по email.",guestLabel:"Гость",emailLabel:"Email",datesLabel:"Даты",guestsLabel:"Гости",requestLabel:"Номер запроса",note:"Проверьте вашу почту. Если нужно что-то изменить, ответьте прямо на письмо с подтверждением.",homeBtn:"На главную",newBtn:"Новый запрос",sentByEmail:"Отправлено по email",night:"ночь",nights:"ночей",guestWord:"гостей"}
   };
 
   function normalizeLang(lang){const v = String(lang || "en").toLowerCase().slice(0,2); return LANGS.includes(v) ? v : "en"}
@@ -801,6 +1066,7 @@
     try{return JSON.parse(localStorage.getItem("fhBookingComplete") || localStorage.getItem("fhBookingStart") || "{}") || {}}catch(e){return {}}
   }
   function setText(id,value){const el = document.getElementById(id); if(el) el.textContent = value || "—"}
+  function setTexts(ids,value){ids.forEach(function(id){setText(id,value)})}
   function nightsBetween(checkIn,checkOut){
     if(!checkIn || !checkOut) return 0;
     const start = new Date(checkIn + "T00:00:00");
@@ -870,17 +1136,19 @@
         ? `${t("sentByEmail")} · Request ${data.reservationId}`
         : t("sentByEmail");
 
-    setText("fhGuest", guest);
-    setText("fhEmail", data.email);
-    setText("fhDates", dates);
-    setText("fhGuests", data.guests ? `${data.guests} ${t("guestWord")}` : "—");
-    setText("fhReference", reference);
+    setTexts(["fhGuest","fhMGuest"], guest);
+    setTexts(["fhEmail","fhMEmail"], data.email);
+    setTexts(["fhDates","fhMDates"], dates);
+    setTexts(["fhGuests","fhMGuests"], data.guests ? `${data.guests} ${t("guestWord")}` : "—");
+    setTexts(["fhReference","fhMReference"], reference);
   }
 
   const hero = document.getElementById("fhCheckoutHero");
   const photo = document.getElementById("fhCheckoutPhoto");
+  const mobileVisual = document.getElementById("fhMobileVisual");
   if(hero) hero.style.backgroundImage = `url("${FALLBACK_IMAGES[0]}")`;
   if(photo) photo.style.backgroundImage = `url("${FALLBACK_IMAGES[3] || FALLBACK_IMAGES[1]}")`;
+  if(mobileVisual) mobileVisual.style.backgroundImage = `url("${FALLBACK_IMAGES[2] || FALLBACK_IMAGES[0]}")`;
 
   setLang(currentLang);
 })();
