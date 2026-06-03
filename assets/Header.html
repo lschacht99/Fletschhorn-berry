@@ -1,32 +1,40 @@
 <!-- Fletschhorn Global Header -->
+
 <style>
 .fh-header-book-now{
-  display:inline-flex!important;
+  display:inline-flex;
   align-items:center;
   justify-content:center;
   min-height:34px;
   padding:0 13px;
   border-radius:999px;
   background:rgba(31,58,47,.94);
-  color:#fffaf2!important;
+  color:#fffaf2 !important;
   border:1px solid rgba(255,250,242,.45);
   box-shadow:0 10px 26px rgba(31,58,47,.18);
   font-size:11px;
   font-weight:700;
   letter-spacing:.08em;
   text-transform:uppercase;
-  text-decoration:none!important;
+  text-decoration:none !important;
   white-space:nowrap;
 }
 
-.fh-mobile-book-now{display:none}
+.fh-mobile-book-now{
+  display:none !important;
+}
 
 @media(max-width:880px){
-  .fh-global-header{gap:8px}
-  .fh-global-nav{display:none!important}
+  .fh-global-nav{
+    display:none !important;
+  }
+
+  .fh-global-nav .fh-header-book-now{
+    display:none !important;
+  }
 
   .fh-mobile-book-now{
-    display:inline-flex!important;
+    display:inline-flex !important;
     margin-left:auto;
     min-height:32px;
     padding:0 11px;
@@ -34,56 +42,68 @@
   }
 
   .fh-mobile-toggle{
-    display:block!important;
+    display:block !important;
     flex:0 0 38px;
   }
 
   .fh-mobile-menu{
-    position:fixed!important;
-    inset:0!important;
-    z-index:9997!important;
-    opacity:0!important;
-    pointer-events:none!important;
-    background:rgba(28,24,20,.12)!important;
-    backdrop-filter:blur(3px)!important;
-    -webkit-backdrop-filter:blur(3px)!important;
-    transition:opacity .22s ease!important;
+    position:fixed !important;
+    inset:0 !important;
+    z-index:9997 !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+    background:rgba(28,24,20,.12) !important;
+    backdrop-filter:blur(3px) !important;
+    -webkit-backdrop-filter:blur(3px) !important;
+    transition:opacity .22s ease !important;
   }
 
   .fh-mobile-menu.is-open{
-    opacity:1!important;
-    pointer-events:auto!important;
+    opacity:1 !important;
+    pointer-events:auto !important;
   }
 
   .fh-mobile-panel{
-    position:absolute!important;
-    top:74px!important;
-    right:14px!important;
-    width:min(390px,calc(100vw - 28px))!important;
-    max-height:calc(100vh - 98px)!important;
-    overflow:auto!important;
-    border-radius:24px!important;
-    transform:translateY(-8px) scale(.98)!important;
-    opacity:0!important;
-    transition:transform .22s ease, opacity .22s ease!important;
+    position:absolute !important;
+    top:74px !important;
+    right:14px !important;
+    left:auto !important;
+    bottom:auto !important;
+    width:min(390px,calc(100vw - 28px)) !important;
+    height:auto !important;
+    max-height:calc(100vh - 98px) !important;
+    overflow:auto !important;
+    border-radius:24px !important;
+    transform:translateY(-8px) scale(.98) !important;
+    opacity:0 !important;
+    transition:transform .22s ease, opacity .22s ease !important;
   }
 
   .fh-mobile-menu.is-open .fh-mobile-panel{
-    transform:translateY(0) scale(1)!important;
-    opacity:1!important;
+    transform:translateY(0) scale(1) !important;
+    opacity:1 !important;
   }
 
   html.fh-nav-open,
   html.fh-nav-open body{
-    overflow:auto!important;
+    overflow:auto !important;
   }
 }
 
 @media(max-width:420px){
-  .fh-brand-note{display:none!important}
+  .fh-brand-note{
+    display:none !important;
+  }
+
   .fh-mobile-book-now{
     padding:0 9px;
     font-size:9.5px;
+  }
+
+  .fh-mobile-panel{
+    top:70px !important;
+    right:10px !important;
+    width:calc(100vw - 20px) !important;
   }
 }
 </style>
@@ -95,58 +115,98 @@
   const FH_SITE_BASE = "https://lschacht99.github.io/Fletschhorn-berry/";
 
   function page(file){
-    return FH_SITE_BASE + file;
+    return FH_SITE_BASE + file.replace(/^\/+/, "");
   }
 
   const pages = [
-    ["home","Home",page("index.html"),"Start with the house and setting."],
-    ["property","Property",page("Property.html"),"The rooms, spaces, amenities, and private-house experience."],
-    ["experiences","Experiences",page("Experiences.html"),"Saas-Fee activities and alpine moments."],
-    ["location","Location",page("Location.html"),"Where Fletschhorn is located."],
-    ["events","Wedding & Events",page("Wedding-event.html"),"Private events, weddings, retreats, and celebrations."],
-    ["about","About Us",page("About-us.html"),"History, story, and the new private-house direction."]
+    {
+      key:"home",
+      label:"Home",
+      short:"Home",
+      href:page("index.html"),
+      note:"Start with the house, setting, and inquiry."
+    },
+    {
+      key:"property",
+      label:"The Property",
+      short:"Property",
+      href:page("Property.html"),
+      note:"The spaces, rooms, amenities, dining, and kitchen."
+    },
+    {
+      key:"experiences",
+      label:"Experiences",
+      short:"Experiences",
+      href:page("Experiences.html"),
+      note:"What to do in Saas-Fee and around the property."
+    },
+    {
+      key:"location",
+      label:"Location",
+      short:"Location",
+      href:page("Location.html"),
+      note:"Where Fletschhorn is located."
+    },
+    {
+      key:"events",
+      label:"Wedding & Events",
+      short:"Events",
+      href:page("Wedding-event.html"),
+      note:"Weddings, private events, retreats, and celebrations."
+    },
+    {
+      key:"about",
+      label:"About Us",
+      short:"About",
+      href:page("About-us.html"),
+      note:"Story, history, and the private-house direction."
+    }
   ];
 
   const bookingHref = page("booking.html");
 
   function activeKey(){
     const path = window.location.pathname.toLowerCase();
+
     if(path.includes("property")) return "property";
     if(path.includes("experiences")) return "experiences";
     if(path.includes("location")) return "location";
     if(path.includes("wedding")) return "events";
     if(path.includes("about")) return "about";
     if(path.includes("booking")) return "booking";
+
     return "home";
   }
 
   const active = activeKey();
 
-  const nav = pages.map(([key,label,href]) => `
-    <a href="${href}" class="${active===key ? "is-active" : ""}">${label}</a>
+  const navLinks = pages.map(item => `
+    <a href="${item.href}" class="${active === item.key ? "is-active" : ""}">
+      ${item.short}
+    </a>
   `).join("");
 
-  const mobileLinks = pages.map(([key,label,href,note]) => `
-    <a href="${href}" class="${active===key ? "is-active" : ""}">
+  const mobileLinks = pages.map(item => `
+    <a href="${item.href}" class="${active === item.key ? "is-active" : ""}">
       <span>
-        <strong>${label}</strong>
-        <small>${note}</small>
+        <strong>${item.label}</strong>
+        <small>${item.note}</small>
       </span>
       <em>→</em>
     </a>
   `).join("");
 
-  document.body.classList.add("fh-global-shell","fh-github-version");
+  document.body.classList.add("fh-global-shell", "fh-github-version");
 
   document.body.insertAdjacentHTML("afterbegin", `
     <div class="fh-mobile-menu" id="fhMobileMenu" aria-hidden="true">
       <div class="fh-mobile-panel">
         <div class="fh-mobile-links">
           ${mobileLinks}
-          <a href="${bookingHref}" class="${active==="booking" ? "is-active" : ""}">
+          <a href="${bookingHref}" class="${active === "booking" ? "is-active" : ""}">
             <span>
               <strong>Book Now</strong>
-              <small>Send your stay inquiry and complete your dates.</small>
+              <small>Send your inquiry and complete your stay request.</small>
             </span>
             <em>→</em>
           </a>
@@ -166,11 +226,13 @@
       </a>
 
       <nav class="fh-global-nav" aria-label="Primary navigation">
-        ${nav}
+        ${navLinks}
         <a class="fh-global-cta fh-header-book-now" href="${bookingHref}">Book Now</a>
       </nav>
 
-      <a class="fh-header-book-now fh-mobile-book-now" href="${bookingHref}">Book Now</a>
+      <a class="fh-header-book-now fh-mobile-book-now" href="${bookingHref}" aria-label="Book your stay">
+        Book Now
+      </a>
 
       <button class="fh-mobile-toggle" type="button" id="fhMobileToggle" aria-expanded="false" aria-controls="fhMobileMenu" aria-label="Open menu">
         <span></span>
@@ -181,38 +243,51 @@
   const header = document.getElementById("fhGlobalHeader");
   const toggle = document.getElementById("fhMobileToggle");
   const menu = document.getElementById("fhMobileMenu");
-  const panel = menu.querySelector(".fh-mobile-panel");
+  const panel = menu ? menu.querySelector(".fh-mobile-panel") : null;
 
   function closeMenu(){
-    toggle.setAttribute("aria-expanded","false");
-    menu.setAttribute("aria-hidden","true");
+    if(!toggle || !menu) return;
+    toggle.setAttribute("aria-expanded", "false");
+    menu.setAttribute("aria-hidden", "true");
     menu.classList.remove("is-open");
     document.documentElement.classList.remove("fh-nav-open");
   }
 
   function openMenu(){
-    toggle.setAttribute("aria-expanded","true");
-    menu.setAttribute("aria-hidden","false");
+    if(!toggle || !menu) return;
+    toggle.setAttribute("aria-expanded", "true");
+    menu.setAttribute("aria-hidden", "false");
     menu.classList.add("is-open");
     document.documentElement.classList.add("fh-nav-open");
   }
 
-  toggle.addEventListener("click",()=>{
-    toggle.getAttribute("aria-expanded")==="true" ? closeMenu() : openMenu();
-  });
+  if(toggle && menu){
+    toggle.addEventListener("click", function(){
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      isOpen ? closeMenu() : openMenu();
+    });
 
-  menu.addEventListener("click",e=>{
-    if(!panel.contains(e.target)) closeMenu();
-  });
+    menu.querySelectorAll("a").forEach(function(link){
+      link.addEventListener("click", closeMenu);
+    });
 
-  menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",closeMenu));
+    menu.addEventListener("click", function(event){
+      if(panel && !panel.contains(event.target)){
+        closeMenu();
+      }
+    });
 
-  document.addEventListener("keydown",e=>{
-    if(e.key==="Escape") closeMenu();
-  });
+    document.addEventListener("keydown", function(event){
+      if(event.key === "Escape") closeMenu();
+    });
+  }
 
-  window.addEventListener("scroll",()=>{
-    header.classList.toggle("is-scrolled",window.scrollY>20);
-  },{passive:true});
+  function onScroll(){
+    if(!header) return;
+    header.classList.toggle("is-scrolled", window.scrollY > 20);
+  }
+
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
 })();
 </script>
