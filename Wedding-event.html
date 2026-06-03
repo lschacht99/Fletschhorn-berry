@@ -3361,21 +3361,90 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
     localStorage.setItem('fh_lang', activeLang);
   }
+<script>
+/* PATCH LANGUAGE BEHAVIOR — page content follows global/header language switch */
+(function(){
+  const root = document.querySelector('#fh-events');
+  if(!root) return;
 
-  window.FHSetEventsLanguage = applyLanguage;
-  window.FHSetLanguage = applyLanguage;
-  applyLanguage(getInitialLang());
+  function normalizeLang(lang){
+    lang = String(lang || '').toLowerCase();
+    if(lang.startsWith('fr')) return 'fr';
+    if(lang.startsWith('de')) return 'de';
+    if(lang.startsWith('ru')) return 'ru';
+    return 'en';
+  }
 
-  document.addEventListener('click', function(e){
-    const langTrigger = e.target.closest('[data-lang],[data-language],[data-locale]');
-    if(!langTrigger) return;
-    const lang = langTrigger.getAttribute('data-lang') || langTrigger.getAttribute('data-language') || langTrigger.getAttribute('data-locale');
-    if(lang) setTimeout(()=>applyLanguage(lang), 0);
+  function getPreferredLang(){
+    const params = new URLSearchParams(window.location.search);
+    return normalizeLang(
+      params.get('lang') ||
+      params.get('locale') ||
+      localStorage.getItem('fh_lang') ||
+      localStorage.getItem('fh_language') ||
+      localStorage.getItem('fhLang') ||
+      document.documentElement.getAttribute('lang') ||
+      root.getAttribute('data-lang') ||
+      'en'
+    );
+  }
+
+  const originalApply = window.FHSetEventsLanguage;
+
+  function syncEventsLanguage(lang){
+    const activeLang = normalizeLang(lang || getPreferredLang());
+
+    localStorage.setItem('fh_lang', activeLang);
+    localStorage.setItem('fh_language', activeLang);
+    localStorage.setItem('fhLang', activeLang);
+
+    document.documentElement.setAttribute('lang', activeLang);
+    root.setAttribute('data-lang', activeLang);
+
+    if(typeof originalApply === 'function'){
+      originalApply(activeLang);
+    }
+
+    root.querySelectorAll('.fh-lang-switcher button').forEach(function(button){
+      const buttonLang = normalizeLang(
+        button.getAttribute('data-fh-lang') ||
+        button.getAttribute('data-lang') ||
+        button.getAttribute('data-language')
+      );
+      button.classList.toggle('is-active', buttonLang === activeLang);
+      button.setAttribute('aria-pressed', buttonLang === activeLang ? 'true' : 'false');
+    });
+
+    window.dispatchEvent(new CustomEvent('fh:language-change', { detail:{ lang:activeLang }}));
+  }
+
+  window.FHSetEventsLanguage = syncEventsLanguage;
+  window.FHSetLanguage = syncEventsLanguage;
+
+  document.addEventListener('click', function(event){
+    const trigger = event.target.closest('[data-fh-lang], [data-lang], [data-language], [data-locale]');
+    if(!trigger) return;
+
+    const lang =
+      trigger.getAttribute('data-fh-lang') ||
+      trigger.getAttribute('data-lang') ||
+      trigger.getAttribute('data-language') ||
+      trigger.getAttribute('data-locale');
+
+    if(lang){
+      syncEventsLanguage(lang);
+    }
   });
 
-  new MutationObserver(()=>{
-    applyLanguage(getInitialLang());
-  }).observe(document.documentElement, {attributes:true, attributeFilter:['lang','data-lang']});
+  window.addEventListener('fh:language-change', function(event){
+    if(event.detail && event.detail.lang){
+      syncEventsLanguage(event.detail.lang);
+    }
+  });
+
+  syncEventsLanguage(getPreferredLang());
+})();
+</script>
 
 
   function buildCarousel(host, images, delay){
