@@ -436,13 +436,13 @@
 #fh-booking-main .fh-confirm-modal{
   position:fixed;
   inset:0;
-  z-index:120;
+  z-index:2147483000;
   display:none;
   align-items:center;
   justify-content:center;
-  padding:20px;
-  background:rgba(26,23,20,.46);
-  backdrop-filter:blur(10px);
+  padding:28px;
+  background:rgba(26,23,20,.56);
+  backdrop-filter:blur(12px);
 }
 
 #fh-booking-main .fh-calendar-modal.is-open,
@@ -470,7 +470,8 @@
 #fh-booking-main .fh-calendar-title,
 #fh-booking-main .fh-confirm-title{
   font-family:var(--serif);
-  font-size:34px;
+  font-size:clamp(28px,3vw,40px);
+  line-height:.96;
   letter-spacing:-.05em;
   font-weight:400;
   margin:0;
@@ -552,33 +553,38 @@
 #fh-booking-main .fh-day.is-end .fh-day-price{color:rgba(255,250,243,.76)}
 
 #fh-booking-main .fh-confirm-card{
-  width:min(820px,100%);
-  max-height:calc(100svh - 40px);
-  overflow:auto;
+  width:min(1080px,calc(100vw - 56px));
+  max-height:min(820px,calc(100svh - 56px));
+  overflow:hidden;
   padding:0;
   background:var(--paper);
   border:1px solid rgba(255,250,243,.42);
-  box-shadow:0 30px 90px rgba(0,0,0,.24);
+  box-shadow:0 30px 90px rgba(0,0,0,.28);
   display:grid;
-  grid-template-columns:.82fr 1.18fr;
+  grid-template-columns:minmax(320px,.92fr) minmax(420px,1fr);
 }
 
 #fh-booking-main .fh-confirm-photo{
-  min-height:100%;
+  min-height:0;
+  height:auto;
   background:#d8cbbb center/cover no-repeat;
 }
 
-#fh-booking-main .fh-confirm-body{padding:24px}
-#fh-booking-main .fh-confirm-lead{margin:0 0 18px;font-size:15px;line-height:1.55;color:var(--muted)}
-#fh-booking-main .fh-confirm-summary{display:grid;gap:10px;margin:18px 0}
-#fh-booking-main .fh-confirm-main{padding:14px;background:#f8f1e8;border:1px solid rgba(26,23,20,.08)}
+#fh-booking-main .fh-confirm-body{
+  padding:30px 30px 28px;
+  overflow:auto;
+  max-height:min(820px,calc(100svh - 56px));
+}
+#fh-booking-main .fh-confirm-lead{margin:0 0 16px;font-size:15px;line-height:1.52;color:var(--muted)}
+#fh-booking-main .fh-confirm-summary{display:grid;gap:10px;margin:16px 0}
+#fh-booking-main .fh-confirm-main{padding:13px 15px;background:#f8f1e8;border:1px solid rgba(26,23,20,.08)}
 #fh-booking-main .fh-confirm-main span{display:block;margin-bottom:5px;font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:850;color:rgba(26,23,20,.48)}
 #fh-booking-main .fh-confirm-main strong{display:block;font-size:16px;line-height:1.35;color:var(--ink)}
 #fh-booking-main .fh-confirm-main small{display:block;margin-top:4px;font-size:13px;line-height:1.45;color:var(--muted)}
 
 #fh-booking-main .fh-price-box{
   display:none;
-  margin-top:14px;
+  margin-top:12px;
   padding:16px;
   background:#f5eee5;
   border:1px solid #e3d5c6;
@@ -586,14 +592,14 @@
 
 #fh-booking-main .fh-price-box.is-visible{display:block}
 #fh-booking-main .fh-price-label{margin-bottom:8px;font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:850;color:rgba(26,23,20,.48)}
-#fh-booking-main .fh-price-main{font-family:var(--serif);font-size:36px;line-height:1;letter-spacing:-.045em;color:var(--ink)}
-#fh-booking-main .fh-price-sub{margin:6px 0 0;font-size:13px;color:var(--muted)}
+#fh-booking-main .fh-price-main{font-family:var(--serif);font-size:clamp(32px,3.8vw,44px);line-height:1;letter-spacing:-.045em;color:var(--ink)}
+#fh-booking-main .fh-price-sub{margin:7px 0 0;font-size:13px;line-height:1.45;color:var(--muted)}
 #fh-booking-main .fh-line-items{display:none;margin-top:14px;border-top:1px solid rgba(26,23,20,.10)}
 #fh-booking-main .fh-line-items.is-visible{display:block}
-#fh-booking-main .fh-line-item{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid rgba(26,23,20,.07);font-size:13px;color:var(--muted)}
+#fh-booking-main .fh-line-item{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid rgba(26,23,20,.07);font-size:13px;color:var(--muted)}
 #fh-booking-main .fh-line-item strong{color:var(--ink);font-weight:700}
 #fh-booking-main .fh-confirm-note{margin-top:14px;padding:12px 0 0;border-top:1px solid rgba(26,23,20,.09);font-size:12px;line-height:1.5;color:rgba(26,23,20,.54)}
-#fh-booking-main .fh-confirm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+#fh-booking-main .fh-confirm-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
 
 #fh-booking-main .fh-section{padding:88px 20px;position:relative}
 #fh-booking-main .fh-section.alt{background:linear-gradient(180deg,var(--section),rgba(255,255,255,.22))}
@@ -663,6 +669,18 @@
   #fh-booking-main .fh-photo-strip{grid-template-columns:repeat(2,1fr)}
 }
 
+
+@media(max-width:980px){
+  #fh-booking-main .fh-confirm-modal{padding:18px}
+  #fh-booking-main .fh-confirm-card{
+    width:min(720px,calc(100vw - 28px));
+    max-height:calc(100svh - 36px);
+    grid-template-columns:1fr;
+  }
+  #fh-booking-main .fh-confirm-photo{min-height:220px}
+  #fh-booking-main .fh-confirm-body{max-height:calc(100svh - 256px);padding:24px}
+}
+
 @media(max-width:760px){
   #fh-booking-main .fh-langbar{top:68px;width:auto;justify-content:center;gap:4px;padding:5px}
   #fh-booking-main .fh-langbar button{min-width:34px;min-height:29px;padding:6px 8px;font-size:9px}
@@ -686,8 +704,14 @@
   #fh-booking-main .fh-calendar-grid{gap:4px}
   #fh-booking-main .fh-day{min-height:62px;padding:6px}
   #fh-booking-main .fh-day-price{display:none}
-  #fh-booking-main .fh-confirm-card{grid-template-columns:1fr}
-  #fh-booking-main .fh-confirm-photo{min-height:190px}
+  #fh-booking-main .fh-confirm-modal{padding:10px}
+  #fh-booking-main .fh-confirm-card{width:calc(100vw - 20px);max-height:calc(100svh - 20px);grid-template-columns:1fr}
+  #fh-booking-main .fh-confirm-photo{min-height:145px}
+  #fh-booking-main .fh-confirm-body{padding:18px;max-height:calc(100svh - 165px)}
+  #fh-booking-main .fh-confirm-title{font-size:28px}
+  #fh-booking-main .fh-confirm-lead{font-size:14px;margin-bottom:12px}
+  #fh-booking-main .fh-price-box{padding:14px}
+  #fh-booking-main .fh-confirm-main{padding:12px}
   #fh-booking-main .fh-section{padding:68px 16px}
   #fh-booking-main .fh-photo-strip{grid-template-columns:1fr}
   #fh-booking-main .fh-success-hero{min-height:240px}
