@@ -1,13 +1,6 @@
 <!-- ==========================================================
 Fletschhorn — Global Footer Only
 Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
-
-Design direction:
-- Matches current Fletschhorn mineral / alpine / editorial DNA
-- Clean ivory / stone / graphite palette
-- No green gradient, no bulky hotel-footer feeling
-- Mobile footer stays short
-- Booking path fixed to booking.html
 ========================================================== -->
 
 <script>
@@ -31,9 +24,32 @@ Design direction:
     { label: "About", href: "About-us.html" }
   ];
 
+  const FH_SOCIAL_LINKS = [
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/fletschhornsaasfee/"
+    },
+    {
+      label: "Facebook",
+      href: "https://www.facebook.com/waldhotelfletschhornsaasfee"
+    },
+    {
+      label: "Tripadvisor",
+      href: "https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html"
+    },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/company/waldhotel-fletschhorn-saas-fee/"
+    }
+  ];
+
   function makeFooter(){
     const links = FH_FOOTER_PAGES.map(page => `
       <a href="${page.href}">${page.label}</a>
+    `).join("");
+
+    const socialLinks = FH_SOCIAL_LINKS.map(item => `
+      <a href="${item.href}" target="_blank" rel="noopener noreferrer">${item.label}</a>
     `).join("");
 
     return `
@@ -74,6 +90,13 @@ Design direction:
                 Exclusive access to the property, 14 rooms reserved for your group,
                 daily shuttles, refreshments, kitchen access and optional catering on request.
               </p>
+
+              <div class="fh-footer-social-block">
+                <h3>Follow</h3>
+                <nav class="fh-footer-social-links" aria-label="Social links">
+                  ${socialLinks}
+                </nav>
+              </div>
             </div>
 
             <div class="fh-footer-contact-block">
@@ -241,7 +264,8 @@ Design direction:
 
 .fh-footer-nav-block h3,
 .fh-footer-info-block h3,
-.fh-footer-contact-block h3{
+.fh-footer-contact-block h3,
+.fh-footer-social-block h3{
   margin:2px 0 18px;
   font-size:10px;
   line-height:1;
@@ -253,6 +277,39 @@ Design direction:
 .fh-footer-links{
   display:grid;
   gap:10px;
+}
+
+.fh-footer-social-block{
+  margin-top:26px;
+}
+
+.fh-footer-social-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.fh-footer-social-links a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:32px;
+  padding:8px 11px;
+  border-radius:999px;
+  border:1px solid rgba(20,21,24,.10);
+  background:rgba(255,255,255,.42);
+  color:rgba(20,21,24,.68);
+  text-decoration:none;
+  font-size:12.5px;
+  line-height:1;
+  transition:background .25s ease, color .25s ease, transform .25s ease, border-color .25s ease;
+}
+
+.fh-footer-social-links a:hover{
+  background:rgba(255,255,255,.76);
+  color:#171819;
+  border-color:rgba(20,21,24,.18);
+  transform:translateY(-1px);
 }
 
 .fh-footer-links a,
@@ -400,6 +457,26 @@ Design direction:
 
   .fh-footer-contact-line a{
     font-size:13px !important;
+  }
+
+  .fh-footer-social-block{
+    display:block;
+    margin-top:14px;
+  }
+
+  .fh-footer-social-block h3{
+    display:none;
+  }
+
+  .fh-footer-social-links{
+    gap:7px;
+  }
+
+  .fh-footer-social-links a{
+    min-height:28px;
+    padding:7px 9px;
+    font-size:11.5px;
+    background:rgba(255,255,255,.38);
   }
 
   .fh-footer-cta{
