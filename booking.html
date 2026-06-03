@@ -702,7 +702,7 @@
 }
 </style>
 
-<div id="fh-booking-main" data-page="booking-to-checkout" data-lang="en">
+<div id="fh-booking-main" data-page="booking" data-lang="en">
   <div class="fh-bg" aria-hidden="true"></div>
   <div class="fh-grain" aria-hidden="true"></div>
 
@@ -856,36 +856,6 @@
       </section>
     </main>
 
-    <section class="fh-success" id="fhSuccessPage">
-      <div class="fh-success-hero" id="fhSuccessHero"></div>
-
-      <div class="fh-success-inner">
-        <p class="fh-kicker" data-i18n="successKicker">Booking request received</p>
-        <h2 data-i18n="successTitle">Thank you. We have received your booking request.</h2>
-        <p class="fh-success-note" data-i18n="successLead">Your stay request has been sent successfully. Our team will review the details and send confirmation, payment information, and next steps by email.</p>
-
-        <div class="fh-success-summary">
-          <div>
-            <span data-i18n="successGuestLabel">Guest</span>
-            <strong id="fhSuccessGuest">—</strong>
-          </div>
-          <div>
-            <span data-i18n="successDatesLabel">Dates</span>
-            <strong id="fhSuccessDates">—</strong>
-          </div>
-          <div>
-            <span data-i18n="successEmailLabel">Email</span>
-            <strong id="fhSuccessEmail">—</strong>
-          </div>
-          <div>
-            <span data-i18n="successPaymentLabel">Payment details</span>
-            <strong data-i18n="successPaymentText">Sent by email</strong>
-          </div>
-        </div>
-
-        <p class="fh-success-small" data-i18n="successSmall">Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.</p>
-      </div>
-    </section>
   </div>
 
   <div class="fh-calendar-modal" id="fhCalendarModal" aria-hidden="true">
@@ -1073,8 +1043,8 @@
       messagePh:"Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates.",
       termsMiniTitle:"Stay terms:",
       termsMiniText:"60-day cancellation policy · Check-in 4:00 PM–9:00 PM · Check-out 11:00 AM · Standard cleaning after stay included in cleaning fee; daily cleaning on request.",
-      directNote:"Booking directly with us helps secure the best available rate. You will review the quote and send the final request on the next page.",
-      bookNow:"Continue to checkout",
+      directNote:"Booking directly with us helps secure the best available rate and a more personal stay arrangement.",
+      bookNow:"Book now",
       propertyKicker:"The stay",
       propertyTitle:"A private alpine house for your group.",
       propertyLead:"Private access to the property, peaceful alpine surroundings, generous shared spaces, and room for families, retreats, and celebrations.",
@@ -1138,7 +1108,7 @@
     dates:"Dates",
     openCalendar:"Ouvrir le calendrier",
     guests:"Invités",
-    bookNow:"Continuer vers le checkout",
+    bookNow:"Réserver",
     calendarMinWarning:"Veuillez sélectionner au moins 2 nuits.",
     alreadyBooked:"Déjà réservé",
     confirmTitle:"Confirmez votre demande de réservation.",
@@ -1158,7 +1128,7 @@
     dates:"Daten",
     openCalendar:"Kalender öffnen",
     guests:"Gäste",
-    bookNow:"Weiter zum Checkout",
+    bookNow:"Jetzt buchen",
     calendarMinWarning:"Bitte mindestens 2 Nächte auswählen.",
     alreadyBooked:"Bereits gebucht",
     confirmTitle:"Buchungsanfrage bestätigen.",
@@ -1177,7 +1147,7 @@
     dates:"Даты",
     openCalendar:"Открыть календарь",
     guests:"Гости",
-    bookNow:"Перейти к оформлению",
+    bookNow:"Забронировать",
     calendarMinWarning:"Выберите минимум 2 ночи.",
     alreadyBooked:"Уже забронировано",
     confirmTitle:"Подтвердите запрос.",
@@ -1980,28 +1950,42 @@
     const reservationId = summary.reservationId || data.reservationId || reservation._id || reservation.id || "";
     const confirmationCode = summary.confirmationCode || data.confirmationCode || reservation.confirmationCode || "";
     const nights = nightsBetween();
+    const completed = buildPayload({
+      source:"booking-page-completed",
+      nights:nights,
+      reservationId:reservationId,
+      confirmationCode:confirmationCode,
+      quoteId:lastQuoteId,
+      ratePlanId:lastRatePlanId,
+      currency:lastCurrency,
+      quote:lastQuote,
+      bookingResponse:data,
+      completedAt:new Date().toISOString()
+    });
 
-    qs("#fhMainContent").style.display = "none";
+    try{
+      localStorage.setItem("fhBookingStart", JSON.stringify(completed));
+      localStorage.setItem("fhBookingComplete", JSON.stringify(completed));
+    }catch(e){}
+
     closeConfirm();
 
-    const hero = qs("#fhSuccessHero");
-    if(hero && FALLBACK_IMAGES[1]) hero.style.backgroundImage = `url("${FALLBACK_IMAGES[1]}")`;
+    const params = new URLSearchParams({
+      firstName:completed.firstName || "",
+      lastName:completed.lastName || "",
+      email:completed.email || "",
+      phone:completed.phone || "",
+      checkIn:completed.checkIn || "",
+      checkOut:completed.checkOut || "",
+      guests:String(completed.guests || ""),
+      lang:completed.language || currentLang,
+      source:"booking-page"
+    });
 
-    qs("#fhSuccessGuest").textContent = `${fields.firstName.value} ${fields.lastName.value}`;
-    qs("#fhSuccessDates").textContent = `${fields.checkIn.value} → ${fields.checkOut.value} · ${nights} ${nights === 1 ? t("night") : t("nights")}`;
-    qs("#fhSuccessEmail").textContent = fields.email.value;
+    if(reservationId) params.set("reservationId", reservationId);
+    if(confirmationCode) params.set("confirmationCode", confirmationCode);
 
-    const paymentText = confirmationCode
-      ? `Sent by email · Confirmation ${confirmationCode}`
-      : reservationId
-        ? `Sent by email · Request ${reservationId}`
-        : "Sent by email";
-
-    const paymentEl = root.querySelector("[data-i18n='successPaymentText']");
-    if(paymentEl) paymentEl.textContent = paymentText;
-
-    qs("#fhSuccessPage").classList.add("is-visible");
-    qs("#fhSuccessPage").scrollIntoView({behavior:"smooth",block:"start"});
+    window.location.href = "checkout.html?" + params.toString();
   }
 
   async function confirmSend(){
@@ -2052,56 +2036,6 @@
       button.disabled = false;
       button.textContent = t("confirmSend");
     }
-  }
-
-  function checkoutUrl(payload){
-    const url = new URL("checkout.html", window.location.href);
-
-    const map = {
-      firstName:payload.firstName,
-      lastName:payload.lastName,
-      email:payload.email,
-      phone:payload.phone,
-      checkIn:payload.checkIn,
-      checkOut:payload.checkOut,
-      guests:payload.guests,
-      stayType:payload.stayType,
-      lang:payload.language || currentLang,
-      source:"booking-page"
-    };
-
-    Object.keys(map).forEach(function(key){
-      if(map[key] !== undefined && map[key] !== null && map[key] !== ""){
-        url.searchParams.set(key, map[key]);
-      }
-    });
-
-    return url.toString();
-  }
-
-  function goToCheckout(){
-    if(!validateCore()) return;
-
-    const payload = buildPayload({
-      source:"booking-page",
-      nextStep:"checkout",
-      arrival:fields.checkIn.value,
-      departure:fields.checkOut.value,
-      guestCount:Number(fields.guests.value || 0)
-    });
-
-    try{
-      localStorage.setItem("fhBookingStart", JSON.stringify(payload));
-    }catch(e){}
-
-    const button = qs("#fhSubmitBooking");
-    if(button){
-      button.disabled = true;
-      button.textContent = "Opening checkout...";
-    }
-
-    showStatus("Opening checkout...", "good");
-    window.location.href = checkoutUrl(payload);
   }
 
   function parseParams(){
@@ -2180,7 +2114,7 @@
 
   form.addEventListener("submit", function(event){
     event.preventDefault();
-    goToCheckout();
+    openConfirm();
   });
 
   document.addEventListener("click", function(event){
