@@ -1600,6 +1600,347 @@
       }
     }
 
+
+    /* =========================================================
+       MOBILE-FIRST STRATEGY PATCH
+       Applied from the mobile-first strategy file:
+       - essential booking flow first
+       - larger touch targets
+       - no horizontal overflow
+       - faster/lighter mobile rendering
+       - progressive enhancement for tablet/desktop
+       ========================================================= */
+
+    #fh-home{
+      --tap:44px;
+    }
+
+    #fh-home .fh-booking,
+    #fh-home .fh-booking-form,
+    #fh-home .fh-field,
+    #fh-home .fh-submit,
+    #fh-home .fh-calendar-card,
+    #fh-home .fh-social-card,
+    #fh-home .fh-map-card,
+    #fh-home .fh-carousel,
+    #fh-home .fh-photo-stage{
+      max-width:100%;
+    }
+
+    #fh-home button,
+    #fh-home a,
+    #fh-home input{
+      touch-action:manipulation;
+    }
+
+    #fh-home .fh-lang-switch button,
+    #fh-home .fh-date-button,
+    #fh-home .fh-submit,
+    #fh-home .fh-calendar-nav button,
+    #fh-home .fh-carousel-nav button,
+    #fh-home .fh-map-note,
+    #fh-home .fh-social-link,
+    #fh-home .fh-small-cta{
+      min-height:var(--tap);
+    }
+
+    #fh-home input{
+      font-size:16px;
+    }
+
+    #fh-home .fh-section{
+      content-visibility:auto;
+      contain-intrinsic-size:760px;
+    }
+
+    #fh-home .fh-hero{
+      content-visibility:visible;
+    }
+
+    #fh-home .fh-calendar-modal{
+      overscroll-behavior:contain;
+    }
+
+    #fh-home .fh-calendar-card{
+      -webkit-overflow-scrolling:touch;
+    }
+
+    @media(max-width:900px){
+      #fh-home .fh-section-head{
+        align-items:start;
+      }
+
+      #fh-home .fh-section-head p{
+        max-width:720px;
+      }
+
+      #fh-home .fh-social-grid{
+        grid-template-columns:1fr;
+      }
+
+      #fh-home .fh-social-grid aside{
+        order:-1;
+      }
+    }
+
+    @media(max-width:640px){
+      #fh-home{
+        --edge:16px;
+        background:
+          radial-gradient(circle at 18% 6%,rgba(255,255,255,.78),transparent 21%),
+          linear-gradient(180deg,#efe5d9 0%,#fffaf2 31%,#f4ebdf 68%,#fbf6ee 100%);
+      }
+
+      #fh-home .fh-ambient:after{
+        opacity:.045;
+        animation:none;
+      }
+
+      #fh-home .fh-lang-switch{
+        top:74px;
+        left:12px;
+        right:12px;
+        width:auto;
+        transform:none;
+        border-color:rgba(28,24,20,.10);
+      }
+
+      #fh-home .fh-hero{
+        min-height:auto;
+        align-items:stretch;
+      }
+
+      #fh-home .fh-hero-inner{
+        min-height:100svh;
+        justify-content:center;
+        padding-top:126px;
+        padding-bottom:28px;
+      }
+
+      #fh-home .fh-kicker{
+        margin-bottom:10px;
+        font-size:10px;
+        letter-spacing:.18em;
+      }
+
+      #fh-home h1{
+        max-width:11ch;
+      }
+
+      #fh-home .fh-hero-lead{
+        max-width:34em;
+      }
+
+      #fh-home .fh-booking{
+        width:100%;
+        margin-top:16px;
+        background:rgba(255,250,242,.20);
+      }
+
+      #fh-home .fh-booking-form{
+        display:grid;
+        grid-template-columns:1fr;
+      }
+
+      #fh-home .fh-field{
+        min-height:62px;
+      }
+
+      #fh-home .fh-field label{
+        margin-bottom:5px;
+      }
+
+      #fh-home .fh-date-button{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:5px;
+      }
+
+      #fh-home .fh-date-button span{
+        white-space:normal;
+        line-height:1.25;
+      }
+
+      #fh-home .fh-submit{
+        position:sticky;
+        bottom:0;
+        z-index:10;
+        min-height:56px;
+        box-shadow:0 -12px 34px rgba(20,16,12,.18);
+      }
+
+      #fh-home .fh-booking-note{
+        margin-top:10px;
+        font-size:12px;
+      }
+
+      #fh-home .fh-status{
+        font-size:13px;
+        text-align:left;
+      }
+
+      #fh-home .fh-calendar-modal{
+        align-items:flex-end;
+        padding:0;
+      }
+
+      #fh-home .fh-calendar-card{
+        width:100%;
+        max-height:86svh;
+        border-left:0;
+        border-right:0;
+        border-bottom:0;
+        padding:14px 12px calc(14px + env(safe-area-inset-bottom));
+      }
+
+      #fh-home .fh-calendar-head{
+        position:sticky;
+        top:0;
+        z-index:3;
+        background:var(--paper);
+        padding-bottom:10px;
+      }
+
+      #fh-home .fh-calendar-nav button{
+        width:40px;
+        min-width:40px;
+      }
+
+      #fh-home .fh-weekday{
+        font-size:9px;
+      }
+
+      #fh-home .fh-day{
+        min-height:58px;
+      }
+
+      #fh-home .fh-day-number{
+        font-size:12px;
+      }
+
+      #fh-home .fh-section{
+        padding-top:54px;
+        padding-bottom:54px;
+      }
+
+      #fh-home .fh-text-center{
+        text-align:left;
+      }
+
+      #fh-home .fh-overview-grid,
+      #fh-home .fh-room-grid,
+      #fh-home .fh-kitchen-grid,
+      #fh-home .fh-contact-grid{
+        gap:16px;
+      }
+
+      #fh-home .fh-card{
+        box-shadow:0 10px 26px rgba(27,23,18,.07);
+      }
+
+      #fh-home .fh-card .copy{
+        padding:18px;
+      }
+
+      #fh-home .fh-card img,
+      #fh-home .fh-season,
+      #fh-home .fh-photo-stage,
+      #fh-home .fh-carousel,
+      #fh-home .fh-map-card{
+        min-height:auto;
+      }
+
+      #fh-home .fh-card img{
+        height:210px;
+      }
+
+      #fh-home .fh-season{
+        height:390px;
+      }
+
+      #fh-home .fh-photo-stage{
+        height:430px;
+      }
+
+      #fh-home .fh-carousel{
+        height:410px;
+      }
+
+      #fh-home .fh-map-card{
+        height:430px;
+      }
+
+      #fh-home .fh-panel{
+        padding:24px 18px;
+      }
+
+      #fh-home .fh-panel:after{
+        inset:9px;
+      }
+
+      #fh-home .fh-kitchen-item{
+        padding:15px;
+      }
+
+      #fh-home .fh-map-side{
+        gap:10px;
+      }
+
+      #fh-home .fh-map-note{
+        padding:16px;
+      }
+
+      #fh-home .fh-map-note strong{
+        font-size:25px;
+      }
+
+      #fh-home .fh-social-card{
+        overflow:hidden;
+      }
+
+      #fh-home .fh-instagram-shell{
+        width:100%;
+        overflow:hidden;
+      }
+
+      #fh-home .fh-instagram-shell blockquote{
+        transform-origin:top center;
+      }
+
+      #fh-home .fh-contact-line{
+        padding:14px 0;
+      }
+    }
+
+    @media(max-width:390px){
+      #fh-home .fh-lang-switch button{
+        font-size:9px;
+        letter-spacing:.06em;
+      }
+
+      #fh-home h1{
+        font-size:32px;
+      }
+
+      #fh-home .fh-hero-lead{
+        font-size:13px;
+      }
+
+      #fh-home .fh-field{
+        padding:11px 12px;
+      }
+
+      #fh-home .fh-calendar-title{
+        font-size:24px;
+      }
+
+      #fh-home .fh-day{
+        min-height:52px;
+        padding:4px;
+      }
+    }
+
+
     @media(prefers-reduced-motion:reduce){
       #fh-home *,
       #fh-home *:before,
@@ -3313,6 +3654,11 @@
 
         let i = index || 0;
         const all = urls.concat(FALLBACK);
+
+        if (el.tagName && el.tagName.toLowerCase() === "img"){
+          el.loading = "lazy";
+          el.decoding = "async";
+        }
 
         el.src = all[i % all.length];
 
