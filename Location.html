@@ -170,87 +170,172 @@
 }
 @media(prefers-reduced-motion:reduce){#fh-location-clean *,#fh-location-clean *:before,#fh-location-clean *:after{animation:none!important;transition:none!important}}
 
-/* Standard Fletschhorn booking toolbar — square, integrated with original Location design */
-#fh-location-clean .fh-standard-booking-shell{
-  width:min(1080px,100%);
-  margin:24px 0 0;
+/* Index booking toolbar behavior — copied/adapted from homepage, scoped to this page */
+#fh-location-clean .fh-index-booking{
+  margin:clamp(14px,2.2vw,24px) 0 0;
+  width:min(1100px,100%);
   padding:9px;
-  border:1px solid rgba(255,250,242,.24);
-  background:rgba(255,250,242,.12);
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
+  background:rgba(255,250,242,.16);
+  border:1px solid rgba(255,250,242,.25);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  text-align:left;
   box-shadow:var(--shadow);
 }
-#fh-location-clean .fh-standard-booking-bar{
+#fh-location-clean .fh-index-booking-form{
   display:grid;
-  grid-template-columns:1fr 1fr 1.35fr 1fr 1fr 175px;
-  background:rgba(255,250,242,.95);
-  color:var(--ink);
+  grid-template-columns:.88fr .88fr 1.15fr 1.72fr 185px;
+  background:var(--paper);
 }
-#fh-location-clean .fh-standard-booking-field{
+#fh-location-clean .fh-index-field{
   min-width:0;
-  padding:14px 15px;
+  padding:15px 16px;
   border-right:1px solid var(--line);
-  background:rgba(255,250,242,.90);
-  text-align:left;
+  background:rgba(255,250,242,.96);
 }
-#fh-location-clean .fh-standard-booking-field label{
+#fh-location-clean .fh-index-field label{
   display:block;
-  margin:0 0 5px;
+  margin-bottom:7px;
   font-size:10px;
   text-transform:uppercase;
-  letter-spacing:.17em;
+  letter-spacing:.16em;
   font-weight:850;
-  color:rgba(25,22,18,.50);
+  color:rgba(28,24,20,.52);
 }
-#fh-location-clean .fh-standard-booking-field input{
+#fh-location-clean .fh-index-field input{
   width:100%;
+  min-width:0;
   border:0;
+  outline:0;
   background:transparent;
-  outline:none;
   color:var(--ink);
   font-size:15px;
   padding:0;
-  margin:0;
   min-height:22px;
 }
-#fh-location-clean .fh-standard-booking-field input::placeholder{color:rgba(25,22,18,.44)}
-#fh-location-clean .fh-standard-booking-btn{
+#fh-location-clean .fh-date-button{
+  width:100%;
   border:0;
-  margin:0;
-  background:var(--green-dark);
-  color:#fff;
+  outline:0;
+  background:transparent;
+  color:var(--ink);
+  text-align:left;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  min-height:22px;
+}
+#fh-location-clean .fh-date-button span{
+  color:var(--ink);
+  font-size:15px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+#fh-location-clean .fh-date-button strong{
+  color:var(--green-dark);
+  font-size:10px;
   text-transform:uppercase;
-  letter-spacing:.14em;
+  letter-spacing:.13em;
+  font-weight:850;
+  white-space:nowrap;
+}
+#fh-location-clean .fh-index-submit{
+  border:0;
+  min-height:58px;
+  background:var(--green-dark);
+  color:var(--white);
+  text-transform:uppercase;
+  letter-spacing:.13em;
   font-size:11px;
   font-weight:850;
-  min-height:58px;
+  transition:background .18s,opacity .18s;
 }
-#fh-location-clean .fh-standard-booking-note{
-  margin-top:11px;
+#fh-location-clean .fh-index-submit:hover{background:var(--green)}
+#fh-location-clean .fh-index-submit:disabled{opacity:.68;cursor:wait}
+#fh-location-clean .fh-index-booking-note{
+  margin-top:12px;
   color:rgba(255,250,242,.78);
   font-size:13px;
+  line-height:1.45;
+  text-align:center;
 }
-#fh-location-clean .fh-standard-booking-status{
+#fh-location-clean .fh-index-status{
   display:none;
-  margin-top:11px;
+  margin-top:12px;
   padding:12px 14px;
   border:1px solid rgba(255,250,242,.22);
-  background:rgba(255,250,242,.12);
+  background:rgba(255,250,242,.14);
   color:#fffaf2;
-  font-size:13px;
+  font-size:14px;
+  line-height:1.45;
+  text-align:center;
 }
-#fh-location-clean .fh-standard-booking-status.is-visible{display:block}
+#fh-location-clean .fh-index-status.show{display:block}
+#fh-location-clean .fh-index-status.error{background:rgba(180,40,40,.18);border-color:rgba(255,100,100,.28)}
+#fh-location-clean .fh-index-status.success{background:rgba(45,112,74,.22);border-color:rgba(155,225,180,.28)}
+#fh-location-clean .fh-calendar-modal{
+  position:fixed;
+  inset:0;
+  z-index:180;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(28,24,20,.48);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+}
+#fh-location-clean .fh-calendar-modal.open{display:flex}
+#fh-location-clean .fh-calendar-card{
+  width:min(760px,100%);
+  max-height:calc(100svh - 36px);
+  overflow:auto;
+  background:var(--paper);
+  border:1px solid rgba(255,250,242,.72);
+  box-shadow:0 30px 90px rgba(0,0,0,.24);
+  padding:20px;
+}
+#fh-location-clean .fh-calendar-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px}
+#fh-location-clean .fh-calendar-title{margin:0;font-family:var(--serif);font-size:34px;font-weight:400;line-height:.96;letter-spacing:-.05em;color:var(--ink)}
+#fh-location-clean .fh-calendar-nav{display:flex;gap:8px}
+#fh-location-clean .fh-calendar-nav button{width:42px;min-height:38px;border:1px solid rgba(28,24,20,.13);background:#fffaf2;color:var(--ink);font-weight:900}
+#fh-location-clean .fh-calendar-help{margin:0 0 12px;font-size:13px;color:var(--muted)}
+#fh-location-clean .fh-calendar-warning{display:none;margin:0 0 14px;padding:10px 12px;border:1px solid rgba(150,101,35,.25);background:rgba(150,101,35,.08);color:#966523;font-size:13px;font-weight:760}
+#fh-location-clean .fh-calendar-warning.show{display:block}
+#fh-location-clean .fh-weekdays,#fh-location-clean .fh-calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+#fh-location-clean .fh-weekday{text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:rgba(28,24,20,.45);padding-bottom:4px}
+#fh-location-clean .fh-day{min-height:78px;padding:7px;border:1px solid rgba(28,24,20,.10);background:rgba(255,250,242,.84);color:var(--ink);text-align:left;position:relative}
+#fh-location-clean .fh-day:hover{border-color:rgba(28,24,20,.28)}
+#fh-location-clean .fh-day.empty{visibility:hidden;pointer-events:none}
+#fh-location-clean .fh-day.past,#fh-location-clean .fh-day.unavailable{opacity:.42;cursor:not-allowed}
+#fh-location-clean .fh-day.unavailable{background:rgba(28,24,20,.07)}
+#fh-location-clean .fh-day.start,#fh-location-clean .fh-day.end{background:var(--green-dark);border-color:var(--green-dark);color:var(--white)}
+#fh-location-clean .fh-day.range{background:rgba(38,50,38,.10)}
+#fh-location-clean .fh-day-number{display:block;font-size:13px;font-weight:900}
+#fh-location-clean .fh-day-price{display:block;margin-top:16px;font-size:10px;font-weight:850;color:rgba(28,24,20,.62)}
+#fh-location-clean .fh-day-status{display:block;margin-top:3px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:rgba(28,24,20,.46)}
+#fh-location-clean .fh-day.start .fh-day-price,#fh-location-clean .fh-day.end .fh-day-price{color:rgba(255,250,242,.76)}
 @media(max-width:1120px){
-  #fh-location-clean .fh-standard-booking-bar{grid-template-columns:1fr 1fr}
-  #fh-location-clean .fh-standard-booking-field:nth-child(2n){border-right:0}
-  #fh-location-clean .fh-standard-booking-btn{grid-column:1/-1}
+  #fh-location-clean .fh-index-booking-form{grid-template-columns:repeat(6,minmax(0,1fr))}
+  #fh-location-clean .fh-index-field:nth-child(1),#fh-location-clean .fh-index-field:nth-child(2),#fh-location-clean .fh-index-field:nth-child(3){grid-column:span 2}
+  #fh-location-clean .fh-index-field:nth-child(4){grid-column:span 4}
+  #fh-location-clean .fh-index-submit{grid-column:span 2}
+  #fh-location-clean .fh-index-field{border-bottom:1px solid var(--line)}
 }
-@media(max-width:720px){
-  #fh-location-clean .fh-standard-booking-shell{padding:7px;margin-top:20px}
-  #fh-location-clean .fh-standard-booking-bar{grid-template-columns:1fr}
-  #fh-location-clean .fh-standard-booking-field{border-right:0;border-bottom:1px solid var(--line);padding:12px 13px}
-  #fh-location-clean .fh-standard-booking-btn{min-height:50px}
+@media(max-width:640px){
+  #fh-location-clean .fh-index-booking{padding:7px;margin-top:12px}
+  #fh-location-clean .fh-index-booking-form{grid-template-columns:1fr}
+  #fh-location-clean .fh-index-field,#fh-location-clean .fh-index-field:nth-child(1),#fh-location-clean .fh-index-field:nth-child(2),#fh-location-clean .fh-index-field:nth-child(3),#fh-location-clean .fh-index-field:nth-child(4),#fh-location-clean .fh-index-submit{grid-column:auto;border-right:0}
+  #fh-location-clean .fh-index-field{padding:12px 14px}
+  #fh-location-clean .fh-index-submit{min-height:52px}
+  #fh-location-clean .fh-calendar-card{padding:14px}
+  #fh-location-clean .fh-calendar-title{font-size:28px}
+  #fh-location-clean .fh-weekdays,#fh-location-clean .fh-calendar-grid{gap:4px}
+  #fh-location-clean .fh-day{min-height:62px;padding:6px}
+  #fh-location-clean .fh-day-price{display:none}
 }
 
 </style>
@@ -285,32 +370,41 @@
             <span data-i18n="factNature">Quiet mountain setting</span>
           </div>
 
-          <div class="fh-standard-booking-shell pre">
-            <form class="fh-standard-booking-bar" id="fh-standard-booking-form">
-              <div class="fh-standard-booking-field">
-                <label for="fh-book-first-name" data-booking-i18n="firstNameLabel">First name</label>
-                <input id="fh-book-first-name" name="firstName" autocomplete="given-name" placeholder="First name" data-booking-i18n-placeholder="firstNamePlaceholder">
+          <div class="fh-index-booking fh-reveal pre" id="booking">
+            <div class="fh-index-booking-form" id="fhBookingFields">
+              <div class="fh-index-field">
+                <label for="fhFirstName" data-booking-i18n="fieldFirstName">First name</label>
+                <input id="fhFirstName" name="firstName" type="text" data-booking-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name">
               </div>
-              <div class="fh-standard-booking-field">
-                <label for="fh-book-last-name" data-booking-i18n="lastNameLabel">Last name</label>
-                <input id="fh-book-last-name" name="lastName" autocomplete="family-name" placeholder="Last name" data-booking-i18n-placeholder="lastNamePlaceholder">
+
+              <div class="fh-index-field">
+                <label for="fhLastName" data-booking-i18n="fieldLastName">Last name</label>
+                <input id="fhLastName" name="lastName" type="text" data-booking-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name">
               </div>
-              <div class="fh-standard-booking-field">
-                <label for="fh-book-email" data-booking-i18n="emailLabel">Email</label>
-                <input id="fh-book-email" name="email" type="email" autocomplete="email" placeholder="Email address" data-booking-i18n-placeholder="emailPlaceholder">
+
+              <div class="fh-index-field">
+                <label for="fhEmail" data-booking-i18n="fieldEmail">Email</label>
+                <input id="fhEmail" name="email" type="email" data-booking-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email">
               </div>
-              <div class="fh-standard-booking-field">
-                <label for="fh-book-checkin" data-booking-i18n="arrivalLabel">Arrival</label>
-                <input id="fh-book-checkin" name="checkIn" type="date">
+
+              <div class="fh-index-field fh-date-field">
+                <label data-booking-i18n="fieldDates">Dates</label>
+                <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar">
+                  <span id="fhToolbarDateText" data-booking-i18n="fieldDatesPh">Select arrival and departure</span>
+                  <strong data-booking-i18n="openCalendar">Open calendar</strong>
+                </button>
+                <input id="fhArrival" name="arrivalDate" type="hidden">
+                <input id="fhDeparture" name="departureDate" type="hidden">
               </div>
-              <div class="fh-standard-booking-field">
-                <label for="fh-book-checkout" data-booking-i18n="departureLabel">Departure</label>
-                <input id="fh-book-checkout" name="checkOut" type="date">
-              </div>
-              <button class="fh-standard-booking-btn" type="submit" data-booking-i18n="bookButton">Book my stay now</button>
-            </form>
-            <div class="fh-standard-booking-note" data-booking-i18n="bookingNote">Best Rates Guaranteed when Booking Direct</div>
-            <div class="fh-standard-booking-status" id="fh-standard-booking-status"></div>
+
+              <button class="fh-index-submit" type="button" id="fhBookNowBtn" data-booking-i18n="bookNow">Book my stay now</button>
+            </div>
+
+            <div class="fh-index-booking-note" data-booking-i18n="bookingNote">
+              Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.
+            </div>
+
+            <div class="fh-index-status" id="fhFormStatus" role="status" aria-live="polite"></div>
           </div>
 
         </div>
@@ -532,6 +626,33 @@
         </form>
       </div>
     </section>
+    <div class="fh-calendar-modal" id="fhToolbarCalendarModal" aria-hidden="true">
+      <div class="fh-calendar-card" role="dialog" aria-modal="true" aria-label="Select dates">
+        <div class="fh-calendar-head">
+          <div>
+            <p class="fh-kicker" data-booking-i18n="calendarKicker">Select dates</p>
+            <h3 class="fh-calendar-title" id="fhToolbarCalendarTitle">Calendar</h3>
+          </div>
+          <div class="fh-calendar-nav">
+            <button type="button" id="fhToolbarPrevMonth">‹</button>
+            <button type="button" id="fhToolbarNextMonth">›</button>
+            <button type="button" id="fhToolbarCloseCalendar">×</button>
+          </div>
+        </div>
+        <p class="fh-calendar-help" data-booking-i18n="calendarHelp">Choose your arrival date, then your departure date.</p>
+        <div class="fh-calendar-warning" id="fhToolbarCalendarWarning" data-booking-i18n="calendarMinWarning">Please select at least 2 nights.</div>
+        <div class="fh-weekdays">
+          <div class="fh-weekday">Sun</div>
+          <div class="fh-weekday">Mon</div>
+          <div class="fh-weekday">Tue</div>
+          <div class="fh-weekday">Wed</div>
+          <div class="fh-weekday">Thu</div>
+          <div class="fh-weekday">Fri</div>
+          <div class="fh-weekday">Sat</div>
+        </div>
+        <div class="fh-calendar-grid" id="fhToolbarCalendarGrid"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -659,17 +780,38 @@
 
 <script>
 (function(){
-  if(window.__fhStandardChromeLocationReady) return;
-  window.__fhStandardChromeLocationReady = true;
+  if(window.__fhIndexToolbarPropertyReady) return;
+  window.__fhIndexToolbarPropertyReady = true;
 
   document.body.classList.add("fh-github-version");
 
   const ASSET_BASE = new URL("assets/", document.baseURI).href;
+  const root = document.getElementById("fh-location-clean");
+  if(!root) return;
+
   const CFG = {
     bookingPageUrl:"booking.html",
     listingId:"6968339ab7d735001ca015ba",
-    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev"
+    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev",
+    minNights:2,
+    currency:"CHF"
   };
+
+  const ENDPOINTS = { calendarMonthPrices:"/guesty/calendar-month-prices" };
+
+  const bookingCopy={
+    en:{fieldFirstName:"First name",fieldFirstNamePh:"First name",fieldLastName:"Last name",fieldLastNamePh:"Last name",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Dates",fieldDatesPh:"Select arrival and departure",openCalendar:"Open calendar",calendarKicker:"Select dates",calendarHelp:"Choose your arrival date, then your departure date.",calendarMinWarning:"Please select at least 2 nights.",selectDeparture:"Select departure",alreadyBooked:"Booked",calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",minNights:"Please select at least 2 nights.",bookNow:"Book my stay now",bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",missingFirstName:"Please enter your first name.",missingLastName:"Please enter your last name.",missingEmail:"Please enter your email.",invalidEmail:"Please enter a valid email address.",missingDates:"Please choose arrival and departure dates.",badDates:"Departure must be after arrival.",redirecting:"Opening booking…"},
+    fr:{fieldFirstName:"Prénom",fieldFirstNamePh:"Prénom",fieldLastName:"Nom",fieldLastNamePh:"Nom",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Dates",fieldDatesPh:"Sélectionnez l’arrivée et le départ",openCalendar:"Ouvrir le calendrier",calendarKicker:"Sélectionner les dates",calendarHelp:"Choisissez votre arrivée, puis votre départ.",calendarMinWarning:"Veuillez sélectionner au moins 2 nuits.",selectDeparture:"Choisir le départ",alreadyBooked:"Réservé",calendarRangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles.",minNights:"Veuillez sélectionner au moins 2 nuits.",bookNow:"Réserver mon séjour",bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",missingFirstName:"Veuillez entrer votre prénom.",missingLastName:"Veuillez entrer votre nom.",missingEmail:"Veuillez entrer votre email.",invalidEmail:"Veuillez entrer un email valide.",missingDates:"Veuillez choisir les dates d’arrivée et de départ.",badDates:"La date de départ doit être après l’arrivée.",redirecting:"Ouverture de la réservation…"},
+    de:{fieldFirstName:"Vorname",fieldFirstNamePh:"Vorname",fieldLastName:"Nachname",fieldLastNamePh:"Nachname",fieldEmail:"E-Mail",fieldEmailPh:"email@example.com",fieldDates:"Daten",fieldDatesPh:"Anreise und Abreise auswählen",openCalendar:"Kalender öffnen",calendarKicker:"Daten auswählen",calendarHelp:"Wählen Sie zuerst die Anreise, dann die Abreise.",calendarMinWarning:"Bitte mindestens 2 Nächte auswählen.",selectDeparture:"Abreise auswählen",alreadyBooked:"Gebucht",calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.",minNights:"Bitte mindestens 2 Nächte auswählen.",bookNow:"Aufenthalt buchen",bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",missingEmail:"Bitte geben Sie Ihre E-Mail ein.",invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",missingDates:"Bitte wählen Sie Anreise- und Abreisedatum.",badDates:"Die Abreise muss nach der Anreise liegen.",redirecting:"Buchung wird geöffnet…"},
+    ru:{fieldFirstName:"Имя",fieldFirstNamePh:"Имя",fieldLastName:"Фамилия",fieldLastNamePh:"Фамилия",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Даты",fieldDatesPh:"Выберите заезд и выезд",openCalendar:"Открыть календарь",calendarKicker:"Выберите даты",calendarHelp:"Сначала выберите дату заезда, затем дату выезда.",calendarMinWarning:"Выберите минимум 2 ночи.",selectDeparture:"Выбрать выезд",alreadyBooked:"Занято",calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны.",minNights:"Выберите минимум 2 ночи.",bookNow:"Забронировать",bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",missingFirstName:"Введите имя.",missingLastName:"Введите фамилию.",missingEmail:"Введите email.",invalidEmail:"Введите корректный email.",missingDates:"Выберите даты заезда и выезда.",badDates:"Дата выезда должна быть после даты заезда.",redirecting:"Открываем бронирование…"}
+  };
+
+  const state={lang:"en"};
+  const toolbarCalendar={currentMonth:new Date(),dayMap:{},loading:false};
+
+  function $(selector){ return root.querySelector(selector); }
+  function $$(selector){ return Array.from(root.querySelectorAll(selector)); }
+  function endpoint(path){ return CFG.workerBase.replace(/\/$/,"") + path; }
 
   async function loadHtml(slotId,fileName){
     const slot=document.getElementById(slotId);
@@ -680,24 +822,15 @@
       slot.innerHTML=await response.text();
       slot.querySelectorAll("script").forEach(function(oldScript){
         const newScript=document.createElement("script");
-        Array.from(oldScript.attributes).forEach(function(attr){newScript.setAttribute(attr.name,attr.value);});
+        Array.from(oldScript.attributes).forEach(function(attr){ newScript.setAttribute(attr.name,attr.value); });
         newScript.textContent=oldScript.textContent;
         oldScript.replaceWith(newScript);
       });
-    }catch(error){
-      console.error("Fletschhorn header/footer load error:",error);
-    }
+    }catch(error){ console.error("Fletschhorn header/footer load error:",error); }
   }
 
   loadHtml("fh-header-slot","Header.html");
   loadHtml("fh-footer-slot","footer.html");
-
-  const bookingCopy={
-    en:{firstNameLabel:"First name",lastNameLabel:"Last name",emailLabel:"Email",arrivalLabel:"Arrival",departureLabel:"Departure",firstNamePlaceholder:"First name",lastNamePlaceholder:"Last name",emailPlaceholder:"Email address",bookButton:"Book my stay now",bookingNote:"Best Rates Guaranteed when Booking Direct",missing:"Please complete your first name, last name, email, arrival date, and departure date.",email:"Please enter a valid email address.",date:"Please select at least 2 nights"},
-    fr:{firstNameLabel:"Prénom",lastNameLabel:"Nom",emailLabel:"Email",arrivalLabel:"Arrivée",departureLabel:"Départ",firstNamePlaceholder:"Prénom",lastNamePlaceholder:"Nom",emailPlaceholder:"Adresse email",bookButton:"Réserver mon séjour",bookingNote:"Meilleurs tarifs garantis en réservant en direct",missing:"Veuillez compléter le prénom, le nom, l’email, la date d’arrivée et la date de départ.",email:"Veuillez entrer une adresse email valide.",date:"Please select at least 2 nights"},
-    de:{firstNameLabel:"Vorname",lastNameLabel:"Nachname",emailLabel:"E-Mail",arrivalLabel:"Anreise",departureLabel:"Abreise",firstNamePlaceholder:"Vorname",lastNamePlaceholder:"Nachname",emailPlaceholder:"E-Mail-Adresse",bookButton:"Aufenthalt buchen",bookingNote:"Beste Preise garantiert bei Direktbuchung",missing:"Bitte Vorname, Nachname, E-Mail, Anreise und Abreise ausfüllen.",email:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",date:"Please select at least 2 nights"},
-    ru:{firstNameLabel:"Имя",lastNameLabel:"Фамилия",emailLabel:"Email",arrivalLabel:"Заезд",departureLabel:"Выезд",firstNamePlaceholder:"Имя",lastNamePlaceholder:"Фамилия",emailPlaceholder:"Email адрес",bookButton:"Забронировать",bookingNote:"Лучшие цены гарантированы при прямом бронировании",missing:"Заполните имя, фамилию, email, дату заезда и дату выезда.",email:"Введите корректный email.",date:"Please select at least 2 nights"}
-  };
 
   function normalizeLang(value){
     value=String(value||"en").toLowerCase();
@@ -708,162 +841,364 @@
   }
 
   function currentLang(){
-    return normalizeLang(localStorage.getItem("fh_lang")||localStorage.getItem("fh_language")||localStorage.getItem("fhLang")||document.documentElement.lang||"en");
+    let saved="";
+    try{ saved=localStorage.getItem("fh_lang")||localStorage.getItem("fh_language")||localStorage.getItem("fhLang")||""; }catch(error){}
+    return normalizeLang(new URLSearchParams(window.location.search).get("lang")||saved||document.documentElement.lang||"en");
   }
 
-  function setLanguage(lang){
-    const normalized=normalizeLang(lang);
-    localStorage.setItem("fh_lang",normalized);
-    localStorage.setItem("fh_language",normalized);
-    localStorage.setItem("fhLang",normalized);
-    document.documentElement.setAttribute("lang",normalized);
+  function t(key){ return (bookingCopy[state.lang] && bookingCopy[state.lang][key]) || bookingCopy.en[key] || ""; }
 
-    const dict=bookingCopy[normalized]||bookingCopy.en;
-    document.querySelectorAll("[data-booking-i18n]").forEach(function(el){
-      const key=el.getAttribute("data-booking-i18n");
-      if(dict[key]) el.textContent=dict[key];
+  function applyToolbarLanguage(lang){
+    state.lang=normalizeLang(lang);
+    document.documentElement.setAttribute("lang",state.lang);
+    try{
+      localStorage.setItem("fh_lang",state.lang);
+      localStorage.setItem("fh_language",state.lang);
+      localStorage.setItem("fhLang",state.lang);
+    }catch(error){}
+
+    $$('[data-booking-i18n]').forEach(function(el){
+      const key=el.getAttribute('data-booking-i18n');
+      if(t(key)) el.textContent=t(key);
     });
-    document.querySelectorAll("[data-booking-i18n-placeholder]").forEach(function(el){
-      const key=el.getAttribute("data-booking-i18n-placeholder");
-      if(dict[key]) el.setAttribute("placeholder",dict[key]);
+    $$('[data-booking-i18n-placeholder]').forEach(function(el){
+      const key=el.getAttribute('data-booking-i18n-placeholder');
+      if(t(key)) el.setAttribute('placeholder',t(key));
     });
 
-    if(window.FHSetLanguage) window.FHSetLanguage(normalized);
-    window.dispatchEvent(new CustomEvent("fh:language-change",{detail:{lang:normalized}}));
+    if(window.FHSetLanguage) window.FHSetLanguage(state.lang);
+    updateToolbarDateText();
+    renderToolbarCalendar();
   }
 
   document.addEventListener("click",function(event){
     const trigger=event.target.closest("[data-fh-lang], [data-lang], [data-language]");
     if(!trigger) return;
     const lang=trigger.dataset.fhLang||trigger.dataset.lang||trigger.dataset.language;
-    if(lang) setTimeout(function(){setLanguage(lang);},0);
+    if(lang) setTimeout(function(){ applyToolbarLanguage(lang); },0);
   });
 
+  function setStatus(message,type){
+    const box=$("#fhFormStatus");
+    if(!box) return;
+    box.classList.add("show");
+    box.classList.toggle("error",type==="error");
+    box.classList.toggle("success",type==="success");
+    box.textContent=message;
+  }
+
+  function clearStatus(){
+    const box=$("#fhFormStatus");
+    if(!box) return;
+    box.classList.remove("show","error","success");
+    box.textContent="";
+  }
+
+  function emailIsValid(email){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email||"").trim()); }
+
+  function toDateString(date){
+    const y=date.getFullYear();
+    const m=String(date.getMonth()+1).padStart(2,"0");
+    const d=String(date.getDate()).padStart(2,"0");
+    return y+"-"+m+"-"+d;
+  }
+
+  function monthRange(date){
+    const start=new Date(date.getFullYear(),date.getMonth(),1);
+    const end=new Date(date.getFullYear(),date.getMonth()+1,1);
+    return {from:toDateString(start),to:toDateString(end)};
+  }
+
+  function nightsBetweenToolbar(){
+    const checkIn=$("#fhArrival")?.value||"";
+    const checkOut=$("#fhDeparture")?.value||"";
+    if(!checkIn||!checkOut) return 0;
+    const start=new Date(checkIn+"T00:00:00");
+    const end=new Date(checkOut+"T00:00:00");
+    return Math.round((end-start)/86400000);
+  }
+
+  function formatToolbarMoney(amount,currency){
+    if(amount===null||amount===undefined||amount===""||isNaN(Number(amount))) return "";
+    try{
+      return new Intl.NumberFormat(state.lang==="en"?"en-US":state.lang,{style:"currency",currency:currency||CFG.currency,maximumFractionDigits:0}).format(Number(amount));
+    }catch(error){ return Math.round(Number(amount)).toLocaleString()+" "+(currency||CFG.currency); }
+  }
+
+  function updateToolbarDateText(){
+    const text=$("#fhToolbarDateText");
+    const arrival=$("#fhArrival")?.value||"";
+    const departure=$("#fhDeparture")?.value||"";
+    if(!text) return;
+    if(arrival&&departure) text.textContent=arrival+" → "+departure;
+    else if(arrival) text.textContent=arrival+" → "+(t("selectDeparture")||"Select departure");
+    else text.textContent=t("fieldDatesPh")||"Select arrival and departure";
+  }
+
+  function getBookingStartPayload(){
+    return {
+      listingId:CFG.listingId,
+      guestyListingId:CFG.listingId,
+      workerBase:CFG.workerBase,
+      firstName:$("#fhFirstName")?.value.trim()||"",
+      lastName:$("#fhLastName")?.value.trim()||"",
+      email:$("#fhEmail")?.value.trim()||"",
+      checkIn:$("#fhArrival")?.value||"",
+      checkOut:$("#fhDeparture")?.value||"",
+      language:state.lang,
+      lang:state.lang,
+      source:"property",
+      pageSource:"fletschhorn-property-index-toolbar",
+      pageUrl:window.location.href,
+      createdAt:new Date().toISOString()
+    };
+  }
+
+  function persistToolbarStart(showErrors){
+    try{ localStorage.setItem("fhBookingStart",JSON.stringify(getBookingStartPayload())); }
+    catch(error){ if(showErrors) console.warn("Could not save booking start data.",error); }
+  }
+
+  async function workerGetOrPost(path,payload){
+    try{
+      const url=new URL(endpoint(path));
+      Object.keys(payload||{}).forEach(function(key){ if(payload[key]!==undefined&&payload[key]!==null&&payload[key]!=="") url.searchParams.set(key,payload[key]); });
+      const response=await fetch(url.toString(),{method:"GET",headers:{"Accept":"application/json"}});
+      const text=await response.text();
+      let data; try{data=JSON.parse(text);}catch(error){data={rawText:text};}
+      if(response.ok && data && data.ok!==false && !data.error) return data;
+    }catch(error){}
+
+    const response=await fetch(endpoint(path),{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload||{})});
+    const text=await response.text();
+    let data; try{data=JSON.parse(text);}catch(error){data={rawText:text};}
+    if(!response.ok || data.ok===false || data.error) throw new Error(data.error||data.message||"Calendar request failed.");
+    return data;
+  }
+
+  function normalizeCalendarDay(item){
+    if(!item||typeof item!=="object") return null;
+    const date=item.date||item.day||item.dateString||item.startDate||item._id||"";
+    if(!/^\d{4}-\d{2}-\d{2}/.test(String(date))) return null;
+    const available=item.available===true||item.isAvailable===true||item.status==="available"||item.status==="AVAILABLE"||item.availability==="available";
+    const unavailable=item.available===false||item.isAvailable===false||item.status==="unavailable"||item.status==="booked"||item.status==="BLOCKED"||item.status==="UNAVAILABLE"||item.availability==="unavailable";
+    const price=item.price||item.nightlyPrice||item.basePrice||item.rate||item.amount||item.totalPrice||null;
+    return {date:String(date).slice(0,10),available:unavailable?false:available,unavailable:unavailable,price:price,currency:item.currency||CFG.currency};
+  }
+
+  function collectCalendarDays(data){
+    const found=[];
+    function walk(value){
+      if(!value||typeof value!=="object") return;
+      if(Array.isArray(value)){ value.forEach(walk); return; }
+      const day=normalizeCalendarDay(value);
+      if(day) found.push(day);
+      Object.keys(value).forEach(function(key){ walk(value[key]); });
+    }
+    walk(data);
+    return found;
+  }
+
+  async function loadToolbarCalendarMonth(){
+    const range=monthRange(toolbarCalendar.currentMonth);
+    toolbarCalendar.loading=true;
+    try{
+      const data=await workerGetOrPost(ENDPOINTS.calendarMonthPrices,{listingId:CFG.listingId,guestyListingId:CFG.listingId,from:range.from,to:range.to,startDate:range.from,endDate:range.to,language:state.lang,source:"property-toolbar-calendar"});
+      const days=collectCalendarDays(data);
+      toolbarCalendar.dayMap={};
+      days.forEach(function(day){ toolbarCalendar.dayMap[day.date]=day; });
+    }catch(error){ console.warn("Could not load calendar month prices.",error); toolbarCalendar.dayMap={}; }
+    finally{ toolbarCalendar.loading=false; renderToolbarCalendar(); }
+  }
+
+  function dateIsPast(iso){
+    const today=new Date(); today.setHours(0,0,0,0);
+    const d=new Date(iso+"T00:00:00");
+    return d<today;
+  }
+
+  function dateUnavailable(iso){
+    const day=toolbarCalendar.dayMap[iso];
+    if(!day) return false;
+    return day.unavailable===true || day.available===false;
+  }
+
+  function rangeHasUnavailable(startIso,endIso){
+    if(!startIso||!endIso) return false;
+    const start=new Date(startIso+"T00:00:00");
+    const end=new Date(endIso+"T00:00:00");
+    for(let d=new Date(start); d<end; d.setDate(d.getDate()+1)){
+      const iso=toDateString(d);
+      if(dateIsPast(iso)||dateUnavailable(iso)) return true;
+    }
+    return false;
+  }
+
+  function renderToolbarCalendar(){
+    const grid=$("#fhToolbarCalendarGrid");
+    const title=$("#fhToolbarCalendarTitle");
+    if(!grid||!title) return;
+    const year=toolbarCalendar.currentMonth.getFullYear();
+    const month=toolbarCalendar.currentMonth.getMonth();
+    title.textContent=toolbarCalendar.currentMonth.toLocaleDateString(state.lang==="en"?"en-US":state.lang,{month:"long",year:"numeric"});
+    const first=new Date(year,month,1);
+    const last=new Date(year,month+1,0);
+    const startOffset=first.getDay();
+    const arrival=$("#fhArrival")?.value||"";
+    const departure=$("#fhDeparture")?.value||"";
+    grid.innerHTML="";
+    for(let i=0;i<startOffset;i++){
+      const empty=document.createElement("button");
+      empty.type="button"; empty.className="fh-day empty"; empty.tabIndex=-1; grid.appendChild(empty);
+    }
+    for(let dayNum=1;dayNum<=last.getDate();dayNum++){
+      const date=new Date(year,month,dayNum);
+      const iso=toDateString(date);
+      const info=toolbarCalendar.dayMap[iso]||{};
+      const btn=document.createElement("button");
+      btn.type="button"; btn.className="fh-day"; btn.dataset.date=iso;
+      const past=dateIsPast(iso);
+      const unavailable=dateUnavailable(iso);
+      if(past) btn.classList.add("past");
+      if(unavailable) btn.classList.add("unavailable");
+      if(arrival&&iso===arrival) btn.classList.add("start");
+      if(departure&&iso===departure) btn.classList.add("end");
+      if(arrival&&departure&&iso>arrival&&iso<departure) btn.classList.add("range");
+      btn.innerHTML='<span class="fh-day-number">'+dayNum+'</span>'+(info.price?'<span class="fh-day-price">'+formatToolbarMoney(info.price,info.currency||CFG.currency)+'</span>':'')+(unavailable?'<span class="fh-day-status">'+(t("alreadyBooked")||"Booked")+'</span>':'');
+      if(past||unavailable) btn.disabled=true;
+      else btn.addEventListener("click",function(){ selectToolbarDate(iso); });
+      grid.appendChild(btn);
+    }
+  }
+
+  function selectToolbarDate(iso){
+    const arrivalInput=$("#fhArrival");
+    const departureInput=$("#fhDeparture");
+    const warning=$("#fhToolbarCalendarWarning");
+    if(!arrivalInput||!departureInput) return;
+    clearStatus();
+    if(warning) warning.classList.remove("show");
+    const arrival=arrivalInput.value;
+    const departure=departureInput.value;
+    if(!arrival || (arrival&&departure) || iso<=arrival){
+      arrivalInput.value=iso;
+      departureInput.value="";
+    }else{
+      departureInput.value=iso;
+      const nights=nightsBetweenToolbar();
+      if(nights<CFG.minNights){
+        departureInput.value="";
+        if(warning) warning.classList.add("show");
+      }else if(rangeHasUnavailable(arrivalInput.value,departureInput.value)){
+        departureInput.value="";
+        setStatus(t("calendarRangeUnavailable")||"One or more selected nights is unavailable. Please choose another range.","error");
+      }else{
+        closeToolbarCalendar();
+      }
+    }
+    updateToolbarDateText();
+    renderToolbarCalendar();
+    persistToolbarStart(false);
+  }
+
+  function openToolbarCalendar(){
+    const modal=$("#fhToolbarCalendarModal");
+    const warning=$("#fhToolbarCalendarWarning");
+    if(warning) warning.classList.remove("show");
+    if(modal){ modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); }
+    const arrival=$("#fhArrival")?.value||"";
+    if(arrival){ const d=new Date(arrival+"T00:00:00"); if(!isNaN(d.getTime())) toolbarCalendar.currentMonth=new Date(d.getFullYear(),d.getMonth(),1); }
+    loadToolbarCalendarMonth();
+  }
+
+  function closeToolbarCalendar(){
+    const modal=$("#fhToolbarCalendarModal");
+    if(modal){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); }
+  }
+
+  function goToBookingPage(){
+    const payload=getBookingStartPayload();
+    if(!payload.firstName){ setStatus(t("missingFirstName"),"error"); $("#fhFirstName")?.focus(); return; }
+    if(!payload.lastName){ setStatus(t("missingLastName"),"error"); $("#fhLastName")?.focus(); return; }
+    if(!payload.email){ setStatus(t("missingEmail"),"error"); $("#fhEmail")?.focus(); return; }
+    if(!emailIsValid(payload.email)){ setStatus(t("invalidEmail"),"error"); $("#fhEmail")?.focus(); return; }
+    if(!payload.checkIn||!payload.checkOut){ setStatus(t("missingDates"),"error"); openToolbarCalendar(); return; }
+    if(payload.checkOut<=payload.checkIn){ setStatus(t("badDates"),"error"); openToolbarCalendar(); return; }
+    if(nightsBetweenToolbar()<CFG.minNights){
+      setStatus(t("minNights")||"Please select at least 2 nights.","error");
+      openToolbarCalendar();
+      const warning=$("#fhToolbarCalendarWarning");
+      if(warning) warning.classList.add("show");
+      return;
+    }
+    try{ localStorage.setItem("fhBookingStart",JSON.stringify(payload)); }catch(error){ console.warn("Could not save booking start data.",error); }
+    const params=new URLSearchParams();
+    params.set("firstName",payload.firstName);
+    params.set("lastName",payload.lastName);
+    params.set("email",payload.email);
+    params.set("checkIn",payload.checkIn);
+    params.set("checkOut",payload.checkOut);
+    params.set("lang",payload.language);
+    params.set("source","property");
+    setStatus(t("redirecting"),"success");
+    const btn=$("#fhBookNowBtn");
+    if(btn){ btn.disabled=true; btn.dataset.oldText=btn.textContent; btn.textContent=t("redirecting"); }
+    window.location.href=CFG.bookingPageUrl+"?"+params.toString();
+  }
+
+  function prefillToolbar(){
+    const params=new URLSearchParams(window.location.search);
+    let stored={};
+    try{ stored=JSON.parse(localStorage.getItem("fhBookingStart")||"{}"); }catch(error){}
+    const map={firstName:"#fhFirstName",lastName:"#fhLastName",email:"#fhEmail",checkIn:"#fhArrival",checkOut:"#fhDeparture"};
+    Object.keys(map).forEach(function(key){
+      const el=$(map[key]);
+      const value=params.get(key)||stored[key]||"";
+      if(el&&value) el.value=value;
+    });
+    updateToolbarDateText();
+  }
+
   function focusBookingToolbar(){
-    const form=document.getElementById("fh-standard-booking-form");
+    const form=$("#fhBookingFields") || $("#booking");
     if(!form) return false;
     form.scrollIntoView({behavior:"smooth",block:"center"});
     setTimeout(function(){
-      const firstEmpty = Array.from(form.elements).find(function(el){
-        return el && el.tagName === "INPUT" && !el.value;
-      });
-      (firstEmpty || form.elements.firstName)?.focus?.();
+      const firstEmpty=[$("#fhFirstName"),$("#fhLastName"),$("#fhEmail")].find(function(el){ return el && !el.value; });
+      (firstEmpty || $("#fhOpenToolbarCalendar") || $("#fhFirstName"))?.focus?.();
     },350);
     return true;
   }
 
-  document.addEventListener("click",function(event){
-    const trigger=event.target.closest("[data-fh-booking-open], a[href*='booking.html'], a[href*='/booking'], a[href='#book'], a[href='#booking'], a[href='#contact-booking']");
-    if(!trigger) return;
-    const hasToolbar=document.getElementById("fh-standard-booking-form");
-    const href=(trigger.getAttribute("href")||"").toLowerCase();
-    if(trigger.hasAttribute("data-fh-booking-open") && hasToolbar){
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      focusBookingToolbar();
-      return;
-    }
-    if(hasToolbar && (href==="/booking" || href==="booking" || href==="#book" || href==="#booking" || href==="#contact-booking")){
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      focusBookingToolbar();
-    }
-  },true);
-
-  function validEmail(email){
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email||"").trim());
-  }
-
-  function setupBookingToolbar(){
-    const form=document.getElementById("fh-standard-booking-form");
-    const status=document.getElementById("fh-standard-booking-status");
-    if(!form) return;
-
-    const params=new URLSearchParams(window.location.search);
-    let stored={};
-    try{stored=JSON.parse(localStorage.getItem("fhBookingStart")||"{}");}catch(e){}
-
-    const today = new Date().toISOString().slice(0,10);
-    if(form.elements.checkIn) form.elements.checkIn.min = today;
-    if(form.elements.checkOut) form.elements.checkOut.min = today;
-
-    if(form.elements.checkIn && form.elements.checkOut){
-      form.elements.checkIn.addEventListener("change", function(){
-        if(form.elements.checkIn.value){
-          const minOut = new Date(form.elements.checkIn.value + "T00:00:00");
-          minOut.setDate(minOut.getDate() + 2);
-          form.elements.checkOut.min = minOut.toISOString().slice(0,10);
-        }
-      });
-    }
-
-    ["firstName","lastName","email","checkIn","checkOut"].forEach(function(key){
-      const value=params.get(key)||stored[key]||"";
-      if(value&&form.elements[key]) form.elements[key].value=value;
+  function bindToolbar(){
+    $("#fhOpenToolbarCalendar")?.addEventListener("click",openToolbarCalendar);
+    $("#fhBookNowBtn")?.addEventListener("click",goToBookingPage);
+    ["#fhFirstName","#fhLastName","#fhEmail"].forEach(function(selector){
+      $(selector)?.addEventListener("input",function(){ clearStatus(); persistToolbarStart(false); });
     });
+    $("#fhToolbarPrevMonth")?.addEventListener("click",function(){ toolbarCalendar.currentMonth=new Date(toolbarCalendar.currentMonth.getFullYear(),toolbarCalendar.currentMonth.getMonth()-1,1); loadToolbarCalendarMonth(); });
+    $("#fhToolbarNextMonth")?.addEventListener("click",function(){ toolbarCalendar.currentMonth=new Date(toolbarCalendar.currentMonth.getFullYear(),toolbarCalendar.currentMonth.getMonth()+1,1); loadToolbarCalendarMonth(); });
+    $("#fhToolbarCloseCalendar")?.addEventListener("click",closeToolbarCalendar);
+    $("#fhToolbarCalendarModal")?.addEventListener("click",function(event){ if(event.target===$("#fhToolbarCalendarModal")) closeToolbarCalendar(); });
+    document.addEventListener("keydown",function(event){ if(event.key==="Escape") closeToolbarCalendar(); });
 
-    form.addEventListener("submit",function(event){
-      event.preventDefault();
-      const lang=currentLang();
-      const dict=bookingCopy[lang]||bookingCopy.en;
-
-      const payload={
-        firstName:String(form.elements.firstName.value||"").trim(),
-        lastName:String(form.elements.lastName.value||"").trim(),
-        email:String(form.elements.email.value||"").trim(),
-        checkIn:form.elements.checkIn.value,
-        checkOut:form.elements.checkOut.value,
-        lang:lang,
-        source:"location",
-        listingId:CFG.listingId,
-        workerBase:CFG.workerBase,
-        createdAt:new Date().toISOString()
-      };
-
-      function show(message){
-        if(!status) return;
-        status.textContent=message;
-        status.classList.add("is-visible");
+    document.addEventListener("click",function(event){
+      const trigger=event.target.closest("[data-fh-booking-open], a[href*='booking.html'], a[href*='/booking'], a[href='#book'], a[href='#booking'], a[href='#contact-booking']");
+      if(!trigger) return;
+      const href=(trigger.getAttribute("href")||"").toLowerCase();
+      if(trigger.hasAttribute("data-fh-booking-open")){
+        event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); focusBookingToolbar(); return;
       }
-
-      if(!payload.firstName||!payload.lastName||!payload.email||!payload.checkIn||!payload.checkOut){
-        show(dict.missing);
-        return;
+      if(href==="/booking" || href==="booking" || href==="#book" || href==="#booking" || href==="#contact-booking"){
+        event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); focusBookingToolbar();
       }
-
-      if(!validEmail(payload.email)){
-        show(dict.email);
-        return;
-      }
-
-      const startDate = new Date(payload.checkIn + "T00:00:00");
-      const endDate = new Date(payload.checkOut + "T00:00:00");
-      const nights = Math.round((endDate - startDate) / 86400000);
-
-      if(!Number.isFinite(nights) || nights < 2){
-        show("Please select at least 2 nights");
-        return;
-      }
-
-      localStorage.setItem("fhBookingStart",JSON.stringify(payload));
-
-      const next=new URL(CFG.bookingPageUrl,document.baseURI);
-      next.searchParams.set("firstName",payload.firstName);
-      next.searchParams.set("lastName",payload.lastName);
-      next.searchParams.set("email",payload.email);
-      next.searchParams.set("checkIn",payload.checkIn);
-      next.searchParams.set("checkOut",payload.checkOut);
-      next.searchParams.set("lang",payload.lang);
-      next.searchParams.set("source","location");
-      window.location.href=next.toString();
-    });
+    },true);
   }
 
   function init(){
-    setupBookingToolbar();
-    setLanguage(new URLSearchParams(window.location.search).get("lang")||currentLang());
+    bindToolbar();
+    prefillToolbar();
+    applyToolbarLanguage(currentLang());
   }
 
   document.addEventListener("DOMContentLoaded",init);
