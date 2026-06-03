@@ -1225,8 +1225,9 @@ section:has(#fh-experiences) .sqs-block-code{
   loadHtml('fh-header-slot', 'Header.html');
   loadHtml('fh-footer-slot', 'footer.html');
 
-  const WORKER_URL = "https://saas-fee.moshe-cohen-h1.workers.dev";
-  const SEARCH_ENDPOINT = WORKER_URL + "/search";
+  const LISTING_ID = "6968339ab7d735001ca015ba";
+  const BOOKING_WORKER_BASE = "https://guetsyapi.moshe-cohen-h1.workers.dev";
+  const SEARCH_ENDPOINT = BOOKING_WORKER_BASE + "/guesty/book-inquiry";
 
   const fallbackImages = [
     "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
@@ -1479,6 +1480,33 @@ section:has(#fh-experiences) .sqs-block-code{
   const modalForm = $('#fh-exp-modal-form');
   const modalStatus = $('#fh-modal-status');
 
+  function todayISO(){
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    return today.toISOString().slice(0,10);
+  }
+
+  function addDaysISO(dateString, days){
+    const date = dateString ? new Date(dateString + 'T00:00:00') : new Date();
+    date.setDate(date.getDate() + days);
+    return date.toISOString().slice(0,10);
+  }
+
+  function syncToolbarDateRules(){
+    const checkIn = $('#fh-exp-checkin');
+    const checkOut = $('#fh-exp-checkout');
+    if(!checkIn || !checkOut) return;
+    const minToday = todayISO();
+    checkIn.min = minToday;
+    checkOut.min = checkIn.value ? addDaysISO(checkIn.value, 2) : addDaysISO(minToday, 2);
+    checkIn.addEventListener('change', () => {
+      checkOut.min = checkIn.value ? addDaysISO(checkIn.value, 2) : addDaysISO(minToday, 2);
+      if(checkOut.value && checkOut.value < checkOut.min) checkOut.value = '';
+    });
+  }
+
+  syncToolbarDateRules();
+
   function openModal(){
     if(!modal) return;
     modal.classList.add('is-open');
@@ -1501,7 +1529,7 @@ section:has(#fh-experiences) .sqs-block-code{
     const start = new Date(checkIn + 'T00:00:00');
     const end = new Date(checkOut + 'T00:00:00');
     const nights = Math.round((end - start) / 86400000);
-    if(!Number.isFinite(nights) || nights < 2) return 'Please select at least 2 nights.';
+    if(!Number.isFinite(nights) || nights < 2) return 'Please select at least 2 nights';
     return '';
   }
 
@@ -1513,8 +1541,8 @@ section:has(#fh-experiences) .sqs-block-code{
       email: payload.email,
       checkIn: payload.checkIn,
       checkOut: payload.checkOut,
-      listingId: '6968339ab7d735001ca015ba',
-      workerBase: 'https://guetsyapi.moshe-cohen-h1.workers.dev',
+      listingId: LISTING_ID,
+      workerBase: BOOKING_WORKER_BASE,
       source: 'experiences',
       lang,
       createdAt: new Date().toISOString()
@@ -1556,9 +1584,49 @@ section:has(#fh-experiences) .sqs-block-code{
   }
 
 
-  $('.fh-cta-btn')?.addEventListener('click', function(e){
+  function getQuickbarPayload(){
+    return {
+      firstName: ($('#fh-exp-first-name')?.value || '').trim(),
+      lastName: ($('#fh-exp-last-name')?.value || '').trim(),
+      email: ($('#fh-exp-email')?.value || '').trim(),
+      checkIn: $('#fh-exp-checkin')?.value || '',
+      checkOut: $('#fh-exp-checkout')?.value || ''
+    };
+  }
+
+  function handoffToBooking(source){
+    const payload = getQuickbarPayload();
+    const lang = normalizeLang(localStorage.getItem('fh_lang') || localStorage.getItem('fhLang') || currentLang || 'en');
+    const bookingPayload = {
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      email: payload.email,
+      checkIn: payload.checkIn,
+      checkOut: payload.checkOut,
+      listingId: LISTING_ID,
+      workerBase: BOOKING_WORKER_BASE,
+      source: source || 'experiences',
+      lang,
+      createdAt: new Date().toISOString()
+    };
+    localStorage.setItem('fhBookingStart', JSON.stringify(bookingPayload));
+    const params = new URLSearchParams({ lang, source: source || 'experiences' });
+    if(payload.firstName) params.set('firstName', payload.firstName);
+    if(payload.lastName) params.set('lastName', payload.lastName);
+    if(payload.email) params.set('email', payload.email);
+    if(payload.checkIn) params.set('checkIn', payload.checkIn);
+    if(payload.checkOut) params.set('checkOut', payload.checkOut);
+    window.location.href = 'booking.html?' + params.toString();
+  }
+
+  root.addEventListener('click', function(e){
+    const link = e.target.closest('a[href]');
+    if(!link) return;
+    const href = (link.getAttribute('href') || '').trim().toLowerCase();
+    const isBookingIntent = href === 'booking.html' || href.startsWith('booking.html?') || href === '#book' || href === '#booking' || href.includes('contact-booking');
+    if(!isBookingIntent) return;
     e.preventDefault();
-    window.location.href = 'booking.html?lang=' + encodeURIComponent(normalizeLang(localStorage.getItem('fh_lang') || currentLang || 'en')) + '&source=experiences';
+    handoffToBooking('experiences');
   });
 
   if(modalClose) modalClose.addEventListener('click', closeModal);
