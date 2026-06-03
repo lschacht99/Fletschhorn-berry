@@ -2,7 +2,9 @@
 Fletschhorn — Global Header Only
 Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
 Requires the header CSS in Design > Custom CSS.
+GitHub/page-file version updated to match actual repo files.
 ========================================================== -->
+
 <script>
 (function(){
 
@@ -16,120 +18,131 @@ Requires the header CSS in Design > Custom CSS.
 
   const HIDE_SQUARESPACE_NATIVE_HEADER_FOOTER = true;
 
-const FH_PAGES = [
-  {
-    key: "home",
-    label: "Home",
-    short: "Home",
-    href: "index.html",
-    note: "Start with the house, setting, and inquiry.",
-    match: ["/", "/index.html", "/home", "/Home"]
-  },
-  {
-    key: "property",
-    label: "The Property",
-    short: "Property",
-    href: "Property.html",
-    note: "The property, rooms, spa, amenities, dining and kitchen.",
-    match: ["/Property.html", "/property.html", "/property"]
-  },
-  {
-    key: "experiences",
-    label: "Experiences",
-    short: "Experiences",
-    href: "Experiences.html",
-    note: "What to do in Saas-Fee and around the property.",
-    match: ["/Experiences.html", "/experiences.html", "/experiences"]
-  },
-  {
-    key: "events",
-    label: "Wedding & Events",
-    short: "Events",
-    href: "Wedding-event.html",
-    note: "Weddings, private events, retreats, and celebrations.",
-    match: ["/Wedding-event.html", "/wedding-event.html", "/wedding-and-events", "/events"]
-  },
-  {
-    key: "location",
-    label: "Location",
-    short: "Location",
-    href: "Location.html",
-    note: "Where Fletschhorn is located and what surrounds it.",
-    match: ["/Location.html", "/location.html", "/location"]
-  },
-  {
-    key: "booking",
-    label: "Booking",
-    short: "Booking",
-    href: "Booking.html",
-    note: "Send an inquiry and plan your stay or event.",
-    match: ["/Booking.html", "/booking.html", "/booking"]
-  },
-  {
-    key: "about",
-    label: "About Us",
-    short: "About",
-    href: "About-us.html",
-    note: "Story, history, and the private-house direction.",
-    match: ["/About-us.html", "/about-us.html", "/about"]
-  }
-];
+  const FH_PAGES = [
+    {
+      key: "home",
+      label: "Home",
+      short: "Home",
+      href: "index.html",
+      note: "Start with the house, setting, and inquiry.",
+      match: ["/", "/index.html", "/home", "/Home"]
+    },
+    {
+      key: "property",
+      label: "The Property",
+      short: "Property",
+      href: "Property.html",
+      note: "The property, rooms, spa, amenities, dining and kitchen.",
+      match: ["/Property.html", "/property.html", "/property"]
+    },
+    {
+      key: "experiences",
+      label: "Experiences",
+      short: "Experiences",
+      href: "Experiences.html",
+      note: "What to do in Saas-Fee and around the property.",
+      match: ["/Experiences.html", "/experiences.html", "/experiences"]
+    },
+    {
+      key: "events",
+      label: "Wedding & Events",
+      short: "Events",
+      href: "Wedding-event.html",
+      note: "Weddings, private events, retreats, and celebrations.",
+      match: ["/Wedding-event.html", "/wedding-event.html", "/wedding-and-events", "/events"]
+    },
+    {
+      key: "location",
+      label: "Location",
+      short: "Location",
+      href: "Location.html",
+      note: "Where Fletschhorn is located and what surrounds it.",
+      match: ["/Location.html", "/location.html", "/location"]
+    },
+    {
+      key: "booking",
+      label: "Booking",
+      short: "Booking",
+      href: "Booking.html",
+      note: "Send an inquiry and plan your stay or event.",
+      match: ["/Booking.html", "/booking.html", "/booking"]
+    },
+    {
+      key: "about",
+      label: "About Us",
+      short: "About",
+      href: "About-us.html",
+      note: "Story, history, and the private-house direction.",
+      match: ["/About-us.html", "/about-us.html", "/about"]
+    }
+  ];
 
   function normalizePath(path){
-    let clean = (path || '/').split('?')[0].split('#')[0].replace(/\/+/g,'/');
-    if(clean.length > 1) clean = clean.replace(/\/$/,'');
-    return clean || '/';
+    let clean = (path || "/")
+      .split("?")[0]
+      .split("#")[0]
+      .replace(/\/+/g, "/");
+
+    if(clean.length > 1) clean = clean.replace(/\/$/, "");
+    return clean || "/";
   }
 
   function currentPageKey(){
-    const bodyPage = document.querySelector('[data-fh-page], [data-page]');
-    const explicit = bodyPage && (bodyPage.getAttribute('data-fh-page') || bodyPage.getAttribute('data-page'));
+    const bodyPage = document.querySelector("[data-fh-page], [data-page]");
+    const explicit = bodyPage && (
+      bodyPage.getAttribute("data-fh-page") ||
+      bodyPage.getAttribute("data-page")
+    );
 
     if(explicit){
       const key = explicit.toLowerCase();
-      if(key.includes('booking')) return 'booking';
-      if(key.includes('event') || key.includes('wedding')) return 'events';
-      if(key.includes('experience')) return 'experiences';
-      if(key.includes('property')) return 'property';
-      if(key.includes('about')) return 'about';
-      if(key.includes('home')) return 'home';
+
+      if(key.includes("booking")) return "booking";
+      if(key.includes("event") || key.includes("wedding")) return "events";
+      if(key.includes("experience")) return "experiences";
+      if(key.includes("property")) return "property";
+      if(key.includes("location")) return "location";
+      if(key.includes("about")) return "about";
+      if(key.includes("home") || key.includes("index")) return "home";
     }
 
     const ids = [
-      'fh-home',
-      'fh-property',
-      'fh-experiences',
-      'fh-events',
-      'fh-booking',
-      'fh-about'
+      "fh-home",
+      "fh-property",
+      "fh-experiences",
+      "fh-events",
+      "fh-location",
+      "fh-booking",
+      "fh-about"
     ];
 
     for(const id of ids){
       if(document.getElementById(id)){
-        return id.replace('fh-','');
+        return id.replace("fh-", "");
       }
     }
 
     const path = normalizePath(window.location.pathname).toLowerCase();
+
     const found = FH_PAGES.find(page =>
       page.match.some(match => normalizePath(match).toLowerCase() === path)
     );
 
-    return found ? found.key : 'home';
+    return found ? found.key : "home";
   }
 
   function makeHeader(activeKey){
     const navLinks = FH_PAGES.map(page => `
-      <a href="${page.href}" class="${page.key === activeKey ? 'is-active' : ''}" data-fh-page-link="${page.key}">
+      <a href="${page.href}" class="${page.key === activeKey ? "is-active" : ""}" data-fh-page-link="${page.key}">
         ${page.short}
       </a>
-    `).join('');
+    `).join("");
 
     return `
       <header class="fh-global-header" id="fhGlobalHeader">
-        <a class="fh-global-brand" href="/Home" aria-label="Fletschhorn home">
+        <a class="fh-global-brand" href="index.html" aria-label="Fletschhorn home">
           <span class="fh-global-mark">
-            <img src="/s/Saas-Fee-Logo.jpeg" alt="Fletschhorn" onerror="this.style.display='none'; this.parentElement.textContent='fh';" />
+            <img src="assets/Saas-Fee-Logo.jpeg" alt="Fletschhorn" onerror="this.style.display='none'; this.parentElement.textContent='fh';" />
           </span>
           <span>
             <span class="fh-brand-name">Fletschhorn</span>
@@ -139,7 +152,7 @@ const FH_PAGES = [
 
         <nav class="fh-global-nav" aria-label="Primary navigation">
           ${navLinks}
-          <a class="fh-global-cta" href="/booking">Book Now</a>
+          <a class="fh-global-cta" href="Booking.html">Book Now</a>
         </nav>
 
         <button class="fh-mobile-toggle" type="button" id="fhMobileToggle" aria-expanded="false" aria-controls="fhMobileMenu" aria-label="Open menu">
@@ -151,14 +164,14 @@ const FH_PAGES = [
 
   function makeMobileMenu(activeKey){
     const links = FH_PAGES.map(page => `
-      <a href="${page.href}" class="${page.key === activeKey ? 'is-active' : ''}">
+      <a href="${page.href}" class="${page.key === activeKey ? "is-active" : ""}">
         <span>
           <strong>${page.label}</strong>
           <small>${page.note}</small>
         </span>
         <em>→</em>
       </a>
-    `).join('');
+    `).join("");
 
     return `
       <div class="fh-mobile-menu" id="fhMobileMenu" aria-hidden="true">
@@ -171,64 +184,95 @@ const FH_PAGES = [
     `;
   }
 
+  function syncHeaderLanguageClicks(){
+    document.querySelectorAll("[data-fh-lang], [data-lang], [data-language]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const lang =
+          btn.getAttribute("data-fh-lang") ||
+          btn.getAttribute("data-lang") ||
+          btn.getAttribute("data-language");
+
+        if(!lang) return;
+
+        try{
+          localStorage.setItem("fh_lang", lang);
+        }catch(error){}
+
+        document.documentElement.setAttribute("lang", lang);
+        document.body.setAttribute("data-fh-lang", lang);
+
+        window.dispatchEvent(new CustomEvent("fh:language-change", {
+          detail: { lang }
+        }));
+      });
+    });
+  }
+
   function init(){
-    if(document.getElementById('fhGlobalHeader')) return;
+    if(document.getElementById("fhGlobalHeader")) return;
 
     const activeKey = currentPageKey();
 
-    document.body.classList.add('fh-global-shell');
+    document.body.classList.add("fh-global-shell");
+    document.body.classList.add("fh-github-version");
 
     if(HIDE_SQUARESPACE_NATIVE_HEADER_FOOTER){
-      document.body.classList.add('fh-hide-sqs-shell');
+      document.body.classList.add("fh-hide-sqs-shell");
     }
 
-    document.body.insertAdjacentHTML('afterbegin', makeMobileMenu(activeKey));
-    document.body.insertAdjacentHTML('afterbegin', makeHeader(activeKey));
+    document.body.insertAdjacentHTML("afterbegin", makeMobileMenu(activeKey));
+    document.body.insertAdjacentHTML("afterbegin", makeHeader(activeKey));
 
-    const header = document.getElementById('fhGlobalHeader');
-    const toggle = document.getElementById('fhMobileToggle');
-    const menu = document.getElementById('fhMobileMenu');
+    const header = document.getElementById("fhGlobalHeader");
+    const toggle = document.getElementById("fhMobileToggle");
+    const menu = document.getElementById("fhMobileMenu");
 
     function onScroll(){
       if(!header) return;
-      header.classList.toggle('is-scrolled', window.scrollY > 20);
+      header.classList.toggle("is-scrolled", window.scrollY > 20);
     }
 
     function closeMenu(){
       if(!toggle || !menu) return;
-      toggle.setAttribute('aria-expanded','false');
-      menu.setAttribute('aria-hidden','true');
-      menu.classList.remove('is-open');
-      document.documentElement.classList.remove('fh-nav-open');
+
+      toggle.setAttribute("aria-expanded", "false");
+      menu.setAttribute("aria-hidden", "true");
+      menu.classList.remove("is-open");
+      document.documentElement.classList.remove("fh-nav-open");
     }
 
     function openMenu(){
       if(!toggle || !menu) return;
-      toggle.setAttribute('aria-expanded','true');
-      menu.setAttribute('aria-hidden','false');
-      menu.classList.add('is-open');
-      document.documentElement.classList.add('fh-nav-open');
+
+      toggle.setAttribute("aria-expanded", "true");
+      menu.setAttribute("aria-hidden", "false");
+      menu.classList.add("is-open");
+      document.documentElement.classList.add("fh-nav-open");
     }
 
     if(toggle && menu){
-      toggle.addEventListener('click', () => {
-        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.addEventListener("click", () => {
+        const isOpen = toggle.getAttribute("aria-expanded") === "true";
         isOpen ? closeMenu() : openMenu();
       });
 
-      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+      menu.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", closeMenu);
+      });
 
-      document.addEventListener('keydown', event => {
-        if(event.key === 'Escape') closeMenu();
+      document.addEventListener("keydown", event => {
+        if(event.key === "Escape") closeMenu();
       });
     }
 
-    window.addEventListener('scroll', onScroll, {passive:true});
+    syncHeaderLanguageClicks();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   }
 
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
   }else{
     init();
   }
