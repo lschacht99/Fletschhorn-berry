@@ -1,0 +1,1255 @@
+<link rel="stylesheet" href="assets/fh-global.css">
+<div id="fh-header-slot"></div>
+
+<style>
+#fh-checkout,
+#fh-checkout *{box-sizing:border-box}
+
+#fh-checkout{
+  --ink:#1a1714;
+  --muted:rgba(26,23,20,.66);
+  --soft:rgba(26,23,20,.48);
+  --line:rgba(26,23,20,.12);
+  --paper:#fffaf3;
+  --paper2:#f6eee4;
+  --page:#efe7dc;
+  --clay:#b99f86;
+  --clay2:#876e58;
+  --green:#6f7b64;
+  --good:#3f6f50;
+  --bad:#9a4b3f;
+  --warning:#966523;
+  --shadow:0 28px 80px rgba(0,0,0,.13);
+  --soft-shadow:0 14px 44px rgba(0,0,0,.08);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  position:relative;
+  min-height:100svh;
+  overflow:hidden;
+  color:var(--ink);
+  font-family:var(--sans);
+  background:
+    radial-gradient(circle at 12% 8%,rgba(255,255,255,.76),transparent 0 28%),
+    radial-gradient(circle at 92% 16%,rgba(185,159,134,.20),transparent 0 26%),
+    linear-gradient(180deg,#efe7dc 0%,#fbf6ef 48%,#efe7dc 100%);
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
+#fh-checkout a{color:inherit;text-decoration:none}
+#fh-checkout button,
+#fh-checkout input,
+#fh-checkout select,
+#fh-checkout textarea{font:inherit}
+#fh-checkout button{cursor:pointer}
+#fh-checkout img{display:block;max-width:100%}
+
+#fh-checkout .fh-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.14;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23876e58' stroke-opacity='.50' stroke-width='1.1'%3E%3Cpath d='M-50 130c205 54 364 56 500 12 128-42 265-39 407 14 154 58 313 59 502-10 78-28 148-32 217-18'/%3E%3Cpath d='M-50 288c214 38 394 31 538-18 125-42 256-38 392 12 164 61 326 55 503-10 82-30 153-33 217-20'/%3E%3Cpath d='M-50 444c230 26 415 17 570-24 120-31 247-30 388 4 160 38 314 37 480-10 90-25 157-27 222-16'/%3E%3Cpath d='M-50 604c238 18 432 7 596-28 122-26 246-24 380-3 150 23 295 22 438-8 88-18 156-18 218-10'/%3E%3Cpath d='M-50 762c264 8 468-8 635-35 120-20 241-18 365-4 146 16 283 16 422-8 88-14 151-13 213-8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:cover;
+  background-position:center;
+}
+
+#fh-checkout .fh-grain{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  opacity:.045;
+  mix-blend-mode:multiply;
+  background-image:radial-gradient(rgba(0,0,0,.55) .45px,transparent .55px);
+  background-size:4px 4px;
+}
+
+#fh-checkout .fh-langbar{
+  position:fixed;
+  top:86px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:45;
+  display:flex;
+  gap:6px;
+  padding:6px;
+  border:1px solid rgba(255,250,243,.24);
+  background:rgba(26,23,20,.30);
+  backdrop-filter:blur(16px);
+  box-shadow:0 16px 40px rgba(0,0,0,.12);
+}
+
+#fh-checkout .fh-langbar button{
+  border:1px solid transparent;
+  background:transparent;
+  color:rgba(255,250,243,.82);
+  min-height:31px;
+  padding:7px 10px;
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+#fh-checkout .fh-langbar button.is-active,
+#fh-checkout .fh-langbar button:hover{
+  background:rgba(255,250,243,.14);
+  border-color:rgba(255,250,243,.34);
+  color:#fff;
+}
+
+#fh-checkout .fh-shell{
+  position:relative;
+  z-index:2;
+  width:min(1180px,calc(100% - 36px));
+  margin:0 auto;
+  padding:150px 0 90px;
+}
+
+#fh-checkout .fh-hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);
+  gap:24px;
+  align-items:stretch;
+  margin-bottom:22px;
+}
+
+#fh-checkout .fh-hero-copy,
+#fh-checkout .fh-side-photo{
+  background:rgba(255,250,243,.88);
+  border:1px solid #e5d8c9;
+  box-shadow:var(--soft-shadow);
+  overflow:hidden;
+}
+
+#fh-checkout .fh-hero-copy{padding:34px}
+#fh-checkout .fh-kicker,
+#fh-checkout .fh-eyebrow{
+  margin:0 0 12px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-weight:850;
+  color:var(--clay2);
+}
+
+#fh-checkout h1,
+#fh-checkout h2,
+#fh-checkout h3,
+#fh-checkout p{margin-top:0}
+
+#fh-checkout h1{
+  margin:0 0 16px;
+  max-width:720px;
+  font-family:var(--serif);
+  font-size:clamp(46px,6.2vw,86px);
+  line-height:.92;
+  letter-spacing:-.065em;
+  font-weight:400;
+  text-wrap:balance;
+}
+
+#fh-checkout h2{
+  margin:0 0 12px;
+  font-family:var(--serif);
+  font-size:clamp(32px,3.4vw,52px);
+  line-height:.96;
+  letter-spacing:-.055em;
+  font-weight:400;
+}
+
+#fh-checkout h3{
+  margin:0 0 8px;
+  font-family:var(--serif);
+  font-size:28px;
+  line-height:1;
+  letter-spacing:-.045em;
+  font-weight:400;
+}
+
+#fh-checkout p{color:var(--muted);line-height:1.65;font-size:15px}
+#fh-checkout .fh-lead{max-width:680px;font-size:17px;margin-bottom:0}
+
+#fh-checkout .fh-side-photo{
+  min-height:320px;
+  position:relative;
+  background:#d8cbbb center/cover no-repeat;
+}
+
+#fh-checkout .fh-side-photo:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(26,23,20,.08),rgba(26,23,20,.34));
+}
+
+#fh-checkout .fh-direct-note{
+  margin-top:22px;
+  padding:14px 16px;
+  border:1px solid rgba(63,111,80,.20);
+  background:rgba(63,111,80,.07);
+  color:rgba(26,23,20,.70);
+  font-size:13px;
+}
+
+#fh-checkout .fh-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 380px;
+  gap:22px;
+  align-items:start;
+}
+
+#fh-checkout .fh-card{
+  background:rgba(255,250,243,.94);
+  border:1px solid #e5d8c9;
+  box-shadow:var(--soft-shadow);
+}
+
+#fh-checkout .fh-main-card{box-shadow:var(--shadow);overflow:hidden}
+#fh-checkout .fh-card-head{
+  padding:24px 28px;
+  border-bottom:1px solid #e5d8c9;
+  background:linear-gradient(135deg,#fffaf3,#f3eadd);
+}
+
+#fh-checkout .fh-card-body{padding:26px 28px}
+#fh-checkout .fh-block{padding:20px 0;border-top:1px solid rgba(26,23,20,.09)}
+#fh-checkout .fh-block:first-child{padding-top:0;border-top:0}
+
+#fh-checkout .fh-review-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+#fh-checkout .fh-review-item{
+  min-height:94px;
+  padding:15px;
+  background:#f8f1e8;
+  border:1px solid rgba(26,23,20,.08);
+}
+
+#fh-checkout .fh-review-item.full{grid-column:1/-1}
+#fh-checkout .fh-review-item span,
+#fh-checkout .fh-price-label,
+#fh-checkout label{
+  display:block;
+  margin-bottom:7px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  font-weight:850;
+  color:rgba(26,23,20,.50);
+}
+
+#fh-checkout .fh-review-item strong{
+  display:block;
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.4;
+  word-break:break-word;
+}
+
+#fh-checkout .fh-review-item small{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45;
+}
+
+#fh-checkout .fh-form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+#fh-checkout .fh-field.full{grid-column:1/-1}
+#fh-checkout input,
+#fh-checkout select,
+#fh-checkout textarea{
+  width:100%;
+  min-height:52px;
+  border:1px solid #ddd0c0;
+  border-radius:0;
+  background:#fbf6ef;
+  color:var(--ink);
+  padding:13px 14px;
+  outline:none;
+  transition:border-color 220ms ease,box-shadow 220ms ease,background 220ms ease;
+}
+
+#fh-checkout textarea{min-height:100px;resize:vertical}
+#fh-checkout input:focus,
+#fh-checkout select:focus,
+#fh-checkout textarea:focus{
+  border-color:var(--clay2);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(185,159,134,.14);
+}
+
+#fh-checkout .fh-aside{position:sticky;top:110px}
+#fh-checkout .fh-price-card{overflow:hidden}
+#fh-checkout .fh-price-top{padding:22px 24px;background:#1d1a17;color:#fffaf3}
+#fh-checkout .fh-price-top .fh-price-label{color:rgba(255,250,243,.62)}
+#fh-checkout .fh-price-main{
+  font-family:var(--serif);
+  font-size:44px;
+  line-height:1;
+  letter-spacing:-.05em;
+  color:#fffaf3;
+}
+#fh-checkout .fh-price-sub{margin:8px 0 0;color:rgba(255,250,243,.70);font-size:13px;line-height:1.45}
+#fh-checkout .fh-line-items{padding:10px 22px 18px;background:var(--paper)}
+#fh-checkout .fh-line-item{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid rgba(26,23,20,.08);font-size:13px;color:var(--muted)}
+#fh-checkout .fh-line-item strong{color:var(--ink);font-weight:760;white-space:nowrap}
+#fh-checkout .fh-terms{
+  padding:18px 22px 22px;
+  border-top:1px solid rgba(26,23,20,.10);
+  background:#f8f1e8;
+  color:rgba(26,23,20,.56);
+  font-size:11px;
+  line-height:1.55;
+}
+#fh-checkout .fh-terms strong{color:rgba(26,23,20,.68)}
+
+#fh-checkout .fh-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-top:20px;
+  padding-top:18px;
+  border-top:1px solid rgba(26,23,20,.09);
+}
+
+#fh-checkout .fh-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  min-height:54px;
+  padding:15px 22px;
+  border:0;
+  background:#1d1a17;
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:11px;
+  font-weight:850;
+  transition:transform 200ms ease,background 250ms ease,opacity 250ms ease;
+}
+
+#fh-checkout .fh-btn:hover{transform:translateY(-1px);background:#000}
+#fh-checkout .fh-btn.light{background:#fffaf3;color:var(--ink);border:1px solid rgba(26,23,20,.14)}
+#fh-checkout .fh-btn.light:hover{background:#fff}
+#fh-checkout .fh-btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+
+#fh-checkout .fh-status{
+  display:none;
+  margin-top:14px;
+  padding:13px 14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.62);
+  font-size:13px;
+  line-height:1.5;
+  color:var(--muted);
+  white-space:pre-wrap;
+}
+#fh-checkout .fh-status.is-visible{display:block}
+#fh-checkout .fh-status.good{border-color:rgba(63,111,80,.28);background:rgba(63,111,80,.08);color:var(--good)}
+#fh-checkout .fh-status.bad{border-color:rgba(154,75,63,.28);background:rgba(154,75,63,.08);color:var(--bad)}
+#fh-checkout .fh-status.warn{border-color:rgba(150,101,35,.28);background:rgba(150,101,35,.09);color:var(--warning)}
+
+#fh-checkout .fh-empty{
+  display:none;
+  margin-top:18px;
+  padding:18px;
+  border:1px solid rgba(150,101,35,.26);
+  background:rgba(150,101,35,.08);
+  color:var(--warning);
+  line-height:1.55;
+}
+#fh-checkout .fh-empty.is-visible{display:block}
+
+#fh-checkout .fh-success{
+  display:none;
+  overflow:hidden;
+  background:rgba(255,250,243,.96);
+  border:1px solid #e5d8c9;
+  box-shadow:var(--shadow);
+}
+#fh-checkout .fh-success.is-visible{display:block}
+#fh-checkout .fh-success-photo{min-height:300px;background:#d8cbbb center/cover no-repeat;position:relative}
+#fh-checkout .fh-success-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,23,20,.08),rgba(26,23,20,.34))}
+#fh-checkout .fh-success-body{padding:34px}
+#fh-checkout .fh-success-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+
+#fh-checkout .fh-mobile-total{
+  display:none;
+  position:fixed;
+  left:12px;
+  right:12px;
+  bottom:12px;
+  z-index:50;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:12px;
+  min-height:62px;
+  padding:9px 10px 9px 14px;
+  background:#1d1a17;
+  color:#fffaf3;
+  box-shadow:0 18px 48px rgba(0,0,0,.24);
+}
+#fh-checkout .fh-mobile-total span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:rgba(255,250,243,.60);font-weight:850}
+#fh-checkout .fh-mobile-total strong{display:block;font-family:var(--serif);font-size:23px;letter-spacing:-.04em;font-weight:400}
+#fh-checkout .fh-mobile-total button{min-height:44px;padding:12px 14px;background:#fffaf3;color:#1d1a17;border:0;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:900}
+
+@media(max-width:980px){
+  #fh-checkout .fh-hero,
+  #fh-checkout .fh-layout{grid-template-columns:1fr}
+  #fh-checkout .fh-aside{position:relative;top:auto}
+}
+
+@media(max-width:720px){
+  #fh-checkout .fh-langbar{top:68px;gap:4px;padding:5px}
+  #fh-checkout .fh-langbar button{min-width:34px;min-height:29px;padding:6px 8px;font-size:9px}
+  #fh-checkout .fh-shell{width:calc(100% - 20px);padding:116px 0 92px}
+  #fh-checkout .fh-hero-copy,
+  #fh-checkout .fh-card-head,
+  #fh-checkout .fh-card-body,
+  #fh-checkout .fh-success-body{padding:22px}
+  #fh-checkout .fh-side-photo{min-height:220px}
+  #fh-checkout .fh-review-grid,
+  #fh-checkout .fh-form-grid,
+  #fh-checkout .fh-success-summary{grid-template-columns:1fr}
+  #fh-checkout .fh-actions{flex-direction:column;align-items:stretch}
+  #fh-checkout .fh-btn{width:100%}
+  #fh-checkout .fh-mobile-total{display:grid}
+}
+</style>
+
+<section id="fh-checkout" data-page="checkout" data-lang="en">
+  <div class="fh-bg" aria-hidden="true"></div>
+  <div class="fh-grain" aria-hidden="true"></div>
+
+  <div class="fh-langbar" role="group" aria-label="Choose language">
+    <button type="button" data-fh-lang="en">EN</button>
+    <button type="button" data-fh-lang="fr">FR</button>
+    <button type="button" data-fh-lang="de">DE</button>
+    <button type="button" data-fh-lang="ru">RU</button>
+  </div>
+
+  <div class="fh-shell">
+    <div id="fhCheckoutFlow">
+      <div class="fh-hero">
+        <div class="fh-hero-copy">
+          <p class="fh-eyebrow" data-i18n="eyebrow">Final checkout · Fletschhorn Saas-Fee</p>
+          <h1 data-i18n="title">Review your private stay.</h1>
+          <p class="fh-lead" data-i18n="lead">We loaded the details from the booking page. Review the dates, complete the final contact details, check the quote, and send the request.</p>
+          <div class="fh-direct-note" data-i18n="directNote">Booking directly with us helps secure the best available rate and lets us coordinate your stay more personally.</div>
+          <div class="fh-empty" id="fhEmptyState" data-i18n="emptyState">No booking details were found. Please start from the booking page so this checkout can load your selected dates and contact information.</div>
+        </div>
+        <div class="fh-side-photo" id="fhHeroPhoto" aria-hidden="true"></div>
+      </div>
+
+      <div class="fh-layout">
+        <main class="fh-card fh-main-card">
+          <div class="fh-card-head">
+            <p class="fh-kicker" data-i18n="reviewKicker">Checkout</p>
+            <h2 data-i18n="reviewTitle">Your stay information</h2>
+            <p data-i18n="reviewLead">The checkout page is independent, but it reads the previous booking step through URL parameters and the saved <code>fhBookingStart</code> data.</p>
+          </div>
+
+          <form class="fh-card-body" id="fhCheckoutForm" novalidate>
+            <section class="fh-block">
+              <h3 data-i18n="staySummaryTitle">Stay summary</h3>
+              <div class="fh-review-grid">
+                <div class="fh-review-item">
+                  <span data-i18n="datesLabel">Dates</span>
+                  <strong id="fhReviewDates">—</strong>
+                  <small id="fhReviewNights">—</small>
+                </div>
+                <div class="fh-review-item">
+                  <span data-i18n="guestLabel">Guest</span>
+                  <strong id="fhReviewGuest">—</strong>
+                  <small id="fhReviewEmail">—</small>
+                </div>
+                <div class="fh-review-item">
+                  <span data-i18n="capacityLabel">Guests</span>
+                  <strong id="fhReviewGuests">—</strong>
+                  <small data-i18n="capacitySmall">Up to 48 sleeping places</small>
+                </div>
+                <div class="fh-review-item">
+                  <span data-i18n="stayTypeLabel">Stay type</span>
+                  <strong id="fhReviewStayType">Private stay</strong>
+                  <small data-i18n="stayTypeSmall">Whole-property request</small>
+                </div>
+              </div>
+            </section>
+
+            <section class="fh-block">
+              <h3 data-i18n="finalDetailsTitle">Final details</h3>
+              <p data-i18n="finalDetailsLead">Only the missing or final checkout details are editable here. Dates and contact information are still saved back to the checkout payload.</p>
+
+              <div class="fh-form-grid">
+                <div class="fh-field">
+                  <label for="fhFirstName" data-i18n="firstName">First name</label>
+                  <input id="fhFirstName" name="firstName" type="text" autocomplete="given-name" required>
+                </div>
+                <div class="fh-field">
+                  <label for="fhLastName" data-i18n="lastName">Last name</label>
+                  <input id="fhLastName" name="lastName" type="text" autocomplete="family-name" required>
+                </div>
+                <div class="fh-field">
+                  <label for="fhEmail" data-i18n="email">Email</label>
+                  <input id="fhEmail" name="email" type="email" autocomplete="email" required>
+                </div>
+                <div class="fh-field">
+                  <label for="fhPhone" data-i18n="phone">Phone / WhatsApp</label>
+                  <input id="fhPhone" name="phone" type="tel" autocomplete="tel" required>
+                </div>
+                <div class="fh-field">
+                  <label for="fhCheckIn" data-i18n="arrival">Arrival</label>
+                  <input id="fhCheckIn" name="checkIn" type="date" required>
+                </div>
+                <div class="fh-field">
+                  <label for="fhCheckOut" data-i18n="departure">Departure</label>
+                  <input id="fhCheckOut" name="checkOut" type="date" required>
+                </div>
+                <div class="fh-field">
+                  <label for="fhGuests" data-i18n="guests">Guests</label>
+                  <select id="fhGuests" name="guests" required>
+                    <option value="" data-i18n="selectGuests">Select guests</option>
+                    <option value="12">12 guests</option>
+                    <option value="16">16 guests</option>
+                    <option value="20">20 guests</option>
+                    <option value="24">24 guests</option>
+                    <option value="28">28 guests</option>
+                    <option value="32">32 guests</option>
+                    <option value="36">36 guests</option>
+                    <option value="40">40 guests</option>
+                    <option value="44">44 guests</option>
+                    <option value="48">48 guests</option>
+                  </select>
+                </div>
+                <div class="fh-field">
+                  <label for="fhStayType" data-i18n="stayType">Stay type</label>
+                  <select id="fhStayType" name="stayType">
+                    <option value="private-stay" data-i18n="stayPrivate">Private chalet stay</option>
+                    <option value="family" data-i18n="stayFamily">Family gathering</option>
+                    <option value="retreat" data-i18n="stayRetreat">Retreat / team stay</option>
+                    <option value="wedding" data-i18n="stayWedding">Wedding or event</option>
+                    <option value="other" data-i18n="stayOther">Other</option>
+                  </select>
+                </div>
+                <div class="fh-field full">
+                  <label for="fhMessage" data-i18n="message">Message</label>
+                  <textarea id="fhMessage" name="message" data-i18n-placeholder="messagePh" placeholder="Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates."></textarea>
+                </div>
+              </div>
+
+              <div class="fh-status" id="fhStatus" role="status" aria-live="polite"></div>
+
+              <div class="fh-actions">
+                <button class="fh-btn" id="fhSubmit" type="submit" data-i18n="submit">Send final booking request</button>
+                <button class="fh-btn light" id="fhRefreshQuote" type="button" data-i18n="refreshQuote">Refresh quote</button>
+                <a class="fh-btn light" href="booking.html" data-i18n="backToBooking">Change dates on booking page</a>
+              </div>
+            </section>
+          </form>
+        </main>
+
+        <aside class="fh-aside">
+          <div class="fh-card fh-price-card">
+            <div class="fh-price-top">
+              <div class="fh-price-label" data-i18n="quoteLabel">Quote before request</div>
+              <div class="fh-price-main" id="fhPriceMain">—</div>
+              <p class="fh-price-sub" id="fhPriceSub" data-i18n="quotePreparing">Preparing the quote from the selected stay details.</p>
+            </div>
+            <div class="fh-line-items" id="fhLineItems"></div>
+            <div class="fh-terms">
+              <strong data-i18n="termsTitle">Stay terms:</strong>
+              <span data-i18n="termsText">60-day cancellation policy · Check-in 4:00 PM–9:00 PM · Check-out 11:00 AM · Standard cleaning after stay included in cleaning fee; daily cleaning on request.</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section class="fh-success" id="fhSuccess">
+      <div class="fh-success-photo" id="fhSuccessPhoto"></div>
+      <div class="fh-success-body">
+        <p class="fh-kicker" data-i18n="successKicker">Booking request received</p>
+        <h2 data-i18n="successTitle">Thank you. We have received your booking request.</h2>
+        <p data-i18n="successLead">Your stay request has been sent successfully. Our team will review the details and send confirmation, payment information, and next steps by email.</p>
+        <div class="fh-success-summary">
+          <div class="fh-review-item">
+            <span data-i18n="guestLabel">Guest</span>
+            <strong id="fhSuccessGuest">—</strong>
+          </div>
+          <div class="fh-review-item">
+            <span data-i18n="datesLabel">Dates</span>
+            <strong id="fhSuccessDates">—</strong>
+          </div>
+          <div class="fh-review-item">
+            <span data-i18n="quoteLabel">Quote before request</span>
+            <strong id="fhSuccessQuote">—</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="fh-mobile-total" id="fhMobileTotal">
+    <div><span data-i18n="quoteLabel">Quote before request</span><strong id="fhMobilePrice">—</strong></div>
+    <button type="button" id="fhMobileSubmit" data-i18n="submitShort">Send</button>
+  </div>
+</section>
+
+<div id="fh-footer-slot"></div>
+
+<script>
+(function(){
+  document.body.classList.add("fh-github-version");
+
+  const ASSET_BASE = new URL("assets/", document.baseURI).href;
+
+  async function loadHtml(slotId, fileName){
+    const slot = document.getElementById(slotId);
+    if(!slot) return;
+
+    try{
+      const response = await fetch(ASSET_BASE + fileName, {cache:"no-cache"});
+      if(!response.ok) throw new Error(fileName + " failed: " + response.status);
+      const html = await response.text();
+      slot.innerHTML = html;
+
+      slot.querySelectorAll("script").forEach(function(oldScript){
+        const newScript = document.createElement("script");
+        Array.from(oldScript.attributes).forEach(function(attr){
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        newScript.textContent = oldScript.textContent;
+        oldScript.replaceWith(newScript);
+      });
+    }catch(error){
+      console.error("Fletschhorn header/footer load error:", error);
+    }
+  }
+
+  loadHtml("fh-header-slot", "Header.html");
+  loadHtml("fh-footer-slot", "footer.html");
+})();
+</script>
+
+<script>
+(function(){
+  const root = document.getElementById("fh-checkout");
+  if(!root || root.dataset.ready === "1") return;
+  root.dataset.ready = "1";
+
+  const CFG = {
+    listingId:"6968339ab7d735001ca015ba",
+    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev",
+    minNights:2,
+    maxGuests:48,
+    currency:"CHF"
+  };
+
+  const ENDPOINTS = {
+    checkAvailability:"/guesty/check-availability",
+    quote:"/guesty/quote",
+    bookInquiry:"/guesty/book-inquiry"
+  };
+
+  const IMAGES = [
+    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
+    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg"
+  ];
+
+  const LANGS = ["en","fr","de","ru"];
+  const I18N = {
+    en:{
+      eyebrow:"Final checkout · Fletschhorn Saas-Fee",
+      title:"Review your private stay.",
+      lead:"We loaded the details from the booking page. Review the dates, complete the final contact details, check the quote, and send the request.",
+      directNote:"Booking directly with us helps secure the best available rate and lets us coordinate your stay more personally.",
+      emptyState:"No booking details were found. Please start from the booking page so this checkout can load your selected dates and contact information.",
+      reviewKicker:"Checkout",
+      reviewTitle:"Your stay information",
+      reviewLead:"The checkout page is independent, but it reads the previous booking step through URL parameters and the saved fhBookingStart data.",
+      staySummaryTitle:"Stay summary",
+      datesLabel:"Dates",
+      guestLabel:"Guest",
+      capacityLabel:"Guests",
+      capacitySmall:"Up to 48 sleeping places",
+      stayTypeLabel:"Stay type",
+      stayTypeSmall:"Whole-property request",
+      finalDetailsTitle:"Final details",
+      finalDetailsLead:"Only the missing or final checkout details are editable here. Dates and contact information are still saved back to the checkout payload.",
+      firstName:"First name",
+      lastName:"Last name",
+      email:"Email",
+      phone:"Phone / WhatsApp",
+      arrival:"Arrival",
+      departure:"Departure",
+      guests:"Guests",
+      selectGuests:"Select guests",
+      stayType:"Stay type",
+      stayPrivate:"Private chalet stay",
+      stayFamily:"Family gathering",
+      stayRetreat:"Retreat / team stay",
+      stayWedding:"Wedding or event",
+      stayOther:"Other",
+      message:"Message",
+      messagePh:"Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates.",
+      submit:"Send final booking request",
+      submitShort:"Send",
+      refreshQuote:"Refresh quote",
+      backToBooking:"Change dates on booking page",
+      quoteLabel:"Quote before request",
+      quotePreparing:"Preparing the quote from the selected stay details.",
+      quoteMissing:"Complete dates, guests, phone, and email to prepare the quote.",
+      quoteUnavailable:"These dates appear unavailable. Please choose another date range.",
+      quoteReturned:"Quote returned",
+      termsTitle:"Stay terms:",
+      termsText:"60-day cancellation policy · Check-in 4:00 PM–9:00 PM · Check-out 11:00 AM · Standard cleaning after stay included in cleaning fee; daily cleaning on request.",
+      successKicker:"Booking request received",
+      successTitle:"Thank you. We have received your booking request.",
+      successLead:"Your stay request has been sent successfully. Our team will review the details and send confirmation, payment information, and next steps by email.",
+      needFields:"Please complete first name, last name, email, phone, arrival, departure, and guest count.",
+      badEmail:"Please enter a valid email address.",
+      badDates:"Departure must be after arrival.",
+      minNights:"Please select at least 2 nights.",
+      checking:"Checking availability...",
+      quoting:"Preparing quote...",
+      sending:"Sending booking request...",
+      sent:"Booking request received.",
+      fail:"The request could not be completed. Please try again or contact the team.",
+      night:"night",
+      nights:"nights"
+    },
+    fr:{},de:{},ru:{}
+  };
+
+  I18N.fr = Object.assign({}, I18N.en, {
+    eyebrow:"Checkout final · Fletschhorn Saas-Fee",
+    title:"Vérifiez votre séjour privé.",
+    lead:"Nous avons chargé les détails depuis la page de réservation. Vérifiez les dates, complétez les informations finales, consultez le devis et envoyez la demande.",
+    reviewTitle:"Les informations de votre séjour",
+    finalDetailsTitle:"Détails finaux",
+    firstName:"Prénom",
+    lastName:"Nom",
+    phone:"Téléphone / WhatsApp",
+    arrival:"Arrivée",
+    departure:"Départ",
+    guests:"Invités",
+    submit:"Envoyer la demande finale",
+    refreshQuote:"Actualiser le devis",
+    backToBooking:"Modifier les dates",
+    quoteLabel:"Devis avant demande",
+    successTitle:"Merci. Nous avons bien reçu votre demande de réservation.",
+    minNights:"Veuillez sélectionner au moins 2 nuits.",
+    night:"nuit",
+    nights:"nuits"
+  });
+
+  I18N.de = Object.assign({}, I18N.en, {
+    eyebrow:"Finaler Checkout · Fletschhorn Saas-Fee",
+    title:"Prüfen Sie Ihren privaten Aufenthalt.",
+    firstName:"Vorname",
+    lastName:"Nachname",
+    phone:"Telefon / WhatsApp",
+    arrival:"Anreise",
+    departure:"Abreise",
+    guests:"Gäste",
+    submit:"Buchungsanfrage senden",
+    refreshQuote:"Preis aktualisieren",
+    quoteLabel:"Angebot vor Anfrage",
+    minNights:"Bitte mindestens 2 Nächte auswählen.",
+    night:"Nacht",
+    nights:"Nächte"
+  });
+
+  I18N.ru = Object.assign({}, I18N.en, {
+    eyebrow:"Финальное оформление · Fletschhorn Саас-Фе",
+    title:"Проверьте частное проживание.",
+    firstName:"Имя",
+    lastName:"Фамилия",
+    phone:"Телефон / WhatsApp",
+    arrival:"Заезд",
+    departure:"Выезд",
+    guests:"Гости",
+    submit:"Отправить запрос",
+    refreshQuote:"Обновить цену",
+    quoteLabel:"Расчет перед запросом",
+    minNights:"Выберите минимум 2 ночи.",
+    night:"ночь",
+    nights:"ночей"
+  });
+
+  const qs = (s) => root.querySelector(s);
+  const qsa = (s) => Array.from(root.querySelectorAll(s));
+  const endpoint = (path) => CFG.workerBase.replace(/\/$/,"") + path;
+  const normalizeLang = (lang) => LANGS.includes(String(lang || "en").toLowerCase().slice(0,2)) ? String(lang || "en").toLowerCase().slice(0,2) : "en";
+
+  let currentLang = normalizeLang(localStorage.getItem("fh_lang") || root.dataset.lang || "en");
+  let lastQuote = null;
+  let lastQuoteId = "";
+  let lastRatePlanId = "";
+  let lastTotal = null;
+  let lastCurrency = CFG.currency;
+  let quoteTimer = null;
+
+  const fields = {
+    firstName:qs("#fhFirstName"),
+    lastName:qs("#fhLastName"),
+    email:qs("#fhEmail"),
+    phone:qs("#fhPhone"),
+    checkIn:qs("#fhCheckIn"),
+    checkOut:qs("#fhCheckOut"),
+    guests:qs("#fhGuests"),
+    stayType:qs("#fhStayType"),
+    message:qs("#fhMessage")
+  };
+
+  function t(key){return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key}
+  function escapeHtml(value){return String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+
+  function setLang(lang){
+    currentLang = normalizeLang(lang);
+    try{localStorage.setItem("fh_lang", currentLang)}catch(e){}
+    root.dataset.lang = currentLang;
+    document.documentElement.setAttribute("lang", currentLang);
+
+    qsa("[data-i18n]").forEach(function(el){
+      const key = el.getAttribute("data-i18n");
+      if(t(key)) el.textContent = t(key);
+    });
+
+    qsa("[data-i18n-placeholder]").forEach(function(el){
+      const key = el.getAttribute("data-i18n-placeholder");
+      if(t(key)) el.setAttribute("placeholder", t(key));
+    });
+
+    qsa("[data-fh-lang]").forEach(function(btn){
+      const active = normalizeLang(btn.getAttribute("data-fh-lang")) === currentLang;
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+
+    updateReview();
+    paintQuote();
+  }
+
+  window.setFletschhornLanguage = setLang;
+  window.FHSetLanguage = setLang;
+
+  document.addEventListener("click", function(event){
+    const trigger = event.target.closest("[data-fh-lang], [data-lang], [data-language]");
+    if(!trigger) return;
+    const lang = trigger.getAttribute("data-fh-lang") || trigger.getAttribute("data-lang") || trigger.getAttribute("data-language");
+    if(LANGS.includes(normalizeLang(lang))) setLang(lang);
+  });
+
+  function nightsBetween(){
+    if(!fields.checkIn.value || !fields.checkOut.value) return 0;
+    const start = new Date(fields.checkIn.value + "T00:00:00");
+    const end = new Date(fields.checkOut.value + "T00:00:00");
+    return Math.round((end - start) / 86400000);
+  }
+
+  function stayTypeText(){
+    const opt = fields.stayType.options[fields.stayType.selectedIndex];
+    return opt ? opt.textContent : "—";
+  }
+
+  function buildPayload(extra){
+    return Object.assign({
+      listingId:CFG.listingId,
+      guestyListingId:CFG.listingId,
+      firstName:(fields.firstName.value || "").trim(),
+      lastName:(fields.lastName.value || "").trim(),
+      email:(fields.email.value || "").trim(),
+      phone:(fields.phone.value || "").trim(),
+      checkIn:fields.checkIn.value,
+      checkOut:fields.checkOut.value,
+      guests:Number(fields.guests.value || 0),
+      stayType:fields.stayType.value,
+      message:(fields.message.value || "").trim(),
+      language:currentLang,
+      source:"checkout-page",
+      cancellationPolicyText:"Cancel up to 60 days before arrival.",
+      checkInWindow:"4:00 PM to 9:00 PM",
+      checkOutTime:"11:00 AM",
+      cleaningNote:"A standard cleaning fee covers the turnover after your stay. Daily cleaning is not included but can be arranged upon request.",
+      createdAt:new Date().toISOString()
+    }, extra || {});
+  }
+
+  function persist(){
+    try{localStorage.setItem("fhBookingStart", JSON.stringify(buildPayload({quote:lastQuote,quoteId:lastQuoteId,ratePlanId:lastRatePlanId,total:lastTotal,currency:lastCurrency})))}catch(e){}
+  }
+
+  function showStatus(message, mode){
+    const box = qs("#fhStatus");
+    box.className = "fh-status is-visible" + (mode ? " " + mode : "");
+    box.textContent = message;
+  }
+
+  function hideStatus(){
+    const box = qs("#fhStatus");
+    box.className = "fh-status";
+    box.textContent = "";
+  }
+
+  function validateCore(show){
+    const payload = buildPayload();
+    if(!payload.firstName || !payload.lastName || !payload.email || !payload.phone || !payload.checkIn || !payload.checkOut || !payload.guests){
+      if(show) showStatus(t("needFields"), "bad");
+      return false;
+    }
+    if(!/^\S+@\S+\.\S+$/.test(payload.email)){
+      if(show) showStatus(t("badEmail"), "bad");
+      return false;
+    }
+    if(nightsBetween() <= 0){
+      if(show) showStatus(t("badDates"), "bad");
+      return false;
+    }
+    if(nightsBetween() < CFG.minNights){
+      if(show) showStatus(t("minNights"), "warn");
+      return false;
+    }
+    if(Number(payload.guests) > CFG.maxGuests){
+      if(show) showStatus("Maximum capacity is " + CFG.maxGuests + " guests.", "bad");
+      return false;
+    }
+    return true;
+  }
+
+  function updateReview(){
+    const nights = nightsBetween();
+    const fullName = [fields.firstName.value, fields.lastName.value].filter(Boolean).join(" ") || "—";
+    const dates = fields.checkIn.value && fields.checkOut.value ? fields.checkIn.value + " → " + fields.checkOut.value : "—";
+
+    qs("#fhReviewDates").textContent = dates;
+    qs("#fhReviewNights").textContent = nights > 0 ? nights + " " + (nights === 1 ? t("night") : t("nights")) : "—";
+    qs("#fhReviewGuest").textContent = fullName;
+    qs("#fhReviewEmail").textContent = fields.email.value || "—";
+    qs("#fhReviewGuests").textContent = fields.guests.value ? fields.guests.value + " guests" : "—";
+    qs("#fhReviewStayType").textContent = stayTypeText();
+    qs("#fhSuccessGuest").textContent = fullName;
+    qs("#fhSuccessDates").textContent = dates;
+  }
+
+  async function workerPost(path,payload){
+    const response = await fetch(endpoint(path), {
+      method:"POST",
+      headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify(payload)
+    });
+    const text = await response.text();
+    let data;
+    try{data = JSON.parse(text)}catch(e){data = {rawText:text}}
+    if(!response.ok || data.ok === false || data.error){
+      const err = new Error(data.error || data.message || "Request failed");
+      err.data = data;
+      err.status = response.status;
+      throw err;
+    }
+    return data;
+  }
+
+  function walk(obj,visitor){
+    if(!obj || typeof obj !== "object") return null;
+    const direct = visitor(obj);
+    if(direct !== null && direct !== undefined) return direct;
+    if(Array.isArray(obj)){
+      for(const item of obj){const found = walk(item,visitor); if(found !== null && found !== undefined) return found;}
+    }else{
+      for(const key of Object.keys(obj)){const found = walk(obj[key],visitor); if(found !== null && found !== undefined) return found;}
+    }
+    return null;
+  }
+
+  function numberFromAny(value){
+    if(value === null || value === undefined || value === "") return null;
+    if(typeof value === "number") return Number.isFinite(value) ? value : null;
+    if(typeof value === "string"){
+      const n = Number(value.replace(/[^\d.-]/g,""));
+      return Number.isFinite(n) ? n : null;
+    }
+    return null;
+  }
+
+  function findCurrency(obj){return walk(obj, x => typeof x.currency === "string" ? x.currency : null) || CFG.currency}
+
+  function getItemAmount(item){
+    if(!item || typeof item !== "object") return null;
+    const possible = ["amount","total","value","price","totalPrice","netAmount","grossAmount"];
+    for(const field of possible){
+      const n = numberFromAny(item[field]);
+      if(n !== null && n !== 0) return n;
+    }
+    return null;
+  }
+
+  function findInvoiceItems(obj){
+    return walk(obj, function(x){
+      if(Array.isArray(x.invoiceItems)) return x.invoiceItems;
+      if(Array.isArray(x.lineItems)) return x.lineItems;
+      if(Array.isArray(x.items)) return x.items;
+      if(Array.isArray(x.fees)) return x.fees;
+      return null;
+    }) || [];
+  }
+
+  function findTotal(obj){
+    const items = findInvoiceItems(obj);
+    const summed = items.reduce(function(sum,item){
+      const amount = getItemAmount(item);
+      return amount !== null ? sum + amount : sum;
+    },0);
+    const direct = walk(obj, function(x){
+      const fields = ["grandTotal","totalPrice","balanceDue","totalAmount","quoteTotal","reservationTotal","total"];
+      for(const field of fields){
+        const n = numberFromAny(x[field]);
+        if(n !== null && n > 0) return n;
+      }
+      return null;
+    });
+    if(direct !== null && direct > 0) return direct;
+    if(summed > 0) return summed;
+    return null;
+  }
+
+  function findQuoteId(obj){
+    return walk(obj, function(x){
+      if(typeof x.quoteId === "string") return x.quoteId;
+      if(typeof x._id === "string" && (x.rates || x.ratePlans || x.invoiceItems || x.lineItems)) return x._id;
+      if(typeof x.id === "string" && (x.rates || x.ratePlans || x.invoiceItems || x.lineItems)) return x.id;
+      return null;
+    }) || "";
+  }
+
+  function findRatePlanId(obj){
+    return walk(obj, function(x){
+      if(typeof x.ratePlanId === "string") return x.ratePlanId;
+      if(typeof x.rateId === "string") return x.rateId;
+      if(Array.isArray(x.ratePlans) && x.ratePlans.length){
+        const first = x.ratePlans[0];
+        return first.ratePlanId || first.rateId || first._id || first.id || "";
+      }
+      if(Array.isArray(x.rates) && x.rates.length){
+        const first = x.rates[0];
+        return first.ratePlanId || first.rateId || first._id || first.id || "";
+      }
+      return null;
+    }) || "";
+  }
+
+  function formatMoney(amount,currency){
+    if(amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "—";
+    try{
+      return new Intl.NumberFormat(currentLang === "en" ? "en-US" : currentLang, {style:"currency",currency:currency || CFG.currency,maximumFractionDigits:0}).format(Number(amount));
+    }catch(e){
+      return Math.round(Number(amount)).toLocaleString() + " " + (currency || CFG.currency);
+    }
+  }
+
+  function paintQuote(){
+    const price = lastTotal ? formatMoney(lastTotal,lastCurrency) : "—";
+    qs("#fhPriceMain").textContent = price;
+    qs("#fhMobilePrice").textContent = price;
+    qs("#fhSuccessQuote").textContent = price;
+  }
+
+  function applyQuote(data){
+    lastQuote = data;
+    lastQuoteId = data.quoteId || findQuoteId(data.quote || data);
+    lastRatePlanId = data.ratePlanId || findRatePlanId(data.quote || data);
+    lastCurrency = findCurrency(data);
+    lastTotal = findTotal(data);
+
+    const items = findInvoiceItems(data);
+    const lineItems = qs("#fhLineItems");
+    lineItems.innerHTML = "";
+
+    if(items.length){
+      lineItems.innerHTML = items.slice(0,10).map(function(item){
+        const title = item.title || item.name || item.type || item.description || item.normalType || "Item";
+        const amount = getItemAmount(item);
+        return '<div class="fh-line-item"><span>' + escapeHtml(title) + '</span><strong>' + (amount !== null ? formatMoney(amount,lastCurrency) : "Included") + '</strong></div>';
+      }).join("");
+    }else{
+      lineItems.innerHTML = '<div class="fh-line-item"><span>' + t("quoteLabel") + '</span><strong>' + (lastTotal ? formatMoney(lastTotal,lastCurrency) : t("quoteReturned")) + '</strong></div>';
+    }
+
+    qs("#fhPriceSub").textContent = lastTotal ? "Visible before sending. Final payment details are confirmed by email." : t("quoteReturned");
+    paintQuote();
+    persist();
+  }
+
+  async function refreshQuote(showMessages){
+    if(!validateCore(false)){
+      qs("#fhPriceSub").textContent = t("quoteMissing");
+      if(showMessages) showStatus(t("needFields"), "warn");
+      return null;
+    }
+
+    if(showMessages) showStatus(t("checking"), "");
+    qs("#fhPriceSub").textContent = t("checking");
+
+    try{
+      const payload = buildPayload();
+      const availability = await workerPost(ENDPOINTS.checkAvailability, {
+        listingId:CFG.listingId,
+        checkIn:payload.checkIn,
+        checkOut:payload.checkOut,
+        guests:payload.guests || 1
+      });
+
+      const unavailable = availability.available === false || availability.isAvailable === false || availability.status === "unavailable";
+      if(unavailable){
+        qs("#fhPriceSub").textContent = t("quoteUnavailable");
+        if(showMessages) showStatus(t("quoteUnavailable"), "bad");
+        return null;
+      }
+
+      if(showMessages) showStatus(t("quoting"), "");
+      qs("#fhPriceSub").textContent = t("quoting");
+
+      const quote = await workerPost(ENDPOINTS.quote, Object.assign({}, payload, {availability:availability}));
+      applyQuote(quote);
+      if(showMessages) hideStatus();
+      return quote;
+    }catch(error){
+      console.error("Fletschhorn checkout quote error", error);
+      const message = error?.data?.guestyData?.error?.message || error?.data?.guestyData?.message || error?.data?.error || error?.message || t("fail");
+      qs("#fhPriceSub").textContent = message;
+      if(showMessages) showStatus(message, "bad");
+      return null;
+    }
+  }
+
+  async function submitCheckout(){
+    if(!validateCore(true)) return;
+
+    const button = qs("#fhSubmit");
+    button.disabled = true;
+    button.textContent = t("sending");
+    showStatus(t("sending"), "");
+
+    try{
+      if(!lastQuote || !lastQuoteId) await refreshQuote(false);
+
+      const data = await workerPost(ENDPOINTS.bookInquiry, Object.assign({}, buildPayload(), {
+        quoteId:lastQuoteId,
+        ratePlanId:lastRatePlanId,
+        quote:lastQuote,
+        total:lastTotal,
+        currency:lastCurrency
+      }));
+
+      renderSuccess(data);
+    }catch(error){
+      console.error("Fletschhorn checkout booking error", error);
+      const message = error?.data?.guestyData?.error?.message || error?.data?.guestyData?.message || error?.data?.error || error?.message || t("fail");
+      showStatus(message, "bad");
+    }finally{
+      button.disabled = false;
+      button.textContent = t("submit");
+    }
+  }
+
+  function renderSuccess(data){
+    qs("#fhCheckoutFlow").style.display = "none";
+    qs("#fhSuccessPhoto").style.backgroundImage = 'url("' + IMAGES[1] + '")';
+    updateReview();
+    paintQuote();
+    qs("#fhSuccess").classList.add("is-visible");
+    qs("#fhSuccess").scrollIntoView({behavior:"smooth",block:"start"});
+    try{localStorage.removeItem("fhBookingStart")}catch(e){}
+    showStatus(t("sent"), "good");
+  }
+
+  function readInitialData(){
+    const params = new URLSearchParams(window.location.search);
+    let stored = {};
+    try{stored = JSON.parse(localStorage.getItem("fhBookingStart") || "{}")}catch(e){stored = {}}
+
+    return {
+      firstName:params.get("firstName") || stored.firstName || "",
+      lastName:params.get("lastName") || stored.lastName || "",
+      email:params.get("email") || stored.email || "",
+      phone:params.get("phone") || stored.phone || "",
+      checkIn:params.get("checkIn") || stored.checkIn || stored.arrival || "",
+      checkOut:params.get("checkOut") || stored.checkOut || stored.departure || "",
+      guests:params.get("guests") || stored.guests || stored.guestCount || "",
+      stayType:params.get("stayType") || stored.stayType || "private-stay",
+      message:params.get("message") || stored.message || "",
+      lang:params.get("lang") || stored.lang || stored.language || "",
+      quote:stored.quote || null,
+      quoteId:stored.quoteId || "",
+      ratePlanId:stored.ratePlanId || "",
+      total:stored.total || null,
+      currency:stored.currency || CFG.currency
+    };
+  }
+
+  function applyInitialData(){
+    const data = readInitialData();
+    Object.keys(fields).forEach(function(key){
+      if(fields[key] && data[key] !== undefined && data[key] !== null && data[key] !== "") fields[key].value = data[key];
+    });
+
+    if(data.lang) currentLang = normalizeLang(data.lang);
+    lastQuote = data.quote;
+    lastQuoteId = data.quoteId;
+    lastRatePlanId = data.ratePlanId;
+    lastTotal = numberFromAny(data.total);
+    lastCurrency = data.currency || CFG.currency;
+
+    const hasAnyBookingInfo = !!(data.firstName || data.lastName || data.email || data.checkIn || data.checkOut || data.guests || data.phone);
+    qs("#fhEmptyState").classList.toggle("is-visible", !hasAnyBookingInfo);
+
+    if(lastQuote) applyQuote(lastQuote);
+    else paintQuote();
+  }
+
+  qsa("input, select, textarea").forEach(function(el){
+    el.addEventListener("input", function(){
+      updateReview();
+      persist();
+      clearTimeout(quoteTimer);
+      quoteTimer = setTimeout(function(){refreshQuote(false)}, 700);
+    });
+    el.addEventListener("change", function(){
+      updateReview();
+      persist();
+      clearTimeout(quoteTimer);
+      quoteTimer = setTimeout(function(){refreshQuote(false)}, 200);
+    });
+  });
+
+  qs("#fhCheckoutForm").addEventListener("submit", function(event){
+    event.preventDefault();
+    submitCheckout();
+  });
+
+  qs("#fhRefreshQuote").addEventListener("click", function(){refreshQuote(true)});
+  qs("#fhMobileSubmit").addEventListener("click", function(){submitCheckout()});
+
+  qs("#fhHeroPhoto").style.backgroundImage = 'url("' + IMAGES[0] + '")';
+
+  applyInitialData();
+  setLang(currentLang);
+  updateReview();
+  persist();
+  refreshQuote(false);
+})();
+</script>
