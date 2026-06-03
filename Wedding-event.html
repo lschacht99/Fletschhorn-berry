@@ -2943,19 +2943,314 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 (function(){
   if(window.__fhStandardChromeReady) return;
   window.__fhStandardChromeReady = true;
+
   document.body.classList.add("fh-github-version");
+
   const ASSET_BASE = new URL("assets/", document.baseURI).href;
-  const CFG = {bookingPageUrl:"booking.html",listingId:"6968339ab7d735001ca015ba",workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev"};
-  async function loadHtml(slotId,fileName){const slot=document.getElementById(slotId);if(!slot)return;try{const response=await fetch(ASSET_BASE+fileName,{cache:"no-cache"});if(!response.ok)throw new Error(fileName+" failed: "+response.status);slot.innerHTML=await response.text();slot.querySelectorAll("script").forEach(function(oldScript){const newScript=document.createElement("script");Array.from(oldScript.attributes).forEach(function(attr){newScript.setAttribute(attr.name,attr.value);});newScript.textContent=oldScript.textContent;oldScript.replaceWith(newScript);});}catch(error){console.error("Fletschhorn header/footer load error:",error);}}
-  loadHtml("fh-header-slot","Header.html");loadHtml("fh-footer-slot","footer.html");
-  const bookingCopy={en:{firstNameLabel:"First name",lastNameLabel:"Last name",emailLabel:"Email",arrivalLabel:"Arrival",departureLabel:"Departure",firstNamePlaceholder:"First name",lastNamePlaceholder:"Last name",emailPlaceholder:"Email address",bookButton:"Book my stay now",bookingNote:"Best Rates Guaranteed when Booking Direct",missing:"Please complete your first name, last name, email, arrival date, and departure date.",date:"Departure must be after arrival."},fr:{firstNameLabel:"Prénom",lastNameLabel:"Nom",emailLabel:"Email",arrivalLabel:"Arrivée",departureLabel:"Départ",firstNamePlaceholder:"Prénom",lastNamePlaceholder:"Nom",emailPlaceholder:"Adresse email",bookButton:"Réserver mon séjour",bookingNote:"Meilleurs tarifs garantis en réservant en direct",missing:"Veuillez compléter le prénom, le nom, l’email, la date d’arrivée et la date de départ.",date:"La date de départ doit être après la date d’arrivée."},de:{firstNameLabel:"Vorname",lastNameLabel:"Nachname",emailLabel:"E-Mail",arrivalLabel:"Anreise",departureLabel:"Abreise",firstNamePlaceholder:"Vorname",lastNamePlaceholder:"Nachname",emailPlaceholder:"E-Mail-Adresse",bookButton:"Aufenthalt buchen",bookingNote:"Beste Preise garantiert bei Direktbuchung",missing:"Bitte Vorname, Nachname, E-Mail, Anreise und Abreise ausfüllen.",date:"Die Abreise muss nach der Anreise liegen."},ru:{firstNameLabel:"Имя",lastNameLabel:"Фамилия",emailLabel:"Email",arrivalLabel:"Заезд",departureLabel:"Выезд",firstNamePlaceholder:"Имя",lastNamePlaceholder:"Фамилия",emailPlaceholder:"Email адрес",bookButton:"Забронировать",bookingNote:"Лучшие цены гарантированы при прямом бронировании",missing:"Заполните имя, фамилию, email, дату заезда и дату выезда.",date:"Дата выезда должна быть позже даты заезда."}};
-  function normalizeLang(value){value=String(value||"en").toLowerCase();if(value.startsWith("fr"))return"fr";if(value.startsWith("de"))return"de";if(value.startsWith("ru"))return"ru";return"en";}
-  function currentLang(){return normalizeLang(localStorage.getItem("fh_lang")||document.documentElement.lang||"en");}
-  function setLanguage(lang){const normalized=normalizeLang(lang);localStorage.setItem("fh_lang",normalized);document.documentElement.setAttribute("lang",normalized);document.querySelectorAll("#fh-events .fh-lang-switcher button").forEach(function(button){button.classList.toggle("is-active",button.dataset.fhLang===normalized);});const dict=bookingCopy[normalized]||bookingCopy.en;document.querySelectorAll("[data-booking-i18n]").forEach(function(el){const key=el.getAttribute("data-booking-i18n");if(dict[key])el.textContent=dict[key];});document.querySelectorAll("[data-booking-i18n-placeholder]").forEach(function(el){const key=el.getAttribute("data-booking-i18n-placeholder");if(dict[key])el.setAttribute("placeholder",dict[key]);});if(window.FHSetEventsLanguage)window.FHSetEventsLanguage(normalized);window.dispatchEvent(new CustomEvent("fh:language",{detail:{lang:normalized}}));}
-  function setupLanguageSwitcher(){document.querySelectorAll("#fh-events .fh-lang-switcher button").forEach(function(button){button.addEventListener("click",function(){setLanguage(button.dataset.fhLang||"en");});});document.addEventListener("click",function(event){const trigger=event.target.closest("[data-fh-lang], [data-lang], [data-language]");if(!trigger)return;const lang=trigger.dataset.fhLang||trigger.dataset.lang||trigger.dataset.language;if(lang)setTimeout(function(){setLanguage(lang);},0);});setLanguage(new URLSearchParams(window.location.search).get("lang")||currentLang());}
-  function setupBookingToolbar(){const form=document.getElementById("fh-standard-booking-form");const status=document.getElementById("fh-standard-booking-status");if(!form)return;const params=new URLSearchParams(window.location.search);let stored={};try{stored=JSON.parse(localStorage.getItem("fhBookingStart")||"{}");}catch(e){};["firstName","lastName","email","checkIn","checkOut"].forEach(function(key){const value=params.get(key)||stored[key]||"";if(value&&form.elements[key])form.elements[key].value=value;});form.addEventListener("submit",function(event){event.preventDefault();const lang=currentLang();const dict=bookingCopy[lang]||bookingCopy.en;const payload={firstName:String(form.elements.firstName.value||"").trim(),lastName:String(form.elements.lastName.value||"").trim(),email:String(form.elements.email.value||"").trim(),checkIn:form.elements.checkIn.value,checkOut:form.elements.checkOut.value,lang:lang,source:"wedding-events",listingId:CFG.listingId,workerBase:CFG.workerBase,createdAt:new Date().toISOString()};function show(message){if(!status)return;status.textContent=message;status.classList.add("is-visible");}if(!payload.firstName||!payload.lastName||!payload.email||!payload.checkIn||!payload.checkOut){show(dict.missing);return;}if(payload.checkOut<=payload.checkIn){show(dict.date);return;}localStorage.setItem("fhBookingStart",JSON.stringify(payload));const next=new URL(CFG.bookingPageUrl,document.baseURI);next.searchParams.set("firstName",payload.firstName);next.searchParams.set("lastName",payload.lastName);next.searchParams.set("email",payload.email);next.searchParams.set("checkIn",payload.checkIn);next.searchParams.set("checkOut",payload.checkOut);next.searchParams.set("lang",payload.lang);next.searchParams.set("source","homepage");window.location.href=next.toString();});}
-  function init(){setupLanguageSwitcher();setupBookingToolbar();}
-  document.addEventListener("DOMContentLoaded",init);if(document.readyState!=="loading")init();
+  const CFG = {
+    bookingPageUrl:"booking.html",
+    listingId:"6968339ab7d735001ca015ba",
+    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev"
+  };
+
+  async function loadHtml(slotId,fileName){
+    const slot=document.getElementById(slotId);
+    if(!slot) return;
+
+    try{
+      const response=await fetch(ASSET_BASE+fileName,{cache:"no-cache"});
+      if(!response.ok) throw new Error(fileName+" failed: "+response.status);
+
+      slot.innerHTML=await response.text();
+
+      slot.querySelectorAll("script").forEach(function(oldScript){
+        const newScript=document.createElement("script");
+        Array.from(oldScript.attributes).forEach(function(attr){
+          newScript.setAttribute(attr.name,attr.value);
+        });
+        newScript.textContent=oldScript.textContent;
+        oldScript.replaceWith(newScript);
+      });
+    }catch(error){
+      console.error("Fletschhorn header/footer load error:",error);
+    }
+  }
+
+  loadHtml("fh-header-slot","Header.html");
+  loadHtml("fh-footer-slot","footer.html");
+
+  const bookingCopy={
+    en:{
+      firstNameLabel:"First name",
+      lastNameLabel:"Last name",
+      emailLabel:"Email",
+      arrivalLabel:"Arrival",
+      departureLabel:"Departure",
+      firstNamePlaceholder:"First name",
+      lastNamePlaceholder:"Last name",
+      emailPlaceholder:"Email address",
+      bookButton:"Book my stay now",
+      bookingNote:"Best Rates Guaranteed when Booking Direct",
+      missing:"Please complete your first name, last name, email, arrival date, and departure date.",
+      email:"Please enter a valid email address.",
+      date:"Departure must be after arrival.",
+      minNights:"Please select at least 2 nights"
+    },
+    fr:{
+      firstNameLabel:"Prénom",
+      lastNameLabel:"Nom",
+      emailLabel:"Email",
+      arrivalLabel:"Arrivée",
+      departureLabel:"Départ",
+      firstNamePlaceholder:"Prénom",
+      lastNamePlaceholder:"Nom",
+      emailPlaceholder:"Adresse email",
+      bookButton:"Réserver mon séjour",
+      bookingNote:"Meilleurs tarifs garantis en réservant en direct",
+      missing:"Veuillez compléter le prénom, le nom, l’email, la date d’arrivée et la date de départ.",
+      email:"Veuillez entrer une adresse email valide.",
+      date:"La date de départ doit être après la date d’arrivée.",
+      minNights:"Please select at least 2 nights"
+    },
+    de:{
+      firstNameLabel:"Vorname",
+      lastNameLabel:"Nachname",
+      emailLabel:"E-Mail",
+      arrivalLabel:"Anreise",
+      departureLabel:"Abreise",
+      firstNamePlaceholder:"Vorname",
+      lastNamePlaceholder:"Nachname",
+      emailPlaceholder:"E-Mail-Adresse",
+      bookButton:"Aufenthalt buchen",
+      bookingNote:"Beste Preise garantiert bei Direktbuchung",
+      missing:"Bitte Vorname, Nachname, E-Mail, Anreise und Abreise ausfüllen.",
+      email:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      date:"Die Abreise muss nach der Anreise liegen.",
+      minNights:"Please select at least 2 nights"
+    },
+    ru:{
+      firstNameLabel:"Имя",
+      lastNameLabel:"Фамилия",
+      emailLabel:"Email",
+      arrivalLabel:"Заезд",
+      departureLabel:"Выезд",
+      firstNamePlaceholder:"Имя",
+      lastNamePlaceholder:"Фамилия",
+      emailPlaceholder:"Email адрес",
+      bookButton:"Забронировать",
+      bookingNote:"Лучшие цены гарантированы при прямом бронировании",
+      missing:"Заполните имя, фамилию, email, дату заезда и дату выезда.",
+      email:"Введите корректный email.",
+      date:"Дата выезда должна быть позже даты заезда.",
+      minNights:"Please select at least 2 nights"
+    }
+  };
+
+  function normalizeLang(value){
+    value=String(value||"en").toLowerCase();
+    if(value.startsWith("fr")) return "fr";
+    if(value.startsWith("de")) return "de";
+    if(value.startsWith("ru")) return "ru";
+    return "en";
+  }
+
+  function currentLang(){
+    return normalizeLang(
+      localStorage.getItem("fh_lang") ||
+      localStorage.getItem("fh_language") ||
+      localStorage.getItem("fhLang") ||
+      document.documentElement.lang ||
+      "en"
+    );
+  }
+
+  function setLanguage(lang){
+    const normalized=normalizeLang(lang);
+
+    localStorage.setItem("fh_lang",normalized);
+    localStorage.setItem("fh_language",normalized);
+    localStorage.setItem("fhLang",normalized);
+    document.documentElement.setAttribute("lang",normalized);
+
+    document.querySelectorAll("#fh-events .fh-lang-switcher button").forEach(function(button){
+      button.classList.toggle("is-active",normalizeLang(button.dataset.fhLang)===normalized);
+    });
+
+    const dict=bookingCopy[normalized]||bookingCopy.en;
+
+    document.querySelectorAll("[data-booking-i18n]").forEach(function(el){
+      const key=el.getAttribute("data-booking-i18n");
+      if(dict[key]) el.textContent=dict[key];
+    });
+
+    document.querySelectorAll("[data-booking-i18n-placeholder]").forEach(function(el){
+      const key=el.getAttribute("data-booking-i18n-placeholder");
+      if(dict[key]) el.setAttribute("placeholder",dict[key]);
+    });
+
+    if(window.FHSetEventsLanguage) window.FHSetEventsLanguage(normalized);
+
+    window.dispatchEvent(new CustomEvent("fh:language-change",{detail:{lang:normalized}}));
+    window.dispatchEvent(new CustomEvent("fh:language",{detail:{lang:normalized}}));
+  }
+
+  function setupLanguageSwitcher(){
+    document.querySelectorAll("#fh-events .fh-lang-switcher button").forEach(function(button){
+      button.addEventListener("click",function(){
+        setLanguage(button.dataset.fhLang||"en");
+      });
+    });
+
+    document.addEventListener("click",function(event){
+      const trigger=event.target.closest("[data-fh-lang], [data-lang], [data-language]");
+      if(!trigger) return;
+
+      const lang=trigger.dataset.fhLang || trigger.dataset.lang || trigger.dataset.language;
+      if(lang) setTimeout(function(){ setLanguage(lang); },0);
+    });
+
+    setLanguage(new URLSearchParams(window.location.search).get("lang") || currentLang());
+  }
+
+  function validEmail(email){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email||"").trim());
+  }
+
+  function nightsBetween(checkIn,checkOut){
+    const start=new Date(checkIn+"T00:00:00");
+    const end=new Date(checkOut+"T00:00:00");
+    return Math.round((end-start)/(1000*60*60*24));
+  }
+
+  function setupBookingToolbar(){
+    const form=document.getElementById("fh-standard-booking-form");
+    const status=document.getElementById("fh-standard-booking-status");
+    if(!form) return;
+
+    const todayIso=new Date().toISOString().split("T")[0];
+    if(form.elements.checkIn) form.elements.checkIn.min=todayIso;
+    if(form.elements.checkOut) form.elements.checkOut.min=todayIso;
+
+    if(form.elements.checkIn && form.elements.checkOut){
+      form.elements.checkIn.addEventListener("change",function(){
+        const checkIn=form.elements.checkIn.value;
+        form.elements.checkOut.min=checkIn || todayIso;
+
+        if(checkIn && form.elements.checkOut.value && form.elements.checkOut.value<=checkIn){
+          form.elements.checkOut.value="";
+        }
+      });
+    }
+
+    const params=new URLSearchParams(window.location.search);
+    let stored={};
+    try{stored=JSON.parse(localStorage.getItem("fhBookingStart")||"{}");}catch(e){}
+
+    ["firstName","lastName","email","checkIn","checkOut"].forEach(function(key){
+      const value=params.get(key) || stored[key] || "";
+      if(value && form.elements[key]) form.elements[key].value=value;
+    });
+
+    function show(message,type){
+      if(!status) return;
+      status.textContent=message;
+      status.classList.add("is-visible");
+      status.classList.toggle("error",type==="error");
+      status.classList.toggle("success",type==="success");
+    }
+
+    form.addEventListener("submit",function(event){
+      event.preventDefault();
+
+      const lang=currentLang();
+      const dict=bookingCopy[lang]||bookingCopy.en;
+
+      const payload={
+        firstName:String(form.elements.firstName.value||"").trim(),
+        lastName:String(form.elements.lastName.value||"").trim(),
+        email:String(form.elements.email.value||"").trim(),
+        checkIn:form.elements.checkIn.value,
+        checkOut:form.elements.checkOut.value,
+        lang:lang,
+        source:"wedding-events",
+        listingId:CFG.listingId,
+        workerBase:CFG.workerBase,
+        createdAt:new Date().toISOString()
+      };
+
+      if(!payload.firstName || !payload.lastName || !payload.email || !payload.checkIn || !payload.checkOut){
+        show(dict.missing,"error");
+        return;
+      }
+
+      if(!validEmail(payload.email)){
+        show(dict.email,"error");
+        return;
+      }
+
+      if(payload.checkOut<=payload.checkIn){
+        show(dict.date,"error");
+        return;
+      }
+
+      if(nightsBetween(payload.checkIn,payload.checkOut)<2){
+        show(dict.minNights,"error");
+        return;
+      }
+
+      localStorage.setItem("fhBookingStart",JSON.stringify(payload));
+
+      const next=new URL(CFG.bookingPageUrl,document.baseURI);
+      next.searchParams.set("firstName",payload.firstName);
+      next.searchParams.set("lastName",payload.lastName);
+      next.searchParams.set("email",payload.email);
+      next.searchParams.set("checkIn",payload.checkIn);
+      next.searchParams.set("checkOut",payload.checkOut);
+      next.searchParams.set("lang",payload.lang);
+      next.searchParams.set("source","wedding-events");
+
+      window.location.href=next.toString();
+    });
+  }
+
+  function setupBookingIntentLinks(){
+    document.addEventListener("click",function(event){
+      const link=event.target.closest("a[href], button[data-fh-booking-open], [data-booking-link]");
+      if(!link) return;
+
+      const href=(link.getAttribute("href")||"").trim();
+      const isBookingIntent=
+        link.hasAttribute("data-fh-booking-open") ||
+        link.hasAttribute("data-booking-link") ||
+        href==="booking.html" ||
+        href==="/booking" ||
+        href==="#book" ||
+        href==="#booking" ||
+        href==="#fh-event-inquiry-bar" ||
+        href.includes("booking.html") ||
+        href.includes("contact-booking");
+
+      if(!isBookingIntent) return;
+
+      const toolbar=document.getElementById("fh-event-inquiry-bar") || document.getElementById("fh-standard-booking-form");
+      if(!toolbar) return;
+
+      event.preventDefault();
+      toolbar.scrollIntoView({behavior:"smooth",block:"center"});
+
+      const first=toolbar.querySelector("input");
+      if(first) setTimeout(function(){ first.focus({preventScroll:true}); },420);
+    });
+  }
+
+  function init(){
+    setupLanguageSwitcher();
+    setupBookingToolbar();
+    setupBookingIntentLinks();
+  }
+
+  document.addEventListener("DOMContentLoaded",init);
+  if(document.readyState!=="loading") init();
 })();
 </script>
 
