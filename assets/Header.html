@@ -1,444 +1,487 @@
 <!-- ==========================================================
-Fletschhorn — Global Header Only
+Fletschhorn — Global Header + Small Mobile Drawer + Fixed Reserve CTA
 Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
-Includes compact mobile drawer + always-visible Reserve CTA.
+
+Updates:
+- Tiny always-visible "Reserve stay" CTA
+- Mobile hamburger opens as compact right-side drawer, not full page
+- About Us and Booking order switched
+- Keeps Guesty / Worker global variables
 ========================================================== -->
 
 <style>
-  :root{
-    --fh-header-cream:#f7f1e8;
-    --fh-header-paper:#fffaf2;
-    --fh-header-ink:#1c1814;
-    --fh-header-muted:rgba(28,24,20,.62);
-    --fh-header-line:rgba(28,24,20,.14);
-    --fh-header-forest:#1f3a2f;
-    --fh-header-forest2:#2f5141;
-    --fh-header-shadow:0 18px 54px rgba(27,23,18,.14);
-  }
+/* ==========================================================
+Fletschhorn Global Header CSS
+========================================================== */
 
-  body.fh-hide-sqs-shell header.Header,
-  body.fh-hide-sqs-shell footer.Footer,
-  body.fh-hide-sqs-shell .Header,
-  body.fh-hide-sqs-shell .Footer{
-    display:none !important;
-  }
+:root{
+  --fh-cream:#f7f1e8;
+  --fh-paper:#fffaf2;
+  --fh-ink:#1c1814;
+  --fh-muted:rgba(28,24,20,.66);
+  --fh-line:rgba(28,24,20,.14);
+  --fh-forest:#1f3a2f;
+  --fh-forest-2:#2f5141;
+  --fh-clay:#b99a7d;
+  --fh-white:#fffaf2;
+  --fh-shadow:0 18px 60px rgba(20,18,15,.16);
+  --fh-soft-shadow:0 12px 34px rgba(20,18,15,.09);
+  --fh-serif:Georgia, "Times New Roman", serif;
+  --fh-sans:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
 
-  .fh-global-header{
-    position:fixed;
-    top:14px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:99990;
-    width:min(1180px, calc(100vw - 28px));
-    min-height:64px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:18px;
-    padding:10px 12px 10px 14px;
-    border:1px solid rgba(28,24,20,.12);
-    border-radius:999px;
-    background:rgba(255,250,242,.82);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-    box-shadow:0 10px 34px rgba(27,23,18,.10);
-    transition:box-shadow .25s ease, background .25s ease, top .25s ease;
-  }
+body.fh-global-shell{
+  padding-top:82px;
+}
 
-  .fh-global-header.is-scrolled{
-    top:10px;
-    background:rgba(255,250,242,.94);
-    box-shadow:var(--fh-header-shadow);
-  }
+body.fh-hide-sqs-shell header.Header,
+body.fh-hide-sqs-shell .Header,
+body.fh-hide-sqs-shell footer.Footer,
+body.fh-hide-sqs-shell .Footer{
+  display:none !important;
+}
 
-  .fh-global-brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    min-width:0;
-    color:var(--fh-header-ink);
-    text-decoration:none !important;
-  }
+/* Header */
+.fh-global-header{
+  position:fixed;
+  top:14px;
+  left:18px;
+  right:18px;
+  z-index:9998;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:10px 12px 10px 14px;
+  border:1px solid rgba(255,250,242,.62);
+  border-radius:999px;
+  background:rgba(255,250,242,.72);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  box-shadow:0 12px 40px rgba(28,24,20,.10);
+  transition:background .25s ease, box-shadow .25s ease, transform .25s ease;
+}
 
-  .fh-global-mark{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    overflow:hidden;
-    display:grid;
-    place-items:center;
-    flex:0 0 auto;
-    background:#fff;
-    border:1px solid rgba(28,24,20,.12);
-    font-family:Georgia, serif;
-    font-size:13px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-  }
+.fh-global-header.is-scrolled{
+  background:rgba(255,250,242,.88);
+  box-shadow:0 16px 48px rgba(28,24,20,.14);
+}
 
-  .fh-global-mark img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-  }
+.fh-global-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+  color:var(--fh-ink);
+  text-decoration:none;
+}
 
-  .fh-brand-name{
-    display:block;
-    font-family:Georgia, "Times New Roman", serif;
-    font-size:18px;
-    line-height:1;
-    letter-spacing:.02em;
-    color:var(--fh-header-ink);
-    white-space:nowrap;
-  }
+.fh-global-mark{
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(28,24,20,.10);
+  font-family:var(--fh-serif);
+  font-size:15px;
+  font-style:italic;
+  color:var(--fh-forest);
+  text-transform:lowercase;
+}
 
+.fh-global-mark img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.fh-brand-name{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:20px;
+  line-height:1;
+  letter-spacing:-.03em;
+}
+
+.fh-brand-note{
+  display:block;
+  margin-top:3px;
+  font-family:var(--fh-sans);
+  font-size:10px;
+  line-height:1.1;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:rgba(28,24,20,.50);
+  white-space:nowrap;
+}
+
+/* Desktop nav */
+.fh-global-nav{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:4px;
+  font-family:var(--fh-sans);
+}
+
+.fh-global-nav a{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:36px;
+  padding:0 11px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:650;
+  letter-spacing:.02em;
+  color:rgba(28,24,20,.72);
+  text-decoration:none;
+  transition:background .2s ease, color .2s ease, transform .2s ease;
+}
+
+.fh-global-nav a:hover{
+  background:rgba(31,58,47,.07);
+  color:var(--fh-ink);
+}
+
+.fh-global-nav a.is-active{
+  background:rgba(31,58,47,.10);
+  color:var(--fh-forest);
+}
+
+.fh-global-nav .fh-global-cta{
+  margin-left:6px;
+  padding:0 14px;
+  background:var(--fh-forest);
+  color:var(--fh-white);
+  box-shadow:0 10px 26px rgba(31,58,47,.22);
+}
+
+.fh-global-nav .fh-global-cta:hover{
+  background:var(--fh-forest-2);
+  color:var(--fh-white);
+  transform:translateY(-1px);
+}
+
+/* Tiny always-visible reserve button */
+.fh-fixed-reserve{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:9999;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:34px;
+  padding:0 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,250,242,.72);
+  background:rgba(31,58,47,.94);
+  color:var(--fh-white);
+  text-decoration:none;
+  font-family:var(--fh-sans);
+  font-size:11px;
+  font-weight:750;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+  box-shadow:0 14px 34px rgba(20,18,15,.22);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.fh-fixed-reserve:hover{
+  transform:translateY(-2px);
+  background:var(--fh-forest-2);
+  box-shadow:0 18px 42px rgba(20,18,15,.26);
+}
+
+/* Mobile toggle */
+.fh-mobile-toggle{
+  display:none;
+  width:40px;
+  height:40px;
+  border-radius:999px;
+  border:1px solid rgba(28,24,20,.12);
+  background:rgba(255,255,255,.56);
+  cursor:pointer;
+  padding:0;
+  position:relative;
+  flex:0 0 40px;
+}
+
+.fh-mobile-toggle span,
+.fh-mobile-toggle::before,
+.fh-mobile-toggle::after{
+  content:"";
+  position:absolute;
+  left:11px;
+  right:11px;
+  height:1.5px;
+  border-radius:999px;
+  background:var(--fh-ink);
+  transition:transform .22s ease, opacity .22s ease, top .22s ease;
+}
+
+.fh-mobile-toggle span{
+  top:19px;
+}
+
+.fh-mobile-toggle::before{
+  top:14px;
+}
+
+.fh-mobile-toggle::after{
+  top:24px;
+}
+
+.fh-mobile-toggle[aria-expanded="true"] span{
+  opacity:0;
+}
+
+.fh-mobile-toggle[aria-expanded="true"]::before{
+  top:19px;
+  transform:rotate(45deg);
+}
+
+.fh-mobile-toggle[aria-expanded="true"]::after{
+  top:19px;
+  transform:rotate(-45deg);
+}
+
+/* Compact mobile drawer */
+.fh-mobile-menu{
+  position:fixed;
+  inset:0;
+  z-index:9997;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .22s ease;
+}
+
+.fh-mobile-menu::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(28,24,20,.12);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+}
+
+.fh-mobile-menu.is-open{
+  pointer-events:auto;
+  opacity:1;
+}
+
+.fh-mobile-panel{
+  position:absolute;
+  top:76px;
+  right:18px;
+  width:min(420px, calc(100vw - 36px));
+  max-height:calc(100vh - 104px);
+  overflow:auto;
+  border-radius:24px;
+  border:1px solid rgba(255,250,242,.68);
+  background:rgba(255,250,242,.94);
+  box-shadow:0 24px 70px rgba(28,24,20,.22);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  transform:translateY(-10px) scale(.98);
+  opacity:0;
+  transition:transform .22s ease, opacity .22s ease;
+}
+
+.fh-mobile-menu.is-open .fh-mobile-panel{
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+
+.fh-mobile-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:16px 16px 10px;
+  border-bottom:1px solid rgba(28,24,20,.10);
+}
+
+.fh-mobile-title{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:20px;
+  line-height:1;
+  color:var(--fh-ink);
+}
+
+.fh-mobile-subtitle{
+  display:block;
+  margin-top:4px;
+  font-family:var(--fh-sans);
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(28,24,20,.48);
+}
+
+.fh-mobile-close{
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  border:1px solid rgba(28,24,20,.12);
+  background:rgba(255,255,255,.68);
+  color:var(--fh-ink);
+  cursor:pointer;
+  font-size:18px;
+  line-height:1;
+}
+
+.fh-mobile-links{
+  display:grid;
+  gap:8px;
+  padding:12px;
+}
+
+.fh-mobile-links a{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:13px 14px;
+  border-radius:17px;
+  color:var(--fh-ink);
+  text-decoration:none;
+  background:rgba(255,255,255,.34);
+  border:1px solid rgba(28,24,20,.06);
+  transition:background .18s ease, transform .18s ease;
+}
+
+.fh-mobile-links a:hover{
+  background:rgba(31,58,47,.07);
+  transform:translateY(-1px);
+}
+
+.fh-mobile-links a.is-active{
+  background:rgba(31,58,47,.10);
+  border-color:rgba(31,58,47,.16);
+}
+
+.fh-mobile-links strong{
+  display:block;
+  font-family:var(--fh-serif);
+  font-size:18px;
+  font-weight:400;
+  line-height:1.05;
+}
+
+.fh-mobile-links small{
+  display:block;
+  margin-top:4px;
+  font-family:var(--fh-sans);
+  font-size:12px;
+  line-height:1.35;
+  color:rgba(28,24,20,.58);
+}
+
+.fh-mobile-links em{
+  font-style:normal;
+  color:rgba(28,24,20,.44);
+}
+
+.fh-mobile-reserve{
+  margin:0 12px 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  border-radius:999px;
+  background:var(--fh-forest);
+  color:var(--fh-white);
+  text-decoration:none;
+  font-family:var(--fh-sans);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  box-shadow:0 12px 30px rgba(31,58,47,.22);
+}
+
+/* Responsive */
+@media (max-width:1020px){
   .fh-brand-note{
-    display:block;
-    margin-top:4px;
-    font-size:10px;
-    line-height:1;
-    letter-spacing:.11em;
-    text-transform:uppercase;
-    color:var(--fh-header-muted);
-    white-space:nowrap;
-  }
-
-  .fh-global-nav{
-    display:flex;
-    align-items:center;
-    gap:4px;
-    margin-left:auto;
+    display:none;
   }
 
   .fh-global-nav a{
-    color:rgba(28,24,20,.70);
-    text-decoration:none !important;
-    font-size:12px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    padding:10px 11px;
-    border-radius:999px;
-    transition:background .2s ease, color .2s ease;
+    padding:0 8px;
+  }
+}
+
+@media (max-width:880px){
+  body.fh-global-shell{
+    padding-top:76px;
   }
 
-  .fh-global-nav a:hover,
-  .fh-global-nav a.is-active{
-    background:rgba(31,58,47,.08);
-    color:var(--fh-header-forest);
+  .fh-global-header{
+    top:12px;
+    left:12px;
+    right:12px;
+    padding:8px 8px 8px 10px;
   }
 
-  .fh-global-nav .fh-global-cta{
-    margin-left:5px;
-    background:var(--fh-header-forest);
-    color:#fffaf2 !important;
-    border:1px solid rgba(31,58,47,.26);
-    box-shadow:0 8px 18px rgba(31,58,47,.14);
-  }
-
-  .fh-global-nav .fh-global-cta:hover{
-    background:var(--fh-header-forest2);
-    color:#fffaf2 !important;
-  }
-
-  .fh-floating-book{
-    position:fixed;
-    right:18px;
-    bottom:18px;
-    z-index:99989;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-height:38px;
-    padding:0 15px;
-    border-radius:999px;
-    background:rgba(31,58,47,.94);
-    color:#fffaf2 !important;
-    text-decoration:none !important;
-    font-size:11px;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    box-shadow:0 14px 36px rgba(27,23,18,.18);
-    border:1px solid rgba(255,250,242,.28);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-  }
-
-  .fh-floating-book:hover{
-    background:var(--fh-header-forest2);
+  .fh-global-nav{
+    display:none;
   }
 
   .fh-mobile-toggle{
-    display:none;
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    border:1px solid rgba(28,24,20,.14);
-    background:rgba(255,250,242,.9);
-    cursor:pointer;
-    align-items:center;
-    justify-content:center;
-    padding:0;
-    flex:0 0 auto;
-  }
-
-  .fh-mobile-toggle span,
-  .fh-mobile-toggle span::before,
-  .fh-mobile-toggle span::after{
     display:block;
-    width:17px;
-    height:1.5px;
-    background:var(--fh-header-ink);
-    border-radius:999px;
-    content:"";
-    transition:transform .22s ease, opacity .22s ease;
   }
 
-  .fh-mobile-toggle span{
-    position:relative;
-  }
-
-  .fh-mobile-toggle span::before{
-    position:absolute;
-    top:-6px;
-    left:0;
-  }
-
-  .fh-mobile-toggle span::after{
-    position:absolute;
-    top:6px;
-    left:0;
-  }
-
-  .fh-mobile-toggle[aria-expanded="true"] span{
-    background:transparent;
-  }
-
-  .fh-mobile-toggle[aria-expanded="true"] span::before{
-    transform:translateY(6px) rotate(45deg);
-  }
-
-  .fh-mobile-toggle[aria-expanded="true"] span::after{
-    transform:translateY(-6px) rotate(-45deg);
-  }
-
-  .fh-mobile-menu{
-    position:fixed;
-    inset:0;
-    z-index:99988;
-    pointer-events:none;
-    opacity:0;
-    transition:opacity .22s ease;
-  }
-
-  .fh-mobile-menu::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:rgba(28,24,20,.18);
-    opacity:0;
-    transition:opacity .22s ease;
-  }
-
-  .fh-mobile-menu.is-open{
-    pointer-events:auto;
-    opacity:1;
-  }
-
-  .fh-mobile-menu.is-open::before{
-    opacity:1;
-  }
-
-  .fh-mobile-panel{
-    position:absolute;
-    top:86px;
-    right:14px;
-    width:min(360px, calc(100vw - 28px));
-    max-height:min(620px, calc(100vh - 112px));
-    overflow:auto;
-    border-radius:26px;
-    background:rgba(255,250,242,.96);
-    border:1px solid rgba(28,24,20,.13);
-    box-shadow:0 24px 80px rgba(27,23,18,.20);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-    transform:translateY(-8px) scale(.98);
-    transform-origin:top right;
-    transition:transform .22s ease;
-  }
-
-  .fh-mobile-menu.is-open .fh-mobile-panel{
-    transform:translateY(0) scale(1);
-  }
-
-  .fh-mobile-panel-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    padding:16px 16px 10px;
-    border-bottom:1px solid rgba(28,24,20,.10);
-  }
-
-  .fh-mobile-panel-title{
-    display:block;
-    font-family:Georgia, "Times New Roman", serif;
-    font-size:18px;
-    line-height:1.1;
-    color:var(--fh-header-ink);
-  }
-
-  .fh-mobile-panel-sub{
-    display:block;
-    margin-top:4px;
-    font-size:10px;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:var(--fh-header-muted);
-  }
-
-  .fh-mobile-close{
+  .fh-global-mark{
     width:34px;
     height:34px;
-    border-radius:50%;
-    border:1px solid rgba(28,24,20,.13);
-    background:rgba(255,255,255,.5);
-    color:var(--fh-header-ink);
-    font-size:18px;
-    line-height:1;
-    cursor:pointer;
-    flex:0 0 auto;
+    flex-basis:34px;
   }
 
-  .fh-mobile-links{
-    display:grid;
-    gap:6px;
-    padding:12px;
+  .fh-brand-name{
+    font-size:18px;
+  }
+
+  .fh-fixed-reserve{
+    right:14px;
+    bottom:14px;
+    height:32px;
+    padding:0 12px;
+    font-size:10px;
+    letter-spacing:.09em;
+  }
+}
+
+@media (max-width:480px){
+  .fh-mobile-panel{
+    top:70px;
+    right:10px;
+    width:calc(100vw - 20px);
+    border-radius:21px;
   }
 
   .fh-mobile-links a{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    padding:12px 13px;
-    border-radius:18px;
-    color:var(--fh-header-ink);
-    text-decoration:none !important;
-    border:1px solid transparent;
+    padding:12px;
   }
 
-  .fh-mobile-links a:hover,
-  .fh-mobile-links a.is-active{
-    background:rgba(31,58,47,.07);
-    border-color:rgba(31,58,47,.10);
+  .fh-mobile-links strong{
+    font-size:17px;
   }
 
-  .fh-mobile-links a strong{
-    display:block;
-    font-size:13px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:var(--fh-header-ink);
+  .fh-mobile-links small{
+    font-size:11.5px;
   }
-
-  .fh-mobile-links a small{
-    display:block;
-    margin-top:4px;
-    font-size:11px;
-    line-height:1.35;
-    color:var(--fh-header-muted);
-    max-width:250px;
-  }
-
-  .fh-mobile-links a em{
-    font-style:normal;
-    color:rgba(28,24,20,.45);
-    font-size:16px;
-  }
-
-  .fh-mobile-reserve{
-    margin:0 12px 14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:42px;
-    border-radius:999px;
-    background:var(--fh-header-forest);
-    color:#fffaf2 !important;
-    text-decoration:none !important;
-    font-size:11px;
-    letter-spacing:.13em;
-    text-transform:uppercase;
-  }
-
-  html.fh-nav-open{
-    overflow:hidden;
-  }
-
-  @media (max-width:1040px){
-    .fh-global-nav a{
-      padding:9px 8px;
-      font-size:11px;
-    }
-
-    .fh-brand-note{
-      display:none;
-    }
-  }
-
-  @media (max-width:860px){
-    .fh-global-header{
-      top:10px;
-      width:calc(100vw - 20px);
-      min-height:58px;
-      padding:8px 9px 8px 11px;
-    }
-
-    .fh-global-nav{
-      display:none;
-    }
-
-    .fh-mobile-toggle{
-      display:flex;
-    }
-
-    .fh-global-mark{
-      width:38px;
-      height:38px;
-    }
-
-    .fh-brand-name{
-      font-size:17px;
-    }
-
-    .fh-floating-book{
-      right:14px;
-      bottom:14px;
-      min-height:34px;
-      padding:0 13px;
-      font-size:10px;
-      box-shadow:0 12px 30px rgba(27,23,18,.18);
-    }
-  }
-
-  @media (max-width:480px){
-    .fh-mobile-panel{
-      top:76px;
-      right:10px;
-      width:calc(100vw - 20px);
-      max-height:calc(100vh - 96px);
-      border-radius:22px;
-    }
-
-    .fh-mobile-links a{
-      padding:11px 12px;
-    }
-
-    .fh-mobile-links a small{
-      font-size:10.5px;
-    }
-  }
+}
 </style>
 
 <script>
@@ -496,20 +539,20 @@ Includes compact mobile drawer + always-visible Reserve CTA.
       match: ["/Location.html", "/location.html", "/location"]
     },
     {
-      key: "booking",
-      label: "Booking",
-      short: "Booking",
-      href: "booking.html",
-      note: "Send an inquiry and plan your stay or event.",
-      match: ["/booking.html", "/Booking.html", "/booking"]
-    },
-    {
       key: "about",
       label: "About Us",
       short: "About",
       href: "About-us.html",
       note: "Story, history, and the private-house direction.",
       match: ["/About-us.html", "/about-us.html", "/about"]
+    },
+    {
+      key: "booking",
+      label: "Booking",
+      short: "Booking",
+      href: "booking.html",
+      note: "Send an inquiry and plan your stay or event.",
+      match: ["/Booking.html", "/booking.html", "/booking"]
     }
   ];
 
@@ -588,7 +631,7 @@ Includes compact mobile drawer + always-visible Reserve CTA.
 
         <nav class="fh-global-nav" aria-label="Primary navigation">
           ${navLinks}
-          <a class="fh-global-cta" href="booking.html">Reserve</a>
+          <a class="fh-global-cta" href="Booking.html" data-fh-booking-link>Reserve</a>
         </nav>
 
         <button class="fh-mobile-toggle" type="button" id="fhMobileToggle" aria-expanded="false" aria-controls="fhMobileMenu" aria-label="Open menu">
@@ -612,10 +655,10 @@ Includes compact mobile drawer + always-visible Reserve CTA.
     return `
       <div class="fh-mobile-menu" id="fhMobileMenu" aria-hidden="true">
         <div class="fh-mobile-panel" role="dialog" aria-label="Fletschhorn navigation">
-          <div class="fh-mobile-panel-head">
+          <div class="fh-mobile-top">
             <span>
-              <span class="fh-mobile-panel-title">Fletschhorn</span>
-              <span class="fh-mobile-panel-sub">Private alpine house</span>
+              <span class="fh-mobile-title">Fletschhorn</span>
+              <span class="fh-mobile-subtitle">Private alpine house</span>
             </span>
             <button class="fh-mobile-close" type="button" id="fhMobileClose" aria-label="Close menu">×</button>
           </div>
@@ -624,16 +667,16 @@ Includes compact mobile drawer + always-visible Reserve CTA.
             ${links}
           </div>
 
-          <a class="fh-mobile-reserve" href="booking.html">Reserve your stay</a>
+          <a class="fh-mobile-reserve" href="Booking.html" data-fh-booking-link>Reserve stay</a>
         </div>
       </div>
     `;
   }
 
-  function makeFloatingBook(){
+  function makeFixedReserve(){
     return `
-      <a class="fh-floating-book" id="fhFloatingBook" href="booking.html" aria-label="Reserve your stay">
-        Reserve
+      <a class="fh-fixed-reserve" href="Booking.html" data-fh-booking-link aria-label="Reserve your stay">
+        Reserve stay
       </a>
     `;
   }
@@ -662,6 +705,30 @@ Includes compact mobile drawer + always-visible Reserve CTA.
     });
   }
 
+  function preserveBookingLanguage(){
+    const storedLang = (() => {
+      try{
+        return localStorage.getItem("fh_lang") || "";
+      }catch(error){
+        return "";
+      }
+    })();
+
+    const currentLang =
+      document.body.getAttribute("data-fh-lang") ||
+      document.documentElement.getAttribute("lang") ||
+      storedLang ||
+      "en";
+
+    document.querySelectorAll("[data-fh-booking-link]").forEach(link => {
+      link.addEventListener("click", () => {
+        try{
+          localStorage.setItem("fh_lang", currentLang);
+        }catch(error){}
+      });
+    });
+  }
+
   function init(){
     if(document.getElementById("fhGlobalHeader")) return;
 
@@ -677,14 +744,15 @@ Includes compact mobile drawer + always-visible Reserve CTA.
     document.body.insertAdjacentHTML("afterbegin", makeMobileMenu(activeKey));
     document.body.insertAdjacentHTML("afterbegin", makeHeader(activeKey));
 
-    if(!document.getElementById("fhFloatingBook")){
-      document.body.insertAdjacentHTML("beforeend", makeFloatingBook());
+    if(!document.querySelector(".fh-fixed-reserve")){
+      document.body.insertAdjacentHTML("beforeend", makeFixedReserve());
     }
 
     const header = document.getElementById("fhGlobalHeader");
     const toggle = document.getElementById("fhMobileToggle");
     const menu = document.getElementById("fhMobileMenu");
-    const closeBtn = document.getElementById("fhMobileClose");
+    const panel = menu ? menu.querySelector(".fh-mobile-panel") : null;
+    const closeButton = document.getElementById("fhMobileClose");
 
     function onScroll(){
       if(!header) return;
@@ -715,16 +783,18 @@ Includes compact mobile drawer + always-visible Reserve CTA.
         isOpen ? closeMenu() : openMenu();
       });
 
-      if(closeBtn){
-        closeBtn.addEventListener("click", closeMenu);
+      if(closeButton){
+        closeButton.addEventListener("click", closeMenu);
       }
-
-      menu.addEventListener("click", event => {
-        if(event.target === menu) closeMenu();
-      });
 
       menu.querySelectorAll("a").forEach(a => {
         a.addEventListener("click", closeMenu);
+      });
+
+      menu.addEventListener("click", event => {
+        if(panel && !panel.contains(event.target)){
+          closeMenu();
+        }
       });
 
       document.addEventListener("keydown", event => {
@@ -733,6 +803,7 @@ Includes compact mobile drawer + always-visible Reserve CTA.
     }
 
     syncHeaderLanguageClicks();
+    preserveBookingLanguage();
 
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
