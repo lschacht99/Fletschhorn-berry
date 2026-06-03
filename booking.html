@@ -1766,6 +1766,611 @@
     grid-template-columns:1fr;
   }
 }
+
+
+/* =========================================================
+   READABLE MOBILE-FIRST FIX — booking page
+   Goal: not desktop-shrunk-to-phone.
+   - hero is shorter, not dominant
+   - form is readable, mostly one-column
+   - touch targets are comfortable
+   - page header stays visible and usable
+   - worker / Guesty / JS flow untouched
+   ========================================================= */
+
+@media(max-width:760px){
+  /* Make the loaded global header usable on mobile without changing its JS */
+  body.fh-github-version #fh-header-slot,
+  body.fh-github-version #fh-header-slot *{
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
+
+  body.fh-github-version #fh-header-slot header,
+  body.fh-github-version #fh-header-slot .fh-header,
+  body.fh-github-version #fh-header-slot .site-header,
+  body.fh-github-version #fh-header-slot .header{
+    min-height:58px!important;
+    padding:9px 12px!important;
+  }
+
+  body.fh-github-version #fh-header-slot a,
+  body.fh-github-version #fh-header-slot button{
+    min-height:40px!important;
+    font-size:12px!important;
+    line-height:1.1!important;
+  }
+
+  body.fh-github-version #fh-header-slot .logo,
+  body.fh-github-version #fh-header-slot .brand,
+  body.fh-github-version #fh-header-slot .fh-brand,
+  body.fh-github-version #fh-header-slot [class*="brand"]{
+    font-size:16px!important;
+    line-height:1.05!important;
+  }
+
+  body.fh-github-version #fh-header-slot .cta,
+  body.fh-github-version #fh-header-slot [href*="booking"],
+  body.fh-github-version #fh-header-slot [class*="book"]{
+    font-size:11px!important;
+    padding:9px 12px!important;
+    min-height:38px!important;
+    white-space:nowrap!important;
+  }
+
+  #fh-booking-main{
+    --mobile-edge:14px;
+    overflow-x:hidden;
+    overflow-y:visible;
+  }
+
+  #fh-booking-main .fh-bg:before{
+    opacity:.055;
+    animation:none;
+  }
+
+  #fh-booking-main .fh-grain{
+    opacity:.03;
+  }
+
+  /* Language selector: subtle, but still tappable/readable */
+  #fh-booking-main .fh-langbar{
+    top:70px;
+    right:12px;
+    left:auto;
+    transform:none;
+    gap:2px;
+    padding:4px;
+    border-radius:999px;
+    background:rgba(255,250,243,.82);
+    border:1px solid rgba(26,23,20,.12);
+    box-shadow:0 8px 24px rgba(0,0,0,.10);
+    opacity:.92;
+  }
+
+  #fh-booking-main .fh-langbar button{
+    min-width:31px;
+    min-height:29px;
+    padding:6px 7px;
+    border-radius:999px;
+    color:rgba(26,23,20,.62);
+    font-size:9px;
+    letter-spacing:.08em;
+  }
+
+  #fh-booking-main .fh-langbar button.is-active,
+  #fh-booking-main .fh-langbar button:hover{
+    background:#1d1a17;
+    border-color:#1d1a17;
+    color:#fffaf3;
+  }
+
+  /* Hero: short, readable, not a desktop banner squeezed onto mobile */
+  #fh-booking-main .fh-hero{
+    min-height:0!important;
+    height:clamp(255px,34svh,330px)!important;
+    padding:92px var(--mobile-edge) 34px!important;
+    align-items:end;
+  }
+
+  #fh-booking-main .fh-hero:after{
+    height:42px;
+  }
+
+  #fh-booking-main .fh-hero-inner{
+    text-align:left;
+  }
+
+  #fh-booking-main .fh-eyebrow,
+  #fh-booking-main .fh-kicker{
+    margin-bottom:8px;
+    font-size:10px;
+    letter-spacing:.16em;
+  }
+
+  #fh-booking-main h1{
+    max-width:12ch;
+    font-size:clamp(34px,10.5vw,48px)!important;
+    line-height:1!important;
+    letter-spacing:-.055em;
+    margin:0 0 9px!important;
+  }
+
+  #fh-booking-main .fh-hero-lead{
+    max-width:31rem;
+    margin-left:0;
+    font-size:15px!important;
+    line-height:1.38!important;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+
+  #fh-booking-main .fh-trust-row{
+    justify-content:flex-start;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    width:100%;
+    padding:0 2px 4px;
+    margin-top:11px;
+    gap:7px;
+  }
+
+  #fh-booking-main .fh-trust-row::-webkit-scrollbar,
+  #fh-booking-main .fh-photo-strip::-webkit-scrollbar,
+  #fh-booking-main .fh-property-gallery::-webkit-scrollbar,
+  #fh-booking-main .fh-chip-row::-webkit-scrollbar{display:none}
+
+  #fh-booking-main .fh-trust-pill{
+    flex:0 0 auto;
+    scroll-snap-align:start;
+    min-height:34px;
+    padding:7px 10px;
+    font-size:11px;
+    white-space:nowrap;
+  }
+
+  /* Booking card: readable, not miniature */
+  #fh-booking-main .fh-booking-wrap,
+  #fh-booking-main .fh-success{
+    width:calc(100% - 18px);
+    margin-top:-18px;
+  }
+
+  #fh-booking-main .fh-card,
+  #fh-booking-main .fh-main-card{
+    box-shadow:0 14px 38px rgba(0,0,0,.11);
+  }
+
+  #fh-booking-main .fh-book-head{
+    padding:18px 18px 14px!important;
+  }
+
+  #fh-booking-main h2{
+    font-size:clamp(30px,8.8vw,40px)!important;
+    line-height:1!important;
+    letter-spacing:-.05em;
+  }
+
+  #fh-booking-main h3{
+    font-size:clamp(26px,7.4vw,34px)!important;
+  }
+
+  #fh-booking-main p{
+    font-size:15px;
+    line-height:1.5;
+  }
+
+  #fh-booking-main .fh-form{
+    padding:18px!important;
+  }
+
+  /* Important change: one-column form on phones. Easier to read and tap. */
+  #fh-booking-main .fh-grid{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:13px!important;
+  }
+
+  #fh-booking-main .fh-field,
+  #fh-booking-main .fh-field.full,
+  #fh-booking-main .fh-contact-note{
+    grid-column:1/-1!important;
+  }
+
+  #fh-booking-main label{
+    margin-bottom:6px!important;
+    font-size:10.5px!important;
+    letter-spacing:.13em!important;
+  }
+
+  #fh-booking-main input,
+  #fh-booking-main select,
+  #fh-booking-main textarea,
+  #fh-booking-main .fh-date-button{
+    min-height:52px!important;
+    padding:13px 13px!important;
+    font-size:16px!important;
+    line-height:1.25!important;
+  }
+
+  #fh-booking-main textarea{
+    min-height:92px!important;
+  }
+
+  #fh-booking-main .fh-date-button{
+    flex-direction:row!important;
+    align-items:center!important;
+    gap:10px!important;
+  }
+
+  #fh-booking-main .fh-date-button span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  #fh-booking-main .fh-date-button strong{
+    flex:0 0 auto;
+    font-size:11px;
+  }
+
+  #fh-booking-main .fh-field-hint{
+    margin-top:6px!important;
+    font-size:12px!important;
+    line-height:1.38!important;
+  }
+
+  #fh-booking-main .fh-contact-note{
+    grid-template-columns:1fr!important;
+    gap:11px!important;
+    padding:13px!important;
+  }
+
+  #fh-booking-main .fh-contact-note h4{
+    font-size:23px!important;
+    margin-bottom:4px;
+  }
+
+  #fh-booking-main .fh-contact-note p{
+    font-size:13px!important;
+    line-height:1.42!important;
+  }
+
+  #fh-booking-main .fh-contact-lines{
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+
+  #fh-booking-main .fh-contact-line{
+    display:flex!important;
+    justify-content:space-between;
+    gap:10px;
+    padding-top:8px!important;
+    border-top:1px solid rgba(26,23,20,.08)!important;
+  }
+
+  #fh-booking-main .fh-contact-line:first-child{
+    padding-top:0!important;
+    border-top:0!important;
+  }
+
+  #fh-booking-main .fh-contact-line span{
+    font-size:9px!important;
+    letter-spacing:.11em!important;
+  }
+
+  #fh-booking-main .fh-contact-line a{
+    font-size:13px!important;
+  }
+
+  #fh-booking-main .fh-terms-mini{
+    margin-top:13px!important;
+    padding-top:11px!important;
+    font-size:11px!important;
+    line-height:1.42!important;
+  }
+
+  #fh-booking-main .fh-actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+    margin-top:13px!important;
+    padding-top:13px!important;
+  }
+
+  #fh-booking-main .fh-btn{
+    width:100%;
+    min-height:52px!important;
+    padding:14px 16px!important;
+    font-size:11px!important;
+  }
+
+  #fh-booking-main .fh-direct-note{
+    font-size:12.5px!important;
+    line-height:1.4!important;
+  }
+
+  #fh-booking-main .fh-status{
+    margin-top:12px!important;
+    padding:12px 13px!important;
+    font-size:13px!important;
+    line-height:1.42!important;
+  }
+
+  /* Property preview: compact but not tiny */
+  #fh-booking-main .fh-section{
+    padding:38px var(--mobile-edge)!important;
+  }
+
+  #fh-booking-main .fh-section-head{
+    display:block!important;
+    margin-bottom:14px!important;
+  }
+
+  #fh-booking-main .fh-section-head p{
+    margin-top:9px!important;
+    font-size:14px!important;
+    line-height:1.45!important;
+  }
+
+  #fh-booking-main .fh-property-card{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:12px!important;
+    padding:12px!important;
+  }
+
+  #fh-booking-main .fh-property-gallery{
+    display:grid!important;
+    grid-auto-flow:column!important;
+    grid-auto-columns:minmax(230px,78vw)!important;
+    grid-template-columns:none!important;
+    min-height:205px!important;
+    gap:8px!important;
+    overflow-x:auto!important;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:2px;
+  }
+
+  #fh-booking-main .fh-gallery-stack{display:contents!important}
+
+  #fh-booking-main .fh-gallery-main,
+  #fh-booking-main .fh-gallery-stack div{
+    min-height:205px!important;
+    scroll-snap-align:start;
+  }
+
+  #fh-booking-main .fh-property-copy{
+    padding:2px 2px 0!important;
+  }
+
+  #fh-booking-main .fh-property-copy p{
+    font-size:14px!important;
+    line-height:1.45!important;
+  }
+
+  #fh-booking-main .fh-chip-row{
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    margin-top:10px!important;
+    gap:7px!important;
+    padding-bottom:2px;
+  }
+
+  #fh-booking-main .fh-chip{
+    flex:0 0 auto;
+    scroll-snap-align:start;
+    padding:8px 10px!important;
+    font-size:11px!important;
+    white-space:nowrap;
+  }
+
+  #fh-booking-main .fh-photo-strip{
+    display:grid!important;
+    grid-auto-flow:column!important;
+    grid-auto-columns:minmax(145px,45vw)!important;
+    grid-template-columns:none!important;
+    overflow-x:auto!important;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    gap:8px!important;
+    margin-top:10px!important;
+    padding-bottom:3px;
+  }
+
+  #fh-booking-main .fh-photo-strip div{
+    min-height:104px!important;
+    scroll-snap-align:start;
+  }
+
+  /* Calendar and confirm modal: bottom sheet, but readable */
+  #fh-booking-main .fh-calendar-modal,
+  #fh-booking-main .fh-confirm-modal{
+    align-items:flex-end!important;
+    padding:0!important;
+  }
+
+  #fh-booking-main .fh-calendar-card{
+    width:100%!important;
+    max-height:84svh!important;
+    border-left:0!important;
+    border-right:0!important;
+    border-bottom:0!important;
+    padding:14px 12px calc(14px + env(safe-area-inset-bottom))!important;
+  }
+
+  #fh-booking-main .fh-calendar-head{
+    position:sticky;
+    top:0;
+    z-index:2;
+    background:var(--paper);
+    padding-bottom:9px;
+    margin-bottom:9px!important;
+  }
+
+  #fh-booking-main .fh-calendar-title{
+    font-size:28px!important;
+  }
+
+  #fh-booking-main .fh-calendar-help,
+  #fh-booking-main .fh-calendar-warning{
+    font-size:13px!important;
+    margin-bottom:9px!important;
+  }
+
+  #fh-booking-main .fh-mini-btn,
+  #fh-booking-main .fh-calendar-close{
+    min-width:40px!important;
+    min-height:38px!important;
+  }
+
+  #fh-booking-main .fh-weekdays,
+  #fh-booking-main .fh-calendar-grid{
+    gap:4px!important;
+  }
+
+  #fh-booking-main .fh-weekday{
+    font-size:9px!important;
+    padding-bottom:3px;
+  }
+
+  #fh-booking-main .fh-day{
+    min-height:54px!important;
+    padding:5px!important;
+  }
+
+  #fh-booking-main .fh-day-number{
+    font-size:12px!important;
+  }
+
+  #fh-booking-main .fh-day-status{
+    font-size:8px!important;
+    letter-spacing:.04em;
+  }
+
+  #fh-booking-main .fh-confirm-card{
+    width:100%!important;
+    max-height:88svh!important;
+    border-left:0!important;
+    border-right:0!important;
+    border-bottom:0!important;
+    grid-template-columns:1fr!important;
+  }
+
+  #fh-booking-main .fh-confirm-photo{
+    min-height:120px!important;
+  }
+
+  #fh-booking-main .fh-confirm-body{
+    padding:17px!important;
+    max-height:calc(88svh - 120px)!important;
+  }
+
+  #fh-booking-main .fh-confirm-head{
+    margin-bottom:11px!important;
+  }
+
+  #fh-booking-main .fh-confirm-title{
+    font-size:29px!important;
+  }
+
+  #fh-booking-main .fh-confirm-lead{
+    font-size:14px!important;
+    line-height:1.42!important;
+  }
+
+  #fh-booking-main .fh-confirm-summary{
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+    margin:12px 0!important;
+  }
+
+  #fh-booking-main .fh-confirm-main{
+    padding:12px!important;
+  }
+
+  #fh-booking-main .fh-confirm-main span,
+  #fh-booking-main .fh-price-label{
+    font-size:9px!important;
+    letter-spacing:.11em!important;
+  }
+
+  #fh-booking-main .fh-confirm-main strong{
+    font-size:15px!important;
+  }
+
+  #fh-booking-main .fh-price-box{
+    margin-top:10px!important;
+    padding:13px!important;
+  }
+
+  #fh-booking-main .fh-price-main{
+    font-size:34px!important;
+  }
+
+  #fh-booking-main .fh-line-item{
+    padding:8px 0!important;
+    font-size:13px!important;
+  }
+
+  #fh-booking-main .fh-confirm-note{
+    margin-top:11px!important;
+    padding-top:10px!important;
+    font-size:12px!important;
+    line-height:1.42!important;
+  }
+
+  #fh-booking-main .fh-confirm-actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:9px!important;
+    margin-top:12px!important;
+  }
+
+  #fh-booking-main .fh-mobile-sticky{
+    left:10px!important;
+    right:10px!important;
+    bottom:8px!important;
+    min-height:48px!important;
+    font-size:11px!important;
+    letter-spacing:.12em!important;
+    opacity:.96;
+  }
+}
+
+@media(max-width:390px){
+  #fh-booking-main .fh-langbar{
+    top:66px;
+    right:8px;
+  }
+
+  #fh-booking-main .fh-langbar button{
+    min-width:28px;
+    min-height:27px;
+    padding:5px 6px;
+    font-size:8px;
+  }
+
+  #fh-booking-main .fh-hero{
+    height:clamp(245px,32svh,310px)!important;
+  }
+
+  #fh-booking-main h1{
+    font-size:clamp(32px,10vw,43px)!important;
+  }
+}
+
 </style>
 
 <div id="fh-booking-main" data-page="booking" data-lang="en">
