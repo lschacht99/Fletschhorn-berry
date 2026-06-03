@@ -7413,6 +7413,174 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
 })();
 </script>
 
+
+
+<style id="fh-mobile-peekaboo-carousel-patch">
+/* MOBILE PEEKABOO CAROUSELS
+   Every mobile horizontal rail now shows part of the next card, with a soft right-edge hint.
+   Desktop remains unchanged. */
+@media(max-width:760px){
+  #fh-experiences-mobile,
+  #fh-experiences-desktop{
+    --fh-peek-pad:15px;
+    --fh-peek-gap:10px;
+    --fh-peek-card:78%;
+    --fh-peek-card-wide:82%;
+    --fh-peek-filter-fade:linear-gradient(90deg,#000 0%,#000 calc(100% - 38px),rgba(0,0,0,.18) calc(100% - 10px),transparent 100%);
+  }
+
+  /* All mobile rails get the same peekaboo behavior. */
+  #fh-experiences-mobile .fh-season-jump,
+  #fh-experiences-mobile .fh-mobile-season-strip,
+  #fh-experiences-mobile .fh-filters,
+  #fh-experiences-mobile .fh-mobile-filter-rail,
+  #fh-experiences-mobile .fh-photo-strip,
+  #fh-experiences-mobile .fh-mobile-rail,
+  #fh-experiences-mobile .fh-activity-grid,
+  #fh-experiences-mobile .fh-route-grid,
+  #fh-experiences-mobile .fh-itinerary-grid,
+  #fh-experiences-mobile .fh-map-sidebar,
+  #fh-experiences-desktop .fh-season-jump,
+  #fh-experiences-desktop .fh-mobile-season-strip,
+  #fh-experiences-desktop .fh-filters,
+  #fh-experiences-desktop .fh-mobile-filter-rail,
+  #fh-experiences-desktop .fh-photo-strip,
+  #fh-experiences-desktop .fh-mobile-rail,
+  #fh-experiences-desktop .fh-activity-grid,
+  #fh-experiences-desktop .fh-route-grid,
+  #fh-experiences-desktop .fh-itinerary-grid,
+  #fh-experiences-desktop .fh-map-sidebar{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    grid-template-columns:none!important;
+    gap:var(--fh-peek-gap)!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    scroll-snap-type:x mandatory!important;
+    scroll-padding-left:var(--fh-peek-pad)!important;
+    scrollbar-width:none!important;
+    padding-right:calc(var(--fh-peek-pad) + 30px)!important;
+    -webkit-mask-image:var(--fh-peek-filter-fade)!important;
+    mask-image:var(--fh-peek-filter-fade)!important;
+  }
+
+  #fh-experiences-mobile .fh-season-jump::-webkit-scrollbar,
+  #fh-experiences-mobile .fh-mobile-season-strip::-webkit-scrollbar,
+  #fh-experiences-mobile .fh-filters::-webkit-scrollbar,
+  #fh-experiences-mobile .fh-mobile-filter-rail::-webkit-scrollbar,
+  #fh-experiences-mobile .fh-photo-strip::-webkit-scrollbar,
+  #fh-experiences-mobile .fh-mobile-rail::-webkit-scrollbar,
+  #fh-experiences-mobile .fh-activity-grid::-webkit-scrollbar,
+  #fh-experiences-mobile .fh-route-grid::-webkit-scrollbar,
+  #fh-experiences-mobile .fh-itinerary-grid::-webkit-scrollbar,
+  #fh-experiences-mobile .fh-map-sidebar::-webkit-scrollbar,
+  #fh-experiences-desktop .fh-season-jump::-webkit-scrollbar,
+  #fh-experiences-desktop .fh-mobile-season-strip::-webkit-scrollbar,
+  #fh-experiences-desktop .fh-filters::-webkit-scrollbar,
+  #fh-experiences-desktop .fh-mobile-filter-rail::-webkit-scrollbar,
+  #fh-experiences-desktop .fh-photo-strip::-webkit-scrollbar,
+  #fh-experiences-desktop .fh-mobile-rail::-webkit-scrollbar,
+  #fh-experiences-desktop .fh-activity-grid::-webkit-scrollbar,
+  #fh-experiences-desktop .fh-route-grid::-webkit-scrollbar,
+  #fh-experiences-desktop .fh-itinerary-grid::-webkit-scrollbar,
+  #fh-experiences-desktop .fh-map-sidebar::-webkit-scrollbar{
+    display:none!important;
+  }
+
+  /* Season cards: strong visible next-card peek. */
+  #fh-experiences-mobile .fh-season-choice,
+  #fh-experiences-mobile .fh-mobile-season-btn,
+  #fh-experiences-desktop .fh-season-choice,
+  #fh-experiences-desktop .fh-mobile-season-btn{
+    flex:0 0 70%!important;
+    scroll-snap-align:start!important;
+  }
+
+  /* Filter chips: show a fade/peek at the edge instead of cutting abruptly. */
+  #fh-experiences-mobile .fh-filter,
+  #fh-experiences-mobile .fh-mobile-filter-rail button,
+  #fh-experiences-desktop .fh-filter,
+  #fh-experiences-desktop .fh-mobile-filter-rail button{
+    flex:0 0 auto!important;
+    scroll-snap-align:start!important;
+  }
+
+  /* Photo rails. */
+  #fh-experiences-mobile .fh-photo-strip .fh-photo-tile,
+  #fh-experiences-mobile .fh-photo-strip .fh-photo-tile.tall,
+  #fh-experiences-mobile .fh-mobile-rail .fh-photo-tile,
+  #fh-experiences-mobile .fh-mobile-rail .fh-photo-tile.tall,
+  #fh-experiences-desktop .fh-photo-strip .fh-photo-tile,
+  #fh-experiences-desktop .fh-photo-strip .fh-photo-tile.tall,
+  #fh-experiences-desktop .fh-mobile-rail .fh-photo-tile,
+  #fh-experiences-desktop .fh-mobile-rail .fh-photo-tile.tall{
+    flex:0 0 var(--fh-peek-card)!important;
+    scroll-snap-align:start!important;
+  }
+
+  /* Map place rails. */
+  #fh-experiences-mobile .fh-map-sidebar .fh-place,
+  #fh-experiences-mobile .fh-mobile-place-rail .fh-place,
+  #fh-experiences-desktop .fh-map-sidebar .fh-place,
+  #fh-experiences-desktop .fh-mobile-place-rail .fh-place{
+    flex:0 0 var(--fh-peek-card-wide)!important;
+    scroll-snap-align:start!important;
+  }
+
+  /* Activity / route / dayplan rails. */
+  #fh-experiences-mobile .fh-activity-grid .fh-activity,
+  #fh-experiences-mobile .fh-mobile-activity-rail .fh-activity,
+  #fh-experiences-mobile .fh-route-grid .fh-route,
+  #fh-experiences-mobile .fh-mobile-route-rail .fh-route,
+  #fh-experiences-mobile .fh-itinerary-grid .fh-itinerary,
+  #fh-experiences-mobile .fh-mobile-dayplan-rail .fh-itinerary,
+  #fh-experiences-desktop .fh-activity-grid .fh-activity,
+  #fh-experiences-desktop .fh-mobile-activity-rail .fh-activity,
+  #fh-experiences-desktop .fh-route-grid .fh-route,
+  #fh-experiences-desktop .fh-mobile-route-rail .fh-route,
+  #fh-experiences-desktop .fh-itinerary-grid .fh-itinerary,
+  #fh-experiences-desktop .fh-mobile-dayplan-rail .fh-itinerary{
+    flex:0 0 var(--fh-peek-card-wide)!important;
+    scroll-snap-align:start!important;
+  }
+
+  /* The last card gets breathing room so it can snap cleanly without feeling stuck. */
+  #fh-experiences-mobile .fh-season-jump > *:last-child,
+  #fh-experiences-mobile .fh-mobile-season-strip > *:last-child,
+  #fh-experiences-mobile .fh-photo-strip > *:last-child,
+  #fh-experiences-mobile .fh-mobile-rail > *:last-child,
+  #fh-experiences-mobile .fh-activity-grid > *:last-child,
+  #fh-experiences-mobile .fh-route-grid > *:last-child,
+  #fh-experiences-mobile .fh-itinerary-grid > *:last-child,
+  #fh-experiences-mobile .fh-map-sidebar > *:last-child,
+  #fh-experiences-desktop .fh-season-jump > *:last-child,
+  #fh-experiences-desktop .fh-mobile-season-strip > *:last-child,
+  #fh-experiences-desktop .fh-photo-strip > *:last-child,
+  #fh-experiences-desktop .fh-mobile-rail > *:last-child,
+  #fh-experiences-desktop .fh-activity-grid > *:last-child,
+  #fh-experiences-desktop .fh-route-grid > *:last-child,
+  #fh-experiences-desktop .fh-itinerary-grid > *:last-child,
+  #fh-experiences-desktop .fh-map-sidebar > *:last-child{
+    margin-right:22px!important;
+  }
+}
+
+@media(max-width:390px){
+  #fh-experiences-mobile,
+  #fh-experiences-desktop{
+    --fh-peek-card:80%;
+    --fh-peek-card-wide:84%;
+  }
+  #fh-experiences-mobile .fh-season-choice,
+  #fh-experiences-mobile .fh-mobile-season-btn,
+  #fh-experiences-desktop .fh-season-choice,
+  #fh-experiences-desktop .fh-mobile-season-btn{
+    flex-basis:76%!important;
+  }
+}
+</style>
+
 <div id="fh-footer-slot"></div>
 </body>
 </html>
