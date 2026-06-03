@@ -9,12 +9,9 @@
     meta.name = 'viewport';
     document.head && document.head.appendChild(meta);
   }
-  if(meta){
-    meta.setAttribute('content','width=device-width, initial-scale=1, viewport-fit=cover');
-  }
+  meta.setAttribute('content','width=device-width, initial-scale=1, viewport-fit=cover');
 })();
 </script>
-
 
 <style>
 #fh-checkout-main,
@@ -23,25 +20,25 @@
 #fh-checkout-main{
   --ink:#1a1714;
   --muted:rgba(26,23,20,.66);
-  --line:rgba(26,23,20,.13);
+  --soft:rgba(26,23,20,.48);
+  --line:rgba(26,23,20,.12);
   --paper:#fffaf3;
-  --paper2:#f8f1e8;
+  --paper2:#f7efe5;
   --page:#efe7dc;
   --clay:#b99f86;
   --clay2:#876e58;
   --green:#6f7b64;
   --white:#fffaf3;
-  --shadow:0 18px 46px rgba(0,0,0,.12);
-  --soft-shadow:0 10px 30px rgba(0,0,0,.07);
+  --shadow:0 22px 58px rgba(0,0,0,.12);
   --serif:Georgia,"Times New Roman",serif;
   --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100svh;
   color:var(--ink);
   font-family:var(--sans);
   background:
-    radial-gradient(circle at 12% 8%,rgba(255,255,255,.72),transparent 0 26%),
-    radial-gradient(circle at 90% 10%,rgba(185,159,134,.15),transparent 0 25%),
-    linear-gradient(180deg,#efe7dc 0%,#fbf6ef 52%,#efe7dc 100%);
-  min-height:100svh;
+    radial-gradient(circle at 8% 0%,rgba(255,255,255,.72),transparent 0 28%),
+    radial-gradient(circle at 92% 8%,rgba(185,159,134,.18),transparent 0 24%),
+    linear-gradient(180deg,#efe7dc 0%,#fbf6ef 48%,#efe7dc 100%);
   overflow-x:hidden;
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
@@ -49,7 +46,11 @@
 
 #fh-checkout-main a{color:inherit;text-decoration:none}
 #fh-checkout-main button{font:inherit;cursor:pointer}
-#fh-checkout-main img{max-width:100%;display:block}
+#fh-checkout-main img{display:block;max-width:100%}
+#fh-checkout-main h1,
+#fh-checkout-main h2,
+#fh-checkout-main h3,
+#fh-checkout-main p{margin-top:0}
 
 #fh-checkout-main .fh-bg{
   position:fixed;
@@ -57,20 +58,20 @@
   z-index:0;
   pointer-events:none;
   background:
-    radial-gradient(circle at 12% 10%,rgba(255,255,255,.65),transparent 0 24%),
-    radial-gradient(circle at 86% 14%,rgba(185,159,134,.16),transparent 0 22%),
-    radial-gradient(circle at 72% 84%,rgba(255,255,255,.38),transparent 0 24%);
+    radial-gradient(circle at 14% 12%,rgba(255,255,255,.58),transparent 0 22%),
+    radial-gradient(circle at 86% 18%,rgba(185,159,134,.14),transparent 0 24%),
+    radial-gradient(circle at 74% 86%,rgba(255,255,255,.38),transparent 0 28%);
 }
 
 #fh-checkout-main .fh-bg:before{
   content:"";
   position:absolute;
   inset:-10%;
-  opacity:.10;
+  opacity:.07;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23876e58' stroke-opacity='.50' stroke-width='1.1'%3E%3Cpath d='M-50 130c205 54 364 56 500 12 128-42 265-39 407 14 154 58 313 59 502-10 78-28 148-32 217-18'/%3E%3Cpath d='M-50 288c214 38 394 31 538-18 125-42 256-38 392 12 164 61 326 55 503-10 82-30 153-33 217-20'/%3E%3Cpath d='M-50 444c230 26 415 17 570-24 120-31 247-30 388 4 160 38 314 37 480-10 90-25 157-27 222-16'/%3E%3Cpath d='M-50 604c238 18 432 7 596-28 122-26 246-24 380-3 150 23 295 22 438-8 88-18 156-18 218-10'/%3E%3Cpath d='M-50 762c264 8 468-8 635-35 120-20 241-18 365-4 146 16 283 16 422-8 88-14 151-13 213-8'/%3E%3C/g%3E%3C/svg%3E");
   background-size:cover;
   background-position:center;
-  animation:fhTopo 30s ease-in-out infinite alternate;
+  animation:fhTopo 34s ease-in-out infinite alternate;
 }
 
 #fh-checkout-main .fh-grain{
@@ -78,7 +79,7 @@
   inset:0;
   z-index:80;
   pointer-events:none;
-  opacity:.045;
+  opacity:.035;
   mix-blend-mode:multiply;
   background-image:radial-gradient(rgba(0,0,0,.55) .45px,transparent .55px);
   background-size:4px 4px;
@@ -89,235 +90,222 @@
   to{transform:translate3d(1vw,-1vh,0) scale(1.06)}
 }
 
-/* Mobile-first: the phone layout is the base layout. Desktop enhancements are added below. */
 #fh-checkout-main .fh-langbar{
   position:fixed;
-  top:70px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:45;
+  z-index:60;
+  top:76px;
+  right:14px;
   display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-  width:max-content;
-  max-width:calc(100vw - 24px);
-  padding:5px;
-  border:1px solid rgba(255,250,243,.26);
-  background:rgba(26,23,20,.34);
+  gap:3px;
+  padding:4px;
+  background:rgba(26,23,20,.24);
+  border:1px solid rgba(255,250,243,.24);
   backdrop-filter:blur(16px);
   -webkit-backdrop-filter:blur(16px);
-  box-shadow:0 14px 34px rgba(0,0,0,.12);
+  box-shadow:0 12px 26px rgba(0,0,0,.11);
 }
 
 #fh-checkout-main .fh-langbar button{
   border:1px solid transparent;
   background:transparent;
-  color:rgba(255,250,243,.84);
-  min-height:36px;
-  min-width:42px;
-  padding:8px 9px;
-  font-size:10px;
+  color:rgba(255,250,243,.82);
+  min-width:32px;
+  min-height:30px;
+  padding:6px 7px;
+  font-size:9px;
   font-weight:850;
-  letter-spacing:.12em;
+  letter-spacing:.08em;
   text-transform:uppercase;
 }
 
 #fh-checkout-main .fh-langbar button.is-active,
 #fh-checkout-main .fh-langbar button:hover,
 #fh-checkout-main .fh-langbar button:focus-visible{
-  background:rgba(255,250,243,.15);
-  border-color:rgba(255,250,243,.36);
+  background:rgba(255,250,243,.16);
+  border-color:rgba(255,250,243,.34);
   color:#fff;
   outline:none;
 }
 
-#fh-checkout-main .fh-hero{
+#fh-checkout-main .fh-page{
   position:relative;
-  z-index:1;
-  min-height:380px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  padding:130px 18px 84px;
-  overflow:hidden;
-  background:#1f1d19;
-  color:var(--white);
-}
-
-#fh-checkout-main .fh-hero-media{
-  position:absolute;
-  inset:0;
-  background:center/cover no-repeat;
-  opacity:.72;
-  transform:scale(1.01);
-}
-
-#fh-checkout-main .fh-hero:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background:
-    linear-gradient(180deg,rgba(22,19,17,.78),rgba(22,19,17,.38) 42%,rgba(22,19,17,.78)),
-    radial-gradient(circle at 50% 16%,rgba(255,255,255,.12),transparent 0 28%);
-}
-
-#fh-checkout-main .fh-hero:after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:-1px;
-  height:116px;
-  z-index:1;
-  background:linear-gradient(180deg,transparent,#efe7dc);
-}
-
-#fh-checkout-main .fh-hero-inner{
-  position:relative;
-  z-index:2;
-  width:min(100%,760px);
-  text-align:center;
+  z-index:3;
+  width:min(1160px,calc(100% - 28px));
   margin:0 auto;
+  padding:136px 0 82px;
 }
 
-#fh-checkout-main .fh-kicker,
-#fh-checkout-main .fh-eyebrow{
-  margin:0 0 10px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-  font-weight:850;
-  color:var(--clay2);
-}
-
-#fh-checkout-main .fh-hero .fh-eyebrow{color:rgba(255,250,243,.84)}
-#fh-checkout-main h1,
-#fh-checkout-main h2,
-#fh-checkout-main h3,
-#fh-checkout-main p{margin-top:0}
-
-#fh-checkout-main h1{
-  margin:0 auto 14px;
-  max-width:760px;
-  font-family:var(--serif);
-  font-size:clamp(42px,14vw,64px);
-  line-height:.94;
-  letter-spacing:-.065em;
-  font-weight:400;
-  text-wrap:balance;
-}
-
-#fh-checkout-main .fh-hero-lead{
-  margin:0 auto;
-  max-width:620px;
-  font-size:16px;
-  line-height:1.58;
-  color:rgba(255,250,243,.86);
-}
-
-#fh-checkout-main .fh-wrap{
-  position:relative;
-  z-index:4;
-  width:calc(100% - 20px);
-  margin:-52px auto 64px;
-}
-
-#fh-checkout-main .fh-card{
+#fh-checkout-main .fh-shell{
   display:grid;
-  grid-template-columns:1fr;
-  background:rgba(255,250,243,.97);
-  border:1px solid #e5d8c9;
-  box-shadow:var(--shadow);
-  overflow:hidden;
+  grid-template-columns:minmax(320px,.82fr) minmax(0,1fr);
+  gap:18px;
+  align-items:stretch;
 }
 
-#fh-checkout-main .fh-photo{
-  min-height:190px;
+#fh-checkout-main .fh-image-card,
+#fh-checkout-main .fh-confirm-card,
+#fh-checkout-main .fh-next-card{
+  background:rgba(255,250,243,.95);
+  border:1px solid rgba(26,23,20,.11);
+  box-shadow:var(--shadow);
+}
+
+#fh-checkout-main .fh-image-card{
+  min-height:620px;
+  position:relative;
+  overflow:hidden;
   background:#d8cbbb center/cover no-repeat;
 }
 
-#fh-checkout-main .fh-body{
-  padding:22px 18px 20px;
+#fh-checkout-main .fh-image-card:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(22,19,17,.08),rgba(22,19,17,.64));
 }
 
-#fh-checkout-main h2{
-  margin:0 0 12px;
-  font-family:var(--serif);
-  font-size:clamp(31px,9.2vw,44px);
-  font-weight:400;
+#fh-checkout-main .fh-image-caption{
+  position:absolute;
+  left:24px;
+  right:24px;
+  bottom:24px;
+  color:#fffaf3;
+}
+
+#fh-checkout-main .fh-image-caption span,
+#fh-checkout-main .fh-kicker,
+#fh-checkout-main .fh-label{
+  display:block;
+  margin:0 0 8px;
+  font-size:10px;
   line-height:1;
-  letter-spacing:-.052em;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:850;
+  color:rgba(26,23,20,.48);
+}
+
+#fh-checkout-main .fh-image-caption span{color:rgba(255,250,243,.72)}
+
+#fh-checkout-main .fh-image-caption strong{
+  display:block;
+  max-width:360px;
+  font-family:var(--serif);
+  font-size:38px;
+  font-weight:400;
+  line-height:.94;
+  letter-spacing:-.04em;
+}
+
+#fh-checkout-main .fh-right{
+  display:grid;
+  gap:14px;
+}
+
+#fh-checkout-main .fh-confirm-card{
+  padding:36px;
+}
+
+#fh-checkout-main .fh-status{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:18px;
+  padding:9px 11px;
+  background:#f3eadf;
+  border:1px solid rgba(26,23,20,.09);
+  color:rgba(26,23,20,.68);
+  font-size:10px;
+  font-weight:850;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+#fh-checkout-main .fh-status:before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:var(--green);
+}
+
+#fh-checkout-main h1{
+  margin:0 0 14px;
+  max-width:720px;
+  font-family:var(--serif);
+  font-size:clamp(48px,6vw,82px);
+  line-height:.91;
+  letter-spacing:-.062em;
+  font-weight:400;
   text-wrap:balance;
 }
 
 #fh-checkout-main .fh-lead{
-  margin:0 0 20px;
+  margin:0;
+  max-width:660px;
   color:var(--muted);
   line-height:1.62;
-  font-size:15px;
+  font-size:16px;
 }
 
 #fh-checkout-main .fh-summary{
   display:grid;
-  grid-template-columns:1fr;
+  grid-template-columns:1fr 1fr;
   gap:10px;
-  margin:20px 0;
+  margin-top:24px;
 }
 
-#fh-checkout-main .fh-summary div{
-  padding:14px;
+#fh-checkout-main .fh-summary-item{
+  min-width:0;
+  padding:15px;
   background:#f5eee5;
   border:1px solid #e3d5c6;
 }
 
-#fh-checkout-main .fh-summary .wide{grid-column:1/-1}
-#fh-checkout-main .fh-summary span{
-  display:block;
-  margin-bottom:6px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.13em;
-  font-weight:850;
-  color:rgba(26,23,20,.50);
-}
+#fh-checkout-main .fh-summary-item.wide{grid-column:1/-1}
 
-#fh-checkout-main .fh-summary strong{
+#fh-checkout-main .fh-summary-item strong{
   display:block;
   color:var(--ink);
   font-size:15px;
-  line-height:1.42;
-  word-break:break-word;
+  line-height:1.38;
+  overflow-wrap:anywhere;
 }
 
-#fh-checkout-main .fh-note{
-  padding-top:16px;
-  border-top:1px solid rgba(26,23,20,.10);
+#fh-checkout-main .fh-next-card{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:18px;
+  align-items:center;
+  padding:22px 24px;
+}
+
+#fh-checkout-main .fh-next-card p{
+  margin:0;
   color:rgba(26,23,20,.62);
-  font-size:13px;
-  line-height:1.58;
+  font-size:14px;
+  line-height:1.55;
 }
 
 #fh-checkout-main .fh-actions{
-  display:grid;
-  grid-template-columns:1fr;
+  display:flex;
+  flex-wrap:wrap;
   gap:10px;
-  margin-top:20px;
+  justify-content:flex-end;
 }
 
 #fh-checkout-main .fh-btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-height:54px;
-  padding:15px 18px;
+  min-height:50px;
+  padding:14px 18px;
   border:0;
   background:#1d1a17;
   color:#fff;
   text-transform:uppercase;
-  letter-spacing:.13em;
-  font-size:11px;
+  letter-spacing:.12em;
+  font-size:10px;
   font-weight:850;
   text-align:center;
   touch-action:manipulation;
@@ -334,499 +322,144 @@
   outline-offset:3px;
 }
 
-/* Tablet and desktop enhancements */
-@media(min-width:600px){
-  #fh-checkout-main .fh-hero{
-    min-height:430px;
-    align-items:center;
-    padding:138px 22px 100px;
-  }
+#fh-checkout-main .fh-mobile-top-image{display:none}
 
-  #fh-checkout-main .fh-summary{
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-  }
-
-  #fh-checkout-main .fh-actions{
-    display:flex;
-    flex-wrap:wrap;
-  }
-
-  #fh-checkout-main .fh-btn{
-    min-width:210px;
-  }
-}
-
-@media(min-width:860px){
-  #fh-checkout-main{
-    --shadow:0 26px 74px rgba(0,0,0,.13);
-  }
-
-  #fh-checkout-main .fh-langbar{
-    top:86px;
-    gap:6px;
-    padding:6px;
-  }
-
-  #fh-checkout-main .fh-langbar button{
-    min-height:36px;
-    padding:8px 10px;
-  }
-
-  #fh-checkout-main .fh-hero{
-    min-height:56svh;
-    padding:150px 20px 118px;
-  }
-
-  #fh-checkout-main h1{
-    max-width:980px;
-    font-size:clamp(54px,7.4vw,100px);
-    line-height:.92;
-  }
-
-  #fh-checkout-main .fh-hero-lead{
-    max-width:780px;
-    font-size:clamp(16px,1.6vw,20px);
-    line-height:1.62;
-  }
-
-  #fh-checkout-main .fh-wrap{
-    width:min(1060px,calc(100% - 28px));
-    margin:-74px auto 92px;
-  }
-
-  #fh-checkout-main .fh-card{
-    grid-template-columns:.88fr 1.12fr;
-  }
-
-  #fh-checkout-main .fh-photo{
-    min-height:520px;
-  }
-
-  #fh-checkout-main .fh-body{
-    padding:34px;
-  }
-
-  #fh-checkout-main .fh-kicker,
-  #fh-checkout-main .fh-eyebrow{
-    font-size:11px;
-    letter-spacing:.22em;
-  }
-
-  #fh-checkout-main h2{
-    font-size:clamp(34px,4vw,58px);
-    line-height:.98;
-  }
-
-  #fh-checkout-main .fh-lead{
-    font-size:16px;
-    line-height:1.68;
-  }
-
-  #fh-checkout-main .fh-summary div{
-    padding:15px;
-  }
-
-  #fh-checkout-main .fh-actions{
-    margin-top:22px;
-  }
-}
-
-@media(max-width:420px){
-  #fh-checkout-main .fh-langbar{
-    top:64px;
-  }
-
-  #fh-checkout-main .fh-langbar button{
-    min-width:38px;
-    padding-left:7px;
-    padding-right:7px;
-  }
-
-  #fh-checkout-main .fh-hero{
-    min-height:360px;
-    padding-left:14px;
-    padding-right:14px;
-  }
-
-  #fh-checkout-main .fh-wrap{
-    width:calc(100% - 14px);
-  }
-
-  #fh-checkout-main .fh-body{
-    padding:20px 15px 18px;
-  }
-}
-
-
-
-/* =========================================================
-   CHECKOUT MOBILE LAYOUT FIX
-   Keeps checkout logic, localStorage, language switch, and header/footer loading untouched.
-   This prevents the checkout from feeling like a compressed desktop page.
-   ========================================================= */
+/* Real mobile page: no hero, no horizontal info carousel, no compressed desktop. */
 @media(max-width:760px){
-  html,body{
-    margin:0;
-    max-width:100%;
-    overflow-x:hidden;
-    background:#efe7dc;
-  }
+  html,body{margin:0;max-width:100%;overflow-x:hidden;background:#efe7dc}
 
-  #fh-checkout-main{
-    min-height:100svh;
-    overflow-x:hidden;
-  }
+  #fh-checkout-main .fh-bg:before{opacity:.045}
+  #fh-checkout-main .fh-grain{opacity:.028}
 
-  #fh-checkout-main .fh-bg:before{
-    opacity:.06;
-  }
-
-  #fh-checkout-main .fh-grain{
-    opacity:.032;
-  }
-
-  /* Subtle language selector on mobile */
   #fh-checkout-main .fh-langbar{
     top:66px;
-    left:auto;
-    right:10px;
-    transform:none;
+    right:9px;
     gap:2px;
     padding:4px;
-    max-width:calc(100vw - 20px);
     background:rgba(26,23,20,.22);
-    border-color:rgba(255,250,243,.22);
-    box-shadow:0 10px 24px rgba(0,0,0,.10);
   }
 
   #fh-checkout-main .fh-langbar button{
-    min-width:30px;
+    min-width:29px;
     min-height:28px;
-    padding:6px 7px;
+    padding:5px 6px;
+    font-size:8.5px;
+    letter-spacing:.07em;
+  }
+
+  #fh-checkout-main .fh-page{
+    width:100%;
+    padding:104px 0 calc(86px + env(safe-area-inset-bottom));
+  }
+
+  #fh-checkout-main .fh-shell{
+    display:block;
+  }
+
+  #fh-checkout-main .fh-image-card{
+    display:none;
+  }
+
+  #fh-checkout-main .fh-right{
+    display:block;
+  }
+
+  #fh-checkout-main .fh-mobile-top-image{
+    display:block;
+    position:relative;
+    width:calc(100% - 14px);
+    height:154px;
+    margin:0 auto;
+    background:#d8cbbb center/cover no-repeat;
+    overflow:hidden;
+    border:1px solid rgba(255,250,243,.42);
+    box-shadow:0 14px 36px rgba(0,0,0,.12);
+  }
+
+  #fh-checkout-main .fh-mobile-top-image:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(26,23,20,.02),rgba(26,23,20,.36));
+  }
+
+  #fh-checkout-main .fh-mobile-top-image span{
+    position:absolute;
+    left:13px;
+    bottom:12px;
+    max-width:260px;
+    color:#fffaf3;
     font-size:9px;
-    letter-spacing:.08em;
+    line-height:1.18;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-weight:850;
   }
 
-  /* Smaller, readable mobile hero */
-  #fh-checkout-main .fh-hero{
-    min-height:300px;
-    align-items:flex-end;
-    padding:104px 14px 72px;
-  }
-
-  #fh-checkout-main .fh-hero-media{
-    opacity:.66;
-    background-position:center;
-  }
-
-  #fh-checkout-main .fh-hero:after{
-    height:78px;
-  }
-
-  #fh-checkout-main .fh-hero-inner{
-    max-width:430px;
-  }
-
-  #fh-checkout-main .fh-eyebrow,
-  #fh-checkout-main .fh-kicker{
-    font-size:9px;
-    letter-spacing:.15em;
-    margin-bottom:8px;
-  }
-
-  #fh-checkout-main h1{
-    font-size:clamp(34px,10.5vw,48px);
-    line-height:.96;
-    letter-spacing:-.055em;
-    margin-bottom:10px;
-  }
-
-  #fh-checkout-main .fh-hero-lead{
-    font-size:13.5px;
-    line-height:1.44;
-    max-width:390px;
-  }
-
-  /* Confirmation card: true mobile layout */
-  #fh-checkout-main .fh-wrap{
-    width:calc(100% - 16px);
-    margin:-38px auto 46px;
-  }
-
-  #fh-checkout-main .fh-card{
-    display:grid;
-    grid-template-columns:1fr;
+  #fh-checkout-main .fh-confirm-card{
+    width:calc(100% - 14px);
+    margin:8px auto 0;
+    padding:18px 15px 16px;
     border-radius:0;
+    box-shadow:0 16px 42px rgba(0,0,0,.10);
   }
 
-  #fh-checkout-main .fh-photo{
-    min-height:132px;
-    max-height:132px;
-    background-position:center;
-  }
-
-  #fh-checkout-main .fh-body{
-    padding:18px 15px 17px;
-  }
-
-  #fh-checkout-main h2{
-    font-size:clamp(28px,8.8vw,38px);
-    line-height:.99;
-    letter-spacing:-.046em;
-    margin-bottom:10px;
-  }
-
-  #fh-checkout-main .fh-lead{
-    font-size:13.5px;
-    line-height:1.48;
-    margin-bottom:14px;
-  }
-
-  /* Compact summary: two columns when it fits, one column on very small phones */
-  #fh-checkout-main .fh-summary{
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin:14px 0;
-  }
-
-  #fh-checkout-main .fh-summary div{
-    padding:11px;
-    min-width:0;
-  }
-
-  #fh-checkout-main .fh-summary span{
-    margin-bottom:5px;
+  #fh-checkout-main .fh-status{
+    margin-bottom:12px;
+    padding:8px 9px;
     font-size:8.5px;
     letter-spacing:.10em;
   }
 
-  #fh-checkout-main .fh-summary strong{
-    font-size:13px;
-    line-height:1.34;
-    word-break:break-word;
-    overflow-wrap:anywhere;
+  #fh-checkout-main h1{
+    margin-bottom:9px;
+    font-size:clamp(34px,10.4vw,46px);
+    line-height:.94;
+    letter-spacing:-.055em;
   }
 
-  #fh-checkout-main .fh-summary .wide{
-    grid-column:1 / -1;
-  }
-
-  #fh-checkout-main .fh-note{
-    padding-top:13px;
-    font-size:12.5px;
-    line-height:1.45;
-  }
-
-  #fh-checkout-main .fh-actions{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:9px;
-    margin-top:16px;
-  }
-
-  #fh-checkout-main .fh-btn{
-    width:100%;
-    min-height:49px;
-    padding:13px 14px;
-    font-size:10px;
-    letter-spacing:.115em;
-  }
-}
-
-@media(max-width:380px){
-  #fh-checkout-main .fh-hero{
-    min-height:286px;
-    padding-top:96px;
-    padding-bottom:66px;
-  }
-
-  #fh-checkout-main .fh-wrap{
-    width:calc(100% - 12px);
-    margin-top:-32px;
-  }
-
-  #fh-checkout-main .fh-summary{
-    grid-template-columns:1fr;
-  }
-
-  #fh-checkout-main .fh-photo{
-    min-height:118px;
-    max-height:118px;
-  }
-
-  #fh-checkout-main .fh-body{
-    padding:16px 13px;
-  }
-}
-
-
-/* =========================================================
-   TRUE INDEPENDENT MOBILE EXPERIENCE
-   This is not a squeezed desktop confirmation page.
-   On phones, the desktop hero/card is hidden and replaced by a native-feeling
-   mobile confirmation flow: compact image header, bottom CTAs, horizontal summary.
-   Header/footer loading, language switching, localStorage and booking data stay intact.
-   ========================================================= */
-#fh-checkout-main .fh-mobile-only{display:none}
-
-@media(max-width:760px){
-  #fh-checkout-main .fh-hero,
-  #fh-checkout-main .fh-wrap{
-    display:none !important;
-  }
-
-  #fh-checkout-main .fh-mobile-only{
-    position:relative;
-    z-index:4;
-    display:block;
-    min-height:100svh;
-    padding:78px 0 96px;
-    background:
-      radial-gradient(circle at 20% 0%,rgba(255,255,255,.78),transparent 0 30%),
-      linear-gradient(180deg,#efe7dc 0%,#fffaf3 42%,#efe7dc 100%);
-  }
-
-  #fh-checkout-main .fh-mobile-visual{
-    position:relative;
-    width:calc(100% - 18px);
-    height:178px;
-    margin:0 auto;
-    overflow:hidden;
-    border:1px solid rgba(255,250,243,.42);
-    background:#d8cbbb center/cover no-repeat;
-    box-shadow:0 18px 42px rgba(0,0,0,.16);
-  }
-
-  #fh-checkout-main .fh-mobile-visual:after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-      linear-gradient(180deg,rgba(22,19,17,.18),rgba(22,19,17,.62)),
-      radial-gradient(circle at 50% 20%,rgba(255,255,255,.18),transparent 0 34%);
-  }
-
-  #fh-checkout-main .fh-mobile-status{
-    position:absolute;
-    left:12px;
-    right:12px;
-    bottom:12px;
-    z-index:2;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    color:#fffaf3;
-  }
-
-  #fh-checkout-main .fh-mobile-status span{
-    display:inline-flex;
-    align-items:center;
-    min-height:30px;
-    padding:7px 10px;
-    background:rgba(255,250,243,.16);
-    border:1px solid rgba(255,250,243,.28);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    font-size:9px;
-    font-weight:850;
-    text-transform:uppercase;
-    letter-spacing:.12em;
-  }
-
-  #fh-checkout-main .fh-mobile-status b{
-    font-family:var(--serif);
-    font-weight:400;
-    font-size:24px;
-    line-height:1;
-    letter-spacing:-.045em;
-  }
-
-  #fh-checkout-main .fh-mobile-panel{
-    width:calc(100% - 18px);
-    margin:-18px auto 0;
-    position:relative;
-    z-index:3;
-    padding:18px 14px 15px;
-    background:rgba(255,250,243,.97);
-    border:1px solid rgba(26,23,20,.10);
-    box-shadow:0 18px 46px rgba(0,0,0,.11);
-  }
-
-  #fh-checkout-main .fh-mobile-panel h2{
-    margin:0 0 8px;
-    font-family:var(--serif);
-    font-weight:400;
-    font-size:clamp(30px,9.2vw,42px);
-    line-height:.96;
-    letter-spacing:-.052em;
-  }
-
-  #fh-checkout-main .fh-mobile-panel p{
-    margin:0;
-    color:rgba(26,23,20,.66);
+  #fh-checkout-main .fh-lead{
     font-size:13.5px;
     line-height:1.48;
   }
 
-  #fh-checkout-main .fh-mobile-strip{
-    display:flex;
+  #fh-checkout-main .fh-summary{
+    grid-template-columns:1fr 1fr;
     gap:8px;
-    overflow-x:auto;
-    overscroll-behavior-x:contain;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    margin:14px -14px 0;
-    padding:0 14px 3px;
+    margin-top:15px;
   }
 
-  #fh-checkout-main .fh-mobile-strip::-webkit-scrollbar{display:none}
-
-  #fh-checkout-main .fh-mobile-chip{
-    flex:0 0 74%;
-    min-width:0;
-    scroll-snap-align:start;
-    padding:12px;
-    background:#f5eee5;
-    border:1px solid #e3d5c6;
+  #fh-checkout-main .fh-summary-item{
+    padding:11px;
   }
 
-  #fh-checkout-main .fh-mobile-chip.small{
-    flex-basis:48%;
-  }
-
-  #fh-checkout-main .fh-mobile-chip span{
-    display:block;
+  #fh-checkout-main .fh-label{
     margin-bottom:5px;
-    font-size:8.5px;
-    line-height:1;
-    text-transform:uppercase;
-    letter-spacing:.11em;
-    font-weight:850;
-    color:rgba(26,23,20,.48);
+    font-size:8.2px;
+    letter-spacing:.09em;
   }
 
-  #fh-checkout-main .fh-mobile-chip strong{
+  #fh-checkout-main .fh-summary-item strong{
+    font-size:12.8px;
+    line-height:1.3;
+  }
+
+  #fh-checkout-main .fh-next-card{
+    width:calc(100% - 14px);
     display:block;
-    font-size:13px;
-    line-height:1.32;
-    overflow-wrap:anywhere;
-    color:var(--ink);
+    margin:8px auto 0;
+    padding:13px;
+    border-radius:0;
+    box-shadow:none;
+    background:rgba(255,250,243,.66);
   }
 
-  #fh-checkout-main .fh-mobile-note{
-    width:calc(100% - 18px);
-    margin:10px auto 0;
-    padding:12px;
-    background:rgba(255,250,243,.58);
-    border:1px solid rgba(26,23,20,.09);
-    color:rgba(26,23,20,.62);
-    font-size:12.5px;
-    line-height:1.45;
+  #fh-checkout-main .fh-next-card p{
+    font-size:12.6px;
+    line-height:1.44;
   }
 
-  #fh-checkout-main .fh-mobile-actions{
+  #fh-checkout-main .fh-actions{
     position:fixed;
     left:0;
     right:0;
@@ -836,287 +469,42 @@
     grid-template-columns:1fr 1fr;
     gap:8px;
     padding:10px 10px calc(10px + env(safe-area-inset-bottom));
-    background:rgba(239,231,220,.88);
+    background:rgba(239,231,220,.9);
     border-top:1px solid rgba(26,23,20,.10);
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
   }
 
-  #fh-checkout-main .fh-mobile-actions .fh-btn{
+  #fh-checkout-main .fh-btn{
+    width:100%;
     min-height:48px;
     padding:12px 10px;
-    font-size:9.5px;
-    letter-spacing:.10em;
-  }
-
-  #fh-checkout-main .fh-mobile-actions .fh-btn.light{
-    background:rgba(255,250,243,.84);
+    font-size:9px;
+    letter-spacing:.09em;
   }
 }
 
 @media(max-width:380px){
-  #fh-checkout-main .fh-mobile-only{
-    padding-top:72px;
-  }
+  #fh-checkout-main .fh-page{padding-top:96px}
+  #fh-checkout-main .fh-mobile-top-image{width:calc(100% - 12px);height:136px}
+  #fh-checkout-main .fh-confirm-card,
+  #fh-checkout-main .fh-next-card{width:calc(100% - 12px)}
+  #fh-checkout-main .fh-summary{grid-template-columns:1fr}
+}
 
-  #fh-checkout-main .fh-mobile-visual{
-    height:152px;
-    width:calc(100% - 12px);
-  }
-
-  #fh-checkout-main .fh-mobile-panel,
-  #fh-checkout-main .fh-mobile-note{
-    width:calc(100% - 12px);
-  }
-
-  #fh-checkout-main .fh-mobile-chip{
-    flex-basis:82%;
-  }
-
-  #fh-checkout-main .fh-mobile-chip.small{
-    flex-basis:58%;
-  }
+@media(min-width:761px) and (max-width:980px){
+  #fh-checkout-main .fh-shell{grid-template-columns:1fr}
+  #fh-checkout-main .fh-image-card{min-height:320px}
+  #fh-checkout-main .fh-next-card{grid-template-columns:1fr}
+  #fh-checkout-main .fh-actions{justify-content:flex-start}
 }
 
 @media(prefers-reduced-motion:reduce){
-  #fh-checkout-main .fh-bg:before{
-    animation:none;
-  }
-
+  #fh-checkout-main .fh-bg:before{animation:none}
   #fh-checkout-main *,
   #fh-checkout-main *:before,
-  #fh-checkout-main *:after{
-    scroll-behavior:auto !important;
-    transition:none !important;
-  }
+  #fh-checkout-main *:after{scroll-behavior:auto !important;transition:none !important}
 }
-
-
-/* =========================================================
-   MOBILE FORCE MODE FIX
-   Some Squarespace / embedded pages keep a desktop CSS viewport or header state.
-   JavaScript adds .fh-mobile-mode on real phones, so the independent mobile
-   experience works even when @media(max-width) is not being honored.
-   ========================================================= */
-#fh-checkout-main.fh-mobile-mode{
-  min-height:100svh !important;
-  overflow-x:hidden !important;
-  padding:0 !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-bg:before{opacity:.06 !important}
-#fh-checkout-main.fh-mobile-mode .fh-grain{opacity:.032 !important}
-
-#fh-checkout-main.fh-mobile-mode .fh-hero,
-#fh-checkout-main.fh-mobile-mode .fh-wrap{
-  display:none !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-langbar{
-  position:fixed !important;
-  top:66px !important;
-  left:auto !important;
-  right:10px !important;
-  transform:none !important;
-  z-index:90 !important;
-  gap:2px !important;
-  width:auto !important;
-  max-width:calc(100vw - 20px) !important;
-  padding:4px !important;
-  background:rgba(26,23,20,.22) !important;
-  border:1px solid rgba(255,250,243,.22) !important;
-  box-shadow:0 10px 24px rgba(0,0,0,.10) !important;
-  backdrop-filter:blur(16px) !important;
-  -webkit-backdrop-filter:blur(16px) !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-langbar button{
-  min-width:30px !important;
-  min-height:28px !important;
-  padding:6px 7px !important;
-  font-size:9px !important;
-  letter-spacing:.08em !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-only{
-  position:relative !important;
-  z-index:4 !important;
-  display:block !important;
-  min-height:100svh !important;
-  padding:78px 0 96px !important;
-  background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.78),transparent 0 30%),linear-gradient(180deg,#efe7dc 0%,#fffaf3 42%,#efe7dc 100%) !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-visual{
-  position:relative !important;
-  width:calc(100% - 18px) !important;
-  height:178px !important;
-  margin:0 auto !important;
-  overflow:hidden !important;
-  border:1px solid rgba(255,250,243,.42) !important;
-  background:#d8cbbb center/cover no-repeat !important;
-  box-shadow:0 18px 42px rgba(0,0,0,.16) !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-visual:after{
-  content:"" !important;
-  position:absolute !important;
-  inset:0 !important;
-  background:linear-gradient(180deg,rgba(22,19,17,.18),rgba(22,19,17,.62)),radial-gradient(circle at 50% 20%,rgba(255,255,255,.18),transparent 0 34%) !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-status{
-  position:absolute !important;
-  left:12px !important;
-  right:12px !important;
-  bottom:12px !important;
-  z-index:2 !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:space-between !important;
-  gap:10px !important;
-  color:#fffaf3 !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-status span{
-  display:inline-flex !important;
-  align-items:center !important;
-  min-height:30px !important;
-  padding:7px 10px !important;
-  background:rgba(255,250,243,.16) !important;
-  border:1px solid rgba(255,250,243,.28) !important;
-  backdrop-filter:blur(12px) !important;
-  -webkit-backdrop-filter:blur(12px) !important;
-  font-size:9px !important;
-  font-weight:850 !important;
-  text-transform:uppercase !important;
-  letter-spacing:.12em !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-status b{
-  font-family:var(--serif) !important;
-  font-weight:400 !important;
-  font-size:24px !important;
-  line-height:1 !important;
-  letter-spacing:-.045em !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-panel{
-  width:calc(100% - 18px) !important;
-  margin:-18px auto 0 !important;
-  position:relative !important;
-  z-index:3 !important;
-  padding:18px 14px 15px !important;
-  background:rgba(255,250,243,.97) !important;
-  border:1px solid rgba(26,23,20,.10) !important;
-  box-shadow:0 18px 46px rgba(0,0,0,.11) !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-panel h2{
-  margin:0 0 8px !important;
-  font-family:var(--serif) !important;
-  font-weight:400 !important;
-  font-size:clamp(30px,9.2vw,42px) !important;
-  line-height:.96 !important;
-  letter-spacing:-.052em !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-panel p{
-  margin:0 !important;
-  color:rgba(26,23,20,.66) !important;
-  font-size:13.5px !important;
-  line-height:1.48 !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-strip{
-  display:flex !important;
-  gap:8px !important;
-  overflow-x:auto !important;
-  overscroll-behavior-x:contain !important;
-  scroll-snap-type:x mandatory !important;
-  -webkit-overflow-scrolling:touch !important;
-  margin:14px -14px 0 !important;
-  padding:0 14px 3px !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-strip::-webkit-scrollbar{display:none !important}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-chip{
-  flex:0 0 74% !important;
-  min-width:0 !important;
-  scroll-snap-align:start !important;
-  padding:12px !important;
-  background:#f5eee5 !important;
-  border:1px solid #e3d5c6 !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-chip.small{flex-basis:48% !important}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-chip span{
-  display:block !important;
-  margin-bottom:5px !important;
-  font-size:8.5px !important;
-  line-height:1 !important;
-  text-transform:uppercase !important;
-  letter-spacing:.11em !important;
-  font-weight:850 !important;
-  color:rgba(26,23,20,.48) !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-chip strong{
-  display:block !important;
-  font-size:13px !important;
-  line-height:1.32 !important;
-  overflow-wrap:anywhere !important;
-  color:var(--ink) !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-note{
-  width:calc(100% - 18px) !important;
-  margin:10px auto 0 !important;
-  padding:12px !important;
-  background:rgba(255,250,243,.58) !important;
-  border:1px solid rgba(26,23,20,.09) !important;
-  color:rgba(26,23,20,.62) !important;
-  font-size:12.5px !important;
-  line-height:1.45 !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-actions{
-  position:fixed !important;
-  left:0 !important;
-  right:0 !important;
-  bottom:0 !important;
-  z-index:120 !important;
-  display:grid !important;
-  grid-template-columns:1fr 1fr !important;
-  gap:8px !important;
-  padding:10px 10px calc(10px + env(safe-area-inset-bottom)) !important;
-  background:rgba(239,231,220,.88) !important;
-  border-top:1px solid rgba(26,23,20,.10) !important;
-  backdrop-filter:blur(18px) !important;
-  -webkit-backdrop-filter:blur(18px) !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-actions .fh-btn{
-  width:100% !important;
-  min-height:48px !important;
-  padding:12px 10px !important;
-  font-size:9.5px !important;
-  letter-spacing:.10em !important;
-}
-
-#fh-checkout-main.fh-mobile-mode .fh-mobile-actions .fh-btn.light{background:rgba(255,250,243,.84) !important}
-
-@media(max-width:380px){
-  #fh-checkout-main.fh-mobile-mode .fh-mobile-only{padding-top:72px !important}
-  #fh-checkout-main.fh-mobile-mode .fh-mobile-visual{height:152px !important;width:calc(100% - 12px) !important}
-  #fh-checkout-main.fh-mobile-mode .fh-mobile-panel,
-  #fh-checkout-main.fh-mobile-mode .fh-mobile-note{width:calc(100% - 12px) !important}
-  #fh-checkout-main.fh-mobile-mode .fh-mobile-chip{flex-basis:82% !important}
-  #fh-checkout-main.fh-mobile-mode .fh-mobile-chip.small{flex-basis:58% !important}
-}
-
 </style>
 
 <div id="fh-checkout-main" data-page="checkout" data-lang="en">
@@ -1130,101 +518,58 @@
     <button type="button" data-fh-lang="ru">RU</button>
   </div>
 
+  <main class="fh-page">
+    <div class="fh-shell">
+      <aside class="fh-image-card" id="fhCheckoutSideImage" aria-hidden="true">
+        <div class="fh-image-caption">
+          <span data-i18n="imageKicker">Private alpine stay</span>
+          <strong data-i18n="imageTitle">Your request is now with the Fletschhorn team.</strong>
+        </div>
+      </aside>
 
-  <section class="fh-mobile-only" aria-label="Mobile booking confirmation">
-    <div class="fh-mobile-visual" id="fhMobileVisual" aria-hidden="true">
-      <div class="fh-mobile-status">
-        <span data-i18n="mobileStatus">Request sent</span>
-        <b data-i18n="mobileThanks">Thank you</b>
-      </div>
+      <section class="fh-right" aria-label="Booking confirmation">
+        <div class="fh-mobile-top-image" id="fhCheckoutMobileImage" aria-hidden="true">
+          <span data-i18n="mobileImageLabel">Fletschhorn · Saas-Fee</span>
+        </div>
+
+        <article class="fh-confirm-card">
+          <div class="fh-status" data-i18n="status">Request received</div>
+          <h1 data-i18n="title">Thank you.</h1>
+          <p class="fh-lead" data-i18n="lead">We have received your booking request. Our team will review the stay details and send confirmation, payment information, and next steps by email.</p>
+
+          <div class="fh-summary">
+            <div class="fh-summary-item">
+              <span class="fh-label" data-i18n="guestLabel">Guest</span>
+              <strong id="fhGuest">—</strong>
+            </div>
+            <div class="fh-summary-item">
+              <span class="fh-label" data-i18n="emailLabel">Email</span>
+              <strong id="fhEmail">—</strong>
+            </div>
+            <div class="fh-summary-item">
+              <span class="fh-label" data-i18n="datesLabel">Dates</span>
+              <strong id="fhDates">—</strong>
+            </div>
+            <div class="fh-summary-item">
+              <span class="fh-label" data-i18n="guestsLabel">Guests</span>
+              <strong id="fhGuests">—</strong>
+            </div>
+            <div class="fh-summary-item wide">
+              <span class="fh-label" data-i18n="requestLabel">Request reference</span>
+              <strong id="fhReference">Sent by email</strong>
+            </div>
+          </div>
+        </article>
+
+        <aside class="fh-next-card">
+          <p data-i18n="note">Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.</p>
+          <div class="fh-actions">
+            <a class="fh-btn" href="index.html" data-i18n="homeBtn">Return home</a>
+            <a class="fh-btn light" href="booking.html" data-i18n="newBtn">Start another request</a>
+          </div>
+        </aside>
+      </section>
     </div>
-
-    <div class="fh-mobile-panel">
-      <p class="fh-kicker" data-i18n="cardKicker">Confirmation</p>
-      <h2 data-i18n="cardTitle">Your request has been sent.</h2>
-      <p data-i18n="cardLead">Our team will review your stay details and send confirmation, payment information, and next steps by email.</p>
-
-      <div class="fh-mobile-strip" aria-label="Booking request summary">
-        <div class="fh-mobile-chip">
-          <span data-i18n="guestLabel">Guest</span>
-          <strong id="fhMGuest">—</strong>
-        </div>
-        <div class="fh-mobile-chip">
-          <span data-i18n="datesLabel">Dates</span>
-          <strong id="fhMDates">—</strong>
-        </div>
-        <div class="fh-mobile-chip small">
-          <span data-i18n="guestsLabel">Guests</span>
-          <strong id="fhMGuests">—</strong>
-        </div>
-        <div class="fh-mobile-chip">
-          <span data-i18n="emailLabel">Email</span>
-          <strong id="fhMEmail">—</strong>
-        </div>
-        <div class="fh-mobile-chip">
-          <span data-i18n="requestLabel">Request reference</span>
-          <strong id="fhMReference">Sent by email</strong>
-        </div>
-      </div>
-    </div>
-
-    <p class="fh-mobile-note" data-i18n="note">Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.</p>
-
-    <div class="fh-mobile-actions">
-      <a class="fh-btn light" href="index.html" data-i18n="homeBtn">Return home</a>
-      <a class="fh-btn" href="booking.html" data-i18n="newBtn">Start another request</a>
-    </div>
-  </section>
-
-
-  <section class="fh-hero">
-    <div class="fh-hero-media" id="fhCheckoutHero" aria-hidden="true"></div>
-    <div class="fh-hero-inner">
-      <p class="fh-eyebrow" data-i18n="eyebrow">Booking request received</p>
-      <h1 data-i18n="title">Thank you.</h1>
-      <p class="fh-hero-lead" data-i18n="lead">We have received your booking request. The details will be reviewed and sent to you by email.</p>
-    </div>
-  </section>
-
-  <main class="fh-wrap">
-    <section class="fh-card">
-      <div class="fh-photo" id="fhCheckoutPhoto" aria-hidden="true"></div>
-      <div class="fh-body">
-        <p class="fh-kicker" data-i18n="cardKicker">Confirmation</p>
-        <h2 data-i18n="cardTitle">Your request has been sent.</h2>
-        <p class="fh-lead" data-i18n="cardLead">Our team will review your stay details and send confirmation, payment information, and next steps by email.</p>
-
-        <div class="fh-summary">
-          <div>
-            <span data-i18n="guestLabel">Guest</span>
-            <strong id="fhGuest">—</strong>
-          </div>
-          <div>
-            <span data-i18n="emailLabel">Email</span>
-            <strong id="fhEmail">—</strong>
-          </div>
-          <div>
-            <span data-i18n="datesLabel">Dates</span>
-            <strong id="fhDates">—</strong>
-          </div>
-          <div>
-            <span data-i18n="guestsLabel">Guests</span>
-            <strong id="fhGuests">—</strong>
-          </div>
-          <div class="wide">
-            <span data-i18n="requestLabel">Request reference</span>
-            <strong id="fhReference">Sent by email</strong>
-          </div>
-        </div>
-
-        <p class="fh-note" data-i18n="note">Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.</p>
-
-        <div class="fh-actions">
-          <a class="fh-btn" href="index.html" data-i18n="homeBtn">Return home</a>
-          <a class="fh-btn light" href="booking.html" data-i18n="newBtn">Start another request</a>
-        </div>
-      </div>
-    </section>
   </main>
 </div>
 
@@ -1263,35 +608,17 @@
   if(!root || root.dataset.ready === "1") return;
   root.dataset.ready = "1";
 
-  function syncMobileMode(){
-    const visualWidth = window.visualViewport && window.visualViewport.width ? window.visualViewport.width : window.innerWidth;
-    const cssWidth = window.innerWidth || visualWidth;
-    const isTouchPhone = /Android|iPhone|iPod|Windows Phone|Mobile/i.test(navigator.userAgent || "");
-    const isMobile = visualWidth <= 820 || cssWidth <= 820 || (isTouchPhone && Math.min(visualWidth || 9999, cssWidth || 9999) <= 980);
-    root.classList.toggle("fh-mobile-mode", !!isMobile);
-    document.documentElement.classList.toggle("fh-mobile-mode", !!isMobile);
-  }
-  syncMobileMode();
-  window.addEventListener("resize", syncMobileMode, {passive:true});
-  window.addEventListener("orientationchange", syncMobileMode, {passive:true});
-  if(window.visualViewport) window.visualViewport.addEventListener("resize", syncMobileMode, {passive:true});
-
   const IK_BASE = "https://ik.imagekit.io/Redberry/";
 
   function cleanImageUrl(src){
     let value = String(src || "").trim();
     if(!value) return "";
-
     const duplicated = IK_BASE + IK_BASE;
-    while(value.startsWith(duplicated)){
-      value = IK_BASE + value.slice(duplicated.length);
-    }
-
+    while(value.startsWith(duplicated)) value = IK_BASE + value.slice(duplicated.length);
     if(value.startsWith(IK_BASE)){
       const rest = value.slice(IK_BASE.length).replace(/^\/+/, "");
       return IK_BASE + rest.replace(/ /g, "%20");
     }
-
     return value.replace(/ /g, "%20");
   }
 
@@ -1310,18 +637,26 @@
 
   const LANGS = ["en","fr","de","ru"];
   const I18N = {
-    en:{mobileStatus:"Request sent",mobileThanks:"Thank you",eyebrow:"Booking request received",title:"Thank you.",lead:"We have received your booking request. The details will be reviewed and sent to you by email.",cardKicker:"Confirmation",cardTitle:"Your request has been sent.",cardLead:"Our team will review your stay details and send confirmation, payment information, and next steps by email.",guestLabel:"Guest",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Guests",requestLabel:"Request reference",note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",homeBtn:"Return home",newBtn:"Start another request",sentByEmail:"Sent by email",night:"night",nights:"nights",guestWord:"guests"},
-    fr:{mobileStatus:"Demande envoyée",mobileThanks:"Merci",eyebrow:"Demande de réservation reçue",title:"Merci.",lead:"Nous avons bien reçu votre demande de réservation. Les détails seront vérifiés et envoyés par email.",cardKicker:"Confirmation",cardTitle:"Votre demande a été envoyée.",cardLead:"Notre équipe vérifiera les détails du séjour et vous enverra la confirmation, les informations de paiement et les prochaines étapes par email.",guestLabel:"Client",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Invités",requestLabel:"Référence",note:"Veuillez vérifier votre boîte mail. Si quelque chose doit être ajusté, répondez directement à l’email de confirmation.",homeBtn:"Retour à l’accueil",newBtn:"Nouvelle demande",sentByEmail:"Envoyé par email",night:"nuit",nights:"nuits",guestWord:"invités"},
-    de:{mobileStatus:"Anfrage gesendet",mobileThanks:"Danke",eyebrow:"Buchungsanfrage erhalten",title:"Vielen Dank.",lead:"Wir haben Ihre Buchungsanfrage erhalten. Die Details werden geprüft und per E-Mail gesendet.",cardKicker:"Bestätigung",cardTitle:"Ihre Anfrage wurde gesendet.",cardLead:"Unser Team prüft die Aufenthaltsdetails und sendet Bestätigung, Zahlungsinformationen und nächste Schritte per E-Mail.",guestLabel:"Gast",emailLabel:"E-Mail",datesLabel:"Daten",guestsLabel:"Gäste",requestLabel:"Referenz",note:"Bitte prüfen Sie Ihren Posteingang. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",homeBtn:"Zur Startseite",newBtn:"Neue Anfrage",sentByEmail:"Per E-Mail gesendet",night:"Nacht",nights:"Nächte",guestWord:"Gäste"},
-    ru:{mobileStatus:"Запрос отправлен",mobileThanks:"Спасибо",eyebrow:"Запрос на бронирование получен",title:"Спасибо.",lead:"Мы получили ваш запрос на бронирование. Детали будут проверены и отправлены вам по email.",cardKicker:"Подтверждение",cardTitle:"Ваш запрос отправлен.",cardLead:"Наша команда проверит детали проживания и отправит подтверждение, информацию об оплате и следующие шаги по email.",guestLabel:"Гость",emailLabel:"Email",datesLabel:"Даты",guestsLabel:"Гости",requestLabel:"Номер запроса",note:"Проверьте вашу почту. Если нужно что-то изменить, ответьте прямо на письмо с подтверждением.",homeBtn:"На главную",newBtn:"Новый запрос",sentByEmail:"Отправлено по email",night:"ночь",nights:"ночей",guestWord:"гостей"}
+    en:{status:"Request received",title:"Thank you.",lead:"We have received your booking request. Our team will review the stay details and send confirmation, payment information, and next steps by email.",imageKicker:"Private alpine stay",imageTitle:"Your request is now with the Fletschhorn team.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Guest",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Guests",requestLabel:"Request reference",note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",homeBtn:"Return home",newBtn:"Start another request",sentByEmail:"Sent by email",night:"night",nights:"nights",guestWord:"guests"},
+    fr:{status:"Demande reçue",title:"Merci.",lead:"Nous avons bien reçu votre demande de réservation. Notre équipe vérifiera les détails du séjour et vous enverra la confirmation, les informations de paiement et les prochaines étapes par email.",imageKicker:"Séjour alpin privé",imageTitle:"Votre demande est maintenant entre les mains de l’équipe Fletschhorn.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Client",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Invités",requestLabel:"Référence",note:"Veuillez vérifier votre boîte mail. Si quelque chose doit être ajusté, répondez directement à l’email de confirmation.",homeBtn:"Retour à l’accueil",newBtn:"Nouvelle demande",sentByEmail:"Envoyé par email",night:"nuit",nights:"nuits",guestWord:"invités"},
+    de:{status:"Anfrage erhalten",title:"Vielen Dank.",lead:"Wir haben Ihre Buchungsanfrage erhalten. Unser Team prüft die Aufenthaltsdetails und sendet Bestätigung, Zahlungsinformationen und nächste Schritte per E-Mail.",imageKicker:"Privater alpiner Aufenthalt",imageTitle:"Ihre Anfrage liegt jetzt beim Fletschhorn-Team.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Gast",emailLabel:"E-Mail",datesLabel:"Daten",guestsLabel:"Gäste",requestLabel:"Referenz",note:"Bitte prüfen Sie Ihren Posteingang. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",homeBtn:"Zur Startseite",newBtn:"Neue Anfrage",sentByEmail:"Per E-Mail gesendet",night:"Nacht",nights:"Nächte",guestWord:"Gäste"},
+    ru:{status:"Запрос получен",title:"Спасибо.",lead:"Мы получили ваш запрос на бронирование. Наша команда проверит детали проживания и отправит подтверждение, информацию об оплате и следующие шаги по email.",imageKicker:"Частное альпийское пребывание",imageTitle:"Ваш запрос уже у команды Fletschhorn.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Гость",emailLabel:"Email",datesLabel:"Даты",guestsLabel:"Гости",requestLabel:"Номер запроса",note:"Проверьте вашу почту. Если нужно что-то изменить, ответьте прямо на письмо с подтверждением.",homeBtn:"На главную",newBtn:"Новый запрос",sentByEmail:"Отправлено по email",night:"ночь",nights:"ночей",guestWord:"гостей"}
   };
 
-  function normalizeLang(lang){const v = String(lang || "en").toLowerCase().slice(0,2); return LANGS.includes(v) ? v : "en"}
+  function normalizeLang(lang){
+    const value = String(lang || "en").toLowerCase().slice(0,2);
+    return LANGS.includes(value) ? value : "en";
+  }
+
   function getStored(){
     try{return JSON.parse(localStorage.getItem("fhBookingComplete") || localStorage.getItem("fhBookingStart") || "{}") || {}}catch(e){return {}}
   }
-  function setText(id,value){const el = document.getElementById(id); if(el) el.textContent = value || "—"}
-  function setTexts(ids,value){ids.forEach(function(id){setText(id,value)})}
+
+  function setText(id,value){
+    const el = document.getElementById(id);
+    if(el) el.textContent = value || "—";
+  }
+
   function nightsBetween(checkIn,checkOut){
     if(!checkIn || !checkOut) return 0;
     const start = new Date(checkIn + "T00:00:00");
@@ -1329,6 +664,7 @@
     const n = Math.round((end - start) / 86400000);
     return Number.isFinite(n) ? n : 0;
   }
+
   function readData(){
     const params = new URLSearchParams(window.location.search);
     const stored = getStored();
@@ -1349,7 +685,9 @@
   let data = readData();
   let currentLang = normalizeLang(data.lang);
 
-  function t(key){return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key}
+  function t(key){
+    return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
+  }
 
   function setLang(lang){
     currentLang = normalizeLang(lang);
@@ -1391,19 +729,22 @@
         ? `${t("sentByEmail")} · Request ${data.reservationId}`
         : t("sentByEmail");
 
-    setTexts(["fhGuest","fhMGuest"], guest);
-    setTexts(["fhEmail","fhMEmail"], data.email);
-    setTexts(["fhDates","fhMDates"], dates);
-    setTexts(["fhGuests","fhMGuests"], data.guests ? `${data.guests} ${t("guestWord")}` : "—");
-    setTexts(["fhReference","fhMReference"], reference);
+    setText("fhGuest", guest);
+    setText("fhEmail", data.email);
+    setText("fhDates", dates);
+    setText("fhGuests", data.guests ? `${data.guests} ${t("guestWord")}` : "—");
+    setText("fhReference", reference);
   }
 
-  const hero = document.getElementById("fhCheckoutHero");
-  const photo = document.getElementById("fhCheckoutPhoto");
-  const mobileVisual = document.getElementById("fhMobileVisual");
-  if(hero) hero.style.backgroundImage = `url("${FALLBACK_IMAGES[0]}")`;
-  if(photo) photo.style.backgroundImage = `url("${FALLBACK_IMAGES[3] || FALLBACK_IMAGES[1]}")`;
-  if(mobileVisual) mobileVisual.style.backgroundImage = `url("${FALLBACK_IMAGES[2] || FALLBACK_IMAGES[0]}")`;
+  const sideImage = document.getElementById("fhCheckoutSideImage");
+  const mobileImage = document.getElementById("fhCheckoutMobileImage");
+
+  /* Deliberately not image 4: this confirmation page now uses Location (6).jpg. */
+  const mainImage = FALLBACK_IMAGES[5] || FALLBACK_IMAGES[0];
+  const mobileAltImage = FALLBACK_IMAGES[6] || mainImage;
+
+  if(sideImage) sideImage.style.backgroundImage = `url("${mainImage}")`;
+  if(mobileImage) mobileImage.style.backgroundImage = `url("${mainImage}")`;
 
   setLang(currentLang);
 })();
