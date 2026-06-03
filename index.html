@@ -1087,6 +1087,26 @@
       z-index:1;
     }
 
+
+    /* Mobile-first fixes: language switch + Instagram embed */
+    #fh-home .fh-instagram-shell{
+      overflow:hidden;
+      width:100%;
+    }
+
+    #fh-home .fh-instagram-shell .instagram-media,
+    #fh-home .fh-instagram-shell .instagram-media-rendered,
+    #fh-home .fh-instagram-shell iframe{
+      max-width:100%!important;
+      min-width:0!important;
+      width:100%!important;
+    }
+
+    #fh-home .fh-instagram-shell iframe{
+      display:block!important;
+      margin:0 auto!important;
+    }
+
     #fh-home .fh-instagram-shell{
       min-height:520px;
       display:flex;
@@ -1492,6 +1512,69 @@
       #fh-home .fh-instagram-shell{
         min-height:420px;
         padding:10px;
+      }
+
+
+      /* Mobile-first layout tightening */
+      #fh-home .fh-section-head{
+        gap:16px;
+        margin-bottom:26px;
+      }
+
+      #fh-home .fh-social-card{
+        padding:14px;
+      }
+
+      #fh-home .fh-social-card:after{
+        inset:8px;
+      }
+
+      #fh-home .fh-social-grid{
+        gap:14px;
+      }
+
+      #fh-home .fh-instagram-shell{
+        min-height:0;
+        padding:8px;
+        align-items:flex-start;
+      }
+
+      #fh-home .fh-instagram-shell blockquote,
+      #fh-home .fh-instagram-shell .instagram-media,
+      #fh-home .fh-instagram-shell .instagram-media-rendered{
+        max-width:100%!important;
+        min-width:0!important;
+        width:100%!important;
+      }
+
+      #fh-home .fh-instagram-fallback{
+        margin-top:12px;
+      }
+
+      #fh-home .fh-social-link{
+        padding:14px;
+        gap:10px;
+      }
+
+      #fh-home .fh-social-link strong{
+        font-size:23px;
+      }
+
+      #fh-home .fh-review-bar{
+        padding:14px;
+      }
+
+      #fh-home .fh-tripadvisor-widget{
+        padding:10px;
+      }
+
+      #fh-home .fh-tripadvisor-widget img{
+        max-width:150px;
+      }
+
+      #fh-home .fh-small-cta{
+        min-height:44px;
+        width:100%;
       }
 
       #fh-home .fh-map-open{
@@ -1939,6 +2022,11 @@
         const instagramScript = document.createElement("script");
         instagramScript.async = true;
         instagramScript.src = "https://www.instagram.com/embed.js";
+        instagramScript.onload = function(){
+          if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function"){
+            window.instgrm.Embeds.process();
+          }
+        };
         document.body.appendChild(instagramScript);
       }
 
@@ -2330,12 +2418,343 @@
         }
       };
 
+
+      const EXTRA_TRANSLATIONS = {
+        fr: {
+          privateKicker:"Le chalet privé",
+          privateTitle:"Une maison alpine privée pour les groupes qui veulent le lieu entier pour eux.",
+          privateLead:"Fletschhorn offre une expérience complète de chalet privé au-dessus de Saas-Fee, avec de l’espace pour dormir, se retrouver, cuisiner, célébrer, se ressourcer et explorer les montagnes.",
+          conceptKicker:"Le concept",
+          conceptTitle:"Un séjour en propriété exclusive, clair dès la première section.",
+          conceptText:"Familles, retraites, mariages, célébrations privées et groupes de ski peuvent prendre possession du lieu comme base alpine privée.",
+          proofGuests:"places de couchage",
+          proofHistory:"ans d’histoire alpine",
+          proofProperty:"expérience en propriété privée",
+          experienceKicker:"L’expérience",
+          experienceText:"Une propriété privée au-dessus du village de Saas-Fee — de grands espaces, l’air de la montagne et une intimité complète pour votre groupe.",
+          roomsKicker:"Chambres & suites",
+          roomsTitle:"Des espaces de nuit privés, réunis sous un même toit alpin.",
+          roomsLead:"Les chambres et suites permettent au groupe d’être ensemble dans une seule maison, tout en gardant de l’intimité pour les familles, les couples et les invités qui ont besoin de leur espace.",
+          insidePhotoKicker:"À l’intérieur du Fletschhorn",
+          insidePhotoText:"Chambres, suites, intérieurs chaleureux et coins calmes pour les invités qui veulent se reposer.",
+          sleepKicker:"Rythme du séjour",
+          sleepTitle:"Ensemble, sans être serrés.",
+          sleepText:"Une base privée où le groupe peut rester ensemble sans être dispersé dans plusieurs hôtels.",
+          roomPoint1Title:"Jusqu’à 48 places de couchage",
+          roomPoint1Text:"La capacité publique du site reste claire et simple.",
+          roomPoint2Title:"Chambres et suites",
+          roomPoint2Text:"Pratique pour les groupes mixtes, familles, retraites et célébrations.",
+          roomPoint3Title:"Une seule base privée",
+          roomPoint3Text:"Les invités restent ensemble sans avoir l’impression d’être répartis dans plusieurs hôtels.",
+          staysKicker:"À quoi sert la maison",
+          staysTitle:"Différents groupes, une idée simple : tout le chalet est à vous.",
+          staysLead:"Familles, retraites, mariages, groupes de ski et célébrations privées peuvent utiliser la propriété comme base alpine privée.",
+          familyKicker:"Familles",
+          familyTitle:"De l’espace pour chacun.",
+          familyText:"Chambres, pièces communes, matins tranquilles et journées faciles en montagne.",
+          retreatKicker:"Retraites",
+          retreatTitle:"Une base alpine concentrée.",
+          retreatText:"Espaces de réunion, coins calmes et assez d’intimité pour un vrai temps de pause.",
+          eventKicker:"Mariages & événements",
+          eventTitle:"Votre moment, ici.",
+          eventText:"Au cœur des Alpes, la propriété devient le décor d’une célébration privée.",
+          skiKicker:"Groupes de ski",
+          skiTitle:"Journées en montagne, retours au chaud.",
+          skiText:"Une base privée pour le ski, l’air du glacier et les soirées ensemble.",
+          foodKicker:"Cuisine & organisation des repas",
+          foodTitle:"Un concept de cuisine flexible pour les séjours privés de groupe.",
+          foodText:"La cuisine peut accompagner l’auto-restauration, les discussions avec chef ou traiteur, l’organisation des petits-déjeuners, buffets et lunchboxes selon le groupe.",
+          foodItem1Title:"Accès à la cuisine",
+          foodItem1Text:"Les groupes peuvent organiser les repas autour de la cuisine et du rythme de leur séjour.",
+          foodItem2Title:"Chef ou traiteur sur demande",
+          foodItem2Text:"Pour les mariages, retraites et événements spéciaux, un accompagnement peut être discuté séparément.",
+          foodItem3Title:"Organisation simple",
+          foodItem3Text:"Petits-déjeuners, buffets, paniers-repas et logistique de groupe peuvent être préparés avant l’arrivée.",
+          foodNoteKicker:"Rythme privé",
+          foodNote:"L’organisation des repas suit le groupe, les dates et le type de séjour.",
+          mapKicker:"Accès & localisation",
+          mapTitle:"Au-dessus de Saas-Fee, assez privé pour se sentir ailleurs.",
+          mapLead:"Le chalet se situe au-dessus du village. Saas-Fee est sans voitures : l’arrivée doit donc être prévue avec attention selon les bagages, la météo et les transferts.",
+          mapDefault:"Cliquez sur les cartes pour explorer l’emplacement, le trajet depuis le village, l’arrivée ou les déplacements du soir.",
+          openMap:"Ouvrir la carte",
+          mapCard1Title:"Fletschhorn",
+          mapCard1Text:"Voir l’emplacement exact de la propriété au-dessus du village.",
+          mapCard2Title:"Centre du village",
+          mapCard2Text:"Voir l’itinéraire à pied depuis le point d’arrivée du village.",
+          mapCard3Title:"Organisation de l’arrivée",
+          mapCard3Text:"Voir l’itinéraire pratique pour une arrivée coordonnée.",
+          mapCard4Title:"Soirées",
+          mapCard4Text:"Voir la zone du village pour les dîners et les taxis du soir.",
+          areaKicker:"Expériences autour de Saas-Fee",
+          areaTitle:"Une base privée pour l’hiver, l’été et les journées alpines lentes.",
+          areaLead:"Saas-Fee donne aux groupes une raison de venir en toute saison : ski, glacier, sentiers d’été, marmottes à Spielboden, Aqua Allalin, Mattmark, Feeblitz, parc aventure, Hannig et vues de haute montagne.",
+          winterKicker:"Hiver",
+          winterTitle:"Ski, air du glacier et soirées calmes.",
+          winterText:"Ski en altitude, luge de nuit à Hannig, Pavillon de Glace, Aqua Allalin et retours chaleureux dans votre chalet privé.",
+          summerKicker:"Printemps / Été",
+          summerTitle:"Sentiers, marmottes, eau et routes de montagne.",
+          summerText:"Marmottes de Spielboden, Feeblitz, parc aventure, barrage de Mattmark, trottinettes Trotti et randonnées pour différents niveaux d’énergie.",
+          softKicker:"Journées douces",
+          softTitle:"Bien-être, village et matins lents.",
+          softText:"Calme, vues, intérieurs chaleureux, sauna sur demande et la sensation de séjourner au-dessus de l’agitation.",
+          historyKicker:"Histoire",
+          historyTitle:"Une propriété de montagne avec un siècle derrière elle.",
+          historyLead:"Une courte histoire sur la page d’accueil apporte de la crédibilité, tandis que le récit complet peut vivre sur la page À propos.",
+          h1906Title:"Les débuts de l’accueil en montagne.",
+          h1906Text:"Une famille construit des auberges de montagne à Saas-Fee pour les premiers voyageurs arrivant au village.",
+          h1970Title:"La propriété grandit.",
+          h1970Text:"La famille Dütsch développe le Fletschhorn en une propriété alpine respectée.",
+          h1994Title:"Histoire culinaire suisse.",
+          h1994Text:"Irma Dütsch devient la première femme suisse à recevoir une étoile Michelin.",
+          hNowTitle:"Un chalet privé renouvelé.",
+          hNowText:"L’histoire continue comme base alpine privée pour groupes, événements et séjours en propriété exclusive.",
+          contactKicker:"Contact & réservation",
+          contactTitle:"Faites de ce lieu le vôtre.",
+          contactText:"Commencez avec votre nom, votre email et vos dates souhaitées. La page de réservation vous permettra de vérifier la disponibilité, le prix et d’envoyer la demande finale.",
+          addressLabel:"Adresse",
+          phoneLabel:"Téléphone",
+          directLabel:"Note directe",
+          directText:"Les meilleurs tarifs sont disponibles en réservant directement."
+        },
+        de: {
+          privateKicker:"Das private Chalet",
+          privateTitle:"Ein privates alpines Haus für Gruppen, die den ganzen Ort für sich möchten.",
+          privateLead:"Fletschhorn ist ein vollständiges privates Chalet-Erlebnis oberhalb von Saas-Fee, mit Raum zum Schlafen, Zusammenkommen, Kochen, Feiern, Abschalten und Erkunden der Berge.",
+          conceptKicker:"Das Konzept",
+          conceptTitle:"Ein Aufenthalt im gesamten Anwesen, von Anfang an klar erklärt.",
+          conceptText:"Familien, Retreats, Hochzeiten, private Feiern und Skigruppen können die Immobilie als private alpine Basis übernehmen.",
+          proofGuests:"Schlafplätze",
+          proofHistory:"Jahre alpine Geschichte",
+          proofProperty:"Privatanwesen-Erlebnis",
+          experienceKicker:"Das Erlebnis",
+          experienceText:"Ein privates Anwesen oberhalb des Dorfes Saas-Fee — großzügige Räume, Bergluft und vollständige Privatsphäre für Ihre Gruppe.",
+          roomsKicker:"Zimmer & Suiten",
+          roomsTitle:"Private Schlafbereiche unter einem alpinen Dach.",
+          roomsLead:"Zimmer und Suiten geben einer Gruppe das Gefühl, in einem Haus zusammen zu sein, bieten aber trotzdem Privatsphäre für Familien, Paare und Gäste, die ihren eigenen Raum brauchen.",
+          insidePhotoKicker:"Im Fletschhorn",
+          insidePhotoText:"Schlafzimmer, Suiten, warme Innenräume und ruhige Ecken für Gäste, die Erholung brauchen.",
+          sleepKicker:"Schlafrhythmus",
+          sleepTitle:"Zusammen, aber nicht gedrängt.",
+          sleepText:"Eine private Basis, in der die Gruppe zusammen bleibt, ohne auf verschiedene Hotels verteilt zu sein.",
+          roomPoint1Title:"Bis zu 48 Schlafplätze",
+          roomPoint1Text:"Die öffentliche Kapazität der Website bleibt klar und einfach.",
+          roomPoint2Title:"Zimmer und Suiten",
+          roomPoint2Text:"Praktisch für gemischte Gruppen, Familien, Retreats und Feiern.",
+          roomPoint3Title:"Eine private Basis",
+          roomPoint3Text:"Gäste bleiben zusammen, ohne sich auf verschiedene Hotels verteilt zu fühlen.",
+          staysKicker:"Wofür das Haus da ist",
+          staysTitle:"Unterschiedliche Gruppen, eine einfache Idee: Das ganze Chalet gehört Ihnen.",
+          staysLead:"Familien, Retreats, Hochzeiten, Skigruppen und private Feiern können die Immobilie als private alpine Basis nutzen.",
+          familyKicker:"Familien",
+          familyTitle:"Raum für alle.",
+          familyText:"Schlafzimmer, Gemeinschaftsräume, langsame Morgen und leichte Bergtage zusammen.",
+          retreatKicker:"Retreats",
+          retreatTitle:"Eine fokussierte alpine Basis.",
+          retreatText:"Gemeinschaftsräume, ruhige Ecken und genug Privatsphäre für echte Erholung.",
+          eventKicker:"Hochzeiten & Events",
+          eventTitle:"Ihr Moment, hier.",
+          eventText:"Mitten in den Alpen wird die Immobilie zur Kulisse einer privaten Feier.",
+          skiKicker:"Skigruppen",
+          skiTitle:"Bergtage, warme Rückkehr.",
+          skiText:"Eine private Homebase für Skifahren, Gletscherluft und gemeinsame Abende.",
+          foodKicker:"Küche & Essensplanung",
+          foodTitle:"Ein flexibles Küchenkonzept für private Gruppenaufenthalte.",
+          foodText:"Die Küche kann Selbstverpflegung, Gespräche mit Koch oder Caterer, Frühstücksplanung, Buffets und Lunchboxen je nach Gruppe unterstützen.",
+          foodItem1Title:"Küchenzugang",
+          foodItem1Text:"Gruppen können Mahlzeiten rund um die Küche und den Rhythmus ihres Aufenthalts organisieren.",
+          foodItem2Title:"Koch oder Caterer nach Absprache",
+          foodItem2Text:"Für Hochzeiten, Retreats und besondere Events kann Unterstützung separat besprochen werden.",
+          foodItem3Title:"Einfache Planung",
+          foodItem3Text:"Frühstück, Buffets, Lunchpakete und Gruppenlogistik können vor der Anreise geplant werden.",
+          foodNoteKicker:"Privater Rhythmus",
+          foodNote:"Die Essensplanung folgt der Gruppe, den Daten und der Art des Aufenthalts.",
+          mapKicker:"Zugang & Lage",
+          mapTitle:"Oberhalb von Saas-Fee, privat genug, um sich weg zu fühlen.",
+          mapLead:"Das Chalet liegt oberhalb des Dorfes. Saas-Fee ist autofrei, daher sollte die Anreise mit Gepäck, Wetter und Transferzeiten sorgfältig geplant werden.",
+          mapDefault:"Klicken Sie auf die Karten, um Lage, Dorfrouten, Anreiseplanung oder Abendbewegungen zu erkunden.",
+          openMap:"Karte öffnen",
+          mapCard1Title:"Fletschhorn",
+          mapCard1Text:"Genaue Lage des Anwesens oberhalb des Dorfes ansehen.",
+          mapCard2Title:"Dorfzentrum",
+          mapCard2Text:"Fußweg vom Ankunftspunkt im Dorf ansehen.",
+          mapCard3Title:"Anreiseplanung",
+          mapCard3Text:"Praktische Route für eine koordinierte Anreise ansehen.",
+          mapCard4Title:"Abendpläne",
+          mapCard4Text:"Dorfbereich für Abendessen und Taxi-Planung ansehen.",
+          areaKicker:"Erlebnisse rund um Saas-Fee",
+          areaTitle:"Eine private Basis für Winter, Sommer und langsame alpine Tage.",
+          areaLead:"Saas-Fee bietet Gruppen zu jeder Jahreszeit einen Grund zu kommen: Skifahren, Gletscherzugang, Sommerwege, Murmeltiere am Spielboden, Aqua Allalin, Mattmark, Feeblitz, Seilpark, Hannig und hochalpine Ausblicke.",
+          winterKicker:"Winter",
+          winterTitle:"Skitage, Gletscherluft und ruhige Abende.",
+          winterText:"Hochalpines Skifahren, Nachtschlitteln am Hannig, Eispavillon, Aqua Allalin und warme Rückkehr in Ihr privates Chalet.",
+          summerKicker:"Frühling / Sommer",
+          summerTitle:"Wege, Murmeltiere, Wasser und Bergrouten.",
+          summerText:"Murmeltiere am Spielboden, Feeblitz, Seilpark, Mattmark-Staudamm, Trotti-Roller und Wanderungen für unterschiedliche Energieniveaus.",
+          softKicker:"Sanfte Tage",
+          softTitle:"Wellness, Dorfzeit und langsame Morgen.",
+          softText:"Stille, Ausblicke, warme Innenräume, Sauna auf Anfrage und das Gefühl, oberhalb der Eile zu wohnen.",
+          historyKicker:"Geschichte",
+          historyTitle:"Ein Berganwesen mit einem Jahrhundert Geschichte.",
+          historyLead:"Eine kurze Geschichte auf der Startseite schafft Glaubwürdigkeit; die vollständige Geschichte kann auf der Über-uns-Seite stehen.",
+          h1906Title:"Frühe Berghospitalität beginnt.",
+          h1906Text:"Eine Familie baut Berghäuser in Saas-Fee für die ersten Reisenden, die ins Dorf kommen.",
+          h1970Title:"Die Immobilie wächst.",
+          h1970Text:"Die Familie Dütsch entwickelt Fletschhorn zu einem angesehenen alpinen Anwesen.",
+          h1994Title:"Schweizer Kulinarikgeschichte.",
+          h1994Text:"Irma Dütsch wird die erste Schweizer Frau, die mit einem Michelin-Stern ausgezeichnet wird.",
+          hNowTitle:"Ein erneuertes privates Chalet.",
+          hNowText:"Die Geschichte geht weiter als private alpine Basis für Gruppen, Events und Aufenthalte im gesamten Anwesen.",
+          contactKicker:"Kontakt & Buchung",
+          contactTitle:"Machen Sie diesen Ort zu Ihrem.",
+          contactText:"Beginnen Sie mit Name, E-Mail und gewünschten Daten. Auf der Buchungsseite können Sie Verfügbarkeit, Preis und finale Anfrage prüfen.",
+          addressLabel:"Adresse",
+          phoneLabel:"Telefon",
+          directLabel:"Direkter Hinweis",
+          directText:"Die besten Preise erhalten Sie bei direkter Buchung."
+        },
+        ru: {
+          privateKicker:"Частное шале",
+          privateTitle:"Частный альпийский дом для групп, которым нужно всё пространство целиком.",
+          privateLead:"Fletschhorn — это полноценный формат частного шале над Саас-Фе: место для сна, встреч, приготовления еды, праздников, отдыха и гор.",
+          conceptKicker:"Концепция",
+          conceptTitle:"Проживание во всём объекте, понятно с первого блока.",
+          conceptText:"Семьи, ретриты, свадьбы, частные праздники и лыжные группы могут занять всю территорию как частную альпийскую базу.",
+          proofGuests:"спальных мест",
+          proofHistory:"лет альпийской истории",
+          proofProperty:"частный формат проживания",
+          experienceKicker:"Опыт",
+          experienceText:"Частная территория над деревней Саас-Фе — простор, горный воздух и полная приватность для вашей группы.",
+          roomsKicker:"Комнаты и сьюты",
+          roomsTitle:"Частные спальни под одной альпийской крышей.",
+          roomsLead:"Комнаты и сьюты дают группе ощущение одного дома, сохраняя приватность для семей, пар и гостей, которым нужно личное пространство.",
+          insidePhotoKicker:"Внутри Fletschhorn",
+          insidePhotoText:"Спальни, сьюты, тёплые интерьеры и тихие уголки для отдыха.",
+          sleepKicker:"Ритм проживания",
+          sleepTitle:"Вместе, но не тесно.",
+          sleepText:"Частная база, где группа остаётся вместе, не разделяясь между разными отелями.",
+          roomPoint1Title:"До 48 спальных мест",
+          roomPoint1Text:"Публичная вместимость сайта остаётся простой и понятной.",
+          roomPoint2Title:"Комнаты и сьюты",
+          roomPoint2Text:"Подходит для смешанных групп, семей, ретритов и праздников.",
+          roomPoint3Title:"Одна частная база",
+          roomPoint3Text:"Гости остаются вместе, не чувствуя себя разделёнными по разным отелям.",
+          staysKicker:"Для чего этот дом",
+          staysTitle:"Разные группы, одна простая идея: всё шале ваше.",
+          staysLead:"Семьи, ретриты, свадьбы, лыжные группы и частные праздники могут использовать объект как частную альпийскую базу.",
+          familyKicker:"Семьи",
+          familyTitle:"Пространство для всех.",
+          familyText:"Спальни, общие комнаты, спокойные утра и лёгкие горные дни вместе.",
+          retreatKicker:"Ретриты",
+          retreatTitle:"Сосредоточенная альпийская база.",
+          retreatText:"Пространства для встреч, тихие углы и достаточно приватности для настоящей перезагрузки.",
+          eventKicker:"Свадьбы и события",
+          eventTitle:"Ваш момент — здесь.",
+          eventText:"Среди Альп объект становится местом для частного праздника.",
+          skiKicker:"Лыжные группы",
+          skiTitle:"Горные дни и тёплые вечера.",
+          skiText:"Частная база для катания, ледникового воздуха и вечеров вместе.",
+          foodKicker:"Кухня и питание",
+          foodTitle:"Гибкая кухонная концепция для частных групповых заездов.",
+          foodText:"Кухня может поддерживать самостоятельное питание, обсуждение шефа или кейтеринга, завтраки, буфеты и ланчбоксы в зависимости от группы.",
+          foodItem1Title:"Доступ к кухне",
+          foodItem1Text:"Группы могут организовать питание вокруг кухни и ритма своего пребывания.",
+          foodItem2Title:"Шеф или кейтеринг по договорённости",
+          foodItem2Text:"Для свадеб, ретритов и особых событий поддержка обсуждается отдельно.",
+          foodItem3Title:"Простое планирование",
+          foodItem3Text:"Завтраки, буфеты, ланчбоксы и групповая логистика могут быть подготовлены заранее.",
+          foodNoteKicker:"Частный ритм",
+          foodNote:"План питания зависит от группы, дат и формата пребывания.",
+          mapKicker:"Доступ и расположение",
+          mapTitle:"Над Саас-Фе, достаточно приватно, чтобы почувствовать уединение.",
+          mapLead:"Шале находится над деревней. Саас-Фе — зона без автомобилей, поэтому приезд стоит заранее продумать с учётом багажа, погоды и трансферов.",
+          mapDefault:"Нажмите на карточки, чтобы изучить расположение, маршрут из деревни, приезд или вечерние передвижения.",
+          openMap:"Открыть карту",
+          mapCard1Title:"Fletschhorn",
+          mapCard1Text:"Посмотреть точное расположение объекта над деревней.",
+          mapCard2Title:"Центр деревни",
+          mapCard2Text:"Посмотреть пеший маршрут от точки прибытия в деревне.",
+          mapCard3Title:"Планирование приезда",
+          mapCard3Text:"Посмотреть практический маршрут для согласованного прибытия.",
+          mapCard4Title:"Вечерние планы",
+          mapCard4Text:"Посмотреть район деревни для ужина и вечернего такси.",
+          areaKicker:"Впечатления вокруг Саас-Фе",
+          areaTitle:"Частная база для зимы, лета и спокойных альпийских дней.",
+          areaLead:"Саас-Фе привлекает группы в любой сезон: лыжи, ледник, летние тропы, сурки на Spielboden, Aqua Allalin, Mattmark, Feeblitz, верёвочный парк, Hannig и высокогорные виды.",
+          winterKicker:"Зима",
+          winterTitle:"Лыжные дни, ледниковый воздух и тихие вечера.",
+          winterText:"Высокогорное катание, ночные санки на Hannig, Ледяной павильон, Aqua Allalin и тёплое возвращение в ваше частное шале.",
+          summerKicker:"Весна / Лето",
+          summerTitle:"Тропы, сурки, вода и горные маршруты.",
+          summerText:"Сурки на Spielboden, Feeblitz, верёвочный парк, дамба Mattmark, самокаты Trotti и маршруты для разных уровней активности.",
+          softKicker:"Мягкие дни",
+          softTitle:"Велнес, деревня и спокойные утра.",
+          softText:"Тишина, виды, тёплые интерьеры, сауна по запросу и ощущение жизни выше суеты.",
+          historyKicker:"История",
+          historyTitle:"Горный объект с вековой историей.",
+          historyLead:"Короткая история на главной странице добавляет доверия, а полная история может быть на странице About.",
+          h1906Title:"Начало горного гостеприимства.",
+          h1906Text:"Семья строит горные постоялые дома в Саас-Фе для первых путешественников, приехавших в деревню.",
+          h1970Title:"Объект развивается.",
+          h1970Text:"Семья Dütsch развивает Fletschhorn в уважаемое альпийское место.",
+          h1994Title:"История швейцарской кухни.",
+          h1994Text:"Ирма Дюч становится первой швейцарской женщиной, получившей звезду Michelin.",
+          hNowTitle:"Обновлённое частное шале.",
+          hNowText:"История продолжается как частная альпийская база для групп, событий и проживания во всём объекте.",
+          contactKicker:"Контакт и бронирование",
+          contactTitle:"Сделайте это место своим.",
+          contactText:"Начните с имени, email и желаемых дат. На странице бронирования можно проверить доступность, цену и отправить финальный запрос.",
+          addressLabel:"Адрес",
+          phoneLabel:"Телефон",
+          directLabel:"Прямая заметка",
+          directText:"Лучшие тарифы доступны при прямом бронировании."
+        }
+      };
+
+      Object.keys(EXTRA_TRANSLATIONS).forEach(function(lang){
+        T[lang] = Object.assign(T[lang] || {}, EXTRA_TRANSLATIONS[lang]);
+      });
+
+      const WEEKDAY_LABELS = {
+        en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+        fr:["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"],
+        de:["So","Mo","Di","Mi","Do","Fr","Sa"],
+        ru:["Вс","Пн","Вт","Ср","Чт","Пт","Сб"]
+      };
+
+      const MAP_CONTEXT_KEYS = [
+        { title:"mapCard1Title", text:"mapCard1Text" },
+        { title:"mapCard2Title", text:"mapCard2Text" },
+        { title:"mapCard3Title", text:"mapCard3Text" },
+        { title:"mapCard4Title", text:"mapCard4Text" }
+      ];
+
       ["fr","de","ru"].forEach(function(lang){
         T[lang] = Object.assign({}, T.en, T[lang]);
       });
 
       function t(key){
         return (T[state.lang] && T[state.lang][key]) || T.en[key] || "";
+      }
+
+      function updateWeekdayLabels(){
+        const labels = WEEKDAY_LABELS[state.lang] || WEEKDAY_LABELS.en;
+        $$(".fh-weekday").forEach(function(el,index){
+          el.textContent = labels[index] || el.textContent;
+        });
+      }
+
+      function refreshActiveMapContext(){
+        const ctx = $("#fhMapContext");
+        const active = $(".fh-map-note.active");
+        if (!ctx || !active) return;
+
+        const notes = $$(".fh-map-note");
+        const idx = Math.max(0, notes.indexOf(active));
+        const keys = MAP_CONTEXT_KEYS[idx] || MAP_CONTEXT_KEYS[0];
+
+        ctx.innerHTML =
+          "<strong>" + (t(keys.title) || active.dataset.mapTitle || "Fletschhorn") + "</strong>" +
+          "<span>" + (t(keys.text) || active.dataset.mapText || "") + "</span>";
       }
 
       function applyLanguage(lang){
@@ -2364,7 +2783,9 @@
           localStorage.setItem("fh_lang", state.lang);
         } catch(error) {}
 
+        updateWeekdayLabels();
         updateToolbarDateText();
+        refreshActiveMapContext();
         renderToolbarCalendar();
       }
 
@@ -3052,11 +3473,7 @@
             if (frame && note.dataset.mapSrc) frame.src = note.dataset.mapSrc;
             if (open && note.dataset.mapOpen) open.href = note.dataset.mapOpen;
 
-            if (ctx){
-              ctx.innerHTML =
-                "<strong>" + (note.dataset.mapTitle || "Fletschhorn") + "</strong>" +
-                "<span>" + (note.dataset.mapText || "") + "</span>";
-            }
+            refreshActiveMapContext();
           });
         });
       }
@@ -3127,7 +3544,16 @@
           ""
         ).slice(0,2).toLowerCase();
 
-        if (T[lang]) applyLanguage(lang);
+        if (T[lang]){
+          event.preventDefault();
+          applyLanguage(lang);
+        }
+      });
+
+      window.addEventListener("storage", function(event){
+        if (event.key === "fh_lang" && T[String(event.newValue || "").slice(0,2).toLowerCase()]){
+          applyLanguage(String(event.newValue).slice(0,2).toLowerCase());
+        }
       });
 
       document.addEventListener("click", function(event){
@@ -3192,9 +3618,17 @@
       prefillExisting();
       applyLanguage(T[state.lang] ? state.lang : (T[startLang] ? startLang : "en"));
 
-      if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function"){
-        window.instgrm.Embeds.process();
+      function processInstagramEmbed(){
+        if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function"){
+          window.instgrm.Embeds.process();
+        }
       }
+
+      processInstagramEmbed();
+      window.addEventListener("resize", function(){
+        window.clearTimeout(window.__fhInstagramResizeTimer);
+        window.__fhInstagramResizeTimer = window.setTimeout(processInstagramEmbed, 220);
+      });
 
       console.log("Fletschhorn homepage ready. Toolbar calendar connected to:", CFG.workerBase);
       console.log("Booking handoff URL:", CFG.bookingPageUrl);
