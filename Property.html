@@ -698,7 +698,7 @@
             </div>
 
             <div class="fh-booking-note" data-booking-i18n="bookingNote">
-              Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.
+              Best Rates Guaranteed when Booking Direct
             </div>
 
             <div class="fh-status" id="fhFormStatus" role="status" aria-live="polite"></div>
@@ -1041,13 +1041,13 @@
       fieldArrival:"Arrival",
       fieldDeparture:"Departure",
       bookNow:"Book my stay now",
-      bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
+      bookingNote:"Best Rates Guaranteed when Booking Direct",
       missingFirstName:"Please enter your first name.",
       missingLastName:"Please enter your last name.",
       missingEmail:"Please enter your email.",
       invalidEmail:"Please enter a valid email address.",
       missingDates:"Please choose arrival and departure dates.",
-      badDates:"Departure must be after arrival.",
+      badDates:"Please select at least 2 nights",
       redirecting:"Opening booking…"
     },
     fr: {
@@ -1060,13 +1060,13 @@
       fieldArrival:"Arrivée",
       fieldDeparture:"Départ",
       bookNow:"Réserver mon séjour",
-      bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
+      bookingNote:"Meilleurs tarifs garantis en réservant en direct",
       missingFirstName:"Veuillez entrer votre prénom.",
       missingLastName:"Veuillez entrer votre nom.",
       missingEmail:"Veuillez entrer votre email.",
       invalidEmail:"Veuillez entrer un email valide.",
       missingDates:"Veuillez choisir les dates d’arrivée et de départ.",
-      badDates:"La date de départ doit être après l’arrivée.",
+      badDates:"Please select at least 2 nights",
       redirecting:"Ouverture de la réservation…"
     },
     de: {
@@ -1079,13 +1079,13 @@
       fieldArrival:"Anreise",
       fieldDeparture:"Abreise",
       bookNow:"Aufenthalt buchen",
-      bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
+      bookingNote:"Beste Preise garantiert bei Direktbuchung",
       missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",
       missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",
       missingEmail:"Bitte geben Sie Ihre E-Mail ein.",
       invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",
       missingDates:"Bitte wählen Sie Anreise- und Abreisedatum.",
-      badDates:"Die Abreise muss nach der Anreise liegen.",
+      badDates:"Please select at least 2 nights",
       redirecting:"Buchung wird geöffnet…"
     },
     ru: {
@@ -1098,13 +1098,13 @@
       fieldArrival:"Заезд",
       fieldDeparture:"Выезд",
       bookNow:"Забронировать",
-      bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
+      bookingNote:"Лучшие цены гарантированы при прямом бронировании",
       missingFirstName:"Введите имя.",
       missingLastName:"Введите фамилию.",
       missingEmail:"Введите email.",
       invalidEmail:"Введите корректный email.",
       missingDates:"Выберите даты заезда и выезда.",
-      badDates:"Дата выезда должна быть после даты заезда.",
+      badDates:"Please select at least 2 nights",
       redirecting:"Открываем бронирование…"
     }
   };
@@ -1172,8 +1172,9 @@
       email: $("#fhEmail") ? $("#fhEmail").value.trim() : "",
       checkIn: $("#fhArrival") ? $("#fhArrival").value : "",
       checkOut: $("#fhDeparture") ? $("#fhDeparture").value : "",
+      lang: getLang(),
       language: getLang(),
-      source: "fletschhorn-github-property-toolbar",
+      source: "property",
       pageUrl: window.location.href,
       createdAt: new Date().toISOString()
     };
@@ -1211,7 +1212,11 @@
       return;
     }
 
-    if (payload.checkOut <= payload.checkIn){
+    const start = new Date(payload.checkIn + "T00:00:00");
+    const end = new Date(payload.checkOut + "T00:00:00");
+    const nights = Math.round((end - start) / 86400000);
+
+    if (!Number.isFinite(nights) || nights < 2){
       setStatus(bt("badDates"), "error");
       $("#fhDeparture") && $("#fhDeparture").focus();
       return;
@@ -1229,8 +1234,10 @@
     params.set("email", payload.email);
     params.set("checkIn", payload.checkIn);
     params.set("checkOut", payload.checkOut);
-    params.set("lang", payload.language);
-    params.set("source", "homepage");
+    params.set("lang", payload.lang);
+    params.set("source", "property");
+
+    try { localStorage.setItem("fh_lang", payload.lang); } catch(error) {}
 
     setStatus(bt("redirecting"), "success");
 
@@ -1274,11 +1281,18 @@
       data = {};
     }
 
-    if (data.firstName && $("#fhFirstName")) $("#fhFirstName").value = data.firstName;
-    if (data.lastName && $("#fhLastName")) $("#fhLastName").value = data.lastName;
-    if (data.email && $("#fhEmail")) $("#fhEmail").value = data.email;
-    if (data.checkIn && $("#fhArrival")) $("#fhArrival").value = data.checkIn;
-    if (data.checkOut && $("#fhDeparture")) $("#fhDeparture").value = data.checkOut;
+    const params = new URLSearchParams(window.location.search);
+    const firstName = params.get("firstName") || data.firstName || "";
+    const lastName = params.get("lastName") || data.lastName || "";
+    const email = params.get("email") || data.email || "";
+    const checkIn = params.get("checkIn") || data.checkIn || "";
+    const checkOut = params.get("checkOut") || data.checkOut || "";
+
+    if (firstName && $("#fhFirstName")) $("#fhFirstName").value = firstName;
+    if (lastName && $("#fhLastName")) $("#fhLastName").value = lastName;
+    if (email && $("#fhEmail")) $("#fhEmail").value = email;
+    if (checkIn && $("#fhArrival")) $("#fhArrival").value = checkIn;
+    if (checkOut && $("#fhDeparture")) $("#fhDeparture").value = checkOut;
   }
 
   const bookBtn = $("#fhBookNowBtn");
@@ -1288,6 +1302,27 @@
       goToBookingPage();
     });
   }
+
+  root.addEventListener("click", function(event){
+    const link = event.target.closest("a[href]");
+    if (!link) return;
+    const href = (link.getAttribute("href") || "").toLowerCase();
+    const bookingIntent = href === "#book" || href === "#booking" || href.includes("booking.html") || href.includes("/booking") || href.includes("contact-booking");
+    if (!bookingIntent) return;
+
+    event.preventDefault();
+
+    const bookingBox = $("#booking") || $(".fh-booking");
+    if (bookingBox){
+      bookingBox.scrollIntoView({ behavior:"smooth", block:"center" });
+      const firstEmpty = [$("#fhFirstName"), $("#fhLastName"), $("#fhEmail"), $("#fhArrival"), $("#fhDeparture")].find(function(input){
+        return input && !input.value;
+      });
+      window.setTimeout(function(){ if(firstEmpty) firstEmpty.focus(); }, 350);
+    } else {
+      goToBookingPage();
+    }
+  });
 
   document.addEventListener("click", function(event){
     if (event.target.closest("[data-fh-lang],[data-lang],[data-language]")){
