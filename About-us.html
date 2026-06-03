@@ -2770,128 +2770,399 @@
   document.addEventListener("mercury:load", boot);
 })();
 </script>
-<!-- Fletschhorn Experiences — mobile behavior patch
-     Paste this near the end of the page, after the existing Experiences code/scripts. -->
-<style id="fh-location-mobile-behavior-applied-to-experiences">
-#fh-experiences{--fh-mobile-edge:15px;--fh-mobile-card:rgba(255,250,243,.94);overflow-x:hidden!important}
-#fh-experiences *{min-width:0}
+
+<!-- Fletschhorn About — true mobile-first behavior patch
+     This replaces the wrong Experiences patch. It targets #fh-about and keeps the existing
+     EN/FR/DE/RU language system, fh_lang localStorage key, header/footer loading,
+     booking toolbar, calendar modal, and booking.html handoff. -->
+<style id="fh-about-true-mobile-first-patch">
+#fh-about{overflow-x:hidden!important}
+#fh-about *{min-width:0}
 
 @media(max-width:760px){
-  html,body{overflow-x:hidden!important}
-  #fh-experiences{background:linear-gradient(180deg,#f7f1e8 0%,#eee4d9 100%)!important}
-  #fh-experiences .fh-topography{position:absolute!important;height:720px!important;opacity:.08!important;animation:none!important;background-size:auto 100%!important}
+  html,body{overflow-x:hidden!important;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
-  /* Compact, true mobile hero */
-  #fh-experiences .fh-hero{display:block!important;min-height:0!important;height:auto!important;background:#211d19!important;overflow:hidden!important}
-  #fh-experiences .fh-hero-media{position:absolute!important;inset:0!important;height:100%!important;min-height:640px!important}
-  #fh-experiences .fh-hero-slide{background-position:center top!important;transform:none!important}
-  #fh-experiences .fh-hero-media::after{background:linear-gradient(180deg,rgba(18,16,14,.58),rgba(18,16,14,.42) 36%,rgba(18,16,14,.74) 100%)!important}
-  #fh-experiences .fh-hero-media::before{height:56px!important;background:linear-gradient(180deg,transparent,var(--fh-bg))!important}
-  #fh-experiences .fh-hero-inner{width:100%!important;max-width:none!important;padding:86px var(--fh-mobile-edge) 22px!important;text-align:left!important}
-  #fh-experiences .fh-hero .fh-kicker{font-size:9px!important;letter-spacing:.15em!important;margin-bottom:8px!important;color:rgba(255,250,243,.78)!important}
-  #fh-experiences h1{max-width:11ch!important;margin:0 0 10px!important;font-size:clamp(38px,12vw,52px)!important;line-height:.93!important;letter-spacing:-.058em!important}
-  #fh-experiences .fh-hero-lead{max-width:100%!important;margin:0 0 13px!important;font-size:14px!important;line-height:1.45!important;color:rgba(255,250,243,.86)!important}
-  #fh-experiences .fh-peek{display:none!important}
+  /* Header loaded from assets/Header.html: keep it readable instead of desktop-compressed. */
+  #fh-header-slot{
+    position:relative!important;
+    z-index:260!important;
+  }
+  #fh-header-slot header,
+  #fh-header-slot .fh-header,
+  #fh-header-slot .header,
+  #fh-header-slot [class*="header"]{
+    max-width:calc(100% - 18px)!important;
+  }
+  #fh-header-slot img,
+  #fh-header-slot svg{max-height:42px!important}
+  #fh-header-slot button,
+  #fh-header-slot .fh-menu-toggle,
+  #fh-header-slot [aria-label*="menu" i]{
+    min-width:42px!important;
+    min-height:42px!important;
+  }
 
-  /* Season selector becomes horizontal cards */
-  #fh-experiences .fh-season-jump{display:flex!important;width:calc(100% + var(--fh-mobile-edge))!important;margin:0 0 10px!important;gap:8px!important;overflow-x:auto!important;overflow-y:hidden!important;padding:0 var(--fh-mobile-edge) 4px 0!important;scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important}
-  #fh-experiences .fh-season-jump::-webkit-scrollbar{display:none!important}
-  #fh-experiences .fh-season-choice{flex:0 0 74%!important;scroll-snap-align:start!important;padding:12px!important;min-height:76px!important;background:rgba(255,250,243,.14)!important;border:1px solid rgba(255,250,243,.26)!important;color:var(--fh-paper)!important;backdrop-filter:blur(10px)!important}
-  #fh-experiences .fh-season-choice.is-active{background:rgba(255,250,243,.94)!important;color:var(--fh-ink)!important}
-  #fh-experiences .fh-season-choice b{font-size:23px!important;margin-bottom:4px!important;line-height:1!important}
-  #fh-experiences .fh-season-choice span{font-size:11.5px!important;line-height:1.28!important}
+  /* True mobile hero: no tall desktop hero squeezed into a phone. */
+  #fh-about{
+    --edge:15px!important;
+    background:linear-gradient(180deg,#f7f1e8 0%,#eee4d9 100%)!important;
+  }
+  #fh-about .ambient{position:absolute!important;height:760px!important;opacity:.55!important;animation:none!important}
+  #fh-about .ambient::before,#fh-about .ambient::after{animation:none!important;filter:blur(10px)!important}
+  #fh-about .grain{opacity:.035!important}
 
-  /* Booking toolbar: first/last side by side, email/dates/button full width */
-  #fh-experiences .fh-booking{width:100%!important;margin:0!important;padding:6px!important;background:rgba(255,250,243,.16)!important;border:1px solid rgba(255,250,243,.24)!important}
-  #fh-experiences .fh-booking-form{display:grid!important;grid-template-columns:1fr 1fr!important;background:var(--fh-paper)!important;box-shadow:0 18px 48px rgba(18,16,14,.18)!important}
-  #fh-experiences .fh-field{grid-column:auto!important;padding:10px!important;border-right:1px solid var(--fh-line)!important;border-bottom:1px solid var(--fh-line)!important;background:rgba(255,250,243,.98)!important}
-  #fh-experiences .fh-field:nth-child(2){border-right:0!important}
-  #fh-experiences .fh-field:nth-child(3),#fh-experiences .fh-field:nth-child(4),#fh-experiences #fhBookNowBtn.fh-submit{grid-column:1/-1!important;border-right:0!important}
-  #fh-experiences .fh-field label{margin-bottom:4px!important;font-size:8.8px!important;letter-spacing:.13em!important}
-  #fh-experiences .fh-field input,#fh-experiences .fh-date-button span{font-size:14px!important;line-height:1.2!important}
-  #fh-experiences .fh-date-button{min-height:24px!important;gap:6px!important}
-  #fh-experiences .fh-date-button strong{font-size:9px!important;letter-spacing:.10em!important}
-  #fh-experiences #fhBookNowBtn.fh-submit{min-height:50px!important;width:100%!important;font-size:10px!important;letter-spacing:.13em!important}
-  #fh-experiences .fh-hero-note{margin:9px 0 0!important;font-size:12px!important;text-align:center!important;color:rgba(255,250,243,.76)!important}
+  #fh-about .hero{
+    display:block!important;
+    align-items:flex-start!important;
+    justify-content:flex-start!important;
+    min-height:0!important;
+    height:auto!important;
+    max-height:none!important;
+    overflow:hidden!important;
+    background:#211d19!important;
+  }
+  #fh-about .hero-media{
+    position:absolute!important;
+    inset:0!important;
+    height:100%!important;
+    min-height:560px!important;
+  }
+  #fh-about .hero-slide{
+    background-position:center 36%!important;
+    transform:none!important;
+  }
+  #fh-about .hero-media::before{
+    background:
+      linear-gradient(180deg,rgba(18,16,14,.58),rgba(18,16,14,.34) 34%,rgba(18,16,14,.78) 100%),
+      radial-gradient(circle at 50% 12%,rgba(255,255,255,.10),transparent 0 22%)!important;
+  }
+  #fh-about .hero-media::after{
+    background:linear-gradient(180deg,transparent 70%,#f7f1e8 100%)!important;
+  }
+  #fh-about .hero-inner{
+    width:100%!important;
+    max-width:none!important;
+    padding:92px 15px 18px!important;
+    text-align:left!important;
+    color:#fffaf3!important;
+  }
+  #fh-about .hero-title-system{
+    display:block!important;
+    width:100%!important;
+    text-align:left!important;
+  }
+  #fh-about .hero-static-title{text-align:left!important}
+  #fh-about .crest{
+    width:42px!important;
+    height:42px!important;
+    margin:0 0 10px!important;
+    font-size:17px!important;
+    place-items:center!important;
+  }
+  #fh-about .eyebrow{
+    margin:0 0 8px!important;
+    font-size:9px!important;
+    line-height:1.25!important;
+    letter-spacing:.16em!important;
+    color:rgba(255,250,243,.78)!important;
+  }
+  #fh-about h1{
+    max-width:11.5ch!important;
+    margin:0 0 14px!important;
+    font-size:clamp(38px,12.5vw,56px)!important;
+    line-height:.92!important;
+    letter-spacing:-.058em!important;
+    text-align:left!important;
+  }
+  #fh-about .hero-dynamic-card{
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:14px!important;
+    border-left:0!important;
+    border-top:1px solid rgba(255,250,243,.25)!important;
+    text-align:left!important;
+    background:rgba(255,250,243,.12)!important;
+    -webkit-backdrop-filter:blur(12px)!important;
+    backdrop-filter:blur(12px)!important;
+  }
+  #fh-about .hero-dynamic-card::before{
+    left:14px!important;
+    top:-1px!important;
+    width:48px!important;
+    height:1px!important;
+    transform:none!important;
+  }
+  #fh-about .hero-dynamic-kicker{
+    margin:0 0 6px!important;
+    font-size:8.8px!important;
+    letter-spacing:.13em!important;
+    color:rgba(255,250,243,.66)!important;
+  }
+  #fh-about .hero-dynamic-title{
+    max-width:100%!important;
+    margin:0 0 6px!important;
+    font-size:clamp(24px,7.5vw,31px)!important;
+    line-height:1!important;
+    letter-spacing:-.045em!important;
+  }
+  #fh-about .hero-lead{
+    max-width:100%!important;
+    font-size:13.5px!important;
+    line-height:1.45!important;
+    color:rgba(255,250,243,.84)!important;
+  }
+  #fh-about .peekaboo{display:none!important}
 
-  /* Shorter rhythm and readable mobile type */
-  #fh-experiences .fh-section{padding:34px var(--fh-mobile-edge)!important}
-  #fh-experiences .fh-section-head{display:block!important;margin-bottom:14px!important}
-  #fh-experiences h2{font-size:clamp(31px,9.7vw,43px)!important;line-height:.98!important;letter-spacing:-.05em!important;margin-bottom:10px!important}
-  #fh-experiences h3{font-size:clamp(25px,7.8vw,32px)!important;line-height:1!important;letter-spacing:-.045em!important}
-  #fh-experiences p{font-size:14px!important;line-height:1.55!important}
-  #fh-experiences .fh-kicker{font-size:9.5px!important;letter-spacing:.14em!important;margin-bottom:8px!important}
-  #fh-experiences .fh-panel{padding:19px!important;box-shadow:0 12px 34px rgba(18,16,14,.08)!important}
-  #fh-experiences .fh-intro-grid{display:block!important}
-  #fh-experiences .fh-intro-grid .fh-panel + .fh-panel{margin-top:10px!important}
+  /* Booking toolbar: compact, readable, not hidden at the bottom of a giant hero. */
+  #fh-about .fh-booking-toolbar-wrap{
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0 12px 12px!important;
+    background:linear-gradient(180deg,#f7f1e8,#f3eadf)!important;
+  }
+  #fh-about .fh-booking-toolbar{
+    width:100%!important;
+    margin:0!important;
+    padding:6px!important;
+    background:rgba(255,250,243,.50)!important;
+    border:1px solid rgba(255,250,243,.84)!important;
+    box-shadow:0 18px 48px rgba(18,16,14,.14)!important;
+    -webkit-backdrop-filter:blur(12px)!important;
+    backdrop-filter:blur(12px)!important;
+  }
+  #fh-about .fh-booking-form{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    background:var(--paper)!important;
+  }
+  #fh-about .fh-booking-toolbar .fh-field,
+  #fh-about .fh-booking-toolbar .fh-field:nth-child(1),
+  #fh-about .fh-booking-toolbar .fh-field:nth-child(2),
+  #fh-about .fh-booking-toolbar .fh-field:nth-child(3),
+  #fh-about .fh-booking-toolbar .fh-field:nth-child(4){
+    grid-column:auto!important;
+    padding:10px!important;
+    border-right:1px solid var(--line)!important;
+    border-bottom:1px solid var(--line)!important;
+    background:rgba(255,250,243,.98)!important;
+  }
+  #fh-about .fh-booking-toolbar .fh-field:nth-child(2){border-right:0!important}
+  #fh-about .fh-booking-toolbar .fh-field:nth-child(3),
+  #fh-about .fh-booking-toolbar .fh-field:nth-child(4),
+  #fh-about .fh-submit{
+    grid-column:1/-1!important;
+    border-right:0!important;
+  }
+  #fh-about .fh-booking-toolbar label{
+    margin-bottom:4px!important;
+    font-size:8.7px!important;
+    line-height:1.1!important;
+    letter-spacing:.13em!important;
+  }
+  #fh-about .fh-booking-toolbar input,
+  #fh-about .fh-date-button span{
+    min-height:22px!important;
+    font-size:14px!important;
+    line-height:1.2!important;
+  }
+  #fh-about .fh-date-button{min-height:24px!important;gap:6px!important}
+  #fh-about .fh-date-button strong{font-size:8.8px!important;letter-spacing:.10em!important}
+  #fh-about .fh-submit{
+    min-height:50px!important;
+    width:100%!important;
+    font-size:10px!important;
+    letter-spacing:.13em!important;
+  }
+  #fh-about .fh-booking-note{
+    margin:8px 2px 0!important;
+    color:rgba(26,23,20,.58)!important;
+    font-size:11.5px!important;
+    line-height:1.38!important;
+  }
+  #fh-about .fh-status{
+    color:var(--ink)!important;
+    background:rgba(255,250,243,.86)!important;
+    border-color:rgba(26,23,20,.14)!important;
+    font-size:13px!important;
+  }
+  #fh-about .fh-status.error{background:rgba(180,40,40,.10)!important;color:#7d2e28!important;border-color:rgba(180,40,40,.22)!important}
+  #fh-about .fh-status.success{background:rgba(45,112,74,.12)!important;color:#315c42!important;border-color:rgba(45,112,74,.22)!important}
 
-  /* Convert big mobile stacks into swipeable horizontal strips */
-  #fh-experiences .fh-photo-strip,
-  #fh-experiences .fh-activity-grid,
-  #fh-experiences .fh-route-grid,
-  #fh-experiences .fh-itinerary-grid,
-  #fh-experiences .fh-map-sidebar{display:flex!important;grid-template-columns:none!important;gap:10px!important;width:calc(100% + var(--fh-mobile-edge))!important;margin-right:calc(-1 * var(--fh-mobile-edge))!important;overflow-x:auto!important;overflow-y:hidden!important;padding:0 var(--fh-mobile-edge) 6px 0!important;scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important}
-  #fh-experiences .fh-photo-strip::-webkit-scrollbar,#fh-experiences .fh-activity-grid::-webkit-scrollbar,#fh-experiences .fh-route-grid::-webkit-scrollbar,#fh-experiences .fh-itinerary-grid::-webkit-scrollbar,#fh-experiences .fh-map-sidebar::-webkit-scrollbar{display:none!important}
-  #fh-experiences .fh-photo-tile,#fh-experiences .fh-photo-tile.tall{flex:0 0 82%!important;min-height:220px!important;height:220px!important;scroll-snap-align:start!important}
-  #fh-experiences .fh-place,#fh-experiences .fh-activity,#fh-experiences .fh-route,#fh-experiences .fh-itinerary{flex:0 0 84%!important;scroll-snap-align:start!important;background:var(--fh-mobile-card)!important}
-  #fh-experiences .fh-activity{min-height:228px!important;background:#d6ccbf!important}
-  #fh-experiences .fh-route-img{height:145px!important}
-  #fh-experiences .fh-itinerary{padding:18px!important}
+  /* Mobile section rhythm: shorter, readable, no endless oversized images. */
+  #fh-about .section{
+    padding:42px 15px!important;
+  }
+  #fh-about .section-head{
+    display:block!important;
+    margin-bottom:16px!important;
+  }
+  #fh-about .kicker{
+    margin-bottom:8px!important;
+    font-size:9.5px!important;
+    letter-spacing:.14em!important;
+  }
+  #fh-about h2{
+    font-size:clamp(31px,9.5vw,43px)!important;
+    line-height:.98!important;
+    letter-spacing:-.05em!important;
+    margin-bottom:10px!important;
+  }
+  #fh-about h3{
+    font-size:clamp(25px,7.8vw,32px)!important;
+    line-height:1!important;
+    letter-spacing:-.045em!important;
+  }
+  #fh-about p{font-size:14px!important;line-height:1.55!important}
+  #fh-about .panel{padding:20px!important;box-shadow:0 12px 34px rgba(18,16,14,.08)!important}
 
-  /* Compact filter bar */
-  #fh-experiences .fh-filter-board{position:sticky!important;top:68px!important;z-index:14!important;margin:0 -6px 12px!important;padding:7px 6px!important;background:rgba(244,238,230,.92)!important;backdrop-filter:blur(12px)!important}
-  #fh-experiences .fh-filters{display:flex!important;flex-wrap:nowrap!important;justify-content:flex-start!important;gap:7px!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;padding-bottom:2px!important}
-  #fh-experiences .fh-filters::-webkit-scrollbar{display:none!important}
-  #fh-experiences .fh-filter{flex:0 0 auto!important;white-space:nowrap!important;min-height:40px!important;padding:8px 11px!important;font-size:9px!important;letter-spacing:.11em!important}
+  #fh-about .story-led-grid,
+  #fh-about .history-editorial,
+  #fh-about .two-col,
+  #fh-about .inquiry-card{
+    display:block!important;
+  }
+  #fh-about .story-lead-panel{
+    min-height:0!important;
+    padding:22px!important;
+    margin-bottom:12px!important;
+  }
+  #fh-about .story-lead-panel::before{inset:10px!important}
+  #fh-about .story-lead-panel h3{font-size:clamp(33px,10vw,45px)!important}
+  #fh-about .story-proof-row{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:6px!important;
+    margin-top:18px!important;
+    padding-top:14px!important;
+  }
+  #fh-about .story-proof-row strong{font-size:25px!important}
+  #fh-about .story-proof-row span{font-size:8.8px!important;letter-spacing:.09em!important;line-height:1.2!important}
 
-  /* Map: compact and protected from accidental scroll-trap */
-  #fh-experiences .fh-map-grid{display:block!important}
-  #fh-experiences .fh-map-card{height:340px!important;min-height:340px!important;margin-bottom:12px!important;box-shadow:0 16px 44px rgba(18,16,14,.13)!important}
-  #fh-experiences .fh-map-iframe,#fh-experiences iframe#fh-osm-map{min-height:340px!important;height:100%!important;pointer-events:none!important}
-  #fh-experiences .fh-map-card.is-map-active .fh-map-iframe,#fh-experiences .fh-map-card.is-map-active iframe#fh-osm-map{pointer-events:auto!important}
-  #fh-experiences .fh-map-pin{display:none!important}
-  #fh-experiences .fh-map-touch{display:flex!important;position:absolute!important;inset:0!important;z-index:8!important;align-items:center!important;justify-content:center!important;padding:20px!important;border:0!important;background:linear-gradient(180deg,rgba(255,250,243,.10),rgba(25,23,21,.10))!important;color:var(--fh-ink)!important}
-  #fh-experiences .fh-map-card.is-map-active .fh-map-touch{display:none!important}
-  #fh-experiences .fh-map-touch span{background:rgba(255,250,243,.96)!important;border:1px solid rgba(25,23,21,.14)!important;padding:12px 14px!important;box-shadow:0 12px 30px rgba(0,0,0,.12)!important;font-size:11px!important;font-weight:850!important;text-transform:uppercase!important;letter-spacing:.13em!important}
-  #fh-experiences .fh-map-info{left:10px!important;right:10px!important;bottom:10px!important;padding:10px 11px!important;max-height:118px!important;overflow:hidden!important}
-  #fh-experiences .fh-map-info h3{font-size:22px!important;margin-bottom:3px!important;line-height:1!important}
-  #fh-experiences .fh-map-info p{font-size:12px!important;line-height:1.34!important}
-  #fh-experiences .fh-map-open{top:9px!important;right:9px!important;padding:8px 10px!important;font-size:9px!important;letter-spacing:.11em!important}
+  #fh-about .story-photo-wall,
+  #fh-about .history-image-stack,
+  #fh-about .image-stage{
+    min-height:0!important;
+    height:315px!important;
+    margin-bottom:12px!important;
+    box-shadow:0 16px 42px rgba(18,16,14,.12)!important;
+  }
+  #fh-about .story-photo-small.one,
+  #fh-about .story-photo-small.two,
+  #fh-about .history-small-img,
+  #fh-about .image-stage .float-one,
+  #fh-about .image-stage .float-two{
+    display:none!important;
+  }
+  #fh-about .image-caption-card,
+  #fh-about .history-quote,
+  #fh-about .mini-card{
+    left:10px!important;
+    right:10px!important;
+    bottom:10px!important;
+    width:auto!important;
+    padding:12px!important;
+    max-height:118px!important;
+    overflow:hidden!important;
+  }
+  #fh-about .history-quote span{font-size:30px!important;margin-bottom:4px!important}
+  #fh-about .image-caption-card p,
+  #fh-about .history-quote p,
+  #fh-about .mini-card p{font-size:12px!important;line-height:1.36!important}
 
-  /* Calendar and inquiry modal as bottom sheets */
-  #fh-experiences .fh-calendar-modal,#fh-experiences .fh-modal{align-items:flex-end!important;padding:0!important}
-  #fh-experiences .fh-calendar-card,#fh-experiences .fh-modal-panel{width:100%!important;max-height:88svh!important;border-radius:18px 18px 0 0!important;overflow:auto!important}
-  #fh-experiences .fh-calendar-card{padding:13px!important}
-  #fh-experiences .fh-calendar-title{font-size:25px!important;line-height:1!important}
-  #fh-experiences .fh-calendar-nav button{width:38px!important;min-height:36px!important}
-  #fh-experiences .fh-weekdays,#fh-experiences .fh-calendar-grid{gap:3px!important}
-  #fh-experiences .fh-weekday{font-size:8px!important;letter-spacing:.08em!important}
-  #fh-experiences .fh-day{min-height:47px!important;padding:4px!important}
-  #fh-experiences .fh-day-price{display:none!important}
-  #fh-experiences .fh-modal-head,#fh-experiences .fh-modal-body{padding:17px!important}
-  #fh-experiences .fh-modal-head h3{font-size:28px!important}
-  #fh-experiences .fh-modal-grid{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+  /* Use horizontal cards where it reduces scroll. */
+  #fh-about .timeline,
+  #fh-about .facts,
+  #fh-about .kitchen-options-grid{
+    display:flex!important;
+    grid-template-columns:none!important;
+    gap:10px!important;
+    width:calc(100% + 15px)!important;
+    margin-right:-15px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    padding:0 15px 6px 0!important;
+    scroll-snap-type:x mandatory!important;
+    -webkit-overflow-scrolling:touch!important;
+    scrollbar-width:none!important;
+  }
+  #fh-about .timeline::-webkit-scrollbar,
+  #fh-about .facts::-webkit-scrollbar,
+  #fh-about .kitchen-options-grid::-webkit-scrollbar{display:none!important}
+  #fh-about .time-row,
+  #fh-about .fact,
+  #fh-about .kitchen-option{
+    flex:0 0 84%!important;
+    scroll-snap-align:start!important;
+    min-height:170px!important;
+    padding:18px!important;
+    background:rgba(255,250,243,.95)!important;
+  }
+  #fh-about .time-row{
+    display:block!important;
+  }
+  #fh-about .year{font-size:30px!important;margin-bottom:5px!important}
+  #fh-about .fact strong,
+  #fh-about .kitchen-option strong{font-size:28px!important;margin-bottom:8px!important}
+  #fh-about .fact span,
+  #fh-about .kitchen-option span{font-size:13px!important;line-height:1.45!important}
 
-  #fh-experiences .fh-activity.is-hidden,#fh-experiences .fh-place.is-hidden,#fh-experiences .fh-route.is-hidden,#fh-experiences .fh-map-pin.is-hidden{display:none!important}
+  #fh-about .two-col .panel{margin-bottom:12px!important}
+  #fh-about .inquiry-card .panel + .panel{margin-top:12px!important}
+  #fh-about .cta-button{
+    width:100%!important;
+    min-height:48px!important;
+    margin-top:16px!important;
+    font-size:10px!important;
+  }
+  #fh-about .contact-line{padding:12px 0!important}
+
+  /* Calendar becomes a bottom sheet. */
+  #fh-about .fh-calendar-modal{
+    align-items:flex-end!important;
+    justify-content:center!important;
+    padding:0!important;
+    z-index:400!important;
+  }
+  #fh-about .fh-calendar-card{
+    width:100%!important;
+    max-height:88svh!important;
+    border-radius:18px 18px 0 0!important;
+    padding:13px!important;
+    overflow:auto!important;
+  }
+  #fh-about .fh-calendar-title{font-size:25px!important;line-height:1!important}
+  #fh-about .fh-calendar-head{gap:8px!important;margin-bottom:10px!important}
+  #fh-about .fh-calendar-nav{gap:6px!important}
+  #fh-about .fh-calendar-nav button{width:38px!important;min-height:36px!important}
+  #fh-about .fh-calendar-help{font-size:12px!important;margin-bottom:8px!important}
+  #fh-about .fh-calendar-warning{font-size:12px!important;margin-bottom:9px!important}
+  #fh-about .fh-weekdays,#fh-about .fh-calendar-grid{gap:3px!important}
+  #fh-about .fh-weekday{font-size:8px!important;letter-spacing:.08em!important}
+  #fh-about .fh-day{min-height:47px!important;padding:4px!important}
+  #fh-about .fh-day-number{font-size:12px!important}
+  #fh-about .fh-day-price{display:none!important}
 }
 
 @media(max-width:390px){
-  #fh-experiences{--fh-mobile-edge:12px}
-  #fh-experiences .fh-hero-inner{padding-top:78px!important}
-  #fh-experiences h1{font-size:36px!important}
-  #fh-experiences .fh-hero-lead{font-size:13.5px!important}
-  #fh-experiences .fh-season-choice,#fh-experiences .fh-photo-tile,#fh-experiences .fh-photo-tile.tall,#fh-experiences .fh-place,#fh-experiences .fh-activity,#fh-experiences .fh-route,#fh-experiences .fh-itinerary{flex-basis:88%!important}
-  #fh-experiences .fh-map-card{height:315px!important;min-height:315px!important}
-  #fh-experiences .fh-map-iframe,#fh-experiences iframe#fh-osm-map{min-height:315px!important}
+  #fh-about{--edge:12px!important}
+  #fh-about .hero-inner{padding:82px 12px 16px!important}
+  #fh-about h1{font-size:36px!important}
+  #fh-about .hero-lead{font-size:13px!important}
+  #fh-about .fh-booking-toolbar-wrap{padding-left:10px!important;padding-right:10px!important}
+  #fh-about .time-row,#fh-about .fact,#fh-about .kitchen-option{flex-basis:88%!important}
+  #fh-about .story-photo-wall,#fh-about .history-image-stack,#fh-about .image-stage{height:290px!important}
 }
 </style>
 
-<script id="fh-location-mobile-behavior-applied-to-experiences-js">
+<script id="fh-about-mobile-language-bridge">
 (function(){
-  const root=document.getElementById('fh-experiences');
-  if(!root || root.dataset.locationMobilePatch==='1') return;
-  root.dataset.locationMobilePatch='1';
+  const root=document.getElementById('fh-about');
+  if(!root || root.dataset.aboutMobileBridge==='1') return;
+  root.dataset.aboutMobileBridge='1';
 
+  const allowed=['en','fr','de','ru'];
   function norm(v){
     v=String(v||'en').toLowerCase();
     if(v.startsWith('fr')) return 'fr';
@@ -2899,8 +3170,9 @@
     if(v.startsWith('ru')) return 'ru';
     return 'en';
   }
-  function saveLang(lang){
+  function apply(lang){
     lang=norm(lang);
+    if(!allowed.includes(lang)) lang='en';
     try{
       localStorage.setItem('fh_lang',lang);
       localStorage.setItem('fh_language',lang);
@@ -2908,72 +3180,25 @@
     }catch(e){}
     document.documentElement.setAttribute('lang',lang);
     root.setAttribute('data-current-lang',lang);
-    return lang;
-  }
-  function bridgeLanguage(lang){
-    lang=saveLang(lang);
-    window.dispatchEvent(new CustomEvent('fh:language',{detail:{lang}}));
+    if(typeof window.setFletschhornLanguage==='function') window.setFletschhornLanguage(lang);
+    else if(typeof window.FHSetLanguage==='function') window.FHSetLanguage(lang);
+    document.dispatchEvent(new CustomEvent('fh:language',{detail:{lang}}));
+    document.dispatchEvent(new CustomEvent('fletschhorn:language',{detail:{lang}}));
     window.dispatchEvent(new CustomEvent('fh:language-change',{detail:{lang}}));
-    window.dispatchEvent(new CustomEvent('fh:lang-applied',{detail:{lang}}));
   }
 
   document.addEventListener('click',function(e){
     const trigger=e.target.closest('[data-fh-lang],[data-lang],[data-language]');
     if(!trigger) return;
-    const lang=trigger.dataset.fhLang||trigger.dataset.lang||trigger.dataset.language;
-    if(lang) setTimeout(function(){bridgeLanguage(lang);},0);
+    const lang=trigger.getAttribute('data-fh-lang')||trigger.getAttribute('data-lang')||trigger.getAttribute('data-language');
+    if(lang) setTimeout(function(){apply(lang);},0);
   },true);
-  document.addEventListener('fh:language-change',function(e){
-    const lang=e.detail&&(e.detail.lang||e.detail.language);
-    if(lang) bridgeLanguage(lang);
+
+  window.addEventListener('storage',function(e){
+    if((e.key==='fh_lang'||e.key==='fh_language'||e.key==='fhLang') && e.newValue) apply(e.newValue);
   });
 
-  /* Add mobile tap-to-use overlay to map, matching the Location page behavior. */
-  const mapCard=root.querySelector('.fh-map-card');
-  if(mapCard && !mapCard.querySelector('.fh-map-touch')){
-    const btn=document.createElement('button');
-    btn.type='button';
-    btn.className='fh-map-touch';
-    btn.innerHTML='<span>Tap to use map</span>';
-    mapCard.appendChild(btn);
-    btn.addEventListener('click',function(){mapCard.classList.add('is-map-active');});
-    document.addEventListener('click',function(e){
-      if(!mapCard.contains(e.target)) mapCard.classList.remove('is-map-active');
-    });
-  }
-
-  /* Make booking intent links always preserve the toolbar payload and go to booking.html. */
-  function val(sel){return (root.querySelector(sel)?.value||'').trim();}
-  function dateVal(sel){return root.querySelector(sel)?.value||'';}
-  function persistAndGo(source){
-    const lang=norm(localStorage.getItem('fh_lang')||localStorage.getItem('fh_language')||localStorage.getItem('fhLang')||document.documentElement.lang||'en');
-    const payload={
-      firstName:val('#fh-exp-first-name'),
-      lastName:val('#fh-exp-last-name'),
-      email:val('#fh-exp-email'),
-      checkIn:dateVal('#fh-exp-checkin'),
-      checkOut:dateVal('#fh-exp-checkout'),
-      listingId:'6968339ab7d735001ca015ba',
-      workerBase:'https://guetsyapi.moshe-cohen-h1.workers.dev',
-      source:source||'experiences',
-      lang:lang,
-      createdAt:new Date().toISOString()
-    };
-    try{localStorage.setItem('fhBookingStart',JSON.stringify(payload));}catch(e){}
-    const params=new URLSearchParams({lang:lang,source:payload.source});
-    ['firstName','lastName','email','checkIn','checkOut'].forEach(function(k){if(payload[k]) params.set(k,payload[k]);});
-    window.location.href='booking.html?'+params.toString();
-  }
-  root.addEventListener('click',function(e){
-    const a=e.target.closest('a[href]');
-    if(!a) return;
-    const href=(a.getAttribute('href')||'').toLowerCase().trim();
-    if(href==='booking.html'||href.startsWith('booking.html?')||href==='#book'||href==='#booking'||href.includes('contact-booking')){
-      e.preventDefault();
-      persistAndGo('experiences');
-    }
-  },true);
-
-  bridgeLanguage(localStorage.getItem('fh_lang')||localStorage.getItem('fh_language')||localStorage.getItem('fhLang')||document.documentElement.lang||'en');
+  apply(localStorage.getItem('fh_lang')||localStorage.getItem('fh_language')||localStorage.getItem('fhLang')||document.documentElement.lang||root.getAttribute('data-lang')||'en');
 })();
 </script>
+
