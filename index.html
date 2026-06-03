@@ -1056,6 +1056,156 @@
       font-size:14px;
     }
 
+
+
+    #fh-home .fh-social-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.08fr) minmax(320px,.72fr);
+      gap:24px;
+      align-items:stretch;
+    }
+
+    #fh-home .fh-social-card{
+      position:relative;
+      overflow:hidden;
+      background:var(--paper);
+      border:1px solid #e2d4c4;
+      box-shadow:var(--soft-shadow);
+      padding:clamp(24px,3.2vw,38px);
+    }
+
+    #fh-home .fh-social-card:after{
+      content:"";
+      position:absolute;
+      inset:13px;
+      border:1px solid rgba(28,24,20,.08);
+      pointer-events:none;
+    }
+
+    #fh-home .fh-social-card>*{
+      position:relative;
+      z-index:1;
+    }
+
+    #fh-home .fh-instagram-shell{
+      min-height:520px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      background:
+        radial-gradient(circle at 20% 12%,rgba(255,255,255,.78),transparent 28%),
+        linear-gradient(135deg,rgba(31,58,47,.09),rgba(185,154,125,.11));
+      border:1px solid rgba(31,58,47,.12);
+    }
+
+    #fh-home .fh-instagram-shell blockquote{
+      margin:0!important;
+      width:100%!important;
+      min-width:0!important;
+      max-width:540px!important;
+      background:#fff!important;
+    }
+
+    #fh-home .fh-instagram-fallback{
+      margin-top:16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    #fh-home .fh-social-links{
+      display:grid;
+      gap:12px;
+      margin-top:24px;
+    }
+
+    #fh-home .fh-social-link{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:17px 18px;
+      border:1px solid #dfd0be;
+      background:rgba(255,250,242,.72);
+      transition:background .18s,border-color .18s,transform .18s;
+    }
+
+    #fh-home .fh-social-link:hover{
+      background:rgba(31,58,47,.07);
+      border-color:rgba(31,58,47,.22);
+      transform:translateY(-1px);
+    }
+
+    #fh-home .fh-social-link strong{
+      display:block;
+      color:var(--forest);
+      font-family:var(--serif);
+      font-size:26px;
+      font-weight:400;
+      line-height:1;
+    }
+
+    #fh-home .fh-social-link span{
+      display:block;
+      margin-top:5px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+
+    #fh-home .fh-social-link em{
+      flex:0 0 auto;
+      font-style:normal;
+      width:34px;
+      height:34px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--forest);
+      color:var(--white);
+      font-size:18px;
+    }
+
+    #fh-home .fh-review-bar{
+      margin-top:18px;
+      padding:18px;
+      border:1px solid rgba(31,58,47,.16);
+      background:rgba(31,58,47,.06);
+    }
+
+    #fh-home .fh-review-bar strong{
+      display:block;
+      color:var(--forest);
+      font-family:var(--serif);
+      font-size:28px;
+      font-weight:400;
+      line-height:1;
+      margin-bottom:6px;
+    }
+
+    #fh-home .fh-review-bar span{
+      display:block;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.52;
+    }
+
+    #fh-home .fh-small-cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:14px;
+      padding:12px 15px;
+      background:var(--forest);
+      color:var(--white);
+      text-transform:uppercase;
+      letter-spacing:.13em;
+      font-size:10px;
+      font-weight:850;
+    }
+
     #fh-home .fh-contact-grid{
       display:grid;
       grid-template-columns:minmax(0,1fr) minmax(0,.86fr);
@@ -1138,6 +1288,7 @@
       #fh-home .fh-overview-grid,
       #fh-home .fh-kitchen-grid,
       #fh-home .fh-room-grid,
+      #fh-home .fh-social-grid,
       #fh-home .fh-contact-grid{
         grid-template-columns:1fr;
       }
@@ -1315,6 +1466,11 @@
 
       #fh-home .fh-map-card{
         min-height:440px;
+      }
+
+      #fh-home .fh-instagram-shell{
+        min-height:420px;
+        padding:10px;
       }
 
       #fh-home .fh-map-open{
@@ -1618,6 +1774,46 @@
       </div>
     </section>
 
+
+    <section class="fh-section" id="social">
+      <div class="fh-container fh-section-head">
+        <div class="fh-reveal">
+          <p class="fh-kicker" data-i18n="socialKicker">Social presence</p>
+          <h2 data-i18n="socialTitle">The Fletschhorn Rhythm</h2>
+        </div>
+        <p class="fh-reveal" data-i18n="socialLead">Follow the mountain atmosphere, seasonal moments, and everyday rhythm of Fletschhorn in Saas-Fee.</p>
+      </div>
+
+      <div class="fh-container fh-social-grid">
+        <article class="fh-social-card fh-reveal">
+          <div class="fh-instagram-shell">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/fletschhornsaasfee/" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:0;box-shadow:0 0 1px 0 rgba(0,0,0,.5),0 1px 10px 0 rgba(0,0,0,.15);margin:0;max-width:540px;min-width:326px;padding:0;width:100%;"></blockquote>
+          </div>
+          <div class="fh-instagram-fallback">
+            <p data-i18n="instagramFallback">If the Instagram preview does not load in your browser, open the official profile directly.</p>
+            <a class="fh-small-cta" href="https://www.instagram.com/fletschhornsaasfee/" target="_blank" rel="noopener" data-i18n="openInstagram">Open Instagram</a>
+          </div>
+        </article>
+
+        <aside class="fh-social-card fh-reveal">
+          <p class="fh-kicker" data-i18n="findUsKicker">Find us in</p>
+          <h3 data-i18n="findUsTitle">Follow, connect, and read guest impressions.</h3>
+          <p data-i18n="findUsText">Use the official social and review profiles for updates, local presence, and independent guest feedback.</p>
+
+          <div class="fh-social-links">
+            <a class="fh-social-link" href="https://www.facebook.com/waldhotelfletschhornsaasfee" target="_blank" rel="noopener"><span><strong>Facebook</strong><span data-i18n="facebookText">Updates and property news.</span></span><em>›</em></a>
+            <a class="fh-social-link" href="https://www.linkedin.com/company/waldhotel-fletschhorn-saas-fee/" target="_blank" rel="noopener"><span><strong>LinkedIn</strong><span data-i18n="linkedinText">Professional profile and company presence.</span></span><em>›</em></a>
+          </div>
+
+          <a class="fh-review-bar" href="https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html" target="_blank" rel="noopener">
+            <strong>Tripadvisor</strong>
+            <span data-i18n="tripadvisorText">Review bar cannot be safely extracted as a standalone element without Tripadvisor’s official widget permissions, so this opens the verified review page directly.</span>
+            <span class="fh-small-cta" data-i18n="openReviews">Open reviews</span>
+          </a>
+        </aside>
+      </div>
+    </section>
+
     <section class="fh-section" id="contact">
       <div class="fh-container fh-contact-grid">
         <div class="fh-panel fh-reveal">
@@ -1706,6 +1902,13 @@
 
       loadHtml("fh-header-slot", "Header.html");
       loadHtml("fh-footer-slot", "footer.html");
+
+      if (!document.querySelector('script[src*="instagram.com/embed.js"]')){
+        const instagramScript = document.createElement("script");
+        instagramScript.async = true;
+        instagramScript.src = "https://www.instagram.com/embed.js";
+        document.body.appendChild(instagramScript);
+      }
     })();
   </script>
 
@@ -1932,6 +2135,18 @@
           phoneLabel:"Phone",
           directLabel:"Direct note",
           directText:"Best rates are available when booking direct.",
+          socialKicker:"Social presence",
+          socialTitle:"The Fletschhorn Rhythm",
+          socialLead:"Follow the mountain atmosphere, seasonal moments, and everyday rhythm of Fletschhorn in Saas-Fee.",
+          instagramFallback:"If the Instagram preview does not load in your browser, open the official profile directly.",
+          openInstagram:"Open Instagram",
+          findUsKicker:"Find us in",
+          findUsTitle:"Follow, connect, and read guest impressions.",
+          findUsText:"Use the official social and review profiles for updates, local presence, and independent guest feedback.",
+          facebookText:"Updates and property news.",
+          linkedinText:"Professional profile and company presence.",
+          tripadvisorText:"Review bar cannot be safely extracted as a standalone element without Tripadvisor’s official widget permissions, so this opens the verified review page directly.",
+          openReviews:"Open reviews",
           missingFirstName:"Please enter your first name.",
           missingLastName:"Please enter your last name.",
           missingEmail:"Please enter your email.",
@@ -1964,6 +2179,18 @@
           minNights:"Veuillez sélectionner au moins 2 nuits.",
           bookNow:"Réserver mon séjour",
           bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
+          socialKicker:"Présence sociale",
+          socialTitle:"Le rythme du Fletschhorn",
+          socialLead:"Suivez l’atmosphère de la montagne, les moments de saison et le rythme quotidien du Fletschhorn à Saas-Fee.",
+          instagramFallback:"Si l’aperçu Instagram ne se charge pas dans votre navigateur, ouvrez directement le profil officiel.",
+          openInstagram:"Ouvrir Instagram",
+          findUsKicker:"Nous trouver sur",
+          findUsTitle:"Suivre, se connecter et lire les impressions des hôtes.",
+          findUsText:"Utilisez les profils sociaux et d’avis officiels pour les actualités, la présence locale et les retours indépendants.",
+          facebookText:"Actualités et nouvelles de la propriété.",
+          linkedinText:"Profil professionnel et présence de l’entreprise.",
+          tripadvisorText:"La barre d’avis ne peut pas être extraite seule de manière fiable sans les autorisations du widget officiel Tripadvisor. Ce lien ouvre donc directement la page d’avis vérifiée.",
+          openReviews:"Ouvrir les avis",
           missingFirstName:"Veuillez entrer votre prénom.",
           missingLastName:"Veuillez entrer votre nom.",
           missingEmail:"Veuillez entrer votre email.",
@@ -1996,6 +2223,18 @@
           minNights:"Bitte mindestens 2 Nächte auswählen.",
           bookNow:"Aufenthalt buchen",
           bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
+          socialKicker:"Soziale Präsenz",
+          socialTitle:"Der Fletschhorn-Rhythmus",
+          socialLead:"Folgen Sie der Bergstimmung, saisonalen Momenten und dem Alltag des Fletschhorn in Saas-Fee.",
+          instagramFallback:"Wenn die Instagram-Vorschau in Ihrem Browser nicht lädt, öffnen Sie direkt das offizielle Profil.",
+          openInstagram:"Instagram öffnen",
+          findUsKicker:"Finden Sie uns auf",
+          findUsTitle:"Folgen, verbinden und Gästestimmen lesen.",
+          findUsText:"Nutzen Sie die offiziellen Social- und Bewertungsprofile für Neuigkeiten, lokale Präsenz und unabhängiges Gästefeedback.",
+          facebookText:"Updates und Neuigkeiten zur Immobilie.",
+          linkedinText:"Professionelles Profil und Unternehmenspräsenz.",
+          tripadvisorText:"Die Bewertungsleiste kann ohne die offiziellen Tripadvisor-Widget-Berechtigungen nicht zuverlässig einzeln eingebettet werden. Dieser Link öffnet daher direkt die verifizierte Bewertungsseite.",
+          openReviews:"Bewertungen öffnen",
           missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",
           missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",
           missingEmail:"Bitte geben Sie Ihre E-Mail ein.",
@@ -2028,6 +2267,18 @@
           minNights:"Выберите минимум 2 ночи.",
           bookNow:"Забронировать",
           bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
+          socialKicker:"Социальные профили",
+          socialTitle:"Ритм Fletschhorn",
+          socialLead:"Следите за горной атмосферой, сезонными моментами и повседневным ритмом Fletschhorn в Саас-Фе.",
+          instagramFallback:"Если превью Instagram не загружается в вашем браузере, откройте официальный профиль напрямую.",
+          openInstagram:"Открыть Instagram",
+          findUsKicker:"Найдите нас в",
+          findUsTitle:"Подписывайтесь, связывайтесь и читайте отзывы гостей.",
+          findUsText:"Используйте официальные социальные профили и страницы отзывов для обновлений, локального присутствия и независимой обратной связи.",
+          facebookText:"Новости и обновления объекта.",
+          linkedinText:"Профессиональный профиль и присутствие компании.",
+          tripadvisorText:"Панель отзывов нельзя надежно извлечь как отдельный элемент без официальных разрешений виджета Tripadvisor, поэтому ссылка открывает проверенную страницу отзывов напрямую.",
+          openReviews:"Открыть отзывы",
           missingFirstName:"Введите имя.",
           missingLastName:"Введите фамилию.",
           missingEmail:"Введите email.",
@@ -2899,6 +3150,10 @@
       initReveal();
       prefillExisting();
       applyLanguage(T[state.lang] ? state.lang : (T[startLang] ? startLang : "en"));
+
+      if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function"){
+        window.instgrm.Embeds.process();
+      }
 
       console.log("Fletschhorn homepage ready. Toolbar calendar connected to:", CFG.workerBase);
       console.log("Booking handoff URL:", CFG.bookingPageUrl);
