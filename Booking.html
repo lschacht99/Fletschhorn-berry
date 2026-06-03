@@ -2,7 +2,6 @@
 <div id="fh-header-slot"></div>
 
 <style>
-/* Fletschhorn — Booking Page, Airbnb-style Guesty-powered checkout */
 #fh-booking-main,
 #fh-booking-main *{box-sizing:border-box}
 
@@ -136,7 +135,7 @@
 
 #fh-booking-main .fh-hero{
   position:relative;
-  min-height:72svh;
+  min-height:74svh;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -260,7 +259,7 @@
   width:min(1180px,calc(100% - 28px));
   z-index:5;
   display:grid;
-  grid-template-columns:minmax(0,1.32fr) minmax(340px,.68fr);
+  grid-template-columns:minmax(0,1.26fr) minmax(340px,.74fr);
   gap:20px;
   align-items:start;
 }
@@ -309,27 +308,6 @@
   color:var(--muted);
   line-height:1.65;
   font-size:16px;
-}
-
-#fh-booking-main .fh-step{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:12px;
-  color:var(--soft);
-  white-space:nowrap;
-  margin-top:6px;
-}
-
-#fh-booking-main .fh-step b{
-  display:grid;
-  place-items:center;
-  width:24px;
-  height:24px;
-  border-radius:999px;
-  background:var(--clay);
-  color:#fff;
-  font-size:11px;
 }
 
 #fh-booking-main .fh-form{
@@ -397,10 +375,10 @@
   align-items:center;
   justify-content:center;
   gap:9px;
-  min-height:52px;
+  min-height:54px;
   padding:15px 22px;
   border:0;
-  background:var(--clay);
+  background:#1d1a17;
   color:#fff;
   text-transform:uppercase;
   letter-spacing:.14em;
@@ -411,26 +389,6 @@
 
 #fh-booking-main .fh-btn:hover{
   transform:translateY(-1px);
-  background:var(--clay2);
-}
-
-#fh-booking-main .fh-btn.secondary{
-  background:transparent;
-  color:var(--ink);
-  border:1px solid var(--line);
-}
-
-#fh-booking-main .fh-btn.secondary:hover{
-  background:#fff;
-  color:var(--ink);
-}
-
-#fh-booking-main .fh-btn.dark{
-  background:#1d1a17;
-  color:#fff;
-}
-
-#fh-booking-main .fh-btn.dark:hover{
   background:#000;
 }
 
@@ -462,6 +420,127 @@
   color:var(--soft);
   line-height:1.48;
   margin:0;
+}
+
+#fh-booking-main .fh-calendar-card{
+  margin-top:18px;
+  padding:18px;
+  background:rgba(255,255,255,.52);
+  border:1px solid #e5d8c9;
+}
+
+#fh-booking-main .fh-calendar-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+#fh-booking-main .fh-calendar-title{
+  font-family:var(--serif);
+  font-size:30px;
+  letter-spacing:-.04em;
+  font-weight:400;
+  margin:0;
+}
+
+#fh-booking-main .fh-mini-btn{
+  border:1px solid rgba(26,23,20,.12);
+  background:#fffaf3;
+  min-width:42px;
+  min-height:38px;
+  color:var(--ink);
+  font-weight:900;
+}
+
+#fh-booking-main .fh-weekdays,
+#fh-booking-main .fh-calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+}
+
+#fh-booking-main .fh-weekday{
+  text-align:center;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.10em;
+  font-weight:900;
+  color:rgba(26,23,20,.45);
+  padding-bottom:4px;
+}
+
+#fh-booking-main .fh-day{
+  min-height:74px;
+  padding:7px;
+  border:1px solid rgba(26,23,20,.10);
+  background:rgba(255,250,243,.82);
+  text-align:left;
+  color:var(--ink);
+  position:relative;
+}
+
+#fh-booking-main .fh-day:hover{
+  border-color:rgba(26,23,20,.28);
+}
+
+#fh-booking-main .fh-day.is-empty{
+  visibility:hidden;
+  pointer-events:none;
+}
+
+#fh-booking-main .fh-day.is-past{
+  opacity:.38;
+  cursor:not-allowed;
+}
+
+#fh-booking-main .fh-day.is-unavailable{
+  background:rgba(154,75,63,.09);
+  border-color:rgba(154,75,63,.18);
+  cursor:not-allowed;
+}
+
+#fh-booking-main .fh-day.is-selected,
+#fh-booking-main .fh-day.is-start,
+#fh-booking-main .fh-day.is-end{
+  background:#1d1a17;
+  color:#fffaf3;
+  border-color:#1d1a17;
+}
+
+#fh-booking-main .fh-day.is-range{
+  background:rgba(26,23,20,.09);
+}
+
+#fh-booking-main .fh-day-number{
+  display:block;
+  font-size:13px;
+  font-weight:900;
+}
+
+#fh-booking-main .fh-day-price{
+  display:block;
+  margin-top:16px;
+  font-size:10px;
+  font-weight:850;
+  color:rgba(26,23,20,.64);
+}
+
+#fh-booking-main .fh-day-status{
+  display:block;
+  margin-top:3px;
+  font-size:9px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:900;
+  color:var(--bad);
+}
+
+#fh-booking-main .fh-day.is-selected .fh-day-price,
+#fh-booking-main .fh-day.is-start .fh-day-price,
+#fh-booking-main .fh-day.is-end .fh-day-price{
+  color:rgba(255,250,243,.76);
 }
 
 #fh-booking-main .fh-side{
@@ -679,7 +758,7 @@
   display:grid;
   grid-template-columns:1.1fr .9fr;
   gap:10px;
-  min-height:360px;
+  min-height:420px;
 }
 
 #fh-booking-main .fh-gallery-main,
@@ -717,61 +796,18 @@
   font-weight:700;
 }
 
-#fh-booking-main .fh-benefits{
+#fh-booking-main .fh-photo-strip{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:14px;
+  gap:12px;
+  margin-top:18px;
 }
 
-#fh-booking-main .fh-benefit{
-  padding:24px;
-  min-height:190px;
-  background:var(--paper);
-  border:1px solid #e5d8c9;
+#fh-booking-main .fh-photo-strip div{
+  min-height:180px;
+  background:#d8cbbb center/cover no-repeat;
+  border:1px solid rgba(255,250,243,.62);
   box-shadow:var(--soft-shadow);
-}
-
-#fh-booking-main .fh-benefit strong{
-  display:block;
-  margin-bottom:8px;
-  font-family:var(--serif);
-  font-size:28px;
-  line-height:1;
-  letter-spacing:-.04em;
-  font-weight:400;
-  color:var(--clay2);
-}
-
-#fh-booking-main .fh-benefit p{
-  font-size:14px;
-  line-height:1.62;
-  margin:0;
-}
-
-#fh-booking-main .fh-faq{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-
-#fh-booking-main .fh-faq details{
-  background:rgba(255,250,243,.88);
-  border:1px solid #e5d8c9;
-  padding:0;
-  box-shadow:var(--soft-shadow);
-}
-
-#fh-booking-main .fh-faq summary{
-  cursor:pointer;
-  padding:20px 22px;
-  font-weight:760;
-  color:var(--ink);
-}
-
-#fh-booking-main .fh-faq details p{
-  padding:0 22px 22px;
-  font-size:14px;
-  margin:0;
 }
 
 #fh-booking-main .fh-mobile-sticky{
@@ -809,7 +845,7 @@
   #fh-booking-main .fh-side{position:relative;top:auto;grid-template-columns:1fr 1fr}
   #fh-booking-main .fh-section-head{grid-template-columns:1fr}
   #fh-booking-main .fh-property-card{grid-template-columns:1fr}
-  #fh-booking-main .fh-benefits{grid-template-columns:1fr 1fr}
+  #fh-booking-main .fh-photo-strip{grid-template-columns:repeat(2,1fr)}
 }
 
 @media(max-width:760px){
@@ -878,12 +914,29 @@
     width:100%;
   }
 
+  #fh-booking-main .fh-calendar-card{
+    padding:12px;
+  }
+
+  #fh-booking-main .fh-weekdays,
+  #fh-booking-main .fh-calendar-grid{
+    gap:4px;
+  }
+
+  #fh-booking-main .fh-day{
+    min-height:62px;
+    padding:6px;
+  }
+
+  #fh-booking-main .fh-day-price{
+    display:none;
+  }
+
   #fh-booking-main .fh-section{
     padding:68px 16px;
   }
 
-  #fh-booking-main .fh-benefits,
-  #fh-booking-main .fh-faq{
+  #fh-booking-main .fh-photo-strip{
     grid-template-columns:1fr;
   }
 
@@ -920,12 +973,12 @@
       <div class="fh-hero-media" id="fhBookingHeroMedia" aria-hidden="true"></div>
       <div class="fh-hero-inner">
         <p class="fh-eyebrow" data-i18n="heroEyebrow">Direct booking · Fletschhorn Saas-Fee</p>
-        <h1 data-i18n="heroTitle">Complete your private stay.</h1>
-        <p class="fh-hero-lead" data-i18n="heroLead">Review your dates, add the missing details, receive the live Guesty quote, and send the final request through the secure Cloudflare Worker.</p>
+        <h1 data-i18n="heroTitle">Book your private stay.</h1>
+        <p class="fh-hero-lead" data-i18n="heroLead">Choose your dates, review availability, add your details, and send one clear booking request through the secure Guesty Worker.</p>
         <div class="fh-trust-row" aria-label="Booking reassurance">
           <span class="fh-trust-pill" data-i18n="trustPrivate">One private property</span>
           <span class="fh-trust-pill" data-i18n="trust48">Up to 48 sleeping places</span>
-          <span class="fh-trust-pill" data-i18n="trustWorker">Live Guesty quote flow</span>
+          <span class="fh-trust-pill" data-i18n="trustWorker">Live Guesty availability</span>
         </div>
       </div>
     </section>
@@ -935,10 +988,9 @@
         <div class="fh-card fh-main-card fh-reveal">
           <div class="fh-book-head">
             <div>
-              <p class="fh-kicker" data-i18n="panelKicker">Airbnb-style checkout</p>
-              <h2 data-i18n="panelTitle">Confirm the stay details.</h2>
+              <p class="fh-kicker" data-i18n="panelKicker">Simple booking</p>
+              <h2 data-i18n="panelTitle">Your stay details.</h2>
             </div>
-            <div class="fh-step"><b id="fhStepNumber">1</b><span id="fhStepLabel" data-i18n="stepDates">Dates</span></div>
           </div>
 
           <form class="fh-form" id="fhBookingForm" novalidate>
@@ -1001,15 +1053,30 @@
                 <input id="fhPhone" name="phone" type="tel" autocomplete="tel" data-i18n-placeholder="optional" placeholder="Optional">
               </div>
 
-              <div class="fh-field">
-                <label for="fhPromo" data-i18n="promo">Promo code</label>
-                <input id="fhPromo" name="coupon" type="text" data-i18n-placeholder="optional" placeholder="Optional">
-              </div>
-
               <div class="fh-field full">
                 <label for="fhMessage" data-i18n="message">Message</label>
                 <textarea id="fhMessage" name="message" data-i18n-placeholder="messagePh" placeholder="Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates."></textarea>
               </div>
+            </div>
+
+            <div class="fh-calendar-card">
+              <div class="fh-calendar-head">
+                <button class="fh-mini-btn" id="fhPrevMonth" type="button">‹</button>
+                <h3 class="fh-calendar-title" id="fhCalendarTitle">Calendar</h3>
+                <button class="fh-mini-btn" id="fhNextMonth" type="button">›</button>
+              </div>
+
+              <div class="fh-weekdays">
+                <div class="fh-weekday">Sun</div>
+                <div class="fh-weekday">Mon</div>
+                <div class="fh-weekday">Tue</div>
+                <div class="fh-weekday">Wed</div>
+                <div class="fh-weekday">Thu</div>
+                <div class="fh-weekday">Fri</div>
+                <div class="fh-weekday">Sat</div>
+              </div>
+
+              <div class="fh-calendar-grid" id="fhCalendarGrid"></div>
             </div>
 
             <div class="fh-policy-box">
@@ -1022,10 +1089,8 @@
             </div>
 
             <div class="fh-actions">
-              <button class="fh-btn" type="button" id="fhCheckAvailability" data-i18n="checkAvailability">Check availability</button>
-              <button class="fh-btn secondary" type="button" id="fhGetQuote" data-i18n="getQuote">Get official quote</button>
-              <button class="fh-btn dark" type="submit" id="fhSubmitBooking" data-i18n="bookNow">Book my stay now</button>
-              <p class="fh-mini-note" data-i18n="safeNote">No API keys are exposed. The page sends requests only to the Cloudflare Worker.</p>
+              <button class="fh-btn dark" type="submit" id="fhSubmitBooking" data-i18n="bookNow">Book now</button>
+              <p class="fh-mini-note" data-i18n="safeNote">Availability, quote, and booking request are handled automatically through the Worker.</p>
             </div>
 
             <div class="fh-status" id="fhBookingStatus" role="status" aria-live="polite"></div>
@@ -1051,13 +1116,13 @@
               <div class="fh-line-items" id="fhLineItems"></div>
             </div>
 
-            <button class="fh-btn dark fh-side-cta" type="button" id="fhSideSubmit" data-i18n="bookNow">Book my stay now</button>
+            <button class="fh-btn dark fh-side-cta" type="button" id="fhSideSubmit" data-i18n="bookNow">Book now</button>
           </div>
 
           <div class="fh-card fh-safe">
-            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe1">Whole-property booking flow, not individual rooms.</span></div>
-            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe2">Availability, quote, and booking are routed through the Worker.</span></div>
-            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe3">Guesty data is used when the Worker returns listing content.</span></div>
+            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe1">One action: Book now.</span></div>
+            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe2">The page checks availability, gets quote, and sends request.</span></div>
+            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe3">Photos and property content load from Guesty when available.</span></div>
           </div>
         </aside>
       </section>
@@ -1065,10 +1130,10 @@
       <section class="fh-section alt" id="property-preview">
         <div class="fh-container fh-section-head fh-reveal">
           <div>
-            <p class="fh-kicker" data-i18n="propertyKicker">The property</p>
+            <p class="fh-kicker" data-i18n="propertyKicker">The stay</p>
             <h2 id="fhPropertyTitle" data-i18n="propertyTitle">A private alpine house for your group.</h2>
           </div>
-          <p id="fhPropertyDescription" data-i18n="propertyLead">This page can load photos, amenities, capacity, stay rules, and cancellation information from Guesty through the Worker. If Guesty does not return a field, the page keeps a clean fallback instead of inventing data.</p>
+          <p id="fhPropertyDescription" data-i18n="propertyLead">Photos, amenities, capacity, stay rules, and cancellation information can load from Guesty through the Worker. If Guesty does not return a field, this page keeps a clean fallback.</p>
         </div>
 
         <div class="fh-container fh-property-card fh-reveal">
@@ -1091,57 +1156,18 @@
             </div>
           </div>
         </div>
-      </section>
 
-      <section class="fh-section" id="why-book-direct">
-        <div class="fh-container fh-section-head fh-reveal">
-          <div>
-            <p class="fh-kicker" data-i18n="whyKicker">Why this flow</p>
-            <h2 data-i18n="whyTitle">Smooth like a booking platform, controlled like your own site.</h2>
-          </div>
-          <p data-i18n="whyLead">The page keeps the conversion behavior simple: dates, guests, quote, policy, final request. Guesty stays behind the Worker, so no API key appears in the browser.</p>
-        </div>
-
-        <div class="fh-container fh-benefits fh-reveal">
-          <div class="fh-benefit"><strong data-i18n="benefit1Title">Prefilled</strong><p data-i18n="benefit1Text">Guests can arrive from the homepage toolbar with name, email, and dates already filled.</p></div>
-          <div class="fh-benefit"><strong data-i18n="benefit2Title">Live</strong><p data-i18n="benefit2Text">Availability and quote requests are sent to the Worker instead of using fake local pricing.</p></div>
-          <div class="fh-benefit"><strong data-i18n="benefit3Title">Clear</strong><p data-i18n="benefit3Text">The side summary updates instantly and shows the official quote when returned.</p></div>
-          <div class="fh-benefit"><strong data-i18n="benefit4Title">Safe</strong><p data-i18n="benefit4Text">The user must review cancellation terms before sending the final booking request.</p></div>
-        </div>
-      </section>
-
-      <section class="fh-section" id="booking-faq">
-        <div class="fh-container fh-section-head fh-reveal">
-          <div>
-            <p class="fh-kicker" data-i18n="faqKicker">Useful details</p>
-            <h2 data-i18n="faqTitle">Before you send the request.</h2>
-          </div>
-          <p data-i18n="faqLead">Keep the booking experience direct and useful. The page should answer practical questions without slowing down the guest.</p>
-        </div>
-
-        <div class="fh-container fh-faq fh-reveal">
-          <details open>
-            <summary data-i18n="faq1Q">Is this for the whole property?</summary>
-            <p data-i18n="faq1A">Yes. The booking flow is designed for private whole-property stays at Fletschhorn.</p>
-          </details>
-          <details>
-            <summary data-i18n="faq2Q">What happens after I click “Book my stay now”?</summary>
-            <p data-i18n="faq2A">The request is sent through the Worker with your dates, contact details, guest count, quote ID when available, and stay notes.</p>
-          </details>
-          <details>
-            <summary data-i18n="faq3Q">Can I book events or retreats here?</summary>
-            <p data-i18n="faq3A">Yes. Select the stay type and add notes about the event, food plan, or setup needs.</p>
-          </details>
-          <details>
-            <summary data-i18n="faq4Q">Is the price final?</summary>
-            <p data-i18n="faq4A">The final price should come from the official Guesty quote returned by the Worker.</p>
-          </details>
+        <div class="fh-container fh-photo-strip fh-reveal" id="fhPhotoStrip">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
       </section>
     </main>
   </div>
 
-  <a class="fh-mobile-sticky" href="#booking-panel" data-i18n="bookNow">Book my stay now</a>
+  <a class="fh-mobile-sticky" href="#booking-panel" data-i18n="bookNow">Book now</a>
 </div>
 
 <div id="fh-footer-slot"></div>
@@ -1200,14 +1226,16 @@
     calendarMonthPrices:"/guesty/calendar-month-prices",
     checkAvailability:"/guesty/check-availability",
     quote:"/guesty/quote",
-    bookInquiry:"/guesty/book-inquiry",
-    bookInstant:"/guesty/book-instant"
+    bookInquiry:"/guesty/book-inquiry"
   };
 
   const FALLBACK_IMAGES = [
     "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
     "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
-    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg"
+    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg",
+    "https://assets.guesty.com/image/upload/v1769381687/production/686c48ada4bbacd7a82a4f83/zhqymxounxjks6f5zjrn.jpg",
+    "https://assets.guesty.com/image/upload/v1769381687/production/686c48ada4bbacd7a82a4f83/rrwqnc75mfhxk9h6tmsk.jpg",
+    "https://assets.guesty.com/image/upload/v1769381688/production/686c48ada4bbacd7a82a4f83/yf90vkr4uhasqubtz6vb.jpg"
   ];
 
   const LANGS = ["en","fr","de","ru"];
@@ -1216,16 +1244,13 @@
     en:{
       langTitle:"Your private chalet in a few clicks",
       heroEyebrow:"Direct booking · Fletschhorn Saas-Fee",
-      heroTitle:"Complete your private stay.",
-      heroLead:"Review your dates, add the missing details, receive the live Guesty quote, and send the final request through the secure Cloudflare Worker.",
+      heroTitle:"Book your private stay.",
+      heroLead:"Choose your dates, review availability, add your details, and send one clear booking request through the secure Guesty Worker.",
       trustPrivate:"One private property",
       trust48:"Up to 48 sleeping places",
-      trustWorker:"Live Guesty quote flow",
-      panelKicker:"Airbnb-style checkout",
-      panelTitle:"Confirm the stay details.",
-      stepDates:"Dates",
-      stepQuote:"Quote",
-      stepBook:"Booking",
+      trustWorker:"Live Guesty availability",
+      panelKicker:"Simple booking",
+      panelTitle:"Your stay details.",
       firstName:"First name",
       lastName:"Last name",
       email:"Email",
@@ -1239,17 +1264,14 @@
       stayWedding:"Wedding or event",
       stayOther:"Other",
       phone:"Phone / WhatsApp",
-      promo:"Promo code",
       optional:"Optional",
       message:"Message",
       messagePh:"Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates.",
       policyTitle:"Cancellation policy",
       policyFallback:"Cancellation terms will be confirmed in the official Guesty quote before booking. Please review and accept the policy before sending your request.",
       acceptPolicy:"I have read and accept the cancellation policy, house rules, and booking terms.",
-      checkAvailability:"Check availability",
-      getQuote:"Get official quote",
-      bookNow:"Book my stay now",
-      safeNote:"No API keys are exposed. The page sends requests only to the Cloudflare Worker.",
+      bookNow:"Book now",
+      safeNote:"Availability, quote, and booking request are handled automatically through the Worker.",
       summaryTitle:"Your stay",
       summaryProperty:"Property",
       notChecked:"Not checked",
@@ -1260,177 +1282,76 @@
       summaryNights:"Nights",
       summaryType:"Type",
       priceSub:"Official quote returned by the booking Worker.",
-      safe1:"Whole-property booking flow, not individual rooms.",
-      safe2:"Availability, quote, and booking are routed through the Worker.",
-      safe3:"Guesty data is used when the Worker returns listing content.",
-      propertyKicker:"The property",
+      safe1:"One action: Book now.",
+      safe2:"The page checks availability, gets quote, and sends request.",
+      safe3:"Photos and property content load from Guesty when available.",
+      propertyKicker:"The stay",
       propertyTitle:"A private alpine house for your group.",
-      propertyLead:"This page can load photos, amenities, capacity, stay rules, and cancellation information from Guesty through the Worker. If Guesty does not return a field, the page keeps a clean fallback instead of inventing data.",
+      propertyLead:"Photos, amenities, capacity, stay rules, and cancellation information can load from Guesty through the Worker. If Guesty does not return a field, this page keeps a clean fallback.",
       includedKicker:"Included in the stay",
       includedTitle:"Private, flexible, and practical.",
       includedText:"Exclusive private access to the property, refreshments during the stay, private shuttle support, and flexible dining with use of the professional kitchen or optional catering on request.",
-      whyKicker:"Why this flow",
-      whyTitle:"Smooth like a booking platform, controlled like your own site.",
-      whyLead:"The page keeps the conversion behavior simple: dates, guests, quote, policy, final request. Guesty stays behind the Worker, so no API key appears in the browser.",
-      benefit1Title:"Prefilled",
-      benefit1Text:"Guests can arrive from the homepage toolbar with name, email, and dates already filled.",
-      benefit2Title:"Live",
-      benefit2Text:"Availability and quote requests are sent to the Worker instead of using fake local pricing.",
-      benefit3Title:"Clear",
-      benefit3Text:"The side summary updates instantly and shows the official quote when returned.",
-      benefit4Title:"Safe",
-      benefit4Text:"The user must review cancellation terms before sending the final booking request.",
-      faqKicker:"Useful details",
-      faqTitle:"Before you send the request.",
-      faqLead:"Keep the booking experience direct and useful. The page should answer practical questions without slowing down the guest.",
-      faq1Q:"Is this for the whole property?",
-      faq1A:"Yes. The booking flow is designed for private whole-property stays at Fletschhorn.",
-      faq2Q:"What happens after I click “Book my stay now”?",
-      faq2A:"The request is sent through the Worker with your dates, contact details, guest count, quote ID when available, and stay notes.",
-      faq3Q:"Can I book events or retreats here?",
-      faq3A:"Yes. Select the stay type and add notes about the event, food plan, or setup needs.",
-      faq4Q:"Is the price final?",
-      faq4A:"The final price should come from the official Guesty quote returned by the Worker.",
       statusNeedFields:"Please complete first name, last name, email, arrival, departure, and guest count.",
       statusBadEmail:"Please enter a valid email address.",
       statusBadDates:"Departure must be after arrival.",
       statusMinNights:"Please select at least 2 nights.",
       statusPolicy:"Please accept the cancellation policy and booking terms before booking.",
-      statusChecking:"Checking availability through the Worker...",
-      statusQuote:"Requesting official Guesty quote through the Worker...",
-      statusAvailable:"The selected dates appear available. Continue with the official quote.",
-      statusUnavailable:"These dates appear unavailable. Try another date range or contact the team.",
-      statusNoPrice:"Availability returned. The official quote amount was not returned yet.",
-      statusBook:"Sending final booking request through the Worker...",
+      statusCalendar:"Loading availability calendar...",
+      statusChecking:"Checking availability...",
+      statusQuote:"Getting official quote...",
+      statusAvailable:"The dates appear available. Sending the booking request now...",
+      statusUnavailable:"These dates appear unavailable. Please choose another date range.",
+      statusBook:"Sending booking request...",
       statusBookSent:"Booking request received. The team can now confirm the stay.",
-      statusCheckout:"A secure booking link was returned. Opening it now.",
       statusWorkerFail:"The Worker did not respond correctly. Check endpoint names, CORS, and Worker logs.",
-      statusListingLoaded:"Guesty listing content loaded.",
-      statusListingFallback:"Guesty listing content was not returned, so fallback property content is displayed.",
       nights:"nights",
       night:"night"
     },
-    fr:{
-      langTitle:"Votre chalet privé en quelques clics",
-      heroEyebrow:"Réservation directe · Fletschhorn Saas-Fee",
-      heroTitle:"Finalisez votre séjour privé.",
-      heroLead:"Vérifiez vos dates, ajoutez les informations manquantes, recevez le devis Guesty en direct, puis envoyez la demande finale via le Worker Cloudflare sécurisé.",
-      trustPrivate:"Une propriété privée",
-      trust48:"Jusqu’à 48 couchages",
-      trustWorker:"Devis Guesty en direct",
-      panelKicker:"Checkout façon Airbnb",
-      panelTitle:"Confirmez les détails du séjour.",
-      stepDates:"Dates",
-      stepQuote:"Devis",
-      stepBook:"Réservation",
-      firstName:"Prénom",
-      lastName:"Nom",
-      email:"Email",
-      arrival:"Arrivée",
-      departure:"Départ",
-      guests:"Invités",
-      stayType:"Type de séjour",
-      stayPrivate:"Séjour chalet privé",
-      stayFamily:"Réunion familiale",
-      stayRetreat:"Retraite / équipe",
-      stayWedding:"Mariage ou événement",
-      stayOther:"Autre",
-      phone:"Téléphone / WhatsApp",
-      promo:"Code promo",
-      optional:"Optionnel",
-      message:"Message",
-      messagePh:"Indiquez ce qui est important : heure d’arrivée, événement, cuisine/traiteur, chambres ou dates flexibles.",
-      policyTitle:"Politique d’annulation",
-      policyFallback:"Les conditions d’annulation seront confirmées dans le devis Guesty officiel avant la réservation. Veuillez les lire et les accepter avant d’envoyer votre demande.",
-      acceptPolicy:"J’ai lu et j’accepte la politique d’annulation, les règles de la maison et les conditions de réservation.",
-      checkAvailability:"Vérifier la disponibilité",
-      getQuote:"Obtenir le devis officiel",
-      bookNow:"Réserver maintenant",
-      safeNote:"Aucune clé API n’est exposée. La page envoie uniquement les demandes au Worker Cloudflare.",
-      summaryTitle:"Votre séjour",
-      summaryProperty:"Propriété",
-      notChecked:"Non vérifié",
-      available:"Disponible",
-      unavailable:"Indisponible",
-      summaryDates:"Dates",
-      summaryGuests:"Invités",
-      summaryNights:"Nuits",
-      summaryType:"Type",
-      priceSub:"Devis officiel renvoyé par le Worker.",
-      safe1:"Flux de réservation pour toute la propriété, pas pour des chambres individuelles.",
-      safe2:"Disponibilité, devis et réservation passent par le Worker.",
-      safe3:"Les données Guesty sont utilisées quand le Worker les renvoie.",
-      propertyKicker:"La propriété",
-      propertyTitle:"Une maison alpine privée pour votre groupe.",
-      propertyLead:"Cette page peut charger photos, équipements, capacité, règles de séjour et conditions d’annulation depuis Guesty via le Worker. Si un champ n’est pas renvoyé, la page garde un fallback propre.",
-      includedKicker:"Inclus dans le séjour",
-      includedTitle:"Privé, flexible et pratique.",
-      includedText:"Accès privé exclusif à la propriété, rafraîchissements pendant le séjour, navettes privées et restauration flexible avec usage de la cuisine professionnelle ou traiteur sur demande.",
-      whyKicker:"Pourquoi ce flow",
-      whyTitle:"Fluide comme une plateforme, contrôlé comme votre propre site.",
-      whyLead:"La page garde le comportement simple : dates, invités, devis, politique, demande finale. Guesty reste derrière le Worker.",
-      benefit1Title:"Prérempli",
-      benefit1Text:"Les invités arrivent depuis la barre d’accueil avec nom, email et dates déjà remplis.",
-      benefit2Title:"En direct",
-      benefit2Text:"Disponibilité et devis passent par le Worker, sans faux prix local.",
-      benefit3Title:"Clair",
-      benefit3Text:"Le résumé se met à jour immédiatement et affiche le devis officiel.",
-      benefit4Title:"Sécurisé",
-      benefit4Text:"L’utilisateur doit accepter les conditions avant la demande finale.",
-      faqKicker:"Détails utiles",
-      faqTitle:"Avant d’envoyer la demande.",
-      faqLead:"L’expérience reste directe et utile, sans ralentir le visiteur.",
-      faq1Q:"Est-ce pour toute la propriété ?",
-      faq1A:"Oui. Le flow est conçu pour des séjours privés dans toute la propriété Fletschhorn.",
-      faq2Q:"Que se passe-t-il après le clic ?",
-      faq2A:"La demande est envoyée via le Worker avec dates, contact, invités, quote ID si disponible et notes.",
-      faq3Q:"Puis-je réserver un événement ou une retraite ?",
-      faq3A:"Oui. Choisissez le type de séjour et ajoutez les détails.",
-      faq4Q:"Le prix est-il final ?",
-      faq4A:"Le prix final doit venir du devis Guesty officiel renvoyé par le Worker.",
-      statusNeedFields:"Veuillez compléter prénom, nom, email, arrivée, départ et invités.",
-      statusBadEmail:"Veuillez entrer un email valide.",
-      statusBadDates:"Le départ doit être après l’arrivée.",
-      statusMinNights:"Veuillez sélectionner au moins 2 nuits.",
-      statusPolicy:"Veuillez accepter la politique d’annulation et les conditions avant de réserver.",
-      statusChecking:"Vérification de la disponibilité via le Worker...",
-      statusQuote:"Demande de devis Guesty officiel via le Worker...",
-      statusAvailable:"Les dates semblent disponibles. Continuez avec le devis officiel.",
-      statusUnavailable:"Ces dates semblent indisponibles. Essayez d’autres dates ou contactez l’équipe.",
-      statusNoPrice:"Disponibilité reçue. Aucun montant officiel n’a encore été renvoyé.",
-      statusBook:"Envoi de la demande finale via le Worker...",
-      statusBookSent:"Demande reçue. L’équipe peut confirmer le séjour.",
-      statusCheckout:"Un lien sécurisé a été renvoyé. Ouverture en cours.",
-      statusWorkerFail:"Le Worker n’a pas répondu correctement. Vérifiez endpoints, CORS et logs.",
-      statusListingLoaded:"Contenu Guesty chargé.",
-      statusListingFallback:"Le contenu Guesty n’a pas été renvoyé, fallback affiché.",
-      nights:"nuits",
-      night:"nuit"
-    },
+    fr:{},
     de:{},
     ru:{}
   };
 
+  I18N.fr = Object.assign({}, I18N.en, {
+    langTitle:"Votre chalet privé en quelques clics",
+    heroEyebrow:"Réservation directe · Fletschhorn Saas-Fee",
+    heroTitle:"Réservez votre séjour privé.",
+    heroLead:"Choisissez vos dates, vérifiez la disponibilité, ajoutez vos informations et envoyez une demande claire via le Worker Guesty sécurisé.",
+    panelKicker:"Réservation simple",
+    panelTitle:"Les détails de votre séjour.",
+    firstName:"Prénom",
+    lastName:"Nom",
+    email:"Email",
+    arrival:"Arrivée",
+    departure:"Départ",
+    guests:"Invités",
+    phone:"Téléphone / WhatsApp",
+    bookNow:"Réserver",
+    summaryTitle:"Votre séjour",
+    notChecked:"Non vérifié",
+    available:"Disponible",
+    unavailable:"Indisponible",
+    statusChecking:"Vérification de la disponibilité...",
+    statusQuote:"Création du devis officiel...",
+    statusBook:"Envoi de la demande...",
+    nights:"nuits",
+    night:"nuit"
+  });
+
   I18N.de = Object.assign({}, I18N.en, {
     langTitle:"Ihr privates Chalet in wenigen Klicks",
     heroEyebrow:"Direktbuchung · Fletschhorn Saas-Fee",
-    heroTitle:"Vervollständigen Sie Ihren privaten Aufenthalt.",
-    heroLead:"Prüfen Sie Daten, ergänzen Sie Details, erhalten Sie das Live-Guesty-Angebot und senden Sie die finale Anfrage über den sicheren Cloudflare Worker.",
-    checkAvailability:"Verfügbarkeit prüfen",
-    getQuote:"Offizielles Angebot erhalten",
-    bookNow:"Aufenthalt buchen",
+    heroTitle:"Buchen Sie Ihren privaten Aufenthalt.",
+    firstName:"Vorname",
+    lastName:"Nachname",
+    arrival:"Anreise",
+    departure:"Abreise",
+    guests:"Gäste",
+    bookNow:"Jetzt buchen",
     summaryTitle:"Ihr Aufenthalt",
     notChecked:"Nicht geprüft",
     available:"Verfügbar",
     unavailable:"Nicht verfügbar",
-    guests:"Gäste",
-    arrival:"Anreise",
-    departure:"Abreise",
-    firstName:"Vorname",
-    lastName:"Nachname",
-    phone:"Telefon / WhatsApp",
-    policyTitle:"Stornierungsbedingungen",
-    acceptPolicy:"Ich habe die Stornierungsbedingungen, Hausregeln und Buchungsbedingungen gelesen und akzeptiere sie.",
     nights:"Nächte",
     night:"Nacht"
   });
@@ -1438,23 +1359,17 @@
   I18N.ru = Object.assign({}, I18N.en, {
     langTitle:"Ваше частное шале в несколько кликов",
     heroEyebrow:"Прямое бронирование · Fletschhorn Саас-Фе",
-    heroTitle:"Завершите частное бронирование.",
-    heroLead:"Проверьте даты, добавьте детали, получите live Guesty quote и отправьте финальный запрос через безопасный Cloudflare Worker.",
-    checkAvailability:"Проверить доступность",
-    getQuote:"Получить официальный расчёт",
+    heroTitle:"Забронируйте частное проживание.",
+    firstName:"Имя",
+    lastName:"Фамилия",
+    arrival:"Заезд",
+    departure:"Выезд",
+    guests:"Гости",
     bookNow:"Забронировать",
     summaryTitle:"Ваше проживание",
     notChecked:"Не проверено",
     available:"Доступно",
     unavailable:"Недоступно",
-    guests:"Гости",
-    arrival:"Заезд",
-    departure:"Выезд",
-    firstName:"Имя",
-    lastName:"Фамилия",
-    phone:"Телефон / WhatsApp",
-    policyTitle:"Политика отмены",
-    acceptPolicy:"Я прочитал(а) и принимаю политику отмены, правила дома и условия бронирования.",
     nights:"ночей",
     night:"ночь"
   });
@@ -1474,18 +1389,16 @@
     guests:qs("#fhGuests"),
     stayType:qs("#fhStayType"),
     phone:qs("#fhPhone"),
-    coupon:qs("#fhPromo"),
     message:qs("#fhMessage"),
     acceptPolicy:qs("#fhAcceptPolicy")
   };
 
   let currentLang = normalizeLang(localStorage.getItem("fh_lang") || root.dataset.lang || document.documentElement.lang || "en");
-  let listingPublic = null;
-  let lastAvailability = null;
+  let currentCalendarDate = new Date();
+  let dayMap = {};
   let lastQuote = null;
   let lastQuoteId = "";
   let lastRatePlanId = "";
-  let lastCheckoutLink = "";
   let lastCurrency = CFG.currency;
 
   function endpoint(path){
@@ -1513,9 +1426,7 @@
   function setLang(lang){
     currentLang = normalizeLang(lang);
 
-    try{
-      localStorage.setItem("fh_lang", currentLang);
-    }catch(e){}
+    try{localStorage.setItem("fh_lang", currentLang)}catch(e){}
 
     root.dataset.lang = currentLang;
     document.documentElement.setAttribute("lang", currentLang);
@@ -1536,7 +1447,6 @@
       btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
 
-    document.dispatchEvent(new CustomEvent("fletschhorn:languageChanged", {detail:{lang:currentLang}}));
     updateSummary();
     return currentLang;
   }
@@ -1552,70 +1462,22 @@
     if(LANGS.includes(normalizeLang(lang))) setLang(lang);
   });
 
-  document.addEventListener("fletschhorn:language", e => setLang(e.detail?.lang || e.detail?.language));
-  document.addEventListener("fh:language", e => setLang(e.detail?.lang || e.detail?.language));
-  window.addEventListener("storage", e => {
-    if(e.key === "fh_lang" && e.newValue) setLang(e.newValue);
-  });
-
-  function initHero(images){
-    const host = qs("#fhBookingHeroMedia");
-    if(!host) return;
-
-    host.innerHTML = "";
-    const finalImages = Array.isArray(images) && images.length ? images : FALLBACK_IMAGES;
-
-    finalImages.slice(0,6).forEach((src,i) => {
-      const el = document.createElement("div");
-      el.style.backgroundImage = `url("${src}")`;
-      if(i === 0) el.classList.add("is-active");
-      host.appendChild(el);
-    });
-
-    const slides = Array.from(host.children);
-    let i = 0;
-
-    if(slides.length > 1){
-      setInterval(() => {
-        slides[i].classList.remove("is-active");
-        i = (i + 1) % slides.length;
-        slides[i].classList.add("is-active");
-      }, 8000);
-    }
+  function toDateString(date){
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2,"0");
+    const d = String(date.getDate()).padStart(2,"0");
+    return y + "-" + m + "-" + d;
   }
 
-  function parseParams(){
-    const params = new URLSearchParams(window.location.search);
-    let stored = {};
-
-    try{
-      stored = JSON.parse(localStorage.getItem("fhBookingStart") || "{}");
-    }catch(e){
-      stored = {};
-    }
-
-    const data = {
-      firstName:params.get("firstName") || stored.firstName || "",
-      lastName:params.get("lastName") || stored.lastName || "",
-      email:params.get("email") || stored.email || "",
-      checkIn:params.get("checkIn") || stored.checkIn || stored.arrival || "",
-      checkOut:params.get("checkOut") || stored.checkOut || stored.departure || "",
-      guests:params.get("guests") || stored.guests || stored.guestCount || "",
-      phone:params.get("phone") || stored.phone || "",
-      lang:params.get("lang") || stored.lang || stored.language || ""
-    };
-
-    Object.keys(data).forEach(key => {
-      if(fields[key] && data[key]) fields[key].value = data[key];
-    });
-
-    if(data.lang) setLang(data.lang);
+  function monthRange(date){
+    const start = new Date(date.getFullYear(), date.getMonth(), 1);
+    const end = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+    return {from:toDateString(start), to:toDateString(end)};
   }
 
   function nightsBetween(){
     const a = fields.checkIn.value;
     const b = fields.checkOut.value;
-
     if(!a || !b) return 0;
 
     const start = new Date(a + "T00:00:00");
@@ -1633,12 +1495,13 @@
     const ci = fields.checkIn.value;
     const co = fields.checkOut.value;
     const nights = nightsBetween();
-    const dateText = ci && co ? `${ci} → ${co}` : "—";
 
-    qs("#fhSummaryDates").textContent = dateText;
+    qs("#fhSummaryDates").textContent = ci && co ? `${ci} → ${co}` : "—";
     qs("#fhSummaryGuests").textContent = fields.guests.value ? fields.guests.value : "—";
     qs("#fhSummaryNights").textContent = nights > 0 ? `${nights} ${nights === 1 ? t("night") : t("nights")}` : "—";
     qs("#fhSummaryType").textContent = stayTypeText();
+
+    paintSelectedRange();
   }
 
   function showStatus(message, mode){
@@ -1654,7 +1517,7 @@
   }
 
   function buildPayload(extra){
-    const payload = {
+    return Object.assign({
       listingId:CFG.listingId,
       guestyListingId:CFG.listingId,
       firstName:(fields.firstName.value || "").trim(),
@@ -1663,21 +1526,16 @@
       phone:(fields.phone.value || "").trim(),
       checkIn:fields.checkIn.value,
       checkOut:fields.checkOut.value,
-      arrival:fields.checkIn.value,
-      departure:fields.checkOut.value,
       guests:Number(fields.guests.value || 0),
-      guestCount:Number(fields.guests.value || 0),
       stayType:fields.stayType.value,
-      coupon:(fields.coupon.value || "").trim(),
       message:(fields.message.value || "").trim(),
       language:currentLang,
       source:"booking-page",
       cancellationPolicyAccepted:!!fields.acceptPolicy.checked,
       cancellationPolicyAcceptedAt:fields.acceptPolicy.checked ? new Date().toISOString() : "",
+      cancellationPolicyText:qs("#fhCancellationPolicyText").textContent,
       createdAt:new Date().toISOString()
-    };
-
-    return Object.assign(payload, extra || {});
+    }, extra || {});
   }
 
   function validateCore(){
@@ -1716,17 +1574,15 @@
       showStatus(t("statusPolicy"), "warn");
       return false;
     }
+
     return true;
   }
 
   function persistStart(){
-    try{
-      localStorage.setItem("fhBookingStart", JSON.stringify(buildPayload()));
-    }catch(e){}
+    try{localStorage.setItem("fhBookingStart", JSON.stringify(buildPayload()))}catch(e){}
   }
 
-  async function workerPost(path, payload, options){
-    const opts = options || {};
+  async function workerPost(path, payload){
     const response = await fetch(endpoint(path), {
       method:"POST",
       headers:{
@@ -1739,15 +1595,7 @@
     const text = await response.text();
     let data;
 
-    try{
-      data = JSON.parse(text);
-    }catch(e){
-      data = {rawText:text};
-    }
-
-    if(opts.allowFail){
-      return {httpStatus:response.status, browserFetchOk:response.ok, data:data};
-    }
+    try{data = JSON.parse(text)}catch(e){data = {rawText:text}}
 
     if(!response.ok || data.ok === false || data.error){
       const err = new Error(data.error || data.message || "Worker request failed");
@@ -1761,14 +1609,14 @@
 
   async function workerGetOrPost(path, payload){
     try{
-      const getUrl = new URL(endpoint(path));
+      const url = new URL(endpoint(path));
       Object.keys(payload || {}).forEach(key => {
         if(payload[key] !== undefined && payload[key] !== null && payload[key] !== ""){
-          getUrl.searchParams.set(key, payload[key]);
+          url.searchParams.set(key, payload[key]);
         }
       });
 
-      const response = await fetch(getUrl.toString(), {
+      const response = await fetch(url.toString(), {
         method:"GET",
         headers:{"Accept":"application/json"}
       });
@@ -1776,11 +1624,7 @@
       const text = await response.text();
       let data;
 
-      try{
-        data = JSON.parse(text);
-      }catch(e){
-        data = {rawText:text};
-      }
+      try{data = JSON.parse(text)}catch(e){data = {rawText:text}}
 
       if(response.ok && data && data.ok !== false && !data.error){
         return data;
@@ -1809,6 +1653,149 @@
     }
 
     return null;
+  }
+
+  function numberFromAny(value){
+    if(value === null || value === undefined || value === "") return null;
+
+    if(typeof value === "number"){
+      return Number.isFinite(value) ? value : null;
+    }
+
+    if(typeof value === "string"){
+      const cleaned = value.replace(/[^\d.-]/g,"");
+      const n = Number(cleaned);
+      return Number.isFinite(n) ? n : null;
+    }
+
+    return null;
+  }
+
+  function findCurrency(obj){
+    return walk(obj, function(x){
+      if(typeof x.currency === "string") return x.currency;
+      return null;
+    }) || CFG.currency;
+  }
+
+  function getItemAmount(item){
+    if(!item || typeof item !== "object") return null;
+
+    const possibleFields = ["amount","total","value","price","totalPrice","netAmount","grossAmount"];
+
+    for(const field of possibleFields){
+      const n = numberFromAny(item[field]);
+      if(n !== null && n !== 0) return n;
+    }
+
+    return null;
+  }
+
+  function findInvoiceItems(obj){
+    return walk(obj, function(x){
+      if(Array.isArray(x.invoiceItems)) return x.invoiceItems;
+      if(Array.isArray(x.lineItems)) return x.lineItems;
+      if(Array.isArray(x.items)) return x.items;
+      if(Array.isArray(x.fees)) return x.fees;
+      return null;
+    }) || [];
+  }
+
+  function findTotal(obj){
+    const invoiceItems = findInvoiceItems(obj);
+
+    const summedItems = invoiceItems.reduce(function(sum,item){
+      const amount = getItemAmount(item);
+      return amount !== null ? sum + amount : sum;
+    },0);
+
+    const directTotal = walk(obj, function(x){
+      const fields = ["grandTotal","totalPrice","balanceDue","totalAmount","quoteTotal","reservationTotal","total"];
+
+      for(const field of fields){
+        const n = numberFromAny(x[field]);
+        if(n !== null && n > 0) return n;
+      }
+
+      return null;
+    });
+
+    if(directTotal !== null && directTotal > 0) return directTotal;
+    if(summedItems > 0) return summedItems;
+
+    return null;
+  }
+
+  function findQuoteId(obj){
+    return walk(obj, function(x){
+      if(typeof x.quoteId === "string") return x.quoteId;
+      if(typeof x._id === "string" && (x.rates || x.ratePlans || x.invoiceItems || x.lineItems)) return x._id;
+      if(typeof x.id === "string" && (x.rates || x.ratePlans || x.invoiceItems || x.lineItems)) return x.id;
+      return null;
+    }) || "";
+  }
+
+  function findRatePlanId(obj){
+    return walk(obj, function(x){
+      if(typeof x.ratePlanId === "string") return x.ratePlanId;
+      if(typeof x.rateId === "string") return x.rateId;
+      if(Array.isArray(x.ratePlans) && x.ratePlans.length){
+        const first = x.ratePlans[0];
+        return first.ratePlanId || first.rateId || first._id || first.id || "";
+      }
+      if(Array.isArray(x.rates) && x.rates.length){
+        const first = x.rates[0];
+        return first.ratePlanId || first.rateId || first._id || first.id || "";
+      }
+      return null;
+    }) || "";
+  }
+
+  function formatMoney(amount,currency){
+    if(amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "—";
+
+    try{
+      return new Intl.NumberFormat(currentLang === "en" ? "en-US" : currentLang, {
+        style:"currency",
+        currency:currency || CFG.currency,
+        maximumFractionDigits:0
+      }).format(Number(amount));
+    }catch(e){
+      return Math.round(Number(amount)).toLocaleString() + " " + (currency || CFG.currency);
+    }
+  }
+
+  function applyQuote(data){
+    const currency = findCurrency(data);
+    const total = findTotal(data);
+    const items = findInvoiceItems(data);
+    const priceBox = qs("#fhPriceBox");
+    const priceMain = qs("#fhPriceMain");
+    const lineItems = qs("#fhLineItems");
+
+    lastCurrency = currency || CFG.currency;
+    priceBox.classList.add("is-visible");
+
+    if(total !== null && total !== undefined && total > 0){
+      priceMain.textContent = formatMoney(total,lastCurrency);
+    }else{
+      priceMain.textContent = "Quote returned";
+    }
+
+    if(items.length){
+      lineItems.classList.add("is-visible");
+      lineItems.innerHTML = items.slice(0,10).map(function(item){
+        const title = item.title || item.name || item.type || item.description || item.normalType || "Item";
+        const amount = getItemAmount(item);
+
+        return `
+          <div class="fh-line-item">
+            <span>${htmlEscape(title)}</span>
+            <strong>${amount !== null ? formatMoney(amount,lastCurrency) : "Included"}</strong>
+          </div>
+        `;
+      }).join("");
+    }
   }
 
   function extractImages(data){
@@ -1857,12 +1844,10 @@
 
   function extractPolicy(data){
     const listing = data?.listing || data?.data || data || {};
-
     return walk(listing, function(x){
       if(typeof x.cancellationPolicy === "string") return x.cancellationPolicy;
       if(typeof x.cancellationPolicyText === "string") return x.cancellationPolicyText;
       if(typeof x.cancellation === "string") return x.cancellation;
-      if(typeof x.policy === "string" && /cancel/i.test(x.policy)) return x.policy;
       if(x.cancellationPolicy && typeof x.cancellationPolicy === "object"){
         return x.cancellationPolicy.description || x.cancellationPolicy.text || x.cancellationPolicy.name || null;
       }
@@ -1870,47 +1855,36 @@
     }) || "";
   }
 
-  function extractHouseRules(data){
-    const listing = data?.listing || data?.data || data || {};
+  function applyImages(images){
+    const finalImages = images.length ? images : FALLBACK_IMAGES;
 
-    return walk(listing, function(x){
-      if(typeof x.houseRules === "string") return x.houseRules;
-      if(typeof x.rules === "string") return x.rules;
-      return null;
-    }) || "";
+    initHero(finalImages);
+    applyGallery(finalImages);
+    applyPhotoStrip(finalImages);
   }
 
-  function applyListing(data){
-    listingPublic = data;
+  function initHero(images){
+    const host = qs("#fhBookingHeroMedia");
+    if(!host) return;
 
-    const images = extractImages(data);
-    const title = extractTitle(data);
-    const description = extractDescription(data);
-    const amenities = extractAmenities(data);
-    const policy = extractPolicy(data);
-    const houseRules = extractHouseRules(data);
+    host.innerHTML = "";
 
-    if(title){
-      qs("#fhSummaryProperty").textContent = title;
-      qs("#fhPropertyTitle").textContent = title;
-    }
+    images.slice(0,6).forEach((src,i) => {
+      const el = document.createElement("div");
+      el.style.backgroundImage = `url("${src}")`;
+      if(i === 0) el.classList.add("is-active");
+      host.appendChild(el);
+    });
 
-    if(description){
-      qs("#fhPropertyDescription").textContent = description;
-    }
+    const slides = Array.from(host.children);
+    let i = 0;
 
-    if(policy){
-      qs("#fhCancellationPolicyText").textContent = policy;
-    }else if(houseRules){
-      qs("#fhCancellationPolicyText").textContent = t("policyFallback") + "\n\nHouse rules: " + houseRules;
-    }
-
-    initHero(images.length ? images : FALLBACK_IMAGES);
-    applyGallery(images.length ? images : FALLBACK_IMAGES);
-
-    if(amenities.length){
-      const host = qs("#fhAmenityChips");
-      host.innerHTML = amenities.map(item => `<span class="fh-chip">${htmlEscape(item)}</span>`).join("");
+    if(slides.length > 1){
+      setInterval(() => {
+        slides[i].classList.remove("is-active");
+        i = (i + 1) % slides.length;
+        slides[i].classList.add("is-active");
+      },8000);
     }
   }
 
@@ -1918,247 +1892,287 @@
     const gallery = qs("#fhPropertyGallery");
     if(!gallery) return;
 
-    const finalImages = images.length ? images : FALLBACK_IMAGES;
     const slots = gallery.querySelectorAll(".fh-gallery-main, .fh-gallery-stack div");
-
     slots.forEach((slot,index) => {
-      const src = finalImages[index] || finalImages[0];
+      const src = images[index] || images[0];
+      slot.style.backgroundImage = `url("${src}")`;
+    });
+  }
+
+  function applyPhotoStrip(images){
+    const strip = qs("#fhPhotoStrip");
+    if(!strip) return;
+
+    const slots = strip.querySelectorAll("div");
+    slots.forEach((slot,index) => {
+      const src = images[index + 2] || images[index] || images[0];
       slot.style.backgroundImage = `url("${src}")`;
     });
   }
 
   async function loadListingPublic(){
+    applyImages(FALLBACK_IMAGES);
+
     try{
       const data = await workerGetOrPost(ENDPOINTS.listingPublic, {
         listingId:CFG.listingId,
         language:currentLang
       });
 
-      applyListing(data);
-      return data;
+      const images = extractImages(data);
+      const title = extractTitle(data);
+      const description = extractDescription(data);
+      const amenities = extractAmenities(data);
+      const policy = extractPolicy(data);
+
+      if(title){
+        qs("#fhSummaryProperty").textContent = title;
+        qs("#fhPropertyTitle").textContent = title;
+      }
+
+      if(description){
+        qs("#fhPropertyDescription").textContent = description;
+      }
+
+      if(policy){
+        qs("#fhCancellationPolicyText").textContent = policy;
+      }
+
+      if(amenities.length){
+        qs("#fhAmenityChips").innerHTML = amenities.map(item => `<span class="fh-chip">${htmlEscape(item)}</span>`).join("");
+      }
+
+      applyImages(images.length ? images : FALLBACK_IMAGES);
     }catch(error){
-      console.warn("Listing public endpoint unavailable. Using fallback content.", error);
-      initHero(FALLBACK_IMAGES);
-      applyGallery(FALLBACK_IMAGES);
-      return null;
+      console.warn("Listing public endpoint unavailable. Using fallback images.", error);
+      applyImages(FALLBACK_IMAGES);
     }
   }
 
-  function findCurrency(obj){
-    return walk(obj, function(x){
-      if(typeof x.currency === "string") return x.currency;
-      return null;
-    }) || CFG.currency;
+  function getCalendarDate(day){
+    return day.date || day.day || day.startDate || day.checkInDate || day.calendarDate || day.from;
   }
 
-  function findTotal(obj){
-    const fields = [
-      "totalPrice",
-      "total",
-      "grandTotal",
-      "subTotalPrice",
-      "balanceDue",
-      "amount",
-      "fareAccommodationAdjusted",
-      "fareAccommodation"
-    ];
+  function isUnavailable(day){
+    if(!day) return false;
 
-    return walk(obj, function(x){
-      for(const field of fields){
-        if(typeof x[field] === "number") return x[field];
-        if(typeof x[field] === "string" && !isNaN(Number(x[field]))) return Number(x[field]);
+    const status = String(day.status || day.availability || day.availabilityStatus || day.state || "").toLowerCase();
+
+    if(status && status !== "available" && status !== "open" && status !== "bookable") return true;
+    if(day.available === false) return true;
+    if(day.isAvailable === false) return true;
+    if(day.closed === true) return true;
+    if(day.blocked === true) return true;
+    if(day.isBlocked === true) return true;
+    if(day.hardBlocked === true) return true;
+
+    return false;
+  }
+
+  function getCalendarPrice(day){
+    if(!day) return null;
+
+    const raw = day.price || day.rate || day.amount || day.nightlyRate;
+    const n = numberFromAny(raw);
+
+    return n && n > 0 ? n : null;
+  }
+
+  function findCalendarArray(value){
+    if(Array.isArray(value)) return value;
+    if(!value || typeof value !== "object") return null;
+
+    const commonKeys = ["days","data","calendar","results","availability","dates","items"];
+
+    for(const key of commonKeys){
+      if(Array.isArray(value[key])) return value[key];
+    }
+
+    for(const key of Object.keys(value)){
+      if(Array.isArray(value[key])) return value[key];
+    }
+
+    return null;
+  }
+
+  function buildDayMap(data){
+    const map = {};
+    const arr = findCalendarArray(data?.days || data?.data || data) || [];
+
+    arr.forEach(day => {
+      const date = getCalendarDate(day);
+      if(date) map[String(date).slice(0,10)] = day;
+    });
+
+    return map;
+  }
+
+  async function loadCalendarMonth(){
+    const title = qs("#fhCalendarTitle");
+    const grid = qs("#fhCalendarGrid");
+    const range = monthRange(currentCalendarDate);
+
+    title.textContent = currentCalendarDate.toLocaleDateString(undefined,{month:"long",year:"numeric"});
+    grid.innerHTML = "<div style='grid-column:1/-1;padding:16px;color:rgba(26,23,20,.6);font-weight:800;'>Loading availability...</div>";
+
+    try{
+      const data = await workerPost(ENDPOINTS.calendarMonthPrices, {
+        listingId:CFG.listingId,
+        from:range.from,
+        to:range.to,
+        guests:Number(fields.guests.value || 12)
+      });
+
+      dayMap = buildDayMap(data);
+      renderCalendar();
+    }catch(error){
+      console.warn("Calendar unavailable.", error);
+      dayMap = {};
+      renderCalendar();
+    }
+  }
+
+  function renderCalendar(){
+    const grid = qs("#fhCalendarGrid");
+    const title = qs("#fhCalendarTitle");
+    const date = currentCalendarDate;
+    const first = new Date(date.getFullYear(), date.getMonth(), 1);
+    const last = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const today = toDateString(new Date());
+
+    title.textContent = date.toLocaleDateString(undefined,{month:"long",year:"numeric"});
+    grid.innerHTML = "";
+
+    for(let i = 0; i < first.getDay(); i++){
+      const empty = document.createElement("button");
+      empty.type = "button";
+      empty.className = "fh-day is-empty";
+      grid.appendChild(empty);
+    }
+
+    for(let dayNumber = 1; dayNumber <= last.getDate(); dayNumber++){
+      const dayDate = new Date(date.getFullYear(), date.getMonth(), dayNumber);
+      const dateString = toDateString(dayDate);
+      const guestyDay = dayMap[dateString];
+      const unavailable = isUnavailable(guestyDay);
+      const past = dateString < today;
+      const price = getCalendarPrice(guestyDay);
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "fh-day";
+      button.dataset.date = dateString;
+
+      if(past) button.classList.add("is-past");
+      if(unavailable) button.classList.add("is-unavailable");
+
+      button.innerHTML = `
+        <span class="fh-day-number">${dayNumber}</span>
+        ${
+          unavailable
+            ? `<span class="fh-day-price">—</span><span class="fh-day-status">Blocked</span>`
+            : price
+              ? `<span class="fh-day-price">${formatMoney(price,CFG.currency)}</span>`
+              : `<span class="fh-day-price">Available</span>`
+        }
+      `;
+
+      if(!past && !unavailable){
+        button.addEventListener("click", function(){
+          selectDate(dateString);
+        });
       }
-      return null;
+
+      grid.appendChild(button);
+    }
+
+    paintSelectedRange();
+  }
+
+  function selectDate(dateString){
+    if(!fields.checkIn.value || fields.checkOut.value){
+      fields.checkIn.value = dateString;
+      fields.checkOut.value = "";
+    }else if(dateString <= fields.checkIn.value){
+      fields.checkIn.value = dateString;
+      fields.checkOut.value = "";
+    }else{
+      fields.checkOut.value = dateString;
+    }
+
+    updateSummary();
+    persistStart();
+  }
+
+  function paintSelectedRange(){
+    const dayButtons = qsa(".fh-day[data-date]");
+    const checkIn = fields.checkIn.value;
+    const checkOut = fields.checkOut.value;
+
+    dayButtons.forEach(button => {
+      const date = button.dataset.date;
+      button.classList.remove("is-selected","is-range","is-start","is-end");
+
+      if(checkIn && !checkOut && date === checkIn){
+        button.classList.add("is-selected");
+      }
+
+      if(checkIn && checkOut){
+        if(date === checkIn) button.classList.add("is-start");
+        if(date === checkOut) button.classList.add("is-end");
+        if(date > checkIn && date < checkOut) button.classList.add("is-range");
+      }
     });
   }
 
-  function findQuoteId(obj){
-    return walk(obj, function(x){
-      if(typeof x.quoteId === "string") return x.quoteId;
-      if(typeof x._id === "string" && (x.rates || x.ratePlans || x.invoiceItems || x.lineItems)) return x._id;
-      if(typeof x.id === "string" && (x.rates || x.ratePlans || x.invoiceItems || x.lineItems)) return x.id;
-      return null;
-    }) || "";
-  }
-
-  function findRatePlanId(obj){
-    if(!obj || typeof obj !== "object") return "";
-
-    if(typeof obj.ratePlanId === "string") return obj.ratePlanId;
-    if(typeof obj.rateId === "string") return obj.rateId;
-    if(typeof obj.ratePlan === "string") return obj.ratePlan;
-
-    if(Array.isArray(obj.ratePlans) && obj.ratePlans.length){
-      const first = obj.ratePlans[0];
-      return first.ratePlanId || first.rateId || first._id || first.id || "";
-    }
-
-    if(Array.isArray(obj.rates) && obj.rates.length){
-      const first = obj.rates[0];
-      return first.ratePlanId || first.rateId || first._id || first.id || "";
-    }
-
-    return walk(obj, function(x){
-      if(typeof x.ratePlanId === "string") return x.ratePlanId;
-      if(typeof x.rateId === "string") return x.rateId;
-      return null;
-    }) || "";
-  }
-
-  function findInvoiceItems(obj){
-    return walk(obj, function(x){
-      if(Array.isArray(x.invoiceItems)) return x.invoiceItems;
-      if(Array.isArray(x.lineItems)) return x.lineItems;
-      if(Array.isArray(x.items)) return x.items;
-      return null;
-    }) || [];
-  }
-
-  function extractLink(data){
-    if(!data || typeof data !== "object") return "";
-    return data.checkoutUrl || data.bookingUrl || data.paymentUrl || data.redirectUrl || data.url || data.guestyUrl || extractLink(data.data) || extractLink(data.result) || "";
-  }
-
-  function formatMoney(amount,currency){
-    if(amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "—";
-
-    try{
-      return new Intl.NumberFormat(currentLang === "en" ? "en-US" : currentLang, {
-        style:"currency",
-        currency:currency || CFG.currency,
-        maximumFractionDigits:0
-      }).format(Number(amount));
-    }catch(e){
-      return Math.round(Number(amount)).toLocaleString() + " " + (currency || CFG.currency);
-    }
-  }
-
-  function applyQuote(data){
-    const currency = findCurrency(data);
-    const total = findTotal(data);
-    const items = findInvoiceItems(data);
-    const priceBox = qs("#fhPriceBox");
-    const priceMain = qs("#fhPriceMain");
-    const lineItems = qs("#fhLineItems");
-
-    lastCurrency = currency || CFG.currency;
-
-    if(total !== null && total !== undefined){
-      priceBox.classList.add("is-visible");
-      priceMain.textContent = formatMoney(total,lastCurrency);
-    }
-
-    if(items.length){
-      lineItems.classList.add("is-visible");
-      lineItems.innerHTML = items.slice(0,8).map(item => {
-        const title = item.title || item.name || item.type || item.description || item.normalType || "Item";
-        const amount = item.amount || item.total || item.value || item.price || item.totalPrice || "";
-        return `<div class="fh-line-item"><span>${htmlEscape(title)}</span><strong>${amount ? formatMoney(amount,lastCurrency) : "Included"}</strong></div>`;
-      }).join("");
-    }
-  }
-
   async function checkAvailability(){
-    if(!validateCore()) return null;
-
-    const button = qs("#fhCheckAvailability");
-    button.disabled = true;
-    button.textContent = t("statusChecking");
-
     showStatus(t("statusChecking"), "");
 
-    try{
-      const data = await workerPost(ENDPOINTS.checkAvailability, {
-        listingId:CFG.listingId,
-        checkIn:fields.checkIn.value,
-        checkOut:fields.checkOut.value,
-        guests:Number(fields.guests.value || 1)
-      });
+    const data = await workerPost(ENDPOINTS.checkAvailability, {
+      listingId:CFG.listingId,
+      checkIn:fields.checkIn.value,
+      checkOut:fields.checkOut.value,
+      guests:Number(fields.guests.value || 1)
+    });
 
-      lastAvailability = data;
+    const unavailable = data.available === false || data.isAvailable === false || data.status === "unavailable";
 
-      const unavailable = data.available === false || data.isAvailable === false || data.status === "unavailable";
-
-      if(unavailable){
-        setBadge("unavailable","bad");
-        showStatus(t("statusUnavailable"),"bad");
-      }else{
-        setBadge("available","good");
-        showStatus(t("statusAvailable"),"good");
-      }
-
-      const link = extractLink(data);
-      if(link) lastCheckoutLink = link;
-
-      applyQuote(data);
-
-      qs("#fhStepNumber").textContent = "2";
-      qs("#fhStepLabel").textContent = t("stepQuote");
-
-      return data;
-    }catch(error){
-      console.error("Fletschhorn availability error", error);
-      showStatus(t("statusWorkerFail"), "bad");
+    if(unavailable){
+      setBadge("unavailable","bad");
+      showStatus(t("statusUnavailable"),"bad");
       return null;
-    }finally{
-      button.disabled = false;
-      button.textContent = t("checkAvailability");
     }
+
+    setBadge("available","good");
+    return data;
   }
 
-  async function getQuote(){
-    if(!validateCore()) return null;
-
-    const button = qs("#fhGetQuote");
-    button.disabled = true;
-    button.textContent = t("statusQuote");
-
+  async function getQuote(availability){
     showStatus(t("statusQuote"), "");
 
-    try{
-      const data = await workerPost(ENDPOINTS.quote, {
-        listingId:CFG.listingId,
-        checkIn:fields.checkIn.value,
-        checkOut:fields.checkOut.value,
-        guests:Number(fields.guests.value || 1),
-        firstName:(fields.firstName.value || "").trim(),
-        lastName:(fields.lastName.value || "").trim(),
-        email:(fields.email.value || "").trim(),
-        phone:(fields.phone.value || "").trim(),
-        coupon:(fields.coupon.value || "").trim(),
-        stayType:fields.stayType.value,
-        message:(fields.message.value || "").trim(),
-        language:currentLang
-      });
+    const data = await workerPost(ENDPOINTS.quote, {
+      listingId:CFG.listingId,
+      checkIn:fields.checkIn.value,
+      checkOut:fields.checkOut.value,
+      guests:Number(fields.guests.value || 1),
+      firstName:(fields.firstName.value || "").trim(),
+      lastName:(fields.lastName.value || "").trim(),
+      email:(fields.email.value || "").trim(),
+      phone:(fields.phone.value || "").trim(),
+      stayType:fields.stayType.value,
+      message:(fields.message.value || "").trim(),
+      language:currentLang,
+      availability:availability
+    });
 
-      lastQuote = data;
-      lastQuoteId = data.quoteId || findQuoteId(data.quote || data);
-      lastRatePlanId = data.ratePlanId || findRatePlanId(data.quote || data);
+    lastQuote = data;
+    lastQuoteId = data.quoteId || findQuoteId(data.quote || data);
+    lastRatePlanId = data.ratePlanId || findRatePlanId(data.quote || data);
 
-      const link = extractLink(data);
-      if(link) lastCheckoutLink = link;
+    applyQuote(data);
+    setBadge("available","good");
 
-      applyQuote(data);
-
-      const total = findTotal(data);
-      if(total !== null && total !== undefined){
-        showStatus(t("statusAvailable"), "good");
-      }else{
-        showStatus(t("statusNoPrice"), "warn");
-      }
-
-      qs("#fhStepNumber").textContent = "3";
-      qs("#fhStepLabel").textContent = t("stepBook");
-
-      return data;
-    }catch(error){
-      console.error("Fletschhorn quote error", error);
-      showStatus(t("statusWorkerFail"), "bad");
-      return null;
-    }finally{
-      button.disabled = false;
-      button.textContent = t("getQuote");
-    }
+    return data;
   }
 
   function renderReservationSuccess(data){
@@ -2170,7 +2184,6 @@
     const total = summary.balanceDue || summary.total || findTotal(data);
 
     let msg = t("statusBookSent");
-
     msg += "\n\nStatus: " + statusText;
 
     if(reservationId) msg += "\nReservation ID: " + reservationId;
@@ -2186,20 +2199,24 @@
     if(!validateCore()) return;
     if(!validatePolicy()) return;
 
-    if(!lastQuoteId && !lastQuote){
-      const quote = await getQuote();
-      if(!quote) return;
-    }
-
     const button = qs("#fhSubmitBooking");
     const sideButton = qs("#fhSideSubmit");
 
     button.disabled = true;
     sideButton.disabled = true;
-
-    showStatus(t("statusBook"), "");
+    button.textContent = "Working...";
+    sideButton.textContent = "Working...";
 
     try{
+      const availability = await checkAvailability();
+      if(!availability) return;
+
+      showStatus(t("statusAvailable"), "good");
+
+      const quote = await getQuote(availability);
+
+      showStatus(t("statusBook"), "");
+
       const data = await workerPost(ENDPOINTS.bookInquiry, {
         listingId:CFG.listingId,
         quoteId:lastQuoteId,
@@ -2213,27 +2230,18 @@
         guests:Number(fields.guests.value || 1),
         stayType:fields.stayType.value,
         message:(fields.message.value || "").trim(),
-        coupon:(fields.coupon.value || "").trim(),
         language:currentLang,
         source:"booking-page",
         cancellationPolicyAccepted:true,
         cancellationPolicyAcceptedAt:new Date().toISOString(),
         cancellationPolicyText:qs("#fhCancellationPolicyText").textContent,
-        quote:lastQuote
+        quote:quote
       });
-
-      const link = extractLink(data);
-
-      if(link){
-        lastCheckoutLink = link;
-        showStatus(t("statusCheckout"), "good");
-        window.location.href = link;
-        return;
-      }
 
       showStatus(renderReservationSuccess(data), "good");
     }catch(error){
       console.error("Fletschhorn booking error", error);
+
       const guestyMessage =
         error?.data?.guestyData?.error?.message ||
         error?.data?.guestyData?.message ||
@@ -2245,7 +2253,38 @@
     }finally{
       button.disabled = false;
       sideButton.disabled = false;
+      button.textContent = t("bookNow");
+      sideButton.textContent = t("bookNow");
     }
+  }
+
+  function parseParams(){
+    const params = new URLSearchParams(window.location.search);
+    let stored = {};
+
+    try{stored = JSON.parse(localStorage.getItem("fhBookingStart") || "{}")}catch(e){stored = {}}
+
+    const data = {
+      firstName:params.get("firstName") || stored.firstName || "",
+      lastName:params.get("lastName") || stored.lastName || "",
+      email:params.get("email") || stored.email || "",
+      checkIn:params.get("checkIn") || stored.checkIn || stored.arrival || "",
+      checkOut:params.get("checkOut") || stored.checkOut || stored.departure || "",
+      guests:params.get("guests") || stored.guests || stored.guestCount || "",
+      phone:params.get("phone") || stored.phone || "",
+      lang:params.get("lang") || stored.lang || stored.language || ""
+    };
+
+    Object.keys(data).forEach(key => {
+      if(fields[key] && data[key]) fields[key].value = data[key];
+    });
+
+    if(data.checkIn){
+      const d = new Date(data.checkIn + "T00:00:00");
+      if(!isNaN(d)) currentCalendarDate = new Date(d.getFullYear(), d.getMonth(), 1);
+    }
+
+    if(data.lang) setLang(data.lang);
   }
 
   qsa("input, select, textarea").forEach(el => {
@@ -2257,11 +2296,23 @@
     el.addEventListener("change", () => {
       updateSummary();
       persistStart();
+
+      if(el === fields.guests){
+        loadCalendarMonth();
+      }
     });
   });
 
-  qs("#fhCheckAvailability").addEventListener("click", checkAvailability);
-  qs("#fhGetQuote").addEventListener("click", getQuote);
+  qs("#fhPrevMonth").addEventListener("click", function(){
+    currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+    loadCalendarMonth();
+  });
+
+  qs("#fhNextMonth").addEventListener("click", function(){
+    currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+    loadCalendarMonth();
+  });
+
   qs("#fhSideSubmit").addEventListener("click", bookNow);
   form.addEventListener("submit", bookNow);
 
@@ -2292,8 +2343,7 @@
   parseParams();
   setLang(currentLang);
   updateSummary();
-  initHero(FALLBACK_IMAGES);
-  applyGallery(FALLBACK_IMAGES);
   loadListingPublic();
+  loadCalendarMonth();
 })();
 </script>
