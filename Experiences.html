@@ -1030,6 +1030,490 @@ section:has(#fh-experiences) .sqs-block-code{
 </style>
 
 
+
+
+<style id="fh-mobile-first-patch">
+/* MOBILE-FIRST UX PATCH
+   Goal: shorter hero, touch-friendly controls, less vertical scroll, more horizontal carousels on mobile,
+   while preserving the existing Fletschhorn header/footer/booking behavior and all JS selectors. */
+
+#fh-experiences{
+  --fh-mobile-pad:14px;
+  --fh-touch:48px;
+}
+
+/* Smaller, clearer hero by default. Desktop still feels generous, but no longer consumes a full screen. */
+#fh-experiences .fh-hero{
+  min-height:min(780px, 86svh);
+  align-items:center;
+}
+#fh-experiences .fh-hero-inner{
+  padding:118px 0 34px;
+}
+#fh-experiences h1{
+  max-width:900px;
+  font-size:clamp(44px,7.2vw,86px);
+}
+#fh-experiences .fh-hero-lead{
+  max-width:720px;
+  margin-bottom:20px;
+}
+#fh-experiences .fh-peek{
+  margin-top:18px;
+}
+#fh-experiences .fh-peek-line{
+  height:28px;
+}
+
+/* Cleaner vertical rhythm: tighter sections without crushing readability. */
+#fh-experiences .fh-section{
+  padding:58px 20px;
+}
+#fh-experiences .fh-section-head{
+  margin-bottom:20px;
+}
+#fh-experiences p{
+  font-size:16px;
+  line-height:1.62;
+}
+
+/* Keep key “choice” buttons visible and easy to tap. */
+#fh-experiences .fh-season-choice,
+#fh-experiences .fh-filter,
+#fh-experiences .fh-submit,
+#fh-experiences .fh-book-btn,
+#fh-experiences .fh-date-button{
+  min-height:var(--fh-touch);
+}
+#fh-experiences .fh-season-choice b{
+  font-size:clamp(22px,3vw,26px);
+}
+
+/* Desktop/tablet: preserve strong 3-column visual logic. */
+@media(min-width:901px){
+  #fh-experiences .fh-activity-grid,
+  #fh-experiences .fh-route-grid,
+  #fh-experiences .fh-itinerary-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  #fh-experiences .fh-photo-strip{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
+
+/* Tablet: compact grids instead of long stacks. */
+@media(max-width:1100px) and (min-width:761px){
+  #fh-experiences .fh-hero{
+    min-height:760px;
+  }
+  #fh-experiences .fh-booking-form{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  #fh-experiences .fh-field:nth-child(1),
+  #fh-experiences .fh-field:nth-child(2),
+  #fh-experiences .fh-field:nth-child(3){
+    grid-column:auto;
+  }
+  #fh-experiences .fh-field:nth-child(4){
+    grid-column:span 2;
+  }
+  #fh-experiences #fhBookNowBtn.fh-submit{
+    grid-column:span 1;
+  }
+  #fh-experiences .fh-activity-grid,
+  #fh-experiences .fh-route-grid,
+  #fh-experiences .fh-itinerary-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px;
+  }
+  #fh-experiences .fh-activity{
+    min-height:250px;
+  }
+  #fh-experiences .fh-route-img{
+    height:175px;
+  }
+  #fh-experiences .fh-itinerary{
+    padding:22px;
+  }
+}
+
+/* MOBILE-FIRST: reduce scroll, use horizontal carousels, keep hero compact. */
+@media(max-width:760px){
+  #fh-experiences{
+    background:
+      radial-gradient(circle at 20% 0%,rgba(255,255,255,.74),transparent 26%),
+      linear-gradient(180deg,var(--fh-bg),var(--fh-bg-2));
+  }
+
+  #fh-experiences .fh-topography{
+    opacity:.10;
+    background-size:auto 100%;
+  }
+
+  #fh-experiences .fh-hero{
+    min-height:auto;
+    display:block;
+  }
+  #fh-experiences .fh-hero-media::before{
+    height:70px;
+  }
+  #fh-experiences .fh-hero-inner{
+    width:100%;
+    padding:92px var(--fh-mobile-pad) 24px;
+    text-align:left;
+  }
+  #fh-experiences .fh-kicker{
+    margin-bottom:9px;
+    font-size:10px;
+    letter-spacing:.17em;
+  }
+  #fh-experiences h1{
+    margin:0 0 12px;
+    max-width:9.2ch;
+    font-size:clamp(39px,12.5vw,52px);
+    line-height:.92;
+  }
+  #fh-experiences .fh-hero-lead{
+    max-width:none;
+    margin:0 0 14px;
+    font-size:14.5px;
+    line-height:1.48;
+  }
+  #fh-experiences .fh-peek{
+    display:none;
+  }
+
+  /* Season choices become a thumb-friendly carousel instead of a long vertical stack. */
+  #fh-experiences .fh-season-jump{
+    display:flex;
+    width:calc(100% + var(--fh-mobile-pad));
+    margin:0 0 12px;
+    gap:8px;
+    overflow-x:auto;
+    padding:0 var(--fh-mobile-pad) 4px 0;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  #fh-experiences .fh-season-jump::-webkit-scrollbar{display:none}
+  #fh-experiences .fh-season-choice{
+    flex:0 0 72%;
+    scroll-snap-align:start;
+    padding:13px 13px;
+  }
+  #fh-experiences .fh-season-choice b{
+    font-size:24px;
+    margin-bottom:5px;
+  }
+  #fh-experiences .fh-season-choice span{
+    font-size:11.5px;
+  }
+
+  /* Booking toolbar: compact 2-column first row, no unnecessary long stack. */
+  #fh-experiences .fh-booking{
+    width:100%;
+    padding:6px;
+    margin:0;
+  }
+  #fh-experiences .fh-booking-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  #fh-experiences .fh-field,
+  #fh-experiences .fh-field:nth-child(1),
+  #fh-experiences .fh-field:nth-child(2),
+  #fh-experiences .fh-field:nth-child(3),
+  #fh-experiences .fh-field:nth-child(4),
+  #fh-experiences #fhBookNowBtn.fh-submit{
+    grid-column:auto;
+  }
+  #fh-experiences .fh-field{
+    padding:10px 11px;
+    border-right:1px solid var(--fh-line);
+    border-bottom:1px solid var(--fh-line);
+  }
+  #fh-experiences .fh-field:nth-child(2){border-right:0}
+  #fh-experiences .fh-field:nth-child(3),
+  #fh-experiences .fh-field:nth-child(4),
+  #fh-experiences #fhBookNowBtn.fh-submit{
+    grid-column:1/-1;
+    border-right:0;
+  }
+  #fh-experiences .fh-field label{
+    margin-bottom:4px;
+    font-size:9px;
+    letter-spacing:.14em;
+  }
+  #fh-experiences .fh-field input,
+  #fh-experiences .fh-date-button span{
+    font-size:14px;
+  }
+  #fh-experiences #fhBookNowBtn.fh-submit{
+    min-height:50px;
+  }
+  #fh-experiences .fh-hero-note{
+    margin-top:9px;
+    font-size:12.5px;
+    text-align:center;
+  }
+
+  /* Shorter sections and tighter headings. */
+  #fh-experiences .fh-section{
+    padding:38px var(--fh-mobile-pad);
+  }
+  #fh-experiences .fh-section-head{
+    display:block;
+    margin-bottom:14px;
+  }
+  #fh-experiences h2{
+    font-size:clamp(33px,10.4vw,46px);
+    line-height:.96;
+  }
+  #fh-experiences h3{
+    font-size:clamp(26px,8vw,34px);
+  }
+  #fh-experiences p{
+    font-size:14.5px;
+    line-height:1.55;
+  }
+  #fh-experiences .fh-panel{
+    padding:20px;
+  }
+  #fh-experiences .fh-small-note{
+    font-size:12.5px;
+  }
+
+  /* Photo strip, activity cards, routes, itineraries, and map list become carousels. */
+  #fh-experiences .fh-photo-strip,
+  #fh-experiences .fh-activity-grid,
+  #fh-experiences .fh-route-grid,
+  #fh-experiences .fh-itinerary-grid,
+  #fh-experiences .fh-map-sidebar{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    width:calc(100% + var(--fh-mobile-pad));
+    margin-right:calc(-1 * var(--fh-mobile-pad));
+    padding:0 var(--fh-mobile-pad) 4px 0;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  #fh-experiences .fh-photo-strip::-webkit-scrollbar,
+  #fh-experiences .fh-activity-grid::-webkit-scrollbar,
+  #fh-experiences .fh-route-grid::-webkit-scrollbar,
+  #fh-experiences .fh-itinerary-grid::-webkit-scrollbar,
+  #fh-experiences .fh-map-sidebar::-webkit-scrollbar{display:none}
+
+  #fh-experiences .fh-photo-tile,
+  #fh-experiences .fh-photo-tile.tall{
+    flex:0 0 78%;
+    min-height:230px;
+    scroll-snap-align:start;
+  }
+  #fh-experiences .fh-photo-tile span{
+    left:10px;
+    right:10px;
+    bottom:10px;
+    padding:9px 10px;
+    font-size:12px;
+  }
+
+  #fh-experiences .fh-filter-board{
+    position:sticky;
+    top:72px;
+    z-index:12;
+    margin:0 -6px 12px;
+    padding:8px 6px;
+  }
+  #fh-experiences .fh-filters{
+    justify-content:flex-start;
+    overflow-x:auto;
+    flex-wrap:nowrap;
+    gap:7px;
+    padding-bottom:2px;
+    scrollbar-width:none;
+  }
+  #fh-experiences .fh-filters::-webkit-scrollbar{display:none}
+  #fh-experiences .fh-filter{
+    flex:0 0 auto;
+    white-space:nowrap;
+    padding:9px 12px;
+    min-height:42px;
+  }
+
+  #fh-experiences .fh-map-grid{
+    display:block;
+  }
+  #fh-experiences .fh-map-card{
+    height:360px !important;
+    min-height:360px !important;
+    margin-bottom:12px;
+  }
+  #fh-experiences .fh-map-iframe,
+  #fh-experiences iframe#fh-osm-map{
+    min-height:360px !important;
+  }
+  #fh-experiences .fh-map-open{
+    top:10px !important;
+    right:10px !important;
+    padding:9px 11px !important;
+    font-size:10px !important;
+  }
+  #fh-experiences .fh-map-info{
+    left:10px;
+    right:10px;
+    bottom:10px;
+    padding:12px;
+  }
+  #fh-experiences .fh-map-info h3{
+    font-size:25px;
+    margin-bottom:4px;
+  }
+  #fh-experiences .fh-map-info p{
+    font-size:12.5px;
+    line-height:1.42;
+  }
+  #fh-experiences .fh-map-sidebar{
+    max-height:none;
+    overflow-x:auto;
+    overflow-y:hidden;
+  }
+  #fh-experiences .fh-place{
+    flex:0 0 82%;
+    scroll-snap-align:start;
+    grid-template-columns:28px 1fr;
+    padding:12px;
+  }
+  #fh-experiences .fh-place b{
+    width:28px;
+    height:28px;
+  }
+
+  #fh-experiences .fh-activity{
+    flex:0 0 82%;
+    min-height:235px;
+    scroll-snap-align:start;
+  }
+  #fh-experiences .fh-activity-copy{
+    padding:18px;
+  }
+  #fh-experiences .fh-activity h3{
+    font-size:28px;
+  }
+  #fh-experiences .fh-activity p{
+    font-size:13px;
+    line-height:1.46;
+  }
+
+  #fh-experiences .fh-route{
+    flex:0 0 82%;
+    scroll-snap-align:start;
+  }
+  #fh-experiences .fh-route-img{
+    height:155px;
+  }
+  #fh-experiences .fh-route-copy{
+    padding:18px;
+  }
+  #fh-experiences .fh-route-meta{
+    margin:12px 0 14px;
+  }
+
+  #fh-experiences .fh-itinerary{
+    flex:0 0 82%;
+    scroll-snap-align:start;
+    padding:20px;
+  }
+  #fh-experiences .fh-itinerary ol{
+    margin-top:12px;
+  }
+  #fh-experiences .fh-itinerary li{
+    margin-bottom:8px;
+  }
+
+  #fh-experiences .fh-cta{
+    display:block;
+  }
+  #fh-experiences .fh-cta .fh-panel:first-child{
+    padding:24px;
+  }
+  #fh-experiences .fh-cta .fh-panel + .fh-panel{
+    margin-top:10px;
+  }
+
+  /* Calendar modal: shorter and more usable on phones. */
+  #fh-experiences .fh-calendar-modal{
+    align-items:flex-end;
+    padding:0;
+  }
+  #fh-experiences .fh-calendar-card{
+    width:100%;
+    max-height:86svh;
+    padding:13px;
+    border-radius:0;
+  }
+  #fh-experiences .fh-calendar-head{
+    align-items:center;
+    margin-bottom:10px;
+  }
+  #fh-experiences .fh-calendar-title{
+    font-size:26px;
+  }
+  #fh-experiences .fh-calendar-help,
+  #fh-experiences .fh-calendar-warning{
+    font-size:12.5px;
+  }
+  #fh-experiences .fh-weekdays,
+  #fh-experiences .fh-calendar-grid{
+    gap:3px;
+  }
+  #fh-experiences .fh-day{
+    min-height:48px;
+    padding:5px;
+  }
+  #fh-experiences .fh-day-number{
+    font-size:12px;
+  }
+  #fh-experiences .fh-day-status{
+    font-size:8px;
+  }
+
+  /* Make hidden-filtered carousel items collapse reliably. */
+  #fh-experiences .fh-activity.is-hidden,
+  #fh-experiences .fh-place.is-hidden,
+  #fh-experiences .fh-route.is-hidden,
+  #fh-experiences .fh-map-pin.is-hidden{
+    display:none !important;
+  }
+}
+
+@media(max-width:390px){
+  #fh-experiences .fh-hero-inner{
+    padding-top:84px;
+  }
+  #fh-experiences h1{
+    font-size:37px;
+  }
+  #fh-experiences .fh-season-choice,
+  #fh-experiences .fh-activity,
+  #fh-experiences .fh-route,
+  #fh-experiences .fh-itinerary,
+  #fh-experiences .fh-place,
+  #fh-experiences .fh-photo-tile,
+  #fh-experiences .fh-photo-tile.tall{
+    flex-basis:86%;
+  }
+  #fh-experiences .fh-map-card{
+    height:330px !important;
+    min-height:330px !important;
+  }
+  #fh-experiences .fh-map-iframe,
+  #fh-experiences iframe#fh-osm-map{
+    min-height:330px !important;
+  }
+}
+</style>
+
 <div id="fh-experiences" data-page="experiences">
   <div class="fh-topography" aria-hidden="true"></div>
   <div class="fh-shell">
