@@ -16,7 +16,6 @@
   --section:#f4ece4;
   --clay:#b99f86;
   --clay2:#876e58;
-  --clay3:#6f5742;
   --green:#6f7b64;
   --good:#3f6f50;
   --bad:#9a4b3f;
@@ -106,16 +105,6 @@
   box-shadow:0 16px 40px rgba(0,0,0,.12);
 }
 
-#fh-booking-main .fh-langbar span{
-  padding:0 8px;
-  color:rgba(255,250,243,.82);
-  font-size:10px;
-  font-weight:850;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  white-space:nowrap;
-}
-
 #fh-booking-main .fh-langbar button{
   border:1px solid transparent;
   background:transparent;
@@ -137,7 +126,7 @@
 
 #fh-booking-main .fh-hero{
   position:relative;
-  min-height:74svh;
+  min-height:72svh;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -258,12 +247,8 @@
 #fh-booking-main .fh-booking-wrap{
   position:relative;
   margin:-54px auto 0;
-  width:min(1180px,calc(100% - 28px));
+  width:min(980px,calc(100% - 28px));
   z-index:5;
-  display:grid;
-  grid-template-columns:minmax(0,1.26fr) minmax(340px,.74fr);
-  gap:20px;
-  align-items:start;
 }
 
 #fh-booking-main .fh-card{
@@ -278,10 +263,6 @@
 }
 
 #fh-booking-main .fh-book-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:18px;
   padding:26px 30px;
   border-bottom:1px solid #e5d8c9;
   background:linear-gradient(135deg,#fffaf3,#f3eadd);
@@ -350,7 +331,7 @@
 }
 
 #fh-booking-main textarea{
-  min-height:118px;
+  min-height:104px;
   resize:vertical;
 }
 
@@ -372,7 +353,7 @@
   border:1px solid #ddd0c0;
   background:#fbf6ef;
   color:var(--ink);
-  padding:14px 14px;
+  padding:14px;
   text-align:left;
 }
 
@@ -422,6 +403,16 @@
   background:#000;
 }
 
+#fh-booking-main .fh-btn.light{
+  background:#fffaf3;
+  color:var(--ink);
+  border:1px solid rgba(26,23,20,.14);
+}
+
+#fh-booking-main .fh-btn.light:hover{
+  background:#fff;
+}
+
 #fh-booking-main .fh-btn[disabled]{
   opacity:.55;
   cursor:not-allowed;
@@ -452,7 +443,22 @@
   margin:0;
 }
 
-#fh-booking-main .fh-calendar-modal{
+#fh-booking-main .fh-terms-mini{
+  margin-top:16px;
+  padding:12px 0 0;
+  border-top:1px solid rgba(26,23,20,.09);
+  font-size:11px;
+  line-height:1.5;
+  color:rgba(26,23,20,.50);
+}
+
+#fh-booking-main .fh-terms-mini strong{
+  color:rgba(26,23,20,.66);
+  font-weight:760;
+}
+
+#fh-booking-main .fh-calendar-modal,
+#fh-booking-main .fh-confirm-modal{
   position:fixed;
   inset:0;
   z-index:120;
@@ -464,11 +470,13 @@
   backdrop-filter:blur(10px);
 }
 
-#fh-booking-main .fh-calendar-modal.is-open{
+#fh-booking-main .fh-calendar-modal.is-open,
+#fh-booking-main .fh-confirm-modal.is-open{
   display:flex;
 }
 
-#fh-booking-main .fh-calendar-card{
+#fh-booking-main .fh-calendar-card,
+#fh-booking-main .fh-confirm-card{
   width:min(760px,100%);
   max-height:calc(100svh - 40px);
   overflow:auto;
@@ -478,15 +486,21 @@
   box-shadow:0 30px 90px rgba(0,0,0,.24);
 }
 
-#fh-booking-main .fh-calendar-head{
+#fh-booking-main .fh-confirm-card{
+  width:min(620px,100%);
+}
+
+#fh-booking-main .fh-calendar-head,
+#fh-booking-main .fh-confirm-head{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:space-between;
   gap:12px;
   margin-bottom:14px;
 }
 
-#fh-booking-main .fh-calendar-title{
+#fh-booking-main .fh-calendar-title,
+#fh-booking-main .fh-confirm-title{
   font-family:var(--serif);
   font-size:34px;
   letter-spacing:-.05em;
@@ -494,7 +508,8 @@
   margin:0;
 }
 
-#fh-booking-main .fh-calendar-close{
+#fh-booking-main .fh-calendar-close,
+#fh-booking-main .fh-confirm-close{
   border:1px solid rgba(26,23,20,.12);
   background:#fffaf3;
   min-width:42px;
@@ -519,9 +534,24 @@
 }
 
 #fh-booking-main .fh-calendar-help{
-  margin:0 0 14px;
+  margin:0 0 12px;
   font-size:13px;
   color:var(--muted);
+}
+
+#fh-booking-main .fh-calendar-warning{
+  display:none;
+  margin:0 0 14px;
+  padding:10px 12px;
+  border:1px solid rgba(150,101,35,.24);
+  background:rgba(150,101,35,.08);
+  color:var(--warning);
+  font-size:13px;
+  font-weight:760;
+}
+
+#fh-booking-main .fh-calendar-warning.is-visible{
+  display:block;
 }
 
 #fh-booking-main .fh-weekdays,
@@ -614,74 +644,31 @@
   color:rgba(255,250,243,.76);
 }
 
-#fh-booking-main .fh-calendar-actions{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  margin-top:14px;
-  border-top:1px solid rgba(26,23,20,.10);
-  padding-top:14px;
-}
-
-#fh-booking-main .fh-side{
-  position:sticky;
-  top:112px;
+#fh-booking-main .fh-confirm-list{
   display:grid;
-  gap:14px;
+  gap:0;
+  margin:16px 0;
+  border-top:1px solid rgba(26,23,20,.10);
 }
 
-#fh-booking-main .fh-summary{
-  padding:24px;
-}
-
-#fh-booking-main .fh-summary-top{
+#fh-booking-main .fh-confirm-row{
   display:flex;
   justify-content:space-between;
   gap:14px;
-  border-bottom:1px solid #e5d8c9;
-  padding-bottom:18px;
-  margin-bottom:18px;
-}
-
-#fh-booking-main .fh-summary-title{
-  font-family:var(--serif);
-  font-size:32px;
-  line-height:.96;
-  letter-spacing:-.05em;
-  color:var(--ink);
-}
-
-#fh-booking-main .fh-summary-badge{
-  height:max-content;
-  padding:8px 10px;
-  background:rgba(111,123,100,.12);
-  color:var(--green);
-  font-size:10px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  font-weight:850;
-  white-space:nowrap;
-}
-
-#fh-booking-main .fh-summary-row{
-  display:flex;
-  justify-content:space-between;
-  gap:14px;
-  padding:11px 0;
+  padding:12px 0;
   border-bottom:1px solid rgba(26,23,20,.08);
-  font-size:14px;
   color:var(--muted);
+  font-size:14px;
 }
 
-#fh-booking-main .fh-summary-row strong{
+#fh-booking-main .fh-confirm-row strong{
   color:var(--ink);
-  font-weight:650;
   text-align:right;
 }
 
 #fh-booking-main .fh-price-box{
   display:none;
-  margin-top:16px;
+  margin-top:14px;
   padding:16px;
   background:#f5eee5;
   border:1px solid #e3d5c6;
@@ -726,88 +713,11 @@
   font-weight:700;
 }
 
-#fh-booking-main .fh-side-cta{
-  width:100%;
-  margin-top:16px;
-}
-
-#fh-booking-main .fh-safe{
-  display:grid;
-  gap:10px;
-  padding:22px;
-}
-
-#fh-booking-main .fh-safe-item{
+#fh-booking-main .fh-confirm-actions{
   display:flex;
   gap:10px;
-  align-items:flex-start;
-  font-size:14px;
-  color:var(--muted);
-  line-height:1.5;
-}
-
-#fh-booking-main .fh-check{
-  display:grid;
-  place-items:center;
-  flex:0 0 auto;
-  width:20px;
-  height:20px;
-  border-radius:999px;
-  background:rgba(63,111,80,.12);
-  color:var(--good);
-  font-weight:900;
-  font-size:12px;
-}
-
-#fh-booking-main .fh-policy-box{
+  flex-wrap:wrap;
   margin-top:16px;
-  padding:18px;
-  border:1px solid #e3d5c6;
-  background:rgba(255,255,255,.55);
-}
-
-#fh-booking-main .fh-policy-box h4{
-  margin:0 0 12px;
-  font-family:var(--serif);
-  font-size:26px;
-  font-weight:400;
-  letter-spacing:-.04em;
-}
-
-#fh-booking-main .fh-policy-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-#fh-booking-main .fh-policy-item{
-  padding:12px;
-  background:rgba(255,250,243,.74);
-  border:1px solid rgba(26,23,20,.08);
-}
-
-#fh-booking-main .fh-policy-item span{
-  display:block;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.13em;
-  font-weight:850;
-  color:rgba(26,23,20,.50);
-  margin-bottom:5px;
-}
-
-#fh-booking-main .fh-policy-item strong{
-  display:block;
-  color:var(--ink);
-  font-size:14px;
-  line-height:1.45;
-}
-
-#fh-booking-main .fh-cleaning-note{
-  margin:12px 0 0;
-  font-size:13px;
-  line-height:1.55;
-  color:var(--muted);
 }
 
 #fh-booking-main .fh-section{
@@ -898,6 +808,60 @@
   box-shadow:var(--soft-shadow);
 }
 
+#fh-booking-main .fh-success{
+  display:none;
+  position:relative;
+  z-index:4;
+  width:min(980px,calc(100% - 28px));
+  margin:-54px auto 0;
+  padding:34px;
+  background:rgba(255,250,243,.96);
+  border:1px solid #e5d8c9;
+  box-shadow:var(--shadow);
+}
+
+#fh-booking-main .fh-success.is-visible{
+  display:block;
+}
+
+#fh-booking-main .fh-success h2{
+  margin-bottom:14px;
+}
+
+#fh-booking-main .fh-success-note{
+  max-width:760px;
+  font-size:16px;
+}
+
+#fh-booking-main .fh-success-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:22px;
+}
+
+#fh-booking-main .fh-success-item{
+  padding:14px;
+  background:#f5eee5;
+  border:1px solid #e3d5c6;
+}
+
+#fh-booking-main .fh-success-item span{
+  display:block;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-weight:850;
+  color:rgba(26,23,20,.50);
+  margin-bottom:5px;
+}
+
+#fh-booking-main .fh-success-item strong{
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.4;
+}
+
 #fh-booking-main .fh-mobile-sticky{
   display:none;
   position:fixed;
@@ -929,8 +893,6 @@
 }
 
 @media(max-width:1060px){
-  #fh-booking-main .fh-booking-wrap{grid-template-columns:1fr}
-  #fh-booking-main .fh-side{position:relative;top:auto;grid-template-columns:1fr 1fr}
   #fh-booking-main .fh-section-head{grid-template-columns:1fr}
   #fh-booking-main .fh-property-card{grid-template-columns:1fr}
   #fh-booking-main .fh-photo-strip{grid-template-columns:repeat(2,1fr)}
@@ -939,16 +901,10 @@
 @media(max-width:760px){
   #fh-booking-main .fh-langbar{
     top:68px;
-    width:calc(100% - 24px);
+    width:auto;
     justify-content:center;
     gap:4px;
     padding:5px;
-  }
-
-  #fh-booking-main .fh-langbar span{
-    font-size:9px;
-    padding:0 4px;
-    letter-spacing:.08em;
   }
 
   #fh-booking-main .fh-langbar button{
@@ -967,14 +923,13 @@
     font-size:clamp(43px,14vw,66px);
   }
 
-  #fh-booking-main .fh-booking-wrap{
+  #fh-booking-main .fh-booking-wrap,
+  #fh-booking-main .fh-success{
     width:calc(100% - 20px);
     margin-top:-50px;
-    gap:14px;
   }
 
   #fh-booking-main .fh-book-head{
-    display:block;
     padding:22px;
   }
 
@@ -983,9 +938,8 @@
   }
 
   #fh-booking-main .fh-grid,
-  #fh-booking-main .fh-side,
-  #fh-booking-main .fh-policy-grid,
-  #fh-booking-main .fh-property-gallery{
+  #fh-booking-main .fh-property-gallery,
+  #fh-booking-main .fh-success-grid{
     grid-template-columns:1fr;
   }
 
@@ -994,7 +948,8 @@
     min-height:220px;
   }
 
-  #fh-booking-main .fh-actions{
+  #fh-booking-main .fh-actions,
+  #fh-booking-main .fh-confirm-actions{
     flex-direction:column;
     align-items:stretch;
   }
@@ -1003,11 +958,13 @@
     width:100%;
   }
 
-  #fh-booking-main .fh-calendar-card{
+  #fh-booking-main .fh-calendar-card,
+  #fh-booking-main .fh-confirm-card{
     padding:14px;
   }
 
-  #fh-booking-main .fh-calendar-title{
+  #fh-booking-main .fh-calendar-title,
+  #fh-booking-main .fh-confirm-title{
     font-size:28px;
   }
 
@@ -1054,7 +1011,6 @@
   <div class="fh-grain" aria-hidden="true"></div>
 
   <div class="fh-langbar" role="group" aria-label="Choose language">
-    <span data-i18n="langTitle">Your private chalet in a few clicks</span>
     <button type="button" data-fh-lang="en">EN</button>
     <button type="button" data-fh-lang="fr">FR</button>
     <button type="button" data-fh-lang="de">DE</button>
@@ -1071,19 +1027,16 @@
         <div class="fh-trust-row" aria-label="Booking reassurance">
           <span class="fh-trust-pill" data-i18n="trustPrivate">One private property</span>
           <span class="fh-trust-pill" data-i18n="trust48">Up to 48 sleeping places</span>
-          <span class="fh-trust-pill" data-i18n="trustMin">Minimum 2 nights</span>
         </div>
       </div>
     </section>
 
-    <main>
+    <main id="fhMainContent">
       <section class="fh-booking-wrap" id="booking-panel">
         <div class="fh-card fh-main-card fh-reveal">
           <div class="fh-book-head">
-            <div>
-              <p class="fh-kicker" data-i18n="panelKicker">Simple booking</p>
-              <h2 data-i18n="panelTitle">Your stay details.</h2>
-            </div>
+            <p class="fh-kicker" data-i18n="panelKicker">Simple booking</p>
+            <h2 data-i18n="panelTitle">Your stay details.</h2>
           </div>
 
           <form class="fh-form" id="fhBookingForm" novalidate>
@@ -1098,9 +1051,14 @@
                 <input id="fhLastName" name="lastName" type="text" autocomplete="family-name" required>
               </div>
 
-              <div class="fh-field full">
+              <div class="fh-field">
                 <label for="fhEmail" data-i18n="email">Email</label>
                 <input id="fhEmail" name="email" type="email" autocomplete="email" placeholder="name@email.com" required>
+              </div>
+
+              <div class="fh-field">
+                <label for="fhPhone" data-i18n="phone">Phone / WhatsApp</label>
+                <input id="fhPhone" name="phone" type="tel" autocomplete="tel" required>
               </div>
 
               <div class="fh-field full">
@@ -1141,84 +1099,25 @@
                 </select>
               </div>
 
-              <div class="fh-field">
-                <label for="fhPhone" data-i18n="phone">Phone / WhatsApp</label>
-                <input id="fhPhone" name="phone" type="tel" autocomplete="tel" data-i18n-placeholder="optional" placeholder="Optional">
-              </div>
-
               <div class="fh-field full">
                 <label for="fhMessage" data-i18n="message">Message</label>
                 <textarea id="fhMessage" name="message" data-i18n-placeholder="messagePh" placeholder="Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates."></textarea>
               </div>
             </div>
 
-            <div class="fh-policy-box">
-              <h4 data-i18n="policyTitle">Stay terms</h4>
-
-              <div class="fh-policy-grid">
-                <div class="fh-policy-item">
-                  <span data-i18n="cancellationLabel">Cancellation policy</span>
-                  <strong data-i18n="cancellationText">Cancel up to 60 days before arrival.</strong>
-                </div>
-
-                <div class="fh-policy-item">
-                  <span data-i18n="minStayLabel">Minimum stay</span>
-                  <strong data-i18n="minStayText">Minimum 2 nights.</strong>
-                </div>
-
-                <div class="fh-policy-item">
-                  <span data-i18n="checkinLabel">Check-in</span>
-                  <strong data-i18n="checkinText">4:00 PM to 9:00 PM.</strong>
-                </div>
-
-                <div class="fh-policy-item">
-                  <span data-i18n="checkoutLabel">Check-out</span>
-                  <strong data-i18n="checkoutText">11:00 AM.</strong>
-                </div>
-              </div>
-
-              <p class="fh-cleaning-note" data-i18n="cleaningText">
-                Cleaning: A standard cleaning fee covers the turnover after your stay. Daily cleaning is not included but can be arranged upon request.
-              </p>
+            <div class="fh-terms-mini">
+              <strong data-i18n="termsMiniTitle">Stay terms:</strong>
+              <span data-i18n="termsMiniText">60-day cancellation policy · Check-in 4:00 PM–9:00 PM · Check-out 11:00 AM · Standard cleaning after stay included in cleaning fee; daily cleaning on request.</span>
             </div>
 
             <div class="fh-actions">
               <button class="fh-btn dark" type="submit" id="fhSubmitBooking" data-i18n="bookNow">Book now</button>
-              <p class="fh-mini-note" data-i18n="safeNote">We will review your dates and confirm the stay details.</p>
+              <p class="fh-mini-note" data-i18n="safeNote">You’ll review the details before the request is sent.</p>
             </div>
 
             <div class="fh-status" id="fhBookingStatus" role="status" aria-live="polite"></div>
           </form>
         </div>
-
-        <aside class="fh-side fh-reveal">
-          <div class="fh-card fh-summary">
-            <div class="fh-summary-top">
-              <div class="fh-summary-title" data-i18n="summaryTitle">Your stay</div>
-              <div class="fh-summary-badge" id="fhAvailBadge" data-i18n="notChecked">Not checked</div>
-            </div>
-
-            <div class="fh-summary-row"><span data-i18n="summaryProperty">Property</span><strong id="fhSummaryProperty">Fletschhorn</strong></div>
-            <div class="fh-summary-row"><span data-i18n="summaryDates">Dates</span><strong id="fhSummaryDates">—</strong></div>
-            <div class="fh-summary-row"><span data-i18n="summaryGuests">Guests</span><strong id="fhSummaryGuests">—</strong></div>
-            <div class="fh-summary-row"><span data-i18n="summaryNights">Nights</span><strong id="fhSummaryNights">—</strong></div>
-            <div class="fh-summary-row"><span data-i18n="summaryType">Type</span><strong id="fhSummaryType">—</strong></div>
-
-            <div class="fh-price-box" id="fhPriceBox">
-              <div class="fh-price-main" id="fhPriceMain">—</div>
-              <p class="fh-price-sub" id="fhPriceSub" data-i18n="priceSub">Quote for your selected stay.</p>
-              <div class="fh-line-items" id="fhLineItems"></div>
-            </div>
-
-            <button class="fh-btn dark fh-side-cta" type="button" id="fhSideSubmit" data-i18n="bookNow">Book now</button>
-          </div>
-
-          <div class="fh-card fh-safe">
-            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe1">Minimum 2-night stay.</span></div>
-            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe2">Private use of the whole property.</span></div>
-            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe3">Daily cleaning can be arranged upon request.</span></div>
-          </div>
-        </aside>
       </section>
 
       <section class="fh-section alt" id="property-preview">
@@ -1260,6 +1159,14 @@
         </div>
       </section>
     </main>
+
+    <section class="fh-success" id="fhSuccessPage">
+      <p class="fh-kicker" data-i18n="successKicker">Booking request received</p>
+      <h2 data-i18n="successTitle">See you soon at Fletschhorn.</h2>
+      <p class="fh-success-note" data-i18n="successLead">Your booking request has been received. The stay details and payment information will be sent by email. Please keep an eye on your inbox for confirmation and next steps.</p>
+
+      <div class="fh-success-grid" id="fhSuccessGrid"></div>
+    </section>
   </div>
 
   <div class="fh-calendar-modal" id="fhCalendarModal" aria-hidden="true">
@@ -1277,7 +1184,8 @@
         </div>
       </div>
 
-      <p class="fh-calendar-help" data-i18n="calendarHelp">Choose your arrival date, then your departure date. Minimum 2 nights.</p>
+      <p class="fh-calendar-help" data-i18n="calendarHelp">Choose your arrival date, then your departure date.</p>
+      <div class="fh-calendar-warning" id="fhCalendarWarning" data-i18n="calendarMinWarning">Please select at least 2 nights.</div>
 
       <div class="fh-weekdays">
         <div class="fh-weekday">Sun</div>
@@ -1290,10 +1198,35 @@
       </div>
 
       <div class="fh-calendar-grid" id="fhCalendarGrid"></div>
+    </div>
+  </div>
 
-      <div class="fh-calendar-actions">
-        <button class="fh-btn" id="fhCalendarDone" type="button" data-i18n="done">Done</button>
+  <div class="fh-confirm-modal" id="fhConfirmModal" aria-hidden="true">
+    <div class="fh-confirm-card" role="dialog" aria-modal="true" aria-label="Confirm booking">
+      <div class="fh-confirm-head">
+        <div>
+          <p class="fh-kicker" data-i18n="confirmKicker">Final step</p>
+          <h3 class="fh-confirm-title" data-i18n="confirmTitle">Confirm your booking.</h3>
+        </div>
+        <button class="fh-confirm-close" id="fhCloseConfirm" type="button">×</button>
       </div>
+
+      <p data-i18n="confirmLead">Please review the stay details before sending your request.</p>
+
+      <div class="fh-confirm-list" id="fhConfirmList"></div>
+
+      <div class="fh-price-box" id="fhConfirmPriceBox">
+        <div class="fh-price-main" id="fhConfirmPriceMain">—</div>
+        <p class="fh-price-sub" data-i18n="priceSub">Quote for your selected stay.</p>
+        <div class="fh-line-items" id="fhConfirmLineItems"></div>
+      </div>
+
+      <div class="fh-confirm-actions">
+        <button class="fh-btn dark" id="fhConfirmSend" type="button" data-i18n="confirmSend">Confirm booking</button>
+        <button class="fh-btn light" id="fhEditBooking" type="button" data-i18n="editBooking">Edit details</button>
+      </div>
+
+      <div class="fh-status" id="fhConfirmStatus" role="status" aria-live="polite"></div>
     </div>
   </div>
 
@@ -1372,18 +1305,17 @@
 
   const I18N = {
     en:{
-      langTitle:"Your private chalet in a few clicks",
       heroEyebrow:"Direct booking · Fletschhorn Saas-Fee",
       heroTitle:"Book your private stay.",
       heroLead:"Choose your dates, add your details, and send one clear booking request for the whole property.",
       trustPrivate:"One private property",
       trust48:"Up to 48 sleeping places",
-      trustMin:"Minimum 2 nights",
       panelKicker:"Simple booking",
       panelTitle:"Your stay details.",
       firstName:"First name",
       lastName:"Last name",
       email:"Email",
+      phone:"Phone / WhatsApp",
       dates:"Dates",
       openCalendar:"Open calendar",
       guests:"Guests",
@@ -1393,35 +1325,12 @@
       stayRetreat:"Retreat / team stay",
       stayWedding:"Wedding or event",
       stayOther:"Other",
-      phone:"Phone / WhatsApp",
-      optional:"Optional",
       message:"Message",
       messagePh:"Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates.",
-      policyTitle:"Stay terms",
-      cancellationLabel:"Cancellation policy",
-      cancellationText:"Cancel up to 60 days before arrival.",
-      minStayLabel:"Minimum stay",
-      minStayText:"Minimum 2 nights.",
-      checkinLabel:"Check-in",
-      checkinText:"4:00 PM to 9:00 PM.",
-      checkoutLabel:"Check-out",
-      checkoutText:"11:00 AM.",
-      cleaningText:"Cleaning: A standard cleaning fee covers the turnover after your stay. Daily cleaning is not included but can be arranged upon request.",
+      termsMiniTitle:"Stay terms:",
+      termsMiniText:"60-day cancellation policy · Check-in 4:00 PM–9:00 PM · Check-out 11:00 AM · Standard cleaning after stay included in cleaning fee; daily cleaning on request.",
       bookNow:"Book now",
-      safeNote:"We will review your dates and confirm the stay details.",
-      summaryTitle:"Your stay",
-      summaryProperty:"Property",
-      notChecked:"Not checked",
-      available:"Available",
-      unavailable:"Unavailable",
-      summaryDates:"Dates",
-      summaryGuests:"Guests",
-      summaryNights:"Nights",
-      summaryType:"Type",
-      priceSub:"Quote for your selected stay.",
-      safe1:"Minimum 2-night stay.",
-      safe2:"Private use of the whole property.",
-      safe3:"Daily cleaning can be arranged upon request.",
+      safeNote:"You’ll review the details before the request is sent.",
       propertyKicker:"The stay",
       propertyTitle:"A private alpine house for your group.",
       propertyLead:"Private access to the property, peaceful alpine surroundings, generous shared spaces, and room for families, retreats, and celebrations.",
@@ -1429,11 +1338,20 @@
       includedTitle:"Private, flexible, and practical.",
       includedText:"Exclusive private access to the property, refreshments during the stay, private shuttle support, and flexible dining with use of the professional kitchen or optional catering on request.",
       calendarKicker:"Select dates",
-      calendarHelp:"Choose your arrival date, then your departure date. Minimum 2 nights.",
-      done:"Done",
+      calendarHelp:"Choose your arrival date, then your departure date.",
+      calendarMinWarning:"Please select at least 2 nights.",
       selectDates:"Select arrival and departure",
       alreadyBooked:"Already booked",
-      statusNeedFields:"Please complete first name, last name, email, dates, and guest count.",
+      confirmKicker:"Final step",
+      confirmTitle:"Confirm your booking.",
+      confirmLead:"Please review the stay details before sending your request.",
+      confirmSend:"Confirm booking",
+      editBooking:"Edit details",
+      priceSub:"Quote for your selected stay.",
+      successKicker:"Booking request received",
+      successTitle:"See you soon at Fletschhorn.",
+      successLead:"Your booking request has been received. The stay details and payment information will be sent by email. Please keep an eye on your inbox for confirmation and next steps.",
+      statusNeedFields:"Please complete first name, last name, email, phone, dates, and guest count.",
       statusBadEmail:"Please enter a valid email address.",
       statusBadDates:"Departure must be after arrival.",
       statusMinNights:"Please select at least 2 nights.",
@@ -1441,7 +1359,7 @@
       statusQuote:"Preparing quote...",
       statusUnavailable:"These dates appear unavailable. Please choose another date range.",
       statusBook:"Sending booking request...",
-      statusBookSent:"Booking request received. The team can now confirm the stay.",
+      statusBookSent:"Booking request received.",
       statusWorkerFail:"The request could not be completed. Please try again or contact the team.",
       nights:"nights",
       night:"night"
@@ -1452,78 +1370,66 @@
   };
 
   I18N.fr = Object.assign({}, I18N.en, {
-    langTitle:"Votre chalet privé en quelques clics",
     heroEyebrow:"Réservation directe · Fletschhorn Saas-Fee",
     heroTitle:"Réservez votre séjour privé.",
     heroLead:"Choisissez vos dates, ajoutez vos informations et envoyez une demande claire pour toute la propriété.",
     trustPrivate:"Une propriété privée",
     trust48:"Jusqu’à 48 couchages",
-    trustMin:"Minimum 2 nuits",
     panelKicker:"Réservation simple",
     panelTitle:"Les détails de votre séjour.",
     firstName:"Prénom",
     lastName:"Nom",
     email:"Email",
+    phone:"Téléphone / WhatsApp",
     dates:"Dates",
     openCalendar:"Ouvrir le calendrier",
     guests:"Invités",
-    phone:"Téléphone / WhatsApp",
     bookNow:"Réserver",
-    summaryTitle:"Votre séjour",
-    notChecked:"Non vérifié",
-    available:"Disponible",
-    unavailable:"Indisponible",
-    cancellationLabel:"Politique d’annulation",
-    cancellationText:"Annulation possible jusqu’à 60 jours avant l’arrivée.",
-    minStayLabel:"Séjour minimum",
-    minStayText:"Minimum 2 nuits.",
-    checkinLabel:"Arrivée",
-    checkinText:"De 16h00 à 21h00.",
-    checkoutLabel:"Départ",
-    checkoutText:"11h00.",
-    cleaningText:"Nettoyage : les frais de nettoyage standard couvrent la remise en état après votre séjour. Le ménage quotidien n’est pas inclus mais peut être organisé sur demande.",
+    calendarMinWarning:"Veuillez sélectionner au moins 2 nuits.",
     selectDates:"Sélectionner arrivée et départ",
     alreadyBooked:"Déjà réservé",
+    confirmTitle:"Confirmez votre réservation.",
+    confirmSend:"Confirmer la réservation",
+    editBooking:"Modifier",
+    successTitle:"À très bientôt au Fletschhorn.",
     nights:"nuits",
     night:"nuit"
   });
 
   I18N.de = Object.assign({}, I18N.en, {
-    langTitle:"Ihr privates Chalet in wenigen Klicks",
     heroEyebrow:"Direktbuchung · Fletschhorn Saas-Fee",
     heroTitle:"Buchen Sie Ihren privaten Aufenthalt.",
-    trustMin:"Mindestens 2 Nächte",
     firstName:"Vorname",
     lastName:"Nachname",
+    phone:"Telefon / WhatsApp",
     dates:"Daten",
     openCalendar:"Kalender öffnen",
     guests:"Gäste",
     bookNow:"Jetzt buchen",
-    summaryTitle:"Ihr Aufenthalt",
-    notChecked:"Nicht geprüft",
-    available:"Verfügbar",
-    unavailable:"Nicht verfügbar",
+    calendarMinWarning:"Bitte mindestens 2 Nächte auswählen.",
     alreadyBooked:"Bereits gebucht",
+    confirmTitle:"Buchung bestätigen.",
+    confirmSend:"Buchung bestätigen",
+    editBooking:"Bearbeiten",
     nights:"Nächte",
     night:"Nacht"
   });
 
   I18N.ru = Object.assign({}, I18N.en, {
-    langTitle:"Ваше частное шале в несколько кликов",
     heroEyebrow:"Прямое бронирование · Fletschhorn Саас-Фе",
     heroTitle:"Забронируйте частное проживание.",
-    trustMin:"Минимум 2 ночи",
     firstName:"Имя",
     lastName:"Фамилия",
+    phone:"Телефон / WhatsApp",
     dates:"Даты",
     openCalendar:"Открыть календарь",
     guests:"Гости",
     bookNow:"Забронировать",
-    summaryTitle:"Ваше проживание",
-    notChecked:"Не проверено",
-    available:"Доступно",
-    unavailable:"Недоступно",
+    calendarMinWarning:"Выберите минимум 2 ночи.",
     alreadyBooked:"Уже забронировано",
+    confirmTitle:"Подтвердите бронирование.",
+    confirmSend:"Подтвердить",
+    editBooking:"Изменить",
     nights:"ночей",
     night:"ночь"
   });
@@ -1533,16 +1439,17 @@
 
   const form = qs("#fhBookingForm");
   const status = qs("#fhBookingStatus");
+  const confirmStatus = qs("#fhConfirmStatus");
 
   const fields = {
     firstName:qs("#fhFirstName"),
     lastName:qs("#fhLastName"),
     email:qs("#fhEmail"),
+    phone:qs("#fhPhone"),
     checkIn:qs("#fhCheckIn"),
     checkOut:qs("#fhCheckOut"),
     guests:qs("#fhGuests"),
     stayType:qs("#fhStayType"),
-    phone:qs("#fhPhone"),
     message:qs("#fhMessage")
   };
 
@@ -1553,6 +1460,7 @@
   let lastQuoteId = "";
   let lastRatePlanId = "";
   let lastCurrency = CFG.currency;
+  let lastReservationData = null;
 
   function endpoint(path){
     return CFG.workerBase.replace(/\/$/, "") + path;
@@ -1660,29 +1568,14 @@
   }
 
   function updateSummary(){
-    const ci = fields.checkIn.value;
-    const co = fields.checkOut.value;
-    const nights = nightsBetween();
-
-    qs("#fhSummaryDates").textContent = ci && co ? `${ci} → ${co}` : "—";
-    qs("#fhSummaryGuests").textContent = fields.guests.value ? fields.guests.value : "—";
-    qs("#fhSummaryNights").textContent = nights > 0 ? `${nights} ${nights === 1 ? t("night") : t("nights")}` : "—";
-    qs("#fhSummaryType").textContent = stayTypeText();
-
     updateDateButton();
     paintSelectedRange();
   }
 
-  function showStatus(message, mode){
-    status.className = "fh-status is-visible" + (mode ? " " + mode : "");
-    status.textContent = message;
-  }
-
-  function setBadge(key, mode){
-    const badge = qs("#fhAvailBadge");
-    badge.textContent = t(key);
-    badge.style.background = mode === "good" ? "rgba(63,111,80,.12)" : mode === "bad" ? "rgba(154,75,63,.12)" : "rgba(111,123,100,.12)";
-    badge.style.color = mode === "bad" ? "var(--bad)" : mode === "good" ? "var(--good)" : "var(--green)";
+  function showStatus(message, mode, target){
+    const box = target || status;
+    box.className = "fh-status is-visible" + (mode ? " " + mode : "");
+    box.textContent = message;
   }
 
   function buildPayload(extra){
@@ -1711,7 +1604,7 @@
   function validateCore(){
     const payload = buildPayload();
 
-    if(!payload.firstName || !payload.lastName || !payload.email || !payload.checkIn || !payload.checkOut || !payload.guests){
+    if(!payload.firstName || !payload.lastName || !payload.email || !payload.phone || !payload.checkIn || !payload.checkOut || !payload.guests){
       showStatus(t("statusNeedFields"), "bad");
       return false;
     }
@@ -1728,6 +1621,8 @@
 
     if(nightsBetween() < CFG.minNights){
       showStatus(t("statusMinNights"), "warn");
+      openCalendar();
+      qs("#fhCalendarWarning").classList.add("is-visible");
       return false;
     }
 
@@ -1926,13 +1821,13 @@
     }
   }
 
-  function applyQuote(data){
+  function applyQuoteToConfirm(data){
     const currency = findCurrency(data);
     const total = findTotal(data);
     const items = findInvoiceItems(data);
-    const priceBox = qs("#fhPriceBox");
-    const priceMain = qs("#fhPriceMain");
-    const lineItems = qs("#fhLineItems");
+    const priceBox = qs("#fhConfirmPriceBox");
+    const priceMain = qs("#fhConfirmPriceMain");
+    const lineItems = qs("#fhConfirmLineItems");
 
     lastCurrency = currency || CFG.currency;
     priceBox.classList.add("is-visible");
@@ -2073,7 +1968,6 @@
       const amenities = extractAmenities(data);
 
       if(title){
-        qs("#fhSummaryProperty").textContent = title;
         qs("#fhPropertyTitle").textContent = title;
       }
 
@@ -2235,6 +2129,9 @@
   }
 
   function selectDate(dateString){
+    const warning = qs("#fhCalendarWarning");
+    warning.classList.remove("is-visible");
+
     if(!fields.checkIn.value || fields.checkOut.value){
       fields.checkIn.value = dateString;
       fields.checkOut.value = "";
@@ -2253,7 +2150,10 @@
       if(nights >= CFG.minNights){
         closeCalendar();
       }else{
-        showStatus(t("statusMinNights"), "warn");
+        warning.classList.add("is-visible");
+        fields.checkOut.value = "";
+        updateSummary();
+        paintSelectedRange();
       }
     }
   }
@@ -2283,6 +2183,7 @@
     const modal = qs("#fhCalendarModal");
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden","false");
+    qs("#fhCalendarWarning").classList.remove("is-visible");
     loadCalendarMonth();
   }
 
@@ -2292,8 +2193,36 @@
     modal.setAttribute("aria-hidden","true");
   }
 
+  function openConfirm(){
+    if(!validateCore()) return;
+
+    const list = qs("#fhConfirmList");
+    const nights = nightsBetween();
+
+    list.innerHTML = `
+      <div class="fh-confirm-row"><span>Guest</span><strong>${htmlEscape(fields.firstName.value)} ${htmlEscape(fields.lastName.value)}</strong></div>
+      <div class="fh-confirm-row"><span>Email</span><strong>${htmlEscape(fields.email.value)}</strong></div>
+      <div class="fh-confirm-row"><span>Phone</span><strong>${htmlEscape(fields.phone.value)}</strong></div>
+      <div class="fh-confirm-row"><span>Dates</span><strong>${htmlEscape(fields.checkIn.value)} → ${htmlEscape(fields.checkOut.value)}</strong></div>
+      <div class="fh-confirm-row"><span>Nights</span><strong>${nights} ${nights === 1 ? t("night") : t("nights")}</strong></div>
+      <div class="fh-confirm-row"><span>Guests</span><strong>${htmlEscape(fields.guests.value)}</strong></div>
+      <div class="fh-confirm-row"><span>Stay type</span><strong>${htmlEscape(stayTypeText())}</strong></div>
+      <div class="fh-confirm-row"><span>Check-in</span><strong>4:00 PM–9:00 PM</strong></div>
+      <div class="fh-confirm-row"><span>Check-out</span><strong>11:00 AM</strong></div>
+      <div class="fh-confirm-row"><span>Cancellation</span><strong>60 days before arrival</strong></div>
+    `;
+
+    qs("#fhConfirmModal").classList.add("is-open");
+    qs("#fhConfirmModal").setAttribute("aria-hidden","false");
+  }
+
+  function closeConfirm(){
+    qs("#fhConfirmModal").classList.remove("is-open");
+    qs("#fhConfirmModal").setAttribute("aria-hidden","true");
+  }
+
   async function checkAvailability(){
-    showStatus(t("statusChecking"), "");
+    showStatus(t("statusChecking"), "", confirmStatus);
 
     const data = await workerPost(ENDPOINTS.checkAvailability, {
       listingId:CFG.listingId,
@@ -2305,17 +2234,15 @@
     const unavailable = data.available === false || data.isAvailable === false || data.status === "unavailable";
 
     if(unavailable){
-      setBadge("unavailable","bad");
-      showStatus(t("statusUnavailable"),"bad");
+      showStatus(t("statusUnavailable"),"bad",confirmStatus);
       return null;
     }
 
-    setBadge("available","good");
     return data;
   }
 
   async function getQuote(availability){
-    showStatus(t("statusQuote"), "");
+    showStatus(t("statusQuote"), "", confirmStatus);
 
     const data = await workerPost(ENDPOINTS.quote, {
       listingId:CFG.listingId,
@@ -2336,42 +2263,57 @@
     lastQuoteId = data.quoteId || findQuoteId(data.quote || data);
     lastRatePlanId = data.ratePlanId || findRatePlanId(data.quote || data);
 
-    applyQuote(data);
-    setBadge("available","good");
+    applyQuoteToConfirm(data);
 
     return data;
   }
 
-  function renderReservationSuccess(data){
+  function successValue(label,value){
+    return `
+      <div class="fh-success-item">
+        <span>${htmlEscape(label)}</span>
+        <strong>${htmlEscape(value || "—")}</strong>
+      </div>
+    `;
+  }
+
+  function renderSuccess(data){
+    lastReservationData = data || {};
+
     const summary = data.summary || {};
     const reservation = data.reservation || {};
     const reservationId = summary.reservationId || data.reservationId || reservation._id || reservation.id || "";
     const confirmationCode = summary.confirmationCode || data.confirmationCode || reservation.confirmationCode || "";
-    const statusText = summary.status || data.status || reservation.status || "received";
-    const total = summary.balanceDue || summary.total || findTotal(data);
+    const total = summary.balanceDue || summary.total || findTotal(data) || findTotal(lastQuote);
+    const nights = nightsBetween();
 
-    let msg = t("statusBookSent");
-    msg += "\n\nStatus: " + statusText;
+    qs("#fhMainContent").style.display = "none";
+    closeConfirm();
 
-    if(reservationId) msg += "\nReservation ID: " + reservationId;
-    if(confirmationCode) msg += "\nConfirmation code: " + confirmationCode;
-    if(total) msg += "\nBalance due: " + formatMoney(total,lastCurrency);
+    const grid = qs("#fhSuccessGrid");
 
-    return msg;
+    grid.innerHTML =
+      successValue("Name", `${fields.firstName.value} ${fields.lastName.value}`) +
+      successValue("Email", fields.email.value) +
+      successValue("Phone", fields.phone.value) +
+      successValue("Dates", `${fields.checkIn.value} → ${fields.checkOut.value}`) +
+      successValue("Nights", `${nights} ${nights === 1 ? t("night") : t("nights")}`) +
+      successValue("Guests", fields.guests.value) +
+      successValue("Reservation ID", reservationId) +
+      successValue("Confirmation code", confirmationCode) +
+      successValue("Payment details", "Sent by email") +
+      successValue("Estimated balance", total ? formatMoney(total,lastCurrency) : "Sent by email");
+
+    qs("#fhSuccessPage").classList.add("is-visible");
+    qs("#fhSuccessPage").scrollIntoView({behavior:"smooth",block:"start"});
   }
 
-  async function bookNow(event){
-    if(event) event.preventDefault();
-
+  async function confirmSend(){
     if(!validateCore()) return;
 
-    const button = qs("#fhSubmitBooking");
-    const sideButton = qs("#fhSideSubmit");
-
+    const button = qs("#fhConfirmSend");
     button.disabled = true;
-    sideButton.disabled = true;
     button.textContent = "Working...";
-    sideButton.textContent = "Working...";
 
     try{
       const availability = await checkAvailability();
@@ -2379,7 +2321,7 @@
 
       const quote = await getQuote(availability);
 
-      showStatus(t("statusBook"), "");
+      showStatus(t("statusBook"), "", confirmStatus);
 
       const data = await workerPost(ENDPOINTS.bookInquiry, {
         listingId:CFG.listingId,
@@ -2403,7 +2345,7 @@
         quote:quote
       });
 
-      showStatus(renderReservationSuccess(data), "good");
+      renderSuccess(data);
     }catch(error){
       console.error("Fletschhorn booking error", error);
 
@@ -2414,12 +2356,10 @@
         error?.message ||
         t("statusWorkerFail");
 
-      showStatus(guestyMessage, "bad");
+      showStatus(guestyMessage, "bad", confirmStatus);
     }finally{
       button.disabled = false;
-      sideButton.disabled = false;
-      button.textContent = t("bookNow");
-      sideButton.textContent = t("bookNow");
+      button.textContent = t("confirmSend");
     }
   }
 
@@ -2433,10 +2373,10 @@
       firstName:params.get("firstName") || stored.firstName || "",
       lastName:params.get("lastName") || stored.lastName || "",
       email:params.get("email") || stored.email || "",
+      phone:params.get("phone") || stored.phone || "",
       checkIn:params.get("checkIn") || stored.checkIn || stored.arrival || "",
       checkOut:params.get("checkOut") || stored.checkOut || stored.departure || "",
       guests:params.get("guests") || stored.guests || stored.guestCount || "",
-      phone:params.get("phone") || stored.phone || "",
       lang:params.get("lang") || stored.lang || stored.language || ""
     };
 
@@ -2470,14 +2410,9 @@
 
   qs("#fhOpenCalendar").addEventListener("click", openCalendar);
   qs("#fhCloseCalendar").addEventListener("click", closeCalendar);
-  qs("#fhCalendarDone").addEventListener("click", closeCalendar);
 
   qs("#fhCalendarModal").addEventListener("click", function(event){
     if(event.target === qs("#fhCalendarModal")) closeCalendar();
-  });
-
-  document.addEventListener("keydown", function(event){
-    if(event.key === "Escape") closeCalendar();
   });
 
   qs("#fhPrevMonth").addEventListener("click", function(){
@@ -2490,8 +2425,25 @@
     loadCalendarMonth();
   });
 
-  qs("#fhSideSubmit").addEventListener("click", bookNow);
-  form.addEventListener("submit", bookNow);
+  qs("#fhCloseConfirm").addEventListener("click", closeConfirm);
+  qs("#fhEditBooking").addEventListener("click", closeConfirm);
+  qs("#fhConfirmSend").addEventListener("click", confirmSend);
+
+  qs("#fhConfirmModal").addEventListener("click", function(event){
+    if(event.target === qs("#fhConfirmModal")) closeConfirm();
+  });
+
+  document.addEventListener("keydown", function(event){
+    if(event.key === "Escape"){
+      closeCalendar();
+      closeConfirm();
+    }
+  });
+
+  form.addEventListener("submit", function(event){
+    event.preventDefault();
+    openConfirm();
+  });
 
   document.addEventListener("click", function(event){
     const a = event.target.closest("a");
