@@ -443,6 +443,53 @@
   max-width:540px;
 }
 
+#fh-booking-main .fh-contact-note{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:minmax(180px,.8fr) 1fr;
+  gap:16px;
+  padding:16px 18px;
+  border:1px solid rgba(26,23,20,.11);
+  background:linear-gradient(135deg,rgba(255,250,243,.82),rgba(248,241,232,.78));
+}
+
+#fh-booking-main .fh-contact-note h4{
+  margin:0;
+  font-family:var(--serif);
+  font-size:26px;
+  line-height:1;
+  letter-spacing:-.04em;
+  font-weight:400;
+  color:var(--ink);
+}
+
+#fh-booking-main .fh-contact-note p{
+  margin:0;
+  font-size:13px;
+  line-height:1.55;
+  color:rgba(26,23,20,.62);
+}
+
+#fh-booking-main .fh-contact-lines{
+  display:grid;
+  gap:8px;
+}
+
+#fh-booking-main .fh-contact-line{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:8px 16px;
+  padding-top:8px;
+  border-top:1px solid rgba(26,23,20,.08);
+}
+
+#fh-booking-main .fh-contact-line:first-child{padding-top:0;border-top:0}
+#fh-booking-main .fh-contact-line span{font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:850;color:rgba(26,23,20,.48)}
+#fh-booking-main .fh-contact-line a{font-size:14px;font-weight:760;color:var(--ink)}
+#fh-booking-main .fh-contact-line a:hover{text-decoration:underline}
+
 #fh-booking-main .fh-terms-mini{
   margin-top:16px;
   padding:12px 0 0;
@@ -718,6 +765,7 @@
   #fh-booking-main .fh-grid,
   #fh-booking-main .fh-property-gallery,
   #fh-booking-main .fh-success-summary{grid-template-columns:1fr}
+  #fh-booking-main .fh-contact-note{grid-template-columns:1fr;padding:15px}
   #fh-booking-main .fh-gallery-main,
   #fh-booking-main .fh-gallery-stack div{min-height:220px}
   #fh-booking-main .fh-actions,
@@ -819,7 +867,7 @@
               <div class="fh-field">
                 <label for="fhGuests" data-i18n="guests">Guests</label>
                 <input id="fhGuests" name="guests" type="number" min="1" max="48" inputmode="numeric" data-i18n-placeholder="guestsPh" placeholder="Optional">
-                <p class="fh-field-hint" data-i18n="guestsHint">Optional. The property sleeps up to 48; if your group may need more, mention it in the inquiry.</p>
+                <p class="fh-field-hint" data-i18n="guestsHint">Optional. The property sleeps up to 48. For a larger or unusual group setup, contact us directly.</p>
               </div>
 
               <div class="fh-field">
@@ -833,9 +881,21 @@
                 </select>
               </div>
 
-              <div class="fh-field full">
-                <label for="fhMessage" data-i18n="message">Message</label>
-                <textarea id="fhMessage" name="message" data-i18n-placeholder="messagePh" placeholder="Tell us anything important: arrival timing, event plans, chef/catering needs, special accommodations, room setup, or flexible dates."></textarea>
+              <div class="fh-contact-note">
+                <div>
+                  <h4 data-i18n="contactTitle">Contact us if needed.</h4>
+                  <p data-i18n="contactText">For anything outside the booking form, you can reach the right team directly.</p>
+                </div>
+                <div class="fh-contact-lines">
+                  <div class="fh-contact-line">
+                    <span data-i18n="generalInquiries">General inquiries</span>
+                    <a href="mailto:welcome@fletschhorn.ch">welcome@fletschhorn.ch</a>
+                  </div>
+                  <div class="fh-contact-line">
+                    <span data-i18n="reservationsEmail">For reservations</span>
+                    <a href="mailto:booking@fletschhorn.ch">booking@fletschhorn.ch</a>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1072,15 +1132,17 @@
       openCalendar:"Open calendar",
       guests:"Guests",
       guestsPh:"Optional",
-      guestsHint:"Optional. The property sleeps up to 48; if your group may need more, mention it in the inquiry.",
+      guestsHint:"Optional. The property sleeps up to 48. For a larger or unusual group setup, contact us directly.",
       stayType:"Stay type",
       stayPrivate:"Private chalet stay",
       stayFamily:"Family gathering",
       stayRetreat:"Retreat / team stay",
       stayWedding:"Wedding or event",
       stayOther:"Other",
-      message:"Message",
-      messagePh:"Tell us anything important: arrival timing, event plans, chef/catering needs, special accommodations, room setup, or flexible dates.",
+      contactTitle:"Contact us if needed.",
+      contactText:"For anything outside the booking form, you can reach the right team directly.",
+      generalInquiries:"General inquiries",
+      reservationsEmail:"For reservations",
       termsMiniTitle:"Stay terms:",
       termsMiniText:"60-day cancellation policy · Check-in 4:00 PM–9:00 PM · Check-out 11:00 AM · Standard cleaning after stay included in cleaning fee; daily cleaning on request.",
       directNote:"Booking directly with us helps secure the best available rate and a more personal stay arrangement.",
@@ -1149,7 +1211,11 @@
     openCalendar:"Ouvrir le calendrier",
     guests:"Invités",
     guestsPh:"Optionnel",
-    guestsHint:"Optionnel. La propriété offre jusqu’à 48 couchages; pour un groupe plus grand, indiquez-le dans la demande.",
+    guestsHint:"Optionnel. La propriété offre jusqu’à 48 couchages. Pour un groupe plus grand ou une configuration particulière, contactez-nous directement.",
+    contactTitle:"Contactez-nous si besoin.",
+    contactText:"Pour toute demande en dehors du formulaire de réservation, vous pouvez écrire directement à la bonne équipe.",
+    generalInquiries:"Demandes générales",
+    reservationsEmail:"Réservations",
     bookNow:"Réserver",
     calendarMinWarning:"Veuillez sélectionner au moins 2 nuits.",
     alreadyBooked:"Déjà réservé",
@@ -1171,7 +1237,11 @@
     openCalendar:"Kalender öffnen",
     guests:"Gäste",
     guestsPh:"Optional",
-    guestsHint:"Optional. Das Haus bietet Schlafplätze für bis zu 48 Personen; falls Ihre Gruppe größer sein könnte, erwähnen Sie es in der Anfrage.",
+    guestsHint:"Optional. Das Haus bietet Schlafplätze für bis zu 48 Personen. Für größere oder besondere Gruppen kontaktieren Sie uns bitte direkt.",
+    contactTitle:"Kontaktieren Sie uns bei Bedarf.",
+    contactText:"Für alles außerhalb des Buchungsformulars erreichen Sie direkt das passende Team.",
+    generalInquiries:"Allgemeine Anfragen",
+    reservationsEmail:"Reservierungen",
     bookNow:"Jetzt buchen",
     calendarMinWarning:"Bitte mindestens 2 Nächte auswählen.",
     alreadyBooked:"Bereits gebucht",
@@ -1192,7 +1262,11 @@
     openCalendar:"Открыть календарь",
     guests:"Гости",
     guestsPh:"Необязательно",
-    guestsHint:"Необязательно. В доме до 48 спальных мест; если гостей может быть больше, укажите это в запросе.",
+    guestsHint:"Необязательно. В доме до 48 спальных мест. Для более большой или особой группы свяжитесь с нами напрямую.",
+    contactTitle:"Свяжитесь с нами при необходимости.",
+    contactText:"По вопросам вне формы бронирования можно написать напрямую нужной команде.",
+    generalInquiries:"Общие вопросы",
+    reservationsEmail:"Бронирование",
     bookNow:"Забронировать",
     calendarMinWarning:"Выберите минимум 2 ночи.",
     alreadyBooked:"Уже забронировано",
@@ -1217,8 +1291,7 @@
     checkIn:qs("#fhCheckIn"),
     checkOut:qs("#fhCheckOut"),
     guests:qs("#fhGuests"),
-    stayType:qs("#fhStayType"),
-    message:qs("#fhMessage")
+    stayType:qs("#fhStayType")
   };
 
   let currentLang = normalizeLang(localStorage.getItem("fh_lang") || root.dataset.lang || document.documentElement.lang || "en");
@@ -1336,7 +1409,6 @@
       checkOut:fields.checkOut.value,
       guests:fields.guests.value ? Number(fields.guests.value) : null,
       stayType:fields.stayType.value,
-      message:(fields.message.value || "").trim(),
       language:currentLang,
       source:"booking-page",
       cancellationPolicyText:"Cancel up to 60 days before arrival.",
@@ -1961,7 +2033,6 @@
       email:(fields.email.value || "").trim(),
       phone:(fields.phone.value || "").trim(),
       stayType:fields.stayType.value,
-      message:(fields.message.value || "").trim(),
       language:currentLang,
       availability:availability
     });
@@ -2089,7 +2160,6 @@
         checkOut:fields.checkOut.value,
         guests:guestsForApi(),
         stayType:fields.stayType.value,
-        message:(fields.message.value || "").trim(),
         language:currentLang,
         source:"booking-page",
         cancellationPolicyText:"Cancel up to 60 days before arrival.",
