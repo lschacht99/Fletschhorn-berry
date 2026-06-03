@@ -16,64 +16,64 @@ Requires the header CSS in Design > Custom CSS.
 
   const HIDE_SQUARESPACE_NATIVE_HEADER_FOOTER = true;
 
-  const FH_PAGES = [
-    {
-      key:'home',
-      label:'Home',
-      short:'Home',
-      href:'/home',
-      note:'Start with the house, setting, and inquiry.',
-      match:['/','/Home','/home']
-    },
-    {
-      key:'property',
-      label:'The Property',
-      short:'Property',
-      href:'/the-property',
-      note:'The property, spaces, spa, amenities, dining and kitchen.',
-      match:['/the-property','/property','/spa-amenities','/dining-kitchen']
-    },
-    {
-      key:'experiences',
-      label:'Experiences',
-      short:'Experiences',
-      href:'/experiences',
-      note:'What to do in Saas-Fee and around the property.',
-      match:['/experiences','/what-to-do','/area']
-    },
-    {
-      key:'events',
-      label:'Wedding & Events',
-      short:'Events',
-      href:'/your-wedding-or-event',
-      note:'Weddings, private events, retreats, and celebrations.',
-      match:['/your-wedding-or-event','/wedding-and-events','/weddings-events','/weddings','/events']
-    },
-     {
-      key:'location',
-      label:'Location',
-      short:'Location',
-      href:'/location',
-      note:'Where Fletschhorn is located.',
-      match:['/Location','/where','/area']
-    },
-    {
-      key:'booking',
-      label:'Booking',
-      short:'Booking',
-      href:'/booking',
-      note:'Send an inquiry and plan your stay or event.',
-      match:['/booking','/contact-booking','/contact']
-    },
-    {
-      key:'about',
-      label:'About Us',
-      short:'About',
-      href:'/about-us',
-      note:'Story, history, and the new private-house direction.',
-      match:['/about-us','/about']
-    }
-  ];
+const FH_PAGES = [
+  {
+    key: "home",
+    label: "Home",
+    short: "Home",
+    href: "index.html",
+    note: "Start with the house, setting, and inquiry.",
+    match: ["/", "/index.html", "/home", "/Home"]
+  },
+  {
+    key: "property",
+    label: "The Property",
+    short: "Property",
+    href: "Property.html",
+    note: "The property, rooms, spa, amenities, dining and kitchen.",
+    match: ["/Property.html", "/property.html", "/property"]
+  },
+  {
+    key: "experiences",
+    label: "Experiences",
+    short: "Experiences",
+    href: "Experiences.html",
+    note: "What to do in Saas-Fee and around the property.",
+    match: ["/Experiences.html", "/experiences.html", "/experiences"]
+  },
+  {
+    key: "events",
+    label: "Wedding & Events",
+    short: "Events",
+    href: "Wedding-event.html",
+    note: "Weddings, private events, retreats, and celebrations.",
+    match: ["/Wedding-event.html", "/wedding-event.html", "/wedding-and-events", "/events"]
+  },
+  {
+    key: "location",
+    label: "Location",
+    short: "Location",
+    href: "Location.html",
+    note: "Where Fletschhorn is located and what surrounds it.",
+    match: ["/Location.html", "/location.html", "/location"]
+  },
+  {
+    key: "booking",
+    label: "Booking",
+    short: "Booking",
+    href: "Booking.html",
+    note: "Send an inquiry and plan your stay or event.",
+    match: ["/Booking.html", "/booking.html", "/booking"]
+  },
+  {
+    key: "about",
+    label: "About Us",
+    short: "About",
+    href: "About-us.html",
+    note: "Story, history, and the private-house direction.",
+    match: ["/About-us.html", "/about-us.html", "/about"]
+  }
+];
 
   function normalizePath(path){
     let clean = (path || '/').split('?')[0].split('#')[0].replace(/\/+/g,'/');
