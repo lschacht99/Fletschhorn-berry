@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="assets/fh-global.css">
+<div id="fh-header-slot"></div>
 <style>
 
 section:has(#fh-experiences){
@@ -257,7 +259,7 @@ section:has(#fh-experiences) .sqs-block-code{
 
 #fh-experiences .fh-quickbar{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr 168px;
+  grid-template-columns:repeat(5,minmax(0,1fr)) 190px;
   width:min(1030px,100%);
   margin:0 auto;
   background:rgba(255,250,243,.94);
@@ -291,6 +293,7 @@ section:has(#fh-experiences) .sqs-block-code{
 }
 #fh-experiences .fh-qitem input::placeholder{color:rgba(25,23,21,.45)}
 #fh-experiences .fh-book-btn{
+  min-height:72px;
   border:0;
   background:var(--fh-clay);
   color:#fff;
@@ -740,7 +743,7 @@ section:has(#fh-experiences) .sqs-block-code{
   #fh-experiences .fh-map-sidebar{grid-template-columns:repeat(2,1fr);max-height:none;overflow:visible}
   #fh-experiences .fh-quickbar{grid-template-columns:1fr 1fr}
   #fh-experiences .fh-book-btn{min-height:58px;grid-column:1/-1}
-  #fh-experiences .fh-qitem:nth-child(2){border-right:0}
+  #fh-experiences .fh-qitem:nth-child(even){border-right:0}
   #fh-experiences .fh-season-jump{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:760px){
@@ -898,18 +901,26 @@ section:has(#fh-experiences) .sqs-block-code{
 
         <form class="fh-quickbar preSlide" id="fh-exp-quick-form" style="--d:.34s">
           <div class="fh-qitem">
-            <label for="fh-exp-guests" data-i18n="form.guestsLabel">Guests</label>
-            <input id="fh-exp-guests" name="guests" inputmode="numeric" placeholder="Family, group, retreat…" data-i18n-placeholder="form.guestsPlaceholder" />
+            <label for="fh-exp-first-name">First name</label>
+            <input id="fh-exp-first-name" name="firstName" autocomplete="given-name" placeholder="First name" required />
           </div>
           <div class="fh-qitem">
-            <label for="fh-exp-dates" data-i18n="form.datesLabel">Dates</label>
-            <input id="fh-exp-dates" name="dates" placeholder="Winter, summer, exact dates…" data-i18n-placeholder="form.datesPlaceholder" />
+            <label for="fh-exp-last-name">Last name</label>
+            <input id="fh-exp-last-name" name="lastName" autocomplete="family-name" placeholder="Last name" required />
           </div>
           <div class="fh-qitem">
-            <label for="fh-exp-contact" data-i18n="form.contactLabel">Contact</label>
-            <input id="fh-exp-contact" name="contact" placeholder="Email or phone" data-i18n-placeholder="form.contactPlaceholder" />
+            <label for="fh-exp-email">Email</label>
+            <input id="fh-exp-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
           </div>
-          <button class="fh-book-btn" type="submit" data-i18n="form.planBtn">Send Inquiry</button>
+          <div class="fh-qitem">
+            <label for="fh-exp-checkin">Arrival</label>
+            <input id="fh-exp-checkin" name="checkIn" type="date" required />
+          </div>
+          <div class="fh-qitem">
+            <label for="fh-exp-checkout">Departure</label>
+            <input id="fh-exp-checkout" name="checkOut" type="date" required />
+          </div>
+          <button class="fh-book-btn" type="submit">Book my stay now</button>
         </form>
         <p class="fh-hero-note preFade" id="fh-exp-status" style="--d:.40s" data-i18n="hero.note">Best Rates Guaranteed when Booking Direct</p>
 
@@ -1144,7 +1155,7 @@ section:has(#fh-experiences) .sqs-block-code{
             <p class="fh-kicker" data-i18n="cta.kicker">Planning your stay</p>
             <h2 data-i18n="cta.title">Build the rhythm that fits your group.</h2>
             <p data-i18n="cta.text">Some groups come for skiing. Others come for family time, wellness, hiking, work sessions, or a private celebration. Tell us when you are coming, who is joining, and what kind of experience you want.</p>
-            <a class="fh-cta-btn" href="#fh-experiences-top" data-i18n="cta.button">Send an Inquiry</a>
+            <a class="fh-cta-btn" href="booking.html">Book my stay now</a>
             <p class="fh-small-note" data-i18n="cta.note">Best Rates Guaranteed when Booking Direct</p>
           </article>
           <aside class="fh-panel preSlide" style="--d:.10s">
@@ -1179,12 +1190,40 @@ section:has(#fh-experiences) .sqs-block-code{
     </div>
   </div>
 </div>
+<div id="fh-footer-slot"></div>
 
 <script>
 (function(){
   const root = document.getElementById('fh-experiences');
   if(!root || root.dataset.ready === '1') return;
   root.dataset.ready = '1';
+
+  document.body.classList.add('fh-github-version');
+
+  const ASSET_BASE = new URL('assets/', document.baseURI).href;
+
+  async function loadHtml(slotId, fileName){
+    const slot = document.getElementById(slotId);
+    if(!slot) return;
+    try{
+      const response = await fetch(new URL(fileName, ASSET_BASE).href, { cache:'no-cache' });
+      if(!response.ok) throw new Error(fileName + ' ' + response.status);
+      const html = await response.text();
+      slot.innerHTML = html;
+      slot.querySelectorAll('script').forEach(oldScript => {
+        const script = document.createElement('script');
+        Array.from(oldScript.attributes).forEach(attr => script.setAttribute(attr.name, attr.value));
+        script.textContent = oldScript.textContent;
+        oldScript.replaceWith(script);
+      });
+      window.dispatchEvent(new CustomEvent('fh:partial-loaded', { detail:{ slotId, fileName } }));
+    }catch(error){
+      console.warn('Fletschhorn partial could not be loaded:', fileName, error);
+    }
+  }
+
+  loadHtml('fh-header-slot', 'Header.html');
+  loadHtml('fh-footer-slot', 'footer.html');
 
   const WORKER_URL = "https://saas-fee.moshe-cohen-h1.workers.dev";
   const SEARCH_ENDPOINT = WORKER_URL + "/search";
@@ -1204,7 +1243,7 @@ section:has(#fh-experiences) .sqs-block-code{
     en:{
       "hero.kicker":"Experiences around Saas-Fee","hero.title":"A private base for every season in Saas-Fee.","hero.lead":"From glacier skiing and winter sledging to summer hikes, marmots, mountain lakes, rope parks, and slow alpine days, Saas-Fee offers something for every kind of group. Fletschhorn gives you a private alpine base above the village, close to the experiences that make the valley special.","hero.note":"Best Rates Guaranteed when Booking Direct","hero.scroll":"Open the area",
       "filters.all":"Everything","filters.allText":"Show the whole valley around the house.","filters.winter":"Winter","filters.winterText":"Ski, snow, sledging, glacier, cozy resets.","filters.summer":"Summer","filters.summerText":"Marmots, hikes, scooters, lakes, ropes.","filters.calm":"Soft days","filters.calmText":"Wellness, village walks, gentle trails.","filters.house":"House & village","filters.family":"Family","filters.adrenaline":"Adrenaline","filters.trek":"Trek",
-      "form.guestsLabel":"Guests","form.guestsPlaceholder":"Family, group, retreat…","form.datesLabel":"Dates","form.datesPlaceholder":"Winter, summer, exact dates…","form.contactLabel":"Contact","form.contactPlaceholder":"Email or phone","form.planBtn":"Send Inquiry",
+      "form.guestsLabel":"Guests","form.guestsPlaceholder":"Family, group, retreat…","form.datesLabel":"Dates","form.datesPlaceholder":"Winter, summer, exact dates…","form.contactLabel":"Contact","form.contactPlaceholder":"Email or phone","form.planBtn":"Book my stay now",
       "area.kicker":"The area","area.title":"A mountain region built for groups, families, skiers, hikers, and slow days.","area.lead":"Saas-Fee is surrounded by eighteen 4,000-metre peaks. This page turns the region into a practical guest tool: first a map, then filtered activities, routes, and day rhythms.","area.howKicker":"How this page works","area.howTitle":"Choose by season, mood, or energy level.","area.howText":"Tap Winter, Summer, Soft days, Family, Trek, or Adrenaline. The map, sidebar, activity cards, and helper copy update together.","area.proofWinter":"Skiing, sledging, glacier, snow paths, group thrill days.","area.proofSummer":"Marmots, hikes, biking, rope park, glacier access, mountain lakes.","area.proofCalm":"Aqua Allalin, village walks, family trails, cable-car viewpoints.","area.privateKicker":"Private base, active valley","area.privateTitle":"The house is calm; the region is full.","area.privateText":"The stay does not depend on one single activity. Guests can split by age, weather, energy level, or season, then return to one private house at the end of the day.","area.safety":"Safety note: mountain conditions change quickly. Route openings, lifts, weather, and guide requirements should always be checked with the official Saas-Fee/Saastal information before guests go.",
       "photos.one":"Start from one private house","photos.two":"Move through the valley","photos.three":"Return to calm",
       "map.kicker":"Interactive map","map.title":"The map is the orientation tool for the whole stay.","map.open":"Open full map","map.selected":"Selected area",
@@ -1215,7 +1254,7 @@ section:has(#fh-experiences) .sqs-block-code{
       "routes.kicker":"Treks & route ideas","routes.title":"From stroller-friendly walks to serious mountain days.","routes.lead":"Route type, energy level, season, and a quick search link help guests understand what kind of day they are choosing.","routes.easy":"Easy / family","routes.low":"Low effort","routes.medium":"Medium / scenic","routes.high":"High alpine","routes.active":"Active / bridge","routes.lake":"Lake / valley","routes.guided":"Guided / summit","routes.search":"Search map","routes.details":"Official details","routes.details":"Official details","routes.trailOption":"Trail option","routes.views":"Views","routes.cableCar":"Cable car","routes.summerWinter":"Summer / winter","routes.bridges":"Suspension bridges","routes.activeShort":"Active","routes.reservoir":"Reservoir","routes.advanced":"Advanced","routes.weather":"Weather dependent","routes.fairy.title":"Fairy Tale Trail & forest paths","routes.fairy.text":"Gentle story-led route energy for families and guests who want a soft introduction to the forest around Saas-Fee.","routes.hannig.title":"Hannig to Saas-Fee","routes.hannig.text":"Good for active families, themed trail users, scooter days, sledging days, and guests who want elevation without a full alpine trek.","routes.langfluh.title":"Spielboden / Längfluh glacier view","routes.langfluh.text":"For guests who want to feel close to the glacier without necessarily committing to a major summit day.","routes.almageller.title":"Almageller Adventure Trail","routes.almageller.text":"For active families and groups who want a stronger mountain path with suspension bridges and alpine texture.","routes.mattmark.title":"Mattmark Reservoir","routes.mattmark.text":"A quieter valley destination with dam views. It can be treated as a scenic walk or built into a longer route.","routes.allalin.title":"First four-thousander / Allalin","routes.allalin.text":"For guests who want a guided high-alpine objective. This should always be treated as a mountain-guide route, not a casual walk.",
       "groups.kicker":"Families, groups & retreats","groups.title":"Easy activities for mixed ages. Shared experiences for groups.","groups.lead":"Families and multi-generational groups can choose from gentle walks, playground areas, cable-car outings, marmot encounters, winter snow play, treasure hunts, and village-based activities.","groups.familyKicker":"For families","groups.familyTitle":"Separate and reconnect easily.","groups.familyText":"Some guests can ski while others choose Aqua Allalin, village walks, a cable-car viewpoint, or a gentler forest trail. The advantage of Fletschhorn is that the group has one private place to come back to.","groups.retreatKicker":"For retreats","groups.retreatTitle":"Activity and reflection in the same valley.","groups.retreatText":"For retreats, companies, and private groups, Saas-Fee offers a natural setting for both movement and calm: guided hikes, ski sessions, team challenges, wellness time, or slower moments in the village and forest.",
       "dayplans.kicker":"Ready-made rhythms","dayplans.title":"Simple day plans guests can understand in seconds.","dayplans.lead":"This makes the page usable for real visitors: not only a list of activities, but a clear way to imagine a day around the house.","dayplans.softKicker":"Soft family day","dayplans.softTitle":"Village + marmots + pool","dayplans.soft1":"Start slow at the house.","dayplans.soft2":"Walk or take transport toward the village and lifts.","dayplans.soft3":"Visit Spielboden for marmots when in season.","dayplans.soft4":"End with Aqua Allalin or a calm village walk.","dayplans.activeKicker":"Active summer day","dayplans.activeTitle":"Hannig + themed trail + scooters","dayplans.active1":"Take the Hannig lift when operating.","dayplans.active2":"Use the Eddie trail or a scenic descent.","dayplans.active3":"Add mountaincarts or Trotti scooters for the group.","dayplans.active4":"Return to the house before evening.","dayplans.winterKicker":"Winter group day","dayplans.winterTitle":"Ski + sledging + warm reset","dayplans.winter1":"Morning skiing, snowboarding, or ski school.","dayplans.winter2":"Village break for mixed groups.","dayplans.winter3":"Night sledging if available and safe.","dayplans.winter4":"Return to the house as the private base.",
-      "cta.kicker":"Planning your stay","cta.title":"Build the rhythm that fits your group.","cta.text":"Some groups come for skiing. Others come for family time, wellness, hiking, work sessions, or a private celebration. Tell us when you are coming, who is joining, and what kind of experience you want.","cta.button":"Send an Inquiry","cta.note":"Best Rates Guaranteed when Booking Direct","cta.seasonKicker":"Season by season","cta.winter":"Skiing, snowboarding, sledging, glacier experiences, village treasure hunts, and wellness resets.","cta.summer":"Marmots, hiking, mountain lakes, rope park, scooters, cable cars, and glacier views.",
+      "cta.kicker":"Planning your stay","cta.title":"Build the rhythm that fits your group.","cta.text":"Some groups come for skiing. Others come for family time, wellness, hiking, work sessions, or a private celebration. Tell us when you are coming, who is joining, and what kind of experience you want.","cta.button":"Book my stay now","cta.note":"Best Rates Guaranteed when Booking Direct","cta.seasonKicker":"Season by season","cta.winter":"Skiing, snowboarding, sledging, glacier experiences, village treasure hunts, and wellness resets.","cta.summer":"Marmots, hiking, mountain lakes, rope park, scooters, cable cars, and glacier views.",
       "modal.title":"Send a stay inquiry","modal.name":"Name","modal.namePh":"Your name","modal.checkin":"Check-in","modal.checkout":"Check-out","modal.guestsPh":"48 max sleeping places","modal.season":"Season","modal.notes":"Notes","modal.notesPh":"Age range, mobility needs, dates, activities you like, guide needs…","modal.submit":"Send inquiry","modal.sending":"Checking availability…","modal.sent":"Request sent through the booking worker.","modal.failed":"The request could not be sent from this page. Please try again or contact the property directly."
     }
   };
@@ -1223,42 +1262,42 @@ section:has(#fh-experiences) .sqs-block-code{
   const fr = {
     "hero.kicker":"Expériences autour de Saas-Fee","hero.title":"Une base privée pour chaque saison à Saas-Fee.","hero.lead":"Du ski sur glacier et de la luge d’hiver aux randonnées d’été, marmottes, lacs de montagne, parcs aventure et journées alpines plus calmes, Saas-Fee offre des expériences pour chaque type de groupe. Fletschhorn donne à vos invités une base alpine privée au-dessus du village, proche de ce qui rend la vallée spéciale.","hero.note":"Meilleurs tarifs garantis en réservant en direct","hero.scroll":"Découvrir la région",
     "filters.all":"Tout","filters.allText":"Afficher toute la vallée autour de la maison.","filters.winter":"Hiver","filters.winterText":"Ski, neige, luge, glacier, moments chaleureux.","filters.summer":"Été","filters.summerText":"Marmottes, randonnées, trottinettes, lacs, accrobranche.","filters.calm":"Journées douces","filters.calmText":"Bien-être, village, chemins faciles.","filters.house":"Maison & village","filters.family":"Famille","filters.adrenaline":"Adrénaline","filters.trek":"Randonnée",
-    "form.guestsLabel":"Invités","form.guestsPlaceholder":"Famille, groupe, retraite…","form.datesLabel":"Dates","form.datesPlaceholder":"Hiver, été, dates précises…","form.contactLabel":"Contact","form.contactPlaceholder":"Email ou téléphone","form.planBtn":"Envoyer une demande",
+    "form.guestsLabel":"Invités","form.guestsPlaceholder":"Famille, groupe, retraite…","form.datesLabel":"Dates","form.datesPlaceholder":"Hiver, été, dates précises…","form.contactLabel":"Contact","form.contactPlaceholder":"Email ou téléphone","form.planBtn":"Réserver mon séjour",
     "area.kicker":"La région","area.title":"Une région de montagne pensée pour les groupes, familles, skieurs, randonneurs et journées lentes.","area.lead":"Saas-Fee est entourée de dix-huit sommets de 4 000 mètres. Cette page transforme la région en outil pratique pour les invités : une carte, puis des activités, itinéraires et rythmes de journée filtrables.","area.howKicker":"Comment utiliser la page","area.howTitle":"Choisir par saison, ambiance ou niveau d’énergie.","area.howText":"Cliquez sur Hiver, Été, Journées douces, Famille, Randonnée ou Adrénaline. La carte, les cartes d’activités et le texte d’aide se mettent à jour ensemble.","area.proofWinter":"Ski, luge, glacier, chemins de neige, expériences de groupe.","area.proofSummer":"Marmottes, randonnées, vélo, accrobranche, glacier, lacs de montagne.","area.proofCalm":"Aqua Allalin, promenades au village, sentiers faciles, points de vue.","area.privateKicker":"Base privée, vallée active","area.privateTitle":"La maison est calme ; la région est pleine de possibilités.","area.privateText":"Le séjour ne dépend pas d’une seule activité. Les invités peuvent se répartir selon l’âge, la météo, l’énergie ou la saison, puis revenir dans une maison privée commune.","area.safety":"Note sécurité : les conditions de montagne changent vite. Les ouvertures de routes, remontées, la météo et les besoins en guide doivent toujours être vérifiés auprès des informations officielles de Saas-Fee/Saastal.",
     "photos.one":"Commencer depuis une maison privée","photos.two":"Explorer la vallée","photos.three":"Revenir au calme",
     "map.kicker":"Carte interactive","map.title":"La carte devient l’outil d’orientation du séjour.","map.open":"Ouvrir la carte","map.selected":"Lieu sélectionné",
     "helper.all":"Affichage de toute la région : maison, village, remontées, glacier, bien-être, activités familiales et grandes journées de montagne.","helper.house":"Affichage des points maison et village : arrivée, centre, bien-être proche et déplacements pratiques.","helper.winter":"Affichage des idées d’hiver : pistes, luge, glacier, Pavillon de Glace et options neige.","helper.summer":"Affichage des idées d’été : marmottes, randonnées, trottinettes, coaster, accrobranche, barrage et vues glacier.","helper.family":"Affichage des options famille : village, marmottes à Spielboden, Hannig, Feeblitz, Aqua Allalin et chemins faciles.","helper.adrenaline":"Affichage des idées plus intenses : Gorge Alpine, accrobranche, Feeblitz, luge, trottinettes et itinéraires plus sportifs.","helper.trek":"Affichage des randonnées : Längfluh, Almageller Adventure Trail, Mattmark, Gorge Alpine et accès haute montagne.","helper.calm":"Affichage des journées douces : Fletschhorn, village, Aqua Allalin, Spielboden, Mattmark et montagne sans pression.",
     "activities.kicker":"Activités","activities.title":"Filtrer la région comme un tableau de concierge.","activities.lead":"Les mêmes filtres contrôlent la carte et les cartes d’activités. Les invités choisissent leur journée sans devoir tout lire.",
     "groups.kicker":"Familles, groupes & retraites","groups.title":"Des activités simples pour les âges mixtes. Des expériences partagées pour les groupes.","groups.lead":"Les familles et groupes multigénérationnels peuvent choisir entre promenades douces, aires de jeux, remontées, marmottes, neige, chasses au trésor et activités au village.","groups.familyKicker":"Pour les familles","groups.familyTitle":"Se séparer et se retrouver facilement.","groups.familyText":"Certains invités peuvent skier pendant que d’autres choisissent Aqua Allalin, le village, un point de vue ou un sentier plus doux. L’avantage de Fletschhorn est d’avoir un lieu privé où tout le groupe revient.","groups.retreatKicker":"Pour les retraites","groups.retreatTitle":"Activité et calme dans la même vallée.","groups.retreatText":"Pour retraites, entreprises et groupes privés, Saas-Fee offre un cadre naturel pour bouger et ralentir : randonnées guidées, ski, défis d’équipe, bien-être ou moments plus calmes au village et en forêt.",
-    "cta.kicker":"Planifier le séjour","cta.title":"Construire le rythme qui correspond à votre groupe.","cta.text":"Certains groupes viennent pour skier. D’autres pour la famille, le bien-être, la randonnée, le travail ou une célébration privée. Dites-nous quand vous venez, qui participe et quel type d’expérience vous recherchez.","cta.button":"Envoyer une demande","cta.note":"Meilleurs tarifs garantis en réservant en direct","cta.seasonKicker":"Saison par saison","cta.winter":"Ski, snowboard, luge, glacier, chasse au trésor au village et moments bien-être.","cta.summer":"Marmottes, randonnée, lacs de montagne, accrobranche, trottinettes, remontées et vues glacier.",
+    "cta.kicker":"Planifier le séjour","cta.title":"Construire le rythme qui correspond à votre groupe.","cta.text":"Certains groupes viennent pour skier. D’autres pour la famille, le bien-être, la randonnée, le travail ou une célébration privée. Dites-nous quand vous venez, qui participe et quel type d’expérience vous recherchez.","cta.button":"Réserver mon séjour","cta.note":"Meilleurs tarifs garantis en réservant en direct","cta.seasonKicker":"Saison par saison","cta.winter":"Ski, snowboard, luge, glacier, chasse au trésor au village et moments bien-être.","cta.summer":"Marmottes, randonnée, lacs de montagne, accrobranche, trottinettes, remontées et vues glacier.",
     "modal.title":"Envoyer une demande de séjour","modal.name":"Nom","modal.namePh":"Votre nom","modal.checkin":"Arrivée","modal.checkout":"Départ","modal.guestsPh":"48 couchages maximum","modal.season":"Saison","modal.notes":"Notes","modal.notesPh":"Âges, mobilité, dates, activités souhaitées, besoin de guide…","modal.submit":"Envoyer la demande","modal.sending":"Vérification des disponibilités…","modal.sent":"Demande envoyée via le worker de réservation.","modal.failed":"La demande n’a pas pu être envoyée depuis cette page. Veuillez réessayer ou contacter directement la propriété."
   };
 
   const de = {
     "hero.kicker":"Erlebnisse rund um Saas-Fee","hero.title":"Eine private Basis für jede Saison in Saas-Fee.","hero.lead":"Von Gletscherski und Winterrodeln bis zu Sommerwanderungen, Murmeltieren, Bergseen, Seilparks und ruhigen Alpentagen bietet Saas-Fee für jede Gruppe etwas. Fletschhorn ist eine private alpine Basis oberhalb des Dorfes, nahe an den Erlebnissen, die das Tal besonders machen.","hero.note":"Beste Preise garantiert bei Direktbuchung","hero.scroll":"Region öffnen",
     "filters.all":"Alles","filters.allText":"Das ganze Tal rund um das Haus anzeigen.","filters.winter":"Winter","filters.winterText":"Ski, Schnee, Rodeln, Gletscher, gemütliche Pausen.","filters.summer":"Sommer","filters.summerText":"Murmeltiere, Wanderungen, Scooter, Seen, Seilpark.","filters.calm":"Ruhige Tage","filters.calmText":"Wellness, Dorfspaziergänge, leichte Wege.","filters.house":"Haus & Dorf","filters.family":"Familie","filters.adrenaline":"Adrenalin","filters.trek":"Wandern",
-    "form.guestsLabel":"Gäste","form.guestsPlaceholder":"Familie, Gruppe, Retreat…","form.datesLabel":"Daten","form.datesPlaceholder":"Winter, Sommer, genaue Daten…","form.contactLabel":"Kontakt","form.contactPlaceholder":"E-Mail oder Telefon","form.planBtn":"Anfrage senden",
+    "form.guestsLabel":"Gäste","form.guestsPlaceholder":"Familie, Gruppe, Retreat…","form.datesLabel":"Daten","form.datesPlaceholder":"Winter, Sommer, genaue Daten…","form.contactLabel":"Kontakt","form.contactPlaceholder":"E-Mail oder Telefon","form.planBtn":"Aufenthalt buchen",
     "area.kicker":"Die Region","area.title":"Eine Bergregion für Gruppen, Familien, Skifahrer, Wanderer und ruhige Tage.","area.lead":"Saas-Fee ist von achtzehn Viertausendern umgeben. Diese Seite macht die Region zu einem praktischen Gästetool: zuerst Karte, dann gefilterte Aktivitäten, Routen und Tagesrhythmen.","area.howKicker":"So funktioniert die Seite","area.howTitle":"Nach Saison, Stimmung oder Energie wählen.","area.howText":"Wählen Sie Winter, Sommer, ruhige Tage, Familie, Wandern oder Adrenalin. Karte, Seitenleiste, Aktivitäten und Hilfetext aktualisieren sich gemeinsam.","area.proofWinter":"Skifahren, Rodeln, Gletscher, Schneewege, Gruppenerlebnisse.","area.proofSummer":"Murmeltiere, Wanderungen, Bike, Seilpark, Gletscher, Bergseen.","area.proofCalm":"Aqua Allalin, Dorfspaziergänge, Familienwege, Bergbahn-Aussichten.","area.privateKicker":"Private Basis, aktives Tal","area.privateTitle":"Das Haus ist ruhig; die Region ist voller Möglichkeiten.","area.privateText":"Der Aufenthalt hängt nicht von einer einzigen Aktivität ab. Gäste können sich nach Alter, Wetter, Energie oder Saison aufteilen und am Ende des Tages in ein privates Haus zurückkehren.","area.safety":"Sicherheitshinweis: Bergbedingungen ändern sich schnell. Wege, Bahnen, Wetter und erforderliche Bergführer sollten immer mit den offiziellen Saas-Fee/Saastal-Informationen geprüft werden.",
     "photos.one":"Von einem privaten Haus starten","photos.two":"Durch das Tal bewegen","photos.three":"Zur Ruhe zurückkehren",
     "map.kicker":"Interaktive Karte","map.title":"Die Karte ist das Orientierungstool für den ganzen Aufenthalt.","map.open":"Karte öffnen","map.selected":"Ausgewählter Ort",
     "helper.all":"Gesamte Region: Haus, Dorf, Bahnen, Gletscherpunkte, Wellness, Familienaktivitäten und größere Bergtage.","helper.house":"Haus- und Dorfpunkte: Ankunft, Dorfzentrum, nahe Wellness und praktische Bewegung.","helper.winter":"Winterideen: Skigebiet, Rodeln, Gletscherzugang, Eispavillon und Schneeoptionen.","helper.summer":"Sommerideen: Murmeltiere, Wanderungen, Scooter, Coaster, Seilpark, Stausee und Gletscherblicke.","helper.family":"Familienoptionen: Dorf, Murmeltiere, Hannig, Feeblitz, Aqua Allalin und leichte Routen.","helper.adrenaline":"Energiegeladene Ideen: Gorge Alpine, Seilpark, Feeblitz, Rodeln, Scooter und stärkere Bergrouten.","helper.trek":"Wander- und Routenideen: Längfluh, Almageller Adventure Trail, Mattmark, Gorge Alpine und Hochgebirgszugang.","helper.calm":"Ruhige Tage: Fletschhorn, Dorfspaziergänge, Aqua Allalin, Spielboden, Mattmark und entspannte Bergzeit.",
     "activities.kicker":"Aktivitätenfinder","activities.title":"Die Region wie ein Concierge-Board filtern.","activities.lead":"Dieselben Filter steuern Karte und Karten. Gäste wählen ihren Tag, ohne die ganze Seite zu lesen.",
     "groups.kicker":"Familien, Gruppen & Retreats","groups.title":"Leichte Aktivitäten für gemischte Altersgruppen. Gemeinsame Erlebnisse für Gruppen.","groups.lead":"Familien und Mehrgenerationengruppen finden leichte Wege, Spielplätze, Bergbahnen, Murmeltiere, Winterspiel, Schatzsuche und Dorfaktivitäten.","groups.familyKicker":"Für Familien","groups.familyTitle":"Einfach aufteilen und wieder zusammenkommen.","groups.familyText":"Einige Gäste können Ski fahren, während andere Aqua Allalin, Dorfspaziergänge, Aussichtspunkte oder leichte Waldwege wählen. Der Vorteil von Fletschhorn ist ein privater Ort, an den alle zurückkehren.","groups.retreatKicker":"Für Retreats","groups.retreatTitle":"Aktivität und Ruhe im selben Tal.","groups.retreatText":"Für Retreats, Unternehmen und private Gruppen bietet Saas-Fee Natur für Bewegung und Ruhe: geführte Wanderungen, Skitage, Team-Challenges, Wellness oder ruhigere Momente im Dorf und Wald.",
-    "cta.kicker":"Aufenthalt planen","cta.title":"Den Rhythmus bauen, der zu Ihrer Gruppe passt.","cta.text":"Manche Gruppen kommen zum Skifahren, andere für Familienzeit, Wellness, Wandern, Arbeit oder eine private Feier. Sagen Sie uns, wann Sie kommen, wer dabei ist und welche Art Erlebnis Sie suchen.","cta.button":"Anfrage senden","cta.note":"Beste Preise garantiert bei Direktbuchung","cta.seasonKicker":"Saison für Saison","cta.winter":"Ski, Snowboard, Rodeln, Gletschererlebnisse, Dorf-Schatzsuche und Wellness.","cta.summer":"Murmeltiere, Wandern, Bergseen, Seilpark, Scooter, Bergbahnen und Gletscherblicke.",
+    "cta.kicker":"Aufenthalt planen","cta.title":"Den Rhythmus bauen, der zu Ihrer Gruppe passt.","cta.text":"Manche Gruppen kommen zum Skifahren, andere für Familienzeit, Wellness, Wandern, Arbeit oder eine private Feier. Sagen Sie uns, wann Sie kommen, wer dabei ist und welche Art Erlebnis Sie suchen.","cta.button":"Aufenthalt buchen","cta.note":"Beste Preise garantiert bei Direktbuchung","cta.seasonKicker":"Saison für Saison","cta.winter":"Ski, Snowboard, Rodeln, Gletschererlebnisse, Dorf-Schatzsuche und Wellness.","cta.summer":"Murmeltiere, Wandern, Bergseen, Seilpark, Scooter, Bergbahnen und Gletscherblicke.",
     "modal.title":"Aufenthaltsanfrage senden","modal.name":"Name","modal.namePh":"Ihr Name","modal.checkin":"Anreise","modal.checkout":"Abreise","modal.guestsPh":"Maximal 48 Schlafplätze","modal.season":"Saison","modal.notes":"Notizen","modal.notesPh":"Alter, Mobilität, Daten, gewünschte Aktivitäten, Bergführerbedarf…","modal.submit":"Anfrage senden","modal.sending":"Verfügbarkeit wird geprüft…","modal.sent":"Anfrage über den Buchungs-Worker gesendet.","modal.failed":"Die Anfrage konnte von dieser Seite nicht gesendet werden. Bitte erneut versuchen oder die Unterkunft direkt kontaktieren."
   };
 
   const ru = {
     "hero.kicker":"Впечатления вокруг Саас-Фе","hero.title":"Частная база для каждого сезона в Саас-Фе.","hero.lead":"От катания на леднике и зимних санок до летних маршрутов, сурков, горных озёр, верёвочных парков и спокойных альпийских дней — Саас-Фе подходит для разных групп. Fletschhorn даёт частную альпийскую базу над деревней, рядом с главными впечатлениями долины.","hero.note":"Лучшие цены гарантированы при прямом бронировании","hero.scroll":"Открыть регион",
     "filters.all":"Всё","filters.allText":"Показать всю долину вокруг дома.","filters.winter":"Зима","filters.winterText":"Лыжи, снег, санки, ледник, уютные паузы.","filters.summer":"Лето","filters.summerText":"Сурки, походы, самокаты, озёра, верёвочный парк.","filters.calm":"Спокойные дни","filters.calmText":"Велнес, прогулки по деревне, лёгкие тропы.","filters.house":"Дом и деревня","filters.family":"Семья","filters.adrenaline":"Адреналин","filters.trek":"Походы",
-    "form.guestsLabel":"Гости","form.guestsPlaceholder":"Семья, группа, ретрит…","form.datesLabel":"Даты","form.datesPlaceholder":"Зима, лето, точные даты…","form.contactLabel":"Контакт","form.contactPlaceholder":"Email или телефон","form.planBtn":"Отправить запрос",
+    "form.guestsLabel":"Гости","form.guestsPlaceholder":"Семья, группа, ретрит…","form.datesLabel":"Даты","form.datesPlaceholder":"Зима, лето, точные даты…","form.contactLabel":"Контакт","form.contactPlaceholder":"Email или телефон","form.planBtn":"Забронировать",
     "area.kicker":"Регион","area.title":"Горный регион для групп, семей, лыжников, туристов и спокойных дней.","area.lead":"Саас-Фе окружён восемнадцатью вершинами высотой 4 000 метров. Эта страница превращает регион в практичный инструмент для гостей: карта, затем фильтры активностей, маршрутов и ритмов дня.","area.howKicker":"Как работает страница","area.howTitle":"Выбирайте по сезону, настроению или уровню энергии.","area.howText":"Нажмите Зима, Лето, Спокойные дни, Семья, Походы или Адреналин. Карта, список мест, карточки и подсказки обновятся вместе.","area.proofWinter":"Лыжи, санки, ледник, снежные тропы, групповые впечатления.","area.proofSummer":"Сурки, походы, велосипед, верёвочный парк, ледник, горные озёра.","area.proofCalm":"Aqua Allalin, прогулки по деревне, семейные тропы, виды с подъёмников.","area.privateKicker":"Частная база, активная долина","area.privateTitle":"Дом спокойный; регион насыщенный.","area.privateText":"Пребывание не зависит от одной активности. Гости могут разделиться по возрасту, погоде, энергии или сезону, а затем вернуться в один частный дом.","area.safety":"Важно: горные условия быстро меняются. Маршруты, подъёмники, погоду и необходимость гида всегда следует проверять по официальной информации Saas-Fee/Saastal.",
     "photos.one":"Начать из частного дома","photos.two":"Двигаться по долине","photos.three":"Вернуться к тишине",
     "map.kicker":"Интерактивная карта","map.title":"Карта — инструмент ориентации на весь период проживания.","map.open":"Открыть карту","map.selected":"Выбранное место",
     "helper.all":"Показан весь регион: дом, деревня, подъёмники, ледник, велнес, семейные активности и большие горные дни.","helper.house":"Показаны дом и деревня: прибытие, центр, ближайший велнес и практичное перемещение.","helper.winter":"Зимние идеи: лыжные зоны, санки, ледник, Ice Pavilion и снежные варианты.","helper.summer":"Летние идеи: сурки, походы, самокаты, coaster, верёвочный парк, водохранилище и виды на ледник.","helper.family":"Семейные варианты: деревня, сурки Spielboden, Hannig, Feeblitz, Aqua Allalin и лёгкие маршруты.","helper.adrenaline":"Более активные идеи: Gorge Alpine, rope park, Feeblitz, санки, самокаты и сильные горные маршруты.","helper.trek":"Маршруты и походы: Längfluh, Almageller Adventure Trail, Mattmark, Gorge Alpine и доступ к высокогорью.","helper.calm":"Спокойные дни: база Fletschhorn, деревня, Aqua Allalin, Spielboden, Mattmark и мягкое горное время.",
     "activities.kicker":"Подбор активностей","activities.title":"Фильтруйте регион как concierge-доску.","activities.lead":"Одни и те же фильтры управляют картой и карточками. Гости выбирают день, не читая всю страницу.",
     "groups.kicker":"Семьи, группы и ретриты","groups.title":"Лёгкие активности для разных возрастов. Общие впечатления для групп.","groups.lead":"Семьи и группы разных поколений могут выбрать лёгкие прогулки, детские зоны, подъёмники, сурков, снежные игры, квесты и активности в деревне.","groups.familyKicker":"Для семей","groups.familyTitle":"Легко разделиться и снова собраться.","groups.familyText":"Кто-то может кататься на лыжах, а кто-то выбрать Aqua Allalin, деревню, смотровую точку или лёгкую лесную тропу. Преимущество Fletschhorn — частное место, куда все возвращаются.","groups.retreatKicker":"Для ретритов","groups.retreatTitle":"Движение и тишина в одной долине.","groups.retreatText":"Для ретритов, компаний и частных групп Saas-Fee даёт природную среду для активности и спокойствия: гиды, лыжи, командные задачи, велнес или медленные моменты в деревне и лесу.",
-    "cta.kicker":"Планирование проживания","cta.title":"Постройте ритм, который подходит вашей группе.","cta.text":"Одни группы приезжают ради лыж, другие — ради семьи, велнеса, походов, работы или частного события. Расскажите, когда вы приезжаете, кто будет с вами и какой опыт вы хотите.","cta.button":"Отправить запрос","cta.note":"Лучшие цены гарантированы при прямом бронировании","cta.seasonKicker":"Сезон за сезоном","cta.winter":"Лыжи, сноуборд, санки, ледник, квесты в деревне и велнес.","cta.summer":"Сурки, походы, горные озёра, верёвочный парк, самокаты, подъёмники и виды на ледник.",
+    "cta.kicker":"Планирование проживания","cta.title":"Постройте ритм, который подходит вашей группе.","cta.text":"Одни группы приезжают ради лыж, другие — ради семьи, велнеса, походов, работы или частного события. Расскажите, когда вы приезжаете, кто будет с вами и какой опыт вы хотите.","cta.button":"Забронировать","cta.note":"Лучшие цены гарантированы при прямом бронировании","cta.seasonKicker":"Сезон за сезоном","cta.winter":"Лыжи, сноуборд, санки, ледник, квесты в деревне и велнес.","cta.summer":"Сурки, походы, горные озёра, верёвочный парк, самокаты, подъёмники и виды на ледник.",
     "modal.title":"Отправить запрос на проживание","modal.name":"Имя","modal.namePh":"Ваше имя","modal.checkin":"Заезд","modal.checkout":"Выезд","modal.guestsPh":"До 48 спальных мест","modal.season":"Сезон","modal.notes":"Заметки","modal.notesPh":"Возраст, мобильность, даты, желаемые активности, нужен ли гид…","modal.submit":"Отправить запрос","modal.sending":"Проверяем доступность…","modal.sent":"Запрос отправлен через booking worker.","modal.failed":"Запрос не удалось отправить с этой страницы. Попробуйте ещё раз или свяжитесь с объектом напрямую."
   };
 
@@ -1283,7 +1322,7 @@ section:has(#fh-experiences) .sqs-block-code{
 
   const $ = (selector) => root.querySelector(selector);
   const $all = (selector) => Array.from(root.querySelectorAll(selector));
-  let currentLang = normalizeLang(localStorage.getItem('fhLang') || document.documentElement.lang || 'en');
+  let currentLang = normalizeLang(localStorage.getItem('fh_lang') || localStorage.getItem('fhLang') || document.documentElement.lang || 'en');
   let currentPlace = 'fletschhorn';
 
   function normalizeLang(value){
@@ -1300,6 +1339,7 @@ section:has(#fh-experiences) .sqs-block-code{
 
   function applyLanguage(lang){
     currentLang = normalizeLang(lang);
+    localStorage.setItem('fh_lang', currentLang);
     localStorage.setItem('fhLang', currentLang);
     root.setAttribute('data-current-lang', currentLang);
     document.documentElement.setAttribute('lang', currentLang);
@@ -1456,34 +1496,69 @@ section:has(#fh-experiences) .sqs-block-code{
     return { checkInDate: matches[0] || '', checkOutDate: matches[1] || '' };
   }
 
+  function validateBookingDates(checkIn, checkOut){
+    if(!checkIn || !checkOut) return 'Please select arrival and departure dates.';
+    const start = new Date(checkIn + 'T00:00:00');
+    const end = new Date(checkOut + 'T00:00:00');
+    const nights = Math.round((end - start) / 86400000);
+    if(!Number.isFinite(nights) || nights < 2) return 'Please select at least 2 nights.';
+    return '';
+  }
+
+  function goToBooking(payload){
+    const lang = normalizeLang(localStorage.getItem('fh_lang') || localStorage.getItem('fhLang') || currentLang || 'en');
+    const bookingPayload = {
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      email: payload.email,
+      checkIn: payload.checkIn,
+      checkOut: payload.checkOut,
+      listingId: '6968339ab7d735001ca015ba',
+      workerBase: 'https://guetsyapi.moshe-cohen-h1.workers.dev',
+      source: 'experiences',
+      lang,
+      createdAt: new Date().toISOString()
+    };
+    localStorage.setItem('fhBookingStart', JSON.stringify(bookingPayload));
+    const params = new URLSearchParams({
+      firstName: bookingPayload.firstName,
+      lastName: bookingPayload.lastName,
+      email: bookingPayload.email,
+      checkIn: bookingPayload.checkIn,
+      checkOut: bookingPayload.checkOut,
+      lang: bookingPayload.lang,
+      source: 'experiences'
+    });
+    window.location.href = 'booking.html?' + params.toString();
+  }
+
   if(quickForm){
     quickForm.addEventListener('submit', function(e){
       e.preventDefault();
-      const contact = $('#fh-exp-contact')?.value || '';
-      const guests = $('#fh-exp-guests')?.value || '';
-      const dates = $('#fh-exp-dates')?.value || '';
-      const parsed = parseDates(dates);
-
-      const modalContact = $('#fh-modal-contact');
-      const modalGuests = $('#fh-modal-guests');
-      const modalCheckin = $('#fh-modal-checkin');
-      const modalCheckout = $('#fh-modal-checkout');
-      const modalSeason = $('#fh-modal-season');
-      const modalNotes = $('#fh-modal-notes');
-      if(modalContact) modalContact.value = contact;
-      if(modalGuests) modalGuests.value = guests;
-      if(parsed.checkInDate && modalCheckin) modalCheckin.value = parsed.checkInDate;
-      if(parsed.checkOutDate && modalCheckout) modalCheckout.value = parsed.checkOutDate;
-      if(modalNotes && dates && !parsed.checkInDate) modalNotes.value = dates;
-      if(modalSeason && /summer|été|sommer|лет/i.test(dates)) modalSeason.value = 'Summer';
-      if(modalSeason && /winter|hiver|ski|snow|schnee|зим|снег/i.test(dates)) modalSeason.value = 'Winter';
-      openModal();
+      const payload = {
+        firstName: ($('#fh-exp-first-name')?.value || '').trim(),
+        lastName: ($('#fh-exp-last-name')?.value || '').trim(),
+        email: ($('#fh-exp-email')?.value || '').trim(),
+        checkIn: $('#fh-exp-checkin')?.value || '',
+        checkOut: $('#fh-exp-checkout')?.value || ''
+      };
+      const dateError = validateBookingDates(payload.checkIn, payload.checkOut);
+      if(!payload.firstName || !payload.lastName || !payload.email){
+        if(heroStatus) heroStatus.textContent = 'Please enter your first name, last name, and email.';
+        return;
+      }
+      if(dateError){
+        if(heroStatus) heroStatus.textContent = dateError;
+        return;
+      }
+      goToBooking(payload);
     });
   }
 
+
   $('.fh-cta-btn')?.addEventListener('click', function(e){
     e.preventDefault();
-    openModal();
+    window.location.href = 'booking.html?lang=' + encodeURIComponent(normalizeLang(localStorage.getItem('fh_lang') || currentLang || 'en')) + '&source=experiences';
   });
 
   if(modalClose) modalClose.addEventListener('click', closeModal);
