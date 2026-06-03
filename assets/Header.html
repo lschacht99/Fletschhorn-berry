@@ -4,86 +4,131 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
 Requires the header CSS in Design > Custom CSS.
 
 Updated:
-- Keeps existing design
-- Adds tiny always-visible booking CTA
-- Mobile hamburger opens smaller drawer, not full-page
-- Switches About Us and Booking order
+- Correct GitHub page links
+- Book now always visible in the header bar
+- Mobile hamburger opens a smaller right-side drawer
+- Background remains visible behind mobile menu
+- Booking and About switched in nav order
 ========================================================== -->
 
 <style>
-/* Small elegant always-visible booking button */
-.fh-floating-book{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:9999;
+/* ==========================================================
+Minimal behavior fixes only — keeps existing header design
+========================================================== */
+
+/* Keep Book Now visible inside the header, including mobile */
+.fh-header-book-now{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  padding:9px 14px;
+  min-height:34px;
+  padding:0 13px;
   border-radius:999px;
   background:rgba(31,58,47,.94);
-  color:#fffaf2;
-  border:1px solid rgba(255,250,242,.62);
-  box-shadow:0 12px 34px rgba(28,24,20,.18);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
+  color:#fffaf2 !important;
+  border:1px solid rgba(255,250,242,.45);
+  box-shadow:0 10px 26px rgba(31,58,47,.18);
   font-size:11px;
   font-weight:700;
   letter-spacing:.08em;
   text-transform:uppercase;
-  text-decoration:none;
-  line-height:1;
-  transition:transform .2s ease, background .2s ease;
+  text-decoration:none !important;
+  white-space:nowrap;
 }
 
-.fh-floating-book:hover{
-  transform:translateY(-2px);
-  background:rgba(47,81,65,.96);
+/* Desktop: keep the normal CTA in the nav */
+.fh-global-nav .fh-header-book-now{
+  margin-left:6px;
 }
 
-/* Override only the mobile opening size — keeps existing visual DNA */
-@media (max-width: 860px){
+/* Mobile: show Book Now in the bar next to hamburger */
+.fh-mobile-book-now{
+  display:none;
+}
+
+/* Force the hamburger menu to be a small side drawer, not full-screen */
+@media (max-width: 880px){
+  .fh-global-header{
+    gap:8px;
+  }
+
+  .fh-mobile-book-now{
+    display:inline-flex;
+    margin-left:auto;
+    min-height:32px;
+    padding:0 11px;
+    font-size:10px;
+    letter-spacing:.07em;
+  }
+
+  .fh-global-nav{
+    display:none !important;
+  }
+
+  .fh-mobile-toggle{
+    display:block !important;
+    flex:0 0 38px;
+  }
+
   .fh-mobile-menu{
-    position:fixed;
-    inset:0;
-    z-index:9997;
-    opacity:0;
-    pointer-events:none;
-    background:rgba(28,24,20,.12);
-    backdrop-filter:blur(3px);
-    -webkit-backdrop-filter:blur(3px);
-    transition:opacity .22s ease;
+    position:fixed !important;
+    inset:0 !important;
+    z-index:9997 !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+    background:rgba(28,24,20,.10) !important;
+    backdrop-filter:blur(2px) !important;
+    -webkit-backdrop-filter:blur(2px) !important;
+    transition:opacity .22s ease !important;
   }
 
   .fh-mobile-menu.is-open{
-    opacity:1;
-    pointer-events:auto;
+    opacity:1 !important;
+    pointer-events:auto !important;
   }
 
   .fh-mobile-panel{
-    position:absolute;
-    top:74px;
-    right:14px;
-    left:auto;
-    width:min(390px, calc(100vw - 28px));
-    max-height:calc(100vh - 98px);
-    overflow:auto;
-    transform:translateY(-8px) scale(.98);
-    opacity:0;
-    transition:transform .22s ease, opacity .22s ease;
+    position:absolute !important;
+    top:74px !important;
+    right:14px !important;
+    left:auto !important;
+    bottom:auto !important;
+    width:min(390px, calc(100vw - 28px)) !important;
+    height:auto !important;
+    min-height:0 !important;
+    max-height:calc(100vh - 98px) !important;
+    overflow:auto !important;
+    border-radius:24px !important;
+    transform:translateY(-8px) scale(.98) !important;
+    opacity:0 !important;
+    transition:transform .22s ease, opacity .22s ease !important;
   }
 
   .fh-mobile-menu.is-open .fh-mobile-panel{
-    transform:translateY(0) scale(1);
-    opacity:1;
+    transform:translateY(0) scale(1) !important;
+    opacity:1 !important;
   }
 
-  .fh-floating-book{
-    right:14px;
-    bottom:14px;
-    padding:8px 12px;
-    font-size:10px;
+  html.fh-nav-open,
+  html.fh-nav-open body{
+    overflow:auto !important;
+  }
+}
+
+@media (max-width: 420px){
+  .fh-mobile-book-now{
+    padding:0 9px;
+    font-size:9.5px;
+  }
+
+  .fh-brand-note{
+    display:none !important;
+  }
+
+  .fh-mobile-panel{
+    top:70px !important;
+    right:10px !important;
+    width:calc(100vw - 20px) !important;
   }
 }
 </style>
@@ -101,62 +146,73 @@ Updated:
 
   const HIDE_SQUARESPACE_NATIVE_HEADER_FOOTER = true;
 
+  /*
+    GitHub page base.
+    This fixes links so the toolbar/header follows:
+    https://lschacht99.github.io/Fletschhorn-berry/booking.html
+  */
+  const FH_SITE_BASE = "https://lschacht99.github.io/Fletschhorn-berry/";
+
+  function pageUrl(fileName){
+    return FH_SITE_BASE + fileName.replace(/^\/+/, "");
+  }
+
   const FH_PAGES = [
     {
       key:'home',
       label:'Home',
       short:'Home',
-      href:'/home',
+      href:pageUrl('index.html'),
       note:'Start with the house, setting, and inquiry.',
-      match:['/','/Home','/home']
+      match:['/','/index.html','/home','/Home']
     },
     {
       key:'property',
       label:'The Property',
       short:'Property',
-      href:'/the-property',
+      href:pageUrl('Property.html'),
       note:'The property, spaces, spa, amenities, dining and kitchen.',
-      match:['/the-property','/property','/spa-amenities','/dining-kitchen']
+      match:['/Property.html','/property.html','/the-property','/property','/spa-amenities','/dining-kitchen']
     },
     {
       key:'experiences',
       label:'Experiences',
       short:'Experiences',
-      href:'/experiences',
+      href:pageUrl('Experiences.html'),
       note:'What to do in Saas-Fee and around the property.',
-      match:['/experiences','/what-to-do','/area']
+      match:['/Experiences.html','/experiences.html','/experiences','/what-to-do','/area']
     },
     {
       key:'events',
       label:'Wedding & Events',
       short:'Events',
-      href:'/your-wedding-or-event',
+      href:pageUrl('Wedding-event.html'),
       note:'Weddings, private events, retreats, and celebrations.',
-      match:['/your-wedding-or-event','/wedding-and-events','/weddings-events','/weddings','/events']
+      match:['/Wedding-event.html','/wedding-event.html','/your-wedding-or-event','/wedding-and-events','/weddings-events','/weddings','/events']
     },
     {
       key:'location',
       label:'Location',
       short:'Location',
-      href:'/location',
+      href:pageUrl('Location.html'),
       note:'Where Fletschhorn is located.',
-      match:['/Location','/location','/where','/area']
+      match:['/Location.html','/location.html','/Location','/location','/where','/area']
     },
     {
       key:'about',
       label:'About Us',
       short:'About',
-      href:'/about-us',
+      href:pageUrl('About-us.html'),
       note:'Story, history, and the new private-house direction.',
-      match:['/about-us','/about']
+      match:['/About-us.html','/about-us.html','/about-us','/about']
     },
     {
       key:'booking',
       label:'Booking',
       short:'Booking',
-      href:'/booking',
+      href:pageUrl('booking.html'),
       note:'Send an inquiry and plan your stay or event.',
-      match:['/booking','/contact-booking','/contact']
+      match:['/booking.html','/Booking.html','/booking','/contact-booking','/contact']
     }
   ];
 
@@ -178,7 +234,7 @@ Updated:
       if(key.includes('property')) return 'property';
       if(key.includes('location')) return 'location';
       if(key.includes('about')) return 'about';
-      if(key.includes('home')) return 'home';
+      if(key.includes('home') || key.includes('index')) return 'home';
     }
 
     const ids = [
@@ -198,6 +254,7 @@ Updated:
     }
 
     const path = normalizePath(window.location.pathname).toLowerCase();
+
     const found = FH_PAGES.find(page =>
       page.match.some(match => normalizePath(match).toLowerCase() === path)
     );
@@ -212,11 +269,13 @@ Updated:
       </a>
     `).join('');
 
+    const bookingHref = pageUrl('booking.html');
+
     return `
       <header class="fh-global-header" id="fhGlobalHeader">
-        <a class="fh-global-brand" href="/Home" aria-label="Fletschhorn home">
+        <a class="fh-global-brand" href="${pageUrl('index.html')}" aria-label="Fletschhorn home">
           <span class="fh-global-mark">
-            <img src="/s/Saas-Fee-Logo.jpeg" alt="Fletschhorn" onerror="this.style.display='none'; this.parentElement.textContent='fh';" />
+            <img src="${FH_SITE_BASE}assets/Saas-Fee-Logo.jpeg" alt="Fletschhorn" onerror="this.style.display='none'; this.parentElement.textContent='fh';" />
           </span>
           <span>
             <span class="fh-brand-name">Fletschhorn</span>
@@ -226,8 +285,12 @@ Updated:
 
         <nav class="fh-global-nav" aria-label="Primary navigation">
           ${navLinks}
-          <a class="fh-global-cta" href="/booking">Book Now</a>
+          <a class="fh-global-cta fh-header-book-now" href="${bookingHref}">Book Now</a>
         </nav>
+
+        <a class="fh-header-book-now fh-mobile-book-now" href="${bookingHref}" aria-label="Book your stay">
+          Book Now
+        </a>
 
         <button class="fh-mobile-toggle" type="button" id="fhMobileToggle" aria-expanded="false" aria-controls="fhMobileMenu" aria-label="Open menu">
           <span></span>
@@ -258,20 +321,13 @@ Updated:
     `;
   }
 
-  function makeFloatingBook(){
-    return `
-      <a class="fh-floating-book" href="/booking" aria-label="Book your stay at Fletschhorn">
-        Book your stay
-      </a>
-    `;
-  }
-
   function init(){
     if(document.getElementById('fhGlobalHeader')) return;
 
     const activeKey = currentPageKey();
 
     document.body.classList.add('fh-global-shell');
+    document.body.classList.add('fh-github-version');
 
     if(HIDE_SQUARESPACE_NATIVE_HEADER_FOOTER){
       document.body.classList.add('fh-hide-sqs-shell');
@@ -279,10 +335,6 @@ Updated:
 
     document.body.insertAdjacentHTML('afterbegin', makeMobileMenu(activeKey));
     document.body.insertAdjacentHTML('afterbegin', makeHeader(activeKey));
-
-    if(!document.querySelector('.fh-floating-book')){
-      document.body.insertAdjacentHTML('beforeend', makeFloatingBook());
-    }
 
     const header = document.getElementById('fhGlobalHeader');
     const toggle = document.getElementById('fhMobileToggle');
