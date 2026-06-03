@@ -1662,20 +1662,6 @@ section:has(#fh-experiences) .sqs-block-code{
   #fh-experiences .fh-map-iframe,#fh-experiences iframe#fh-osm-map{min-height:315px!important}
 }
 </style>
-
-
-<style id="fh-mobile-final-polish-and-errors">
-#fh-experiences .fh-field.is-error{outline:2px solid rgba(154,75,63,.72);outline-offset:-2px;background:#fff6f1!important}
-#fh-experiences .fh-field.is-error label{color:#9a4b3f!important}
-#fh-experiences .fh-booking-error{display:none;margin:8px 0 0;padding:10px 12px;background:rgba(154,75,63,.10);border:1px solid rgba(154,75,63,.22);color:#7f332a;font-size:13px;line-height:1.35;font-weight:700;text-align:left}
-#fh-experiences .fh-booking-error.show{display:block}
-@media(max-width:760px){
-  #fh-header-slot{position:relative;z-index:1000}
-  #fh-header-slot .fh-header,#fh-header-slot header{font-size:14px}
-  #fh-header-slot a[href*="booking"],#fh-header-slot a[href="#booking"],#fh-header-slot a[href="#book"]{white-space:nowrap}
-  #fh-experiences .fh-booking-error{font-size:12.5px}
-}
-</style>
 <div id="fh-experiences" data-page="experiences">
   <div class="fh-topography" aria-hidden="true"></div>
   <div class="fh-shell">
@@ -1698,34 +1684,33 @@ section:has(#fh-experiences) .sqs-block-code{
         <form class="fh-booking preSlide" id="fh-exp-quick-form" style="--d:.34s">
           <div class="fh-booking-form" id="fhBookingFields">
             <div class="fh-field">
-              <label for="fh-exp-first-name" data-i18n="toolbar.firstName">First name</label>
-              <input id="fh-exp-first-name" name="firstName" type="text" placeholder="First name" data-i18n-placeholder="toolbar.firstNamePh" autocomplete="given-name" required>
+              <label for="fh-exp-first-name">First name</label>
+              <input id="fh-exp-first-name" name="firstName" type="text" placeholder="First name" autocomplete="given-name" required>
             </div>
 
             <div class="fh-field">
-              <label for="fh-exp-last-name" data-i18n="toolbar.lastName">Last name</label>
-              <input id="fh-exp-last-name" name="lastName" type="text" placeholder="Last name" data-i18n-placeholder="toolbar.lastNamePh" autocomplete="family-name" required>
+              <label for="fh-exp-last-name">Last name</label>
+              <input id="fh-exp-last-name" name="lastName" type="text" placeholder="Last name" autocomplete="family-name" required>
             </div>
 
             <div class="fh-field">
-              <label for="fh-exp-email" data-i18n="toolbar.email">Email</label>
-              <input id="fh-exp-email" name="email" type="email" placeholder="email@example.com" data-i18n-placeholder="toolbar.emailPh" autocomplete="email" required>
+              <label for="fh-exp-email">Email</label>
+              <input id="fh-exp-email" name="email" type="email" placeholder="email@example.com" autocomplete="email" required>
             </div>
 
             <div class="fh-field fh-date-field">
-              <label data-i18n="toolbar.dates">Dates</label>
+              <label>Dates</label>
               <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar">
-                <span id="fhToolbarDateText" data-i18n="toolbar.dateSelect">Select arrival and departure</span>
-                <strong data-i18n="toolbar.openCalendar">Open calendar</strong>
+                <span id="fhToolbarDateText">Select arrival and departure</span>
+                <strong>Open calendar</strong>
               </button>
               <input id="fh-exp-checkin" name="checkIn" type="hidden" required>
               <input id="fh-exp-checkout" name="checkOut" type="hidden" required>
             </div>
 
-            <button class="fh-submit" type="submit" id="fhBookNowBtn" data-i18n="toolbar.book">Book my stay now</button>
+            <button class="fh-submit" type="submit" id="fhBookNowBtn">Book my stay now</button>
           </div>
         </form>
-        <div class="fh-booking-error" id="fhBookingError" role="alert" aria-live="polite"></div>
         <p class="fh-hero-note preFade" id="fh-exp-status" style="--d:.40s" data-i18n="hero.note">Best rates are guaranteed when booking direct</p>
 
         <a href="#fh-area" class="fh-peek preFade" style="--d:.48s" aria-label="Scroll to the area map">
@@ -1949,7 +1934,7 @@ section:has(#fh-experiences) .sqs-block-code{
             <p class="fh-kicker" data-i18n="cta.kicker">Planning your stay</p>
             <h2 data-i18n="cta.title">Build the rhythm that fits your group.</h2>
             <p data-i18n="cta.text">Some groups come for skiing. Others come for family time, wellness, hiking, work sessions, or a private celebration. Tell us when you are coming, who is joining, and what kind of experience you want.</p>
-            <a class="fh-cta-btn" href="booking.html" data-i18n="cta.button">Book my stay now</a>
+            <a class="fh-cta-btn" href="booking.html">Book my stay now</a>
             <p class="fh-small-note" data-i18n="cta.note">Best rates are guaranteed when booking direct</p>
           </article>
           <aside class="fh-panel preSlide" style="--d:.10s">
@@ -1965,7 +1950,7 @@ section:has(#fh-experiences) .sqs-block-code{
       <div class="fh-modal-panel" role="dialog" aria-modal="true" aria-labelledby="fh-exp-modal-title">
         <div class="fh-modal-head">
           <h3 id="fh-exp-modal-title" data-i18n="modal.title">Request your private stay</h3>
-          <button class="fh-close" type="button" id="fh-exp-close" aria-label="Close" data-i18n-aria-label="modal.close">×</button>
+          <button class="fh-close" type="button" id="fh-exp-close" aria-label="Close">×</button>
         </div>
         <form class="fh-modal-body" id="fh-exp-modal-form">
           <div class="fh-modal-grid">
@@ -1974,7 +1959,7 @@ section:has(#fh-experiences) .sqs-block-code{
             <div class="fh-modal-field"><label for="fh-modal-checkin" data-i18n="modal.checkin">Check-in</label><input id="fh-modal-checkin" name="checkin" type="date" /></div>
             <div class="fh-modal-field"><label for="fh-modal-checkout" data-i18n="modal.checkout">Check-out</label><input id="fh-modal-checkout" name="checkout" type="date" /></div>
             <div class="fh-modal-field"><label for="fh-modal-guests" data-i18n="form.guestsLabel">Guests</label><input id="fh-modal-guests" name="guests" inputmode="numeric" placeholder="48 max sleeping places" data-i18n-placeholder="modal.guestsPh" /></div>
-            <div class="fh-modal-field"><label for="fh-modal-season" data-i18n="modal.season">Season</label><select id="fh-modal-season" name="season"><option value="Winter" data-i18n="modal.optionWinter">Winter</option><option value="Summer" data-i18n="modal.optionSummer">Summer</option><option value="Shoulder season" data-i18n="modal.optionShoulder">Shoulder season</option><option value="Not sure yet" data-i18n="modal.optionUnsure">Not sure yet</option></select></div>
+            <div class="fh-modal-field"><label for="fh-modal-season" data-i18n="modal.season">Season</label><select id="fh-modal-season" name="season"><option>Winter</option><option>Summer</option><option>Shoulder season</option><option>Not sure yet</option></select></div>
             <div class="fh-modal-field full"><label for="fh-modal-notes" data-i18n="modal.notes">Notes</label><textarea id="fh-modal-notes" name="notes" placeholder="Age range, mobility needs, dates, activities you like, guide needs…" data-i18n-placeholder="modal.notesPh"></textarea></div>
           </div>
           <button class="fh-submit" type="submit" data-i18n="modal.submit">Send request</button>
@@ -1984,22 +1969,22 @@ section:has(#fh-experiences) .sqs-block-code{
     </div>
 
     <div class="fh-calendar-modal" id="fhToolbarCalendarModal" aria-hidden="true">
-      <div class="fh-calendar-card" role="dialog" aria-modal="true" aria-label="Select dates" data-i18n-aria-label="calendar.aria">
+      <div class="fh-calendar-card" role="dialog" aria-modal="true" aria-label="Select dates">
         <div class="fh-calendar-head">
           <div>
-            <p class="fh-kicker" data-i18n="calendar.kicker">Select dates</p>
+            <p class="fh-kicker">Select dates</p>
             <h3 class="fh-calendar-title" id="fhToolbarCalendarTitle">Calendar</h3>
           </div>
           <div class="fh-calendar-nav">
-            <button type="button" id="fhToolbarPrevMonth" aria-label="Previous month" data-i18n-aria-label="calendar.prev">‹</button>
-            <button type="button" id="fhToolbarNextMonth" aria-label="Next month" data-i18n-aria-label="calendar.next">›</button>
-            <button type="button" id="fhToolbarCloseCalendar" aria-label="Close calendar" data-i18n-aria-label="calendar.close">×</button>
+            <button type="button" id="fhToolbarPrevMonth">‹</button>
+            <button type="button" id="fhToolbarNextMonth">›</button>
+            <button type="button" id="fhToolbarCloseCalendar">×</button>
           </div>
         </div>
-        <p class="fh-calendar-help" data-i18n="calendar.help">Choose your arrival date, then your departure date.</p>
-        <div class="fh-calendar-warning" id="fhToolbarCalendarWarning" data-i18n="calendar.minNights">Please select at least 2 nights.</div>
+        <p class="fh-calendar-help">Choose your arrival date, then your departure date.</p>
+        <div class="fh-calendar-warning" id="fhToolbarCalendarWarning">Please select at least 2 nights.</div>
         <div class="fh-weekdays">
-          <div class="fh-weekday" data-i18n="calendar.sun">Sun</div><div class="fh-weekday" data-i18n="calendar.mon">Mon</div><div class="fh-weekday" data-i18n="calendar.tue">Tue</div><div class="fh-weekday" data-i18n="calendar.wed">Wed</div><div class="fh-weekday" data-i18n="calendar.thu">Thu</div><div class="fh-weekday" data-i18n="calendar.fri">Fri</div><div class="fh-weekday" data-i18n="calendar.sat">Sat</div>
+          <div class="fh-weekday">Sun</div><div class="fh-weekday">Mon</div><div class="fh-weekday">Tue</div><div class="fh-weekday">Wed</div><div class="fh-weekday">Thu</div><div class="fh-weekday">Fri</div><div class="fh-weekday">Sat</div>
         </div>
         <div class="fh-calendar-grid" id="fhToolbarCalendarGrid"></div>
       </div>
@@ -2072,39 +2057,7 @@ section:has(#fh-experiences) .sqs-block-code{
       "groups.kicker":"Families, groups & retreats","groups.title":"Easy activities for mixed ages. Shared experiences for groups.","groups.lead":"Families and multi-generational groups can choose from gentle walks, playground areas, cable-car outings, marmot encounters, winter snow play, treasure hunts, and village-based activities.","groups.familyKicker":"For families","groups.familyTitle":"Separate and reconnect easily.","groups.familyText":"Some guests can ski while others choose Aqua Allalin, village walks, a cable-car viewpoint, or a gentler forest trail. The advantage of Fletschhorn is that the group has one private place to come back to.","groups.retreatKicker":"For retreats","groups.retreatTitle":"Activity and reflection in the same valley.","groups.retreatText":"For retreats, companies, and private groups, Saas-Fee offers a natural setting for both movement and calm: guided hikes, ski sessions, team challenges, wellness time, or slower moments in the village and forest.",
       "dayplans.kicker":"Ready-made rhythms","dayplans.title":"Simple day plans guests can understand in seconds.","dayplans.lead":"Use these sample rhythms to imagine a full day around the house, from slow family time to active mountain plans.","dayplans.softKicker":"Soft family day","dayplans.softTitle":"Village + marmots + pool","dayplans.soft1":"Start slow at the house.","dayplans.soft2":"Walk or take transport toward the village and lifts.","dayplans.soft3":"Visit Spielboden for marmots when in season.","dayplans.soft4":"End with Aqua Allalin or a calm village walk.","dayplans.activeKicker":"Active summer day","dayplans.activeTitle":"Hannig + themed trail + scooters","dayplans.active1":"Take the Hannig lift when operating.","dayplans.active2":"Use the Eddie trail or a scenic descent.","dayplans.active3":"Add mountaincarts or Trotti scooters for the group.","dayplans.active4":"Return to the house before evening.","dayplans.winterKicker":"Winter group day","dayplans.winterTitle":"Ski + sledging + warm reset","dayplans.winter1":"Morning skiing, snowboarding, or ski school.","dayplans.winter2":"Village break for mixed groups.","dayplans.winter3":"Night sledging if available and safe.","dayplans.winter4":"Return to the house as the private base.",
       "cta.kicker":"Planning your stay","cta.title":"Build the rhythm that fits your group.","cta.text":"Some groups come for skiing. Others come for family time, wellness, hiking, work sessions, or a private celebration. Tell us when you are coming, who is joining, and what kind of experience you want.","cta.button":"Book my stay now","cta.note":"Best rates are guaranteed when booking direct","cta.seasonKicker":"Season by season","cta.winter":"Skiing, snowboarding, sledging, glacier experiences, village treasure hunts, and wellness resets.","cta.summer":"Marmots, hiking, mountain lakes, rope park, scooters, cable cars, and glacier views.",
-      "modal.title":"Request your private stay","modal.name":"Name","modal.namePh":"Your name","modal.checkin":"Check-in","modal.checkout":"Check-out","modal.guestsPh":"48 max sleeping places","modal.season":"Season","modal.notes":"Notes","modal.notesPh":"Age range, mobility needs, dates, activities you like, guide needs…","modal.submit":"Send request","modal.sending":"Checking availability…","modal.sent":"Your request has been sent. We will follow up with the next details.","modal.failed":"The request could not be sent from this page. Please try again or contact the property directly.",
-      "toolbar.firstName":"First name",
-      "toolbar.firstNamePh":"First name",
-      "toolbar.lastName":"Last name",
-      "toolbar.lastNamePh":"Last name",
-      "toolbar.email":"Email",
-      "toolbar.emailPh":"email@example.com",
-      "toolbar.dates":"Dates",
-      "toolbar.dateSelect":"Select arrival and departure",
-      "toolbar.openCalendar":"Open calendar",
-      "toolbar.book":"Book my stay now",
-      "calendar.aria":"Select dates",
-      "calendar.kicker":"Select dates",
-      "calendar.help":"Choose your arrival date, then your departure date.",
-      "calendar.minNights":"Please select at least 2 nights.",
-      "calendar.prev":"Previous month",
-      "calendar.next":"Next month",
-      "calendar.close":"Close calendar",
-      "calendar.sun":"Sun",
-      "calendar.mon":"Mon",
-      "calendar.tue":"Tue",
-      "calendar.wed":"Wed",
-      "calendar.thu":"Thu",
-      "calendar.fri":"Fri",
-      "calendar.sat":"Sat",
-      "modal.close":"Close",
-      "modal.optionWinter":"Winter",
-      "modal.optionSummer":"Summer",
-      "modal.optionShoulder":"Shoulder season",
-      "modal.optionUnsure":"Not sure yet",
-      "error.contactRequired":"Please enter your first name, last name, and email.",
-      "error.datesRequired":"Please select arrival and departure dates.",
-      "error.minNights":"Please select at least 2 nights."
+      "modal.title":"Request your private stay","modal.name":"Name","modal.namePh":"Your name","modal.checkin":"Check-in","modal.checkout":"Check-out","modal.guestsPh":"48 max sleeping places","modal.season":"Season","modal.notes":"Notes","modal.notesPh":"Age range, mobility needs, dates, activities you like, guide needs…","modal.submit":"Send request","modal.sending":"Checking availability…","modal.sent":"Your request has been sent. We will follow up with the next details.","modal.failed":"The request could not be sent from this page. Please try again or contact the property directly."
     }
   };
 
@@ -2119,39 +2072,7 @@ section:has(#fh-experiences) .sqs-block-code{
     "activities.kicker":"Activités","activities.title":"Choisir les expériences par saison, rythme et énergie.","activities.lead":"Les mêmes filtres relient la carte et les cartes d’activités, afin que les invités puissent choisir rapidement le type de journée qui leur convient.",
     "groups.kicker":"Familles, groupes & retraites","groups.title":"Des activités simples pour les âges mixtes. Des expériences partagées pour les groupes.","groups.lead":"Les familles et groupes multigénérationnels peuvent choisir entre promenades douces, aires de jeux, remontées, marmottes, neige, chasses au trésor et activités au village.","groups.familyKicker":"Pour les familles","groups.familyTitle":"Se séparer et se retrouver facilement.","groups.familyText":"Certains invités peuvent skier pendant que d’autres choisissent Aqua Allalin, le village, un point de vue ou un sentier plus doux. L’avantage de Fletschhorn est d’avoir un lieu privé où tout le groupe revient.","groups.retreatKicker":"Pour les retraites","groups.retreatTitle":"Activité et calme dans la même vallée.","groups.retreatText":"Pour retraites, entreprises et groupes privés, Saas-Fee offre un cadre naturel pour bouger et ralentir : randonnées guidées, ski, défis d’équipe, bien-être ou moments plus calmes au village et en forêt.",
     "cta.kicker":"Planifier le séjour","cta.title":"Construire le rythme qui correspond à votre groupe.","cta.text":"Certains groupes viennent pour skier. D’autres pour la famille, le bien-être, la randonnée, le travail ou une célébration privée. Dites-nous quand vous venez, qui participe et quel type d’expérience vous recherchez.","cta.button":"Réserver mon séjour","cta.note":"Meilleurs tarifs garantis en réservation directe","cta.seasonKicker":"Saison par saison","cta.winter":"Ski, snowboard, luge, glacier, chasse au trésor au village et moments bien-être.","cta.summer":"Marmottes, randonnée, lacs de montagne, accrobranche, trottinettes, remontées et vues glacier.",
-    "modal.title":"Envoyer une demande de séjour","modal.name":"Nom","modal.namePh":"Votre nom","modal.checkin":"Arrivée","modal.checkout":"Départ","modal.guestsPh":"48 couchages maximum","modal.season":"Saison","modal.notes":"Notes","modal.notesPh":"Âges, mobilité, dates, activités souhaitées, besoin de guide…","modal.submit":"Envoyer la demande","modal.sending":"Vérification des disponibilités…","modal.sent":"Votre demande a été envoyée. Nous reviendrons vers vous avec les prochaines informations.","modal.failed":"La demande n’a pas pu être envoyée depuis cette page. Veuillez réessayer ou contacter directement la propriété.",
-      "toolbar.firstName":"Prénom",
-      "toolbar.firstNamePh":"Prénom",
-      "toolbar.lastName":"Nom",
-      "toolbar.lastNamePh":"Nom",
-      "toolbar.email":"Email",
-      "toolbar.emailPh":"email@exemple.com",
-      "toolbar.dates":"Dates",
-      "toolbar.dateSelect":"Sélectionner arrivée et départ",
-      "toolbar.openCalendar":"Ouvrir le calendrier",
-      "toolbar.book":"Réserver mon séjour",
-      "calendar.aria":"Sélectionner les dates",
-      "calendar.kicker":"Sélectionner les dates",
-      "calendar.help":"Choisissez votre date d’arrivée, puis votre date de départ.",
-      "calendar.minNights":"Veuillez sélectionner au moins 2 nuits.",
-      "calendar.prev":"Mois précédent",
-      "calendar.next":"Mois suivant",
-      "calendar.close":"Fermer le calendrier",
-      "calendar.sun":"Dim",
-      "calendar.mon":"Lun",
-      "calendar.tue":"Mar",
-      "calendar.wed":"Mer",
-      "calendar.thu":"Jeu",
-      "calendar.fri":"Ven",
-      "calendar.sat":"Sam",
-      "modal.close":"Fermer",
-      "modal.optionWinter":"Hiver",
-      "modal.optionSummer":"Été",
-      "modal.optionShoulder":"Mi-saison",
-      "modal.optionUnsure":"Pas encore sûr",
-      "error.contactRequired":"Veuillez entrer votre prénom, votre nom et votre email.",
-      "error.datesRequired":"Veuillez sélectionner les dates d’arrivée et de départ.",
-      "error.minNights":"Veuillez sélectionner au moins 2 nuits."
+    "modal.title":"Envoyer une demande de séjour","modal.name":"Nom","modal.namePh":"Votre nom","modal.checkin":"Arrivée","modal.checkout":"Départ","modal.guestsPh":"48 couchages maximum","modal.season":"Saison","modal.notes":"Notes","modal.notesPh":"Âges, mobilité, dates, activités souhaitées, besoin de guide…","modal.submit":"Envoyer la demande","modal.sending":"Vérification des disponibilités…","modal.sent":"Votre demande a été envoyée. Nous reviendrons vers vous avec les prochaines informations.","modal.failed":"La demande n’a pas pu être envoyée depuis cette page. Veuillez réessayer ou contacter directement la propriété."
   };
 
   const de = {
@@ -2179,39 +2100,7 @@ section:has(#fh-experiences) .sqs-block-code{
     "activities.kicker":"Подбор активностей","activities.title":"Выбирайте впечатления по сезону, темпу и уровню энергии.","activities.lead":"Одни и те же фильтры связывают карту и карточки активностей, чтобы гостям было легко выбрать подходящий день.",
     "groups.kicker":"Семьи, группы и ретриты","groups.title":"Лёгкие активности для разных возрастов. Общие впечатления для групп.","groups.lead":"Семьи и группы разных поколений могут выбрать лёгкие прогулки, детские зоны, подъёмники, сурков, снежные игры, квесты и активности в деревне.","groups.familyKicker":"Для семей","groups.familyTitle":"Легко разделиться и снова собраться.","groups.familyText":"Кто-то может кататься на лыжах, а кто-то выбрать Aqua Allalin, деревню, смотровую точку или лёгкую лесную тропу. Преимущество Fletschhorn — частное место, куда все возвращаются.","groups.retreatKicker":"Для ретритов","groups.retreatTitle":"Движение и тишина в одной долине.","groups.retreatText":"Для ретритов, компаний и частных групп Saas-Fee даёт природную среду для активности и спокойствия: гиды, лыжи, командные задачи, велнес или медленные моменты в деревне и лесу.",
     "cta.kicker":"Планирование проживания","cta.title":"Постройте ритм, который подходит вашей группе.","cta.text":"Одни группы приезжают ради лыж, другие — ради семьи, велнеса, походов, работы или частного события. Расскажите, когда вы приезжаете, кто будет с вами и какой опыт вы хотите.","cta.button":"Забронировать","cta.note":"Лучшие цены гарантированы при бронировании напрямую","cta.seasonKicker":"Сезон за сезоном","cta.winter":"Лыжи, сноуборд, санки, ледник, квесты в деревне и велнес.","cta.summer":"Сурки, походы, горные озёра, верёвочный парк, самокаты, подъёмники и виды на ледник.",
-    "modal.title":"Отправить запрос на проживание","modal.name":"Имя","modal.namePh":"Ваше имя","modal.checkin":"Заезд","modal.checkout":"Выезд","modal.guestsPh":"До 48 спальных мест","modal.season":"Сезон","modal.notes":"Заметки","modal.notesPh":"Возраст, мобильность, даты, желаемые активности, нужен ли гид…","modal.submit":"Отправить запрос","modal.sending":"Проверяем доступность…","modal.sent":"Ваш запрос отправлен. Мы свяжемся с вами со следующими деталями.","modal.failed":"Запрос не удалось отправить с этой страницы. Попробуйте ещё раз или свяжитесь с объектом напрямую.",
-      "toolbar.firstName":"Имя",
-      "toolbar.firstNamePh":"Имя",
-      "toolbar.lastName":"Фамилия",
-      "toolbar.lastNamePh":"Фамилия",
-      "toolbar.email":"Email",
-      "toolbar.emailPh":"email@example.com",
-      "toolbar.dates":"Даты",
-      "toolbar.dateSelect":"Выберите заезд и выезд",
-      "toolbar.openCalendar":"Открыть календарь",
-      "toolbar.book":"Забронировать",
-      "calendar.aria":"Выбрать даты",
-      "calendar.kicker":"Выбрать даты",
-      "calendar.help":"Выберите дату заезда, затем дату выезда.",
-      "calendar.minNights":"Пожалуйста, выберите минимум 2 ночи.",
-      "calendar.prev":"Предыдущий месяц",
-      "calendar.next":"Следующий месяц",
-      "calendar.close":"Закрыть календарь",
-      "calendar.sun":"Вс",
-      "calendar.mon":"Пн",
-      "calendar.tue":"Вт",
-      "calendar.wed":"Ср",
-      "calendar.thu":"Чт",
-      "calendar.fri":"Пт",
-      "calendar.sat":"Сб",
-      "modal.close":"Закрыть",
-      "modal.optionWinter":"Зима",
-      "modal.optionSummer":"Лето",
-      "modal.optionShoulder":"Межсезонье",
-      "modal.optionUnsure":"Пока не уверен(а)",
-      "error.contactRequired":"Пожалуйста, введите имя, фамилию и email.",
-      "error.datesRequired":"Пожалуйста, выберите даты заезда и выезда.",
-      "error.minNights":"Пожалуйста, выберите минимум 2 ночи."
+    "modal.title":"Отправить запрос на проживание","modal.name":"Имя","modal.namePh":"Ваше имя","modal.checkin":"Заезд","modal.checkout":"Выезд","modal.guestsPh":"До 48 спальных мест","modal.season":"Сезон","modal.notes":"Заметки","modal.notesPh":"Возраст, мобильность, даты, желаемые активности, нужен ли гид…","modal.submit":"Отправить запрос","modal.sending":"Проверяем доступность…","modal.sent":"Ваш запрос отправлен. Мы свяжемся с вами со следующими деталями.","modal.failed":"Запрос не удалось отправить с этой страницы. Попробуйте ещё раз или свяжитесь с объектом напрямую."
   };
 
   i18n.fr = {...i18n.en, ...fr};
@@ -2258,11 +2147,9 @@ section:has(#fh-experiences) .sqs-block-code{
     document.documentElement.setAttribute('lang', currentLang);
     $all('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     $all('[data-i18n-placeholder]').forEach(el => { el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder)); });
-    $all('[data-i18n-aria-label]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel)); });
     const helper = $('#fh-map-helper');
     if(helper) helper.textContent = t('helper.' + (helper.dataset.helperKey || 'all'));
     selectPlace(currentPlace, false, true);
-    window.dispatchEvent(new CustomEvent('fh:lang-applied', { detail:{ lang: currentLang } }));
   }
 
   function watchGlobalLanguageSwitcher(){
@@ -2420,9 +2307,6 @@ section:has(#fh-experiences) .sqs-block-code{
   }
 
   syncToolbarDateRules();
-  ['#fh-exp-first-name','#fh-exp-last-name','#fh-exp-email'].forEach(sel => { const el = $(sel); if(el) el.addEventListener('input', clearBookingErrors); });
-  const dateButtonForErrors = $('#fhOpenToolbarCalendar');
-  if(dateButtonForErrors) dateButtonForErrors.addEventListener('click', clearBookingErrors);
 
   function openModal(){
     if(!modal) return;
@@ -2442,30 +2326,12 @@ section:has(#fh-experiences) .sqs-block-code{
   }
 
   function validateBookingDates(checkIn, checkOut){
-    if(!checkIn || !checkOut) return t('error.datesRequired');
+    if(!checkIn || !checkOut) return 'Please select arrival and departure dates.';
     const start = new Date(checkIn + 'T00:00:00');
     const end = new Date(checkOut + 'T00:00:00');
     const nights = Math.round((end - start) / 86400000);
-    if(!Number.isFinite(nights) || nights < 2) return t('error.minNights');
+    if(!Number.isFinite(nights) || nights < 2) return 'Please select at least 2 nights';
     return '';
-  }
-
-  function clearBookingErrors(){
-    $all('.fh-field.is-error').forEach(el => el.classList.remove('is-error'));
-    const box = $('#fhBookingError');
-    if(box){ box.classList.remove('show'); box.textContent = ''; }
-  }
-
-  function markFieldError(selector){
-    const el = $(selector);
-    const field = el ? el.closest('.fh-field') : null;
-    if(field) field.classList.add('is-error');
-  }
-
-  function showBookingError(message){
-    const box = $('#fhBookingError');
-    if(box){ box.textContent = message; box.classList.add('show'); }
-    if(heroStatus) heroStatus.textContent = message;
   }
 
   function goToBooking(payload){
@@ -2506,18 +2372,12 @@ section:has(#fh-experiences) .sqs-block-code{
         checkOut: $('#fh-exp-checkout')?.value || ''
       };
       const dateError = validateBookingDates(payload.checkIn, payload.checkOut);
-      clearBookingErrors();
-      let hasError = false;
-      if(!payload.firstName){ markFieldError('#fh-exp-first-name'); hasError = true; }
-      if(!payload.lastName){ markFieldError('#fh-exp-last-name'); hasError = true; }
-      if(!payload.email){ markFieldError('#fh-exp-email'); hasError = true; }
-      if(hasError){
-        showBookingError(t('error.contactRequired'));
+      if(!payload.firstName || !payload.lastName || !payload.email){
+        if(heroStatus) heroStatus.textContent = 'Please enter your first name, last name, and email.';
         return;
       }
       if(dateError){
-        markFieldError('#fhOpenToolbarCalendar');
-        showBookingError(dateError);
+        if(heroStatus) heroStatus.textContent = dateError;
         return;
       }
       goToBooking(payload);
@@ -2637,18 +2497,6 @@ section:has(#fh-experiences) .sqs-block-code{
     currency:"CHF"
   };
 
-  const CAL = {
-    en:{dateSelect:"Select arrival and departure",departure:"Select departure",minNights:"Please select at least 2 nights.",rangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",booked:"Booked",nightly:"Nightly"},
-    fr:{dateSelect:"Sélectionner arrivée et départ",departure:"Sélectionner le départ",minNights:"Veuillez sélectionner au moins 2 nuits.",rangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles. Choisissez une autre période.",booked:"Réservé",nightly:"Par nuit"},
-    de:{dateSelect:"Anreise und Abreise wählen",departure:"Abreise wählen",minNights:"Bitte wählen Sie mindestens 2 Nächte.",rangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar. Bitte wählen Sie einen anderen Zeitraum.",booked:"Belegt",nightly:"Pro Nacht"},
-    ru:{dateSelect:"Выберите заезд и выезд",departure:"Выберите выезд",minNights:"Пожалуйста, выберите минимум 2 ночи.",rangeUnavailable:"Одна или несколько выбранных ночей недоступны. Выберите другой период.",booked:"Занято",nightly:"За ночь"}
-  };
-
-  function calT(key){
-    const lang = String(getLang() || 'en').toLowerCase().slice(0,2);
-    return (CAL[lang] && CAL[lang][key]) || CAL.en[key] || key;
-  }
-
   const state = {
     currentMonth:new Date(),
     dayMap:{},
@@ -2694,15 +2542,15 @@ section:has(#fh-experiences) .sqs-block-code{
       const fmt = new Intl.DateTimeFormat(getLang(), { month:"short", day:"numeric", year:"numeric" });
       text.textContent = fmt.format(a) + " → " + fmt.format(b);
     }else if(state.checkIn){
-      text.textContent = state.checkIn + " → " + calT("departure");
+      text.textContent = state.checkIn + " → Select departure";
     }else{
-      text.textContent = calT("dateSelect");
+      text.textContent = "Select arrival and departure";
     }
   }
   function showWarning(message){
     const warning = $("#fhToolbarCalendarWarning");
     if(!warning) return;
-    warning.textContent = message || calT("minNights");
+    warning.textContent = message || "Please select at least 2 nights.";
     warning.classList.add("show");
   }
   function hideWarning(){
@@ -2790,7 +2638,7 @@ section:has(#fh-experiences) .sqs-block-code{
       const price = info.price || info.nightlyPrice || info.rate || info.basePrice;
       btn.innerHTML = '<span class="fh-day-number">'+day+'</span>' +
         '<span class="fh-day-price">'+(money(price) || '&nbsp;')+'</span>' +
-        '<span class="fh-day-status">'+(past ? '' : unavailable ? calT('booked') : (price ? calT('nightly') : ''))+'</span>';
+        '<span class="fh-day-status">'+(past ? '' : unavailable ? 'Booked' : (price ? 'Nightly' : ''))+'</span>';
       btn.disabled = past || unavailable;
       btn.addEventListener("click", function(){ chooseDate(dateString); });
       grid.appendChild(btn);
@@ -2808,12 +2656,12 @@ section:has(#fh-experiences) .sqs-block-code{
     }
     const nights = nightsBetween(state.checkIn, dateString);
     if(nights < CFG.minNights){
-      showWarning(calT("minNights"));
+      showWarning("Please select at least 2 nights.");
       renderCalendar();
       return;
     }
     if(rangeUnavailable(state.checkIn, dateString)){
-      showWarning(calT("rangeUnavailable"));
+      showWarning("One or more selected nights is unavailable. Please choose another range.");
       state.checkIn = dateString;
       state.checkOut = "";
       setHiddenDates();
@@ -2872,47 +2720,72 @@ section:has(#fh-experiences) .sqs-block-code{
   if(nextBtn) nextBtn.addEventListener("click", function(){ state.currentMonth.setMonth(state.currentMonth.getMonth()+1); loadMonth(); });
   if(modal) modal.addEventListener("click", function(event){ if(event.target === modal) closeCalendar(); });
   document.addEventListener("keydown", function(event){ if(event.key === "Escape") closeCalendar(); });
-  window.addEventListener("fh:lang-applied", function(){ updateDateText(); renderCalendar(); });
 
   initFromStorage();
   renderCalendar();
 })();
 </script>
-<!-- Fletschhorn Experiences — mobile behavior patch
-     Paste this near the end of the page, after the existing Experiences code/scripts. -->
-<style id="fh-location-mobile-behavior-applied-to-experiences">
-#fh-experiences{--fh-mobile-edge:15px;--fh-mobile-card:rgba(255,250,243,.94);overflow-x:hidden!important}
-#fh-experiences *{min-width:0}
+<style id="fh-experiences-mobile-behavior-final-working">
+/* FINAL WORKING MOBILE BEHAVIOR — Experiences page
+   Kept scoped to #fh-experiences. Preserves header/footer loading, fh_lang, fhBookingStart,
+   Guesty worker endpoints, filters, and booking.html handoff. */
+#fh-experiences{
+  --fh-phone-pad:15px;
+  --fh-phone-card:rgba(255,250,243,.94);
+  --fh-touch-target:46px;
+}
+#fh-experiences *{min-width:0!important}
+#fh-experiences .fh-container{width:min(1180px,100%)!important;margin-inline:auto!important}
+#fh-experiences .fh-booking-error{display:none;margin:8px 0 0;padding:10px 12px;background:rgba(154,75,63,.11);border:1px solid rgba(154,75,63,.24);color:#783228;font-size:13px;line-height:1.35;font-weight:780;text-align:left}
+#fh-experiences .fh-booking-error.show{display:block}
+#fh-experiences .fh-field.is-error{outline:2px solid rgba(154,75,63,.78)!important;outline-offset:-2px!important;background:#fff6f1!important}
+#fh-experiences .fh-field.is-error label{color:#9a4b3f!important}
+#fh-experiences .fh-field.is-error input::placeholder{color:rgba(154,75,63,.62)!important}
+
+/* Desktop/tablet polish from learned Location behavior */
+@media(min-width:761px){
+  #fh-experiences .fh-hero{min-height:min(820px,88svh)!important}
+  #fh-experiences .fh-hero-inner{padding-top:124px!important;padding-bottom:38px!important}
+  #fh-experiences h1{font-size:clamp(48px,7.2vw,92px)!important;max-width:920px!important}
+  #fh-experiences .fh-section{padding-block:64px!important}
+  #fh-experiences .fh-activity-grid,#fh-experiences .fh-route-grid,#fh-experiences .fh-itinerary-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
+}
+@media(max-width:1120px) and (min-width:761px){
+  #fh-experiences .fh-booking-form{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  #fh-experiences .fh-field:nth-child(1),#fh-experiences .fh-field:nth-child(2),#fh-experiences .fh-field:nth-child(3){grid-column:auto!important}
+  #fh-experiences .fh-field:nth-child(4){grid-column:span 2!important}
+  #fh-experiences #fhBookNowBtn.fh-submit{grid-column:span 1!important}
+}
 
 @media(max-width:760px){
   html,body{overflow-x:hidden!important}
-  #fh-experiences{background:linear-gradient(180deg,#f7f1e8 0%,#eee4d9 100%)!important}
-  #fh-experiences .fh-topography{position:absolute!important;height:720px!important;opacity:.08!important;animation:none!important;background-size:auto 100%!important}
+  #fh-experiences{overflow-x:hidden!important;background:linear-gradient(180deg,#f7f1e8 0%,#eee4d9 100%)!important}
+  #fh-experiences .fh-topography{position:absolute!important;height:720px!important;opacity:.075!important;animation:none!important;background-size:auto 100%!important}
 
-  /* Compact, true mobile hero */
+  /* Hero: not a shrunken desktop */
   #fh-experiences .fh-hero{display:block!important;min-height:0!important;height:auto!important;background:#211d19!important;overflow:hidden!important}
-  #fh-experiences .fh-hero-media{position:absolute!important;inset:0!important;height:100%!important;min-height:640px!important}
+  #fh-experiences .fh-hero-media{position:absolute!important;inset:0!important;height:100%!important;min-height:620px!important}
   #fh-experiences .fh-hero-slide{background-position:center top!important;transform:none!important}
   #fh-experiences .fh-hero-media::after{background:linear-gradient(180deg,rgba(18,16,14,.58),rgba(18,16,14,.42) 36%,rgba(18,16,14,.74) 100%)!important}
   #fh-experiences .fh-hero-media::before{height:56px!important;background:linear-gradient(180deg,transparent,var(--fh-bg))!important}
-  #fh-experiences .fh-hero-inner{width:100%!important;max-width:none!important;padding:86px var(--fh-mobile-edge) 22px!important;text-align:left!important}
+  #fh-experiences .fh-hero-inner{width:100%!important;max-width:none!important;padding:86px var(--fh-phone-pad) 22px!important;text-align:left!important}
   #fh-experiences .fh-hero .fh-kicker{font-size:9px!important;letter-spacing:.15em!important;margin-bottom:8px!important;color:rgba(255,250,243,.78)!important}
   #fh-experiences h1{max-width:11ch!important;margin:0 0 10px!important;font-size:clamp(38px,12vw,52px)!important;line-height:.93!important;letter-spacing:-.058em!important}
   #fh-experiences .fh-hero-lead{max-width:100%!important;margin:0 0 13px!important;font-size:14px!important;line-height:1.45!important;color:rgba(255,250,243,.86)!important}
   #fh-experiences .fh-peek{display:none!important}
 
-  /* Season selector becomes horizontal cards */
-  #fh-experiences .fh-season-jump{display:flex!important;width:calc(100% + var(--fh-mobile-edge))!important;margin:0 0 10px!important;gap:8px!important;overflow-x:auto!important;overflow-y:hidden!important;padding:0 var(--fh-mobile-edge) 4px 0!important;scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important}
+  /* Mobile season choice carousel */
+  #fh-experiences .fh-season-jump{display:flex!important;width:calc(100% + var(--fh-phone-pad))!important;margin:0 0 10px!important;gap:8px!important;overflow-x:auto!important;overflow-y:hidden!important;padding:0 var(--fh-phone-pad) 4px 0!important;scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important}
   #fh-experiences .fh-season-jump::-webkit-scrollbar{display:none!important}
-  #fh-experiences .fh-season-choice{flex:0 0 74%!important;scroll-snap-align:start!important;padding:12px!important;min-height:76px!important;background:rgba(255,250,243,.14)!important;border:1px solid rgba(255,250,243,.26)!important;color:var(--fh-paper)!important;backdrop-filter:blur(10px)!important}
+  #fh-experiences .fh-season-choice{flex:0 0 74%!important;scroll-snap-align:start!important;padding:12px!important;min-height:76px!important;background:rgba(255,250,243,.14)!important;border-color:rgba(255,250,243,.26)!important;color:var(--fh-paper)!important;backdrop-filter:blur(10px)!important;transform:none!important}
   #fh-experiences .fh-season-choice.is-active{background:rgba(255,250,243,.94)!important;color:var(--fh-ink)!important}
   #fh-experiences .fh-season-choice b{font-size:23px!important;margin-bottom:4px!important;line-height:1!important}
   #fh-experiences .fh-season-choice span{font-size:11.5px!important;line-height:1.28!important}
 
-  /* Booking toolbar: first/last side by side, email/dates/button full width */
+  /* Booking toolbar: first/last side by side, rest full width */
   #fh-experiences .fh-booking{width:100%!important;margin:0!important;padding:6px!important;background:rgba(255,250,243,.16)!important;border:1px solid rgba(255,250,243,.24)!important}
   #fh-experiences .fh-booking-form{display:grid!important;grid-template-columns:1fr 1fr!important;background:var(--fh-paper)!important;box-shadow:0 18px 48px rgba(18,16,14,.18)!important}
-  #fh-experiences .fh-field{grid-column:auto!important;padding:10px!important;border-right:1px solid var(--fh-line)!important;border-bottom:1px solid var(--fh-line)!important;background:rgba(255,250,243,.98)!important}
+  #fh-experiences .fh-field{grid-column:auto!important;padding:10px 10px!important;border-right:1px solid var(--fh-line)!important;border-bottom:1px solid var(--fh-line)!important;background:rgba(255,250,243,.98)!important}
   #fh-experiences .fh-field:nth-child(2){border-right:0!important}
   #fh-experiences .fh-field:nth-child(3),#fh-experiences .fh-field:nth-child(4),#fh-experiences #fhBookNowBtn.fh-submit{grid-column:1/-1!important;border-right:0!important}
   #fh-experiences .fh-field label{margin-bottom:4px!important;font-size:8.8px!important;letter-spacing:.13em!important}
@@ -2921,9 +2794,10 @@ section:has(#fh-experiences) .sqs-block-code{
   #fh-experiences .fh-date-button strong{font-size:9px!important;letter-spacing:.10em!important}
   #fh-experiences #fhBookNowBtn.fh-submit{min-height:50px!important;width:100%!important;font-size:10px!important;letter-spacing:.13em!important}
   #fh-experiences .fh-hero-note{margin:9px 0 0!important;font-size:12px!important;text-align:center!important;color:rgba(255,250,243,.76)!important}
+  #fh-experiences .fh-booking-error{font-size:12.5px!important}
 
-  /* Shorter rhythm and readable mobile type */
-  #fh-experiences .fh-section{padding:34px var(--fh-mobile-edge)!important}
+  /* Sections */
+  #fh-experiences .fh-section{padding:34px var(--fh-phone-pad)!important}
   #fh-experiences .fh-section-head{display:block!important;margin-bottom:14px!important}
   #fh-experiences h2{font-size:clamp(31px,9.7vw,43px)!important;line-height:.98!important;letter-spacing:-.05em!important;margin-bottom:10px!important}
   #fh-experiences h3{font-size:clamp(25px,7.8vw,32px)!important;line-height:1!important;letter-spacing:-.045em!important}
@@ -2933,58 +2807,75 @@ section:has(#fh-experiences) .sqs-block-code{
   #fh-experiences .fh-intro-grid{display:block!important}
   #fh-experiences .fh-intro-grid .fh-panel + .fh-panel{margin-top:10px!important}
 
-  /* Convert big mobile stacks into swipeable horizontal strips */
-  #fh-experiences .fh-photo-strip,
-  #fh-experiences .fh-activity-grid,
-  #fh-experiences .fh-route-grid,
-  #fh-experiences .fh-itinerary-grid,
-  #fh-experiences .fh-map-sidebar{display:flex!important;grid-template-columns:none!important;gap:10px!important;width:calc(100% + var(--fh-mobile-edge))!important;margin-right:calc(-1 * var(--fh-mobile-edge))!important;overflow-x:auto!important;overflow-y:hidden!important;padding:0 var(--fh-mobile-edge) 6px 0!important;scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important}
+  /* Carousels to reduce vertical scroll */
+  #fh-experiences .fh-photo-strip,#fh-experiences .fh-activity-grid,#fh-experiences .fh-route-grid,#fh-experiences .fh-itinerary-grid,#fh-experiences .fh-map-sidebar{display:flex!important;grid-template-columns:none!important;gap:10px!important;width:calc(100% + var(--fh-phone-pad))!important;margin-right:calc(-1 * var(--fh-phone-pad))!important;overflow-x:auto!important;overflow-y:hidden!important;padding:0 var(--fh-phone-pad) 6px 0!important;scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important}
   #fh-experiences .fh-photo-strip::-webkit-scrollbar,#fh-experiences .fh-activity-grid::-webkit-scrollbar,#fh-experiences .fh-route-grid::-webkit-scrollbar,#fh-experiences .fh-itinerary-grid::-webkit-scrollbar,#fh-experiences .fh-map-sidebar::-webkit-scrollbar{display:none!important}
   #fh-experiences .fh-photo-tile,#fh-experiences .fh-photo-tile.tall{flex:0 0 82%!important;min-height:220px!important;height:220px!important;scroll-snap-align:start!important}
-  #fh-experiences .fh-place,#fh-experiences .fh-activity,#fh-experiences .fh-route,#fh-experiences .fh-itinerary{flex:0 0 84%!important;scroll-snap-align:start!important;background:var(--fh-mobile-card)!important}
-  #fh-experiences .fh-activity{min-height:228px!important;background:#d6ccbf!important}
-  #fh-experiences .fh-route-img{height:145px!important}
-  #fh-experiences .fh-itinerary{padding:18px!important}
+  #fh-experiences .fh-photo-tile span{left:10px!important;right:10px!important;bottom:10px!important;padding:9px 10px!important;font-size:12px!important;background:rgba(255,250,243,.9)!important}
 
-  /* Compact filter bar */
+  /* Map */
+  #fh-experiences .fh-map-grid{display:block!important}
   #fh-experiences .fh-filter-board{position:sticky!important;top:68px!important;z-index:14!important;margin:0 -6px 12px!important;padding:7px 6px!important;background:rgba(244,238,230,.92)!important;backdrop-filter:blur(12px)!important}
   #fh-experiences .fh-filters{display:flex!important;flex-wrap:nowrap!important;justify-content:flex-start!important;gap:7px!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;padding-bottom:2px!important}
   #fh-experiences .fh-filters::-webkit-scrollbar{display:none!important}
   #fh-experiences .fh-filter{flex:0 0 auto!important;white-space:nowrap!important;min-height:40px!important;padding:8px 11px!important;font-size:9px!important;letter-spacing:.11em!important}
-
-  /* Map: compact and protected from accidental scroll-trap */
-  #fh-experiences .fh-map-grid{display:block!important}
   #fh-experiences .fh-map-card{height:340px!important;min-height:340px!important;margin-bottom:12px!important;box-shadow:0 16px 44px rgba(18,16,14,.13)!important}
-  #fh-experiences .fh-map-iframe,#fh-experiences iframe#fh-osm-map{min-height:340px!important;height:100%!important;pointer-events:none!important}
-  #fh-experiences .fh-map-card.is-map-active .fh-map-iframe,#fh-experiences .fh-map-card.is-map-active iframe#fh-osm-map{pointer-events:auto!important}
+  #fh-experiences .fh-map-iframe,#fh-experiences iframe#fh-osm-map{min-height:340px!important;height:100%!important}
   #fh-experiences .fh-map-pin{display:none!important}
-  #fh-experiences .fh-map-touch{display:flex!important;position:absolute!important;inset:0!important;z-index:8!important;align-items:center!important;justify-content:center!important;padding:20px!important;border:0!important;background:linear-gradient(180deg,rgba(255,250,243,.10),rgba(25,23,21,.10))!important;color:var(--fh-ink)!important}
-  #fh-experiences .fh-map-card.is-map-active .fh-map-touch{display:none!important}
-  #fh-experiences .fh-map-touch span{background:rgba(255,250,243,.96)!important;border:1px solid rgba(25,23,21,.14)!important;padding:12px 14px!important;box-shadow:0 12px 30px rgba(0,0,0,.12)!important;font-size:11px!important;font-weight:850!important;text-transform:uppercase!important;letter-spacing:.13em!important}
   #fh-experiences .fh-map-info{left:10px!important;right:10px!important;bottom:10px!important;padding:10px 11px!important;max-height:118px!important;overflow:hidden!important}
+  #fh-experiences .fh-map-info small{font-size:8.5px!important;margin-bottom:3px!important}
   #fh-experiences .fh-map-info h3{font-size:22px!important;margin-bottom:3px!important;line-height:1!important}
   #fh-experiences .fh-map-info p{font-size:12px!important;line-height:1.34!important}
   #fh-experiences .fh-map-open{top:9px!important;right:9px!important;padding:8px 10px!important;font-size:9px!important;letter-spacing:.11em!important}
+  #fh-experiences .fh-map-tap-shield{display:flex!important}
+  #fh-experiences .fh-place{flex:0 0 84%!important;display:grid!important;grid-template-columns:28px 1fr!important;gap:10px!important;scroll-snap-align:start!important;padding:12px!important;background:var(--fh-phone-card)!important}
+  #fh-experiences .fh-place b{width:28px!important;height:28px!important;font-size:16px!important}
+  #fh-experiences .fh-place span{font-size:12.5px!important;line-height:1.42!important}
+  #fh-experiences .fh-place em{font-size:9px!important;letter-spacing:.10em!important}
 
-  /* Calendar and inquiry modal as bottom sheets */
+  /* Cards */
+  #fh-experiences .fh-activity{flex:0 0 84%!important;min-height:228px!important;scroll-snap-align:start!important;box-shadow:0 14px 38px rgba(18,16,14,.12)!important}
+  #fh-experiences .fh-activity-copy{padding:17px!important}
+  #fh-experiences .fh-activity-tags{gap:5px!important;margin-bottom:8px!important}
+  #fh-experiences .fh-activity-tags span{padding:5px 7px!important;font-size:8.8px!important;letter-spacing:.10em!important}
+  #fh-experiences .fh-activity h3{font-size:26px!important;line-height:1!important;margin-bottom:6px!important}
+  #fh-experiences .fh-activity p{font-size:12.8px!important;line-height:1.43!important}
+  #fh-experiences .fh-route{flex:0 0 84%!important;scroll-snap-align:start!important;background:var(--fh-phone-card)!important}
+  #fh-experiences .fh-route-img{height:145px!important}
+  #fh-experiences .fh-route-copy{padding:17px!important}
+  #fh-experiences .fh-route-meta{gap:6px!important;margin:10px 0 12px!important}
+  #fh-experiences .fh-route-meta span{font-size:9px!important;padding:6px 7px!important;letter-spacing:.09em!important}
+  #fh-experiences .fh-itinerary{flex:0 0 84%!important;scroll-snap-align:start!important;padding:18px!important;background:var(--fh-phone-card)!important}
+  #fh-experiences .fh-itinerary ol{margin-top:10px!important;padding-left:18px!important}
+  #fh-experiences .fh-itinerary li{font-size:13px!important;line-height:1.43!important;margin-bottom:7px!important}
+  #fh-experiences .fh-cta{display:block!important}
+  #fh-experiences .fh-cta .fh-panel:first-child{padding:22px!important}
+  #fh-experiences .fh-cta .fh-panel + .fh-panel{margin-top:10px!important}
+  #fh-experiences .fh-cta-btn{width:100%!important;margin-top:16px!important;min-height:48px!important;padding:13px 16px!important;font-size:10px!important}
+
+  /* Bottom-sheet modals */
   #fh-experiences .fh-calendar-modal,#fh-experiences .fh-modal{align-items:flex-end!important;padding:0!important}
   #fh-experiences .fh-calendar-card,#fh-experiences .fh-modal-panel{width:100%!important;max-height:88svh!important;border-radius:18px 18px 0 0!important;overflow:auto!important}
   #fh-experiences .fh-calendar-card{padding:13px!important}
+  #fh-experiences .fh-calendar-head{align-items:center!important;margin-bottom:9px!important}
   #fh-experiences .fh-calendar-title{font-size:25px!important;line-height:1!important}
   #fh-experiences .fh-calendar-nav button{width:38px!important;min-height:36px!important}
+  #fh-experiences .fh-calendar-help,#fh-experiences .fh-calendar-warning{font-size:12px!important;line-height:1.35!important}
   #fh-experiences .fh-weekdays,#fh-experiences .fh-calendar-grid{gap:3px!important}
   #fh-experiences .fh-weekday{font-size:8px!important;letter-spacing:.08em!important}
   #fh-experiences .fh-day{min-height:47px!important;padding:4px!important}
+  #fh-experiences .fh-day-number{font-size:12px!important}
   #fh-experiences .fh-day-price{display:none!important}
+  #fh-experiences .fh-day-status{font-size:7px!important;margin-top:2px!important}
   #fh-experiences .fh-modal-head,#fh-experiences .fh-modal-body{padding:17px!important}
   #fh-experiences .fh-modal-head h3{font-size:28px!important}
   #fh-experiences .fh-modal-grid{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+  #fh-experiences .fh-modal-field.full{grid-column:auto!important}
 
   #fh-experiences .fh-activity.is-hidden,#fh-experiences .fh-place.is-hidden,#fh-experiences .fh-route.is-hidden,#fh-experiences .fh-map-pin.is-hidden{display:none!important}
 }
-
 @media(max-width:390px){
-  #fh-experiences{--fh-mobile-edge:12px}
+  #fh-experiences{--fh-phone-pad:12px}
   #fh-experiences .fh-hero-inner{padding-top:78px!important}
   #fh-experiences h1{font-size:36px!important}
   #fh-experiences .fh-hero-lead{font-size:13.5px!important}
@@ -2992,96 +2883,209 @@ section:has(#fh-experiences) .sqs-block-code{
   #fh-experiences .fh-map-card{height:315px!important;min-height:315px!important}
   #fh-experiences .fh-map-iframe,#fh-experiences iframe#fh-osm-map{min-height:315px!important}
 }
+#fh-experiences .fh-map-tap-shield{position:absolute;inset:0;z-index:6;display:none;align-items:center;justify-content:center;background:rgba(25,23,21,.08);color:#fff;text-align:center;pointer-events:auto}
+#fh-experiences .fh-map-tap-shield span{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;background:rgba(25,23,21,.68);border:1px solid rgba(255,250,243,.35);backdrop-filter:blur(10px);font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:850;box-shadow:0 14px 34px rgba(18,16,14,.18)}
+#fh-experiences .fh-map-card.is-map-active .fh-map-tap-shield{display:none!important}
+@media(prefers-reduced-motion:reduce){#fh-experiences *,#fh-experiences *::before,#fh-experiences *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 
-<script id="fh-location-mobile-behavior-applied-to-experiences-js">
+<script id="fh-experiences-mobile-behavior-final-working-js">
 (function(){
-  const root=document.getElementById('fh-experiences');
-  if(!root || root.dataset.locationMobilePatch==='1') return;
-  root.dataset.locationMobilePatch='1';
+  'use strict';
+  const root = document.getElementById('fh-experiences');
+  if(!root || root.dataset.mobileBehaviorFinal === '1') return;
+  root.dataset.mobileBehaviorFinal = '1';
 
-  function norm(v){
-    v=String(v||'en').toLowerCase();
-    if(v.startsWith('fr')) return 'fr';
-    if(v.startsWith('de')||v.startsWith('ger')) return 'de';
-    if(v.startsWith('ru')) return 'ru';
+  const langPack = {
+    en:{
+      first:'First name',firstPh:'First name',last:'Last name',lastPh:'Last name',email:'Email',emailPh:'email@example.com',dates:'Dates',select:'Select arrival and departure',open:'Open calendar',book:'Book my stay now',
+      calKicker:'Select dates',calHelp:'Choose your arrival date, then your departure date.',min:'Please select at least 2 nights.',prev:'Previous month',next:'Next month',close:'Close calendar',sun:'Sun',mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',departure:'Select departure',booked:'Booked',nightly:'Nightly',rangeUnavailable:'One or more selected nights is unavailable. Please choose another range.',contactRequired:'Please enter your first name, last name, and email.',datesRequired:'Please select arrival and departure dates.',tapMap:'Tap to use map'
+    },
+    fr:{
+      first:'Prénom',firstPh:'Prénom',last:'Nom',lastPh:'Nom',email:'Email',emailPh:'email@exemple.com',dates:'Dates',select:'Sélectionner arrivée et départ',open:'Ouvrir le calendrier',book:'Réserver mon séjour',
+      calKicker:'Sélectionner les dates',calHelp:'Choisissez votre date d’arrivée, puis votre date de départ.',min:'Veuillez sélectionner au moins 2 nuits.',prev:'Mois précédent',next:'Mois suivant',close:'Fermer le calendrier',sun:'Dim',mon:'Lun',tue:'Mar',wed:'Mer',thu:'Jeu',fri:'Ven',sat:'Sam',departure:'Sélectionner le départ',booked:'Réservé',nightly:'Par nuit',rangeUnavailable:'Une ou plusieurs nuits sélectionnées ne sont pas disponibles. Choisissez une autre période.',contactRequired:'Veuillez entrer votre prénom, votre nom et votre email.',datesRequired:'Veuillez sélectionner les dates d’arrivée et de départ.',tapMap:'Toucher pour utiliser la carte'
+    },
+    de:{
+      first:'Vorname',firstPh:'Vorname',last:'Nachname',lastPh:'Nachname',email:'E-Mail',emailPh:'email@beispiel.com',dates:'Daten',select:'Anreise und Abreise wählen',open:'Kalender öffnen',book:'Aufenthalt buchen',
+      calKicker:'Daten wählen',calHelp:'Wählen Sie zuerst die Anreise und dann die Abreise.',min:'Bitte wählen Sie mindestens 2 Nächte.',prev:'Vorheriger Monat',next:'Nächster Monat',close:'Kalender schließen',sun:'So',mon:'Mo',tue:'Di',wed:'Mi',thu:'Do',fri:'Fr',sat:'Sa',departure:'Abreise wählen',booked:'Belegt',nightly:'Pro Nacht',rangeUnavailable:'Eine oder mehrere ausgewählte Nächte sind nicht verfügbar. Bitte wählen Sie einen anderen Zeitraum.',contactRequired:'Bitte geben Sie Vorname, Nachname und E-Mail ein.',datesRequired:'Bitte wählen Sie Anreise- und Abreisedatum.',tapMap:'Tippen, um Karte zu nutzen'
+    },
+    ru:{
+      first:'Имя',firstPh:'Имя',last:'Фамилия',lastPh:'Фамилия',email:'Email',emailPh:'email@example.com',dates:'Даты',select:'Выберите заезд и выезд',open:'Открыть календарь',book:'Забронировать',
+      calKicker:'Выбрать даты',calHelp:'Выберите дату заезда, затем дату выезда.',min:'Пожалуйста, выберите минимум 2 ночи.',prev:'Предыдущий месяц',next:'Следующий месяц',close:'Закрыть календарь',sun:'Вс',mon:'Пн',tue:'Вт',wed:'Ср',thu:'Чт',fri:'Пт',sat:'Сб',departure:'Выберите выезд',booked:'Занято',nightly:'За ночь',rangeUnavailable:'Одна или несколько выбранных ночей недоступны. Выберите другой период.',contactRequired:'Пожалуйста, введите имя, фамилию и email.',datesRequired:'Пожалуйста, выберите даты заезда и выезда.',tapMap:'Нажмите, чтобы использовать карту'
+    }
+  };
+  function normalizeLang(value){
+    value = String(value || 'en').toLowerCase();
+    if(value.startsWith('fr')) return 'fr';
+    if(value.startsWith('de')) return 'de';
+    if(value.startsWith('ru')) return 'ru';
     return 'en';
   }
-  function saveLang(lang){
-    lang=norm(lang);
-    try{
-      localStorage.setItem('fh_lang',lang);
-      localStorage.setItem('fh_language',lang);
-      localStorage.setItem('fhLang',lang);
-    }catch(e){}
-    document.documentElement.setAttribute('lang',lang);
-    root.setAttribute('data-current-lang',lang);
-    return lang;
-  }
-  function bridgeLanguage(lang){
-    lang=saveLang(lang);
-    window.dispatchEvent(new CustomEvent('fh:language',{detail:{lang}}));
-    window.dispatchEvent(new CustomEvent('fh:language-change',{detail:{lang}}));
-    window.dispatchEvent(new CustomEvent('fh:lang-applied',{detail:{lang}}));
+  function currentLang(){return normalizeLang(localStorage.getItem('fh_lang') || localStorage.getItem('fhLang') || document.documentElement.lang || 'en')}
+  function tr(key){return (langPack[currentLang()] && langPack[currentLang()][key]) || langPack.en[key] || key}
+  function qs(sel){return root.querySelector(sel)}
+  function qsa(sel){return Array.from(root.querySelectorAll(sel))}
+  function setText(sel,val){const el=qs(sel); if(el) el.textContent=val}
+  function setAttr(sel,attr,val){const el=qs(sel); if(el) el.setAttribute(attr,val)}
+
+  function ensureErrorBox(){
+    if(qs('#fhBookingError')) return;
+    const form = qs('#fh-exp-quick-form');
+    if(!form) return;
+    const box = document.createElement('div');
+    box.className = 'fh-booking-error';
+    box.id = 'fhBookingError';
+    box.setAttribute('role','alert');
+    box.setAttribute('aria-live','polite');
+    form.insertAdjacentElement('afterend', box);
   }
 
-  document.addEventListener('click',function(e){
-    const trigger=e.target.closest('[data-fh-lang],[data-lang],[data-language]');
-    if(!trigger) return;
-    const lang=trigger.dataset.fhLang||trigger.dataset.lang||trigger.dataset.language;
-    if(lang) setTimeout(function(){bridgeLanguage(lang);},0);
-  },true);
-  document.addEventListener('fh:language-change',function(e){
-    const lang=e.detail&&(e.detail.lang||e.detail.language);
-    if(lang) bridgeLanguage(lang);
-  });
+  function ensureMapTapShield(){
+    const card = qs('.fh-map-card');
+    if(!card || qs('.fh-map-tap-shield')) return;
+    const shield = document.createElement('button');
+    shield.type = 'button';
+    shield.className = 'fh-map-tap-shield';
+    shield.innerHTML = '<span></span>';
+    shield.addEventListener('click', function(){card.classList.add('is-map-active')});
+    card.appendChild(shield);
+  }
 
-  /* Add mobile tap-to-use overlay to map, matching the Location page behavior. */
-  const mapCard=root.querySelector('.fh-map-card');
-  if(mapCard && !mapCard.querySelector('.fh-map-touch')){
-    const btn=document.createElement('button');
-    btn.type='button';
-    btn.className='fh-map-touch';
-    btn.innerHTML='<span>Tap to use map</span>';
-    mapCard.appendChild(btn);
-    btn.addEventListener('click',function(){mapCard.classList.add('is-map-active');});
-    document.addEventListener('click',function(e){
-      if(!mapCard.contains(e.target)) mapCard.classList.remove('is-map-active');
+  function syncExtraLanguage(){
+    const l = currentLang();
+    document.documentElement.lang = l;
+    localStorage.setItem('fh_lang', l);
+    localStorage.setItem('fhLang', l);
+    const firstLabel = qs('label[for="fh-exp-first-name"]'); if(firstLabel) firstLabel.textContent = tr('first');
+    const lastLabel = qs('label[for="fh-exp-last-name"]'); if(lastLabel) lastLabel.textContent = tr('last');
+    const emailLabel = qs('label[for="fh-exp-email"]'); if(emailLabel) emailLabel.textContent = tr('email');
+    const dateLabel = qs('.fh-date-field label'); if(dateLabel) dateLabel.textContent = tr('dates');
+    setAttr('#fh-exp-first-name','placeholder',tr('firstPh'));
+    setAttr('#fh-exp-last-name','placeholder',tr('lastPh'));
+    setAttr('#fh-exp-email','placeholder',tr('emailPh'));
+    const dateText = qs('#fhToolbarDateText');
+    if(dateText && !/→/.test(dateText.textContent || '') && !/^\d{4}-\d{2}-\d{2}/.test(dateText.textContent || '')) dateText.textContent = tr('select');
+    const openText = qs('#fhOpenToolbarCalendar strong'); if(openText) openText.textContent = tr('open');
+    setText('#fhBookNowBtn', tr('book'));
+    const cta = qs('.fh-cta-btn[href*="booking"]'); if(cta) cta.textContent = tr('book');
+    const calKicker = qs('#fhToolbarCalendarModal .fh-kicker'); if(calKicker) calKicker.textContent = tr('calKicker');
+    setAttr('#fhToolbarCalendarModal .fh-calendar-card','aria-label',tr('calKicker'));
+    setText('#fhToolbarCalendarModal .fh-calendar-help', tr('calHelp'));
+    setText('#fhToolbarCalendarWarning', tr('min'));
+    setAttr('#fhToolbarPrevMonth','aria-label',tr('prev'));
+    setAttr('#fhToolbarNextMonth','aria-label',tr('next'));
+    setAttr('#fhToolbarCloseCalendar','aria-label',tr('close'));
+    const weekdays = qsa('#fhToolbarCalendarModal .fh-weekday');
+    ['sun','mon','tue','wed','thu','fri','sat'].forEach((key,i)=>{ if(weekdays[i]) weekdays[i].textContent = tr(key); });
+    const shieldText = qs('.fh-map-tap-shield span'); if(shieldText) shieldText.textContent = tr('tapMap');
+    translateCalendarCells();
+  }
+
+  function translateCalendarCells(){
+    qsa('.fh-day-status').forEach(el=>{
+      const text = (el.textContent || '').trim().toLowerCase();
+      if(!text) return;
+      if(['booked','réservé','belegt','занято'].includes(text)) el.textContent = tr('booked');
+      if(['nightly','par nuit','pro nacht','за ночь'].includes(text)) el.textContent = tr('nightly');
     });
-  }
-
-  /* Make booking intent links always preserve the toolbar payload and go to booking.html. */
-  function val(sel){return (root.querySelector(sel)?.value||'').trim();}
-  function dateVal(sel){return root.querySelector(sel)?.value||'';}
-  function persistAndGo(source){
-    const lang=norm(localStorage.getItem('fh_lang')||localStorage.getItem('fh_language')||localStorage.getItem('fhLang')||document.documentElement.lang||'en');
-    const payload={
-      firstName:val('#fh-exp-first-name'),
-      lastName:val('#fh-exp-last-name'),
-      email:val('#fh-exp-email'),
-      checkIn:dateVal('#fh-exp-checkin'),
-      checkOut:dateVal('#fh-exp-checkout'),
-      listingId:'6968339ab7d735001ca015ba',
-      workerBase:'https://guetsyapi.moshe-cohen-h1.workers.dev',
-      source:source||'experiences',
-      lang:lang,
-      createdAt:new Date().toISOString()
-    };
-    try{localStorage.setItem('fhBookingStart',JSON.stringify(payload));}catch(e){}
-    const params=new URLSearchParams({lang:lang,source:payload.source});
-    ['firstName','lastName','email','checkIn','checkOut'].forEach(function(k){if(payload[k]) params.set(k,payload[k]);});
-    window.location.href='booking.html?'+params.toString();
-  }
-  root.addEventListener('click',function(e){
-    const a=e.target.closest('a[href]');
-    if(!a) return;
-    const href=(a.getAttribute('href')||'').toLowerCase().trim();
-    if(href==='booking.html'||href.startsWith('booking.html?')||href==='#book'||href==='#booking'||href.includes('contact-booking')){
-      e.preventDefault();
-      persistAndGo('experiences');
+    const dateText = qs('#fhToolbarDateText');
+    if(dateText && /Select departure|Sélectionner le départ|Abreise wählen|Выберите выезд/.test(dateText.textContent || '')){
+      dateText.textContent = (dateText.textContent || '').replace(/Select departure|Sélectionner le départ|Abreise wählen|Выберите выезд/g, tr('departure'));
     }
-  },true);
+  }
 
-  bridgeLanguage(localStorage.getItem('fh_lang')||localStorage.getItem('fh_language')||localStorage.getItem('fhLang')||document.documentElement.lang||'en');
+  function clearErrors(){
+    qsa('.fh-field.is-error').forEach(el=>el.classList.remove('is-error'));
+    const box = qs('#fhBookingError');
+    if(box){box.textContent='';box.classList.remove('show')}
+  }
+  function showError(message){
+    const box = qs('#fhBookingError');
+    if(box){box.textContent=message;box.classList.add('show')}
+    const status = qs('#fh-exp-status');
+    if(status) status.textContent = message;
+  }
+  function mark(sel){const el=qs(sel); const field=el && el.closest('.fh-field'); if(field) field.classList.add('is-error')}
+  function nightsBetween(a,b){
+    const start = a ? new Date(a + 'T00:00:00') : null;
+    const end = b ? new Date(b + 'T00:00:00') : null;
+    if(!start || !end) return 0;
+    return Math.round((end-start)/86400000);
+  }
+
+  ensureErrorBox();
+  ensureMapTapShield();
+  syncExtraLanguage();
+
+  const form = qs('#fh-exp-quick-form');
+  if(form){
+    form.addEventListener('submit', function(e){
+      const first = (qs('#fh-exp-first-name')?.value || '').trim();
+      const last = (qs('#fh-exp-last-name')?.value || '').trim();
+      const email = (qs('#fh-exp-email')?.value || '').trim();
+      const checkIn = qs('#fh-exp-checkin')?.value || '';
+      const checkOut = qs('#fh-exp-checkout')?.value || '';
+      clearErrors();
+      let bad = false;
+      if(!first){mark('#fh-exp-first-name'); bad = true;}
+      if(!last){mark('#fh-exp-last-name'); bad = true;}
+      if(!email){mark('#fh-exp-email'); bad = true;}
+      if(bad){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        showError(tr('contactRequired'));
+        return;
+      }
+      if(!checkIn || !checkOut){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        mark('#fhOpenToolbarCalendar');
+        showError(tr('datesRequired'));
+        return;
+      }
+      if(nightsBetween(checkIn, checkOut) < 2){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        mark('#fhOpenToolbarCalendar');
+        showError(tr('min'));
+      }
+    }, true);
+    qsa('#fh-exp-first-name,#fh-exp-last-name,#fh-exp-email,#fhOpenToolbarCalendar').forEach(el=>el.addEventListener('input', clearErrors));
+    const openBtn = qs('#fhOpenToolbarCalendar');
+    if(openBtn) openBtn.addEventListener('click', function(){clearErrors(); setTimeout(syncExtraLanguage,60);});
+  }
+
+  const observer = new MutationObserver(function(){translateCalendarCells();});
+  const grid = qs('#fhToolbarCalendarGrid');
+  if(grid) observer.observe(grid,{childList:true,subtree:true});
+
+  document.addEventListener('click', function(e){
+    const trigger = e.target.closest('[data-lang], [data-language], [data-fh-lang], [lang]');
+    if(!trigger || root.contains(trigger)) return;
+    const lang = trigger.dataset.lang || trigger.dataset.language || trigger.dataset.fhLang || trigger.getAttribute('lang');
+    if(lang){
+      localStorage.setItem('fh_lang', normalizeLang(lang));
+      localStorage.setItem('fhLang', normalizeLang(lang));
+      setTimeout(syncExtraLanguage, 30);
+      setTimeout(syncExtraLanguage, 180);
+    }
+  }, true);
+  document.addEventListener('change', function(e){
+    const target = e.target;
+    if(!target || root.contains(target)) return;
+    const idName = ((target.id || '') + ' ' + (target.name || '') + ' ' + (target.className || '')).toLowerCase();
+    if(idName.includes('lang') || idName.includes('language')){
+      localStorage.setItem('fh_lang', normalizeLang(target.value));
+      localStorage.setItem('fhLang', normalizeLang(target.value));
+      setTimeout(syncExtraLanguage, 30);
+      setTimeout(syncExtraLanguage, 180);
+    }
+  }, true);
+  window.addEventListener('fh:lang-applied', syncExtraLanguage);
+  window.addEventListener('storage', syncExtraLanguage);
+  ['#fhToolbarPrevMonth','#fhToolbarNextMonth','#fhToolbarCloseCalendar'].forEach(sel=>{
+    const el = qs(sel);
+    if(el) el.addEventListener('click', function(){setTimeout(syncExtraLanguage,80)});
+  });
 })();
 </script>
