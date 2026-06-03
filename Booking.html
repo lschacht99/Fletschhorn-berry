@@ -1,1923 +1,686 @@
+<link rel="stylesheet" href="assets/fh-global.css">
+<div id="fh-header-slot"></div>
+
 <style>
-/* Fletschhorn Contact & Booking Page — Squarespace scoped CSS */
-#fh-booking,
-#fh-booking *{
-  box-sizing:border-box;
-}
+/* Fletschhorn — Main Booking Page, conversion-first */
+#fh-booking-main,
+#fh-booking-main *{box-sizing:border-box}
 
-#fh-booking{
-  --fh-page-top:#efe6da;
-  --fh-page-bottom:#f8f3eb;
-  --fh-section:#f4ece1;
-  --fh-accent:#b79f87;
-  --fh-accent-deep:#826a55;
-  --fh-accent-soft:#d8c7b6;
-  --fh-ink:#1d1a17;
-  --fh-ink-soft:rgba(29,26,23,.70);
-  --fh-muted:rgba(29,26,23,.52);
-  --fh-line:rgba(29,26,23,.14);
-  --fh-white:#fffaf3;
-  --fh-paper:#fffaf3;
-  --fh-shadow:0 28px 80px rgba(0,0,0,.14);
-  --fh-soft-shadow:0 16px 44px rgba(0,0,0,.07);
-  --fh-serif:Georgia, "Times New Roman", serif;
-  --fh-sans:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  position:relative;
-  width:100%;
-  max-width:none;
-  overflow-x:hidden;
-  color:var(--fh-ink);
-  font-family:var(--fh-sans);
-  background:linear-gradient(180deg,var(--fh-page-top),var(--fh-page-bottom));
-  transition:background 1200ms ease;
-}
-
-#fh-booking a{color:inherit;text-decoration:none;}
-#fh-booking img{display:block;max-width:100%;}
-#fh-booking button,
-#fh-booking input,
-#fh-booking select,
-#fh-booking textarea{font:inherit;}
-#fh-booking button{cursor:pointer;}
-
-#fh-booking .fh-ambient{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  background:
-    radial-gradient(circle at 12% 16%, rgba(255,255,255,.52), transparent 24%),
-    radial-gradient(circle at 86% 12%, rgba(183,159,135,.20), transparent 22%),
-    radial-gradient(circle at 66% 84%, rgba(214,202,188,.30), transparent 28%);
-  opacity:.75;
-  transition:background 1200ms ease;
-}
-
-#fh-booking .fh-page{
-  position:relative;
-  z-index:1;
-}
-
-#fh-booking .fh-header{
-  position:fixed;
-  z-index:30;
-  top:18px;
-  left:18px;
-  right:18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  padding:14px 18px;
-  border:1px solid rgba(255,250,243,.24);
-  background:rgba(23,21,18,.28);
-  color:var(--fh-white);
-  -webkit-backdrop-filter:blur(16px);
-  backdrop-filter:blur(16px);
-  animation:fh-rise 900ms cubic-bezier(.2,.8,.2,1) both;
-}
-
-#fh-booking .fh-brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:0;
-}
-
-#fh-booking .fh-logo-mark{
-  display:grid;
-  place-items:center;
-  width:46px;
-  height:46px;
-  border:1px solid rgba(255,250,243,.42);
-  color:var(--fh-white);
-  font-family:var(--fh-serif);
-  font-size:21px;
-  letter-spacing:-.06em;
-  background:rgba(255,255,255,.06);
-  flex:0 0 auto;
-}
-
-#fh-booking .fh-brand-title{
-  font-family:var(--fh-serif);
-  font-size:28px;
-  line-height:.88;
-  letter-spacing:-.055em;
-  white-space:nowrap;
-}
-
-#fh-booking .fh-brand-title span{
-  display:block;
-  margin-top:6px;
-  font-family:var(--fh-sans);
-  font-size:10px;
-  letter-spacing:.18em;
-  line-height:1.1;
-  text-transform:uppercase;
-  color:rgba(255,250,243,.68);
-}
-
-#fh-booking .fh-nav{
-  display:flex;
-  align-items:center;
-  gap:22px;
-  font-size:13px;
-  color:rgba(255,250,243,.78);
-}
-
-#fh-booking .fh-nav a:not(.fh-nav-cta){
-  position:relative;
-}
-
-#fh-booking .fh-nav a:not(.fh-nav-cta)::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-6px;
-  width:0;
-  height:1px;
-  background:currentColor;
-  transition:width 250ms ease;
-}
-
-#fh-booking .fh-nav a:hover::after{width:100%;}
-
-#fh-booking .fh-nav-cta{
-  padding:12px 18px;
-  background:var(--fh-accent);
-  color:#fff;
-  font-size:11px;
-  font-weight:850;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  transition:background 900ms ease;
-}
-
-
-#fh-booking .fh-language-bar{
-  position:fixed;
-  z-index:31;
-  top:88px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  padding:6px;
-  border:1px solid rgba(255,250,243,.22);
-  background:rgba(23,21,18,.24);
-  color:rgba(255,250,243,.82);
-  -webkit-backdrop-filter:blur(14px);
-  backdrop-filter:blur(14px);
-  box-shadow:0 18px 42px rgba(0,0,0,.10);
-  animation:fh-rise 900ms cubic-bezier(.2,.8,.2,1) .08s both;
-}
-
-#fh-booking .fh-language-title{
-  padding:0 8px 0 6px;
-  font-size:10px;
-  line-height:1.2;
-  font-weight:850;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:rgba(255,250,243,.84);
-  white-space:nowrap;
-}
-
-#fh-booking .fh-language-button{
-  appearance:none;
-  border:1px solid transparent;
-  background:transparent;
-  color:inherit;
-  min-width:42px;
-  min-height:32px;
-  padding:7px 10px;
-  font-size:10px;
-  font-weight:850;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  transition:background 220ms ease, border-color 220ms ease, color 220ms ease;
-}
-
-#fh-booking .fh-language-button:hover,
-#fh-booking .fh-language-button.is-active{
-  border-color:rgba(255,250,243,.38);
-  background:rgba(255,250,243,.14);
-  color:#fff;
-}
-
-#fh-booking .fh-guesty-card{
-  display:grid;
-  grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
-  gap:24px;
-  align-items:stretch;
-}
-
-#fh-booking .fh-guesty-panel{
-  background:var(--fh-paper);
-  border:1px solid #e6dacd;
-  box-shadow:var(--fh-soft-shadow);
-  padding:34px;
-}
-
-#fh-booking .fh-guesty-form{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-top:24px;
-}
-
-#fh-booking .fh-guesty-frame-wrap{
-  min-height:520px;
-  background:#ded4c8;
-  border:1px solid #e6dacd;
-  box-shadow:var(--fh-shadow);
+#fh-booking-main{
+  --ink:#1a1714;
+  --muted:rgba(26,23,20,.68);
+  --soft:rgba(26,23,20,.50);
+  --line:rgba(26,23,20,.13);
+  --paper:#fffaf3;
+  --paper2:#f8f1e8;
+  --page:#efe7dc;
+  --section:#f4ece4;
+  --clay:#b99f86;
+  --clay2:#876e58;
+  --clay3:#6f5742;
+  --green:#6f7b64;
+  --good:#3f6f50;
+  --bad:#9a4b3f;
+  --white:#fffaf3;
+  --shadow:0 26px 74px rgba(0,0,0,.13);
+  --soft-shadow:0 14px 40px rgba(0,0,0,.07);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);
+  font-family:var(--sans);
+  background:linear-gradient(180deg,#efe7dc 0%,#fbf6ef 52%,#efe7dc 100%);
   overflow:hidden;
-  position:relative;
-}
-
-#fh-booking .fh-guesty-frame-wrap iframe{
-  display:block;
-  width:100%;
-  height:100%;
-  min-height:520px;
-  border:0;
-  background:#fff;
-}
-
-#fh-booking .fh-guesty-placeholder{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:34px;
-  text-align:center;
-  background:linear-gradient(135deg,#fffaf3,#efe6da);
-}
-
-#fh-booking .fh-guesty-placeholder-inner{
-  max-width:460px;
-}
-
-#fh-booking .fh-guesty-result{
-  display:none;
-  grid-column:1 / -1;
-  margin-top:4px;
-  padding:16px;
-  border:1px solid rgba(29,26,23,.12);
-  background:rgba(255,255,255,.52);
-  font-size:14px;
-  line-height:1.55;
-  color:var(--fh-ink-soft);
-}
-
-#fh-booking .fh-guesty-result.is-visible{display:block;}
-
-#fh-booking .fh-guesty-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  grid-column:1 / -1;
-  padding-top:6px;
-}
-
-#fh-booking .fh-hero{
-  position:relative;
-  min-height:100svh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  background:#1e1c19;
-}
-
-#fh-booking .fh-hero-slides,
-#fh-booking .fh-slide{
-  position:absolute;
-  inset:0;
-}
-
-#fh-booking .fh-hero-slides{z-index:0;}
-
-#fh-booking .fh-slide{
-  background-size:cover;
-  background-position:center;
-  opacity:0;
-  transform:scale(1.045);
-  transition:opacity 1400ms ease, transform 8200ms ease;
-}
-
-#fh-booking .fh-slide.is-active{
-  opacity:1;
-  transform:scale(1);
-}
-
-#fh-booking .fh-hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background:
-    linear-gradient(180deg, rgba(24,21,18,.56) 0%, rgba(24,21,18,.30) 40%, rgba(24,21,18,.60) 100%),
-    radial-gradient(circle at 50% 18%, rgba(255,255,255,.10), transparent 32%),
-    radial-gradient(circle at 82% 18%, rgba(183,159,135,.18), transparent 24%);
-}
-
-#fh-booking .fh-hero::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:-1px;
-  z-index:1;
-  height:170px;
-  background:linear-gradient(180deg, transparent, var(--fh-page-bottom));
-  transition:background 1200ms ease;
-}
-
-#fh-booking .fh-hero-inner{
-  position:relative;
-  z-index:2;
-  width:min(1180px, calc(100% - 40px));
-  margin:0 auto;
-  padding:146px 0 54px;
-  color:var(--fh-white);
-  text-align:center;
-}
-
-#fh-booking .fh-crest{
-  display:grid;
-  place-items:center;
-  width:82px;
-  height:82px;
-  margin:0 auto 24px;
-  border:1px solid rgba(255,250,243,.42);
-  color:var(--fh-white);
-  font-family:var(--fh-serif);
-  font-size:28px;
-  letter-spacing:-.05em;
-  background:rgba(255,255,255,.05);
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
-  animation:fh-rise 950ms cubic-bezier(.2,.8,.2,1) .05s both;
-}
-
-#fh-booking .fh-eyebrow{
-  margin:0 0 16px;
-  text-transform:uppercase;
-  letter-spacing:.22em;
-  font-size:11px;
-  font-weight:850;
-  color:rgba(255,250,243,.82);
-  animation:fh-rise 950ms cubic-bezier(.2,.8,.2,1) .12s both;
-}
-
-#fh-booking h1,
-#fh-booking h2,
-#fh-booking h3,
-#fh-booking p{margin-top:0;}
-
-#fh-booking h1{
-  margin:0 auto 16px;
-  max-width:960px;
-  font-family:var(--fh-serif);
-  font-size:clamp(50px,8vw,104px);
-  line-height:.9;
-  font-weight:400;
-  letter-spacing:-.065em;
-  animation:fh-rise 950ms cubic-bezier(.2,.8,.2,1) .2s both;
-}
-
-#fh-booking .fh-hero-lead{
-  margin:0 auto 30px;
-  max-width:780px;
-  font-size:19px;
-  line-height:1.6;
-  color:rgba(255,250,243,.84);
-  animation:fh-rise 950ms cubic-bezier(.2,.8,.2,1) .28s both;
-}
-
-#fh-booking .fh-book-shell{
-  width:min(1120px,100%);
-  margin:0 auto;
-  padding:10px;
-  background:rgba(233,224,213,.12);
-  border:1px solid rgba(255,250,243,.18);
-  -webkit-backdrop-filter:blur(10px);
-  backdrop-filter:blur(10px);
-  box-shadow:var(--fh-shadow);
-  animation:fh-rise 950ms cubic-bezier(.2,.8,.2,1) .36s both;
-}
-
-#fh-booking .fh-quick-bar{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr 74px 190px;
-  gap:0;
-  background:rgba(249,245,239,.95);
-  color:var(--fh-ink);
-}
-
-#fh-booking .fh-book-field{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  min-width:0;
-  padding:17px 18px;
-  border-right:1px solid var(--fh-line);
-  background:rgba(255,250,243,.92);
-}
-
-#fh-booking .fh-book-icon{
-  width:20px;
-  height:20px;
-  flex:0 0 auto;
-  color:var(--fh-accent-deep);
-  transition:color 900ms ease;
-}
-
-#fh-booking .fh-field-copy{
-  min-width:0;
-  width:100%;
-}
-
-#fh-booking .fh-field-copy label,
-#fh-booking .fh-form-field label{
-  display:block;
-  margin-bottom:6px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.17em;
-  font-weight:850;
-  color:rgba(29,26,23,.52);
-}
-
-#fh-booking .fh-field-copy input{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:var(--fh-ink);
-  font-size:16px;
-  padding:0;
-  outline:none;
-  min-width:0;
-}
-
-#fh-booking .fh-field-copy input::placeholder{color:rgba(29,26,23,.46);}
-
-#fh-booking .fh-more-button,
-#fh-booking .fh-book-button,
-#fh-booking .fh-solid-button,
-#fh-booking .fh-ghost-button{
-  border:0;
-  border-radius:0;
-}
-
-#fh-booking .fh-more-button{
-  display:grid;
-  place-items:center;
-  background:rgba(245,239,231,.92);
-  border-right:1px solid var(--fh-line);
-  color:var(--fh-ink);
-}
-
-#fh-booking .fh-book-button,
-#fh-booking .fh-solid-button{
-  background:var(--fh-accent);
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.15em;
-  font-size:11px;
-  font-weight:850;
-  transition:background 900ms ease, transform 250ms ease;
-}
-
-#fh-booking .fh-book-button:hover,
-#fh-booking .fh-solid-button:hover{transform:translateY(-1px);}
-
-#fh-booking .fh-book-note{
-  margin:14px 0 0;
-  font-size:13px;
-  line-height:1.5;
-  color:rgba(255,250,243,.80);
-}
-
-#fh-booking .fh-status{
-  display:none;
-  margin-top:14px;
-  padding:13px 15px;
-  background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.18);
-  color:#fff;
-  text-align:center;
-  font-size:14px;
-  line-height:1.45;
-}
-
-#fh-booking .fh-status.is-visible{display:block;}
-
-#fh-booking .fh-peek{
-  display:inline-flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-  margin-top:34px;
-  color:rgba(255,250,243,.88);
-  animation:fh-rise 950ms cubic-bezier(.2,.8,.2,1) .48s both;
-}
-
-#fh-booking .fh-peek span{
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-  font-weight:850;
-}
-
-#fh-booking .fh-peek-line{
-  position:relative;
-  width:1px;
-  height:44px;
-  background:rgba(255,250,243,.40);
-  overflow:hidden;
-}
-
-#fh-booking .fh-peek-line::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  top:-16px;
-  height:16px;
-  background:#fff;
-  animation:fh-peek-drop 1700ms ease-in-out infinite;
-}
-
-#fh-booking .fh-peek b{
-  font-size:20px;
-  line-height:1;
-  font-weight:400;
-  animation:fh-bounce 1700ms ease-in-out infinite;
-}
-
-#fh-booking .fh-section{
-  position:relative;
-  padding:96px 20px;
-}
-
-#fh-booking .fh-section.is-alt{
-  background:linear-gradient(180deg,var(--fh-section),rgba(255,255,255,.28));
-  transition:background 900ms ease;
-}
-
-#fh-booking .fh-container{
-  width:min(1180px,100%);
-  margin:0 auto;
-}
-
-#fh-booking .fh-section-head{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(280px,.82fr);
-  gap:30px;
-  align-items:end;
-  margin-bottom:28px;
-}
-
-#fh-booking .fh-kicker{
-  margin:0 0 12px;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.22em;
-  font-weight:850;
-  color:var(--fh-accent-deep);
-  transition:color 900ms ease;
-}
-
-#fh-booking h2{
-  margin:0;
-  font-family:var(--fh-serif);
-  font-size:clamp(42px,5vw,76px);
-  line-height:.94;
-  font-weight:400;
-  letter-spacing:-.055em;
-}
-
-#fh-booking h3{
-  margin:0 0 12px;
-  font-family:var(--fh-serif);
-  font-size:clamp(30px,3.8vw,46px);
-  line-height:.98;
-  font-weight:400;
-  letter-spacing:-.05em;
-}
-
-#fh-booking p{
-  margin-bottom:0;
-  color:var(--fh-ink-soft);
-  line-height:1.7;
-  font-size:17px;
-}
-
-#fh-booking .fh-two-col{
-  display:grid;
-  grid-template-columns:.92fr 1.08fr;
-  gap:24px;
-  align-items:start;
-}
-
-#fh-booking .fh-panel,
-#fh-booking .fh-contact-card,
-#fh-booking .fh-process-card,
-#fh-booking .fh-summary-card{
-  background:var(--fh-paper);
-  border:1px solid #e6dacd;
-  box-shadow:var(--fh-soft-shadow);
-}
-
-#fh-booking .fh-panel{padding:38px;}
-
-#fh-booking .fh-booking-form{
-  padding:0;
-  overflow:hidden;
-}
-
-#fh-booking .fh-form-top{
-  padding:34px 36px;
-  border-bottom:1px solid #e6dacd;
-  background:
-    radial-gradient(circle at 10% 0, rgba(255,255,255,.8), transparent 32%),
-    linear-gradient(135deg,#fffaf3,#f2e8dc);
-}
-
-#fh-booking .fh-form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  padding:26px 36px 34px;
-}
-
-#fh-booking .fh-form-field{
-  min-width:0;
-}
-
-#fh-booking .fh-form-field.is-full{grid-column:1 / -1;}
-
-#fh-booking .fh-form-field input,
-#fh-booking .fh-form-field select,
-#fh-booking .fh-form-field textarea{
-  width:100%;
-  min-height:52px;
-  border:1px solid #ddd0c0;
-  border-radius:0;
-  background:#fbf6ef;
-  padding:13px 14px;
-  color:var(--fh-ink);
-  outline:none;
-  transition:border-color 250ms ease, background 250ms ease, box-shadow 250ms ease;
-}
-
-#fh-booking .fh-form-field textarea{
-  min-height:132px;
-  resize:vertical;
-}
-
-#fh-booking .fh-form-field input:focus,
-#fh-booking .fh-form-field select:focus,
-#fh-booking .fh-form-field textarea:focus{
-  border-color:var(--fh-accent-deep);
-  background:#fff;
-  box-shadow:0 0 0 4px rgba(183,159,135,.13);
-}
-
-#fh-booking .fh-form-submit{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  grid-column:1 / -1;
-  padding-top:12px;
-  border-top:1px solid #e6dacd;
-}
-
-#fh-booking .fh-submit-note{
-  margin:0;
-  font-size:13px;
-  color:var(--fh-muted);
-}
-
-#fh-booking .fh-solid-button{
-  min-height:52px;
-  padding:15px 24px;
-  white-space:nowrap;
-}
-
-#fh-booking .fh-ghost-button{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:48px;
-  padding:13px 18px;
-  border:1px solid var(--fh-line);
-  color:var(--fh-ink);
-  background:transparent;
-  text-transform:uppercase;
-  letter-spacing:.13em;
-  font-size:11px;
-  font-weight:850;
-  transition:border-color 250ms ease, background 250ms ease;
-}
-
-#fh-booking .fh-ghost-button:hover{
-  background:rgba(255,255,255,.46);
-  border-color:var(--fh-accent-deep);
-}
-
-#fh-booking .fh-process-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-}
-
-#fh-booking .fh-process-card{
-  padding:24px;
-  min-height:230px;
-  display:flex;
-  flex-direction:column;
-}
-
-#fh-booking .fh-process-number{
-  display:block;
-  margin-bottom:22px;
-  color:var(--fh-accent-deep);
-  font-family:var(--fh-serif);
-  font-size:38px;
-  line-height:1;
-  transition:color 900ms ease;
-}
-
-#fh-booking .fh-process-card strong{
-  display:block;
-  margin-bottom:8px;
-  font-size:17px;
-}
-
-#fh-booking .fh-process-card p{
-  font-size:14px;
-  line-height:1.6;
-}
-
-#fh-booking .fh-contact-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-
-#fh-booking .fh-contact-card{
-  min-height:190px;
-  padding:24px;
-}
-
-#fh-booking .fh-contact-card span{
-  display:block;
-  margin-bottom:10px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-  font-weight:850;
-  color:var(--fh-accent-deep);
-}
-
-#fh-booking .fh-contact-card strong{
-  display:block;
-  margin-bottom:10px;
-  font-family:var(--fh-serif);
-  font-size:30px;
-  line-height:1;
-  letter-spacing:-.04em;
-  font-weight:400;
-}
-
-#fh-booking .fh-contact-card p{
-  font-size:14px;
-  line-height:1.6;
-}
-
-#fh-booking .fh-split-visual{
-  position:relative;
-  min-height:580px;
-  overflow:hidden;
-  background:#d8cbbd;
-  box-shadow:var(--fh-shadow);
-}
-
-#fh-booking .fh-split-visual img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:saturate(.88) contrast(1.04);
-}
-
-#fh-booking .fh-split-visual::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.42));
-}
-
-#fh-booking .fh-visual-card{
-  position:absolute;
-  z-index:2;
-  left:22px;
-  right:22px;
-  bottom:22px;
-  background:rgba(255,250,243,.93);
-  border:1px solid rgba(255,255,255,.62);
-  padding:24px;
-}
-
-#fh-booking .fh-visual-card p{font-size:15px;}
-
-#fh-booking .fh-summary-stack{
-  display:grid;
-  gap:14px;
-}
-
-#fh-booking .fh-summary-card{
-  padding:24px;
-}
-
-#fh-booking .fh-summary-card strong{
-  display:block;
-  margin-bottom:8px;
-  font-family:var(--fh-serif);
-  font-size:28px;
-  font-weight:400;
-  letter-spacing:-.04em;
-}
-
-#fh-booking .fh-summary-card p{
-  font-size:14px;
-  line-height:1.65;
-}
-
-#fh-booking .fh-api-box{
-  margin-top:18px;
-  padding:18px;
-  border:1px dashed rgba(29,26,23,.24);
-  background:rgba(255,255,255,.40);
-}
-
-#fh-booking .fh-api-box code{
-  display:block;
-  margin-top:8px;
-  white-space:normal;
-  color:var(--fh-accent-deep);
-  font-size:12px;
-  line-height:1.5;
-}
-
-#fh-booking .fh-map-wrap{
-  width:min(860px,100%);
-  margin:0 auto;
-  min-height:360px;
-  border:1px solid #e6dacd;
-  background:#d8cbbd;
-  overflow:hidden;
-  box-shadow:var(--fh-soft-shadow);
-}
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+#fh-booking-main a{color:inherit;text-decoration:none}
+#fh-booking-main button,
+#fh-booking-main input,
+#fh-booking-main select,
+#fh-booking-main textarea{font:inherit}
+#fh-booking-main button{cursor:pointer}
+#fh-booking-main img{display:block;max-width:100%}
+
+#fh-booking-main .fh-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(circle at 12% 10%,rgba(255,255,255,.65),transparent 0 24%),
+  radial-gradient(circle at 86% 14%,rgba(185,159,134,.18),transparent 0 22%),
+  radial-gradient(circle at 72% 84%,rgba(255,255,255,.42),transparent 0 24%)}
+#fh-booking-main .fh-bg:before{content:"";position:absolute;inset:-10%;opacity:.16;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23876e58' stroke-opacity='.50' stroke-width='1.1'%3E%3Cpath d='M-50 130c205 54 364 56 500 12 128-42 265-39 407 14 154 58 313 59 502-10 78-28 148-32 217-18'/%3E%3Cpath d='M-50 288c214 38 394 31 538-18 125-42 256-38 392 12 164 61 326 55 503-10 82-30 153-33 217-20'/%3E%3Cpath d='M-50 444c230 26 415 17 570-24 120-31 247-30 388 4 160 38 314 37 480-10 90-25 157-27 222-16'/%3E%3Cpath d='M-50 604c238 18 432 7 596-28 122-26 246-24 380-3 150 23 295 22 438-8 88-18 156-18 218-10'/%3E%3Cpath d='M-50 762c264 8 468-8 635-35 120-20 241-18 365-4 146 16 283 16 422-8 88-14 151-13 213-8'/%3E%3C/g%3E%3C/svg%3E");background-size:cover;background-position:center;animation:fhTopo 28s ease-in-out infinite alternate}
+#fh-booking-main .fh-grain{position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.052;mix-blend-mode:multiply;background-image:radial-gradient(rgba(0,0,0,.55) .45px,transparent .55px);background-size:4px 4px}
+@keyframes fhTopo{from{transform:translate3d(0,0,0) scale(1.02)}to{transform:translate3d(1vw,-1vh,0) scale(1.06)}}
+
+#fh-booking-main .fh-page{position:relative;z-index:1}
+#fh-booking-main .fh-langbar{position:fixed;top:86px;left:50%;transform:translateX(-50%);z-index:45;display:flex;align-items:center;gap:6px;padding:6px;border:1px solid rgba(255,250,243,.24);background:rgba(26,23,20,.30);backdrop-filter:blur(16px);box-shadow:0 16px 40px rgba(0,0,0,.12)}
+#fh-booking-main .fh-langbar span{padding:0 8px;color:rgba(255,250,243,.82);font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+#fh-booking-main .fh-langbar button{border:1px solid transparent;background:transparent;color:rgba(255,250,243,.82);min-height:31px;padding:7px 10px;font-size:10px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+#fh-booking-main .fh-langbar button.is-active,#fh-booking-main .fh-langbar button:hover{background:rgba(255,250,243,.14);border-color:rgba(255,250,243,.34);color:#fff}
+
+#fh-booking-main .fh-hero{position:relative;min-height:72svh;display:flex;align-items:center;justify-content:center;padding:150px 20px 72px;overflow:hidden;background:#1f1d19;color:var(--white)}
+#fh-booking-main .fh-hero-media{position:absolute;inset:0;z-index:0}
+#fh-booking-main .fh-hero-media div{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.045);transition:opacity 1200ms ease,transform 7800ms ease}
+#fh-booking-main .fh-hero-media div.is-active{opacity:1;transform:scale(1)}
+#fh-booking-main .fh-hero:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(22,19,17,.66),rgba(22,19,17,.33) 46%,rgba(22,19,17,.68)),radial-gradient(circle at 50% 16%,rgba(255,255,255,.12),transparent 0 28%)}
+#fh-booking-main .fh-hero:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:160px;z-index:1;background:linear-gradient(180deg,transparent,#efe7dc)}
+#fh-booking-main .fh-hero-inner{position:relative;z-index:2;width:min(1180px,100%);text-align:center;margin:0 auto}
+#fh-booking-main .fh-eyebrow,#fh-booking-main .fh-kicker{margin:0 0 12px;font-size:11px;text-transform:uppercase;letter-spacing:.22em;font-weight:850;color:var(--clay2)}
+#fh-booking-main .fh-hero .fh-eyebrow{color:rgba(255,250,243,.84)}
+#fh-booking-main h1,#fh-booking-main h2,#fh-booking-main h3,#fh-booking-main p{margin-top:0}
+#fh-booking-main h1{margin:0 auto 18px;max-width:980px;font-family:var(--serif);font-size:clamp(48px,8.2vw,108px);line-height:.90;letter-spacing:-.07em;font-weight:400;text-wrap:balance}
+#fh-booking-main .fh-hero-lead{margin:0 auto;max-width:780px;font-size:clamp(16px,1.6vw,20px);line-height:1.62;color:rgba(255,250,243,.84)}
+#fh-booking-main .fh-trust-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:26px auto 0}
+#fh-booking-main .fh-trust-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;background:rgba(255,250,243,.12);border:1px solid rgba(255,250,243,.20);backdrop-filter:blur(12px);font-size:12px;color:rgba(255,250,243,.86)}
+
+#fh-booking-main .fh-booking-wrap{position:relative;margin:-54px auto 0;width:min(1180px,calc(100% - 28px));z-index:5;display:grid;grid-template-columns:minmax(0,1.32fr) minmax(330px,.68fr);gap:20px;align-items:start}
+#fh-booking-main .fh-card{background:rgba(255,250,243,.96);border:1px solid #e5d8c9;box-shadow:var(--soft-shadow)}
+#fh-booking-main .fh-main-card{box-shadow:var(--shadow);overflow:hidden}
+#fh-booking-main .fh-book-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:26px 30px;border-bottom:1px solid #e5d8c9;background:linear-gradient(135deg,#fffaf3,#f3eadd)}
+#fh-booking-main h2{margin:0;font-family:var(--serif);font-size:clamp(34px,4vw,58px);font-weight:400;line-height:.96;letter-spacing:-.055em;text-wrap:balance}
+#fh-booking-main h3{margin:0 0 8px;font-family:var(--serif);font-size:clamp(26px,3vw,38px);font-weight:400;line-height:.98;letter-spacing:-.05em}
+#fh-booking-main p{color:var(--muted);line-height:1.65;font-size:16px}
+#fh-booking-main .fh-step{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--soft);white-space:nowrap;margin-top:6px}
+#fh-booking-main .fh-step b{display:grid;place-items:center;width:24px;height:24px;border-radius:999px;background:var(--clay);color:#fff;font-size:11px}
+
+#fh-booking-main .fh-form{padding:26px 30px 30px}
+#fh-booking-main .fh-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#fh-booking-main .fh-field{min-width:0}
+#fh-booking-main .fh-field.full{grid-column:1/-1}
+#fh-booking-main label{display:block;margin-bottom:7px;font-size:10px;text-transform:uppercase;letter-spacing:.16em;font-weight:850;color:rgba(26,23,20,.52)}
+#fh-booking-main input,#fh-booking-main select,#fh-booking-main textarea{width:100%;border:1px solid #ddd0c0;background:#fbf6ef;color:var(--ink);border-radius:0;min-height:54px;padding:14px 14px;outline:none;transition:border-color 220ms ease,box-shadow 220ms ease,background 220ms ease}
+#fh-booking-main textarea{min-height:118px;resize:vertical}
+#fh-booking-main input:focus,#fh-booking-main select:focus,#fh-booking-main textarea:focus{border-color:var(--clay2);background:#fff;box-shadow:0 0 0 4px rgba(185,159,134,.14)}
+#fh-booking-main .fh-inline{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#fh-booking-main .fh-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:20px;padding-top:18px;border-top:1px solid #e5d8c9}
+#fh-booking-main .fh-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:15px 22px;border:0;background:var(--clay);color:#fff;text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:850;transition:transform 200ms ease,background 250ms ease,opacity 250ms ease}
+#fh-booking-main .fh-btn:hover{transform:translateY(-1px);background:var(--clay2)}
+#fh-booking-main .fh-btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}
+#fh-booking-main .fh-btn.secondary:hover{background:#fff;color:var(--ink)}
+#fh-booking-main .fh-btn.dark{background:#1d1a17;color:#fff}
+#fh-booking-main .fh-btn.dark:hover{background:#000}
+#fh-booking-main .fh-btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+#fh-booking-main .fh-status{display:none;margin-top:16px;padding:14px 15px;border:1px solid var(--line);background:rgba(255,255,255,.60);font-size:14px;line-height:1.55;color:var(--muted)}
+#fh-booking-main .fh-status.is-visible{display:block}
+#fh-booking-main .fh-status.good{border-color:rgba(63,111,80,.28);background:rgba(63,111,80,.08);color:var(--good)}
+#fh-booking-main .fh-status.bad{border-color:rgba(154,75,63,.28);background:rgba(154,75,63,.08);color:var(--bad)}
+#fh-booking-main .fh-mini-note{font-size:13px;color:var(--soft);line-height:1.48;margin:0}
+
+#fh-booking-main .fh-side{position:sticky;top:112px;display:grid;gap:14px}
+#fh-booking-main .fh-summary{padding:24px}
+#fh-booking-main .fh-summary-top{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid #e5d8c9;padding-bottom:18px;margin-bottom:18px}
+#fh-booking-main .fh-summary-title{font-family:var(--serif);font-size:32px;line-height:.96;letter-spacing:-.05em;color:var(--ink)}
+#fh-booking-main .fh-summary-badge{height:max-content;padding:8px 10px;background:rgba(111,123,100,.12);color:var(--green);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:850;white-space:nowrap}
+#fh-booking-main .fh-summary-row{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid rgba(26,23,20,.08);font-size:14px;color:var(--muted)}
+#fh-booking-main .fh-summary-row strong{color:var(--ink);font-weight:650;text-align:right}
+#fh-booking-main .fh-price-box{display:none;margin-top:16px;padding:16px;background:#f5eee5;border:1px solid #e3d5c6}
+#fh-booking-main .fh-price-box.is-visible{display:block}
+#fh-booking-main .fh-price-main{font-family:var(--serif);font-size:36px;line-height:1;letter-spacing:-.045em;color:var(--ink)}
+#fh-booking-main .fh-price-sub{margin:6px 0 0;font-size:13px;color:var(--muted)}
+#fh-booking-main .fh-side-cta{width:100%;margin-top:16px}
+#fh-booking-main .fh-safe{display:grid;gap:10px;padding:22px}
+#fh-booking-main .fh-safe-item{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);line-height:1.5}
+#fh-booking-main .fh-check{display:grid;place-items:center;flex:0 0 auto;width:20px;height:20px;border-radius:999px;background:rgba(63,111,80,.12);color:var(--good);font-weight:900;font-size:12px}
+
+#fh-booking-main .fh-section{padding:88px 20px;position:relative}
+#fh-booking-main .fh-section.alt{background:linear-gradient(180deg,var(--section),rgba(255,255,255,.22))}
+#fh-booking-main .fh-container{width:min(1180px,100%);margin:0 auto}
+#fh-booking-main .fh-section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.78fr);gap:28px;align-items:end;margin-bottom:28px}
+#fh-booking-main .fh-benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+#fh-booking-main .fh-benefit{padding:24px;min-height:190px;background:var(--paper);border:1px solid #e5d8c9;box-shadow:var(--soft-shadow)}
+#fh-booking-main .fh-benefit strong{display:block;margin-bottom:8px;font-family:var(--serif);font-size:28px;line-height:1;letter-spacing:-.04em;font-weight:400;color:var(--clay2)}
+#fh-booking-main .fh-benefit p{font-size:14px;line-height:1.62;margin:0}
+#fh-booking-main .fh-faq{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#fh-booking-main .fh-faq details{background:rgba(255,250,243,.88);border:1px solid #e5d8c9;padding:0;box-shadow:var(--soft-shadow)}
+#fh-booking-main .fh-faq summary{cursor:pointer;padding:20px 22px;font-weight:760;color:var(--ink)}
+#fh-booking-main .fh-faq details p{padding:0 22px 22px;font-size:14px;margin:0}
 
-#fh-booking .fh-map-wrap iframe{
-  display:block;
-  width:100%;
-  height:360px;
-  border:0;
-  filter:saturate(.74) contrast(.95) sepia(.08);
-}
-
-#fh-booking .fh-faq-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-
-#fh-booking .fh-faq-item{
-  padding:24px;
-  border:1px solid #e6dacd;
-  background:rgba(255,250,243,.84);
-}
-
-#fh-booking .fh-faq-item strong{
-  display:block;
-  margin-bottom:8px;
-}
-
-#fh-booking .fh-faq-item p{
-  font-size:14px;
-  line-height:1.65;
-}
-
-#fh-booking .fh-footer{
-  padding:28px 20px 40px;
-  background:rgba(232,221,207,.92);
-}
-
-#fh-booking .fh-footer .fh-container{
-  display:flex;
-  justify-content:space-between;
-  gap:22px;
-  color:rgba(29,26,23,.62);
-  font-size:14px;
-}
-
-#fh-booking .fh-reveal,
-#fh-booking .fh-sequence > *{
-  opacity:0;
-  transform:translateY(26px);
-  transition:opacity 850ms ease, transform 850ms cubic-bezier(.2,.8,.2,1);
-}
-
-#fh-booking .fh-reveal.is-visible,
-#fh-booking .fh-sequence.is-visible > *{
-  opacity:1;
-  transform:translateY(0);
-}
-
-#fh-booking .fh-sequence.is-visible > *:nth-child(2){transition-delay:90ms;}
-#fh-booking .fh-sequence.is-visible > *:nth-child(3){transition-delay:180ms;}
-#fh-booking .fh-sequence.is-visible > *:nth-child(4){transition-delay:270ms;}
-#fh-booking .fh-sequence.is-visible > *:nth-child(5){transition-delay:360ms;}
-#fh-booking .fh-sequence.is-visible > *:nth-child(6){transition-delay:450ms;}
-
-#fh-booking .fh-modal{
-  position:fixed;
-  inset:0;
-  z-index:90;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  background:rgba(10,10,8,.58);
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
-}
-
-#fh-booking .fh-modal.is-open{display:flex;}
-
-#fh-booking .fh-modal-panel{
-  width:min(780px,100%);
-  max-height:min(740px,calc(100vh - 48px));
-  overflow:auto;
-  background:var(--fh-paper);
-  color:var(--fh-ink);
-  border:1px solid rgba(255,250,243,.55);
-  box-shadow:0 32px 90px rgba(0,0,0,.32);
-}
-
-#fh-booking .fh-modal-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  padding:22px 26px;
-  border-bottom:1px solid #e6dacd;
-}
-
-#fh-booking .fh-modal-head h3{
-  font-family:var(--fh-serif);
-  font-size:36px;
-  line-height:1;
-  font-weight:400;
-  letter-spacing:-.05em;
-  margin:0;
-}
+#fh-booking-main .fh-mobile-sticky{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:48;min-height:54px;align-items:center;justify-content:center;background:#1d1a17;color:#fff;text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:850;box-shadow:0 18px 48px rgba(0,0,0,.22)}
+#fh-booking-main .fh-reveal{opacity:0;transform:translateY(28px);transition:opacity 850ms ease,transform 850ms cubic-bezier(.2,.8,.2,1)}
+#fh-booking-main .fh-reveal.is-visible{opacity:1;transform:translateY(0)}
 
-#fh-booking .fh-close{
-  border:0;
-  background:transparent;
-  font-size:30px;
-  line-height:1;
-  color:rgba(29,26,23,.55);
+@media(max-width:1060px){
+  #fh-booking-main .fh-booking-wrap{grid-template-columns:1fr}
+  #fh-booking-main .fh-side{position:relative;top:auto;grid-template-columns:1fr 1fr}
+  #fh-booking-main .fh-section-head{grid-template-columns:1fr}
+  #fh-booking-main .fh-benefits{grid-template-columns:1fr 1fr}
 }
-
-#fh-booking .fh-modal-body{
-  padding:26px;
-}
-
-#fh-booking .fh-detail-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-
-#fh-booking .fh-detail-field.is-full{grid-column:1 / -1;}
-
-#fh-booking .fh-detail-field label{
-  display:block;
-  margin-bottom:7px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.16em;
-  font-weight:850;
-  color:rgba(29,26,23,.52);
-}
-
-#fh-booking .fh-detail-field input,
-#fh-booking .fh-detail-field select,
-#fh-booking .fh-detail-field textarea{
-  width:100%;
-  border:1px solid #ddd0c0;
-  background:#fbf6ef;
-  padding:13px 14px;
-  outline:none;
-  color:var(--fh-ink);
-  border-radius:0;
-}
-
-#fh-booking .fh-detail-field textarea{
-  min-height:116px;
-  resize:vertical;
-}
-
-#fh-booking .fh-modal-actions{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
-  margin-top:20px;
-  padding-top:18px;
-  border-top:1px solid #e6dacd;
-}
-
-#fh-booking .fh-link-button{
-  border:0;
-  background:transparent;
-  color:var(--fh-accent-deep);
-  text-decoration:underline;
-  text-underline-offset:4px;
-}
-
-#fh-booking .fh-mobile-sticky{
-  display:none;
-  position:fixed;
-  z-index:45;
-  left:12px;
-  right:12px;
-  bottom:12px;
-  min-height:52px;
-  align-items:center;
-  justify-content:center;
-  background:var(--fh-accent);
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.15em;
-  font-size:11px;
-  font-weight:850;
-  box-shadow:0 20px 48px rgba(0,0,0,.18);
-}
-
-@keyframes fh-rise{
-  from{opacity:0;transform:translateY(26px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes fh-peek-drop{
-  0%{transform:translateY(0);opacity:0;}
-  25%{opacity:1;}
-  100%{transform:translateY(60px);opacity:0;}
-}
-
-@keyframes fh-bounce{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(5px);}
-}
-
-@media(max-width:1040px){
-  #fh-booking .fh-header{left:14px;right:14px;}
-  #fh-booking .fh-quick-bar{grid-template-columns:1fr 1fr;}
-  #fh-booking .fh-book-field:nth-child(2){border-right:0;}
-  #fh-booking .fh-book-field:nth-child(3){border-top:1px solid var(--fh-line);}
-  #fh-booking .fh-more-button{min-height:58px;border-top:1px solid var(--fh-line);}
-  #fh-booking .fh-book-button{min-height:58px;}
-  #fh-booking .fh-section-head,
-  #fh-booking .fh-two-col{grid-template-columns:1fr;}
-  #fh-booking .fh-process-grid{grid-template-columns:1fr 1fr;}
-  #fh-booking .fh-contact-grid{grid-template-columns:1fr;}
-  #fh-booking .fh-faq-grid{grid-template-columns:1fr;}
-  #fh-booking .fh-guesty-card{grid-template-columns:1fr;}
-}
-
-
 @media(max-width:760px){
-  #fh-booking{width:100%;}
-  #fh-booking .fh-header{
-    top:10px;
-    left:10px;
-    right:10px;
-    padding:11px 12px;
-    gap:12px;
-  }
-  #fh-booking .fh-logo-mark{width:40px;height:40px;font-size:19px;}
-  #fh-booking .fh-brand-title{font-size:23px;}
-  #fh-booking .fh-brand-title span,
-  #fh-booking .fh-nav a:not(.fh-nav-cta){display:none;}
-  #fh-booking .fh-nav{gap:0;}
-  #fh-booking .fh-nav-cta{padding:11px 13px;font-size:10px;white-space:nowrap;}
-  #fh-booking .fh-language-bar{top:68px;gap:4px;padding:5px;}
-  #fh-booking .fh-language-title{
-  padding:0 8px 0 6px;
-  font-size:10px;
-  line-height:1.2;
-  font-weight:850;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:rgba(255,250,243,.84);
-  white-space:nowrap;
+  #fh-booking-main .fh-langbar{top:68px;width:calc(100% - 24px);justify-content:center;gap:4px;padding:5px}
+  #fh-booking-main .fh-langbar span{font-size:9px;padding:0 4px;letter-spacing:.08em}
+  #fh-booking-main .fh-langbar button{min-width:34px;min-height:29px;padding:6px 8px;font-size:9px}
+  #fh-booking-main .fh-hero{min-height:auto;padding:120px 16px 88px}
+  #fh-booking-main h1{font-size:clamp(43px,14vw,66px)}
+  #fh-booking-main .fh-booking-wrap{width:calc(100% - 20px);margin-top:-50px;gap:14px}
+  #fh-booking-main .fh-book-head{display:block;padding:22px}
+  #fh-booking-main .fh-form{padding:22px}
+  #fh-booking-main .fh-grid,#fh-booking-main .fh-inline,#fh-booking-main .fh-side{grid-template-columns:1fr}
+  #fh-booking-main .fh-actions{flex-direction:column;align-items:stretch}
+  #fh-booking-main .fh-btn{width:100%}
+  #fh-booking-main .fh-section{padding:68px 16px}
+  #fh-booking-main .fh-benefits,#fh-booking-main .fh-faq{grid-template-columns:1fr}
+  #fh-booking-main .fh-mobile-sticky{display:flex}
 }
-
-#fh-booking .fh-language-button{min-width:36px;min-height:29px;padding:6px 8px;font-size:9px;}
-  #fh-booking .fh-hero{min-height:100svh;}
-  #fh-booking .fh-hero-inner{
-    width:calc(100% - 20px);
-    padding-top:116px;
-    padding-bottom:46px;
-  }
-  #fh-booking .fh-crest{width:66px;height:66px;font-size:23px;margin-bottom:18px;}
-  #fh-booking .fh-eyebrow{font-size:10px;letter-spacing:.18em;}
-  #fh-booking h1{font-size:clamp(43px,14vw,68px);}
-  #fh-booking .fh-hero-lead{font-size:16px;margin-bottom:24px;}
-  #fh-booking .fh-book-shell{padding:8px;}
-  #fh-booking .fh-quick-bar{grid-template-columns:1fr;}
-  #fh-booking .fh-book-field{border-right:0;border-bottom:1px solid var(--fh-line);padding:15px 15px;}
-  #fh-booking .fh-book-field:nth-child(3){border-top:0;}
-  #fh-booking .fh-more-button{min-height:54px;border-right:0;border-top:0;border-bottom:1px solid var(--fh-line);}
-  #fh-booking .fh-book-button{min-height:56px;}
-  #fh-booking .fh-book-note{font-size:12px;}
-  #fh-booking .fh-section{padding:72px 20px;}
-  #fh-booking .fh-section-head{gap:18px;margin-bottom:22px;}
-  #fh-booking h2{font-size:clamp(38px,11vw,58px);}
-  #fh-booking h3{font-size:clamp(29px,9vw,42px);}
-  #fh-booking p{font-size:16px;}
-  #fh-booking .fh-panel{padding:26px;}
-  #fh-booking .fh-form-top{padding:26px 22px;}
-  #fh-booking .fh-form-grid{grid-template-columns:1fr;padding:22px;}
-  #fh-booking .fh-guesty-panel{padding:24px;}
-  #fh-booking .fh-guesty-form{grid-template-columns:1fr;}
-  #fh-booking .fh-guesty-frame-wrap,
-  #fh-booking .fh-guesty-frame-wrap iframe{min-height:420px;}
-  #fh-booking .fh-form-field.is-full{grid-column:auto;}
-  #fh-booking .fh-form-submit{flex-direction:column;align-items:stretch;}
-  #fh-booking .fh-solid-button{width:100%;}
-  #fh-booking .fh-process-grid{grid-template-columns:1fr;}
-  #fh-booking .fh-process-card{min-height:auto;}
-  #fh-booking .fh-split-visual{min-height:430px;}
-  #fh-booking .fh-visual-card{left:14px;right:14px;bottom:14px;padding:20px;}
-  #fh-booking .fh-map-wrap{min-height:320px;width:100%;}
-  #fh-booking .fh-map-wrap iframe{height:320px;}
-  #fh-booking .fh-footer .fh-container{flex-direction:column;}
-  #fh-booking .fh-detail-grid{grid-template-columns:1fr;}
-  #fh-booking .fh-detail-field.is-full{grid-column:auto;}
-  #fh-booking .fh-modal{padding:12px;}
-  #fh-booking .fh-modal-head,
-  #fh-booking .fh-modal-body{padding:20px;}
-  #fh-booking .fh-mobile-sticky{display:flex;}
-}
-
-@media(max-width:420px){
-  #fh-booking .fh-brand-title{font-size:20px;}
-  #fh-booking .fh-nav-cta{padding:10px 11px;letter-spacing:.1em;}
-  #fh-booking .fh-hero-inner{width:calc(100% - 16px);}
-  #fh-booking .fh-section{padding-left:16px;padding-right:16px;}
-}
-
 @media(prefers-reduced-motion:reduce){
-  #fh-booking *,
-  #fh-booking *::before,
-  #fh-booking *::after{
-    animation:none!important;
-    transition:none!important;
-    scroll-behavior:auto!important;
-  }
+  #fh-booking-main *,#fh-booking-main *:before,#fh-booking-main *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
-
 </style>
 
-<div id="fh-booking" data-fh-page="contact-booking">
-  <div class="fh-ambient" aria-hidden="true"></div>
+<div id="fh-booking-main" data-page="booking" data-lang="en">
+  <div class="fh-bg" aria-hidden="true"></div>
+  <div class="fh-grain" aria-hidden="true"></div>
+
+  <div class="fh-langbar" role="group" aria-label="Choose language">
+    <span data-i18n="langTitle">Your private chalet in a few clicks</span>
+    <button type="button" data-fh-lang="en">EN</button>
+    <button type="button" data-fh-lang="fr">FR</button>
+    <button type="button" data-fh-lang="de">DE</button>
+    <button type="button" data-fh-lang="ru">RU</button>
+  </div>
+
   <div class="fh-page">
-    <header class="fh-header">
-      <a class="fh-brand" href="#fh-booking-top" aria-label="Fletschhorn contact and booking page">
-        <div class="fh-logo-mark">fh</div>
-        <div class="fh-brand-title">Fletschhorn<span data-i18n="brandSubtitle">Private alpine house · Saas-Fee</span></div>
-      </a>
-      <nav class="fh-nav" aria-label="Contact and booking page navigation">
-        <a href="#fh-booking-form-section" data-i18n="navBooking">Booking</a>
-        <a href="#fh-guesty-booking-engine" data-i18n="navProcess">Booking Flow</a>
-        <a href="#fh-booking-contact" data-i18n="navContact">Contact</a>
-        <a class="fh-nav-cta" href="#fh-booking-form-section" data-i18n="bookNow">Book Now</a>
-      </nav>
-    </header>
-
-    <div class="fh-language-bar" role="group" aria-label="Choose language">
-      <span class="fh-language-title" data-i18n="languageBarTitle">Your private Chalet in few clicks</span>
-      <button class="fh-language-button is-active" type="button" data-fh-lang="en">EN</button>
-      <button class="fh-language-button" type="button" data-fh-lang="fr">FR</button>
-      <button class="fh-language-button" type="button" data-fh-lang="de">DE</button>
-      <button class="fh-language-button" type="button" data-fh-lang="ru">RU</button>
-    </div>
-
-    <section class="fh-hero" id="fh-booking-top">
-      <div class="fh-hero-slides" id="fhBookingSlides" aria-hidden="true"></div>
+    <section class="fh-hero" id="top">
+      <div class="fh-hero-media" id="fhBookingHeroMedia" aria-hidden="true"></div>
       <div class="fh-hero-inner">
-        <div class="fh-crest" aria-hidden="true">fh</div>
-        <p class="fh-eyebrow" id="fhBookingEyebrow">Contact · booking inquiry · Saas-Fee</p>
-        <h1 id="fhBookingTitle">Your private chalet in a few clicks.</h1>
-        <p class="fh-hero-lead" id="fhBookingLead">Start with the simple details. The full availability, pricing, and confirmation flow can later connect safely through Cloudflare and Guesty.</p>
-
-        <div class="fh-book-shell" id="fh-booking-planner">
-          <form class="fh-quick-bar" id="fhBookingQuickForm">
-            <div class="fh-book-field">
-              <svg class="fh-book-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <div class="fh-field-copy">
-                <label for="fhBookWho" data-i18n="labelWho">Who</label>
-                <input id="fhBookWho" name="who" type="text" placeholder="Guests" data-i18n-placeholder="phGuests" autocomplete="off" />
-              </div>
-            </div>
-            <div class="fh-book-field">
-              <svg class="fh-book-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 2v4M16 2v4M3 10h18"/><rect x="3" y="4" width="18" height="18" rx="0"/></svg>
-              <div class="fh-field-copy">
-                <label for="fhBookWhen" data-i18n="labelWhen">When</label>
-                <input id="fhBookWhen" name="when" type="text" placeholder="Preferred dates" data-i18n-placeholder="phPreferredDates" autocomplete="off" />
-              </div>
-            </div>
-            <div class="fh-book-field">
-              <svg class="fh-book-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 7 8 6 8-6"/></svg>
-              <div class="fh-field-copy">
-                <label for="fhBookContact" data-i18n="labelContact">Contact</label>
-                <input id="fhBookContact" name="contact" type="text" placeholder="Email or phone" data-i18n-placeholder="phEmailPhone" autocomplete="off" />
-              </div>
-            </div>
-            <button class="fh-more-button" type="button" id="fhBookingOpenDetails" aria-label="Add booking details">
-              <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 6h10"/><path d="M18 6h2"/><path d="M4 12h2"/><path d="M10 12h10"/><path d="M4 18h12"/><path d="M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
-            </button>
-            <button class="fh-book-button" type="submit" data-i18n="bookNow">Book Now</button>
-          </form>
-          <p class="fh-book-note">One house, one inquiry. Extra details are optional and can later be sent through the Cloudflare inquiry endpoint.</p>
-          <div class="fh-status" id="fhBookingQuickStatus"></div>
+        <p class="fh-eyebrow" data-i18n="heroEyebrow">Direct booking · Fletschhorn Saas-Fee</p>
+        <h1 data-i18n="heroTitle">Book the whole chalet with clarity.</h1>
+        <p class="fh-hero-lead" data-i18n="heroLead">Choose your dates, confirm availability, receive the live quote, and send the final booking request through the secure Cloudflare + Guesty flow.</p>
+        <div class="fh-trust-row" aria-label="Booking reassurance">
+          <span class="fh-trust-pill" data-i18n="trustPrivate">One private property</span>
+          <span class="fh-trust-pill" data-i18n="trust48">Up to 48 sleeping places</span>
+          <span class="fh-trust-pill" data-i18n="trustWorker">Connected to live booking worker</span>
         </div>
-
-        <a class="fh-peek" href="#fh-booking-form-section" aria-label="Scroll to booking form">
-          <span data-i18n="sendDetails">Send details</span>
-          <div class="fh-peek-line"></div>
-          <b>⌄</b>
-        </a>
       </div>
     </section>
 
     <main>
-      <section class="fh-section is-alt" id="fh-booking-form-section">
-        <div class="fh-container fh-section-head fh-reveal">
-          <div>
-            <p class="fh-kicker" data-i18n="formKicker">Private request</p>
-            <h2 data-i18n="formSectionTitle">Need help with a group stay?</h2>
-          </div>
-          <p data-i18n="formSectionLead">Use this short form only for events, retreats, flexible dates, or special questions. For a normal stay, use the booking engine below so the information is not repeated.</p>
-        </div>
-
-        <div class="fh-container">
-          <form class="fh-panel fh-booking-form fh-reveal" id="fhBookingFullForm">
-            <div class="fh-form-top">
-              <p class="fh-kicker" data-i18n="requestAvailability">Special request</p>
-              <h3 data-i18n="bookHouse">Tell us what you need.</h3>
-              <p data-i18n="mainFormCopy">This form is for anything the live booking box cannot handle yet: private events, retreats, weddings, group questions, flexible dates, or arrival details.</p>
+      <section class="fh-booking-wrap" id="booking-panel">
+        <div class="fh-card fh-main-card fh-reveal">
+          <div class="fh-book-head">
+            <div>
+              <p class="fh-kicker" data-i18n="panelKicker">Start here</p>
+              <h2 data-i18n="panelTitle">Check dates and build your request.</h2>
             </div>
-            <div class="fh-form-grid">
-              <div class="fh-form-field">
+            <div class="fh-step"><b id="fhStepNumber">1</b><span id="fhStepLabel" data-i18n="stepDates">Dates</span></div>
+          </div>
+
+          <form class="fh-form" id="fhBookingForm" novalidate>
+            <div class="fh-grid">
+              <div class="fh-field">
                 <label for="fhFirstName" data-i18n="firstName">First name</label>
-                <input id="fhFirstName" name="firstName" type="text" autocomplete="given-name" required />
+                <input id="fhFirstName" name="firstName" type="text" autocomplete="given-name" required>
               </div>
-              <div class="fh-form-field">
+              <div class="fh-field">
                 <label for="fhLastName" data-i18n="lastName">Last name</label>
-                <input id="fhLastName" name="lastName" type="text" autocomplete="family-name" required />
+                <input id="fhLastName" name="lastName" type="text" autocomplete="family-name" required>
               </div>
-              <div class="fh-form-field">
+              <div class="fh-field full">
                 <label for="fhEmail" data-i18n="email">Email</label>
-                <input id="fhEmail" name="email" type="email" autocomplete="email" placeholder="name@email.com" required />
+                <input id="fhEmail" name="email" type="email" autocomplete="email" placeholder="name@email.com" required>
               </div>
-              <div class="fh-form-field">
-                <label for="fhPhone" data-i18n="phone">Phone / WhatsApp</label>
-                <input id="fhPhone" name="phone" type="text" autocomplete="tel" data-i18n-placeholder="phOptional" placeholder="Optional" />
+              <div class="fh-field">
+                <label for="fhCheckIn" data-i18n="arrival">Arrival</label>
+                <input id="fhCheckIn" name="checkIn" type="date" required>
               </div>
-              <div class="fh-form-field is-full">
-                <label for="fhStayPurpose" data-i18n="lookingFor">Looking for</label>
-                <select id="fhStayPurpose" name="stayPurpose">
-                  <option value="" data-i18n="selectOne">Select one</option>
-                  <option>Private house stay</option>
-                  <option>Family gathering</option>
-                  <option>Retreat</option>
-                  <option>Wedding or event</option>
-                  <option>Presentation / private group use</option>
-                  <option>Other</option>
+              <div class="fh-field">
+                <label for="fhCheckOut" data-i18n="departure">Departure</label>
+                <input id="fhCheckOut" name="checkOut" type="date" required>
+              </div>
+              <div class="fh-field">
+                <label for="fhGuests" data-i18n="guests">Guests</label>
+                <input id="fhGuests" name="guests" type="number" min="1" max="48" value="1" required>
+              </div>
+              <div class="fh-field">
+                <label for="fhStayType" data-i18n="stayType">Stay type</label>
+                <select id="fhStayType" name="stayType">
+                  <option value="private-stay" data-i18n="stayPrivate">Private chalet stay</option>
+                  <option value="family" data-i18n="stayFamily">Family gathering</option>
+                  <option value="retreat" data-i18n="stayRetreat">Retreat / team stay</option>
+                  <option value="wedding" data-i18n="stayWedding">Wedding or event</option>
+                  <option value="other" data-i18n="stayOther">Other</option>
                 </select>
               </div>
-              <div class="fh-form-field is-full">
+              <div class="fh-field">
+                <label for="fhPhone" data-i18n="phone">Phone / WhatsApp</label>
+                <input id="fhPhone" name="phone" type="tel" autocomplete="tel" data-i18n-placeholder="optional" placeholder="Optional">
+              </div>
+              <div class="fh-field">
+                <label for="fhPromo" data-i18n="promo">Promo code</label>
+                <input id="fhPromo" name="coupon" type="text" data-i18n-placeholder="optional" placeholder="Optional">
+              </div>
+              <div class="fh-field full">
                 <label for="fhMessage" data-i18n="message">Message</label>
-                <textarea id="fhMessage" name="message" data-i18n-placeholder="phSpecialMessage" placeholder="Tell us what you are planning, your preferred dates if they are flexible, guest count, arrival questions, or anything important for the stay."></textarea>
+                <textarea id="fhMessage" name="message" data-i18n-placeholder="messagePh" placeholder="Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates."></textarea>
               </div>
-              <div class="fh-form-submit">
-                <p class="fh-submit-note" data-i18n="submitNote">No Guesty keys are placed in this front-end code. Live booking should run through the Cloudflare Worker.</p>
-                <button class="fh-solid-button" type="submit" data-i18n="sendInquiry">Send request</button>
-              </div>
-              <div class="fh-status" id="fhBookingFullStatus"></div>
             </div>
+
+            <div class="fh-actions">
+              <button class="fh-btn" type="button" id="fhCheckAvailability" data-i18n="checkAvailability">Check availability</button>
+              <button class="fh-btn secondary" type="button" id="fhGetQuote" data-i18n="getQuote">Get quote</button>
+              <button class="fh-btn dark" type="submit" id="fhSubmitBooking" data-i18n="bookNow">Book my stay now</button>
+              <p class="fh-mini-note" data-i18n="safeNote">No API keys are exposed. The page sends requests only to the Cloudflare Worker.</p>
+            </div>
+            <div class="fh-status" id="fhBookingStatus" role="status" aria-live="polite"></div>
           </form>
         </div>
+
+        <aside class="fh-side fh-reveal">
+          <div class="fh-card fh-summary">
+            <div class="fh-summary-top">
+              <div class="fh-summary-title" data-i18n="summaryTitle">Your stay</div>
+              <div class="fh-summary-badge" id="fhAvailBadge" data-i18n="notChecked">Not checked</div>
+            </div>
+            <div class="fh-summary-row"><span data-i18n="summaryDates">Dates</span><strong id="fhSummaryDates">—</strong></div>
+            <div class="fh-summary-row"><span data-i18n="summaryGuests">Guests</span><strong id="fhSummaryGuests">—</strong></div>
+            <div class="fh-summary-row"><span data-i18n="summaryNights">Nights</span><strong id="fhSummaryNights">—</strong></div>
+            <div class="fh-summary-row"><span data-i18n="summaryType">Type</span><strong id="fhSummaryType">—</strong></div>
+            <div class="fh-price-box" id="fhPriceBox">
+              <div class="fh-price-main" id="fhPriceMain">—</div>
+              <p class="fh-price-sub" id="fhPriceSub" data-i18n="priceSub">Estimated quote from the booking worker.</p>
+            </div>
+            <button class="fh-btn dark fh-side-cta" type="button" id="fhSideSubmit" data-i18n="bookNow">Book my stay now</button>
+          </div>
+          <div class="fh-card fh-safe">
+            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe1">Direct booking flow for the whole property, not individual rooms.</span></div>
+            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe2">Availability and quote requests are routed through the Worker.</span></div>
+            <div class="fh-safe-item"><span class="fh-check">✓</span><span data-i18n="safe3">The booking team receives the details needed to confirm the stay.</span></div>
+          </div>
+        </aside>
       </section>
 
-      <section class="fh-section" id="fh-guesty-booking-engine">
+      <section class="fh-section alt" id="why-book-direct">
         <div class="fh-container fh-section-head fh-reveal">
           <div>
-            <p class="fh-kicker" data-i18n="guestyEngineKicker">Book directly</p>
-            <h2 data-i18n="guestyEngineTitle">Your private chalet in a few clicks.</h2>
+            <p class="fh-kicker" data-i18n="whyKicker">Why book direct</p>
+            <h2 data-i18n="whyTitle">The booking page should remove friction.</h2>
           </div>
-          <p data-i18n="guestyEngineLead">Choose your dates, check availability, and continue into the secure booking flow. Technical details stay behind the scenes.</p>
+          <p data-i18n="whyLead">The structure is inspired by modern booking platforms: clear dates, guest count, immediate feedback, a visible stay summary, and one strong final action.</p>
         </div>
-        <div class="fh-container fh-guesty-card fh-reveal">
-          <div class="fh-guesty-panel">
-            <p class="fh-kicker" data-i18n="liveBookingKicker">Live booking</p>
-            <h3 data-i18n="liveBookingTitle">Choose dates</h3>
-            <p data-i18n="liveBookingCopy">Enter dates and guest count once. The page then checks availability and opens the secure booking link when available.</p>
-            <form class="fh-guesty-form" id="fhGuestyForm">
-              <div class="fh-form-field">
-                <label for="fhGuestyArrival" data-i18n="arrival">Arrival</label>
-                <input id="fhGuestyArrival" name="checkIn" type="date" />
-              </div>
-              <div class="fh-form-field">
-                <label for="fhGuestyDeparture" data-i18n="departure">Departure</label>
-                <input id="fhGuestyDeparture" name="checkOut" type="date" />
-              </div>
-              <div class="fh-form-field">
-                <label for="fhGuestyGuests" data-i18n="guests">Guests</label>
-                <input id="fhGuestyGuests" name="guests" type="number" min="1" max="48" value="1" />
-              </div>
-              <div class="fh-form-field">
-                <label for="fhGuestyCoupon" data-i18n="promoCode">Promo code</label>
-                <input id="fhGuestyCoupon" name="coupon" type="text" data-i18n-placeholder="phOptional" placeholder="Optional" />
-              </div>
-              <div class="fh-guesty-actions">
-                <button class="fh-solid-button" type="submit" data-i18n="checkAvailability">Check availability</button>
-                <button class="fh-ghost-button" type="button" id="fhGuestyQuoteButton" data-i18n="getQuote">Get quote</button>
-                <button class="fh-ghost-button" type="button" id="fhGuestyContinueButton" data-i18n="continueBooking">Continue booking</button>
-              </div>
-              <div class="fh-guesty-result" id="fhGuestyResult"></div>
-            </form>
-          </div>
-          <div class="fh-guesty-frame-wrap">
-            <iframe id="fhGuestyFrame" title="Guesty booking" loading="lazy" data-guesty-embed-url="" src="about:blank"></iframe>
-            <div class="fh-guesty-placeholder" id="fhGuestyPlaceholder">
-              <div class="fh-guesty-placeholder-inner">
-                <p class="fh-kicker" data-i18n="secureEmbedKicker">Secure embed</p>
-                <h3 data-i18n="secureEmbedTitle">Guesty opens here when the booking URL is available.</h3>
-                <p data-i18n="secureEmbedCopy">Add the Guesty public booking URL to <code>GUESTY_PUBLIC_BOOKING_URL</code>, or let the Cloudflare Worker return <code>checkoutUrl</code>, <code>bookingUrl</code>, or <code>paymentUrl</code>.</p>
-              </div>
-            </div>
-          </div>
+        <div class="fh-container fh-benefits fh-reveal">
+          <div class="fh-benefit"><strong data-i18n="benefit1Title">Fast</strong><p data-i18n="benefit1Text">Guests can start from any page toolbar and land here with their details already filled.</p></div>
+          <div class="fh-benefit"><strong data-i18n="benefit2Title">Clear</strong><p data-i18n="benefit2Text">The side summary updates as they type, like a real booking platform.</p></div>
+          <div class="fh-benefit"><strong data-i18n="benefit3Title">Connected</strong><p data-i18n="benefit3Text">Search, quote, and booking requests go through the Cloudflare Worker.</p></div>
+          <div class="fh-benefit"><strong data-i18n="benefit4Title">Private</strong><p data-i18n="benefit4Text">The page sells one complete alpine house, not a generic hotel inventory.</p></div>
         </div>
       </section>
 
-      <section class="fh-section is-alt" id="fh-booking-contact">
-        <div class="fh-container fh-two-col">
-          <div class="fh-panel fh-reveal">
-            <p class="fh-kicker">Contact</p>
-            <h2>Reach the house team directly.</h2>
-            <p>Keep the contact area simple and practical. The main goal is not to overload guests — it is to give them the right next step and make the inquiry feel easy.</p>
-            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:24px;">
-              <a class="fh-ghost-button" href="tel:+41279572131">Call</a>
-              <a class="fh-ghost-button" href="#fh-booking-form-section">Send inquiry</a>
-            </div>
-          </div>
-          <div class="fh-split-visual fh-reveal">
-            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756344115-UN1RO9UJ7JQZQ8U5LPNB/1521689.jpg" alt="Fletschhorn alpine house exterior" />
-            <div class="fh-visual-card">
-              <p class="fh-kicker">One private house</p>
-              <p>The booking page should always feel focused on one unique property — not a listing grid, not a hotel room selector.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="fh-section" id="fh-booking-direct-contact">
-        <div class="fh-container fh-contact-grid fh-sequence fh-reveal">
-          <article class="fh-contact-card">
-            <span>Phone</span>
-            <strong>+41 27 957 2131</strong>
-            <p>Use for direct questions or urgent arrival-related contact. Replace if the client gives a different booking number.</p>
-          </article>
-          <article class="fh-contact-card">
-            <span>Address</span>
-            <strong>Saas-Fee</strong>
-            <p>Wildistrasse, 3906 Saas-Fee, Switzerland. Arrival instructions should remain confirmed through the operations flow.</p>
-          </article>
-          <article class="fh-contact-card">
-            <span>Email</span>
-            <strong>To confirm</strong>
-            <p>GUESTY / CLIENT EMAIL PLACEHOLDER. Add the confirmed booking inbox once the client provides it.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="fh-section is-alt" id="fh-booking-map">
+      <section class="fh-section" id="booking-faq">
         <div class="fh-container fh-section-head fh-reveal">
           <div>
-            <p class="fh-kicker">Map</p>
-            <h2>Useful context before guests send their dates.</h2>
+            <p class="fh-kicker" data-i18n="faqKicker">Useful details</p>
+            <h2 data-i18n="faqTitle">Before you send the request.</h2>
           </div>
-          <p>The map gives the guest confidence that the house is connected to Saas-Fee and the valley while still feeling private.</p>
+          <p data-i18n="faqLead">Keep the page practical. Guests should know what happens after they click, without reading a long sales page.</p>
         </div>
-        <div class="fh-container fh-map-wrap fh-reveal">
-          <iframe title="Fletschhorn area map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=7.915%2C46.094%2C7.950%2C46.119&layer=mapnik&marker=46.1058%2C7.9329"></iframe>
+        <div class="fh-container fh-faq fh-reveal">
+          <details open><summary data-i18n="faq1Q">Is this for the whole property?</summary><p data-i18n="faq1A">Yes. The booking flow is designed for private whole-property stays at Fletschhorn.</p></details>
+          <details><summary data-i18n="faq2Q">What happens after I click “Book my stay now”?</summary><p data-i18n="faq2A">The request is sent through the Worker with your dates, contact details, guest count, quote data when available, and stay notes.</p></details>
+          <details><summary data-i18n="faq3Q">Can I book events or retreats here?</summary><p data-i18n="faq3A">Yes. Select the stay type and add notes about the event, food plan, or setup needs.</p></details>
+          <details><summary data-i18n="faq4Q">Is the price final?</summary><p data-i18n="faq4A">The Worker quote is treated as an estimate unless the backend returns a confirmed checkout or booking link.</p></details>
         </div>
       </section>
-
     </main>
-
-    <footer class="fh-footer">
-      <div class="fh-container">
-        <div>Fletschhorn · Contact & Booking</div>
-        <div>Cloudflare + Guesty placeholders · no exposed API keys</div>
-      </div>
-    </footer>
   </div>
 
-  <a class="fh-mobile-sticky" href="#fh-booking-form-section">Book Now</a>
-
-  <div class="fh-modal" id="fhBookingModal" aria-hidden="true">
-    <div class="fh-modal-panel" role="dialog" aria-modal="true" aria-labelledby="fhBookingModalTitle">
-      <div class="fh-modal-head">
-        <h3 id="fhBookingModalTitle">More booking details</h3>
-        <button class="fh-close" type="button" id="fhBookingClose" aria-label="Close">×</button>
-      </div>
-      <div class="fh-modal-body">
-        <div class="fh-detail-grid">
-          <div class="fh-detail-field">
-            <label for="fhDetailGuests">Guest count</label>
-            <input id="fhDetailGuests" type="text" placeholder="Adults / children / total" />
-          </div>
-          <div class="fh-detail-field">
-            <label for="fhDetailStayType">Stay type</label>
-            <select id="fhDetailStayType">
-              <option>Private house stay</option>
-              <option>Family gathering</option>
-              <option>Retreat</option>
-              <option>Wedding or event</option>
-              <option>Presentation / private group use</option>
-            </select>
-          </div>
-          <div class="fh-detail-field">
-            <label for="fhDetailBedrooms">Bedrooms needed</label>
-            <input id="fhDetailBedrooms" type="text" placeholder="Optional" />
-          </div>
-          <div class="fh-detail-field">
-            <label for="fhDetailBudget">Approximate budget</label>
-            <input id="fhDetailBudget" type="text" placeholder="Optional / to confirm" />
-          </div>
-          <div class="fh-detail-field is-full">
-            <label for="fhDetailNotes">Notes</label>
-            <textarea id="fhDetailNotes" placeholder="Add arrival notes, accessibility needs, group needs, flexible dates, or questions."></textarea>
-          </div>
-        </div>
-        <div class="fh-modal-actions">
-          <button class="fh-link-button" type="button" id="fhBookingClear">Clear</button>
-          <button class="fh-solid-button" type="button" id="fhBookingApply">Apply details</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <a class="fh-mobile-sticky" href="#booking-panel" data-i18n="bookNow">Book my stay now</a>
 </div>
+
+<div id="fh-footer-slot"></div>
 
 <script>
 (function(){
-  const root = document.querySelector('#fh-booking');
-  if(!root) return;
+  document.body.classList.add("fh-github-version");
 
-  const FH_GUESTY_WORKER_BASE = 'https://saas-fee.moshe-cohen-h1.workers.dev';
-  const CLOUDFLARE_BOOKING_ENDPOINT = FH_GUESTY_WORKER_BASE + '/book';
-  const CLOUDFLARE_SEARCH_ENDPOINT = FH_GUESTY_WORKER_BASE + '/search';
-  const CLOUDFLARE_QUOTE_ENDPOINT = FH_GUESTY_WORKER_BASE + '/quote';
-  const GUESTY_PUBLIC_BOOKING_URL = '';
-  const GUESTY_LISTING_ID = 'GUESTY API PLACEHOLDER — listing, availability, quote, rules, images';
+  const ASSET_BASE = new URL("assets/", document.baseURI).href;
 
-  const FH_TRANSLATIONS = {
-    en:{
-      brandSubtitle:'Private alpine house · Saas-Fee', navBooking:'Booking', navProcess:'Booking Flow', navContact:'Contact', bookNow:'Book Now',
-      languageBarTitle:'Your private Chalet in few clicks', labelWho:'Who', labelWhen:'When', labelContact:'Contact', phGuests:'Guests', phPreferredDates:'Preferred dates', phEmailPhone:'Email or phone', quickNote:'One house, one inquiry. Extra details are optional and can later be sent through the Cloudflare booking endpoint.', sendDetails:'Send details',
-      formKicker:'Private request', requestAvailability:'Special request', firstName:'First name', lastName:'Last name', email:'Email', phone:'Phone / WhatsApp', lookingFor:'Looking for', selectOne:'Select one', message:'Message', submitNote:'No Guesty keys are placed in this front-end code. Live booking should run through the Cloudflare Worker.', phSpecialMessage:'Tell us what you are planning, your preferred dates if they are flexible, guest count, arrival questions, or anything important for the stay.', formSectionTitle:'Need help with a group stay?', formSectionLead:'Use this short form only for events, retreats, flexible dates, or special questions. For a normal stay, use the booking engine below so the information is not repeated.', bookHouse:'Tell us what you need.', mainFormCopy:'This form is for anything the live booking box cannot handle yet: private events, retreats, weddings, group questions, flexible dates, or arrival details.', sendInquiry:'Send request',
-      guestyEngineKicker:'Book directly', guestyEngineTitle:'Your private chalet in a few clicks.', guestyEngineLead:'Choose your dates, check availability, and continue into the secure booking flow. Technical details stay behind the scenes.', liveBookingKicker:'Live booking', liveBookingTitle:'Choose dates', liveBookingCopy:'Enter dates and guest count once. The page then checks availability and opens the secure booking link when available.', arrival:'Arrival', departure:'Departure', guests:'Guests', promoCode:'Promo code', phOptional:'Optional', checkAvailability:'Check availability', getQuote:'Get quote', continueBooking:'Continue booking', secureEmbedKicker:'Secure embed', secureEmbedTitle:'Guesty opens here when the booking URL is available.', secureEmbedCopy:'Add the Guesty public booking URL to GUESTY_PUBLIC_BOOKING_URL, or let the Cloudflare Worker return checkoutUrl, bookingUrl, or paymentUrl.',
-      statusWorking:'Checking Guesty...', statusNeedDates:'Please choose arrival and departure dates first.', statusAvailable:'Dates look available. You can now request a quote or continue booking.', statusNoLink:'The Worker responded, but no Guesty checkout link was returned yet.', statusFailed:'The Guesty connection did not respond. Check the Worker endpoint and CORS settings.', statusQuote:'Quote received from Guesty.', statusContinue:'Opening secure booking flow...', statusPrototype:'Guesty public booking URL is not set yet. The Worker can still return a checkout link.', quickSent:'Thank you. Your booking inquiry was sent.', quickFail:'The inquiry could not be sent. Please use the direct contact details or try again.', extraAdded:'Extra booking details added. This can later be sent through the Cloudflare booking endpoint.'
-    },
-    fr:{
-      brandSubtitle:'Maison alpine privée · Saas-Fee', navBooking:'Réserver', navProcess:'Parcours', navContact:'Contact', bookNow:'Réserver',
-      languageBarTitle:'Votre chalet privé en quelques clics', labelWho:'Qui', labelWhen:'Quand', labelContact:'Contact', phGuests:'Invités', phPreferredDates:'Dates souhaitées', phEmailPhone:'Email ou téléphone', quickNote:'Une maison, une demande. Les détails supplémentaires sont optionnels et pourront être envoyés par le endpoint Cloudflare.', sendDetails:'Envoyer les détails',
-      formKicker:'Demande privée', requestAvailability:'Demande spéciale', firstName:'Prénom', lastName:'Nom', email:'Email', phone:'Téléphone / WhatsApp', lookingFor:'Projet', selectOne:'Choisir', message:'Message', submitNote:'Aucune clé Guesty ne doit être placée dans ce code front-end. La réservation en direct doit passer par le Worker Cloudflare.', phSpecialMessage:'Expliquez votre projet, vos dates si elles sont flexibles, le nombre d’invités, les questions d’arrivée ou tout détail important.', formSectionTitle:'Besoin d’aide pour un séjour de groupe ?', formSectionLead:'Utilisez ce formulaire court seulement pour les événements, retraites, dates flexibles ou demandes spéciales. Pour un séjour simple, utilisez le moteur de réservation ci-dessous afin de ne pas répéter les informations.', bookHouse:'Dites-nous ce dont vous avez besoin.', mainFormCopy:'Ce formulaire sert pour ce que le module de réservation ne gère pas encore : événements privés, retraites, mariages, groupes, dates flexibles ou détails d’arrivée.', sendInquiry:'Envoyer la demande',
-      guestyEngineKicker:'Réserver directement', guestyEngineTitle:'Votre chalet privé en quelques clics.', guestyEngineLead:'Choisissez vos dates, vérifiez la disponibilité et continuez vers le parcours sécurisé. Les détails techniques restent en arrière-plan.', liveBookingKicker:'Réservation en direct', liveBookingTitle:'Choisir les dates', liveBookingCopy:'Indiquez vos dates et le nombre d’invités une seule fois. La page vérifie ensuite la disponibilité et ouvre le lien sécurisé.', arrival:'Arrivée', departure:'Départ', guests:'Invités', promoCode:'Code promo', phOptional:'Optionnel', checkAvailability:'Vérifier', getQuote:'Obtenir un devis', continueBooking:'Continuer', secureEmbedKicker:'Intégration sécurisée', secureEmbedTitle:'Guesty s’ouvre ici quand l’URL de réservation est disponible.', secureEmbedCopy:'Ajoutez l’URL publique Guesty dans GUESTY_PUBLIC_BOOKING_URL, ou laissez le Worker Cloudflare renvoyer checkoutUrl, bookingUrl ou paymentUrl.',
-      statusWorking:'Vérification Guesty...', statusNeedDates:'Veuillez choisir une date d’arrivée et de départ.', statusAvailable:'Les dates semblent disponibles. Vous pouvez demander un devis ou continuer.', statusNoLink:'Le Worker a répondu, mais aucun lien de paiement Guesty n’a encore été renvoyé.', statusFailed:'La connexion Guesty ne répond pas. Vérifiez le Worker et les paramètres CORS.', statusQuote:'Devis reçu depuis Guesty.', statusContinue:'Ouverture du parcours sécurisé...', statusPrototype:'L’URL publique Guesty n’est pas encore définie. Le Worker peut quand même renvoyer un lien checkout.', quickSent:'Merci. Votre demande de réservation a été envoyée.', quickFail:'La demande n’a pas pu être envoyée. Utilisez les coordonnées directes ou réessayez.', extraAdded:'Détails supplémentaires ajoutés. Ils pourront être envoyés via le endpoint Cloudflare.'
-    },
-    de:{
-      brandSubtitle:'Privates Alpenhaus · Saas-Fee', navBooking:'Buchen', navProcess:'Buchung', navContact:'Kontakt', bookNow:'Buchen',
-      languageBarTitle:'Ihr privates Chalet in wenigen Klicks', labelWho:'Wer', labelWhen:'Wann', labelContact:'Kontakt', phGuests:'Gäste', phPreferredDates:'Gewünschte Daten', phEmailPhone:'E-Mail oder Telefon', quickNote:'Ein Haus, eine Anfrage. Zusätzliche Details sind optional und können später über den Cloudflare-Endpunkt gesendet werden.', sendDetails:'Details senden',
-      formKicker:'Private Anfrage', requestAvailability:'Sonderanfrage', firstName:'Vorname', lastName:'Nachname', email:'E-Mail', phone:'Telefon / WhatsApp', lookingFor:'Gesucht', selectOne:'Auswählen', message:'Nachricht', submitNote:'Keine Guesty-Schlüssel gehören in diesen Frontend-Code. Live-Buchung sollte über den Cloudflare Worker laufen.', phSpecialMessage:'Beschreiben Sie Ihre Planung, flexible Daten, Gästezahl, Anreisefragen oder wichtige Details.', formSectionTitle:'Brauchen Sie Hilfe für einen Gruppenaufenthalt?', formSectionLead:'Nutzen Sie dieses kurze Formular nur für Events, Retreats, flexible Daten oder Sonderfragen. Für einen normalen Aufenthalt nutzen Sie bitte das Buchungsmodul unten, damit sich Informationen nicht wiederholen.', bookHouse:'Sagen Sie uns, was Sie brauchen.', mainFormCopy:'Dieses Formular ist für alles, was das Live-Buchungsmodul noch nicht abdeckt: private Events, Retreats, Hochzeiten, Gruppenfragen, flexible Daten oder Anreisedetails.', sendInquiry:'Anfrage senden',
-      guestyEngineKicker:'Direkt buchen', guestyEngineTitle:'Ihr privates Chalet in wenigen Klicks.', guestyEngineLead:'Wählen Sie Daten, prüfen Sie Verfügbarkeit und gehen Sie sicher zur Buchung weiter. Technische Details bleiben im Hintergrund.', liveBookingKicker:'Live-Buchung', liveBookingTitle:'Daten wählen', liveBookingCopy:'Geben Sie Daten und Gästezahl nur einmal ein. Die Seite prüft danach die Verfügbarkeit und öffnet den sicheren Buchungslink.', arrival:'Anreise', departure:'Abreise', guests:'Gäste', promoCode:'Promocode', phOptional:'Optional', checkAvailability:'Verfügbarkeit prüfen', getQuote:'Angebot erhalten', continueBooking:'Weiter buchen', secureEmbedKicker:'Sichere Einbettung', secureEmbedTitle:'Guesty öffnet sich hier, sobald die Buchungs-URL verfügbar ist.', secureEmbedCopy:'Fügen Sie die öffentliche Guesty-URL in GUESTY_PUBLIC_BOOKING_URL ein oder lassen Sie den Cloudflare Worker checkoutUrl, bookingUrl oder paymentUrl zurückgeben.',
-      statusWorking:'Guesty wird geprüft...', statusNeedDates:'Bitte Anreise- und Abreisedatum wählen.', statusAvailable:'Die Daten scheinen verfügbar zu sein. Sie können nun ein Angebot anfordern oder fortfahren.', statusNoLink:'Der Worker hat geantwortet, aber noch keinen Guesty-Checkout-Link geliefert.', statusFailed:'Die Guesty-Verbindung antwortet nicht. Worker-Endpunkt und CORS prüfen.', statusQuote:'Angebot von Guesty erhalten.', statusContinue:'Sicherer Buchungsablauf wird geöffnet...', statusPrototype:'Die öffentliche Guesty-URL ist noch nicht gesetzt. Der Worker kann trotzdem einen Checkout-Link liefern.', quickSent:'Danke. Ihre Buchungsanfrage wurde gesendet.', quickFail:'Die Anfrage konnte nicht gesendet werden. Bitte direkte Kontaktdaten nutzen oder erneut versuchen.', extraAdded:'Zusätzliche Buchungsdetails wurden hinzugefügt. Sie können später über Cloudflare gesendet werden.'
-    },
-    ru:{
-      brandSubtitle:'Частный альпийский дом · Саас-Фе', navBooking:'Бронь', navProcess:'Бронирование', navContact:'Контакт', bookNow:'Забронировать',
-      languageBarTitle:'Ваше частное шале в несколько кликов', labelWho:'Кто', labelWhen:'Когда', labelContact:'Контакт', phGuests:'Гости', phPreferredDates:'Желаемые даты', phEmailPhone:'Email или телефон', quickNote:'Один дом — один запрос. Дополнительные детали необязательны и позже могут быть отправлены через Cloudflare endpoint.', sendDetails:'Отправить детали',
-      formKicker:'Частный запрос', requestAvailability:'Особый запрос', firstName:'Имя', lastName:'Фамилия', email:'Email', phone:'Телефон / WhatsApp', lookingFor:'Формат', selectOne:'Выберите', message:'Сообщение', submitNote:'Ключи Guesty не размещаются во фронтенд-коде. Онлайн-бронирование должно идти через Cloudflare Worker.', phSpecialMessage:'Опишите планы, гибкие даты, число гостей, вопросы по приезду или важные детали.', formSectionTitle:'Нужна помощь с групповым проживанием?', formSectionLead:'Используйте эту короткую форму только для мероприятий, ретритов, гибких дат или особых вопросов. Для обычного проживания используйте модуль бронирования ниже, чтобы не повторять информацию.', bookHouse:'Расскажите, что вам нужно.', mainFormCopy:'Эта форма для того, что онлайн-модуль пока не обрабатывает: частные мероприятия, ретриты, свадьбы, групповые вопросы, гибкие даты или детали прибытия.', sendInquiry:'Отправить запрос',
-      guestyEngineKicker:'Бронировать напрямую', guestyEngineTitle:'Ваше частное шале в несколько кликов.', guestyEngineLead:'Выберите даты, проверьте доступность и продолжите безопасное бронирование. Технические детали остаются за кулисами.', liveBookingKicker:'Онлайн-бронирование', liveBookingTitle:'Выберите даты', liveBookingCopy:'Введите даты и количество гостей один раз. Затем страница проверит доступность и откроет безопасную ссылку.', arrival:'Заезд', departure:'Выезд', guests:'Гости', promoCode:'Промокод', phOptional:'Необязательно', checkAvailability:'Проверить даты', getQuote:'Получить цену', continueBooking:'Продолжить', secureEmbedKicker:'Безопасная вставка', secureEmbedTitle:'Guesty откроется здесь, когда будет доступна ссылка бронирования.', secureEmbedCopy:'Добавьте публичную ссылку Guesty в GUESTY_PUBLIC_BOOKING_URL или позвольте Cloudflare Worker вернуть checkoutUrl, bookingUrl или paymentUrl.',
-      statusWorking:'Проверяем Guesty...', statusNeedDates:'Сначала выберите даты заезда и выезда.', statusAvailable:'Даты выглядят доступными. Можно запросить цену или продолжить.', statusNoLink:'Worker ответил, но ссылка Guesty checkout пока не вернулась.', statusFailed:'Подключение Guesty не отвечает. Проверьте Worker endpoint и CORS.', statusQuote:'Расчёт получен из Guesty.', statusContinue:'Открываем безопасное бронирование...', statusPrototype:'Публичная ссылка Guesty ещё не задана. Worker всё равно может вернуть checkout link.', quickSent:'Спасибо. Ваш запрос на бронирование отправлен.', quickFail:'Запрос не удалось отправить. Используйте прямые контакты или попробуйте снова.', extraAdded:'Дополнительные детали добавлены. Позже они могут быть отправлены через Cloudflare.'
-    }
+  async function loadHtml(slotId, fileName){
+    const slot = document.getElementById(slotId);
+    if(!slot) return;
+    try{
+      const response = await fetch(ASSET_BASE + fileName, {cache:"no-cache"});
+      if(!response.ok) throw new Error(fileName + " failed: " + response.status);
+      const html = await response.text();
+      slot.innerHTML = html;
+      slot.querySelectorAll("script").forEach(function(oldScript){
+        const newScript = document.createElement("script");
+        Array.from(oldScript.attributes).forEach(function(attr){newScript.setAttribute(attr.name, attr.value);});
+        newScript.textContent = oldScript.textContent;
+        oldScript.replaceWith(newScript);
+      });
+    }catch(error){console.error("Fletschhorn header/footer load error:", error);}
+  }
+
+  loadHtml("fh-header-slot", "Header.html");
+  loadHtml("fh-footer-slot", "footer.html");
+})();
+</script>
+
+<script>
+(function(){
+  const root = document.getElementById("fh-booking-main");
+  if(!root || root.dataset.ready === "1") return;
+  root.dataset.ready = "1";
+
+  const CFG = {
+    bookingPageUrl:"booking.html",
+    listingId:"6968339ab7d735001ca015ba",
+    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev"
   };
 
-  let fhCurrentLang = localStorage.getItem('fh-language') || 'en';
+  const LANGS = ["en","fr","de","ru"];
+  const I18N = {
+    en:{langTitle:"Your private chalet in a few clicks",heroEyebrow:"Direct booking · Fletschhorn Saas-Fee",heroTitle:"Book the whole chalet with clarity.",heroLead:"Choose your dates, confirm availability, receive the live quote, and send the final booking request through the secure Cloudflare + Guesty flow.",trustPrivate:"One private property",trust48:"Up to 48 sleeping places",trustWorker:"Connected to live booking worker",panelKicker:"Start here",panelTitle:"Check dates and build your request.",stepDates:"Dates",stepQuote:"Quote",stepBook:"Booking",firstName:"First name",lastName:"Last name",email:"Email",arrival:"Arrival",departure:"Departure",guests:"Guests",stayType:"Stay type",stayPrivate:"Private chalet stay",stayFamily:"Family gathering",stayRetreat:"Retreat / team stay",stayWedding:"Wedding or event",stayOther:"Other",phone:"Phone / WhatsApp",promo:"Promo code",optional:"Optional",message:"Message",messagePh:"Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates.",checkAvailability:"Check availability",getQuote:"Get quote",bookNow:"Book my stay now",safeNote:"No API keys are exposed. The page sends requests only to the Cloudflare Worker.",summaryTitle:"Your stay",notChecked:"Not checked",available:"Available",unavailable:"Unavailable",summaryDates:"Dates",summaryGuests:"Guests",summaryNights:"Nights",summaryType:"Type",priceSub:"Estimated quote from the booking worker.",safe1:"Direct booking flow for the whole property, not individual rooms.",safe2:"Availability and quote requests are routed through the Worker.",safe3:"The booking team receives the details needed to confirm the stay.",whyKicker:"Why book direct",whyTitle:"The booking page should remove friction.",whyLead:"The structure is inspired by modern booking platforms: clear dates, guest count, immediate feedback, a visible stay summary, and one strong final action.",benefit1Title:"Fast",benefit1Text:"Guests can start from any page toolbar and land here with their details already filled.",benefit2Title:"Clear",benefit2Text:"The side summary updates as they type, like a real booking platform.",benefit3Title:"Connected",benefit3Text:"Search, quote, and booking requests go through the Cloudflare Worker.",benefit4Title:"Private",benefit4Text:"The page sells one complete alpine house, not a generic hotel inventory.",faqKicker:"Useful details",faqTitle:"Before you send the request.",faqLead:"Keep the page practical. Guests should know what happens after they click, without reading a long sales page.",faq1Q:"Is this for the whole property?",faq1A:"Yes. The booking flow is designed for private whole-property stays at Fletschhorn.",faq2Q:"What happens after I click “Book my stay now”?",faq2A:"The request is sent through the Worker with your dates, contact details, guest count, quote data when available, and stay notes.",faq3Q:"Can I book events or retreats here?",faq3A:"Yes. Select the stay type and add notes about the event, food plan, or setup needs.",faq4Q:"Is the price final?",faq4A:"The Worker quote is treated as an estimate unless the backend returns a confirmed checkout or booking link.",statusNeedFields:"Please complete first name, last name, email, arrival, departure, and guest count.",statusBadEmail:"Please enter a valid email address.",statusBadDates:"Departure must be after arrival.",statusChecking:"Checking availability through the Worker...",statusQuote:"Requesting quote through the Worker...",statusAvailable:"The Worker returned availability for these dates.",statusUnavailable:"The Worker says these dates are not available.",statusNoPrice:"Availability returned. No quote amount was returned yet.",statusBook:"Sending final booking request through the Worker...",statusBookSent:"Booking request sent. The team can now confirm the stay or continue the secure Guesty flow.",statusCheckout:"A secure booking link was returned. Opening it now.",statusWorkerFail:"The Worker did not respond correctly. Check endpoint names, CORS, and the Worker logs.",nights:"nights",night:"night"},
+    fr:{langTitle:"Votre chalet privé en quelques clics",heroEyebrow:"Réservation directe · Fletschhorn Saas-Fee",heroTitle:"Réserver tout le chalet, clairement.",heroLead:"Choisissez vos dates, vérifiez la disponibilité, recevez le devis en direct, puis envoyez la demande finale via le flux sécurisé Cloudflare + Guesty.",trustPrivate:"Une propriété privée",trust48:"Jusqu’à 48 couchages",trustWorker:"Connecté au Worker de réservation",panelKicker:"Commencer ici",panelTitle:"Vérifiez vos dates et construisez votre demande.",stepDates:"Dates",stepQuote:"Devis",stepBook:"Réservation",firstName:"Prénom",lastName:"Nom",email:"Email",arrival:"Arrivée",departure:"Départ",guests:"Invités",stayType:"Type de séjour",stayPrivate:"Séjour chalet privé",stayFamily:"Réunion familiale",stayRetreat:"Retraite / équipe",stayWedding:"Mariage ou événement",stayOther:"Autre",phone:"Téléphone / WhatsApp",promo:"Code promo",optional:"Optionnel",message:"Message",messagePh:"Indiquez ce qui est important : heure d’arrivée, événement, cuisine/traiteur, chambres ou dates flexibles.",checkAvailability:"Vérifier la disponibilité",getQuote:"Obtenir un devis",bookNow:"Réserver maintenant",safeNote:"Aucune clé API n’est exposée. La page envoie uniquement les demandes au Worker Cloudflare.",summaryTitle:"Votre séjour",notChecked:"Non vérifié",available:"Disponible",unavailable:"Indisponible",summaryDates:"Dates",summaryGuests:"Invités",summaryNights:"Nuits",summaryType:"Type",priceSub:"Devis estimé depuis le Worker de réservation.",safe1:"Flux de réservation pour la propriété entière, pas pour des chambres individuelles.",safe2:"Disponibilité et devis passent par le Worker.",safe3:"L’équipe reçoit les détails nécessaires pour confirmer le séjour.",whyKicker:"Pourquoi réserver en direct",whyTitle:"La page de réservation doit enlever la friction.",whyLead:"Structure inspirée des plateformes modernes : dates claires, nombre d’invités, retour immédiat, résumé visible, et une action finale forte.",benefit1Title:"Rapide",benefit1Text:"Les visiteurs arrivent depuis la barre de réservation avec leurs informations déjà remplies.",benefit2Title:"Clair",benefit2Text:"Le résumé se met à jour pendant la saisie, comme une vraie plateforme de réservation.",benefit3Title:"Connecté",benefit3Text:"Search, quote et booking passent par le Worker Cloudflare.",benefit4Title:"Privé",benefit4Text:"La page vend une maison alpine entière, pas un inventaire hôtelier générique.",faqKicker:"Détails utiles",faqTitle:"Avant d’envoyer la demande.",faqLead:"La page reste pratique. Les invités doivent comprendre la prochaine étape sans lire une longue page commerciale.",faq1Q:"Est-ce pour toute la propriété ?",faq1A:"Oui. Le flux est conçu pour des séjours privés dans toute la propriété Fletschhorn.",faq2Q:"Que se passe-t-il après “Réserver maintenant” ?",faq2A:"La demande est envoyée au Worker avec dates, contact, invités, devis disponible et notes.",faq3Q:"Puis-je réserver un événement ou une retraite ?",faq3A:"Oui. Choisissez le type de séjour et ajoutez les détails dans le message.",faq4Q:"Le prix est-il final ?",faq4A:"Le devis Worker reste une estimation sauf si le backend renvoie un lien de checkout ou booking confirmé.",statusNeedFields:"Veuillez compléter prénom, nom, email, arrivée, départ et invités.",statusBadEmail:"Veuillez entrer un email valide.",statusBadDates:"Le départ doit être après l’arrivée.",statusChecking:"Vérification de la disponibilité via le Worker...",statusQuote:"Demande de devis via le Worker...",statusAvailable:"Le Worker a renvoyé une disponibilité pour ces dates.",statusUnavailable:"Le Worker indique que ces dates ne sont pas disponibles.",statusNoPrice:"Disponibilité reçue. Aucun montant n’a encore été renvoyé.",statusBook:"Envoi de la demande finale via le Worker...",statusBookSent:"Demande envoyée. L’équipe peut confirmer le séjour ou continuer le flux Guesty sécurisé.",statusCheckout:"Un lien sécurisé a été renvoyé. Ouverture en cours.",statusWorkerFail:"Le Worker n’a pas répondu correctement. Vérifiez les endpoints, CORS et les logs.",nights:"nuits",night:"nuit"},
+    de:{langTitle:"Ihr privates Chalet in wenigen Klicks",heroEyebrow:"Direktbuchung · Fletschhorn Saas-Fee",heroTitle:"Das ganze Chalet klar buchen.",heroLead:"Wählen Sie Daten, prüfen Sie Verfügbarkeit, erhalten Sie ein Live-Angebot und senden Sie die finale Anfrage über Cloudflare + Guesty.",trustPrivate:"Ein privates Objekt",trust48:"Bis zu 48 Schlafplätze",trustWorker:"Mit Buchungs-Worker verbunden",panelKicker:"Hier starten",panelTitle:"Daten prüfen und Anfrage erstellen.",stepDates:"Daten",stepQuote:"Angebot",stepBook:"Buchung",firstName:"Vorname",lastName:"Nachname",email:"E-Mail",arrival:"Anreise",departure:"Abreise",guests:"Gäste",stayType:"Aufenthalt",stayPrivate:"Privater Chalet-Aufenthalt",stayFamily:"Familientreffen",stayRetreat:"Retreat / Team",stayWedding:"Hochzeit oder Event",stayOther:"Andere",phone:"Telefon / WhatsApp",promo:"Promocode",optional:"Optional",message:"Nachricht",messagePh:"Wichtige Details: Anreisezeit, Event, Küche/Catering, Zimmer oder flexible Daten.",checkAvailability:"Verfügbarkeit prüfen",getQuote:"Angebot erhalten",bookNow:"Aufenthalt buchen",safeNote:"Keine API-Schlüssel im Frontend. Anfragen gehen nur an den Cloudflare Worker.",summaryTitle:"Ihr Aufenthalt",notChecked:"Nicht geprüft",available:"Verfügbar",unavailable:"Nicht verfügbar",summaryDates:"Daten",summaryGuests:"Gäste",summaryNights:"Nächte",summaryType:"Typ",priceSub:"Geschätztes Angebot vom Buchungs-Worker.",safe1:"Direktbuchung für das ganze Objekt, nicht für einzelne Zimmer.",safe2:"Verfügbarkeit und Angebot laufen über den Worker.",safe3:"Das Team erhält die Details zur Bestätigung.",whyKicker:"Warum direkt buchen",whyTitle:"Die Buchungsseite soll Reibung entfernen.",whyLead:"Inspiriert von modernen Plattformen: klare Daten, Gästezahl, sofortiges Feedback, sichtbare Zusammenfassung und eine starke Aktion.",benefit1Title:"Schnell",benefit1Text:"Gäste landen mit bereits ausgefüllten Details aus der Toolbar hier.",benefit2Title:"Klar",benefit2Text:"Die Seitenzusammenfassung aktualisiert sich wie bei einer echten Buchungsplattform.",benefit3Title:"Verbunden",benefit3Text:"Search, Quote und Booking laufen über den Cloudflare Worker.",benefit4Title:"Privat",benefit4Text:"Die Seite verkauft ein ganzes Alpenhaus, nicht generische Hotelzimmer.",faqKicker:"Nützliche Details",faqTitle:"Vor dem Absenden.",faqLead:"Die Seite bleibt praktisch. Gäste verstehen den nächsten Schritt ohne lange Verkaufsseite.",faq1Q:"Ist das für das ganze Objekt?",faq1A:"Ja. Der Ablauf ist für private Aufenthalte im gesamten Fletschhorn gedacht.",faq2Q:"Was passiert nach dem Klick?",faq2A:"Die Anfrage wird mit Daten, Kontakt, Gästezahl, Quote und Notizen an den Worker gesendet.",faq3Q:"Kann ich Events oder Retreats buchen?",faq3A:"Ja. Wählen Sie den Aufenthaltstyp und ergänzen Sie Details.",faq4Q:"Ist der Preis final?",faq4A:"Das Worker-Angebot ist eine Schätzung, außer das Backend sendet einen bestätigten Checkout- oder Buchungslink.",statusNeedFields:"Bitte Vorname, Nachname, E-Mail, Anreise, Abreise und Gäste ausfüllen.",statusBadEmail:"Bitte eine gültige E-Mail eingeben.",statusBadDates:"Abreise muss nach Anreise liegen.",statusChecking:"Verfügbarkeit wird über den Worker geprüft...",statusQuote:"Angebot wird über den Worker angefragt...",statusAvailable:"Der Worker hat Verfügbarkeit für diese Daten zurückgegeben.",statusUnavailable:"Der Worker meldet diese Daten als nicht verfügbar.",statusNoPrice:"Verfügbarkeit erhalten. Noch kein Betrag zurückgegeben.",statusBook:"Finale Buchungsanfrage wird gesendet...",statusBookSent:"Anfrage gesendet. Das Team kann bestätigen oder Guesty fortsetzen.",statusCheckout:"Ein sicherer Link wurde zurückgegeben. Wird geöffnet.",statusWorkerFail:"Der Worker antwortete nicht korrekt. Endpoints, CORS und Logs prüfen.",nights:"Nächte",night:"Nacht"},
+    ru:{langTitle:"Ваше частное шале в несколько кликов",heroEyebrow:"Прямое бронирование · Fletschhorn Саас-Фе",heroTitle:"Забронируйте всё шале понятно.",heroLead:"Выберите даты, проверьте доступность, получите расчёт и отправьте финальный запрос через Cloudflare + Guesty.",trustPrivate:"Один частный объект",trust48:"До 48 спальных мест",trustWorker:"Подключено к booking Worker",panelKicker:"Начните здесь",panelTitle:"Проверьте даты и создайте запрос.",stepDates:"Даты",stepQuote:"Расчёт",stepBook:"Бронь",firstName:"Имя",lastName:"Фамилия",email:"Email",arrival:"Заезд",departure:"Выезд",guests:"Гости",stayType:"Тип проживания",stayPrivate:"Частное шале",stayFamily:"Семейная встреча",stayRetreat:"Ретрит / команда",stayWedding:"Свадьба или событие",stayOther:"Другое",phone:"Телефон / WhatsApp",promo:"Промокод",optional:"Необязательно",message:"Сообщение",messagePh:"Важные детали: приезд, событие, кухня/кейтеринг, комнаты или гибкие даты.",checkAvailability:"Проверить доступность",getQuote:"Получить цену",bookNow:"Забронировать",safeNote:"API ключи не раскрываются. Запросы идут только через Cloudflare Worker.",summaryTitle:"Ваше проживание",notChecked:"Не проверено",available:"Доступно",unavailable:"Недоступно",summaryDates:"Даты",summaryGuests:"Гости",summaryNights:"Ночи",summaryType:"Тип",priceSub:"Оценка от booking Worker.",safe1:"Прямой поток бронирования всего объекта, не отдельных комнат.",safe2:"Доступность и расчёт идут через Worker.",safe3:"Команда получает детали для подтверждения проживания.",whyKicker:"Почему напрямую",whyTitle:"Страница бронирования должна убирать трение.",whyLead:"Структура вдохновлена современными платформами: даты, гости, быстрый ответ, видимый итог и одно сильное действие.",benefit1Title:"Быстро",benefit1Text:"Гости приходят с других страниц с уже заполненными данными.",benefit2Title:"Понятно",benefit2Text:"Итог обновляется при вводе, как на настоящей платформе бронирования.",benefit3Title:"Подключено",benefit3Text:"Search, quote и booking идут через Cloudflare Worker.",benefit4Title:"Приватно",benefit4Text:"Страница продаёт весь альпийский дом, не обычные гостиничные номера.",faqKicker:"Полезные детали",faqTitle:"Перед отправкой запроса.",faqLead:"Страница остаётся практичной. Гости понимают следующий шаг без длинного текста.",faq1Q:"Это для всего объекта?",faq1A:"Да. Поток создан для частного проживания во всём Fletschhorn.",faq2Q:"Что происходит после клика?",faq2A:"Запрос отправляется через Worker с датами, контактом, гостями, расчётом и заметками.",faq3Q:"Можно бронировать события или ретриты?",faq3A:"Да. Выберите тип проживания и добавьте детали.",faq4Q:"Цена финальная?",faq4A:"Расчёт Worker считается оценкой, если backend не вернул подтверждённую ссылку checkout или booking.",statusNeedFields:"Заполните имя, фамилию, email, даты и гостей.",statusBadEmail:"Введите корректный email.",statusBadDates:"Выезд должен быть после заезда.",statusChecking:"Проверяем доступность через Worker...",statusQuote:"Запрашиваем цену через Worker...",statusAvailable:"Worker вернул доступность на эти даты.",statusUnavailable:"Worker сообщает, что даты недоступны.",statusNoPrice:"Доступность получена. Сумма пока не вернулась.",statusBook:"Отправляем финальный запрос через Worker...",statusBookSent:"Запрос отправлен. Команда может подтвердить или продолжить Guesty.",statusCheckout:"Получена безопасная ссылка. Открываем.",statusWorkerFail:"Worker ответил некорректно. Проверьте endpoints, CORS и logs.",nights:"ночей",night:"ночь"}
+  };
 
-  function fhT(key){
-    return (FH_TRANSLATIONS[fhCurrentLang] && FH_TRANSLATIONS[fhCurrentLang][key]) || FH_TRANSLATIONS.en[key] || key;
-  }
-
-  function applyStaticLanguage(){
-    root.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      el.textContent = fhT(key);
-    });
-    root.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
-      const key = el.getAttribute('data-i18n-placeholder');
-      el.setAttribute('placeholder', fhT(key));
-    });
-    root.querySelectorAll('[data-fh-lang]').forEach((button) => {
-      const active = button.getAttribute('data-fh-lang') === fhCurrentLang;
-      button.classList.toggle('is-active', active);
-      button.setAttribute('aria-pressed', active ? 'true' : 'false');
-    });
-    root.setAttribute('data-current-language', fhCurrentLang);
-    document.documentElement.setAttribute('lang', fhCurrentLang);
-    window.dispatchEvent(new CustomEvent('fletschhorn:language-change', {detail:{language:fhCurrentLang}}));
-  }
-
-  root.querySelectorAll('[data-fh-lang]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const next = button.getAttribute('data-fh-lang') || 'en';
-      fhCurrentLang = FH_TRANSLATIONS[next] ? next : 'en';
-      localStorage.setItem('fh-language', fhCurrentLang);
-      applyStaticLanguage();
-      showSlide(current, true);
-    });
-  });
-
-
-  const slidesData = [
-    {
-      image:'https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1b68ef5d-fcdf-4818-8644-77ce85f68263/1_9418_.jpg',
-      eyebrow:'Contact · booking inquiry · Saas-Fee',
-      title:'Your private chalet in a few clicks.',
-      lead:'Start with the simple details. The full availability, pricing, and confirmation flow can later connect safely through Cloudflare and Guesty.',
-      i18n:{fr:{eyebrow:'Contact · demande de réservation · Saas-Fee',title:'Votre chalet privé en quelques clics.',lead:'Commencez par les détails simples. La disponibilité, les prix et la confirmation peuvent ensuite passer en sécurité par Cloudflare et Guesty.'},de:{eyebrow:'Kontakt · Buchungsanfrage · Saas-Fee',title:'Ihr privates Chalet in wenigen Klicks.',lead:'Beginnen Sie mit den einfachen Details. Verfügbarkeit, Preise und Bestätigung können später sicher über Cloudflare und Guesty laufen.'},ru:{eyebrow:'Контакт · запрос бронирования · Саас-Фе',title:'Ваше частное шале в несколько кликов.',lead:'Начните с простых деталей. Доступность, цены и подтверждение позже могут безопасно проходить через Cloudflare и Guesty.'}},
-      theme:{top:'#efe6da',bottom:'#f8f3eb',section:'#f4ece1',accent:'#b79f87',deep:'#826a55'}
-    },
-    {
-      image:'https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756344115-UN1RO9UJ7JQZQ8U5LPNB/1521689.jpg',
-      eyebrow:'One private house · clear inquiry',
-      title:'Choose dates once. Continue calmly.',
-      lead:'For a private stay, family gathering, retreat, presentation, wedding, or event — send the details and the team can guide the next step.',
-      i18n:{fr:{eyebrow:'Une maison privée · une demande claire',title:'Un parcours de réservation qui reste humain.',lead:'Pour un séjour privé, une réunion familiale, une retraite, une présentation, un mariage ou un événement — envoyez les détails et l’équipe vous guide.'},de:{eyebrow:'Ein privates Haus · klare Anfrage',title:'Ein Buchungsablauf, der menschlich bleibt.',lead:'Für privaten Aufenthalt, Familientreffen, Retreat, Präsentation, Hochzeit oder Event — senden Sie die Details, das Team führt den nächsten Schritt.'},ru:{eyebrow:'Один частный дом · понятный запрос',title:'Бронирование, которое остаётся человеческим.',lead:'Для частного пребывания, семейной встречи, ретрита, презентации, свадьбы или события — отправьте детали, и команда подскажет следующий шаг.'}},
-      theme:{top:'#ece2d5',bottom:'#fbf6ef',section:'#f6eee4',accent:'#c0a287',deep:'#8d6f55'}
-    },
-    {
-      image:'https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756425144-LGR2PVN9RQ0IIWIOETEI/1504170.jpg',
-      eyebrow:'Dates · guests · contact',
-      title:'Simple booking, with help when needed.',
-      lead:'The page asks only what is useful, then leaves the operational details for the confirmed booking flow.',
-      i18n:{fr:{eyebrow:'Dates · invités · contact',title:'Simple d’abord, détaillé quand c’est utile.',lead:'La page demande seulement ce qui est nécessaire, puis laisse les détails opérationnels au flux de réservation confirmé.'},de:{eyebrow:'Daten · Gäste · Kontakt',title:'Erst einfach, dann detailliert.',lead:'Die Seite fragt nur das Nötige ab und überlässt operative Details dem bestätigten Buchungsprozess.'},ru:{eyebrow:'Даты · гости · контакт',title:'Сначала просто, потом — детали.',lead:'Страница спрашивает только полезную информацию, а операционные детали остаются для подтверждённого процесса бронирования.'}},
-      theme:{top:'#e8ebe6',bottom:'#f5f4ef',section:'#edf0eb',accent:'#9ea69d',deep:'#68716b'}
-    }
+  const heroImages = [
+    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
+    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
+    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg"
   ];
 
-  const slidesHost = root.querySelector('#fhBookingSlides');
-  const eyebrow = root.querySelector('#fhBookingEyebrow');
-  const title = root.querySelector('#fhBookingTitle');
-  const lead = root.querySelector('#fhBookingLead');
-  let current = 0;
+  const qs = (s) => root.querySelector(s);
+  const qsa = (s) => Array.from(root.querySelectorAll(s));
+  const form = qs("#fhBookingForm");
+  const status = qs("#fhBookingStatus");
+  const fields = {
+    firstName:qs("#fhFirstName"), lastName:qs("#fhLastName"), email:qs("#fhEmail"), checkIn:qs("#fhCheckIn"), checkOut:qs("#fhCheckOut"), guests:qs("#fhGuests"), stayType:qs("#fhStayType"), phone:qs("#fhPhone"), coupon:qs("#fhPromo"), message:qs("#fhMessage")
+  };
+  let currentLang = normalizeLang(localStorage.getItem("fh_lang") || root.dataset.lang || document.documentElement.lang || "en");
+  let lastAvailability = null;
+  let lastQuote = null;
+  let lastCheckoutLink = "";
 
-  if(slidesHost){
-    slidesData.forEach((slide, index) => {
-      const el = document.createElement('div');
-      el.className = 'fh-slide' + (index === 0 ? ' is-active' : '');
-      el.style.backgroundImage = 'url("' + slide.image + '")';
-      slidesHost.appendChild(el);
+  function t(key){return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;}
+  function normalizeLang(lang){const v = String(lang || "en").toLowerCase().slice(0,2); return LANGS.includes(v) ? v : "en";}
+
+  function setLang(lang){
+    currentLang = normalizeLang(lang);
+    try{localStorage.setItem("fh_lang", currentLang);}catch(e){}
+    root.dataset.lang = currentLang;
+    document.documentElement.setAttribute("lang", currentLang);
+    qsa("[data-i18n]").forEach(el => {const key = el.getAttribute("data-i18n"); if(t(key)) el.textContent = t(key);});
+    qsa("[data-i18n-placeholder]").forEach(el => {const key = el.getAttribute("data-i18n-placeholder"); if(t(key)) el.setAttribute("placeholder", t(key));});
+    qsa("[data-fh-lang]").forEach(btn => {
+      const active = normalizeLang(btn.getAttribute("data-fh-lang")) === currentLang;
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
+    document.dispatchEvent(new CustomEvent("fletschhorn:languageChanged", {detail:{lang:currentLang}}));
+    updateSummary();
+    return currentLang;
   }
 
-  const slideEls = Array.from(root.querySelectorAll('.fh-slide'));
+  window.setFletschhornLanguage = setLang;
+  window.FHSetLanguage = setLang;
 
-  function applyTheme(theme){
-    root.style.setProperty('--fh-page-top', theme.top);
-    root.style.setProperty('--fh-page-bottom', theme.bottom);
-    root.style.setProperty('--fh-section', theme.section);
-    root.style.setProperty('--fh-accent', theme.accent);
-    root.style.setProperty('--fh-accent-deep', theme.deep);
-  }
+  document.addEventListener("click", function(event){
+    const trigger = event.target.closest("[data-fh-lang], [data-lang], [data-language]");
+    if(!trigger) return;
+    const lang = trigger.getAttribute("data-fh-lang") || trigger.getAttribute("data-lang") || trigger.getAttribute("data-language");
+    if(LANGS.includes(normalizeLang(lang))) setLang(lang);
+  });
 
-  function showSlide(index, keepActive){
-    if(!slideEls.length) return;
-    if(!keepActive) slideEls[current].classList.remove('is-active');
-    current = index;
-    slideEls[current].classList.add('is-active');
-    const slide = slidesData[current];
-    const langSlide = slide.i18n && slide.i18n[fhCurrentLang] ? slide.i18n[fhCurrentLang] : slide;
-    if(eyebrow) eyebrow.textContent = langSlide.eyebrow;
-    if(title) title.textContent = langSlide.title;
-    if(lead) lead.textContent = langSlide.lead;
-    applyTheme(slide.theme);
-  }
+  document.addEventListener("fletschhorn:language", e => setLang(e.detail?.lang || e.detail?.language));
+  document.addEventListener("fh:language", e => setLang(e.detail?.lang || e.detail?.language));
+  window.addEventListener("storage", e => {if(e.key === "fh_lang" && e.newValue) setLang(e.newValue);});
 
-  applyStaticLanguage();
-  showSlide(0, true);
-  if(slideEls.length > 1){
-    setInterval(() => showSlide((current + 1) % slideEls.length), 9000);
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('is-visible');
-      }
+  function initHero(){
+    const host = qs("#fhBookingHeroMedia");
+    if(!host) return;
+    heroImages.forEach((src,i) => {
+      const el = document.createElement("div");
+      el.style.backgroundImage = `url("${src}")`;
+      if(i === 0) el.classList.add("is-active");
+      host.appendChild(el);
     });
-  }, {threshold:.14});
-
-  root.querySelectorAll('.fh-reveal, .fh-sequence').forEach((el) => observer.observe(el));
-
-  const quickForm = root.querySelector('#fhBookingQuickForm');
-  const quickStatus = root.querySelector('#fhBookingQuickStatus');
-  const fullForm = root.querySelector('#fhBookingFullForm');
-  const fullStatus = root.querySelector('#fhBookingFullStatus');
-
-  const who = root.querySelector('#fhBookWho');
-  const when = root.querySelector('#fhBookWhen');
-  const contact = root.querySelector('#fhBookContact');
-
-  const modal = root.querySelector('#fhBookingModal');
-  const openBtn = root.querySelector('#fhBookingOpenDetails');
-  const closeBtn = root.querySelector('#fhBookingClose');
-  const applyBtn = root.querySelector('#fhBookingApply');
-  const clearBtn = root.querySelector('#fhBookingClear');
-
-  const detailGuests = root.querySelector('#fhDetailGuests');
-  const detailStayType = root.querySelector('#fhDetailStayType');
-  const detailBedrooms = root.querySelector('#fhDetailBedrooms');
-  const detailBudget = root.querySelector('#fhDetailBudget');
-  const detailNotes = root.querySelector('#fhDetailNotes');
-
-  function setStatus(box, message){
-    if(!box) return;
-    box.classList.add('is-visible');
-    box.textContent = message;
+    const slides = Array.from(host.children);
+    let i = 0;
+    if(slides.length > 1){
+      setInterval(() => {slides[i].classList.remove("is-active"); i = (i + 1) % slides.length; slides[i].classList.add("is-active");}, 8000);
+    }
   }
 
-  function openModal(){
-    if(!modal) return;
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden','false');
+  function parseParams(){
+    const params = new URLSearchParams(window.location.search);
+    let stored = {};
+    try{stored = JSON.parse(localStorage.getItem("fhBookingStart") || "{}");}catch(e){stored = {};}
+    const data = {
+      firstName:params.get("firstName") || stored.firstName || "",
+      lastName:params.get("lastName") || stored.lastName || "",
+      email:params.get("email") || stored.email || "",
+      checkIn:params.get("checkIn") || stored.checkIn || stored.arrival || "",
+      checkOut:params.get("checkOut") || stored.checkOut || stored.departure || "",
+      guests:params.get("guests") || stored.guests || stored.guestCount || "1",
+      lang:params.get("lang") || stored.lang || ""
+    };
+    Object.keys(data).forEach(key => {if(fields[key] && data[key]) fields[key].value = data[key];});
+    if(data.lang) setLang(data.lang);
   }
 
-  function closeModal(){
-    if(!modal) return;
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden','true');
+  function nightsBetween(){
+    const a = fields.checkIn.value;
+    const b = fields.checkOut.value;
+    if(!a || !b) return 0;
+    const start = new Date(a + "T00:00:00");
+    const end = new Date(b + "T00:00:00");
+    return Math.round((end - start) / 86400000);
   }
 
-  if(openBtn) openBtn.addEventListener('click', openModal);
-  if(closeBtn) closeBtn.addEventListener('click', closeModal);
-  if(modal) modal.addEventListener('click', (event) => { if(event.target === modal) closeModal(); });
-  document.addEventListener('keydown', (event) => { if(event.key === 'Escape') closeModal(); });
-
-  if(applyBtn){
-    applyBtn.addEventListener('click', () => {
-      const pieces = [detailGuests.value, detailStayType.value, detailBedrooms.value ? detailBedrooms.value + ' bedrooms' : '', detailBudget.value].filter(Boolean);
-      if(pieces.length){
-        who.value = who.value ? who.value + ' · ' + pieces.join(' · ') : pieces.join(' · ');
-      }
-      setStatus(quickStatus, fhT('extraAdded'));
-      closeModal();
-    });
+  function stayTypeText(){
+    const opt = fields.stayType.options[fields.stayType.selectedIndex];
+    return opt ? opt.textContent : "—";
   }
 
-  if(clearBtn){
-    clearBtn.addEventListener('click', () => {
-      detailGuests.value = '';
-      detailStayType.selectedIndex = 0;
-      detailBedrooms.value = '';
-      detailBudget.value = '';
-      detailNotes.value = '';
-    });
+  function updateSummary(){
+    const ci = fields.checkIn.value;
+    const co = fields.checkOut.value;
+    const nights = nightsBetween();
+    const dateText = ci && co ? `${ci} → ${co}` : "—";
+    qs("#fhSummaryDates").textContent = dateText;
+    qs("#fhSummaryGuests").textContent = fields.guests.value ? fields.guests.value : "—";
+    qs("#fhSummaryNights").textContent = nights > 0 ? `${nights} ${nights === 1 ? t("night") : t("nights")}` : "—";
+    qs("#fhSummaryType").textContent = stayTypeText();
   }
 
-  function buildQuickPayload(){
-    return {
-      source:'contact-booking-quick-bar',
-      guestyListingId:GUESTY_LISTING_ID,
-      who:who ? who.value : '',
-      when:when ? when.value : '',
-      contact:contact ? contact.value : '',
-      details:{
-        guests:detailGuests ? detailGuests.value : '',
-        stayType:detailStayType ? detailStayType.value : '',
-        bedrooms:detailBedrooms ? detailBedrooms.value : '',
-        budget:detailBudget ? detailBudget.value : '',
-        notes:detailNotes ? detailNotes.value : ''
-      },
+  function validateCore(){
+    const payload = buildPayload();
+    if(!payload.firstName || !payload.lastName || !payload.email || !payload.checkIn || !payload.checkOut || !payload.guests){
+      showStatus(t("statusNeedFields"), "bad");
+      return false;
+    }
+    if(!/^\S+@\S+\.\S+$/.test(payload.email)){
+      showStatus(t("statusBadEmail"), "bad");
+      return false;
+    }
+    if(nightsBetween() <= 0){
+      showStatus(t("statusBadDates"), "bad");
+      return false;
+    }
+    return true;
+  }
+
+  function buildPayload(extra){
+    const payload = {
+      listingId:CFG.listingId,
+      guestyListingId:CFG.listingId,
+      firstName:(fields.firstName.value || "").trim(),
+      lastName:(fields.lastName.value || "").trim(),
+      email:(fields.email.value || "").trim(),
+      phone:(fields.phone.value || "").trim(),
+      checkIn:fields.checkIn.value,
+      checkOut:fields.checkOut.value,
+      arrival:fields.checkIn.value,
+      departure:fields.checkOut.value,
+      guests:Number(fields.guests.value || 1),
+      guestCount:Number(fields.guests.value || 1),
+      stayType:fields.stayType.value,
+      coupon:(fields.coupon.value || "").trim(),
+      message:(fields.message.value || "").trim(),
+      language:currentLang,
+      source:"booking-page",
       createdAt:new Date().toISOString()
     };
+    return Object.assign(payload, extra || {});
   }
 
-  if(quickForm){
-    quickForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const payload = buildQuickPayload();
-      if(CLOUDFLARE_BOOKING_ENDPOINT){
-        try{
-          const response = await fetch(CLOUDFLARE_BOOKING_ENDPOINT, {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify(payload)
-          });
-          if(!response.ok) throw new Error('Booking endpoint failed');
-          setStatus(quickStatus, fhT('quickSent'));
-          quickForm.reset();
-        }catch(error){
-          setStatus(quickStatus, fhT('quickFail'));
-        }
-      }else{
-        console.log('Fletschhorn quick booking payload', payload);
-        setStatus(quickStatus, fhT('quickSent'));
-      }
-    });
+  function showStatus(message, mode){
+    status.className = "fh-status is-visible" + (mode ? " " + mode : "");
+    status.textContent = message;
   }
 
-  if(fullForm){
-    fullForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const formData = new FormData(fullForm);
-      const payload = {
-        source:'contact-booking-full-form',
-        guestyListingId:GUESTY_LISTING_ID,
-        firstName:formData.get('firstName') || '',
-        lastName:formData.get('lastName') || '',
-        email:formData.get('email') || '',
-        phone:formData.get('phone') || '',
-        arrival:formData.get('arrival') || '',
-        departure:formData.get('departure') || '',
-        guestCount:formData.get('guestCount') || '',
-        stayPurpose:formData.get('stayPurpose') || '',
-        bedrooms:formData.get('bedrooms') || '',
-        flexibility:formData.get('flexibility') || '',
-        message:formData.get('message') || '',
-        createdAt:new Date().toISOString()
-      };
-
-      if(CLOUDFLARE_BOOKING_ENDPOINT){
-        try{
-          const response = await fetch(CLOUDFLARE_BOOKING_ENDPOINT, {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify(payload)
-          });
-          if(!response.ok) throw new Error('Booking endpoint failed');
-          setStatus(fullStatus, fhT('quickSent'));
-          fullForm.reset();
-        }catch(error){
-          setStatus(fullStatus, fhT('quickFail'));
-        }
-      }else{
-        console.log('Fletschhorn full booking payload', payload);
-        setStatus(fullStatus, fhT('statusPrototype'));
-      }
-    });
+  function setBadge(key, mode){
+    const badge = qs("#fhAvailBadge");
+    badge.textContent = t(key);
+    badge.style.background = mode === "good" ? "rgba(63,111,80,.12)" : mode === "bad" ? "rgba(154,75,63,.12)" : "rgba(111,123,100,.12)";
+    badge.style.color = mode === "bad" ? "var(--bad)" : mode === "good" ? "var(--good)" : "var(--green)";
   }
 
-  const guestyForm = root.querySelector('#fhGuestyForm');
-  const guestyResult = root.querySelector('#fhGuestyResult');
-  const guestyQuoteButton = root.querySelector('#fhGuestyQuoteButton');
-  const guestyContinueButton = root.querySelector('#fhGuestyContinueButton');
-  const guestyFrame = root.querySelector('#fhGuestyFrame');
-  const guestyPlaceholder = root.querySelector('#fhGuestyPlaceholder');
-  let lastGuestyLink = '';
-  let lastGuestyPayload = null;
+  function endpoint(path){return CFG.workerBase.replace(/\/$/, "") + path;}
 
-  function showGuestyResult(message, data){
-    if(!guestyResult) return;
-    guestyResult.classList.add('is-visible');
-    const extra = data && data.price ? '<br><strong>' + data.price + '</strong>' : '';
-    guestyResult.innerHTML = message + extra;
+  function extractLink(data){
+    if(!data || typeof data !== "object") return "";
+    return data.checkoutUrl || data.bookingUrl || data.paymentUrl || data.redirectUrl || data.url || data.guestyUrl || extractLink(data.data) || extractLink(data.result) || "";
   }
 
-  function buildGuestyPayload(){
-    if(!guestyForm) return {};
-    const data = new FormData(guestyForm);
-    const checkIn = data.get('checkIn') || '';
-    const checkOut = data.get('checkOut') || '';
-    const guests = data.get('guests') || '1';
-    const coupon = data.get('coupon') || '';
-    return {
-      listingId:GUESTY_LISTING_ID,
-      guestyListingId:GUESTY_LISTING_ID,
-      checkIn:checkIn,
-      checkOut:checkOut,
-      arrival:checkIn,
-      departure:checkOut,
-      guests:Number(guests) || 1,
-      guestCount:Number(guests) || 1,
-      coupon:coupon,
-      source:'fletschhorn-embedded-guesty-booking',
-      language:fhCurrentLang
-    };
-  }
-
-  function extractGuestyLink(data){
-    if(!data || typeof data !== 'object') return '';
-    return data.checkoutUrl || data.bookingUrl || data.paymentUrl || data.url || data.redirectUrl || (data.data && extractGuestyLink(data.data)) || '';
-  }
-
-  function loadGuestyFrame(url){
-    if(!url || !guestyFrame) return;
-    lastGuestyLink = url;
-    guestyFrame.src = url;
-    if(guestyPlaceholder) guestyPlaceholder.style.display = 'none';
-  }
-
-  async function callGuestyEndpoint(endpoint, successKey){
-    const payload = buildGuestyPayload();
-    lastGuestyPayload = payload;
-    if(!payload.checkIn || !payload.checkOut){
-      showGuestyResult(fhT('statusNeedDates'));
-      return null;
+  function findAmount(data){
+    if(!data || typeof data !== "object") return null;
+    const keys = ["total","totalPrice","price","amount","grandTotal","quote","subTotal"];
+    for(const key of keys){
+      const val = data[key];
+      if(typeof val === "number") return val;
+      if(typeof val === "string" && val.match(/\d/)) return val;
     }
-    showGuestyResult(fhT('statusWorking'));
+    return findAmount(data.data) || findAmount(data.result) || findAmount(data.quote) || findAmount(data.pricing) || null;
+  }
+
+  function formatAmount(value){
+    if(value === null || value === undefined || value === "") return "";
+    if(typeof value === "string") return value;
+    try{return new Intl.NumberFormat(currentLang === "en" ? "en-US" : currentLang, {style:"currency", currency:"CHF", maximumFractionDigits:0}).format(value);}catch(e){return "CHF " + value;}
+  }
+
+  function applyQuote(data){
+    const amount = findAmount(data);
+    const box = qs("#fhPriceBox");
+    const main = qs("#fhPriceMain");
+    if(amount !== null){
+      box.classList.add("is-visible");
+      main.textContent = formatAmount(amount);
+    }
+  }
+
+  async function callWorker(path, payload, workingText){
+    showStatus(workingText, "");
+    const response = await fetch(endpoint(path), {
+      method:"POST",
+      headers:{"Content-Type":"application/json", "Accept":"application/json"},
+      body:JSON.stringify(payload)
+    });
+    const data = await response.json().catch(() => ({}));
+    if(!response.ok || data.ok === false || data.error){
+      const err = new Error(data.error || data.message || "Worker request failed");
+      err.data = data;
+      throw err;
+    }
+    return data;
+  }
+
+  async function checkAvailability(){
+    if(!validateCore()) return null;
     try{
-      const response = await fetch(endpoint, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(payload)
-      });
-      const data = await response.json().catch(() => ({}));
-      if(!response.ok || data.ok === false){
-        throw new Error(data.error || 'Guesty endpoint failed');
+      const data = await callWorker("/search", buildPayload({action:"search"}), t("statusChecking"));
+      lastAvailability = data;
+      const unavailable = data.available === false || data.isAvailable === false || data.status === "unavailable";
+      if(unavailable){
+        setBadge("unavailable", "bad");
+        showStatus(t("statusUnavailable"), "bad");
+      }else{
+        setBadge("available", "good");
+        showStatus(t("statusAvailable"), "good");
       }
-      const link = extractGuestyLink(data);
-      if(link) loadGuestyFrame(link);
-      showGuestyResult(fhT(successKey || 'statusAvailable'), data);
+      const link = extractLink(data);
+      if(link) lastCheckoutLink = link;
+      applyQuote(data);
+      qs("#fhStepNumber").textContent = "2";
+      qs("#fhStepLabel").textContent = t("stepQuote");
       return data;
     }catch(error){
-      console.warn('Guesty endpoint error', error, lastGuestyPayload);
-      showGuestyResult(fhT('statusFailed'));
+      console.error("Fletschhorn availability error", error);
+      showStatus(t("statusWorkerFail"), "bad");
       return null;
     }
   }
 
-  if(guestyFrame && GUESTY_PUBLIC_BOOKING_URL){
-    loadGuestyFrame(GUESTY_PUBLIC_BOOKING_URL);
+  async function getQuote(){
+    if(!validateCore()) return null;
+    try{
+      const data = await callWorker("/quote", buildPayload({action:"quote", availability:lastAvailability}), t("statusQuote"));
+      lastQuote = data;
+      applyQuote(data);
+      const link = extractLink(data);
+      if(link) lastCheckoutLink = link;
+      showStatus(findAmount(data) !== null ? t("statusQuote") : t("statusNoPrice"), "good");
+      qs("#fhStepNumber").textContent = "3";
+      qs("#fhStepLabel").textContent = t("stepBook");
+      return data;
+    }catch(error){
+      console.error("Fletschhorn quote error", error);
+      showStatus(t("statusWorkerFail"), "bad");
+      return null;
+    }
   }
 
-  if(guestyForm){
-    guestyForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      await callGuestyEndpoint(CLOUDFLARE_SEARCH_ENDPOINT, 'statusAvailable');
-    });
-  }
-
-  if(guestyQuoteButton){
-    guestyQuoteButton.addEventListener('click', async () => {
-      await callGuestyEndpoint(CLOUDFLARE_QUOTE_ENDPOINT, 'statusQuote');
-    });
-  }
-
-  if(guestyContinueButton){
-    guestyContinueButton.addEventListener('click', async () => {
-      if(lastGuestyLink){
-        showGuestyResult(fhT('statusContinue'));
-        loadGuestyFrame(lastGuestyLink);
+  async function bookNow(event){
+    if(event) event.preventDefault();
+    if(!validateCore()) return;
+    try{
+      const data = await callWorker("/book", buildPayload({action:"book", availability:lastAvailability, quote:lastQuote}), t("statusBook"));
+      const link = extractLink(data);
+      if(link){
+        lastCheckoutLink = link;
+        showStatus(t("statusCheckout"), "good");
+        window.location.href = link;
         return;
       }
-      const data = await callGuestyEndpoint(CLOUDFLARE_BOOKING_ENDPOINT, 'statusContinue');
-      const link = extractGuestyLink(data);
-      if(link){
-        loadGuestyFrame(link);
-      }else if(GUESTY_PUBLIC_BOOKING_URL){
-        loadGuestyFrame(GUESTY_PUBLIC_BOOKING_URL);
-      }else{
-        showGuestyResult(fhT('statusNoLink'));
-      }
-    });
+      showStatus(t("statusBookSent"), "good");
+    }catch(error){
+      console.error("Fletschhorn booking error", error);
+      showStatus(t("statusWorkerFail"), "bad");
+    }
   }
 
+  function persistStart(){
+    try{localStorage.setItem("fhBookingStart", JSON.stringify(buildPayload()));}catch(e){}
+  }
+
+  qsa("input, select, textarea").forEach(el => {
+    el.addEventListener("input", () => {updateSummary(); persistStart();});
+    el.addEventListener("change", () => {updateSummary(); persistStart();});
+  });
+  qs("#fhCheckAvailability").addEventListener("click", checkAvailability);
+  qs("#fhGetQuote").addEventListener("click", getQuote);
+  qs("#fhSideSubmit").addEventListener("click", bookNow);
+  form.addEventListener("submit", bookNow);
+
+  document.addEventListener("click", function(event){
+    const a = event.target.closest("a");
+    if(!a) return;
+    const href = a.getAttribute("href") || "";
+    const bookingIntent = href.includes("contact-booking") || href.includes("booking.html") || href === "#book" || href === "#booking";
+    if(bookingIntent){
+      event.preventDefault();
+      document.getElementById("booking-panel")?.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  });
+
+  const observer = "IntersectionObserver" in window ? new IntersectionObserver(entries => {
+    entries.forEach(entry => {if(entry.isIntersecting){entry.target.classList.add("is-visible"); observer.unobserve(entry.target);}});
+  }, {threshold:.14, rootMargin:"0px 0px -8% 0px"}) : null;
+  qsa(".fh-reveal").forEach(el => observer ? observer.observe(el) : el.classList.add("is-visible"));
+
+  initHero();
+  parseParams();
+  setLang(currentLang);
+  updateSummary();
 })();
 </script>
