@@ -1,6 +1,21 @@
 <link rel="stylesheet" href="assets/fh-global.css">
 <div id="fh-header-slot"></div>
 
+<script>
+(function(){
+  var meta = document.querySelector('meta[name="viewport"]');
+  if(!meta){
+    meta = document.createElement('meta');
+    meta.name = 'viewport';
+    document.head && document.head.appendChild(meta);
+  }
+  if(meta){
+    meta.setAttribute('content','width=device-width, initial-scale=1, viewport-fit=cover');
+  }
+})();
+</script>
+
+
 <style>
 #fh-checkout-main,
 #fh-checkout-main *{box-sizing:border-box}
@@ -875,6 +890,233 @@
     transition:none !important;
   }
 }
+
+
+/* =========================================================
+   MOBILE FORCE MODE FIX
+   Some Squarespace / embedded pages keep a desktop CSS viewport or header state.
+   JavaScript adds .fh-mobile-mode on real phones, so the independent mobile
+   experience works even when @media(max-width) is not being honored.
+   ========================================================= */
+#fh-checkout-main.fh-mobile-mode{
+  min-height:100svh !important;
+  overflow-x:hidden !important;
+  padding:0 !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-bg:before{opacity:.06 !important}
+#fh-checkout-main.fh-mobile-mode .fh-grain{opacity:.032 !important}
+
+#fh-checkout-main.fh-mobile-mode .fh-hero,
+#fh-checkout-main.fh-mobile-mode .fh-wrap{
+  display:none !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-langbar{
+  position:fixed !important;
+  top:66px !important;
+  left:auto !important;
+  right:10px !important;
+  transform:none !important;
+  z-index:90 !important;
+  gap:2px !important;
+  width:auto !important;
+  max-width:calc(100vw - 20px) !important;
+  padding:4px !important;
+  background:rgba(26,23,20,.22) !important;
+  border:1px solid rgba(255,250,243,.22) !important;
+  box-shadow:0 10px 24px rgba(0,0,0,.10) !important;
+  backdrop-filter:blur(16px) !important;
+  -webkit-backdrop-filter:blur(16px) !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-langbar button{
+  min-width:30px !important;
+  min-height:28px !important;
+  padding:6px 7px !important;
+  font-size:9px !important;
+  letter-spacing:.08em !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-only{
+  position:relative !important;
+  z-index:4 !important;
+  display:block !important;
+  min-height:100svh !important;
+  padding:78px 0 96px !important;
+  background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.78),transparent 0 30%),linear-gradient(180deg,#efe7dc 0%,#fffaf3 42%,#efe7dc 100%) !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-visual{
+  position:relative !important;
+  width:calc(100% - 18px) !important;
+  height:178px !important;
+  margin:0 auto !important;
+  overflow:hidden !important;
+  border:1px solid rgba(255,250,243,.42) !important;
+  background:#d8cbbb center/cover no-repeat !important;
+  box-shadow:0 18px 42px rgba(0,0,0,.16) !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-visual:after{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  background:linear-gradient(180deg,rgba(22,19,17,.18),rgba(22,19,17,.62)),radial-gradient(circle at 50% 20%,rgba(255,255,255,.18),transparent 0 34%) !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-status{
+  position:absolute !important;
+  left:12px !important;
+  right:12px !important;
+  bottom:12px !important;
+  z-index:2 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:10px !important;
+  color:#fffaf3 !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-status span{
+  display:inline-flex !important;
+  align-items:center !important;
+  min-height:30px !important;
+  padding:7px 10px !important;
+  background:rgba(255,250,243,.16) !important;
+  border:1px solid rgba(255,250,243,.28) !important;
+  backdrop-filter:blur(12px) !important;
+  -webkit-backdrop-filter:blur(12px) !important;
+  font-size:9px !important;
+  font-weight:850 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.12em !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-status b{
+  font-family:var(--serif) !important;
+  font-weight:400 !important;
+  font-size:24px !important;
+  line-height:1 !important;
+  letter-spacing:-.045em !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-panel{
+  width:calc(100% - 18px) !important;
+  margin:-18px auto 0 !important;
+  position:relative !important;
+  z-index:3 !important;
+  padding:18px 14px 15px !important;
+  background:rgba(255,250,243,.97) !important;
+  border:1px solid rgba(26,23,20,.10) !important;
+  box-shadow:0 18px 46px rgba(0,0,0,.11) !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-panel h2{
+  margin:0 0 8px !important;
+  font-family:var(--serif) !important;
+  font-weight:400 !important;
+  font-size:clamp(30px,9.2vw,42px) !important;
+  line-height:.96 !important;
+  letter-spacing:-.052em !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-panel p{
+  margin:0 !important;
+  color:rgba(26,23,20,.66) !important;
+  font-size:13.5px !important;
+  line-height:1.48 !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-strip{
+  display:flex !important;
+  gap:8px !important;
+  overflow-x:auto !important;
+  overscroll-behavior-x:contain !important;
+  scroll-snap-type:x mandatory !important;
+  -webkit-overflow-scrolling:touch !important;
+  margin:14px -14px 0 !important;
+  padding:0 14px 3px !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-strip::-webkit-scrollbar{display:none !important}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-chip{
+  flex:0 0 74% !important;
+  min-width:0 !important;
+  scroll-snap-align:start !important;
+  padding:12px !important;
+  background:#f5eee5 !important;
+  border:1px solid #e3d5c6 !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-chip.small{flex-basis:48% !important}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-chip span{
+  display:block !important;
+  margin-bottom:5px !important;
+  font-size:8.5px !important;
+  line-height:1 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.11em !important;
+  font-weight:850 !important;
+  color:rgba(26,23,20,.48) !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-chip strong{
+  display:block !important;
+  font-size:13px !important;
+  line-height:1.32 !important;
+  overflow-wrap:anywhere !important;
+  color:var(--ink) !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-note{
+  width:calc(100% - 18px) !important;
+  margin:10px auto 0 !important;
+  padding:12px !important;
+  background:rgba(255,250,243,.58) !important;
+  border:1px solid rgba(26,23,20,.09) !important;
+  color:rgba(26,23,20,.62) !important;
+  font-size:12.5px !important;
+  line-height:1.45 !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-actions{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  z-index:120 !important;
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:8px !important;
+  padding:10px 10px calc(10px + env(safe-area-inset-bottom)) !important;
+  background:rgba(239,231,220,.88) !important;
+  border-top:1px solid rgba(26,23,20,.10) !important;
+  backdrop-filter:blur(18px) !important;
+  -webkit-backdrop-filter:blur(18px) !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-actions .fh-btn{
+  width:100% !important;
+  min-height:48px !important;
+  padding:12px 10px !important;
+  font-size:9.5px !important;
+  letter-spacing:.10em !important;
+}
+
+#fh-checkout-main.fh-mobile-mode .fh-mobile-actions .fh-btn.light{background:rgba(255,250,243,.84) !important}
+
+@media(max-width:380px){
+  #fh-checkout-main.fh-mobile-mode .fh-mobile-only{padding-top:72px !important}
+  #fh-checkout-main.fh-mobile-mode .fh-mobile-visual{height:152px !important;width:calc(100% - 12px) !important}
+  #fh-checkout-main.fh-mobile-mode .fh-mobile-panel,
+  #fh-checkout-main.fh-mobile-mode .fh-mobile-note{width:calc(100% - 12px) !important}
+  #fh-checkout-main.fh-mobile-mode .fh-mobile-chip{flex-basis:82% !important}
+  #fh-checkout-main.fh-mobile-mode .fh-mobile-chip.small{flex-basis:58% !important}
+}
+
 </style>
 
 <div id="fh-checkout-main" data-page="checkout" data-lang="en">
@@ -1018,8 +1260,21 @@
 <script>
 (function(){
   const root = document.getElementById("fh-checkout-main");
-  if(!root || root.dataset.ready === "5") return;
-  root.dataset.ready = "5";
+  if(!root || root.dataset.ready === "1") return;
+  root.dataset.ready = "1";
+
+  function syncMobileMode(){
+    const visualWidth = window.visualViewport && window.visualViewport.width ? window.visualViewport.width : window.innerWidth;
+    const cssWidth = window.innerWidth || visualWidth;
+    const isTouchPhone = /Android|iPhone|iPod|Windows Phone|Mobile/i.test(navigator.userAgent || "");
+    const isMobile = visualWidth <= 820 || cssWidth <= 820 || (isTouchPhone && Math.min(visualWidth || 9999, cssWidth || 9999) <= 980);
+    root.classList.toggle("fh-mobile-mode", !!isMobile);
+    document.documentElement.classList.toggle("fh-mobile-mode", !!isMobile);
+  }
+  syncMobileMode();
+  window.addEventListener("resize", syncMobileMode, {passive:true});
+  window.addEventListener("orientationchange", syncMobileMode, {passive:true});
+  if(window.visualViewport) window.visualViewport.addEventListener("resize", syncMobileMode, {passive:true});
 
   const IK_BASE = "https://ik.imagekit.io/Redberry/";
 
