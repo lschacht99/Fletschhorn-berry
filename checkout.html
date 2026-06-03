@@ -16,24 +16,25 @@
   --clay2:#876e58;
   --green:#6f7b64;
   --white:#fffaf3;
-  --shadow:0 26px 74px rgba(0,0,0,.13);
-  --soft-shadow:0 14px 40px rgba(0,0,0,.07);
+  --shadow:0 18px 46px rgba(0,0,0,.12);
+  --soft-shadow:0 10px 30px rgba(0,0,0,.07);
   --serif:Georgia,"Times New Roman",serif;
   --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   color:var(--ink);
   font-family:var(--sans);
   background:
     radial-gradient(circle at 12% 8%,rgba(255,255,255,.72),transparent 0 26%),
-    radial-gradient(circle at 90% 10%,rgba(185,159,134,.18),transparent 0 25%),
+    radial-gradient(circle at 90% 10%,rgba(185,159,134,.15),transparent 0 25%),
     linear-gradient(180deg,#efe7dc 0%,#fbf6ef 52%,#efe7dc 100%);
   min-height:100svh;
-  overflow:hidden;
+  overflow-x:hidden;
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
 }
 
 #fh-checkout-main a{color:inherit;text-decoration:none}
 #fh-checkout-main button{font:inherit;cursor:pointer}
+#fh-checkout-main img{max-width:100%;display:block}
 
 #fh-checkout-main .fh-bg{
   position:fixed;
@@ -42,19 +43,19 @@
   pointer-events:none;
   background:
     radial-gradient(circle at 12% 10%,rgba(255,255,255,.65),transparent 0 24%),
-    radial-gradient(circle at 86% 14%,rgba(185,159,134,.18),transparent 0 22%),
-    radial-gradient(circle at 72% 84%,rgba(255,255,255,.42),transparent 0 24%);
+    radial-gradient(circle at 86% 14%,rgba(185,159,134,.16),transparent 0 22%),
+    radial-gradient(circle at 72% 84%,rgba(255,255,255,.38),transparent 0 24%);
 }
 
 #fh-checkout-main .fh-bg:before{
   content:"";
   position:absolute;
   inset:-10%;
-  opacity:.14;
+  opacity:.10;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23876e58' stroke-opacity='.50' stroke-width='1.1'%3E%3Cpath d='M-50 130c205 54 364 56 500 12 128-42 265-39 407 14 154 58 313 59 502-10 78-28 148-32 217-18'/%3E%3Cpath d='M-50 288c214 38 394 31 538-18 125-42 256-38 392 12 164 61 326 55 503-10 82-30 153-33 217-20'/%3E%3Cpath d='M-50 444c230 26 415 17 570-24 120-31 247-30 388 4 160 38 314 37 480-10 90-25 157-27 222-16'/%3E%3Cpath d='M-50 604c238 18 432 7 596-28 122-26 246-24 380-3 150 23 295 22 438-8 88-18 156-18 218-10'/%3E%3Cpath d='M-50 762c264 8 468-8 635-35 120-20 241-18 365-4 146 16 283 16 422-8 88-14 151-13 213-8'/%3E%3C/g%3E%3C/svg%3E");
   background-size:cover;
   background-position:center;
-  animation:fhTopo 28s ease-in-out infinite alternate;
+  animation:fhTopo 30s ease-in-out infinite alternate;
 }
 
 #fh-checkout-main .fh-grain{
@@ -62,7 +63,7 @@
   inset:0;
   z-index:80;
   pointer-events:none;
-  opacity:.052;
+  opacity:.045;
   mix-blend-mode:multiply;
   background-image:radial-gradient(rgba(0,0,0,.55) .45px,transparent .55px);
   background-size:4px 4px;
@@ -73,49 +74,57 @@
   to{transform:translate3d(1vw,-1vh,0) scale(1.06)}
 }
 
+/* Mobile-first: the phone layout is the base layout. Desktop enhancements are added below. */
 #fh-checkout-main .fh-langbar{
   position:fixed;
-  top:86px;
+  top:70px;
   left:50%;
   transform:translateX(-50%);
   z-index:45;
   display:flex;
   align-items:center;
-  gap:6px;
-  padding:6px;
-  border:1px solid rgba(255,250,243,.24);
-  background:rgba(26,23,20,.30);
+  justify-content:center;
+  gap:5px;
+  width:max-content;
+  max-width:calc(100vw - 24px);
+  padding:5px;
+  border:1px solid rgba(255,250,243,.26);
+  background:rgba(26,23,20,.34);
   backdrop-filter:blur(16px);
-  box-shadow:0 16px 40px rgba(0,0,0,.12);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 14px 34px rgba(0,0,0,.12);
 }
 
 #fh-checkout-main .fh-langbar button{
   border:1px solid transparent;
   background:transparent;
-  color:rgba(255,250,243,.82);
-  min-height:31px;
-  padding:7px 10px;
+  color:rgba(255,250,243,.84);
+  min-height:36px;
+  min-width:42px;
+  padding:8px 9px;
   font-size:10px;
   font-weight:850;
-  letter-spacing:.13em;
+  letter-spacing:.12em;
   text-transform:uppercase;
 }
 
 #fh-checkout-main .fh-langbar button.is-active,
-#fh-checkout-main .fh-langbar button:hover{
-  background:rgba(255,250,243,.14);
-  border-color:rgba(255,250,243,.34);
+#fh-checkout-main .fh-langbar button:hover,
+#fh-checkout-main .fh-langbar button:focus-visible{
+  background:rgba(255,250,243,.15);
+  border-color:rgba(255,250,243,.36);
   color:#fff;
+  outline:none;
 }
 
 #fh-checkout-main .fh-hero{
   position:relative;
   z-index:1;
-  min-height:56svh;
+  min-height:380px;
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   justify-content:center;
-  padding:150px 20px 118px;
+  padding:130px 18px 84px;
   overflow:hidden;
   background:#1f1d19;
   color:var(--white);
@@ -125,8 +134,8 @@
   position:absolute;
   inset:0;
   background:center/cover no-repeat;
-  opacity:.78;
-  transform:scale(1.02);
+  opacity:.72;
+  transform:scale(1.01);
 }
 
 #fh-checkout-main .fh-hero:before{
@@ -135,7 +144,7 @@
   inset:0;
   z-index:1;
   background:
-    linear-gradient(180deg,rgba(22,19,17,.74),rgba(22,19,17,.34) 44%,rgba(22,19,17,.72)),
+    linear-gradient(180deg,rgba(22,19,17,.78),rgba(22,19,17,.38) 42%,rgba(22,19,17,.78)),
     radial-gradient(circle at 50% 16%,rgba(255,255,255,.12),transparent 0 28%);
 }
 
@@ -145,7 +154,7 @@
   left:0;
   right:0;
   bottom:-1px;
-  height:160px;
+  height:116px;
   z-index:1;
   background:linear-gradient(180deg,transparent,#efe7dc);
 }
@@ -153,17 +162,17 @@
 #fh-checkout-main .fh-hero-inner{
   position:relative;
   z-index:2;
-  width:min(1040px,100%);
+  width:min(100%,760px);
   text-align:center;
   margin:0 auto;
 }
 
 #fh-checkout-main .fh-kicker,
 #fh-checkout-main .fh-eyebrow{
-  margin:0 0 12px;
-  font-size:11px;
+  margin:0 0 10px;
+  font-size:10px;
   text-transform:uppercase;
-  letter-spacing:.22em;
+  letter-spacing:.18em;
   font-weight:850;
   color:var(--clay2);
 }
@@ -175,74 +184,75 @@
 #fh-checkout-main p{margin-top:0}
 
 #fh-checkout-main h1{
-  margin:0 auto 18px;
-  max-width:980px;
+  margin:0 auto 14px;
+  max-width:760px;
   font-family:var(--serif);
-  font-size:clamp(46px,7.4vw,100px);
-  line-height:.92;
-  letter-spacing:-.07em;
+  font-size:clamp(42px,14vw,64px);
+  line-height:.94;
+  letter-spacing:-.065em;
   font-weight:400;
   text-wrap:balance;
 }
 
 #fh-checkout-main .fh-hero-lead{
   margin:0 auto;
-  max-width:780px;
-  font-size:clamp(16px,1.6vw,20px);
-  line-height:1.62;
-  color:rgba(255,250,243,.84);
+  max-width:620px;
+  font-size:16px;
+  line-height:1.58;
+  color:rgba(255,250,243,.86);
 }
 
 #fh-checkout-main .fh-wrap{
   position:relative;
   z-index:4;
-  width:min(1060px,calc(100% - 28px));
-  margin:-74px auto 92px;
+  width:calc(100% - 20px);
+  margin:-52px auto 64px;
 }
 
 #fh-checkout-main .fh-card{
   display:grid;
-  grid-template-columns:.88fr 1.12fr;
-  background:rgba(255,250,243,.96);
+  grid-template-columns:1fr;
+  background:rgba(255,250,243,.97);
   border:1px solid #e5d8c9;
   box-shadow:var(--shadow);
   overflow:hidden;
 }
 
 #fh-checkout-main .fh-photo{
-  min-height:520px;
+  min-height:190px;
   background:#d8cbbb center/cover no-repeat;
 }
 
-#fh-checkout-main .fh-body{padding:34px}
+#fh-checkout-main .fh-body{
+  padding:22px 18px 20px;
+}
 
 #fh-checkout-main h2{
-  margin:0 0 14px;
+  margin:0 0 12px;
   font-family:var(--serif);
-  font-size:clamp(34px,4vw,58px);
+  font-size:clamp(31px,9.2vw,44px);
   font-weight:400;
-  line-height:.98;
-  letter-spacing:-.055em;
+  line-height:1;
+  letter-spacing:-.052em;
   text-wrap:balance;
 }
 
 #fh-checkout-main .fh-lead{
-  margin:0 0 22px;
-  max-width:720px;
+  margin:0 0 20px;
   color:var(--muted);
-  line-height:1.68;
-  font-size:16px;
+  line-height:1.62;
+  font-size:15px;
 }
 
 #fh-checkout-main .fh-summary{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin:24px 0;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin:20px 0;
 }
 
 #fh-checkout-main .fh-summary div{
-  padding:15px;
+  padding:14px;
   background:#f5eee5;
   border:1px solid #e3d5c6;
 }
@@ -250,7 +260,7 @@
 #fh-checkout-main .fh-summary .wide{grid-column:1/-1}
 #fh-checkout-main .fh-summary span{
   display:block;
-  margin-bottom:7px;
+  margin-bottom:6px;
   font-size:10px;
   text-transform:uppercase;
   letter-spacing:.13em;
@@ -267,41 +277,183 @@
 }
 
 #fh-checkout-main .fh-note{
-  padding-top:18px;
+  padding-top:16px;
   border-top:1px solid rgba(26,23,20,.10);
-  color:rgba(26,23,20,.58);
+  color:rgba(26,23,20,.62);
   font-size:13px;
-  line-height:1.6;
+  line-height:1.58;
 }
 
-#fh-checkout-main .fh-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+#fh-checkout-main .fh-actions{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin-top:20px;
+}
+
 #fh-checkout-main .fh-btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-height:52px;
-  padding:15px 20px;
+  min-height:54px;
+  padding:15px 18px;
   border:0;
   background:#1d1a17;
   color:#fff;
   text-transform:uppercase;
-  letter-spacing:.14em;
+  letter-spacing:.13em;
   font-size:11px;
   font-weight:850;
+  text-align:center;
+  touch-action:manipulation;
 }
-#fh-checkout-main .fh-btn.light{background:#fffaf3;color:var(--ink);border:1px solid rgba(26,23,20,.14)}
 
-@media(max-width:820px){
-  #fh-checkout-main .fh-langbar{top:68px}
-  #fh-checkout-main .fh-hero{padding:120px 16px 96px;min-height:auto}
-  #fh-checkout-main h1{font-size:clamp(42px,13vw,66px)}
-  #fh-checkout-main .fh-wrap{width:calc(100% - 20px);margin-top:-58px}
-  #fh-checkout-main .fh-card{grid-template-columns:1fr}
-  #fh-checkout-main .fh-photo{min-height:230px}
-  #fh-checkout-main .fh-body{padding:24px}
-  #fh-checkout-main .fh-summary{grid-template-columns:1fr}
-  #fh-checkout-main .fh-actions{flex-direction:column}
-  #fh-checkout-main .fh-btn{width:100%}
+#fh-checkout-main .fh-btn.light{
+  background:#fffaf3;
+  color:var(--ink);
+  border:1px solid rgba(26,23,20,.14);
+}
+
+#fh-checkout-main .fh-btn:focus-visible{
+  outline:3px solid rgba(135,110,88,.34);
+  outline-offset:3px;
+}
+
+/* Tablet and desktop enhancements */
+@media(min-width:600px){
+  #fh-checkout-main .fh-hero{
+    min-height:430px;
+    align-items:center;
+    padding:138px 22px 100px;
+  }
+
+  #fh-checkout-main .fh-summary{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  #fh-checkout-main .fh-actions{
+    display:flex;
+    flex-wrap:wrap;
+  }
+
+  #fh-checkout-main .fh-btn{
+    min-width:210px;
+  }
+}
+
+@media(min-width:860px){
+  #fh-checkout-main{
+    --shadow:0 26px 74px rgba(0,0,0,.13);
+  }
+
+  #fh-checkout-main .fh-langbar{
+    top:86px;
+    gap:6px;
+    padding:6px;
+  }
+
+  #fh-checkout-main .fh-langbar button{
+    min-height:36px;
+    padding:8px 10px;
+  }
+
+  #fh-checkout-main .fh-hero{
+    min-height:56svh;
+    padding:150px 20px 118px;
+  }
+
+  #fh-checkout-main h1{
+    max-width:980px;
+    font-size:clamp(54px,7.4vw,100px);
+    line-height:.92;
+  }
+
+  #fh-checkout-main .fh-hero-lead{
+    max-width:780px;
+    font-size:clamp(16px,1.6vw,20px);
+    line-height:1.62;
+  }
+
+  #fh-checkout-main .fh-wrap{
+    width:min(1060px,calc(100% - 28px));
+    margin:-74px auto 92px;
+  }
+
+  #fh-checkout-main .fh-card{
+    grid-template-columns:.88fr 1.12fr;
+  }
+
+  #fh-checkout-main .fh-photo{
+    min-height:520px;
+  }
+
+  #fh-checkout-main .fh-body{
+    padding:34px;
+  }
+
+  #fh-checkout-main .fh-kicker,
+  #fh-checkout-main .fh-eyebrow{
+    font-size:11px;
+    letter-spacing:.22em;
+  }
+
+  #fh-checkout-main h2{
+    font-size:clamp(34px,4vw,58px);
+    line-height:.98;
+  }
+
+  #fh-checkout-main .fh-lead{
+    font-size:16px;
+    line-height:1.68;
+  }
+
+  #fh-checkout-main .fh-summary div{
+    padding:15px;
+  }
+
+  #fh-checkout-main .fh-actions{
+    margin-top:22px;
+  }
+}
+
+@media(max-width:420px){
+  #fh-checkout-main .fh-langbar{
+    top:64px;
+  }
+
+  #fh-checkout-main .fh-langbar button{
+    min-width:38px;
+    padding-left:7px;
+    padding-right:7px;
+  }
+
+  #fh-checkout-main .fh-hero{
+    min-height:360px;
+    padding-left:14px;
+    padding-right:14px;
+  }
+
+  #fh-checkout-main .fh-wrap{
+    width:calc(100% - 14px);
+  }
+
+  #fh-checkout-main .fh-body{
+    padding:20px 15px 18px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  #fh-checkout-main .fh-bg:before{
+    animation:none;
+  }
+
+  #fh-checkout-main *,
+  #fh-checkout-main *:before,
+  #fh-checkout-main *:after{
+    scroll-behavior:auto !important;
+    transition:none !important;
+  }
 }
 </style>
 
@@ -409,10 +561,10 @@
 
   const LANGS = ["en","fr","de","ru"];
   const I18N = {
-    en:{eyebrow:"Booking request received",title:"Thank you.",lead:"We have received your booking request. The details will be reviewed and sent to you by email.",cardKicker:"Confirmation",cardTitle:"Your request has been sent.",cardLead:"Our team will review your stay details and send confirmation, payment information, and next steps by email.",guestLabel:"Guest",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Guests",requestLabel:"Request reference",note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",homeBtn:"Return home",newBtn:"Start another request",sentByEmail:"Sent by email",night:"night",nights:"nights"},
-    fr:{eyebrow:"Demande de réservation reçue",title:"Merci.",lead:"Nous avons bien reçu votre demande de réservation. Les détails seront vérifiés et envoyés par email.",cardKicker:"Confirmation",cardTitle:"Votre demande a été envoyée.",cardLead:"Notre équipe vérifiera les détails du séjour et vous enverra la confirmation, les informations de paiement et les prochaines étapes par email.",guestLabel:"Client",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Invités",requestLabel:"Référence",note:"Veuillez vérifier votre boîte mail. Si quelque chose doit être ajusté, répondez directement à l’email de confirmation.",homeBtn:"Retour à l’accueil",newBtn:"Nouvelle demande",sentByEmail:"Envoyé par email",night:"nuit",nights:"nuits"},
-    de:{eyebrow:"Buchungsanfrage erhalten",title:"Vielen Dank.",lead:"Wir haben Ihre Buchungsanfrage erhalten. Die Details werden geprüft und per E-Mail gesendet.",cardKicker:"Bestätigung",cardTitle:"Ihre Anfrage wurde gesendet.",cardLead:"Unser Team prüft die Aufenthaltsdetails und sendet Bestätigung, Zahlungsinformationen und nächste Schritte per E-Mail.",guestLabel:"Gast",emailLabel:"E-Mail",datesLabel:"Daten",guestsLabel:"Gäste",requestLabel:"Referenz",note:"Bitte prüfen Sie Ihren Posteingang. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",homeBtn:"Zur Startseite",newBtn:"Neue Anfrage",sentByEmail:"Per E-Mail gesendet",night:"Nacht",nights:"Nächte"},
-    ru:{eyebrow:"Запрос на бронирование получен",title:"Спасибо.",lead:"Мы получили ваш запрос на бронирование. Детали будут проверены и отправлены вам по email.",cardKicker:"Подтверждение",cardTitle:"Ваш запрос отправлен.",cardLead:"Наша команда проверит детали проживания и отправит подтверждение, информацию об оплате и следующие шаги по email.",guestLabel:"Гость",emailLabel:"Email",datesLabel:"Даты",guestsLabel:"Гости",requestLabel:"Номер запроса",note:"Проверьте вашу почту. Если нужно что-то изменить, ответьте прямо на письмо с подтверждением.",homeBtn:"На главную",newBtn:"Новый запрос",sentByEmail:"Отправлено по email",night:"ночь",nights:"ночей"}
+    en:{eyebrow:"Booking request received",title:"Thank you.",lead:"We have received your booking request. The details will be reviewed and sent to you by email.",cardKicker:"Confirmation",cardTitle:"Your request has been sent.",cardLead:"Our team will review your stay details and send confirmation, payment information, and next steps by email.",guestLabel:"Guest",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Guests",requestLabel:"Request reference",note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",homeBtn:"Return home",newBtn:"Start another request",sentByEmail:"Sent by email",night:"night",nights:"nights",guestWord:"guests"},
+    fr:{eyebrow:"Demande de réservation reçue",title:"Merci.",lead:"Nous avons bien reçu votre demande de réservation. Les détails seront vérifiés et envoyés par email.",cardKicker:"Confirmation",cardTitle:"Votre demande a été envoyée.",cardLead:"Notre équipe vérifiera les détails du séjour et vous enverra la confirmation, les informations de paiement et les prochaines étapes par email.",guestLabel:"Client",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Invités",requestLabel:"Référence",note:"Veuillez vérifier votre boîte mail. Si quelque chose doit être ajusté, répondez directement à l’email de confirmation.",homeBtn:"Retour à l’accueil",newBtn:"Nouvelle demande",sentByEmail:"Envoyé par email",night:"nuit",nights:"nuits",guestWord:"invités"},
+    de:{eyebrow:"Buchungsanfrage erhalten",title:"Vielen Dank.",lead:"Wir haben Ihre Buchungsanfrage erhalten. Die Details werden geprüft und per E-Mail gesendet.",cardKicker:"Bestätigung",cardTitle:"Ihre Anfrage wurde gesendet.",cardLead:"Unser Team prüft die Aufenthaltsdetails und sendet Bestätigung, Zahlungsinformationen und nächste Schritte per E-Mail.",guestLabel:"Gast",emailLabel:"E-Mail",datesLabel:"Daten",guestsLabel:"Gäste",requestLabel:"Referenz",note:"Bitte prüfen Sie Ihren Posteingang. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",homeBtn:"Zur Startseite",newBtn:"Neue Anfrage",sentByEmail:"Per E-Mail gesendet",night:"Nacht",nights:"Nächte",guestWord:"Gäste"},
+    ru:{eyebrow:"Запрос на бронирование получен",title:"Спасибо.",lead:"Мы получили ваш запрос на бронирование. Детали будут проверены и отправлены вам по email.",cardKicker:"Подтверждение",cardTitle:"Ваш запрос отправлен.",cardLead:"Наша команда проверит детали проживания и отправит подтверждение, информацию об оплате и следующие шаги по email.",guestLabel:"Гость",emailLabel:"Email",datesLabel:"Даты",guestsLabel:"Гости",requestLabel:"Номер запроса",note:"Проверьте вашу почту. Если нужно что-то изменить, ответьте прямо на письмо с подтверждением.",homeBtn:"На главную",newBtn:"Новый запрос",sentByEmail:"Отправлено по email",night:"ночь",nights:"ночей",guestWord:"гостей"}
   };
 
   function normalizeLang(lang){const v = String(lang || "en").toLowerCase().slice(0,2); return LANGS.includes(v) ? v : "en"}
@@ -492,7 +644,7 @@
     setText("fhGuest", guest);
     setText("fhEmail", data.email);
     setText("fhDates", dates);
-    setText("fhGuests", data.guests ? `${data.guests} guests` : "—");
+    setText("fhGuests", data.guests ? `${data.guests} ${t("guestWord")}` : "—");
     setText("fhReference", reference);
   }
 
