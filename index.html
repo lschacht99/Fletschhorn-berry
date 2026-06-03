@@ -1192,6 +1192,27 @@
       line-height:1.52;
     }
 
+    #fh-home .fh-tripadvisor-widget{
+      margin-top:14px;
+      margin-bottom:12px;
+      padding:13px 14px;
+      border:1px solid rgba(28,24,20,.10);
+      background:#fff;
+      overflow:hidden;
+    }
+
+    #fh-home .fh-tripadvisor-widget ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+
+    #fh-home .fh-tripadvisor-widget img{
+      max-width:180px;
+      height:auto;
+    }
+
+
     #fh-home .fh-small-cta{
       display:inline-flex;
       align-items:center;
@@ -1805,10 +1826,22 @@
             <a class="fh-social-link" href="https://www.linkedin.com/company/waldhotel-fletschhorn-saas-fee/" target="_blank" rel="noopener"><span><strong>LinkedIn</strong><span data-i18n="linkedinText">Professional profile and company presence.</span></span><em>›</em></a>
           </div>
 
-          <a class="fh-review-bar" href="https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html" target="_blank" rel="noopener">
+          <div class="fh-review-bar">
             <strong>Tripadvisor</strong>
-            <div id="TA_cdsratingsonlynarrow805" class="TA_cdsratingsonlynarrow"><ul id="FcBvBw" class="TA_links 9q5ID5ddz"><li id="sM2WWz7" class="wAXynxC"><a target="_blank" href="https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html"><img src="https://www.tripadvisor.com/img/cdsi/img2/branding/v2/Tripadvisor_lockup_horizontal_secondary_registered-18034-2.svg" alt="TripAdvisor"/></a></li></ul></div><script type='text/javascript' src='https://www.tripadvisor.com/uxjgQjRc43fn07QgLSnM_7o8fel65HlzSHnCQcXfaJ_CJ8XZoRUJ5MGnvJlu2gq-fHTf9EDTixu0GOPaI6PopTXs8Bm0PcsOIWQXxuTq83SUmZaBDIZntBuAFsxnAqeqTOar-E4rjCFjIcdF0c8zWB3DFzdXysGZf4BHvELudmLlQLuczFolMvYenJzCXcGTmHPEDSpunRTydomNqqJC17llb8LTzD52UAsUHsTYBQXU76QOCtCwB1X0TGSEqOqYr6dixVpQr7n1t1NlmaUknPfqMhrpMXHVZ5x_MOSLmWsa0vvS3aCSy6CFH3DHNuefheZ9zxUDrYS3y7rDxYipVIkXn26kWj5ep3a2Rxp7R-px_miU6mLF6nMA8CP7Xjvno3ujKPlKA3g2irsmiblTYJ0s7QbSkGY02bKfzaEd6Ml40oCLCvct3_7omy4zBb_gEFw_0Q_8o9wMzQbSSM5d7-l8PnZ_DSQ8t0ZGp4IjTasrSzpCKKFuIW9uVKToJ-gEsP9AlOIFu6heiXfxSOVtl6WZD8hCWpS3m8_zXNfdJ8qPKfmhkJdKUs64Ov6AaSPIEu-dqPLkMoVvJnI8o-nbnG92CdZoWFHkMnAzaoeLy3pKRO767caSU4tiGm7nEHfFmQC5jwUbLA8Au1aUIV6c8QChPh1PNqKzHsCJHV8fi82zQ9gNtkOlK7BvgoQzIkuVz2I5Y_iLWEKjM3DKNBJLk8Vgk5s'></script><script async src="https://www.jscache.com/wejs?wtype=cdsratingsonlynarrow&amp;uniq=805&amp;locationId=236309&amp;lang=en_US&amp;border=true&amp;backgroundColor=white&amp;display_version=2" data-loadtrk onload="this.loadtrk=true"></script>
-          </a>
+            <span data-i18n="tripadvisorText">Independent guest reviews and rating snapshot from Tripadvisor.</span>
+            <div class="fh-tripadvisor-widget" aria-label="Tripadvisor rating widget">
+              <div id="TA_cdsratingsonlynarrow805" class="TA_cdsratingsonlynarrow">
+                <ul id="FcBvBw" class="TA_links 9q5ID5ddz">
+                  <li id="sM2WWz7" class="wAXynxC">
+                    <a target="_blank" rel="noopener" href="https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html">
+                      <img src="https://www.tripadvisor.com/img/cdsi/img2/branding/v2/Tripadvisor_lockup_horizontal_secondary_registered-18034-2.svg" alt="Tripadvisor">
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <a class="fh-small-cta" href="https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html" target="_blank" rel="noopener" data-i18n="openReviews">Open reviews</a>
+          </div>
         </aside>
       </div>
     </section>
@@ -1907,6 +1940,15 @@
         instagramScript.async = true;
         instagramScript.src = "https://www.instagram.com/embed.js";
         document.body.appendChild(instagramScript);
+      }
+
+      if (!document.querySelector('script[src*="jscache.com/wejs"]')){
+        const tripAdvisorScript = document.createElement("script");
+        tripAdvisorScript.async = true;
+        tripAdvisorScript.src = "https://www.jscache.com/wejs?wtype=cdsratingsonlynarrow&uniq=805&locationId=236309&lang=en_US&border=true&backgroundColor=white&display_version=2";
+        tripAdvisorScript.setAttribute("data-loadtrk", "");
+        tripAdvisorScript.onload = function(){ this.loadtrk = true; };
+        document.body.appendChild(tripAdvisorScript);
       }
     })();
   </script>
@@ -2144,7 +2186,7 @@
           findUsText:"Use the official social and review profiles for updates, local presence, and independent guest feedback.",
           facebookText:"Updates and property news.",
           linkedinText:"Professional profile and company presence.",
-          tripadvisorText:"Review bar cannot be safely extracted as a standalone element without Tripadvisor’s official widget permissions, so this opens the verified review page directly.",
+          tripadvisorText:"Independent guest reviews and rating snapshot from Tripadvisor.",
           openReviews:"Open reviews",
           missingFirstName:"Please enter your first name.",
           missingLastName:"Please enter your last name.",
@@ -2188,7 +2230,7 @@
           findUsText:"Utilisez les profils sociaux et d’avis officiels pour les actualités, la présence locale et les retours indépendants.",
           facebookText:"Actualités et nouvelles de la propriété.",
           linkedinText:"Profil professionnel et présence de l’entreprise.",
-          tripadvisorText:"La barre d’avis ne peut pas être extraite seule de manière fiable sans les autorisations du widget officiel Tripadvisor. Ce lien ouvre donc directement la page d’avis vérifiée.",
+          tripadvisorText:"Avis clients indépendants et aperçu de la note sur Tripadvisor.",
           openReviews:"Ouvrir les avis",
           missingFirstName:"Veuillez entrer votre prénom.",
           missingLastName:"Veuillez entrer votre nom.",
@@ -2232,7 +2274,7 @@
           findUsText:"Nutzen Sie die offiziellen Social- und Bewertungsprofile für Neuigkeiten, lokale Präsenz und unabhängiges Gästefeedback.",
           facebookText:"Updates und Neuigkeiten zur Immobilie.",
           linkedinText:"Professionelles Profil und Unternehmenspräsenz.",
-          tripadvisorText:"Die Bewertungsleiste kann ohne die offiziellen Tripadvisor-Widget-Berechtigungen nicht zuverlässig einzeln eingebettet werden. Dieser Link öffnet daher direkt die verifizierte Bewertungsseite.",
+          tripadvisorText:"Unabhängige Gästebewertungen und Bewertungsübersicht von Tripadvisor.",
           openReviews:"Bewertungen öffnen",
           missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",
           missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",
@@ -2276,7 +2318,7 @@
           findUsText:"Используйте официальные социальные профили и страницы отзывов для обновлений, локального присутствия и независимой обратной связи.",
           facebookText:"Новости и обновления объекта.",
           linkedinText:"Профессиональный профиль и присутствие компании.",
-          tripadvisorText:"Панель отзывов нельзя надежно извлечь как отдельный элемент без официальных разрешений виджета Tripadvisor, поэтому ссылка открывает проверенную страницу отзывов напрямую.",
+          tripadvisorText:"Независимые отзывы гостей и краткий рейтинг на Tripadvisor.",
           openReviews:"Открыть отзывы",
           missingFirstName:"Введите имя.",
           missingLastName:"Введите фамилию.",
