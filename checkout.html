@@ -2,31 +2,25 @@
 <div id="fh-header-slot"></div>
 
 <style>
-#fh-booking-main,
-#fh-booking-main *{box-sizing:border-box}
+#fh-checkout-main,
+#fh-checkout-main *{box-sizing:border-box}
 
-#fh-booking-main{
+#fh-checkout-main{
   --ink:#1a1714;
   --muted:rgba(26,23,20,.68);
-  --soft:rgba(26,23,20,.52);
   --line:rgba(26,23,20,.13);
   --paper:#fffaf3;
   --paper2:#f8f1e8;
   --page:#efe7dc;
-  --section:#f4ece4;
   --clay:#b99f86;
   --clay2:#876e58;
   --green:#6f7b64;
-  --good:#3f6f50;
-  --bad:#9a4b3f;
-  --booked:#a9a39a;
-  --booked-bg:rgba(26,23,20,.075);
-  --warning:#966523;
   --white:#fffaf3;
   --shadow:0 26px 74px rgba(0,0,0,.13);
   --soft-shadow:0 14px 40px rgba(0,0,0,.07);
   --serif:Georgia,"Times New Roman",serif;
   --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100svh;
   color:var(--ink);
   font-family:var(--sans);
   background:
@@ -38,15 +32,10 @@
   text-size-adjust:100%;
 }
 
-#fh-booking-main a{color:inherit;text-decoration:none}
-#fh-booking-main button,
-#fh-booking-main input,
-#fh-booking-main select,
-#fh-booking-main textarea{font:inherit}
-#fh-booking-main button{cursor:pointer}
-#fh-booking-main img{display:block;max-width:100%}
+#fh-checkout-main a{color:inherit;text-decoration:none}
+#fh-checkout-main button{font:inherit;cursor:pointer}
 
-#fh-booking-main .fh-bg{
+#fh-checkout-main .fh-bg{
   position:fixed;
   inset:0;
   z-index:0;
@@ -57,7 +46,7 @@
     radial-gradient(circle at 72% 84%,rgba(255,255,255,.42),transparent 0 24%);
 }
 
-#fh-booking-main .fh-bg:before{
+#fh-checkout-main .fh-bg:before{
   content:"";
   position:absolute;
   inset:-10%;
@@ -65,13 +54,12 @@
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23876e58' stroke-opacity='.50' stroke-width='1.1'%3E%3Cpath d='M-50 130c205 54 364 56 500 12 128-42 265-39 407 14 154 58 313 59 502-10 78-28 148-32 217-18'/%3E%3Cpath d='M-50 288c214 38 394 31 538-18 125-42 256-38 392 12 164 61 326 55 503-10 82-30 153-33 217-20'/%3E%3Cpath d='M-50 444c230 26 415 17 570-24 120-31 247-30 388 4 160 38 314 37 480-10 90-25 157-27 222-16'/%3E%3Cpath d='M-50 604c238 18 432 7 596-28 122-26 246-24 380-3 150 23 295 22 438-8 88-18 156-18 218-10'/%3E%3Cpath d='M-50 762c264 8 468-8 635-35 120-20 241-18 365-4 146 16 283 16 422-8 88-14 151-13 213-8'/%3E%3C/g%3E%3C/svg%3E");
   background-size:cover;
   background-position:center;
-  animation:fhTopo 28s ease-in-out infinite alternate;
 }
 
-#fh-booking-main .fh-grain{
+#fh-checkout-main .fh-grain{
   position:fixed;
   inset:0;
-  z-index:80;
+  z-index:50;
   pointer-events:none;
   opacity:.052;
   mix-blend-mode:multiply;
@@ -79,17 +67,7 @@
   background-size:4px 4px;
 }
 
-@keyframes fhTopo{
-  from{transform:translate3d(0,0,0) scale(1.02)}
-  to{transform:translate3d(1vw,-1vh,0) scale(1.06)}
-}
-
-#fh-booking-main .fh-page{
-  position:relative;
-  z-index:1;
-}
-
-#fh-booking-main .fh-langbar{
+#fh-checkout-main .fh-langbar{
   position:fixed;
   top:86px;
   left:50%;
@@ -105,7 +83,7 @@
   box-shadow:0 16px 40px rgba(0,0,0,.12);
 }
 
-#fh-booking-main .fh-langbar button{
+#fh-checkout-main .fh-langbar button{
   border:1px solid transparent;
   background:transparent;
   color:rgba(255,250,243,.82);
@@ -117,267 +95,139 @@
   text-transform:uppercase;
 }
 
-#fh-booking-main .fh-langbar button.is-active,
-#fh-booking-main .fh-langbar button:hover{
+#fh-checkout-main .fh-langbar button.is-active,
+#fh-checkout-main .fh-langbar button:hover{
   background:rgba(255,250,243,.14);
   border-color:rgba(255,250,243,.34);
   color:#fff;
 }
 
-#fh-booking-main .fh-hero{
+#fh-checkout-main .fh-page{
   position:relative;
-  min-height:72svh;
+  z-index:1;
+  min-height:100svh;
+  padding:148px 20px 92px;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:150px 20px 74px;
-  overflow:hidden;
-  background:#1f1d19;
-  color:var(--white);
 }
 
-#fh-booking-main .fh-hero-media{
-  position:absolute;
-  inset:0;
-  z-index:0;
-}
-
-#fh-booking-main .fh-hero-media div{
-  position:absolute;
-  inset:0;
-  background-size:cover;
-  background-position:center;
-  opacity:0;
-  transform:scale(1.045);
-  transition:opacity 1200ms ease,transform 7800ms ease;
-}
-
-#fh-booking-main .fh-hero-media div.is-active{
-  opacity:1;
-  transform:scale(1);
-}
-
-#fh-booking-main .fh-hero:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background:
-    linear-gradient(180deg,rgba(22,19,17,.68),rgba(22,19,17,.34) 44%,rgba(22,19,17,.70)),
-    radial-gradient(circle at 50% 16%,rgba(255,255,255,.12),transparent 0 28%);
-}
-
-#fh-booking-main .fh-hero:after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:-1px;
-  height:160px;
-  z-index:1;
-  background:linear-gradient(180deg,transparent,#efe7dc);
-}
-
-#fh-booking-main .fh-hero-inner{
-  position:relative;
-  z-index:2;
-  width:min(1180px,100%);
-  text-align:center;
-  margin:0 auto;
-}
-
-#fh-booking-main .fh-eyebrow,
-#fh-booking-main .fh-kicker{
-  margin:0 0 12px;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.22em;
-  font-weight:850;
-  color:var(--clay2);
-}
-
-#fh-booking-main .fh-hero .fh-eyebrow{
-  color:rgba(255,250,243,.84);
-}
-
-#fh-booking-main h1,
-#fh-booking-main h2,
-#fh-booking-main h3,
-#fh-booking-main p{margin-top:0}
-
-#fh-booking-main h1{
-  margin:0 auto 18px;
-  max-width:980px;
-  font-family:var(--serif);
-  font-size:clamp(48px,8.2vw,108px);
-  line-height:.90;
-  letter-spacing:-.07em;
-  font-weight:400;
-  text-wrap:balance;
-}
-
-#fh-booking-main .fh-hero-lead{
-  margin:0 auto;
-  max-width:790px;
-  font-size:clamp(16px,1.6vw,20px);
-  line-height:1.62;
-  color:rgba(255,250,243,.84);
-}
-
-#fh-booking-main .fh-trust-row{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin:26px auto 0;
-}
-
-#fh-booking-main .fh-trust-pill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 13px;
-  background:rgba(255,250,243,.12);
-  border:1px solid rgba(255,250,243,.20);
-  backdrop-filter:blur(12px);
-  font-size:12px;
-  color:rgba(255,250,243,.86);
-}
-
-#fh-booking-main .fh-booking-wrap{
-  position:relative;
-  margin:-54px auto 0;
-  width:min(980px,calc(100% - 28px));
-  z-index:5;
-}
-
-#fh-booking-main .fh-card{
+#fh-checkout-main .fh-shell{
+  width:min(1080px,100%);
+  display:grid;
+  grid-template-columns:.92fr 1.08fr;
   background:rgba(255,250,243,.96);
   border:1px solid #e5d8c9;
-  box-shadow:var(--soft-shadow);
-}
-
-#fh-booking-main .fh-main-card{
   box-shadow:var(--shadow);
   overflow:hidden;
 }
 
-#fh-booking-main .fh-book-head{
-  padding:26px 30px;
-  border-bottom:1px solid #e5d8c9;
-  background:linear-gradient(135deg,#fffaf3,#f3eadd);
+#fh-checkout-main .fh-photo{
+  min-height:650px;
+  background:#d8cbbb center/cover no-repeat;
+  position:relative;
 }
 
-#fh-booking-main h2{
-  margin:0;
+#fh-checkout-main .fh-photo:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(26,23,20,.06),rgba(26,23,20,.38));
+}
+
+#fh-checkout-main .fh-content{
+  padding:42px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+#fh-checkout-main .fh-kicker{
+  margin:0 0 12px;
+  color:var(--clay2);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-weight:850;
+}
+
+#fh-checkout-main h1{
+  margin:0 0 18px;
+  max-width:720px;
   font-family:var(--serif);
-  font-size:clamp(34px,4vw,58px);
+  font-size:clamp(44px,6vw,82px);
+  line-height:.92;
+  letter-spacing:-.065em;
   font-weight:400;
-  line-height:.96;
-  letter-spacing:-.055em;
   text-wrap:balance;
 }
 
-#fh-booking-main h3{
-  margin:0 0 8px;
-  font-family:var(--serif);
-  font-size:clamp(26px,3vw,38px);
-  font-weight:400;
-  line-height:.98;
-  letter-spacing:-.05em;
-}
-
-#fh-booking-main p{
+#fh-checkout-main p{
+  margin:0;
   color:var(--muted);
-  line-height:1.65;
   font-size:16px;
+  line-height:1.68;
 }
 
-#fh-booking-main .fh-form{
-  padding:26px 30px 30px;
+#fh-checkout-main .fh-lead{
+  max-width:620px;
+  font-size:17px;
 }
 
-#fh-booking-main .fh-grid{
+#fh-checkout-main .fh-summary{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:14px;
+  gap:12px;
+  margin:28px 0 0;
 }
 
-#fh-booking-main .fh-field{min-width:0}
-#fh-booking-main .fh-field.full{grid-column:1/-1}
+#fh-checkout-main .fh-item{
+  padding:15px;
+  background:#f8f1e8;
+  border:1px solid rgba(26,23,20,.08);
+}
 
-#fh-booking-main label{
+#fh-checkout-main .fh-item.full{grid-column:1/-1}
+
+#fh-checkout-main .fh-item span{
   display:block;
-  margin-bottom:7px;
+  margin-bottom:6px;
+  color:rgba(26,23,20,.48);
   font-size:10px;
   text-transform:uppercase;
-  letter-spacing:.16em;
+  letter-spacing:.14em;
   font-weight:850;
-  color:rgba(26,23,20,.52);
 }
 
-#fh-booking-main input,
-#fh-booking-main select,
-#fh-booking-main textarea{
-  width:100%;
-  border:1px solid #ddd0c0;
-  background:#fbf6ef;
+#fh-checkout-main .fh-item strong{
+  display:block;
   color:var(--ink);
-  border-radius:0;
-  min-height:54px;
-  padding:14px 14px;
-  outline:none;
-  transition:border-color 220ms ease,box-shadow 220ms ease,background 220ms ease;
+  font-size:15px;
+  line-height:1.42;
+  word-break:break-word;
 }
 
-#fh-booking-main textarea{
-  min-height:104px;
-  resize:vertical;
+#fh-checkout-main .fh-note{
+  margin-top:24px;
+  padding-top:18px;
+  border-top:1px solid rgba(26,23,20,.10);
+  font-size:13px;
+  color:rgba(26,23,20,.58);
 }
 
-#fh-booking-main input:focus,
-#fh-booking-main select:focus,
-#fh-booking-main textarea:focus{
-  border-color:var(--clay2);
-  background:#fff;
-  box-shadow:0 0 0 4px rgba(185,159,134,.14);
-}
-
-#fh-booking-main .fh-date-button{
-  width:100%;
-  min-height:54px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  border:1px solid #ddd0c0;
-  background:#fbf6ef;
-  color:var(--ink);
-  padding:14px;
-  text-align:left;
-}
-
-#fh-booking-main .fh-date-button span{color:var(--muted)}
-#fh-booking-main .fh-date-button strong{color:var(--ink);font-weight:760}
-#fh-booking-main .fh-date-button:hover{background:#fff;border-color:var(--clay2)}
-
-#fh-booking-main .fh-actions{
+#fh-checkout-main .fh-actions{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
-  align-items:center;
-  margin-top:20px;
-  padding-top:18px;
-  border-top:1px solid #e5d8c9;
+  margin-top:24px;
 }
 
-#fh-booking-main .fh-btn{
+#fh-checkout-main .fh-btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:9px;
-  min-height:54px;
-  padding:15px 22px;
+  min-height:52px;
+  padding:14px 20px;
   border:0;
   background:#1d1a17;
   color:#fff;
@@ -385,324 +235,28 @@
   letter-spacing:.14em;
   font-size:11px;
   font-weight:850;
-  transition:transform 200ms ease,background 250ms ease,opacity 250ms ease;
 }
 
-#fh-booking-main .fh-btn:hover{transform:translateY(-1px);background:#000}
-#fh-booking-main .fh-btn.light{background:#fffaf3;color:var(--ink);border:1px solid rgba(26,23,20,.14)}
-#fh-booking-main .fh-btn.light:hover{background:#fff}
-#fh-booking-main .fh-btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
-
-#fh-booking-main .fh-status{
-  display:none;
-  margin-top:16px;
-  padding:14px 15px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.60);
-  font-size:14px;
-  line-height:1.55;
-  color:var(--muted);
-  white-space:pre-wrap;
-}
-
-#fh-booking-main .fh-status.is-visible{display:block}
-#fh-booking-main .fh-status.good{border-color:rgba(63,111,80,.28);background:rgba(63,111,80,.08);color:var(--good)}
-#fh-booking-main .fh-status.bad{border-color:rgba(154,75,63,.28);background:rgba(154,75,63,.08);color:var(--bad)}
-#fh-booking-main .fh-status.warn{border-color:rgba(150,101,35,.28);background:rgba(150,101,35,.09);color:var(--warning)}
-
-#fh-booking-main .fh-direct-note{
-  font-size:13px;
-  line-height:1.5;
-  color:rgba(26,23,20,.58);
-  margin:0;
-  max-width:540px;
-}
-
-#fh-booking-main .fh-terms-mini{
-  margin-top:16px;
-  padding:12px 0 0;
-  border-top:1px solid rgba(26,23,20,.09);
-  font-size:11px;
-  line-height:1.5;
-  color:rgba(26,23,20,.50);
-}
-
-#fh-booking-main .fh-terms-mini strong{
-  color:rgba(26,23,20,.66);
-  font-weight:760;
-}
-
-#fh-booking-main .fh-calendar-modal,
-#fh-booking-main .fh-confirm-modal{
-  position:fixed;
-  inset:0;
-  z-index:120;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(26,23,20,.46);
-  backdrop-filter:blur(10px);
-}
-
-#fh-booking-main .fh-calendar-modal.is-open,
-#fh-booking-main .fh-confirm-modal.is-open{display:flex}
-
-#fh-booking-main .fh-calendar-card{
-  width:min(760px,100%);
-  max-height:calc(100svh - 40px);
-  overflow:auto;
-  padding:20px;
-  background:var(--paper);
-  border:1px solid rgba(255,250,243,.42);
-  box-shadow:0 30px 90px rgba(0,0,0,.24);
-}
-
-#fh-booking-main .fh-calendar-head,
-#fh-booking-main .fh-confirm-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:14px;
-}
-
-#fh-booking-main .fh-calendar-title,
-#fh-booking-main .fh-confirm-title{
-  font-family:var(--serif);
-  font-size:34px;
-  letter-spacing:-.05em;
-  font-weight:400;
-  margin:0;
-}
-
-#fh-booking-main .fh-calendar-close,
-#fh-booking-main .fh-confirm-close{
-  border:1px solid rgba(26,23,20,.12);
+#fh-checkout-main .fh-btn.light{
   background:#fffaf3;
-  min-width:42px;
-  min-height:38px;
   color:var(--ink);
-  font-weight:900;
+  border:1px solid rgba(26,23,20,.14);
 }
 
-#fh-booking-main .fh-calendar-nav{display:flex;gap:8px;align-items:center}
-#fh-booking-main .fh-mini-btn{
-  border:1px solid rgba(26,23,20,.12);
-  background:#fffaf3;
-  min-width:42px;
-  min-height:38px;
-  color:var(--ink);
-  font-weight:900;
-}
-
-#fh-booking-main .fh-calendar-help{margin:0 0 12px;font-size:13px;color:var(--muted)}
-#fh-booking-main .fh-calendar-warning{
-  display:none;
-  margin:0 0 14px;
-  padding:10px 12px;
-  border:1px solid rgba(150,101,35,.24);
-  background:rgba(150,101,35,.08);
-  color:var(--warning);
-  font-size:13px;
-  font-weight:760;
-}
-#fh-booking-main .fh-calendar-warning.is-visible{display:block}
-
-#fh-booking-main .fh-weekdays,
-#fh-booking-main .fh-calendar-grid{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:6px;
-}
-
-#fh-booking-main .fh-weekday{
-  text-align:center;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.10em;
-  font-weight:900;
-  color:rgba(26,23,20,.45);
-  padding-bottom:4px;
-}
-
-#fh-booking-main .fh-day{
-  min-height:78px;
-  padding:7px;
-  border:1px solid rgba(26,23,20,.10);
-  background:rgba(255,250,243,.82);
-  text-align:left;
-  color:var(--ink);
-  position:relative;
-}
-
-#fh-booking-main .fh-day:hover{border-color:rgba(26,23,20,.28)}
-#fh-booking-main .fh-day.is-empty{visibility:hidden;pointer-events:none}
-#fh-booking-main .fh-day.is-past{opacity:.36;cursor:not-allowed}
-#fh-booking-main .fh-day.is-unavailable{background:var(--booked-bg);border-color:rgba(26,23,20,.10);color:var(--booked);cursor:not-allowed}
-#fh-booking-main .fh-day.is-selected,
-#fh-booking-main .fh-day.is-start,
-#fh-booking-main .fh-day.is-end{background:#1d1a17;color:#fffaf3;border-color:#1d1a17}
-#fh-booking-main .fh-day.is-range{background:rgba(26,23,20,.09)}
-#fh-booking-main .fh-day-number{display:block;font-size:13px;font-weight:900}
-#fh-booking-main .fh-day-price{display:block;margin-top:16px;font-size:10px;font-weight:850;color:rgba(26,23,20,.64)}
-#fh-booking-main .fh-day-status{display:block;margin-top:3px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:var(--booked)}
-#fh-booking-main .fh-day.is-selected .fh-day-price,
-#fh-booking-main .fh-day.is-start .fh-day-price,
-#fh-booking-main .fh-day.is-end .fh-day-price{color:rgba(255,250,243,.76)}
-
-#fh-booking-main .fh-confirm-card{
-  width:min(820px,100%);
-  max-height:calc(100svh - 40px);
-  overflow:auto;
-  padding:0;
-  background:var(--paper);
-  border:1px solid rgba(255,250,243,.42);
-  box-shadow:0 30px 90px rgba(0,0,0,.24);
-  display:grid;
-  grid-template-columns:.82fr 1.18fr;
-}
-
-#fh-booking-main .fh-confirm-photo{
-  min-height:100%;
-  background:#d8cbbb center/cover no-repeat;
-}
-
-#fh-booking-main .fh-confirm-body{padding:24px}
-#fh-booking-main .fh-confirm-lead{margin:0 0 18px;font-size:15px;line-height:1.55;color:var(--muted)}
-#fh-booking-main .fh-confirm-summary{display:grid;gap:10px;margin:18px 0}
-#fh-booking-main .fh-confirm-main{padding:14px;background:#f8f1e8;border:1px solid rgba(26,23,20,.08)}
-#fh-booking-main .fh-confirm-main span{display:block;margin-bottom:5px;font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:850;color:rgba(26,23,20,.48)}
-#fh-booking-main .fh-confirm-main strong{display:block;font-size:16px;line-height:1.35;color:var(--ink)}
-#fh-booking-main .fh-confirm-main small{display:block;margin-top:4px;font-size:13px;line-height:1.45;color:var(--muted)}
-
-#fh-booking-main .fh-price-box{
-  display:none;
-  margin-top:14px;
-  padding:16px;
-  background:#f5eee5;
-  border:1px solid #e3d5c6;
-}
-
-#fh-booking-main .fh-price-box.is-visible{display:block}
-#fh-booking-main .fh-price-label{margin-bottom:8px;font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:850;color:rgba(26,23,20,.48)}
-#fh-booking-main .fh-price-main{font-family:var(--serif);font-size:36px;line-height:1;letter-spacing:-.045em;color:var(--ink)}
-#fh-booking-main .fh-price-sub{margin:6px 0 0;font-size:13px;color:var(--muted)}
-#fh-booking-main .fh-line-items{display:none;margin-top:14px;border-top:1px solid rgba(26,23,20,.10)}
-#fh-booking-main .fh-line-items.is-visible{display:block}
-#fh-booking-main .fh-line-item{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid rgba(26,23,20,.07);font-size:13px;color:var(--muted)}
-#fh-booking-main .fh-line-item strong{color:var(--ink);font-weight:700}
-#fh-booking-main .fh-confirm-note{margin-top:14px;padding:12px 0 0;border-top:1px solid rgba(26,23,20,.09);font-size:12px;line-height:1.5;color:rgba(26,23,20,.54)}
-#fh-booking-main .fh-confirm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-
-#fh-booking-main .fh-section{padding:88px 20px;position:relative}
-#fh-booking-main .fh-section.alt{background:linear-gradient(180deg,var(--section),rgba(255,255,255,.22))}
-#fh-booking-main .fh-container{width:min(1180px,100%);margin:0 auto}
-#fh-booking-main .fh-section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.78fr);gap:28px;align-items:end;margin-bottom:28px}
-#fh-booking-main .fh-property-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.7fr);gap:18px;padding:18px;background:rgba(255,250,243,.92);border:1px solid #e5d8c9;box-shadow:var(--soft-shadow)}
-#fh-booking-main .fh-property-gallery{display:grid;grid-template-columns:1.1fr .9fr;gap:10px;min-height:420px}
-#fh-booking-main .fh-gallery-main,
-#fh-booking-main .fh-gallery-stack div{background:#d8cbbb center/cover no-repeat;min-height:100%;overflow:hidden}
-#fh-booking-main .fh-gallery-stack{display:grid;gap:10px}
-#fh-booking-main .fh-property-copy{padding:14px;display:flex;flex-direction:column;justify-content:center}
-#fh-booking-main .fh-chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-#fh-booking-main .fh-chip{padding:9px 11px;border:1px solid rgba(26,23,20,.12);background:#fbf6ef;font-size:12px;color:var(--muted);font-weight:700}
-#fh-booking-main .fh-photo-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
-#fh-booking-main .fh-photo-strip div{min-height:180px;background:#d8cbbb center/cover no-repeat;border:1px solid rgba(255,250,243,.62);box-shadow:var(--soft-shadow)}
-
-#fh-booking-main .fh-success{
-  display:none;
-  position:relative;
-  z-index:4;
-  width:min(1080px,calc(100% - 28px));
-  margin:-54px auto 80px;
-  padding:0;
-  background:rgba(255,250,243,.96);
-  border:1px solid #e5d8c9;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-
-#fh-booking-main .fh-success.is-visible{display:block}
-#fh-booking-main .fh-success-hero{min-height:360px;background:#d8cbbb center/cover no-repeat;position:relative}
-#fh-booking-main .fh-success-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,23,20,.10),rgba(26,23,20,.36))}
-#fh-booking-main .fh-success-inner{padding:34px}
-#fh-booking-main .fh-success h2{margin-bottom:14px;max-width:820px}
-#fh-booking-main .fh-success-note{max-width:760px;font-size:16px;line-height:1.7}
-#fh-booking-main .fh-success-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
-#fh-booking-main .fh-success-summary div{padding:14px;background:#f5eee5;border:1px solid #e3d5c6}
-#fh-booking-main .fh-success-summary span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.13em;font-weight:850;color:rgba(26,23,20,.50);margin-bottom:6px}
-#fh-booking-main .fh-success-summary strong{display:block;color:var(--ink);font-size:14px;line-height:1.4;word-break:break-word}
-#fh-booking-main .fh-success-small{margin:22px 0 0;max-width:680px;font-size:13px;line-height:1.6;color:rgba(26,23,20,.56)}
-
-#fh-booking-main .fh-mobile-sticky{
-  display:none;
-  position:fixed;
-  left:12px;
-  right:12px;
-  bottom:12px;
-  z-index:48;
-  min-height:54px;
-  align-items:center;
-  justify-content:center;
-  background:#1d1a17;
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  font-size:11px;
-  font-weight:850;
-  box-shadow:0 18px 48px rgba(0,0,0,.22);
-}
-
-#fh-booking-main .fh-reveal{opacity:0;transform:translateY(28px);transition:opacity 850ms ease,transform 850ms cubic-bezier(.2,.8,.2,1)}
-#fh-booking-main .fh-reveal.is-visible{opacity:1;transform:translateY(0)}
-
-@media(max-width:1060px){
-  #fh-booking-main .fh-section-head{grid-template-columns:1fr}
-  #fh-booking-main .fh-property-card{grid-template-columns:1fr}
-  #fh-booking-main .fh-photo-strip{grid-template-columns:repeat(2,1fr)}
-}
-
-@media(max-width:760px){
-  #fh-booking-main .fh-langbar{top:68px;width:auto;justify-content:center;gap:4px;padding:5px}
-  #fh-booking-main .fh-langbar button{min-width:34px;min-height:29px;padding:6px 8px;font-size:9px}
-  #fh-booking-main .fh-hero{min-height:auto;padding:120px 16px 88px}
-  #fh-booking-main h1{font-size:clamp(43px,14vw,66px)}
-  #fh-booking-main .fh-booking-wrap,
-  #fh-booking-main .fh-success{width:calc(100% - 20px);margin-top:-50px}
-  #fh-booking-main .fh-book-head{padding:22px}
-  #fh-booking-main .fh-form{padding:22px}
-  #fh-booking-main .fh-grid,
-  #fh-booking-main .fh-property-gallery,
-  #fh-booking-main .fh-success-summary{grid-template-columns:1fr}
-  #fh-booking-main .fh-gallery-main,
-  #fh-booking-main .fh-gallery-stack div{min-height:220px}
-  #fh-booking-main .fh-actions,
-  #fh-booking-main .fh-confirm-actions{flex-direction:column;align-items:stretch}
-  #fh-booking-main .fh-btn{width:100%}
-  #fh-booking-main .fh-calendar-card{padding:14px}
-  #fh-booking-main .fh-calendar-title{font-size:28px}
-  #fh-booking-main .fh-weekdays,
-  #fh-booking-main .fh-calendar-grid{gap:4px}
-  #fh-booking-main .fh-day{min-height:62px;padding:6px}
-  #fh-booking-main .fh-day-price{display:none}
-  #fh-booking-main .fh-confirm-card{grid-template-columns:1fr}
-  #fh-booking-main .fh-confirm-photo{min-height:190px}
-  #fh-booking-main .fh-section{padding:68px 16px}
-  #fh-booking-main .fh-photo-strip{grid-template-columns:1fr}
-  #fh-booking-main .fh-success-hero{min-height:240px}
-  #fh-booking-main .fh-success-inner{padding:24px}
-  #fh-booking-main .fh-mobile-sticky{display:flex}
-}
-
-@media(prefers-reduced-motion:reduce){
-  #fh-booking-main *,
-  #fh-booking-main *:before,
-  #fh-booking-main *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(max-width:860px){
+  #fh-checkout-main .fh-page{padding:120px 12px 70px;align-items:flex-start}
+  #fh-checkout-main .fh-langbar{top:68px;padding:5px;gap:4px}
+  #fh-checkout-main .fh-langbar button{min-height:29px;padding:6px 8px;font-size:9px}
+  #fh-checkout-main .fh-shell{grid-template-columns:1fr}
+  #fh-checkout-main .fh-photo{min-height:230px;order:0}
+  #fh-checkout-main .fh-content{padding:26px;order:1}
+  #fh-checkout-main .fh-summary{grid-template-columns:1fr}
+  #fh-checkout-main .fh-actions{flex-direction:column}
+  #fh-checkout-main .fh-btn{width:100%}
 }
 </style>
 
-<div id="fh-booking-main" data-page="booking" data-lang="en">
+<div id="fh-checkout-main" data-page="checkout" data-lang="en">
   <div class="fh-bg" aria-hidden="true"></div>
   <div class="fh-grain" aria-hidden="true"></div>
 
@@ -713,268 +267,46 @@
     <button type="button" data-fh-lang="ru">RU</button>
   </div>
 
-  <div class="fh-page">
-    <section class="fh-hero" id="top">
-      <div class="fh-hero-media" id="fhBookingHeroMedia" aria-hidden="true"></div>
-      <div class="fh-hero-inner">
-        <p class="fh-eyebrow" data-i18n="heroEyebrow">Direct booking · Fletschhorn Saas-Fee</p>
-        <h1 data-i18n="heroTitle">Book your private stay.</h1>
-        <p class="fh-hero-lead" data-i18n="heroLead">Choose your dates, add your details, and send one clear booking request for the whole property.</p>
-        <div class="fh-trust-row" aria-label="Booking reassurance">
-          <span class="fh-trust-pill" data-i18n="trustPrivate">One private property</span>
-          <span class="fh-trust-pill" data-i18n="trust48">Up to 48 sleeping places</span>
+  <main class="fh-page">
+    <section class="fh-shell" aria-labelledby="fhCheckoutTitle">
+      <div class="fh-photo" id="fhCheckoutPhoto"></div>
+      <div class="fh-content">
+        <p class="fh-kicker" data-i18n="kicker">Booking request received</p>
+        <h1 id="fhCheckoutTitle" data-i18n="title">Thank you. We received your booking request.</h1>
+        <p class="fh-lead" data-i18n="lead">Your booking request has been sent successfully. You will receive confirmation, payment details, and next steps by email.</p>
+
+        <div class="fh-summary" aria-label="Booking summary">
+          <div class="fh-item">
+            <span data-i18n="guestLabel">Guest</span>
+            <strong id="fhGuest">—</strong>
+          </div>
+          <div class="fh-item">
+            <span data-i18n="emailLabel">Email</span>
+            <strong id="fhEmail">—</strong>
+          </div>
+          <div class="fh-item">
+            <span data-i18n="datesLabel">Dates</span>
+            <strong id="fhDates">—</strong>
+          </div>
+          <div class="fh-item">
+            <span data-i18n="guestsLabel">Guests</span>
+            <strong id="fhGuests">—</strong>
+          </div>
+          <div class="fh-item full">
+            <span data-i18n="referenceLabel">Reference</span>
+            <strong id="fhReference">Sent by email</strong>
+          </div>
+        </div>
+
+        <p class="fh-note" data-i18n="note">Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.</p>
+
+        <div class="fh-actions">
+          <a class="fh-btn" href="index.html" data-i18n="home">Return to homepage</a>
+          <a class="fh-btn light" href="booking.html" data-i18n="newBooking">Start another request</a>
         </div>
       </div>
     </section>
-
-    <main id="fhMainContent">
-      <section class="fh-booking-wrap" id="booking-panel">
-        <div class="fh-card fh-main-card fh-reveal">
-          <div class="fh-book-head">
-            <p class="fh-kicker" data-i18n="panelKicker">Simple booking</p>
-            <h2 data-i18n="panelTitle">Your stay details.</h2>
-          </div>
-
-          <form class="fh-form" id="fhBookingForm" novalidate>
-            <div class="fh-grid">
-              <div class="fh-field">
-                <label for="fhFirstName" data-i18n="firstName">First name</label>
-                <input id="fhFirstName" name="firstName" type="text" autocomplete="given-name" required>
-              </div>
-
-              <div class="fh-field">
-                <label for="fhLastName" data-i18n="lastName">Last name</label>
-                <input id="fhLastName" name="lastName" type="text" autocomplete="family-name" required>
-              </div>
-
-              <div class="fh-field">
-                <label for="fhEmail" data-i18n="email">Email</label>
-                <input id="fhEmail" name="email" type="email" autocomplete="email" placeholder="name@email.com" required>
-              </div>
-
-              <div class="fh-field">
-                <label for="fhPhone" data-i18n="phone">Phone / WhatsApp</label>
-                <input id="fhPhone" name="phone" type="tel" autocomplete="tel" required>
-              </div>
-
-              <div class="fh-field full">
-                <label data-i18n="dates">Dates</label>
-                <button type="button" class="fh-date-button" id="fhOpenCalendar">
-                  <span id="fhDateButtonText">Select arrival and departure</span>
-                  <strong data-i18n="openCalendar">Open calendar</strong>
-                </button>
-                <input id="fhCheckIn" name="checkIn" type="hidden" required>
-                <input id="fhCheckOut" name="checkOut" type="hidden" required>
-              </div>
-
-              <div class="fh-field">
-                <label for="fhGuests" data-i18n="guests">Guests</label>
-                <select id="fhGuests" name="guests" required>
-                  <option value="">Select guests</option>
-                  <option value="12">12 guests</option>
-                  <option value="16">16 guests</option>
-                  <option value="20">20 guests</option>
-                  <option value="24">24 guests</option>
-                  <option value="28">28 guests</option>
-                  <option value="32">32 guests</option>
-                  <option value="36">36 guests</option>
-                  <option value="40">40 guests</option>
-                  <option value="44">44 guests</option>
-                  <option value="48">48 guests</option>
-                </select>
-              </div>
-
-              <div class="fh-field">
-                <label for="fhStayType" data-i18n="stayType">Stay type</label>
-                <select id="fhStayType" name="stayType">
-                  <option value="private-stay" data-i18n="stayPrivate">Private chalet stay</option>
-                  <option value="family" data-i18n="stayFamily">Family gathering</option>
-                  <option value="retreat" data-i18n="stayRetreat">Retreat / team stay</option>
-                  <option value="wedding" data-i18n="stayWedding">Wedding or event</option>
-                  <option value="other" data-i18n="stayOther">Other</option>
-                </select>
-              </div>
-
-              <div class="fh-field full">
-                <label for="fhMessage" data-i18n="message">Message</label>
-                <textarea id="fhMessage" name="message" data-i18n-placeholder="messagePh" placeholder="Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates."></textarea>
-              </div>
-            </div>
-
-            <div class="fh-terms-mini">
-              <strong data-i18n="termsMiniTitle">Stay terms:</strong>
-              <span data-i18n="termsMiniText">60-day cancellation policy · Check-in 4:00 PM–9:00 PM · Check-out 11:00 AM · Standard cleaning after stay included in cleaning fee; daily cleaning on request.</span>
-            </div>
-
-            <div class="fh-actions">
-              <button class="fh-btn dark" type="submit" id="fhSubmitBooking" data-i18n="bookNow">Book now</button>
-              <p class="fh-direct-note" data-i18n="directNote">Booking directly with us helps secure the best available rate and a more personal stay arrangement.</p>
-            </div>
-
-            <div class="fh-status" id="fhBookingStatus" role="status" aria-live="polite"></div>
-          </form>
-        </div>
-      </section>
-
-      <section class="fh-section alt" id="property-preview">
-        <div class="fh-container fh-section-head fh-reveal">
-          <div>
-            <p class="fh-kicker" data-i18n="propertyKicker">The stay</p>
-            <h2 id="fhPropertyTitle" data-i18n="propertyTitle">A private alpine house for your group.</h2>
-          </div>
-          <p id="fhPropertyDescription" data-i18n="propertyLead">Private access to the property, peaceful alpine surroundings, generous shared spaces, and room for families, retreats, and celebrations.</p>
-        </div>
-
-        <div class="fh-container fh-property-card fh-reveal">
-          <div class="fh-property-gallery" id="fhPropertyGallery">
-            <div class="fh-gallery-main"></div>
-            <div class="fh-gallery-stack">
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-
-          <div class="fh-property-copy">
-            <p class="fh-kicker" data-i18n="includedKicker">Included in the stay</p>
-            <h3 data-i18n="includedTitle">Private, flexible, and practical.</h3>
-            <p data-i18n="includedText">Exclusive private access to the property, refreshments during the stay, private shuttle support, and flexible dining with use of the professional kitchen or optional catering on request.</p>
-            <div class="fh-chip-row" id="fhAmenityChips">
-              <span class="fh-chip">Private property</span>
-              <span class="fh-chip">14 rooms</span>
-              <span class="fh-chip">48 sleeping places</span>
-              <span class="fh-chip">Saas-Fee</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="fh-container fh-photo-strip fh-reveal" id="fhPhotoStrip">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </section>
-    </main>
-
-    <section class="fh-success" id="fhSuccessPage">
-      <div class="fh-success-hero" id="fhSuccessHero"></div>
-
-      <div class="fh-success-inner">
-        <p class="fh-kicker" data-i18n="successKicker">Booking request received</p>
-        <h2 data-i18n="successTitle">Thank you. We have received your booking request.</h2>
-        <p class="fh-success-note" data-i18n="successLead">Your stay request has been sent successfully. Our team will review the details and send confirmation, payment information, and next steps by email.</p>
-
-        <div class="fh-success-summary">
-          <div>
-            <span data-i18n="successGuestLabel">Guest</span>
-            <strong id="fhSuccessGuest">—</strong>
-          </div>
-          <div>
-            <span data-i18n="successDatesLabel">Dates</span>
-            <strong id="fhSuccessDates">—</strong>
-          </div>
-          <div>
-            <span data-i18n="successEmailLabel">Email</span>
-            <strong id="fhSuccessEmail">—</strong>
-          </div>
-          <div>
-            <span data-i18n="successPaymentLabel">Payment details</span>
-            <strong data-i18n="successPaymentText">Sent by email</strong>
-          </div>
-        </div>
-
-        <p class="fh-success-small" data-i18n="successSmall">Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.</p>
-      </div>
-    </section>
-  </div>
-
-  <div class="fh-calendar-modal" id="fhCalendarModal" aria-hidden="true">
-    <div class="fh-calendar-card" role="dialog" aria-modal="true" aria-label="Select dates">
-      <div class="fh-calendar-head">
-        <div>
-          <p class="fh-kicker" data-i18n="calendarKicker">Select dates</p>
-          <h3 class="fh-calendar-title" id="fhCalendarTitle">Calendar</h3>
-        </div>
-
-        <div class="fh-calendar-nav">
-          <button class="fh-mini-btn" id="fhPrevMonth" type="button">‹</button>
-          <button class="fh-mini-btn" id="fhNextMonth" type="button">›</button>
-          <button class="fh-calendar-close" id="fhCloseCalendar" type="button">×</button>
-        </div>
-      </div>
-
-      <p class="fh-calendar-help" data-i18n="calendarHelp">Choose your arrival date, then your departure date.</p>
-      <div class="fh-calendar-warning" id="fhCalendarWarning" data-i18n="calendarMinWarning">Please select at least 2 nights.</div>
-
-      <div class="fh-weekdays">
-        <div class="fh-weekday">Sun</div>
-        <div class="fh-weekday">Mon</div>
-        <div class="fh-weekday">Tue</div>
-        <div class="fh-weekday">Wed</div>
-        <div class="fh-weekday">Thu</div>
-        <div class="fh-weekday">Fri</div>
-        <div class="fh-weekday">Sat</div>
-      </div>
-
-      <div class="fh-calendar-grid" id="fhCalendarGrid"></div>
-    </div>
-  </div>
-
-  <div class="fh-confirm-modal" id="fhConfirmModal" aria-hidden="true">
-    <div class="fh-confirm-card" role="dialog" aria-modal="true" aria-label="Confirm booking">
-      <div class="fh-confirm-photo" id="fhConfirmPhoto"></div>
-
-      <div class="fh-confirm-body">
-        <div class="fh-confirm-head">
-          <div>
-            <p class="fh-kicker" data-i18n="confirmKicker">Review your stay</p>
-            <h3 class="fh-confirm-title" data-i18n="confirmTitle">Confirm your booking request.</h3>
-          </div>
-          <button class="fh-confirm-close" id="fhCloseConfirm" type="button">×</button>
-        </div>
-
-        <p class="fh-confirm-lead" data-i18n="confirmLead">Please review your information and the quote before sending your request.</p>
-
-        <div class="fh-confirm-summary">
-          <div class="fh-confirm-main">
-            <span data-i18n="confirmDatesLabel">Dates</span>
-            <strong id="fhConfirmDates">—</strong>
-          </div>
-
-          <div class="fh-confirm-main">
-            <span data-i18n="confirmGuestsLabel">Guests</span>
-            <strong id="fhConfirmGuests">—</strong>
-          </div>
-
-          <div class="fh-confirm-main">
-            <span data-i18n="confirmContactLabel">Your information</span>
-            <strong id="fhConfirmGuest">—</strong>
-            <small id="fhConfirmContact">—</small>
-          </div>
-        </div>
-
-        <div class="fh-price-box is-visible" id="fhConfirmPriceBox">
-          <div class="fh-price-label" data-i18n="priceLabel">Quote for your stay</div>
-          <div class="fh-price-main" id="fhConfirmPriceMain">Preparing quote...</div>
-          <p class="fh-price-sub" data-i18n="priceSub">The final stay details and payment information will be confirmed by email.</p>
-          <div class="fh-line-items" id="fhConfirmLineItems"></div>
-        </div>
-
-        <div class="fh-confirm-note" data-i18n="confirmDirectNote">
-          Direct bookings allow us to offer the best available rate and coordinate the stay with more flexibility.
-        </div>
-
-        <div class="fh-confirm-actions">
-          <button class="fh-btn dark" id="fhConfirmSend" type="button" data-i18n="confirmSend">Send booking request</button>
-          <button class="fh-btn light" id="fhEditBooking" type="button" data-i18n="editBooking">Edit details</button>
-        </div>
-
-        <div class="fh-status" id="fhConfirmStatus" role="status" aria-live="polite"></div>
-      </div>
-    </div>
-  </div>
-
-  <a class="fh-mobile-sticky" href="#booking-panel" data-i18n="bookNow">Book now</a>
+  </main>
 </div>
 
 <div id="fh-footer-slot"></div>
@@ -982,7 +314,6 @@
 <script>
 (function(){
   document.body.classList.add("fh-github-version");
-
   const ASSET_BASE = new URL("assets/", document.baseURI).href;
 
   async function loadHtml(slotId, fileName){
@@ -992,15 +323,11 @@
     try{
       const response = await fetch(ASSET_BASE + fileName, {cache:"no-cache"});
       if(!response.ok) throw new Error(fileName + " failed: " + response.status);
-
       const html = await response.text();
       slot.innerHTML = html;
-
       slot.querySelectorAll("script").forEach(function(oldScript){
         const newScript = document.createElement("script");
-        Array.from(oldScript.attributes).forEach(function(attr){
-          newScript.setAttribute(attr.name, attr.value);
-        });
+        Array.from(oldScript.attributes).forEach(function(attr){newScript.setAttribute(attr.name, attr.value)});
         newScript.textContent = oldScript.textContent;
         oldScript.replaceWith(newScript);
       });
@@ -1016,207 +343,90 @@
 
 <script>
 (function(){
-  const root = document.getElementById("fh-booking-main");
+  const root = document.getElementById("fh-checkout-main");
   if(!root || root.dataset.ready === "1") return;
   root.dataset.ready = "1";
 
-  const CFG = {
-    listingId:"6968339ab7d735001ca015ba",
-    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev",
-    minNights:2,
-    maxGuests:48,
-    currency:"CHF"
-  };
-
-  const ENDPOINTS = {
-    listingPublic:"/guesty/listing-public",
-    calendarMonthPrices:"/guesty/calendar-month-prices",
-    checkAvailability:"/guesty/check-availability",
-    quote:"/guesty/quote",
-    bookInquiry:"/guesty/book-inquiry"
-  };
-
-  const FALLBACK_IMAGES = [
-    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
-    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
-    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg",
-    "https://assets.guesty.com/image/upload/v1769381687/production/686c48ada4bbacd7a82a4f83/zhqymxounxjks6f5zjrn.jpg",
-    "https://assets.guesty.com/image/upload/v1769381687/production/686c48ada4bbacd7a82a4f83/rrwqnc75mfhxk9h6tmsk.jpg",
-    "https://assets.guesty.com/image/upload/v1769381688/production/686c48ada4bbacd7a82a4f83/yf90vkr4uhasqubtz6vb.jpg"
-  ];
-
+  const FALLBACK_IMAGE = "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg";
   const LANGS = ["en","fr","de","ru"];
 
   const I18N = {
     en:{
-      heroEyebrow:"Direct booking · Fletschhorn Saas-Fee",
-      heroTitle:"Book your private stay.",
-      heroLead:"Choose your dates, add your details, and send one clear booking request for the whole property.",
-      trustPrivate:"One private property",
-      trust48:"Up to 48 sleeping places",
-      panelKicker:"Simple booking",
-      panelTitle:"Your stay details.",
-      firstName:"First name",
-      lastName:"Last name",
-      email:"Email",
-      phone:"Phone / WhatsApp",
-      dates:"Dates",
-      openCalendar:"Open calendar",
-      guests:"Guests",
-      stayType:"Stay type",
-      stayPrivate:"Private chalet stay",
-      stayFamily:"Family gathering",
-      stayRetreat:"Retreat / team stay",
-      stayWedding:"Wedding or event",
-      stayOther:"Other",
-      message:"Message",
-      messagePh:"Tell us anything important: arrival timing, event plans, kitchen/catering needs, room setup, or flexible dates.",
-      termsMiniTitle:"Stay terms:",
-      termsMiniText:"60-day cancellation policy · Check-in 4:00 PM–9:00 PM · Check-out 11:00 AM · Standard cleaning after stay included in cleaning fee; daily cleaning on request.",
-      directNote:"Booking directly with us helps secure the best available rate and a more personal stay arrangement.",
-      bookNow:"Book now",
-      propertyKicker:"The stay",
-      propertyTitle:"A private alpine house for your group.",
-      propertyLead:"Private access to the property, peaceful alpine surroundings, generous shared spaces, and room for families, retreats, and celebrations.",
-      includedKicker:"Included in the stay",
-      includedTitle:"Private, flexible, and practical.",
-      includedText:"Exclusive private access to the property, refreshments during the stay, private shuttle support, and flexible dining with use of the professional kitchen or optional catering on request.",
-      calendarKicker:"Select dates",
-      calendarHelp:"Choose your arrival date, then your departure date.",
-      calendarMinWarning:"Please select at least 2 nights.",
-      selectDates:"Select arrival and departure",
-      alreadyBooked:"Already booked",
-      confirmKicker:"Review your stay",
-      confirmTitle:"Confirm your booking request.",
-      confirmLead:"Please review your information and the quote before sending your request.",
-      confirmDatesLabel:"Dates",
-      confirmGuestsLabel:"Guests",
-      confirmContactLabel:"Your information",
-      confirmDirectNote:"Direct bookings allow us to offer the best available rate and coordinate the stay with more flexibility.",
-      confirmSend:"Send booking request",
-      editBooking:"Edit details",
-      priceLabel:"Quote for your stay",
-      priceSub:"The final stay details and payment information will be confirmed by email.",
-      successKicker:"Booking request received",
-      successTitle:"Thank you. We have received your booking request.",
-      successLead:"Your stay request has been sent successfully. Our team will review the details and send confirmation, payment information, and next steps by email.",
-      successGuestLabel:"Guest",
-      successDatesLabel:"Dates",
-      successEmailLabel:"Email",
-      successPaymentLabel:"Payment details",
-      successPaymentText:"Sent by email",
-      successSmall:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",
-      statusNeedFields:"Please complete first name, last name, email, phone, dates, and guest count.",
-      statusBadEmail:"Please enter a valid email address.",
-      statusBadDates:"Departure must be after arrival.",
-      statusMinNights:"Please select at least 2 nights.",
-      statusChecking:"Checking availability...",
-      statusQuote:"Preparing quote...",
-      statusUnavailable:"These dates appear unavailable. Please choose another date range.",
-      statusBook:"Sending booking request...",
-      statusBookSent:"Booking request received.",
-      statusWorkerFail:"The request could not be completed. Please try again or contact the team.",
+      kicker:"Booking request received",
+      title:"Thank you. We received your booking request.",
+      lead:"Your booking request has been sent successfully. You will receive confirmation, payment details, and next steps by email.",
+      guestLabel:"Guest",
+      emailLabel:"Email",
+      datesLabel:"Dates",
+      guestsLabel:"Guests",
+      referenceLabel:"Reference",
+      note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",
+      home:"Return to homepage",
+      newBooking:"Start another request",
+      sentByEmail:"Sent by email",
       nights:"nights",
       night:"night"
     },
-    fr:{},
-    de:{},
-    ru:{}
+    fr:{
+      kicker:"Demande de réservation reçue",
+      title:"Merci. Nous avons bien reçu votre demande de réservation.",
+      lead:"Votre demande a été envoyée avec succès. Vous recevrez la confirmation, les détails de paiement et les prochaines étapes par email.",
+      guestLabel:"Client",
+      emailLabel:"Email",
+      datesLabel:"Dates",
+      guestsLabel:"Invités",
+      referenceLabel:"Référence",
+      note:"Veuillez vérifier votre boîte email. Si un détail doit être ajusté, répondez directement au message de confirmation.",
+      home:"Retour à l’accueil",
+      newBooking:"Nouvelle demande",
+      sentByEmail:"Envoyé par email",
+      nights:"nuits",
+      night:"nuit"
+    },
+    de:{
+      kicker:"Buchungsanfrage erhalten",
+      title:"Vielen Dank. Wir haben Ihre Buchungsanfrage erhalten.",
+      lead:"Ihre Anfrage wurde erfolgreich gesendet. Bestätigung, Zahlungsdetails und nächste Schritte erhalten Sie per E-Mail.",
+      guestLabel:"Gast",
+      emailLabel:"E-Mail",
+      datesLabel:"Daten",
+      guestsLabel:"Gäste",
+      referenceLabel:"Referenz",
+      note:"Bitte prüfen Sie Ihr Postfach. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",
+      home:"Zur Startseite",
+      newBooking:"Neue Anfrage starten",
+      sentByEmail:"Per E-Mail gesendet",
+      nights:"Nächte",
+      night:"Nacht"
+    },
+    ru:{
+      kicker:"Запрос на бронирование получен",
+      title:"Спасибо. Мы получили ваш запрос на бронирование.",
+      lead:"Ваш запрос успешно отправлен. Подтверждение, детали оплаты и следующие шаги будут отправлены по email.",
+      guestLabel:"Гость",
+      emailLabel:"Email",
+      datesLabel:"Даты",
+      guestsLabel:"Гости",
+      referenceLabel:"Номер / ссылка",
+      note:"Проверьте почту. Если нужно что-то изменить, ответьте напрямую на письмо с подтверждением.",
+      home:"На главную",
+      newBooking:"Новый запрос",
+      sentByEmail:"Отправлено по email",
+      nights:"ночей",
+      night:"ночь"
+    }
   };
-
-  I18N.fr = Object.assign({}, I18N.en, {
-    heroEyebrow:"Réservation directe · Fletschhorn Saas-Fee",
-    heroTitle:"Réservez votre séjour privé.",
-    heroLead:"Choisissez vos dates, ajoutez vos informations et envoyez une demande claire pour toute la propriété.",
-    trustPrivate:"Une propriété privée",
-    trust48:"Jusqu’à 48 couchages",
-    panelKicker:"Réservation simple",
-    panelTitle:"Les détails de votre séjour.",
-    firstName:"Prénom",
-    lastName:"Nom",
-    phone:"Téléphone / WhatsApp",
-    dates:"Dates",
-    openCalendar:"Ouvrir le calendrier",
-    guests:"Invités",
-    bookNow:"Réserver",
-    calendarMinWarning:"Veuillez sélectionner au moins 2 nuits.",
-    alreadyBooked:"Déjà réservé",
-    confirmTitle:"Confirmez votre demande de réservation.",
-    confirmSend:"Envoyer la demande",
-    editBooking:"Modifier",
-    successTitle:"Merci. Nous avons bien reçu votre demande de réservation.",
-    nights:"nuits",
-    night:"nuit"
-  });
-
-  I18N.de = Object.assign({}, I18N.en, {
-    heroEyebrow:"Direktbuchung · Fletschhorn Saas-Fee",
-    heroTitle:"Buchen Sie Ihren privaten Aufenthalt.",
-    firstName:"Vorname",
-    lastName:"Nachname",
-    phone:"Telefon / WhatsApp",
-    dates:"Daten",
-    openCalendar:"Kalender öffnen",
-    guests:"Gäste",
-    bookNow:"Jetzt buchen",
-    calendarMinWarning:"Bitte mindestens 2 Nächte auswählen.",
-    alreadyBooked:"Bereits gebucht",
-    confirmTitle:"Buchungsanfrage bestätigen.",
-    confirmSend:"Anfrage senden",
-    editBooking:"Bearbeiten",
-    nights:"Nächte",
-    night:"Nacht"
-  });
-
-  I18N.ru = Object.assign({}, I18N.en, {
-    heroEyebrow:"Прямое бронирование · Fletschhorn Саас-Фе",
-    heroTitle:"Забронируйте частное проживание.",
-    firstName:"Имя",
-    lastName:"Фамилия",
-    phone:"Телефон / WhatsApp",
-    dates:"Даты",
-    openCalendar:"Открыть календарь",
-    guests:"Гости",
-    bookNow:"Забронировать",
-    calendarMinWarning:"Выберите минимум 2 ночи.",
-    alreadyBooked:"Уже забронировано",
-    confirmTitle:"Подтвердите запрос.",
-    confirmSend:"Отправить запрос",
-    editBooking:"Изменить",
-    nights:"ночей",
-    night:"ночь"
-  });
 
   const qs = (s) => root.querySelector(s);
   const qsa = (s) => Array.from(root.querySelectorAll(s));
-  const form = qs("#fhBookingForm");
-  const status = qs("#fhBookingStatus");
-  const confirmStatus = qs("#fhConfirmStatus");
 
-  const fields = {
-    firstName:qs("#fhFirstName"),
-    lastName:qs("#fhLastName"),
-    email:qs("#fhEmail"),
-    phone:qs("#fhPhone"),
-    checkIn:qs("#fhCheckIn"),
-    checkOut:qs("#fhCheckOut"),
-    guests:qs("#fhGuests"),
-    stayType:qs("#fhStayType"),
-    message:qs("#fhMessage")
-  };
+  function normalizeLang(lang){
+    const v = String(lang || "en").toLowerCase().slice(0,2);
+    return LANGS.includes(v) ? v : "en";
+  }
 
-  let currentLang = normalizeLang(localStorage.getItem("fh_lang") || root.dataset.lang || document.documentElement.lang || "en");
-  let currentCalendarDate = new Date();
-  let dayMap = {};
-  let lastQuote = null;
-  let lastQuoteId = "";
-  let lastRatePlanId = "";
-  let lastCurrency = CFG.currency;
-
-  function endpoint(path){return CFG.workerBase.replace(/\/$/, "") + path}
-  function normalizeLang(lang){const v = String(lang || "en").toLowerCase().slice(0,2); return LANGS.includes(v) ? v : "en"}
+  let currentLang = normalizeLang(new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("fh_lang") || root.dataset.lang || "en");
   function t(key){return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key}
-  function htmlEscape(value){return String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 
   function setLang(lang){
     currentLang = normalizeLang(lang);
@@ -1224,25 +434,18 @@
     root.dataset.lang = currentLang;
     document.documentElement.setAttribute("lang", currentLang);
 
-    qsa("[data-i18n]").forEach(el => {
+    qsa("[data-i18n]").forEach(function(el){
       const key = el.getAttribute("data-i18n");
       if(t(key)) el.textContent = t(key);
     });
 
-    qsa("[data-i18n-placeholder]").forEach(el => {
-      const key = el.getAttribute("data-i18n-placeholder");
-      if(t(key)) el.setAttribute("placeholder", t(key));
-    });
-
-    qsa("[data-fh-lang]").forEach(btn => {
+    qsa("[data-fh-lang]").forEach(function(btn){
       const active = normalizeLang(btn.getAttribute("data-fh-lang")) === currentLang;
       btn.classList.toggle("is-active", active);
       btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
 
-    updateSummary();
-    renderCalendar();
-    return currentLang;
+    renderSummary();
   }
 
   window.setFletschhornLanguage = setLang;
@@ -1255,925 +458,58 @@
     if(LANGS.includes(normalizeLang(lang))) setLang(lang);
   });
 
-  function toDateString(date){
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2,"0");
-    const d = String(date.getDate()).padStart(2,"0");
-    return y + "-" + m + "-" + d;
+  function readStored(){
+    let result = {};
+    let start = {};
+    try{result = JSON.parse(localStorage.getItem("fhBookingResult") || "{}")}catch(e){result = {}}
+    try{start = JSON.parse(localStorage.getItem("fhBookingStart") || "{}")}catch(e){start = {}}
+    return Object.assign({}, start, result);
   }
 
-  function monthRange(date){
-    const start = new Date(date.getFullYear(), date.getMonth(), 1);
-    const end = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-    return {from:toDateString(start), to:toDateString(end)};
+  function paramsData(){
+    const params = new URLSearchParams(window.location.search);
+    const data = {};
+    ["firstName","lastName","email","phone","checkIn","checkOut","guests","reservationId","confirmationCode"].forEach(function(key){
+      const value = params.get(key);
+      if(value) data[key] = value;
+    });
+    return data;
   }
 
-  function nightsBetween(){
-    const a = fields.checkIn.value;
-    const b = fields.checkOut.value;
-    if(!a || !b) return 0;
-    const start = new Date(a + "T00:00:00");
-    const end = new Date(b + "T00:00:00");
+  function nightsBetween(checkIn, checkOut){
+    if(!checkIn || !checkOut) return 0;
+    const start = new Date(checkIn + "T00:00:00");
+    const end = new Date(checkOut + "T00:00:00");
     return Math.round((end - start) / 86400000);
   }
 
-  function stayTypeText(){
-    const opt = fields.stayType.options[fields.stayType.selectedIndex];
-    return opt ? opt.textContent : "—";
+  function text(value, fallback){
+    const v = value === undefined || value === null ? "" : String(value).trim();
+    return v || fallback || "—";
   }
 
-  function updateDateButton(){
-    const btnText = qs("#fhDateButtonText");
-    const ci = fields.checkIn.value;
-    const co = fields.checkOut.value;
+  function renderSummary(){
+    const data = Object.assign({}, readStored(), paramsData());
+    const fullName = [data.firstName, data.lastName].filter(Boolean).join(" ");
+    const nights = Number(data.nights || nightsBetween(data.checkIn, data.checkOut));
+    const dateText = data.checkIn && data.checkOut
+      ? `${data.checkIn} → ${data.checkOut}${nights > 0 ? " · " + nights + " " + (nights === 1 ? t("night") : t("nights")) : ""}`
+      : "—";
+    const refText = data.confirmationCode
+      ? `Confirmation ${data.confirmationCode}`
+      : data.reservationId
+        ? `Request ${data.reservationId}`
+        : t("sentByEmail");
 
-    if(ci && co) btnText.textContent = `${ci} → ${co}`;
-    else if(ci) btnText.textContent = `${ci} → Select departure`;
-    else btnText.textContent = t("selectDates");
+    qs("#fhGuest").textContent = text(fullName);
+    qs("#fhEmail").textContent = text(data.email);
+    qs("#fhDates").textContent = dateText;
+    qs("#fhGuests").textContent = data.guests ? `${data.guests}` : "—";
+    qs("#fhReference").textContent = refText;
   }
 
-  function updateSummary(){
-    updateDateButton();
-    paintSelectedRange();
-  }
-
-  function showStatus(message, mode, target){
-    const box = target || status;
-    box.className = "fh-status is-visible" + (mode ? " " + mode : "");
-    box.textContent = message;
-  }
-
-  function buildPayload(extra){
-    return Object.assign({
-      listingId:CFG.listingId,
-      guestyListingId:CFG.listingId,
-      firstName:(fields.firstName.value || "").trim(),
-      lastName:(fields.lastName.value || "").trim(),
-      email:(fields.email.value || "").trim(),
-      phone:(fields.phone.value || "").trim(),
-      checkIn:fields.checkIn.value,
-      checkOut:fields.checkOut.value,
-      guests:Number(fields.guests.value || 0),
-      stayType:fields.stayType.value,
-      message:(fields.message.value || "").trim(),
-      language:currentLang,
-      source:"booking-page",
-      cancellationPolicyText:"Cancel up to 60 days before arrival.",
-      checkInWindow:"4:00 PM to 9:00 PM",
-      checkOutTime:"11:00 AM",
-      cleaningNote:"A standard cleaning fee covers the turnover after your stay. Daily cleaning is not included but can be arranged upon request.",
-      createdAt:new Date().toISOString()
-    }, extra || {});
-  }
-
-  function validateCore(){
-    const payload = buildPayload();
-
-    if(!payload.firstName || !payload.lastName || !payload.email || !payload.phone || !payload.checkIn || !payload.checkOut || !payload.guests){
-      showStatus(t("statusNeedFields"), "bad");
-      return false;
-    }
-
-    if(!/^\S+@\S+\.\S+$/.test(payload.email)){
-      showStatus(t("statusBadEmail"), "bad");
-      return false;
-    }
-
-    if(nightsBetween() <= 0){
-      showStatus(t("statusBadDates"), "bad");
-      return false;
-    }
-
-    if(nightsBetween() < CFG.minNights){
-      showStatus(t("statusMinNights"), "warn");
-      openCalendar();
-      qs("#fhCalendarWarning").classList.add("is-visible");
-      return false;
-    }
-
-    if(Number(payload.guests) > CFG.maxGuests){
-      showStatus("Maximum capacity is " + CFG.maxGuests + " guests.", "bad");
-      return false;
-    }
-
-    return true;
-  }
-
-  function persistStart(){
-    try{localStorage.setItem("fhBookingStart", JSON.stringify(buildPayload()))}catch(e){}
-  }
-
-  async function workerPost(path, payload){
-    const response = await fetch(endpoint(path), {
-      method:"POST",
-      headers:{"Content-Type":"application/json","Accept":"application/json"},
-      body:JSON.stringify(payload)
-    });
-
-    const text = await response.text();
-    let data;
-    try{data = JSON.parse(text)}catch(e){data = {rawText:text}}
-
-    if(!response.ok || data.ok === false || data.error){
-      const err = new Error(data.error || data.message || "Request failed");
-      err.data = data;
-      err.status = response.status;
-      throw err;
-    }
-
-    return data;
-  }
-
-  async function workerGetOrPost(path, payload){
-    try{
-      const url = new URL(endpoint(path));
-      Object.keys(payload || {}).forEach(key => {
-        if(payload[key] !== undefined && payload[key] !== null && payload[key] !== ""){
-          url.searchParams.set(key, payload[key]);
-        }
-      });
-
-      const response = await fetch(url.toString(), {method:"GET",headers:{"Accept":"application/json"}});
-      const text = await response.text();
-      let data;
-      try{data = JSON.parse(text)}catch(e){data = {rawText:text}}
-
-      if(response.ok && data && data.ok !== false && !data.error) return data;
-    }catch(e){}
-
-    return workerPost(path, payload);
-  }
-
-  function walk(obj, visitor){
-    if(!obj || typeof obj !== "object") return null;
-
-    const direct = visitor(obj);
-    if(direct !== null && direct !== undefined) return direct;
-
-    if(Array.isArray(obj)){
-      for(const item of obj){
-        const found = walk(item, visitor);
-        if(found !== null && found !== undefined) return found;
-      }
-    }else{
-      for(const key of Object.keys(obj)){
-        const found = walk(obj[key], visitor);
-        if(found !== null && found !== undefined) return found;
-      }
-    }
-
-    return null;
-  }
-
-  function numberFromAny(value){
-    if(value === null || value === undefined || value === "") return null;
-    if(typeof value === "number") return Number.isFinite(value) ? value : null;
-    if(typeof value === "string"){
-      const cleaned = value.replace(/[^\d.-]/g,"");
-      const n = Number(cleaned);
-      return Number.isFinite(n) ? n : null;
-    }
-    return null;
-  }
-
-  function findCurrency(obj){
-    return walk(obj, function(x){
-      if(typeof x.currency === "string") return x.currency;
-      return null;
-    }) || CFG.currency;
-  }
-
-  function getItemAmount(item){
-    if(!item || typeof item !== "object") return null;
-    const possibleFields = ["amount","total","value","price","totalPrice","netAmount","grossAmount"];
-    for(const field of possibleFields){
-      const n = numberFromAny(item[field]);
-      if(n !== null && n !== 0) return n;
-    }
-    return null;
-  }
-
-  function findInvoiceItems(obj){
-    return walk(obj, function(x){
-      if(Array.isArray(x.invoiceItems)) return x.invoiceItems;
-      if(Array.isArray(x.lineItems)) return x.lineItems;
-      if(Array.isArray(x.items)) return x.items;
-      if(Array.isArray(x.fees)) return x.fees;
-      return null;
-    }) || [];
-  }
-
-  function findTotal(obj){
-    const invoiceItems = findInvoiceItems(obj);
-    const summedItems = invoiceItems.reduce(function(sum,item){
-      const amount = getItemAmount(item);
-      return amount !== null ? sum + amount : sum;
-    },0);
-
-    const directTotal = walk(obj, function(x){
-      const fields = ["grandTotal","totalPrice","balanceDue","totalAmount","quoteTotal","reservationTotal","total"];
-      for(const field of fields){
-        const n = numberFromAny(x[field]);
-        if(n !== null && n > 0) return n;
-      }
-      return null;
-    });
-
-    if(directTotal !== null && directTotal > 0) return directTotal;
-    if(summedItems > 0) return summedItems;
-    return null;
-  }
-
-  function findQuoteId(obj){
-    return walk(obj, function(x){
-      if(typeof x.quoteId === "string") return x.quoteId;
-      if(typeof x._id === "string" && (x.rates || x.ratePlans || x.invoiceItems || x.lineItems)) return x._id;
-      if(typeof x.id === "string" && (x.rates || x.ratePlans || x.invoiceItems || x.lineItems)) return x.id;
-      return null;
-    }) || "";
-  }
-
-  function findRatePlanId(obj){
-    return walk(obj, function(x){
-      if(typeof x.ratePlanId === "string") return x.ratePlanId;
-      if(typeof x.rateId === "string") return x.rateId;
-      if(Array.isArray(x.ratePlans) && x.ratePlans.length){
-        const first = x.ratePlans[0];
-        return first.ratePlanId || first.rateId || first._id || first.id || "";
-      }
-      if(Array.isArray(x.rates) && x.rates.length){
-        const first = x.rates[0];
-        return first.ratePlanId || first.rateId || first._id || first.id || "";
-      }
-      return null;
-    }) || "";
-  }
-
-  function formatMoney(amount,currency){
-    if(amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "—";
-    try{
-      return new Intl.NumberFormat(currentLang === "en" ? "en-US" : currentLang, {
-        style:"currency",
-        currency:currency || CFG.currency,
-        maximumFractionDigits:0
-      }).format(Number(amount));
-    }catch(e){
-      return Math.round(Number(amount)).toLocaleString() + " " + (currency || CFG.currency);
-    }
-  }
-
-  function applyQuoteToConfirm(data){
-    const currency = findCurrency(data);
-    const total = findTotal(data);
-    const items = findInvoiceItems(data);
-    const priceBox = qs("#fhConfirmPriceBox");
-    const priceMain = qs("#fhConfirmPriceMain");
-    const lineItems = qs("#fhConfirmLineItems");
-
-    lastCurrency = currency || CFG.currency;
-    priceBox.classList.add("is-visible");
-
-    if(total !== null && total !== undefined && total > 0) priceMain.textContent = formatMoney(total,lastCurrency);
-    else priceMain.textContent = "Quote returned";
-
-    if(items.length){
-      lineItems.classList.add("is-visible");
-      lineItems.innerHTML = items.slice(0,10).map(function(item){
-        const title = item.title || item.name || item.type || item.description || item.normalType || "Item";
-        const amount = getItemAmount(item);
-
-        return `
-          <div class="fh-line-item">
-            <span>${htmlEscape(title)}</span>
-            <strong>${amount !== null ? formatMoney(amount,lastCurrency) : "Included"}</strong>
-          </div>
-        `;
-      }).join("");
-    }else{
-      lineItems.classList.remove("is-visible");
-      lineItems.innerHTML = "";
-    }
-  }
-
-  function extractImages(data){
-    const listing = data?.listing || data?.data || data;
-    const found = walk(listing, function(x){
-      if(Array.isArray(x.pictures)) return x.pictures;
-      if(Array.isArray(x.photos)) return x.photos;
-      if(Array.isArray(x.images)) return x.images;
-      if(Array.isArray(x.gallery)) return x.gallery;
-      return null;
-    });
-
-    if(!Array.isArray(found)) return [];
-    return found.map(item => {
-      if(typeof item === "string") return item;
-      return item.url || item.secure_url || item.original || item.thumbnail || item.src || item.path || "";
-    }).filter(Boolean);
-  }
-
-  function extractTitle(data){
-    const listing = data?.listing || data?.data || data || {};
-    return listing.title || listing.nickname || listing.name || walk(listing, x => x.title || x.nickname || x.name || null) || "Fletschhorn";
-  }
-
-  function extractDescription(data){
-    const listing = data?.listing || data?.data || data || {};
-    return listing.description || listing.publicDescription || listing.summary || walk(listing, x => x.description || x.publicDescription || x.summary || null) || "";
-  }
-
-  function extractAmenities(data){
-    const listing = data?.listing || data?.data || data || {};
-    const arr = walk(listing, function(x){
-      if(Array.isArray(x.amenities)) return x.amenities;
-      if(Array.isArray(x.tags)) return x.tags;
-      return null;
-    });
-
-    if(!Array.isArray(arr)) return [];
-    return arr.map(item => {
-      if(typeof item === "string") return item;
-      return item.title || item.name || item.label || item.value || "";
-    }).filter(Boolean).slice(0,10);
-  }
-
-  function applyImages(images){
-    const finalImages = images.length ? images : FALLBACK_IMAGES;
-    initHero(finalImages);
-    applyGallery(finalImages);
-    applyPhotoStrip(finalImages);
-  }
-
-  function initHero(images){
-    const host = qs("#fhBookingHeroMedia");
-    if(!host) return;
-    host.innerHTML = "";
-
-    images.slice(0,6).forEach((src,i) => {
-      const el = document.createElement("div");
-      el.style.backgroundImage = `url("${src}")`;
-      if(i === 0) el.classList.add("is-active");
-      host.appendChild(el);
-    });
-
-    const slides = Array.from(host.children);
-    let i = 0;
-
-    if(slides.length > 1){
-      setInterval(() => {
-        slides[i].classList.remove("is-active");
-        i = (i + 1) % slides.length;
-        slides[i].classList.add("is-active");
-      },8000);
-    }
-  }
-
-  function applyGallery(images){
-    const gallery = qs("#fhPropertyGallery");
-    if(!gallery) return;
-    const slots = gallery.querySelectorAll(".fh-gallery-main, .fh-gallery-stack div");
-    slots.forEach((slot,index) => {
-      const src = images[index] || images[0];
-      slot.style.backgroundImage = `url("${src}")`;
-    });
-  }
-
-  function applyPhotoStrip(images){
-    const strip = qs("#fhPhotoStrip");
-    if(!strip) return;
-    const slots = strip.querySelectorAll("div");
-    slots.forEach((slot,index) => {
-      const src = images[index + 2] || images[index] || images[0];
-      slot.style.backgroundImage = `url("${src}")`;
-    });
-  }
-
-  async function loadListingPublic(){
-    applyImages(FALLBACK_IMAGES);
-
-    try{
-      const data = await workerGetOrPost(ENDPOINTS.listingPublic, {
-        listingId:CFG.listingId,
-        language:currentLang
-      });
-
-      const images = extractImages(data);
-      const title = extractTitle(data);
-      const description = extractDescription(data);
-      const amenities = extractAmenities(data);
-
-      if(title) qs("#fhPropertyTitle").textContent = title;
-      if(description) qs("#fhPropertyDescription").textContent = description;
-      if(amenities.length){
-        qs("#fhAmenityChips").innerHTML = amenities.map(item => `<span class="fh-chip">${htmlEscape(item)}</span>`).join("");
-      }
-
-      applyImages(images.length ? images : FALLBACK_IMAGES);
-    }catch(error){
-      console.warn("Listing content unavailable. Using fallback images.", error);
-      applyImages(FALLBACK_IMAGES);
-    }
-  }
-
-  function getCalendarDate(day){
-    return day.date || day.day || day.startDate || day.checkInDate || day.calendarDate || day.from;
-  }
-
-  function isUnavailable(day){
-    if(!day) return false;
-    const status = String(day.status || day.availability || day.availabilityStatus || day.state || "").toLowerCase();
-    if(status && status !== "available" && status !== "open" && status !== "bookable") return true;
-    if(day.available === false) return true;
-    if(day.isAvailable === false) return true;
-    if(day.closed === true) return true;
-    if(day.blocked === true) return true;
-    if(day.isBlocked === true) return true;
-    if(day.hardBlocked === true) return true;
-    return false;
-  }
-
-  function getCalendarPrice(day){
-    if(!day) return null;
-    const raw = day.price || day.rate || day.amount || day.nightlyRate;
-    const n = numberFromAny(raw);
-    return n && n > 0 ? n : null;
-  }
-
-  function findCalendarArray(value){
-    if(Array.isArray(value)) return value;
-    if(!value || typeof value !== "object") return null;
-
-    const commonKeys = ["days","data","calendar","results","availability","dates","items"];
-    for(const key of commonKeys){
-      if(Array.isArray(value[key])) return value[key];
-    }
-
-    for(const key of Object.keys(value)){
-      if(Array.isArray(value[key])) return value[key];
-    }
-
-    return null;
-  }
-
-  function buildDayMap(data){
-    const map = {};
-    const arr = findCalendarArray(data?.days || data?.data || data) || [];
-
-    arr.forEach(day => {
-      const date = getCalendarDate(day);
-      if(date) map[String(date).slice(0,10)] = day;
-    });
-
-    return map;
-  }
-
-  async function loadCalendarMonth(){
-    const title = qs("#fhCalendarTitle");
-    const grid = qs("#fhCalendarGrid");
-    const range = monthRange(currentCalendarDate);
-
-    title.textContent = currentCalendarDate.toLocaleDateString(undefined,{month:"long",year:"numeric"});
-    grid.innerHTML = "<div style='grid-column:1/-1;padding:16px;color:rgba(26,23,20,.6);font-weight:800;'>Loading availability...</div>";
-
-    try{
-      const data = await workerPost(ENDPOINTS.calendarMonthPrices, {
-        listingId:CFG.listingId,
-        from:range.from,
-        to:range.to,
-        guests:Number(fields.guests.value || 12)
-      });
-
-      dayMap = buildDayMap(data);
-      renderCalendar();
-    }catch(error){
-      console.warn("Calendar unavailable.", error);
-      dayMap = {};
-      renderCalendar();
-    }
-  }
-
-  function renderCalendar(){
-    const grid = qs("#fhCalendarGrid");
-    const title = qs("#fhCalendarTitle");
-    if(!grid || !title) return;
-
-    const date = currentCalendarDate;
-    const first = new Date(date.getFullYear(), date.getMonth(), 1);
-    const last = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    const today = toDateString(new Date());
-
-    title.textContent = date.toLocaleDateString(undefined,{month:"long",year:"numeric"});
-    grid.innerHTML = "";
-
-    for(let i = 0; i < first.getDay(); i++){
-      const empty = document.createElement("button");
-      empty.type = "button";
-      empty.className = "fh-day is-empty";
-      grid.appendChild(empty);
-    }
-
-    for(let dayNumber = 1; dayNumber <= last.getDate(); dayNumber++){
-      const dayDate = new Date(date.getFullYear(), date.getMonth(), dayNumber);
-      const dateString = toDateString(dayDate);
-      const guestyDay = dayMap[dateString];
-      const unavailable = isUnavailable(guestyDay);
-      const past = dateString < today;
-      const price = getCalendarPrice(guestyDay);
-
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "fh-day";
-      button.dataset.date = dateString;
-
-      if(past) button.classList.add("is-past");
-      if(unavailable) button.classList.add("is-unavailable");
-
-      button.innerHTML = `
-        <span class="fh-day-number">${dayNumber}</span>
-        ${
-          unavailable
-            ? `<span class="fh-day-price">—</span><span class="fh-day-status">${t("alreadyBooked")}</span>`
-            : price
-              ? `<span class="fh-day-price">${formatMoney(price,CFG.currency)}</span>`
-              : `<span class="fh-day-price">Available</span>`
-        }
-      `;
-
-      if(!past && !unavailable){
-        button.addEventListener("click", function(){
-          selectDate(dateString);
-        });
-      }
-
-      grid.appendChild(button);
-    }
-
-    paintSelectedRange();
-  }
-
-  function selectDate(dateString){
-    const warning = qs("#fhCalendarWarning");
-    warning.classList.remove("is-visible");
-
-    if(!fields.checkIn.value || fields.checkOut.value){
-      fields.checkIn.value = dateString;
-      fields.checkOut.value = "";
-    }else if(dateString <= fields.checkIn.value){
-      fields.checkIn.value = dateString;
-      fields.checkOut.value = "";
-    }else{
-      fields.checkOut.value = dateString;
-    }
-
-    updateSummary();
-    persistStart();
-
-    if(fields.checkIn.value && fields.checkOut.value){
-      const nights = nightsBetween();
-      if(nights >= CFG.minNights){
-        closeCalendar();
-      }else{
-        warning.classList.add("is-visible");
-        fields.checkOut.value = "";
-        updateSummary();
-        paintSelectedRange();
-      }
-    }
-  }
-
-  function paintSelectedRange(){
-    const dayButtons = qsa(".fh-day[data-date]");
-    const checkIn = fields.checkIn.value;
-    const checkOut = fields.checkOut.value;
-
-    dayButtons.forEach(button => {
-      const date = button.dataset.date;
-      button.classList.remove("is-selected","is-range","is-start","is-end");
-
-      if(checkIn && !checkOut && date === checkIn) button.classList.add("is-selected");
-
-      if(checkIn && checkOut){
-        if(date === checkIn) button.classList.add("is-start");
-        if(date === checkOut) button.classList.add("is-end");
-        if(date > checkIn && date < checkOut) button.classList.add("is-range");
-      }
-    });
-  }
-
-  function openCalendar(){
-    const modal = qs("#fhCalendarModal");
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden","false");
-    qs("#fhCalendarWarning").classList.remove("is-visible");
-    loadCalendarMonth();
-  }
-
-  function closeCalendar(){
-    const modal = qs("#fhCalendarModal");
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden","true");
-  }
-
-  function closeConfirm(){
-    qs("#fhConfirmModal").classList.remove("is-open");
-    qs("#fhConfirmModal").setAttribute("aria-hidden","true");
-  }
-
-  async function checkAvailability(){
-    showStatus(t("statusChecking"), "", confirmStatus);
-
-    const data = await workerPost(ENDPOINTS.checkAvailability, {
-      listingId:CFG.listingId,
-      checkIn:fields.checkIn.value,
-      checkOut:fields.checkOut.value,
-      guests:Number(fields.guests.value || 1)
-    });
-
-    const unavailable = data.available === false || data.isAvailable === false || data.status === "unavailable";
-
-    if(unavailable){
-      showStatus(t("statusUnavailable"),"bad",confirmStatus);
-      return null;
-    }
-
-    return data;
-  }
-
-  async function getQuote(availability){
-    showStatus(t("statusQuote"), "", confirmStatus);
-
-    const data = await workerPost(ENDPOINTS.quote, {
-      listingId:CFG.listingId,
-      checkIn:fields.checkIn.value,
-      checkOut:fields.checkOut.value,
-      guests:Number(fields.guests.value || 1),
-      firstName:(fields.firstName.value || "").trim(),
-      lastName:(fields.lastName.value || "").trim(),
-      email:(fields.email.value || "").trim(),
-      phone:(fields.phone.value || "").trim(),
-      stayType:fields.stayType.value,
-      message:(fields.message.value || "").trim(),
-      language:currentLang,
-      availability:availability
-    });
-
-    lastQuote = data;
-    lastQuoteId = data.quoteId || findQuoteId(data.quote || data);
-    lastRatePlanId = data.ratePlanId || findRatePlanId(data.quote || data);
-
-    applyQuoteToConfirm(data);
-
-    return data;
-  }
-
-  async function openConfirm(){
-    if(!validateCore()) return;
-
-    const button = qs("#fhSubmitBooking");
-    button.disabled = true;
-    button.textContent = "Preparing...";
-
-    showStatus("Preparing your quote...", "");
-
-    try{
-      const availability = await checkAvailability();
-      if(!availability) return;
-
-      const quote = await getQuote(availability);
-      const nights = nightsBetween();
-
-      qs("#fhConfirmDates").textContent = `${fields.checkIn.value} → ${fields.checkOut.value} · ${nights} ${nights === 1 ? t("night") : t("nights")}`;
-      qs("#fhConfirmGuests").textContent = `${fields.guests.value} guests · ${stayTypeText()}`;
-      qs("#fhConfirmGuest").textContent = `${fields.firstName.value} ${fields.lastName.value}`;
-      qs("#fhConfirmContact").textContent = `${fields.email.value} · ${fields.phone.value}`;
-
-      applyQuoteToConfirm(quote);
-
-      const confirmPhoto = qs("#fhConfirmPhoto");
-      if(confirmPhoto && FALLBACK_IMAGES[0]) confirmPhoto.style.backgroundImage = `url("${FALLBACK_IMAGES[0]}")`;
-
-      qs("#fhConfirmModal").classList.add("is-open");
-      qs("#fhConfirmModal").setAttribute("aria-hidden","false");
-
-      status.className = "fh-status";
-      status.textContent = "";
-    }catch(error){
-      console.error("Fletschhorn quote before confirmation error", error);
-
-      const message =
-        error?.data?.guestyData?.error?.message ||
-        error?.data?.guestyData?.message ||
-        error?.data?.error ||
-        error?.message ||
-        t("statusWorkerFail");
-
-      showStatus(message, "bad");
-    }finally{
-      button.disabled = false;
-      button.textContent = t("bookNow");
-    }
-  }
-
-  function renderSuccess(data){
-    const summary = data?.summary || {};
-    const reservation = data?.reservation || {};
-    const reservationId = summary.reservationId || data?.reservationId || reservation._id || reservation.id || "";
-    const confirmationCode = summary.confirmationCode || data?.confirmationCode || reservation.confirmationCode || "";
-    const nights = nightsBetween();
-    const bookingPayload = buildPayload({
-      source:"booking-page-completed",
-      nights:nights,
-      quote:lastQuote,
-      quoteId:lastQuoteId,
-      ratePlanId:lastRatePlanId,
-      currency:lastCurrency,
-      reservationId:reservationId,
-      confirmationCode:confirmationCode,
-      bookingResponse:data || {},
-      completedAt:new Date().toISOString()
-    });
-
-    try{
-      localStorage.setItem("fhBookingStart", JSON.stringify(bookingPayload));
-      localStorage.setItem("fhBookingResult", JSON.stringify(bookingPayload));
-    }catch(error){
-      console.warn("Could not store checkout payload", error);
-    }
-
-    const params = new URLSearchParams({
-      firstName:bookingPayload.firstName || "",
-      lastName:bookingPayload.lastName || "",
-      email:bookingPayload.email || "",
-      phone:bookingPayload.phone || "",
-      checkIn:bookingPayload.checkIn || "",
-      checkOut:bookingPayload.checkOut || "",
-      guests:String(bookingPayload.guests || ""),
-      lang:currentLang,
-      source:"booking-complete"
-    });
-
-    if(confirmationCode) params.set("confirmationCode", confirmationCode);
-    if(reservationId) params.set("reservationId", reservationId);
-
-    window.location.href = "checkout.html?" + params.toString();
-  }
-
-  async function confirmSend(){
-    if(!validateCore()) return;
-
-    const button = qs("#fhConfirmSend");
-    button.disabled = true;
-    button.textContent = "Sending...";
-
-    showStatus(t("statusBook"), "", confirmStatus);
-
-    try{
-      const data = await workerPost(ENDPOINTS.bookInquiry, {
-        listingId:CFG.listingId,
-        quoteId:lastQuoteId,
-        ratePlanId:lastRatePlanId,
-        firstName:(fields.firstName.value || "").trim(),
-        lastName:(fields.lastName.value || "").trim(),
-        email:(fields.email.value || "").trim(),
-        phone:(fields.phone.value || "").trim(),
-        checkIn:fields.checkIn.value,
-        checkOut:fields.checkOut.value,
-        guests:Number(fields.guests.value || 1),
-        stayType:fields.stayType.value,
-        message:(fields.message.value || "").trim(),
-        language:currentLang,
-        source:"booking-page",
-        cancellationPolicyText:"Cancel up to 60 days before arrival.",
-        checkInWindow:"4:00 PM to 9:00 PM",
-        checkOutTime:"11:00 AM",
-        cleaningNote:"A standard cleaning fee covers the turnover after your stay. Daily cleaning is not included but can be arranged upon request.",
-        quote:lastQuote
-      });
-
-      renderSuccess(data);
-    }catch(error){
-      console.error("Fletschhorn booking error", error);
-
-      const guestyMessage =
-        error?.data?.guestyData?.error?.message ||
-        error?.data?.guestyData?.message ||
-        error?.data?.error ||
-        error?.message ||
-        t("statusWorkerFail");
-
-      showStatus(guestyMessage, "bad", confirmStatus);
-    }finally{
-      button.disabled = false;
-      button.textContent = t("confirmSend");
-    }
-  }
-
-  function parseParams(){
-    const params = new URLSearchParams(window.location.search);
-    let stored = {};
-
-    try{stored = JSON.parse(localStorage.getItem("fhBookingStart") || "{}")}catch(e){stored = {}}
-
-    const data = {
-      firstName:params.get("firstName") || stored.firstName || "",
-      lastName:params.get("lastName") || stored.lastName || "",
-      email:params.get("email") || stored.email || "",
-      phone:params.get("phone") || stored.phone || "",
-      checkIn:params.get("checkIn") || stored.checkIn || stored.arrival || "",
-      checkOut:params.get("checkOut") || stored.checkOut || stored.departure || "",
-      guests:params.get("guests") || stored.guests || stored.guestCount || "",
-      lang:params.get("lang") || stored.lang || stored.language || ""
-    };
-
-    Object.keys(data).forEach(key => {
-      if(fields[key] && data[key]) fields[key].value = data[key];
-    });
-
-    if(data.checkIn){
-      const d = new Date(data.checkIn + "T00:00:00");
-      if(!isNaN(d)) currentCalendarDate = new Date(d.getFullYear(), d.getMonth(), 1);
-    }
-
-    if(data.lang) setLang(data.lang);
-  }
-
-  qsa("input, select, textarea").forEach(el => {
-    el.addEventListener("input", () => {
-      updateSummary();
-      persistStart();
-    });
-
-    el.addEventListener("change", () => {
-      updateSummary();
-      persistStart();
-      if(el === fields.guests) loadCalendarMonth();
-    });
-  });
-
-  qs("#fhOpenCalendar").addEventListener("click", openCalendar);
-  qs("#fhCloseCalendar").addEventListener("click", closeCalendar);
-
-  qs("#fhCalendarModal").addEventListener("click", function(event){
-    if(event.target === qs("#fhCalendarModal")) closeCalendar();
-  });
-
-  qs("#fhPrevMonth").addEventListener("click", function(){
-    currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
-    loadCalendarMonth();
-  });
-
-  qs("#fhNextMonth").addEventListener("click", function(){
-    currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
-    loadCalendarMonth();
-  });
-
-  qs("#fhCloseConfirm").addEventListener("click", closeConfirm);
-  qs("#fhEditBooking").addEventListener("click", closeConfirm);
-  qs("#fhConfirmSend").addEventListener("click", confirmSend);
-
-  qs("#fhConfirmModal").addEventListener("click", function(event){
-    if(event.target === qs("#fhConfirmModal")) closeConfirm();
-  });
-
-  document.addEventListener("keydown", function(event){
-    if(event.key === "Escape"){
-      closeCalendar();
-      closeConfirm();
-    }
-  });
-
-  form.addEventListener("submit", function(event){
-    event.preventDefault();
-    openConfirm();
-  });
-
-  document.addEventListener("click", function(event){
-    const a = event.target.closest("a");
-    if(!a) return;
-
-    const href = a.getAttribute("href") || "";
-    const bookingIntent = href.includes("contact-booking") || href.includes("booking.html") || href === "#book" || href === "#booking";
-
-    if(bookingIntent){
-      event.preventDefault();
-      document.getElementById("booking-panel")?.scrollIntoView({behavior:"smooth", block:"start"});
-    }
-  });
-
-  const observer = "IntersectionObserver" in window ? new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold:.14, rootMargin:"0px 0px -8% 0px"}) : null;
-
-  qsa(".fh-reveal").forEach(el => observer ? observer.observe(el) : el.classList.add("is-visible"));
-
-  parseParams();
+  const photo = qs("#fhCheckoutPhoto");
+  if(photo) photo.style.backgroundImage = `url("${FALLBACK_IMAGE}")`;
   setLang(currentLang);
-  updateSummary();
-  loadListingPublic();
 })();
 </script>
