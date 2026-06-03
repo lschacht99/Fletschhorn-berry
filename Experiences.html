@@ -1023,6 +1023,10 @@ section:has(#fh-experiences) .sqs-block-code{
 #fh-experiences [data-lang-only].is-lang-active{display:initial}
 #fh-experiences .fh-language-note{display:none}
 #fh-experiences .fh-route.is-hidden{display:none}
+
+#fh-experiences .fh-intro-grid > .fh-panel:only-child{
+  grid-column:1/-1;
+}
 </style>
 
 
@@ -1048,31 +1052,31 @@ section:has(#fh-experiences) .sqs-block-code{
         <form class="fh-booking preSlide" id="fh-exp-quick-form" style="--d:.34s">
           <div class="fh-booking-form" id="fhBookingFields">
             <div class="fh-field">
-              <label for="fh-exp-first-name" data-i18n="fieldFirstName">First name</label>
-              <input id="fh-exp-first-name" name="firstName" type="text" data-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name" required>
+              <label for="fh-exp-first-name">First name</label>
+              <input id="fh-exp-first-name" name="firstName" type="text" placeholder="First name" autocomplete="given-name" required>
             </div>
 
             <div class="fh-field">
-              <label for="fh-exp-last-name" data-i18n="fieldLastName">Last name</label>
-              <input id="fh-exp-last-name" name="lastName" type="text" data-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name" required>
+              <label for="fh-exp-last-name">Last name</label>
+              <input id="fh-exp-last-name" name="lastName" type="text" placeholder="Last name" autocomplete="family-name" required>
             </div>
 
             <div class="fh-field">
-              <label for="fh-exp-email" data-i18n="fieldEmail">Email</label>
-              <input id="fh-exp-email" name="email" type="email" data-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email" required>
+              <label for="fh-exp-email">Email</label>
+              <input id="fh-exp-email" name="email" type="email" placeholder="email@example.com" autocomplete="email" required>
             </div>
 
             <div class="fh-field fh-date-field">
-              <label data-i18n="fieldDates">Dates</label>
+              <label>Dates</label>
               <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar">
-                <span id="fhToolbarDateText" data-i18n="fieldDatesPh">Select arrival and departure</span>
-                <strong data-i18n="openCalendar">Open calendar</strong>
+                <span id="fhToolbarDateText">Select arrival and departure</span>
+                <strong>Open calendar</strong>
               </button>
               <input id="fh-exp-checkin" name="checkIn" type="hidden" required>
               <input id="fh-exp-checkout" name="checkOut" type="hidden" required>
             </div>
 
-            <button class="fh-submit" type="submit" id="fhBookNowBtn" data-i18n="bookNow">Book my stay now</button>
+            <button class="fh-submit" type="submit" id="fhBookNowBtn">Book my stay now</button>
           </div>
         </form>
         <p class="fh-hero-note preFade" id="fh-exp-status" style="--d:.40s" data-i18n="hero.note">Best Rates Guaranteed when Booking Direct</p>
@@ -1096,16 +1100,6 @@ section:has(#fh-experiences) .sqs-block-code{
         </div>
 
         <div class="fh-container fh-intro-grid">
-          <article class="fh-panel fh-panel-dark preSlide">
-            <p class="fh-kicker" data-i18n="area.howKicker">How this page works</p>
-            <h3 data-i18n="area.howTitle">Choose by season, mood, or energy level.</h3>
-            <p data-i18n="area.howText">Tap Winter, Summer, Soft days, Family, Trek, or Adrenaline. The map, sidebar, activity cards, and helper copy update together.</p>
-            <div class="fh-proof-grid">
-              <div class="fh-proof"><strong data-i18n="filters.winter">Winter</strong><span data-i18n="area.proofWinter">Skiing, sledging, glacier, snow paths, group thrill days.</span></div>
-              <div class="fh-proof"><strong data-i18n="filters.summer">Summer</strong><span data-i18n="area.proofSummer">Marmots, hikes, biking, rope park, glacier access, mountain lakes.</span></div>
-              <div class="fh-proof"><strong data-i18n="filters.calm">Soft days</strong><span data-i18n="area.proofCalm">Aqua Allalin, village walks, family trails, cable-car viewpoints.</span></div>
-            </div>
-          </article>
           <article class="fh-panel preSlide" style="--d:.08s">
             <p class="fh-kicker" data-i18n="area.privateKicker">Private base, active valley</p>
             <h3 data-i18n="area.privateTitle">The house is calm; the region is full.</h3>
@@ -1346,7 +1340,7 @@ section:has(#fh-experiences) .sqs-block-code{
       <div class="fh-calendar-card" role="dialog" aria-modal="true" aria-label="Select dates">
         <div class="fh-calendar-head">
           <div>
-            <p class="fh-kicker" data-i18n="calendarKicker">Select dates</p>
+            <p class="fh-kicker">Select dates</p>
             <h3 class="fh-calendar-title" id="fhToolbarCalendarTitle">Calendar</h3>
           </div>
           <div class="fh-calendar-nav">
@@ -1355,8 +1349,8 @@ section:has(#fh-experiences) .sqs-block-code{
             <button type="button" id="fhToolbarCloseCalendar">×</button>
           </div>
         </div>
-        <p class="fh-calendar-help" data-i18n="calendarHelp">Choose your arrival date, then your departure date.</p>
-        <div class="fh-calendar-warning" id="fhToolbarCalendarWarning" data-i18n="calendarMinWarning">Please select at least 2 nights.</div>
+        <p class="fh-calendar-help">Choose your arrival date, then your departure date.</p>
+        <div class="fh-calendar-warning" id="fhToolbarCalendarWarning">Please select at least 2 nights.</div>
         <div class="fh-weekdays">
           <div class="fh-weekday">Sun</div><div class="fh-weekday">Mon</div><div class="fh-weekday">Tue</div><div class="fh-weekday">Wed</div><div class="fh-weekday">Thu</div><div class="fh-weekday">Fri</div><div class="fh-weekday">Sat</div>
         </div>
