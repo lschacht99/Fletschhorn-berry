@@ -1,1340 +1,1886 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Location | Fletschhorn Saas-Fee</title>
-  <meta name="description" content="Fletschhorn in Saas-Fee: a private alpine house surrounded by forest, mountains, village life, ski lifts, trails and nature." />
-
-  <link rel="stylesheet" href="assets/fh-global.css">
-
-  <style>
-    :root{
-      --fh-ink:#1f261f;
-      --fh-muted:rgba(31,38,31,.68);
-      --fh-soft:rgba(31,38,31,.1);
-      --fh-line:rgba(31,38,31,.14);
-      --fh-cream:#f7f2e8;
-      --fh-cream2:#efe6d7;
-      --fh-green:#344936;
-      --fh-green2:#607257;
-      --fh-stone:#c9bda8;
-      --fh-white:#fffaf1;
-      --fh-shadow:0 26px 80px rgba(29,37,30,.16);
-      --fh-shadow-soft:0 18px 48px rgba(29,37,30,.10);
-      --fh-radius:34px;
-      --fh-serif:Georgia,"Times New Roman",serif;
-      --fh-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:var(--fh-sans);
-      color:var(--fh-ink);
-      background:
-        radial-gradient(circle at 12% 10%, rgba(255,255,255,.82), transparent 32%),
-        radial-gradient(circle at 80% 16%, rgba(207,219,199,.55), transparent 30%),
-        linear-gradient(180deg,#fbf7ef 0%,#efe7d9 46%,#f8f3ea 100%);
-      overflow-x:hidden;
-    }
-
-    body.fh-github-version{
-      background:
-        radial-gradient(circle at 12% 10%, rgba(255,255,255,.82), transparent 32%),
-        radial-gradient(circle at 80% 16%, rgba(207,219,199,.55), transparent 30%),
-        linear-gradient(180deg,#fbf7ef 0%,#efe7d9 46%,#f8f3ea 100%);
-    }
-
-    a{color:inherit;text-decoration:none}
-    img{display:block;max-width:100%}
-
-    .fh-location-page{
-      position:relative;
-      overflow:hidden;
-      min-height:100vh;
-      background:
-        radial-gradient(circle at 15% 9%, rgba(255,255,255,.86), transparent 0 28%),
-        radial-gradient(circle at 84% 25%, rgba(144,163,128,.24), transparent 0 26%),
-        radial-gradient(circle at 16% 82%, rgba(201,189,168,.24), transparent 0 26%);
-    }
-
-    .fh-location-page:before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      opacity:.42;
-      background-image:
-        radial-gradient(rgba(52,73,54,.08) .8px, transparent .9px);
-      background-size:18px 18px;
-      mask-image:linear-gradient(180deg,transparent 0%,#000 14%,#000 80%,transparent 100%);
-    }
-
-    .fh-location-page > *{
-      position:relative;
-      z-index:1;
-    }
-
-    .fh-container{
-      width:min(1180px,calc(100% - 40px));
-      margin:0 auto;
-    }
-
-    .fh-hero{
-      min-height:86vh;
-      display:grid;
-      align-items:center;
-      padding:128px 0 70px;
-    }
-
-    .fh-hero-grid{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) minmax(360px,.74fr);
-      gap:54px;
-      align-items:center;
-    }
-
-    .fh-kicker{
-      margin:0 0 16px;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-size:12px;
-      line-height:1.4;
-      font-weight:800;
-      color:rgba(52,73,54,.64);
-    }
-
-    .fh-title{
-      margin:0;
-      font-family:var(--fh-serif);
-      font-weight:400;
-      font-size:clamp(54px,7vw,104px);
-      line-height:.9;
-      letter-spacing:-.07em;
-      max-width:840px;
-    }
-
-    .fh-title em{
-      color:var(--fh-green2);
-      font-style:italic;
-    }
-
-    .fh-lead{
-      margin:26px 0 0;
-      max-width:710px;
-      font-size:clamp(18px,2vw,23px);
-      line-height:1.55;
-      color:var(--fh-muted);
-    }
-
-    .fh-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:34px;
-    }
-
-    .fh-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:48px;
-      padding:14px 21px;
-      border-radius:999px;
-      border:1px solid var(--fh-line);
-      background:rgba(255,250,241,.72);
-      color:var(--fh-ink);
-      font-weight:800;
-      box-shadow:0 12px 34px rgba(29,37,30,.08);
-      backdrop-filter:blur(14px);
-      transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
-    }
-
-    .fh-btn:hover{
-      transform:translateY(-2px);
-      box-shadow:0 16px 42px rgba(29,37,30,.14);
-    }
-
-    .fh-btn-dark{
-      background:var(--fh-green);
-      color:#fffaf1;
-      border-color:transparent;
-    }
-
-    .fh-hero-card{
-      border-radius:42px;
-      overflow:hidden;
-      min-height:560px;
-      background:#d9d0c0;
-      box-shadow:var(--fh-shadow);
-      position:relative;
-      isolation:isolate;
-    }
-
-    .fh-hero-card img{
-      width:100%;
-      height:100%;
-      min-height:560px;
-      object-fit:cover;
-      filter:saturate(.9) contrast(1.03);
-    }
-
-    .fh-hero-card:after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(180deg,rgba(15,22,16,.05),rgba(15,22,16,.54)),
-        radial-gradient(circle at 24% 18%, rgba(255,255,255,.22), transparent 32%);
-      z-index:1;
-    }
-
-    .fh-hero-badge{
-      position:absolute;
-      left:22px;
-      right:22px;
-      bottom:22px;
-      z-index:2;
-      border-radius:28px;
-      padding:22px;
-      color:#fffaf1;
-      background:rgba(20,28,20,.38);
-      border:1px solid rgba(255,255,255,.24);
-      backdrop-filter:blur(18px);
-    }
-
-    .fh-hero-badge b{
-      display:block;
-      font-family:var(--fh-serif);
-      font-size:36px;
-      line-height:1;
-      font-weight:400;
-      letter-spacing:-.04em;
-    }
-
-    .fh-hero-badge span{
-      display:block;
-      margin-top:8px;
-      color:rgba(255,250,241,.78);
-      line-height:1.5;
-    }
-
-    .fh-quick{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:14px;
-      margin-top:34px;
-    }
-
-    .fh-quick-item{
-      border-radius:26px;
-      padding:18px;
-      background:rgba(255,250,241,.68);
-      border:1px solid rgba(255,255,255,.7);
-      box-shadow:var(--fh-shadow-soft);
-      backdrop-filter:blur(14px);
-    }
-
-    .fh-quick-item strong{
-      display:block;
-      font-family:var(--fh-serif);
-      font-size:28px;
-      line-height:1;
-      font-weight:400;
-      letter-spacing:-.03em;
-    }
-
-    .fh-quick-item span{
-      display:block;
-      margin-top:8px;
-      color:var(--fh-muted);
-      font-size:13px;
-      line-height:1.45;
-    }
-
-    .fh-section{
-      padding:92px 0;
-    }
-
-    .fh-section-head{
-      display:grid;
-      grid-template-columns:minmax(0,.9fr) minmax(320px,.64fr);
-      gap:52px;
-      align-items:end;
-      margin-bottom:36px;
-    }
-
-    .fh-section-title{
-      margin:0;
-      font-family:var(--fh-serif);
-      font-weight:400;
-      font-size:clamp(42px,5vw,78px);
-      line-height:.94;
-      letter-spacing:-.06em;
-    }
-
-    .fh-section-text{
-      margin:0;
-      color:var(--fh-muted);
-      font-size:17px;
-      line-height:1.72;
-    }
-
-    .fh-location-intro{
-      display:grid;
-      grid-template-columns:minmax(0,.94fr) minmax(360px,.74fr);
-      gap:22px;
-      align-items:stretch;
-    }
-
-    .fh-panel{
-      border-radius:var(--fh-radius);
-      padding:36px;
-      background:
-        linear-gradient(145deg,rgba(255,250,241,.82),rgba(247,242,232,.58));
-      border:1px solid rgba(255,255,255,.72);
-      box-shadow:var(--fh-shadow-soft);
-      backdrop-filter:blur(16px);
-    }
-
-    .fh-panel h3{
-      margin:0 0 14px;
-      font-family:var(--fh-serif);
-      font-weight:400;
-      font-size:clamp(34px,4vw,58px);
-      line-height:.98;
-      letter-spacing:-.05em;
-    }
-
-    .fh-panel p{
-      margin:0;
-      color:var(--fh-muted);
-      font-size:17px;
-      line-height:1.72;
-    }
-
-    .fh-list{
-      display:grid;
-      gap:12px;
-      margin-top:24px;
-    }
-
-    .fh-list-item{
-      display:grid;
-      grid-template-columns:38px 1fr;
-      gap:14px;
-      align-items:start;
-      padding:15px;
-      border-radius:22px;
-      background:rgba(255,255,255,.38);
-      border:1px solid rgba(31,38,31,.08);
-    }
-
-    .fh-list-icon{
-      width:38px;
-      height:38px;
-      display:grid;
-      place-items:center;
-      border-radius:50%;
-      background:rgba(96,114,87,.14);
-      color:var(--fh-green);
-      font-weight:900;
-    }
-
-    .fh-list-item b{
-      display:block;
-      margin-bottom:3px;
-      color:var(--fh-ink);
-    }
-
-    .fh-list-item span{
-      color:var(--fh-muted);
-      line-height:1.5;
-      font-size:14px;
-    }
-
-    .fh-image-tile{
-      border-radius:var(--fh-radius);
-      overflow:hidden;
-      min-height:520px;
-      position:relative;
-      box-shadow:var(--fh-shadow);
-      background:#d7ccb9;
-    }
-
-    .fh-image-tile img{
-      width:100%;
-      height:100%;
-      min-height:520px;
-      object-fit:cover;
-    }
-
-    .fh-image-tile:after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.48));
-    }
-
-    .fh-image-caption{
-      position:absolute;
-      left:24px;
-      right:24px;
-      bottom:24px;
-      z-index:2;
-      color:#fffaf1;
-    }
-
-    .fh-image-caption b{
-      display:block;
-      font-family:var(--fh-serif);
-      font-size:36px;
-      font-weight:400;
-      line-height:1;
-      letter-spacing:-.04em;
-    }
-
-    .fh-image-caption span{
-      display:block;
-      margin-top:8px;
-      color:rgba(255,250,241,.78);
-      line-height:1.5;
-    }
-
-    .fh-shuttle-grid{
-      display:grid;
-      grid-template-columns:minmax(0,.84fr) minmax(0,1fr);
-      gap:22px;
-      align-items:stretch;
-    }
-
-    .fh-photo-carousel{
-      position:relative;
-      border-radius:var(--fh-radius);
-      overflow:hidden;
-      min-height:520px;
-      background:#d8cfbd;
-      box-shadow:var(--fh-shadow);
-    }
-
-    .fh-slide{
-      position:absolute;
-      inset:0;
-      opacity:0;
-      transition:opacity .75s ease;
-    }
-
-    .fh-slide.active{
-      opacity:1;
-    }
-
-    .fh-slide img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    .fh-carousel-controls{
-      position:absolute;
-      z-index:4;
-      left:22px;
-      right:22px;
-      bottom:22px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-    }
-
-    .fh-dots{
-      display:flex;
-      gap:7px;
-      padding:9px 10px;
-      border-radius:999px;
-      background:rgba(20,28,20,.34);
-      border:1px solid rgba(255,255,255,.18);
-      backdrop-filter:blur(14px);
-    }
-
-    .fh-dot{
-      width:9px;
-      height:9px;
-      border-radius:50%;
-      border:0;
-      background:rgba(255,255,255,.44);
-      cursor:pointer;
-    }
-
-    .fh-dot.active{
-      background:#fffaf1;
-    }
-
-    .fh-arrow{
-      width:42px;
-      height:42px;
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,.28);
-      background:rgba(20,28,20,.34);
-      color:#fffaf1;
-      cursor:pointer;
-      backdrop-filter:blur(14px);
-      font-size:20px;
-    }
-
-    .fh-map-wrap{
-      border-radius:var(--fh-radius);
-      overflow:hidden;
-      background:rgba(255,250,241,.72);
-      border:1px solid rgba(255,255,255,.74);
-      box-shadow:var(--fh-shadow-soft);
-    }
-
-    .fh-map{
-      width:100%;
-      height:460px;
-      border:0;
-      display:block;
-      filter:saturate(.88) contrast(.98);
-    }
-
-    .fh-map-info{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      padding:18px;
-    }
-
-    .fh-map-info div{
-      border-radius:22px;
-      padding:17px;
-      background:rgba(255,255,255,.48);
-      border:1px solid rgba(31,38,31,.08);
-    }
-
-    .fh-map-info b{
-      display:block;
-      margin-bottom:6px;
-    }
-
-    .fh-map-info span{
-      display:block;
-      color:var(--fh-muted);
-      font-size:14px;
-      line-height:1.5;
-    }
-
-    .fh-around-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-    }
-
-    .fh-around-card{
-      min-height:360px;
-      border-radius:32px;
-      overflow:hidden;
-      position:relative;
-      background:#d7ccb8;
-      box-shadow:var(--fh-shadow-soft);
-    }
-
-    .fh-around-card img{
-      width:100%;
-      height:100%;
-      min-height:360px;
-      object-fit:cover;
-      transition:transform .7s ease;
-    }
-
-    .fh-around-card:hover img{
-      transform:scale(1.04);
-    }
-
-    .fh-around-card:after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg,rgba(10,16,10,.02),rgba(10,16,10,.62));
-    }
-
-    .fh-around-copy{
-      position:absolute;
-      left:22px;
-      right:22px;
-      bottom:22px;
-      z-index:2;
-      color:#fffaf1;
-    }
-
-    .fh-around-copy small{
-      display:block;
-      margin-bottom:8px;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      font-size:11px;
-      font-weight:900;
-      color:rgba(255,250,241,.72);
-    }
-
-    .fh-around-copy h3{
-      margin:0;
-      font-family:var(--fh-serif);
-      font-weight:400;
-      font-size:34px;
-      line-height:1;
-      letter-spacing:-.04em;
-    }
-
-    .fh-around-copy p{
-      margin:10px 0 0;
-      color:rgba(255,250,241,.8);
-      line-height:1.5;
-      font-size:14px;
-    }
-
-    .fh-booking-bar-section{
-      padding:76px 0 106px;
-    }
-
-    .fh-booking-panel{
-      border-radius:38px;
-      padding:34px;
-      background:
-        radial-gradient(circle at 20% 10%,rgba(255,255,255,.62),transparent 30%),
-        linear-gradient(135deg,rgba(52,73,54,.94),rgba(82,101,72,.92));
-      color:#fffaf1;
-      box-shadow:var(--fh-shadow);
-      overflow:hidden;
-      position:relative;
-    }
-
-    .fh-booking-panel:before{
-      content:"";
-      position:absolute;
-      inset:auto -10% -46% auto;
-      width:390px;
-      height:390px;
-      border-radius:50%;
-      background:rgba(255,255,255,.1);
-      pointer-events:none;
-    }
-
-    .fh-booking-panel h2{
-      position:relative;
-      margin:0;
-      font-family:var(--fh-serif);
-      font-weight:400;
-      font-size:clamp(38px,5vw,72px);
-      line-height:.95;
-      letter-spacing:-.06em;
-      max-width:780px;
-    }
-
-    .fh-booking-panel p{
-      position:relative;
-      margin:16px 0 28px;
-      color:rgba(255,250,241,.76);
-      font-size:17px;
-      line-height:1.65;
-      max-width:720px;
-    }
-
-    .fh-booking-toolbar{
-      position:relative;
-      display:grid;
-      grid-template-columns:1fr 1fr 1.3fr 1fr 1fr auto;
-      gap:10px;
-      padding:12px;
-      border-radius:26px;
-      background:rgba(255,250,241,.14);
-      border:1px solid rgba(255,255,255,.22);
-      backdrop-filter:blur(16px);
-    }
-
-    .fh-field{
-      position:relative;
-    }
-
-    .fh-field label{
-      display:block;
-      margin:0 0 6px;
-      font-size:10px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      font-weight:900;
-      color:rgba(255,250,241,.7);
-    }
-
-    .fh-field input{
-      width:100%;
-      height:46px;
-      border:1px solid rgba(255,255,255,.2);
-      border-radius:16px;
-      padding:0 13px;
-      background:rgba(255,250,241,.9);
-      color:var(--fh-ink);
-      font:inherit;
-      outline:none;
-    }
-
-    .fh-booking-toolbar button{
-      align-self:end;
-      height:46px;
-      border:0;
-      border-radius:16px;
-      padding:0 18px;
-      background:#fffaf1;
-      color:var(--fh-green);
-      font-weight:900;
-      cursor:pointer;
-      white-space:nowrap;
-    }
-
-    .fh-booking-error{
-      display:none;
-      margin-top:12px;
-      color:#fff0d9;
-      font-weight:700;
-      font-size:14px;
-    }
-
-    .fh-lang-hidden{
-      display:none !important;
-    }
-
-    .fh-reveal{
-      opacity:0;
-      transform:translateY(24px);
-      transition:opacity .75s ease, transform .75s ease;
-    }
-
-    .fh-reveal.visible{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    @media(max-width:1050px){
-      .fh-hero-grid,
-      .fh-section-head,
-      .fh-location-intro,
-      .fh-shuttle-grid{
-        grid-template-columns:1fr;
-      }
-
-      .fh-quick{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .fh-booking-toolbar{
-        grid-template-columns:1fr 1fr;
-      }
-
-      .fh-booking-toolbar button{
-        grid-column:1 / -1;
-      }
-    }
-
-    @media(max-width:760px){
-      .fh-container{
-        width:min(100% - 28px,1180px);
-      }
-
-      .fh-hero{
-        padding:104px 0 54px;
-        min-height:auto;
-      }
-
-      .fh-title{
-        font-size:clamp(48px,14vw,70px);
-      }
-
-      .fh-hero-card,
-      .fh-hero-card img,
-      .fh-image-tile,
-      .fh-image-tile img,
-      .fh-photo-carousel{
-        min-height:390px;
-      }
-
-      .fh-quick,
-      .fh-around-grid,
-      .fh-map-info,
-      .fh-booking-toolbar{
-        grid-template-columns:1fr;
-      }
-
-      .fh-section{
-        padding:64px 0;
-      }
-
-      .fh-panel{
-        padding:24px;
-      }
-
-      .fh-map{
-        height:360px;
-      }
-
-      .fh-booking-panel{
-        padding:24px;
-        border-radius:30px;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fletschhorn — Location</title>
+<meta name="description" content="Fletschhorn location in Saas-Fee: a private alpine base above the village, close to nature, lifts, trails, shuttles and the surrounding mountain region.">
+<link rel="stylesheet" href="assets/fh-global.css">
 </head>
 
 <body>
-  <div id="fh-header-slot"></div>
+<div id="fh-header-slot"></div>
 
-  <main class="fh-location-page">
-    <section class="fh-hero" id="top">
-      <div class="fh-container">
+<style>
+section:has(#fh-location-clean){
+  padding:0!important;
+  margin:0!important;
+}
+section:has(#fh-location-clean) .content-wrapper,
+section:has(#fh-location-clean) .sqs-layout,
+section:has(#fh-location-clean) .sqs-row,
+section:has(#fh-location-clean) .sqs-block,
+section:has(#fh-location-clean) .sqs-block-content,
+section:has(#fh-location-clean) .sqs-block-code{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+body.fh-github-version{
+  margin:0;
+  overflow-x:hidden;
+  background:#f4eee6;
+}
+
+#fh-header-slot,
+#fh-footer-slot{
+  position:relative;
+  z-index:100;
+}
+
+#fh-location-clean,
+#fh-location-clean *{
+  box-sizing:border-box;
+}
+
+#fh-location-clean{
+  --bg:#f4eee6;
+  --bg2:#ebe1d6;
+  --paper:#fffaf3;
+  --paper-soft:rgba(255,250,243,.86);
+  --ink:#191715;
+  --ink-soft:rgba(25,23,21,.68);
+  --muted:rgba(25,23,21,.48);
+  --line:rgba(25,23,21,.14);
+  --green:#344936;
+  --green-dark:#243326;
+  --clay:#b99f86;
+  --clay-dark:#846c56;
+  --stone:#d9d1c7;
+  --snow:#f8f5ef;
+  --blue:#9faeaf;
+  --shadow:0 28px 72px rgba(18,16,14,.14);
+  --shadow-soft:0 14px 42px rgba(18,16,14,.07);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  overflow-x:hidden!important;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 8%,rgba(255,255,255,.68),transparent 24%),
+    radial-gradient(circle at 90% 12%,rgba(159,174,175,.22),transparent 25%),
+    linear-gradient(180deg,var(--bg),var(--bg2));
+  font-family:var(--sans);
+  text-rendering:geometricPrecision;
+}
+
+#fh-location-clean a{
+  color:inherit;
+  text-decoration:none;
+}
+
+#fh-location-clean img{
+  display:block;
+  max-width:100%;
+}
+
+#fh-location-clean button,
+#fh-location-clean input,
+#fh-location-clean select,
+#fh-location-clean textarea{
+  font:inherit;
+}
+
+#fh-location-clean button{
+  cursor:pointer;
+}
+
+#fh-location-clean .fh-topography{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.18;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23846c56' stroke-opacity='.46' stroke-width='1.1'%3E%3Cpath d='M-50 134c198 48 354 52 492 8 133-42 270-37 412 16 154 58 315 57 506-12 80-28 149-29 218-12'/%3E%3Cpath d='M-50 284c220 36 397 29 536-18 124-42 255-38 392 8 169 56 329 51 507-12 82-30 152-33 214-18'/%3E%3Cpath d='M-50 432c228 27 416 15 570-25 119-31 248-28 386 4 159 37 313 36 482-10 87-24 160-26 229-16'/%3E%3Cpath d='M-50 590c242 17 433 6 592-28 123-26 247-24 380-4 149 22 292 21 442-8 92-17 166-17 224-9'/%3E%3Cpath d='M-50 750c261 7 469-7 636-34 121-19 240-16 368-3 142 15 282 15 425-8 84-13 150-12 212-7'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:cover;
+  background-position:center;
+  animation:fhTopoDrift 28s ease-in-out infinite alternate;
+}
+
+@keyframes fhTopoDrift{
+  from{transform:translate3d(0,0,0) scale(1.02)}
+  to{transform:translate3d(-1.2vw,-1vh,0) scale(1.06)}
+}
+
+#fh-location-clean .fh-shell{
+  position:relative;
+  z-index:1;
+}
+
+#fh-location-clean .fh-container{
+  width:min(1180px,calc(100% - 40px));
+  margin:0 auto;
+}
+
+#fh-location-clean .fh-section{
+  position:relative;
+  padding:96px 20px;
+}
+
+#fh-location-clean .fh-section-alt{
+  background:linear-gradient(180deg,rgba(255,250,243,.44),rgba(225,214,202,.42));
+}
+
+#fh-location-clean .fh-kicker{
+  margin:0 0 14px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-size:11px;
+  font-weight:850;
+  color:var(--clay-dark);
+}
+
+#fh-location-clean h1,
+#fh-location-clean h2,
+#fh-location-clean h3,
+#fh-location-clean p{
+  margin-top:0;
+}
+
+#fh-location-clean h1{
+  margin:0 0 20px;
+  max-width:980px;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(48px,8.1vw,104px);
+  line-height:.9;
+  letter-spacing:-.068em;
+}
+
+#fh-location-clean h2{
+  margin:0;
+  font-family:var(--serif);
+  font-size:clamp(42px,5.3vw,76px);
+  line-height:.94;
+  letter-spacing:-.058em;
+  font-weight:400;
+}
+
+#fh-location-clean h3{
+  margin:0 0 12px;
+  font-family:var(--serif);
+  font-size:clamp(30px,3.6vw,46px);
+  line-height:.96;
+  letter-spacing:-.052em;
+  font-weight:400;
+}
+
+#fh-location-clean p{
+  color:var(--ink-soft);
+  font-size:17px;
+  line-height:1.7;
+}
+
+#fh-location-clean .fh-hero{
+  position:relative;
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:#171411;
+  color:var(--paper);
+}
+
+#fh-location-clean .fh-hero-media,
+#fh-location-clean .fh-hero-slide{
+  position:absolute;
+  inset:0;
+}
+
+#fh-location-clean .fh-hero-slide{
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transform:scale(1.045);
+  transition:opacity 1.4s ease, transform 8s ease;
+}
+
+#fh-location-clean .fh-hero-slide.is-active{
+  opacity:1;
+  transform:scale(1);
+}
+
+#fh-location-clean .fh-hero-media::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  background:
+    linear-gradient(180deg,rgba(20,18,16,.58),rgba(20,18,16,.30) 42%,rgba(20,18,16,.72)),
+    radial-gradient(circle at 74% 18%,rgba(185,159,134,.22),transparent 28%);
+}
+
+#fh-location-clean .fh-hero-media::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:3;
+  height:150px;
+  background:linear-gradient(180deg,transparent,var(--bg));
+}
+
+#fh-location-clean .fh-hero-inner{
+  position:relative;
+  z-index:4;
+  width:min(1180px,calc(100% - 40px));
+  padding:150px 0 60px;
+}
+
+#fh-location-clean .fh-hero .fh-kicker{
+  color:rgba(255,250,243,.82);
+}
+
+#fh-location-clean .fh-hero-lead{
+  max-width:760px;
+  margin:0 0 30px;
+  color:rgba(255,250,243,.86);
+  font-size:clamp(16px,2vw,21px);
+  line-height:1.65;
+}
+
+#fh-location-clean .fh-hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 360px;
+  gap:28px;
+  align-items:end;
+}
+
+#fh-location-clean .fh-hero-proof{
+  display:grid;
+  gap:10px;
+}
+
+#fh-location-clean .fh-proof{
+  padding:18px;
+  border:1px solid rgba(255,250,243,.28);
+  background:rgba(255,250,243,.10);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+
+#fh-location-clean .fh-proof strong{
+  display:block;
+  margin-bottom:6px;
+  font-family:var(--serif);
+  font-size:28px;
+  font-weight:400;
+  color:var(--paper);
+}
+
+#fh-location-clean .fh-proof span{
+  display:block;
+  font-size:13px;
+  line-height:1.5;
+  color:rgba(255,250,243,.76);
+}
+
+#fh-location-clean .fh-hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:28px;
+}
+
+#fh-location-clean .fh-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:50px;
+  padding:15px 20px;
+  border:1px solid rgba(255,250,243,.28);
+  background:rgba(255,250,243,.14);
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:11px;
+  font-weight:850;
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+
+#fh-location-clean .fh-btn-dark{
+  background:var(--clay);
+  border-color:var(--clay);
+}
+
+#fh-location-clean .fh-section-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(280px,.72fr);
+  gap:30px;
+  align-items:end;
+  margin-bottom:34px;
+}
+
+#fh-location-clean .fh-intro-grid{
+  display:grid;
+  grid-template-columns:.95fr 1.05fr;
+  gap:24px;
+  align-items:stretch;
+}
+
+#fh-location-clean .fh-panel{
+  background:var(--paper);
+  border:1px solid rgba(132,108,86,.18);
+  box-shadow:var(--shadow-soft);
+  padding:38px;
+}
+
+#fh-location-clean .fh-panel-dark{
+  color:var(--paper);
+  background:linear-gradient(135deg,rgba(45,39,34,.94),rgba(52,73,54,.88));
+}
+
+#fh-location-clean .fh-panel-dark p,
+#fh-location-clean .fh-panel-dark .fh-kicker{
+  color:rgba(255,250,243,.78);
+}
+
+#fh-location-clean .fh-panel-dark h3{
+  color:var(--paper);
+}
+
+#fh-location-clean .fh-photo-strip{
+  display:grid;
+  grid-template-columns:1.2fr .8fr .8fr;
+  gap:14px;
+  margin-top:24px;
+}
+
+#fh-location-clean .fh-photo-tile{
+  min-height:260px;
+  position:relative;
+  overflow:hidden;
+  background:#d5cabf;
+  box-shadow:var(--shadow-soft);
+}
+
+#fh-location-clean .fh-photo-tile.tall{
+  min-height:360px;
+}
+
+#fh-location-clean .fh-photo-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  inset:0;
+  transition:transform .7s ease;
+}
+
+#fh-location-clean .fh-photo-tile:hover img{
+  transform:scale(1.06);
+}
+
+#fh-location-clean .fh-photo-tile span{
+  position:absolute;
+  left:16px;
+  bottom:16px;
+  right:16px;
+  z-index:2;
+  background:rgba(255,250,243,.90);
+  padding:12px 14px;
+  color:var(--ink);
+  font-size:13px;
+  font-weight:800;
+}
+
+#fh-location-clean .fh-photo-tile:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 50%,rgba(18,16,14,.38));
+}
+
+#fh-location-clean .fh-location-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 390px;
+  gap:20px;
+  align-items:stretch;
+}
+
+#fh-location-clean .fh-map-card{
+  position:relative!important;
+  display:block!important;
+  width:100%!important;
+  height:clamp(560px,72vh,780px)!important;
+  min-height:560px!important;
+  overflow:hidden!important;
+  background:#d7cdc2!important;
+  border:1px solid rgba(132,108,86,.20)!important;
+  box-shadow:var(--shadow)!important;
+}
+
+#fh-location-clean .fh-map-iframe{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:560px!important;
+  border:0!important;
+  opacity:1!important;
+  visibility:visible!important;
+  z-index:1!important;
+  filter:saturate(.9) contrast(.98);
+}
+
+#fh-location-clean .fh-map-open{
+  position:absolute!important;
+  right:16px!important;
+  top:16px!important;
+  z-index:7!important;
+  padding:12px 16px!important;
+  background:rgba(255,250,243,.94)!important;
+  color:#191715!important;
+  border:1px solid rgba(25,23,21,.16)!important;
+  font-size:11px!important;
+  text-transform:uppercase!important;
+  letter-spacing:.14em!important;
+  font-weight:850!important;
+  box-shadow:0 14px 34px rgba(18,16,14,.16)!important;
+}
+
+#fh-location-clean .fh-map-info{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  z-index:5;
+  background:rgba(255,250,243,.94);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:var(--shadow-soft);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  padding:18px;
+}
+
+#fh-location-clean .fh-map-info small{
+  display:block;
+  margin-bottom:6px;
+  color:var(--clay-dark);
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  font-size:10px;
+  font-weight:850;
+}
+
+#fh-location-clean .fh-map-info h3{
+  font-size:30px;
+  margin-bottom:7px;
+}
+
+#fh-location-clean .fh-map-info p{
+  font-size:14px;
+  line-height:1.55;
+  margin:0;
+}
+
+#fh-location-clean .fh-side-list{
+  display:grid;
+  gap:10px;
+}
+
+#fh-location-clean .fh-place{
+  display:grid;
+  grid-template-columns:32px 1fr;
+  gap:12px;
+  align-items:start;
+  padding:15px;
+  background:var(--paper);
+  border:1px solid rgba(132,108,86,.18);
+  box-shadow:var(--shadow-soft);
+  text-align:left;
+}
+
+#fh-location-clean .fh-place b{
+  display:grid;
+  place-items:center;
+  width:32px;
+  height:32px;
+  background:var(--clay);
+  color:#fff;
+  font-family:var(--serif);
+  font-weight:400;
+}
+
+#fh-location-clean .fh-place strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+#fh-location-clean .fh-place span{
+  display:block;
+  color:var(--ink-soft);
+  font-size:13px;
+  line-height:1.45;
+}
+
+#fh-location-clean .fh-place em{
+  display:block;
+  margin-top:7px;
+  font-style:normal;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  color:var(--clay-dark);
+  font-weight:850;
+}
+
+#fh-location-clean .fh-shuttle-grid{
+  display:grid;
+  grid-template-columns:.92fr 1.08fr;
+  gap:24px;
+  align-items:stretch;
+}
+
+#fh-location-clean .fh-shuttle-media{
+  min-height:520px;
+  position:relative;
+  overflow:hidden;
+  background:#d5cabf;
+  box-shadow:var(--shadow);
+}
+
+#fh-location-clean .fh-shuttle-slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity 1s ease;
+}
+
+#fh-location-clean .fh-shuttle-slide.is-active{
+  opacity:1;
+}
+
+#fh-location-clean .fh-shuttle-slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+#fh-location-clean .fh-shuttle-media:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(18,16,14,.08),rgba(18,16,14,.58));
+  z-index:2;
+}
+
+#fh-location-clean .fh-shuttle-caption{
+  position:absolute;
+  left:22px;
+  right:22px;
+  bottom:22px;
+  z-index:3;
+  background:rgba(255,250,243,.92);
+  padding:18px;
+  color:var(--ink);
+}
+
+#fh-location-clean .fh-shuttle-caption strong{
+  display:block;
+  font-family:var(--serif);
+  font-size:32px;
+  font-weight:400;
+  letter-spacing:-.045em;
+  line-height:1;
+}
+
+#fh-location-clean .fh-shuttle-caption span{
+  display:block;
+  margin-top:7px;
+  color:var(--ink-soft);
+  font-size:14px;
+  line-height:1.5;
+}
+
+#fh-location-clean .fh-feature-list{
+  display:grid;
+  gap:12px;
+  margin-top:24px;
+}
+
+#fh-location-clean .fh-feature{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  gap:14px;
+  padding:15px;
+  border:1px solid rgba(132,108,86,.18);
+  background:rgba(255,250,243,.72);
+}
+
+#fh-location-clean .fh-feature i{
+  display:grid;
+  place-items:center;
+  width:42px;
+  height:42px;
+  background:var(--green);
+  color:#fff;
+  font-style:normal;
+  font-family:var(--serif);
+  font-size:22px;
+}
+
+#fh-location-clean .fh-feature strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+#fh-location-clean .fh-feature span{
+  display:block;
+  color:var(--ink-soft);
+  font-size:14px;
+  line-height:1.48;
+}
+
+#fh-location-clean .fh-around-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+#fh-location-clean .fh-around-card{
+  position:relative;
+  min-height:390px;
+  overflow:hidden;
+  background:#d6ccbf;
+  border:1px solid rgba(132,108,86,.18);
+  box-shadow:var(--shadow-soft);
+}
+
+#fh-location-clean .fh-around-card img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .7s ease;
+}
+
+#fh-location-clean .fh-around-card:hover img{
+  transform:scale(1.06);
+}
+
+#fh-location-clean .fh-around-card:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(180deg,rgba(20,18,16,.10),rgba(20,18,16,.68));
+}
+
+#fh-location-clean .fh-around-copy{
+  position:absolute;
+  left:22px;
+  right:22px;
+  bottom:22px;
+  z-index:2;
+  color:var(--paper);
+}
+
+#fh-location-clean .fh-around-copy small{
+  display:block;
+  margin-bottom:10px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:10px;
+  font-weight:850;
+  color:rgba(255,250,243,.76);
+}
+
+#fh-location-clean .fh-around-copy h3{
+  color:var(--paper);
+  margin-bottom:8px;
+}
+
+#fh-location-clean .fh-around-copy p{
+  margin:0;
+  color:rgba(255,250,243,.82);
+  font-size:14px;
+  line-height:1.55;
+}
+
+#fh-location-clean .fh-standard-booking-shell{
+  width:min(1080px,100%);
+  margin:26px 0 0;
+  padding:9px;
+  border:1px solid rgba(255,250,242,.24);
+  background:rgba(255,250,242,.12);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  box-shadow:var(--shadow);
+}
+
+#fh-location-clean .fh-standard-booking-bar{
+  display:grid;
+  grid-template-columns:1fr 1fr 1.35fr 1fr 1fr 175px;
+  background:rgba(255,250,242,.95);
+  color:var(--ink);
+}
+
+#fh-location-clean .fh-standard-booking-field{
+  min-width:0;
+  padding:14px 15px;
+  border-right:1px solid var(--line);
+  background:rgba(255,250,242,.90);
+  text-align:left;
+}
+
+#fh-location-clean .fh-standard-booking-field label{
+  display:block;
+  margin:0 0 5px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.17em;
+  font-weight:850;
+  color:rgba(25,22,18,.50);
+}
+
+#fh-location-clean .fh-standard-booking-field input{
+  width:100%;
+  border:0;
+  background:transparent;
+  outline:none;
+  color:var(--ink);
+  font-size:15px;
+  padding:0;
+  margin:0;
+  min-height:22px;
+}
+
+#fh-location-clean .fh-standard-booking-field input::placeholder{
+  color:rgba(25,22,18,.44);
+}
+
+#fh-location-clean .fh-standard-booking-btn{
+  border:0;
+  margin:0;
+  background:var(--green-dark);
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:11px;
+  font-weight:850;
+  min-height:58px;
+}
+
+#fh-location-clean .fh-standard-booking-note{
+  margin-top:11px;
+  color:rgba(255,250,242,.78);
+  font-size:13px;
+  text-align:center;
+}
+
+#fh-location-clean .fh-standard-booking-status{
+  display:none;
+  margin-top:11px;
+  padding:12px 14px;
+  border:1px solid rgba(255,250,242,.22);
+  background:rgba(255,250,242,.12);
+  color:#fffaf2;
+  font-size:13px;
+  text-align:center;
+}
+
+#fh-location-clean .fh-standard-booking-status.is-visible{
+  display:block;
+}
+
+#fh-location-clean .fh-final-cta{
+  position:relative;
+  overflow:hidden;
+  color:var(--paper);
+  background:
+    linear-gradient(135deg,rgba(36,51,38,.96),rgba(132,108,86,.90)),
+    url("https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg");
+  background-size:cover;
+  background-position:center;
+  background-blend-mode:multiply;
+}
+
+#fh-location-clean .fh-final-cta p,
+#fh-location-clean .fh-final-cta .fh-kicker{
+  color:rgba(255,250,243,.78);
+}
+
+#fh-location-clean .preFade,
+#fh-location-clean .preSlide,
+#fh-location-clean .preScale,
+#fh-location-clean .preClip{
+  opacity:0;
+  will-change:transform,opacity,clip-path;
+}
+
+#fh-location-clean .preSlide{
+  transform:translateY(38px);
+}
+
+#fh-location-clean .preScale{
+  transform:scale(.97);
+}
+
+#fh-location-clean .preClip{
+  clip-path:inset(0 0 100% 0);
+}
+
+#fh-location-clean .fadeIn{
+  opacity:1;
+  transition:opacity .8s ease var(--d,0s);
+}
+
+#fh-location-clean .slideIn{
+  opacity:1;
+  transform:translateY(0);
+  transition:opacity .82s ease var(--d,0s), transform .82s cubic-bezier(.2,.8,.2,1) var(--d,0s);
+}
+
+#fh-location-clean .scaleIn{
+  opacity:1;
+  transform:scale(1);
+  transition:opacity .9s ease var(--d,0s), transform .9s cubic-bezier(.2,.8,.2,1) var(--d,0s);
+}
+
+#fh-location-clean .clipIn{
+  opacity:1;
+  clip-path:inset(0 0 0 0);
+  transition:opacity .8s ease var(--d,0s), clip-path 1s cubic-bezier(.2,.8,.2,1) var(--d,0s);
+}
+
+@media(max-width:1120px){
+  #fh-location-clean .fh-hero-grid,
+  #fh-location-clean .fh-section-head,
+  #fh-location-clean .fh-intro-grid,
+  #fh-location-clean .fh-location-grid,
+  #fh-location-clean .fh-shuttle-grid{
+    grid-template-columns:1fr;
+  }
+
+  #fh-location-clean .fh-around-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  #fh-location-clean .fh-standard-booking-bar{
+    grid-template-columns:1fr 1fr;
+  }
+
+  #fh-location-clean .fh-standard-booking-field:nth-child(2n){
+    border-right:0;
+  }
+
+  #fh-location-clean .fh-standard-booking-btn{
+    grid-column:1/-1;
+  }
+}
+
+@media(max-width:760px){
+  #fh-location-clean .fh-container,
+  #fh-location-clean .fh-hero-inner{
+    width:calc(100% - 20px);
+  }
+
+  #fh-location-clean .fh-hero-inner{
+    padding-top:122px;
+    padding-bottom:42px;
+  }
+
+  #fh-location-clean h1{
+    font-size:clamp(42px,14vw,66px);
+  }
+
+  #fh-location-clean h2{
+    font-size:clamp(38px,12vw,56px);
+  }
+
+  #fh-location-clean .fh-hero-lead{
+    font-size:16px;
+    margin-bottom:22px;
+  }
+
+  #fh-location-clean .fh-section{
+    padding:72px 16px;
+  }
+
+  #fh-location-clean .fh-section-head{
+    gap:16px;
+    margin-bottom:24px;
+  }
+
+  #fh-location-clean .fh-panel{
+    padding:26px;
+  }
+
+  #fh-location-clean .fh-photo-strip,
+  #fh-location-clean .fh-around-grid,
+  #fh-location-clean .fh-standard-booking-bar{
+    grid-template-columns:1fr;
+  }
+
+  #fh-location-clean .fh-map-card{
+    height:500px!important;
+    min-height:500px!important;
+  }
+
+  #fh-location-clean .fh-map-iframe{
+    min-height:500px!important;
+  }
+
+  #fh-location-clean .fh-standard-booking-shell{
+    padding:7px;
+    margin-top:20px;
+  }
+
+  #fh-location-clean .fh-standard-booking-field{
+    border-right:0;
+    border-bottom:1px solid var(--line);
+    padding:12px 13px;
+  }
+
+  #fh-location-clean .fh-standard-booking-btn{
+    min-height:50px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  #fh-location-clean *,
+  #fh-location-clean *::before,
+  #fh-location-clean *::after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+
+  #fh-location-clean .preFade,
+  #fh-location-clean .preSlide,
+  #fh-location-clean .preScale,
+  #fh-location-clean .preClip{
+    opacity:1!important;
+    transform:none!important;
+    clip-path:none!important;
+  }
+}
+</style>
+
+<div id="fh-location-clean" data-page="location">
+  <div class="fh-topography" aria-hidden="true"></div>
+
+  <div class="fh-shell">
+
+    <section class="fh-hero" id="fh-location-top">
+      <div class="fh-hero-media" id="fh-location-slides" aria-hidden="true"></div>
+
+      <div class="fh-hero-inner">
         <div class="fh-hero-grid">
           <div>
-            <div data-i18n="en">
-              <p class="fh-kicker">Location · Saas-Fee · Switzerland</p>
-              <h1 class="fh-title">Surrounded by nature, close to everything that matters.</h1>
-              <p class="fh-lead">Fletschhorn sits above Saas-Fee in a calm forest setting: private, quiet, and still connected to the village, lifts, trails, restaurants and mountain life.</p>
+            <p class="fh-kicker preFade" style="--d:.10s" data-i18n="hero.kicker">Location in Saas-Fee</p>
+            <h1 class="preSlide" style="--d:.16s" data-i18n="hero.title">Above the village, held by the mountains.</h1>
+            <p class="fh-hero-lead preSlide" style="--d:.24s" data-i18n="hero.lead">Fletschhorn is your private alpine base above Saas-Fee: calm, natural, and connected to the village, ski lifts, trails, shuttles, restaurants and the wider valley.</p>
+
+            <div class="fh-hero-actions preSlide" style="--d:.30s">
+              <a class="fh-btn fh-btn-dark" href="#fh-book-location" data-i18n="hero.book">Book my stay now</a>
+              <a class="fh-btn" href="#fh-map-location" data-i18n="hero.map">Open the map</a>
             </div>
 
-            <div data-i18n="fr" class="fh-lang-hidden">
-              <p class="fh-kicker">Emplacement · Saas-Fee · Suisse</p>
-              <h1 class="fh-title">Entouré par la nature, proche de tout ce qui compte.</h1>
-              <p class="fh-lead">Le Fletschhorn se situe au-dessus de Saas-Fee, dans un cadre forestier calme : privé, paisible, mais toujours connecté au village, aux remontées mécaniques, aux sentiers et à la vie alpine.</p>
-            </div>
-
-            <div data-i18n="de" class="fh-lang-hidden">
-              <p class="fh-kicker">Lage · Saas-Fee · Schweiz</p>
-              <h1 class="fh-title">Von Natur umgeben, nah an allem, was zählt.</h1>
-              <p class="fh-lead">Das Fletschhorn liegt oberhalb von Saas-Fee in einer ruhigen Waldlage: privat, still und dennoch verbunden mit Dorf, Bergbahnen, Wegen, Restaurants und alpinem Leben.</p>
-            </div>
-
-            <div data-i18n="ru" class="fh-lang-hidden">
-              <p class="fh-kicker">Локация · Саас-Фе · Швейцария</p>
-              <h1 class="fh-title">В окружении природы, рядом со всем важным.</h1>
-              <p class="fh-lead">Fletschhorn расположен над Саас-Фе в спокойной лесной зоне: уединённо и тихо, но с удобным доступом к деревне, подъёмникам, маршрутам, ресторанам и горной жизни.</p>
-            </div>
-
-            <div class="fh-actions">
-              <a class="fh-btn fh-btn-dark" href="#booking" data-i18n-text='{"en":"Book my stay now","fr":"Réserver mon séjour","de":"Aufenthalt buchen","ru":"Забронировать"}'>Book my stay now</a>
-              <a class="fh-btn" href="#map" data-i18n-text='{"en":"View the map","fr":"Voir la carte","de":"Karte ansehen","ru":"Посмотреть карту"}'>View the map</a>
-            </div>
-
-            <div class="fh-quick">
-              <div class="fh-quick-item">
-                <strong>Car-free</strong>
-                <span data-i18n-text='{"en":"Saas-Fee village is calm, walkable and mountain-focused.","fr":"Saas-Fee est calme, piétonne et tournée vers la montagne.","de":"Saas-Fee ist ruhig, autofrei und bergnah.","ru":"Саас-Фе — тихая пешеходная альпийская деревня."}'>Saas-Fee village is calm, walkable and mountain-focused.</span>
-              </div>
-              <div class="fh-quick-item">
-                <strong>18 peaks</strong>
-                <span data-i18n-text='{"en":"Surrounded by dramatic four-thousand-meter summits.","fr":"Entouré de sommets spectaculaires de plus de 4 000 m.","de":"Umgeben von eindrucksvollen Viertausendern.","ru":"В окружении впечатляющих четырёхтысячников."}'>Surrounded by dramatic four-thousand-meter summits.</span>
-              </div>
-              <div class="fh-quick-item">
-                <strong>Shuttles</strong>
-                <span data-i18n-text='{"en":"Private transfers and ski-lift shuttle rhythm for groups.","fr":"Transferts privés et navettes vers les remontées pour les groupes.","de":"Private Transfers und Shuttle zu den Bergbahnen.","ru":"Частные трансферы и шаттлы к подъёмникам."}'>Private transfers and ski-lift shuttle rhythm for groups.</span>
-              </div>
-              <div class="fh-quick-item">
-                <strong>All seasons</strong>
-                <span data-i18n-text='{"en":"Skiing, hiking, events, weddings and quiet retreats.","fr":"Ski, randonnée, événements, mariages et séjours calmes.","de":"Ski, Wandern, Events, Hochzeiten und ruhige Retreats.","ru":"Лыжи, походы, события, свадьбы и спокойный отдых."}'>Skiing, hiking, events, weddings and quiet retreats.</span>
-              </div>
+            <div class="fh-standard-booking-shell preSlide" style="--d:.36s">
+              <form class="fh-standard-booking-bar" id="fh-standard-booking-form">
+                <div class="fh-standard-booking-field">
+                  <label for="fh-book-first-name" data-booking-i18n="firstNameLabel">First name</label>
+                  <input id="fh-book-first-name" name="firstName" autocomplete="given-name" placeholder="First name" data-booking-i18n-placeholder="firstNamePlaceholder">
+                </div>
+                <div class="fh-standard-booking-field">
+                  <label for="fh-book-last-name" data-booking-i18n="lastNameLabel">Last name</label>
+                  <input id="fh-book-last-name" name="lastName" autocomplete="family-name" placeholder="Last name" data-booking-i18n-placeholder="lastNamePlaceholder">
+                </div>
+                <div class="fh-standard-booking-field">
+                  <label for="fh-book-email" data-booking-i18n="emailLabel">Email</label>
+                  <input id="fh-book-email" name="email" type="email" autocomplete="email" placeholder="Email address" data-booking-i18n-placeholder="emailPlaceholder">
+                </div>
+                <div class="fh-standard-booking-field">
+                  <label for="fh-book-checkin" data-booking-i18n="arrivalLabel">Arrival</label>
+                  <input id="fh-book-checkin" name="checkIn" type="date">
+                </div>
+                <div class="fh-standard-booking-field">
+                  <label for="fh-book-checkout" data-booking-i18n="departureLabel">Departure</label>
+                  <input id="fh-book-checkout" name="checkOut" type="date">
+                </div>
+                <button class="fh-standard-booking-btn" type="submit" data-booking-i18n="bookButton">Book my stay now</button>
+              </form>
+              <div class="fh-standard-booking-note" data-booking-i18n="bookingNote">Best Rates Guaranteed when Booking Direct</div>
+              <div class="fh-standard-booking-status" id="fh-standard-booking-status"></div>
             </div>
           </div>
 
-          <aside class="fh-hero-card fh-reveal visible">
-            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756344115-UN1RO9UJ7JQZQ8U5LPNB/1521689.jpg" alt="Fletschhorn exterior in Saas-Fee">
-            <div class="fh-hero-badge">
-              <b data-i18n-text='{"en":"Your own alpine base.","fr":"Votre base alpine privée.","de":"Ihre eigene alpine Basis.","ru":"Ваша частная альпийская база."}'>Your own alpine base.</b>
-              <span data-i18n-text='{"en":"A peaceful house for private stays, family gatherings, celebrations and mountain weeks.","fr":"Une maison paisible pour séjours privés, familles, célébrations et semaines à la montagne.","de":"Ein ruhiges Haus für private Aufenthalte, Familien, Feiern und Bergwochen.","ru":"Спокойный дом для частного проживания, семейных встреч, праздников и горных недель."}'>A peaceful house for private stays, family gatherings, celebrations and mountain weeks.</span>
+          <aside class="fh-hero-proof preSlide" style="--d:.28s">
+            <div class="fh-proof">
+              <strong data-i18n="proof.one.title">Car-free village</strong>
+              <span data-i18n="proof.one.text">A calmer alpine environment, easy to enjoy on foot, with practical shuttle support.</span>
+            </div>
+            <div class="fh-proof">
+              <strong data-i18n="proof.two.title">18 high peaks</strong>
+              <span data-i18n="proof.two.text">Saas-Fee is surrounded by a dramatic ring of four-thousand-meter mountains.</span>
+            </div>
+            <div class="fh-proof">
+              <strong data-i18n="proof.three.title">Private base</strong>
+              <span data-i18n="proof.three.text">A whole-property setting for families, groups, retreats, events and alpine weeks.</span>
             </div>
           </aside>
         </div>
       </div>
     </section>
 
-    <section class="fh-section" id="where">
-      <div class="fh-container">
-        <div class="fh-section-head fh-reveal">
+    <main>
+      <section class="fh-section fh-section-alt" id="fh-area-location">
+        <div class="fh-container fh-section-head">
           <div>
-            <p class="fh-kicker" data-i18n-text='{"en":"Where it is","fr":"Où se trouve la maison","de":"Wo es liegt","ru":"Где находится"}'>Where it is</p>
-            <h2 class="fh-section-title" data-i18n-text='{"en":"Above the village, inside the alpine calm.","fr":"Au-dessus du village, dans le calme alpin.","de":"Oberhalb des Dorfes, mitten in alpiner Ruhe.","ru":"Над деревней, в альпийском спокойствии."}'>Above the village, inside the alpine calm.</h2>
+            <p class="fh-kicker preFade" data-i18n="area.kicker">The location</p>
+            <h2 class="preSlide" data-i18n="area.title">Private enough to feel away. Close enough to use the whole valley.</h2>
           </div>
-          <p class="fh-section-text" data-i18n-text='{"en":"Fletschhorn is not in the noisy center. It gives your group a calmer private setting, while keeping the village, ski access, restaurants, shops and nature routes within reach.","fr":"Le Fletschhorn n’est pas au centre bruyant. Il offre à votre groupe un cadre plus calme et privé, tout en restant proche du village, du ski, des restaurants, des commerces et des chemins de nature.","de":"Das Fletschhorn liegt nicht im lauten Zentrum. Es bietet Ihrer Gruppe einen ruhigeren privaten Rahmen, bleibt aber nah am Dorf, Ski-Zugang, Restaurants, Geschäften und Naturwegen.","ru":"Fletschhorn находится не в шумном центре. Он даёт группе более спокойную частную атмосферу, при этом деревня, лыжи, рестораны, магазины и маршруты остаются рядом."}'>Fletschhorn is not in the noisy center. It gives your group a calmer private setting, while keeping the village, ski access, restaurants, shops and nature routes within reach.</p>
+          <p class="preFade" data-i18n="area.lead">The location is the balance: forest calm around the house, practical access to Saas-Fee, and easy movement toward mountain days, village time, events, ski lifts and nature.</p>
         </div>
 
-        <div class="fh-location-intro">
-          <article class="fh-panel fh-reveal">
-            <h3 data-i18n-text='{"en":"A practical location for a private group stay.","fr":"Un emplacement pratique pour un séjour de groupe privé.","de":"Eine praktische Lage für einen privaten Gruppenaufenthalt.","ru":"Практичное место для частного группового отдыха."}'>A practical location for a private group stay.</h3>
-            <p data-i18n-text='{"en":"The point of the location is simple: you can retreat into your own quiet place, then move easily toward ski lifts, hikes, village activities, restaurants and arrival/departure logistics.","fr":"L’idée est simple : vous pouvez vous retirer dans votre propre lieu calme, puis rejoindre facilement les remontées, randonnées, activités du village, restaurants et transferts.","de":"Die Idee ist einfach: Sie ziehen sich in Ihren ruhigen privaten Ort zurück und erreichen dennoch Bergbahnen, Wanderwege, Dorfaktivitäten, Restaurants und Transfers einfach.","ru":"Идея проста: вы отдыхаете в своём спокойном месте и легко добираетесь до подъёмников, маршрутов, деревенской жизни, ресторанов и трансферов."}'>The point of the location is simple: you can retreat into your own quiet place, then move easily toward ski lifts, hikes, village activities, restaurants and arrival/departure logistics.</p>
+        <div class="fh-container fh-intro-grid">
+          <article class="fh-panel fh-panel-dark preSlide">
+            <p class="fh-kicker" data-i18n="area.privateKicker">Private base</p>
+            <h3 data-i18n="area.privateTitle">The house is calm; the village is close.</h3>
+            <p data-i18n="area.privateText">Fletschhorn works as a private base for a group because guests can return to one shared place after skiing, hiking, exploring, celebrating, or spending time in the village.</p>
 
-            <div class="fh-list">
-              <div class="fh-list-item">
-                <div class="fh-list-icon">1</div>
+            <div class="fh-feature-list">
+              <div class="fh-feature">
+                <i>1</i>
                 <div>
-                  <b data-i18n-text='{"en":"Quiet private setting","fr":"Cadre privé et calme","de":"Ruhiger privater Rahmen","ru":"Тихая частная обстановка"}'>Quiet private setting</b>
-                  <span data-i18n-text='{"en":"Ideal for families, retreats, weddings and groups who want their own base.","fr":"Idéal pour familles, retraites, mariages et groupes qui veulent leur propre base.","de":"Ideal für Familien, Retreats, Hochzeiten und Gruppen, die ihre eigene Basis möchten.","ru":"Идеально для семей, ретритов, свадеб и групп, которым нужна своя база."}'>Ideal for families, retreats, weddings and groups who want their own base.</span>
+                  <strong data-i18n="feature.one.title">Whole-property rhythm</strong>
+                  <span data-i18n="feature.one.text">Guests do not feel scattered across a normal hotel setup.</span>
                 </div>
               </div>
-
-              <div class="fh-list-item">
-                <div class="fh-list-icon">2</div>
+              <div class="fh-feature">
+                <i>2</i>
                 <div>
-                  <b data-i18n-text='{"en":"Village and mountain access","fr":"Accès au village et à la montagne","de":"Zugang zu Dorf und Berg","ru":"Доступ к деревне и горам"}'>Village and mountain access</b>
-                  <span data-i18n-text='{"en":"Saas-Fee stays close: lifts, routes, shops, restaurants and local services.","fr":"Saas-Fee reste proche : remontées, sentiers, commerces, restaurants et services.","de":"Saas-Fee bleibt nah: Bahnen, Wege, Geschäfte, Restaurants und lokale Dienste.","ru":"Саас-Фе рядом: подъёмники, маршруты, магазины, рестораны и сервисы."}'>Saas-Fee stays close: lifts, routes, shops, restaurants and local services.</span>
+                  <strong data-i18n="feature.two.title">Village access</strong>
+                  <span data-i18n="feature.two.text">Restaurants, shops, lifts, activities and services stay within reach.</span>
                 </div>
               </div>
-
-              <div class="fh-list-item">
-                <div class="fh-list-icon">3</div>
+              <div class="fh-feature">
+                <i>3</i>
                 <div>
-                  <b data-i18n-text='{"en":"Made easier with shuttles","fr":"Plus simple avec les navettes","de":"Einfacher mit Shuttle","ru":"Удобнее с шаттлами"}'>Made easier with shuttles</b>
-                  <span data-i18n-text='{"en":"Arrival/departure transfers plus daily morning and afternoon shuttles to the lifts can support the rhythm of the stay.","fr":"Les transferts arrivée/départ et les navettes matin/après-midi vers les remontées structurent facilement le séjour.","de":"Transfers bei An- und Abreise sowie tägliche Shuttle am Morgen und Nachmittag zu den Bahnen unterstützen den Aufenthalt.","ru":"Трансферы по приезду/отъезду и утренние/дневные шаттлы к подъёмникам помогают организовать пребывание."}'>Arrival/departure transfers plus daily morning and afternoon shuttles to the lifts can support the rhythm of the stay.</span>
+                  <strong data-i18n="feature.three.title">Nature around you</strong>
+                  <span data-i18n="feature.three.text">The setting feels alpine, quiet and separated from ordinary travel.</span>
                 </div>
               </div>
             </div>
           </article>
 
-          <figure class="fh-image-tile fh-reveal">
-            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1b68ef5d-fcdf-4818-8644-77ce85f68263/1_9418_.jpg" alt="Fletschhorn and surrounding Saas-Fee nature">
-            <figcaption class="fh-image-caption">
-              <b data-i18n-text='{"en":"A house held by the landscape.","fr":"Une maison portée par le paysage.","de":"Ein Haus, getragen von der Landschaft.","ru":"Дом, окружённый пейзажем."}'>A house held by the landscape.</b>
-              <span data-i18n-text='{"en":"Forest, air, mountain views and a real sense of separation from ordinary hotel life.","fr":"Forêt, air pur, vues de montagne et vraie distance avec l’ambiance d’un hôtel classique.","de":"Wald, Luft, Bergblick und echte Distanz zum klassischen Hotelleben.","ru":"Лес, воздух, горные виды и ощущение отделённости от обычной гостиничной жизни."}'>Forest, air, mountain views and a real sense of separation from ordinary hotel life.</span>
-            </figcaption>
+          <article class="fh-panel preSlide" style="--d:.08s">
+            <p class="fh-kicker" data-i18n="area.saasKicker">Saas-Fee</p>
+            <h3 data-i18n="area.saasTitle">A car-free alpine village surrounded by peaks.</h3>
+            <p data-i18n="area.saasText">Saas-Fee is known for its car-free village atmosphere, glacier access, winter skiing, summer routes, family activities and dramatic mountain scenery. The location supports both active and slow stays.</p>
+            <p class="fh-small-note" data-i18n="area.note"><strong>Planning note:</strong> mountain routes, lifts, weather and guide requirements should always be checked before guests leave for the day.</p>
+          </article>
+        </div>
+
+        <div class="fh-container fh-photo-strip">
+          <figure class="fh-photo-tile tall preClip">
+            <img data-fh-img="0" src="https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg" alt="Fletschhorn property and alpine region">
+            <span data-i18n="photos.one">Start from one private house</span>
+          </figure>
+          <figure class="fh-photo-tile preClip" style="--d:.08s">
+            <img data-fh-img="2" src="https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg" alt="Saas-Fee alpine view">
+            <span data-i18n="photos.two">Move through the valley</span>
+          </figure>
+          <figure class="fh-photo-tile preClip" style="--d:.16s">
+            <img data-fh-img="5" src="https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg" alt="Mountain stay atmosphere">
+            <span data-i18n="photos.three">Return to calm</span>
           </figure>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="fh-section" id="shuttle">
-      <div class="fh-container">
-        <div class="fh-section-head fh-reveal">
+      <section class="fh-section" id="fh-map-location">
+        <div class="fh-container fh-section-head">
           <div>
-            <p class="fh-kicker" data-i18n-text='{"en":"Private shuttles","fr":"Navettes privées","de":"Private Shuttle","ru":"Частные шаттлы"}'>Private shuttles</p>
-            <h2 class="fh-section-title" data-i18n-text='{"en":"Easy movement for a whole group.","fr":"Des déplacements faciles pour tout le groupe.","de":"Einfache Bewegung für die ganze Gruppe.","ru":"Удобное передвижение для всей группы."}'>Easy movement for a whole group.</h2>
+            <p class="fh-kicker preFade" data-i18n="map.kicker">Map & orientation</p>
+            <h2 class="preSlide" data-i18n="map.title">Use the house as the anchor point for the stay.</h2>
           </div>
-          <p class="fh-section-text" data-i18n-text='{"en":"For a private-property stay, logistics matter. The shuttle rhythm keeps arrival, departure and ski-lift access clean, especially for larger families, weddings, retreats and corporate groups.","fr":"Pour un séjour en propriété privée, la logistique compte. Le rythme des navettes facilite l’arrivée, le départ et l’accès aux remontées, surtout pour grandes familles, mariages, retraites et groupes d’entreprise.","de":"Bei einem privaten Aufenthalt zählt Logistik. Der Shuttle-Rhythmus erleichtert Ankunft, Abreise und Zugang zu den Bergbahnen, besonders für größere Familien, Hochzeiten, Retreats und Firmengruppen.","ru":"Для частного группового проживания логистика важна. Шаттлы упрощают приезд, отъезд и доступ к подъёмникам, особенно для больших семей, свадеб, ретритов и корпоративных групп."}'>For a private-property stay, logistics matter. The shuttle rhythm keeps arrival, departure and ski-lift access clean, especially for larger families, weddings, retreats and corporate groups.</p>
+          <p class="preFade" data-i18n="map.lead">The map gives guests a simple sense of where Fletschhorn sits in relation to Saas-Fee village, lifts, walking routes, wellness, family activities and bigger mountain days.</p>
         </div>
 
-        <div class="fh-shuttle-grid">
-          <div class="fh-photo-carousel fh-reveal" data-carousel>
-            <div class="fh-slide active">
-              <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756344115-UN1RO9UJ7JQZQ8U5LPNB/1521689.jpg" alt="Fletschhorn exterior">
-            </div>
-            <div class="fh-slide">
-              <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756425144-LGR2PVN9RQ0IIWIOETEI/1504170.jpg" alt="Saas-Fee mountain setting">
-            </div>
-            <div class="fh-slide">
-              <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/5143310-1521705_0_0_4800_3200_1200_800.jpg" alt="Fletschhorn interior gathering space">
-            </div>
-
-            <div class="fh-carousel-controls">
-              <button class="fh-arrow" type="button" data-prev aria-label="Previous image">‹</button>
-              <div class="fh-dots">
-                <button class="fh-dot active" type="button" data-go="0" aria-label="Image 1"></button>
-                <button class="fh-dot" type="button" data-go="1" aria-label="Image 2"></button>
-                <button class="fh-dot" type="button" data-go="2" aria-label="Image 3"></button>
-              </div>
-              <button class="fh-arrow" type="button" data-next aria-label="Next image">›</button>
+        <div class="fh-container fh-location-grid">
+          <div class="fh-map-card preScale">
+            <iframe class="fh-map-iframe" id="fh-osm-map" title="Fletschhorn Saas-Fee area map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=46.1237861,7.929103&z=13&output=embed"></iframe>
+            <a class="fh-map-open" id="fh-map-open" href="https://www.google.com/maps/search/?api=1&query=46.1237861,7.929103" target="_blank" rel="noopener" data-i18n="map.open">Open full map</a>
+            <div class="fh-map-info" id="fh-map-info">
+              <small data-i18n="map.selected">Main address</small>
+              <h3>Fletschhorn / Wildistrasse</h3>
+              <p data-i18n="map.info">Private alpine house base above Saas-Fee. Use this as the starting point for arrival, shuttle planning and daily movement.</p>
             </div>
           </div>
 
-          <article class="fh-panel fh-reveal">
-            <h3 data-i18n-text='{"en":"Less friction, more mountain time.","fr":"Moins de friction, plus de temps en montagne.","de":"Weniger Aufwand, mehr Bergzeit.","ru":"Меньше сложностей, больше времени в горах."}'>Less friction, more mountain time.</h3>
-            <p data-i18n-text='{"en":"The location works best when the group does not have to think about every movement. Build the stay around simple transfer moments: arrive together, reach the lifts, return calmly, and use the property as the private base.","fr":"L’emplacement fonctionne mieux quand le groupe n’a pas besoin de penser à chaque déplacement. Structurez le séjour autour de moments simples : arriver ensemble, rejoindre les remontées, revenir tranquillement et utiliser la propriété comme base privée.","de":"Die Lage funktioniert am besten, wenn die Gruppe nicht jede Bewegung planen muss. Der Aufenthalt kann um einfache Transfermomente gebaut werden: gemeinsam ankommen, die Bahnen erreichen, ruhig zurückkehren und das Haus als private Basis nutzen.","ru":"Локация работает лучше всего, когда группе не нужно думать о каждом перемещении. Постройте пребывание вокруг простых трансферов: приехать вместе, добраться до подъёмников, спокойно вернуться и использовать дом как частную базу."}'>The location works best when the group does not have to think about every movement. Build the stay around simple transfer moments: arrive together, reach the lifts, return calmly, and use the property as the private base.</p>
+          <aside class="fh-side-list preSlide">
+            <button class="fh-place" type="button" data-map-lat="46.1237861" data-map-lon="7.929103" data-map-title="Fletschhorn / Wildistrasse" data-map-text-key="places.fletschhorn.text">
+              <b>01</b>
+              <div>
+                <strong>Fletschhorn / Wildistrasse</strong>
+                <span data-i18n="places.fletschhorn.text">Private alpine house base. Anchor point for the stay.</span>
+                <em data-i18n="places.fletschhorn.tag">House · calm · family</em>
+              </div>
+            </button>
 
-            <div class="fh-list">
-              <div class="fh-list-item">
-                <div class="fh-list-icon">↗</div>
+            <button class="fh-place" type="button" data-map-lat="46.1080" data-map-lon="7.9270" data-map-title="Saas-Fee village" data-map-text-key="places.village.text">
+              <b>02</b>
+              <div>
+                <strong>Saas-Fee village</strong>
+                <span data-i18n="places.village.text">Car-free center, lifts, shops, Foxtrail and arrival logistics.</span>
+                <em data-i18n="places.village.tag">Village · all seasons</em>
+              </div>
+            </button>
+
+            <button class="fh-place" type="button" data-map-lat="46.113" data-map-lon="7.914" data-map-title="Hannig" data-map-text-key="places.hannig.text">
+              <b>03</b>
+              <div>
+                <strong>Hannig</strong>
+                <span data-i18n="places.hannig.text">Sunny mountain, sledging, scooters, playgrounds and themed trails.</span>
+                <em data-i18n="places.hannig.tag">Winter · summer · family</em>
+              </div>
+            </button>
+
+            <button class="fh-place" type="button" data-map-lat="46.102" data-map-lon="7.939" data-map-title="Spielboden" data-map-text-key="places.spielboden.text">
+              <b>04</b>
+              <div>
+                <strong>Spielboden</strong>
+                <span data-i18n="places.spielboden.text">Marmots, family mountain days and access toward higher alpine scenery.</span>
+                <em data-i18n="places.spielboden.tag">Summer · family · calm</em>
+              </div>
+            </button>
+
+            <button class="fh-place" type="button" data-map-lat="46.094" data-map-lon="7.956" data-map-title="Längfluh" data-map-text-key="places.langfluh.text">
+              <b>05</b>
+              <div>
+                <strong>Längfluh</strong>
+                <span data-i18n="places.langfluh.text">Close-up glacier views and a stronger high-altitude feeling.</span>
+                <em data-i18n="places.langfluh.tag">Glacier · trek</em>
+              </div>
+            </button>
+
+            <button class="fh-place" type="button" data-map-lat="46.030" data-map-lon="7.957" data-map-title="Mattmark reservoir" data-map-text-key="places.mattmark.text">
+              <b>06</b>
+              <div>
+                <strong>Mattmark reservoir</strong>
+                <span data-i18n="places.mattmark.text">Turquoise reservoir, dam views, quieter valley walks and longer routes.</span>
+                <em data-i18n="places.mattmark.tag">Lake · trek · calm</em>
+              </div>
+            </button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="fh-section fh-section-alt" id="fh-shuttles-location">
+        <div class="fh-container fh-section-head">
+          <div>
+            <p class="fh-kicker preFade" data-i18n="shuttle.kicker">Private shuttles</p>
+            <h2 class="preSlide" data-i18n="shuttle.title">Simple movement for groups.</h2>
+          </div>
+          <p class="preFade" data-i18n="shuttle.lead">For a private-property stay, logistics matter. Arrival/departure transfers and daily shuttle rhythms help large families, weddings, retreats and ski groups move more easily.</p>
+        </div>
+
+        <div class="fh-container fh-shuttle-grid">
+          <div class="fh-shuttle-media preScale" id="fh-shuttle-media">
+            <div class="fh-shuttle-slide is-active">
+              <img data-fh-img="1" src="https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg" alt="Fletschhorn arrival and shuttle atmosphere">
+            </div>
+            <div class="fh-shuttle-slide">
+              <img data-fh-img="3" src="https://assets.guesty.com/image/upload/v1769381683/production/686c48ada4bbacd7a82a4f83/gdkntjfg2shhfc8sjsox.jpg" alt="Fletschhorn alpine property">
+            </div>
+            <div class="fh-shuttle-slide">
+              <img data-fh-img="4" src="https://assets.guesty.com/image/upload/v1769381684/production/686c48ada4bbacd7a82a4f83/kzwdncmnkciaw508jnk7.jpg" alt="Fletschhorn mountain setting">
+            </div>
+
+            <div class="fh-shuttle-caption">
+              <strong data-i18n="shuttle.captionTitle">Arrive together. Move easily.</strong>
+              <span data-i18n="shuttle.captionText">The house stays calm while the shuttle rhythm keeps the mountain week practical.</span>
+            </div>
+          </div>
+
+          <article class="fh-panel preSlide">
+            <p class="fh-kicker" data-i18n="shuttle.howKicker">How it helps</p>
+            <h3 data-i18n="shuttle.howTitle">Less coordination, more time in the mountains.</h3>
+            <p data-i18n="shuttle.howText">The goal is not to make guests think about every movement. They can arrive, settle in, reach the lifts, return from the village and use the property as a shared private base.</p>
+
+            <div class="fh-feature-list">
+              <div class="fh-feature">
+                <i>↗</i>
                 <div>
-                  <b data-i18n-text='{"en":"Arrival and departure transfers","fr":"Transferts arrivée et départ","de":"Transfers bei An- und Abreise","ru":"Трансферы по приезду и отъезду"}'>Arrival and departure transfers</b>
-                  <span data-i18n-text='{"en":"A cleaner start and end for guests arriving with bags, children, ski gear or event materials.","fr":"Un début et une fin plus simples pour les invités avec bagages, enfants, matériel de ski ou matériel d’événement.","de":"Ein sauberer Start und Abschluss für Gäste mit Gepäck, Kindern, Skiausrüstung oder Eventmaterial.","ru":"Более простой старт и завершение для гостей с багажом, детьми, лыжным снаряжением или материалами для события."}'>A cleaner start and end for guests arriving with bags, children, ski gear or event materials.</span>
+                  <strong data-i18n="shuttle.one.title">Arrival and departure</strong>
+                  <span data-i18n="shuttle.one.text">Cleaner logistics for guests arriving with bags, children, ski gear or event materials.</span>
                 </div>
               </div>
 
-              <div class="fh-list-item">
-                <div class="fh-list-icon">☼</div>
+              <div class="fh-feature">
+                <i>☼</i>
                 <div>
-                  <b data-i18n-text='{"en":"Morning lift shuttle","fr":"Navette du matin vers les remontées","de":"Morgenshuttle zu den Bergbahnen","ru":"Утренний шаттл к подъёмникам"}'>Morning lift shuttle</b>
-                  <span data-i18n-text='{"en":"Helps the group begin the mountain day together without complicated coordination.","fr":"Permet au groupe de commencer la journée en montagne ensemble, sans coordination compliquée.","de":"Hilft der Gruppe, den Bergtag gemeinsam und ohne komplizierte Koordination zu beginnen.","ru":"Помогает группе начать горный день вместе без сложной координации."}'>Helps the group begin the mountain day together without complicated coordination.</span>
+                  <strong data-i18n="shuttle.two.title">Morning lift rhythm</strong>
+                  <span data-i18n="shuttle.two.text">A simpler way for the group to start mountain days together.</span>
                 </div>
               </div>
 
-              <div class="fh-list-item">
-                <div class="fh-list-icon">☾</div>
+              <div class="fh-feature">
+                <i>☾</i>
                 <div>
-                  <b data-i18n-text='{"en":"Afternoon return rhythm","fr":"Retour l’après-midi","de":"Rückkehr am Nachmittag","ru":"Возвращение во второй половине дня"}'>Afternoon return rhythm</b>
-                  <span data-i18n-text='{"en":"A simple return structure for ski days, hikes, village time or mixed group schedules.","fr":"Une structure de retour simple pour ski, randonnée, temps au village ou agendas de groupe mixtes.","de":"Eine einfache Rückkehrstruktur für Skitage, Wanderungen, Dorfzeit oder gemischte Gruppenpläne.","ru":"Простой порядок возвращения после лыж, походов, прогулок по деревне или разных программ группы."}'>A simple return structure for ski days, hikes, village time or mixed group schedules.</span>
+                  <strong data-i18n="shuttle.three.title">Afternoon return</strong>
+                  <span data-i18n="shuttle.three.text">Useful for ski days, hikes, village time and mixed group schedules.</span>
                 </div>
               </div>
             </div>
           </article>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="fh-section" id="around">
-      <div class="fh-container">
-        <div class="fh-section-head fh-reveal">
+      <section class="fh-section" id="fh-around-location">
+        <div class="fh-container fh-section-head">
           <div>
-            <p class="fh-kicker" data-i18n-text='{"en":"What is around","fr":"Ce qu’il y a autour","de":"Was in der Nähe ist","ru":"Что рядом"}'>What is around</p>
-            <h2 class="fh-section-title" data-i18n-text='{"en":"From ski mornings to quiet forest walks.","fr":"Des matins de ski aux promenades calmes en forêt.","de":"Von Skimorgen bis zu ruhigen Waldwegen.","ru":"От лыжного утра до тихих лесных прогулок."}'>From ski mornings to quiet forest walks.</h2>
+            <p class="fh-kicker preFade" data-i18n="around.kicker">Around the house</p>
+            <h2 class="preSlide" data-i18n="around.title">Nature, mountain access and village life.</h2>
           </div>
-          <p class="fh-section-text" data-i18n-text='{"en":"The area adapts to each stay: sport, skiing, hiking, summer routes, group activities, weddings, events, rest and village time.","fr":"La région s’adapte à chaque séjour : sport, ski, randonnée, été, activités de groupe, mariages, événements, repos et vie de village.","de":"Die Gegend passt sich jedem Aufenthalt an: Sport, Ski, Wandern, Sommerwege, Gruppenaktivitäten, Hochzeiten, Events, Ruhe und Dorfzeit.","ru":"Место подходит для разных форматов: спорт, лыжи, походы, летние маршруты, групповые активности, свадьбы, события, отдых и деревенская жизнь."}'>The area adapts to each stay: sport, skiing, hiking, summer routes, group activities, weddings, events, rest and village time.</p>
+          <p class="preFade" data-i18n="around.lead">This page should orient guests clearly: where the house is, what surrounds it, how people move, and why Saas-Fee works for every kind of private stay.</p>
         </div>
 
-        <div class="fh-around-grid">
-          <article class="fh-around-card fh-reveal">
-            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756425144-LGR2PVN9RQ0IIWIOETEI/1504170.jpg" alt="Saas-Fee mountain wellness and calm">
+        <div class="fh-container fh-around-grid">
+          <article class="fh-around-card preScale">
+            <img src="https://res.cloudinary.com/ds57cmzxo/image/upload/c_limit%2Cf_auto%2Cq_80/v1/Webseite/new/Sommer/Tiere/Murmeltiere-Saas-Fee" alt="Marmots around Saas-Fee">
             <div class="fh-around-copy">
-              <small data-i18n-text='{"en":"Nature","fr":"Nature","de":"Natur","ru":"Природа"}'>Nature</small>
-              <h3 data-i18n-text='{"en":"Forest calm","fr":"Calme forestier","de":"Waldruhe","ru":"Лесная тишина"}'>Forest calm</h3>
-              <p data-i18n-text='{"en":"Slow mornings, quiet walks, alpine air and enough separation to feel private.","fr":"Matins lents, promenades calmes, air alpin et assez de distance pour se sentir privé.","de":"Langsame Morgen, ruhige Spaziergänge, alpine Luft und genug Abstand für Privatsphäre.","ru":"Спокойные утра, тихие прогулки, альпийский воздух и ощущение уединения."}'>Slow mornings, quiet walks, alpine air and enough separation to feel private.</p>
+              <small data-i18n="around.one.kicker">Family</small>
+              <h3 data-i18n="around.one.title">Spielboden marmots</h3>
+              <p data-i18n="around.one.text">A signature Saas-Fee moment for families and lighter summer mountain days.</p>
             </div>
           </article>
 
-          <article class="fh-around-card fh-reveal">
-            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1b68ef5d-fcdf-4818-8644-77ce85f68263/1_9418_.jpg" alt="Saas-Fee alpine exterior">
+          <article class="fh-around-card preScale" style="--d:.08s">
+            <img src="https://res.cloudinary.com/ds57cmzxo/image/upload/c_crop%2Ch_1873%2Cw_3330%2Cx_834%2Cy_809/c_limit/f_auto%2Cq_80/v1/Webseite/new/Skifahren-Saas-Fee-Winter-2023__7_" alt="Skiing in Saas-Fee">
             <div class="fh-around-copy">
-              <small data-i18n-text='{"en":"Mountain access","fr":"Accès montagne","de":"Bergzugang","ru":"Доступ к горам"}'>Mountain access</small>
-              <h3 data-i18n-text='{"en":"Lifts and trails","fr":"Remontées et sentiers","de":"Bahnen und Wege","ru":"Подъёмники и тропы"}'>Lifts and trails</h3>
-              <p data-i18n-text='{"en":"Ski days, summer hikes, glacier views and family-friendly alpine activities.","fr":"Journées de ski, randonnées d’été, vues glacier et activités alpines en famille.","de":"Skitage, Sommerwanderungen, Gletscherblicke und familienfreundliche alpine Aktivitäten.","ru":"Лыжные дни, летние походы, виды на ледник и семейные альпийские активности."}'>Ski days, summer hikes, glacier views and family-friendly alpine activities.</p>
+              <small data-i18n="around.two.kicker">Winter</small>
+              <h3 data-i18n="around.two.title">Ski and glacier days</h3>
+              <p data-i18n="around.two.text">High-altitude skiing, winter movement and snow-focused group days.</p>
             </div>
           </article>
 
-          <article class="fh-around-card fh-reveal">
-            <img src="https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/5143310-1521705_0_0_4800_3200_1200_800.jpg" alt="Private gathering in Saas-Fee">
+          <article class="fh-around-card preScale" style="--d:.16s">
+            <img src="https://cdn.saas-fee.ch/fileadmin/_processed_/3/6/csm_IMG_9009_7b4eff14ba.jpg" alt="Almageller Adventure Trail near Saas-Fee">
             <div class="fh-around-copy">
-              <small data-i18n-text='{"en":"Private base","fr":"Base privée","de":"Private Basis","ru":"Частная база"}'>Private base</small>
-              <h3 data-i18n-text='{"en":"Events and weeks","fr":"Événements et semaines","de":"Events und Wochen","ru":"События и недели"}'>Events and weeks</h3>
-              <p data-i18n-text='{"en":"The house works for weddings, family gatherings, retreats and full-property stays.","fr":"La maison convient aux mariages, réunions familiales, retraites et séjours en propriété entière.","de":"Das Haus eignet sich für Hochzeiten, Familientreffen, Retreats und Aufenthalte im ganzen Haus.","ru":"Дом подходит для свадеб, семейных встреч, ретритов и аренды всей собственности."}'>The house works for weddings, family gatherings, retreats and full-property stays.</p>
+              <small data-i18n="around.three.kicker">Summer</small>
+              <h3 data-i18n="around.three.title">Trails and bridges</h3>
+              <p data-i18n="around.three.text">From gentle forest walks to more active alpine route ideas.</p>
             </div>
           </article>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="fh-section" id="map">
-      <div class="fh-container">
-        <div class="fh-section-head fh-reveal">
-          <div>
-            <p class="fh-kicker" data-i18n-text='{"en":"Map and address","fr":"Carte et adresse","de":"Karte und Adresse","ru":"Карта и адрес"}'>Map and address</p>
-            <h2 class="fh-section-title" data-i18n-text='{"en":"Find us in Saas-Fee.","fr":"Nous trouver à Saas-Fee.","de":"Finden Sie uns in Saas-Fee.","ru":"Найдите нас в Саас-Фе."}'>Find us in Saas-Fee.</h2>
+      <section class="fh-section fh-final-cta" id="fh-book-location">
+        <div class="fh-container">
+          <p class="fh-kicker preFade" data-i18n="cta.kicker">Start your stay</p>
+          <h2 class="preSlide" data-i18n="cta.title">Your private Chalet in few clicks.</h2>
+          <p class="preFade" data-i18n="cta.text">Send the essential information first. The booking page will continue with availability, price and the final inquiry flow.</p>
+
+          <div class="fh-standard-booking-shell preSlide">
+            <form class="fh-standard-booking-bar" id="fh-standard-booking-form-bottom">
+              <div class="fh-standard-booking-field">
+                <label for="fh-book-bottom-first-name" data-booking-i18n="firstNameLabel">First name</label>
+                <input id="fh-book-bottom-first-name" name="firstName" autocomplete="given-name" placeholder="First name" data-booking-i18n-placeholder="firstNamePlaceholder">
+              </div>
+              <div class="fh-standard-booking-field">
+                <label for="fh-book-bottom-last-name" data-booking-i18n="lastNameLabel">Last name</label>
+                <input id="fh-book-bottom-last-name" name="lastName" autocomplete="family-name" placeholder="Last name" data-booking-i18n-placeholder="lastNamePlaceholder">
+              </div>
+              <div class="fh-standard-booking-field">
+                <label for="fh-book-bottom-email" data-booking-i18n="emailLabel">Email</label>
+                <input id="fh-book-bottom-email" name="email" type="email" autocomplete="email" placeholder="Email address" data-booking-i18n-placeholder="emailPlaceholder">
+              </div>
+              <div class="fh-standard-booking-field">
+                <label for="fh-book-bottom-checkin" data-booking-i18n="arrivalLabel">Arrival</label>
+                <input id="fh-book-bottom-checkin" name="checkIn" type="date">
+              </div>
+              <div class="fh-standard-booking-field">
+                <label for="fh-book-bottom-checkout" data-booking-i18n="departureLabel">Departure</label>
+                <input id="fh-book-bottom-checkout" name="checkOut" type="date">
+              </div>
+              <button class="fh-standard-booking-btn" type="submit" data-booking-i18n="bookButton">Book my stay now</button>
+            </form>
+            <div class="fh-standard-booking-note" data-booking-i18n="bookingNote">Best Rates Guaranteed when Booking Direct</div>
+            <div class="fh-standard-booking-status" id="fh-standard-booking-status-bottom"></div>
           </div>
-          <p class="fh-section-text" data-i18n-text='{"en":"Use this section for orientation only. Final arrival details, transfer timing and shuttle coordination can be confirmed with the booking team before arrival.","fr":"Cette section sert à vous situer. Les détails d’arrivée, horaires de transfert et navettes peuvent être confirmés avec l’équipe avant votre arrivée.","de":"Dieser Bereich dient zur Orientierung. Ankunftsdetails, Transferzeiten und Shuttle-Koordination können vor der Anreise bestätigt werden.","ru":"Этот раздел для ориентира. Детали приезда, время трансфера и шаттлы можно подтвердить с командой бронирования до прибытия."}'>Use this section for orientation only. Final arrival details, transfer timing and shuttle coordination can be confirmed with the booking team before arrival.</p>
         </div>
+      </section>
+    </main>
+  </div>
+</div>
 
-        <div class="fh-map-wrap fh-reveal">
-          <iframe
-            class="fh-map"
-            title="Fletschhorn Saas-Fee map"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Wildistrasse%2C%203906%20Saas-Fee%2C%20Switzerland&output=embed">
-          </iframe>
+<div id="fh-footer-slot"></div>
 
-          <div class="fh-map-info">
-            <div>
-              <b data-i18n-text='{"en":"Address","fr":"Adresse","de":"Adresse","ru":"Адрес"}'>Address</b>
-              <span>Wildistrasse, 3906 Saas-Fee, Switzerland</span>
-            </div>
-            <div>
-              <b data-i18n-text='{"en":"Booking contact","fr":"Contact réservation","de":"Buchungskontakt","ru":"Контакт для бронирования"}'>Booking contact</b>
-              <span>+41 27 957 2131</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<script>
+(function(){
+  if(window.__fhLocationCleanReady) return;
+  window.__fhLocationCleanReady = true;
 
-    <section class="fh-booking-bar-section" id="booking">
-      <div class="fh-container">
-        <div class="fh-booking-panel fh-reveal">
-          <div data-i18n="en">
-            <p class="fh-kicker" style="color:rgba(255,250,241,.72)">Start your booking</p>
-            <h2>Your private Chalet in few clicks.</h2>
-            <p>Send the essential information first. The booking page will continue with final availability, pricing and inquiry details.</p>
-          </div>
+  document.body.classList.add("fh-github-version");
 
-          <div data-i18n="fr" class="fh-lang-hidden">
-            <p class="fh-kicker" style="color:rgba(255,250,241,.72)">Commencer la réservation</p>
-            <h2>Votre chalet privé en quelques clics.</h2>
-            <p>Envoyez d’abord les informations essentielles. La page de réservation continuera avec disponibilité, prix et demande finale.</p>
-          </div>
+  const root = document.getElementById("fh-location-clean");
+  if(!root) return;
 
-          <div data-i18n="de" class="fh-lang-hidden">
-            <p class="fh-kicker" style="color:rgba(255,250,241,.72)">Buchung starten</p>
-            <h2>Ihr privates Chalet in wenigen Klicks.</h2>
-            <p>Senden Sie zuerst die wichtigsten Informationen. Die Buchungsseite führt dann Verfügbarkeit, Preis und Anfrage weiter.</p>
-          </div>
+  const ASSET_BASE = new URL("assets/", document.baseURI).href;
 
-          <div data-i18n="ru" class="fh-lang-hidden">
-            <p class="fh-kicker" style="color:rgba(255,250,241,.72)">Начать бронирование</p>
-            <h2>Ваше частное шале в несколько кликов.</h2>
-            <p>Сначала отправьте основную информацию. Страница бронирования продолжит с доступностью, ценой и финальным запросом.</p>
-          </div>
+  const CFG = {
+    bookingPageUrl:"booking.html",
+    listingId:"6968339ab7d735001ca015ba",
+    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev"
+  };
 
-          <form class="fh-booking-toolbar" id="fhBookingToolbar">
-            <div class="fh-field">
-              <label for="fhFirstName" data-i18n-text='{"en":"First name","fr":"Prénom","de":"Vorname","ru":"Имя"}'>First name</label>
-              <input id="fhFirstName" name="firstName" autocomplete="given-name" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fhLastName" data-i18n-text='{"en":"Last name","fr":"Nom","de":"Nachname","ru":"Фамилия"}'>Last name</label>
-              <input id="fhLastName" name="lastName" autocomplete="family-name" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fhEmail" data-i18n-text='{"en":"Email","fr":"Email","de":"E-Mail","ru":"Email"}'>Email</label>
-              <input id="fhEmail" name="email" type="email" autocomplete="email" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fhCheckIn" data-i18n-text='{"en":"Arrival","fr":"Arrivée","de":"Anreise","ru":"Заезд"}'>Arrival</label>
-              <input id="fhCheckIn" name="checkIn" type="date" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fhCheckOut" data-i18n-text='{"en":"Departure","fr":"Départ","de":"Abreise","ru":"Выезд"}'>Departure</label>
-              <input id="fhCheckOut" name="checkOut" type="date" required>
-            </div>
-
-            <button type="submit" data-i18n-text='{"en":"Book my stay now","fr":"Réserver mon séjour","de":"Aufenthalt buchen","ru":"Забронировать"}'>Book my stay now</button>
-          </form>
-
-          <div class="fh-booking-error" id="fhBookingError"></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div id="fh-footer-slot"></div>
-
-  <script>
-    document.body.classList.add("fh-github-version");
-
-    const FH_CONFIG = {
-      listingId: "6968339ab7d735001ca015ba",
-      workerBase: "https://guetsyapi.moshe-cohen-h1.workers.dev",
-      bookingPage: "booking.html",
-      langStorageKey: "fh_lang"
-    };
-
-    const ASSET_BASE = new URL("assets/", document.baseURI).href;
-
-    async function fhLoadHtml(slotId, fileName){
-      const slot = document.getElementById(slotId);
-      if (!slot) return;
-
-      try{
-        const response = await fetch(new URL(fileName, ASSET_BASE).href, { cache: "no-cache" });
-        if (!response.ok) throw new Error(fileName + " failed");
-        const html = await response.text();
-
-        slot.innerHTML = html;
-
-        slot.querySelectorAll("script").forEach(oldScript => {
-          const script = document.createElement("script");
-          Array.from(oldScript.attributes).forEach(attr => script.setAttribute(attr.name, attr.value));
-          script.textContent = oldScript.textContent;
-          oldScript.replaceWith(script);
+  async function loadHtml(slotId,fileName){
+    const slot=document.getElementById(slotId);
+    if(!slot) return;
+    try{
+      const response=await fetch(ASSET_BASE+fileName,{cache:"no-cache"});
+      if(!response.ok) throw new Error(fileName+" failed: "+response.status);
+      slot.innerHTML=await response.text();
+      slot.querySelectorAll("script").forEach(function(oldScript){
+        const newScript=document.createElement("script");
+        Array.from(oldScript.attributes).forEach(function(attr){
+          newScript.setAttribute(attr.name,attr.value);
         });
-
-        fhApplyLanguage(fhGetLang());
-      } catch(error){
-        console.warn("Fletschhorn asset load failed:", fileName, error);
-      }
-    }
-
-    function fhGetLang(){
-      const saved = localStorage.getItem(FH_CONFIG.langStorageKey);
-      if (["en","fr","de","ru"].includes(saved)) return saved;
-
-      const htmlLang = (document.documentElement.lang || "en").slice(0,2).toLowerCase();
-      if (["en","fr","de","ru"].includes(htmlLang)) return htmlLang;
-
-      return "en";
-    }
-
-    function fhApplyLanguage(lang){
-      if (!["en","fr","de","ru"].includes(lang)) lang = "en";
-
-      localStorage.setItem(FH_CONFIG.langStorageKey, lang);
-      document.documentElement.lang = lang;
-
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        el.classList.toggle("fh-lang-hidden", el.getAttribute("data-i18n") !== lang);
+        newScript.textContent=oldScript.textContent;
+        oldScript.replaceWith(newScript);
       });
-
-      document.querySelectorAll("[data-i18n-text]").forEach(el => {
-        try{
-          const map = JSON.parse(el.getAttribute("data-i18n-text"));
-          if (map[lang]) el.textContent = map[lang];
-        } catch(error){}
-      });
-
-      document.querySelectorAll("[data-fh-lang], [data-lang], [data-language]").forEach(el => {
-        const value = el.getAttribute("data-fh-lang") || el.getAttribute("data-lang") || el.getAttribute("data-language");
-        if (value) el.classList.toggle("active", value === lang);
-      });
+    }catch(error){
+      console.error("Fletschhorn header/footer load error:",error);
     }
+  }
 
-    document.addEventListener("click", event => {
-      const langButton = event.target.closest("[data-fh-lang], [data-lang], [data-language]");
-      if (!langButton) return;
+  loadHtml("fh-header-slot","Header.html");
+  loadHtml("fh-footer-slot","footer.html");
 
-      const lang = langButton.getAttribute("data-fh-lang") || langButton.getAttribute("data-lang") || langButton.getAttribute("data-language");
-      if (!["en","fr","de","ru"].includes(lang)) return;
+  const fallbackImages = [
+    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
+    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
+    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg",
+    "https://assets.guesty.com/image/upload/v1769381683/production/686c48ada4bbacd7a82a4f83/gdkntjfg2shhfc8sjsox.jpg",
+    "https://assets.guesty.com/image/upload/v1769381684/production/686c48ada4bbacd7a82a4f83/kzwdncmnkciaw508jnk7.jpg",
+    "https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg",
+    "https://assets.guesty.com/image/upload/v1769381550/production/686c48ada4bbacd7a82a4f83/vzgtukkezd2kk28kcphi.jpg",
+    "https://assets.guesty.com/image/upload/v1769381488/production/686c48ada4bbacd7a82a4f83/tgbuyyre4bz9oyczaasv.jpg"
+  ];
 
+  const i18n = {
+    en:{
+      "hero.kicker":"Location in Saas-Fee",
+      "hero.title":"Above the village, held by the mountains.",
+      "hero.lead":"Fletschhorn is your private alpine base above Saas-Fee: calm, natural, and connected to the village, ski lifts, trails, shuttles, restaurants and the wider valley.",
+      "hero.book":"Book my stay now",
+      "hero.map":"Open the map",
+
+      "proof.one.title":"Car-free village",
+      "proof.one.text":"A calmer alpine environment, easy to enjoy on foot, with practical shuttle support.",
+      "proof.two.title":"18 high peaks",
+      "proof.two.text":"Saas-Fee is surrounded by a dramatic ring of four-thousand-meter mountains.",
+      "proof.three.title":"Private base",
+      "proof.three.text":"A whole-property setting for families, groups, retreats, events and alpine weeks.",
+
+      "area.kicker":"The location",
+      "area.title":"Private enough to feel away. Close enough to use the whole valley.",
+      "area.lead":"The location is the balance: forest calm around the house, practical access to Saas-Fee, and easy movement toward mountain days, village time, events, ski lifts and nature.",
+      "area.privateKicker":"Private base",
+      "area.privateTitle":"The house is calm; the village is close.",
+      "area.privateText":"Fletschhorn works as a private base for a group because guests can return to one shared place after skiing, hiking, exploring, celebrating, or spending time in the village.",
+      "area.saasKicker":"Saas-Fee",
+      "area.saasTitle":"A car-free alpine village surrounded by peaks.",
+      "area.saasText":"Saas-Fee is known for its car-free village atmosphere, glacier access, winter skiing, summer routes, family activities and dramatic mountain scenery. The location supports both active and slow stays.",
+      "area.note":"Planning note: mountain routes, lifts, weather and guide requirements should always be checked before guests leave for the day.",
+
+      "feature.one.title":"Whole-property rhythm",
+      "feature.one.text":"Guests do not feel scattered across a normal hotel setup.",
+      "feature.two.title":"Village access",
+      "feature.two.text":"Restaurants, shops, lifts, activities and services stay within reach.",
+      "feature.three.title":"Nature around you",
+      "feature.three.text":"The setting feels alpine, quiet and separated from ordinary travel.",
+
+      "photos.one":"Start from one private house",
+      "photos.two":"Move through the valley",
+      "photos.three":"Return to calm",
+
+      "map.kicker":"Map & orientation",
+      "map.title":"Use the house as the anchor point for the stay.",
+      "map.lead":"The map gives guests a simple sense of where Fletschhorn sits in relation to Saas-Fee village, lifts, walking routes, wellness, family activities and bigger mountain days.",
+      "map.open":"Open full map",
+      "map.selected":"Main address",
+      "map.info":"Private alpine house base above Saas-Fee. Use this as the starting point for arrival, shuttle planning and daily movement.",
+
+      "places.fletschhorn.text":"Private alpine house base. Anchor point for the stay.",
+      "places.fletschhorn.tag":"House · calm · family",
+      "places.village.text":"Car-free center, lifts, shops, Foxtrail and arrival logistics.",
+      "places.village.tag":"Village · all seasons",
+      "places.hannig.text":"Sunny mountain, sledging, scooters, playgrounds and themed trails.",
+      "places.hannig.tag":"Winter · summer · family",
+      "places.spielboden.text":"Marmots, family mountain days and access toward higher alpine scenery.",
+      "places.spielboden.tag":"Summer · family · calm",
+      "places.langfluh.text":"Close-up glacier views and a stronger high-altitude feeling.",
+      "places.langfluh.tag":"Glacier · trek",
+      "places.mattmark.text":"Turquoise reservoir, dam views, quieter valley walks and longer routes.",
+      "places.mattmark.tag":"Lake · trek · calm",
+
+      "shuttle.kicker":"Private shuttles",
+      "shuttle.title":"Simple movement for groups.",
+      "shuttle.lead":"For a private-property stay, logistics matter. Arrival/departure transfers and daily shuttle rhythms help large families, weddings, retreats and ski groups move more easily.",
+      "shuttle.captionTitle":"Arrive together. Move easily.",
+      "shuttle.captionText":"The house stays calm while the shuttle rhythm keeps the mountain week practical.",
+      "shuttle.howKicker":"How it helps",
+      "shuttle.howTitle":"Less coordination, more time in the mountains.",
+      "shuttle.howText":"The goal is not to make guests think about every movement. They can arrive, settle in, reach the lifts, return from the village and use the property as a shared private base.",
+      "shuttle.one.title":"Arrival and departure",
+      "shuttle.one.text":"Cleaner logistics for guests arriving with bags, children, ski gear or event materials.",
+      "shuttle.two.title":"Morning lift rhythm",
+      "shuttle.two.text":"A simpler way for the group to start mountain days together.",
+      "shuttle.three.title":"Afternoon return",
+      "shuttle.three.text":"Useful for ski days, hikes, village time and mixed group schedules.",
+
+      "around.kicker":"Around the house",
+      "around.title":"Nature, mountain access and village life.",
+      "around.lead":"This page should orient guests clearly: where the house is, what surrounds it, how people move, and why Saas-Fee works for every kind of private stay.",
+      "around.one.kicker":"Family",
+      "around.one.title":"Spielboden marmots",
+      "around.one.text":"A signature Saas-Fee moment for families and lighter summer mountain days.",
+      "around.two.kicker":"Winter",
+      "around.two.title":"Ski and glacier days",
+      "around.two.text":"High-altitude skiing, winter movement and snow-focused group days.",
+      "around.three.kicker":"Summer",
+      "around.three.title":"Trails and bridges",
+      "around.three.text":"From gentle forest walks to more active alpine route ideas.",
+
+      "cta.kicker":"Start your stay",
+      "cta.title":"Your private Chalet in few clicks.",
+      "cta.text":"Send the essential information first. The booking page will continue with availability, price and the final inquiry flow."
+    },
+
+    fr:{
+      "hero.kicker":"Emplacement à Saas-Fee",
+      "hero.title":"Au-dessus du village, porté par les montagnes.",
+      "hero.lead":"Fletschhorn est votre base alpine privée au-dessus de Saas-Fee : calme, naturelle, connectée au village, aux remontées, aux sentiers, aux navettes, aux restaurants et à toute la vallée.",
+      "hero.book":"Réserver mon séjour",
+      "hero.map":"Ouvrir la carte",
+
+      "proof.one.title":"Village sans voitures",
+      "proof.one.text":"Un environnement alpin plus calme, facile à vivre à pied, avec un soutien pratique des navettes.",
+      "proof.two.title":"18 hauts sommets",
+      "proof.two.text":"Saas-Fee est entourée d’un cercle spectaculaire de sommets de plus de 4 000 mètres.",
+      "proof.three.title":"Base privée",
+      "proof.three.text":"Une propriété entière pour familles, groupes, retraites, événements et semaines alpines.",
+
+      "area.kicker":"L’emplacement",
+      "area.title":"Assez privé pour s’éloigner. Assez proche pour utiliser toute la vallée.",
+      "area.lead":"L’emplacement crée l’équilibre : calme forestier autour de la maison, accès pratique à Saas-Fee, et déplacement facile vers la montagne, le village, les événements, les remontées et la nature.",
+      "area.privateKicker":"Base privée",
+      "area.privateTitle":"La maison est calme ; le village est proche.",
+      "area.privateText":"Fletschhorn fonctionne comme une base privée pour un groupe, car les invités reviennent dans un même lieu après le ski, la randonnée, l’exploration, les célébrations ou le village.",
+      "area.saasKicker":"Saas-Fee",
+      "area.saasTitle":"Un village alpin sans voitures entouré de sommets.",
+      "area.saasText":"Saas-Fee est connue pour son atmosphère piétonne, son accès au glacier, le ski d’hiver, les routes d’été, les activités familiales et son paysage de montagne spectaculaire.",
+      "area.note":"Note de planification : les routes, remontées, conditions météo et besoins en guide doivent toujours être vérifiés avant le départ des invités.",
+
+      "feature.one.title":"Rythme de propriété entière",
+      "feature.one.text":"Les invités ne se sentent pas dispersés dans une configuration d’hôtel classique.",
+      "feature.two.title":"Accès au village",
+      "feature.two.text":"Restaurants, commerces, remontées, activités et services restent accessibles.",
+      "feature.three.title":"Nature autour de vous",
+      "feature.three.text":"Le cadre est alpin, calme et séparé du voyage ordinaire.",
+
+      "photos.one":"Commencer depuis une maison privée",
+      "photos.two":"Explorer la vallée",
+      "photos.three":"Revenir au calme",
+
+      "map.kicker":"Carte & orientation",
+      "map.title":"Utiliser la maison comme point d’ancrage du séjour.",
+      "map.lead":"La carte donne aux invités une vision simple de la position du Fletschhorn par rapport au village, aux remontées, aux chemins, au bien-être, aux activités familiales et aux grands jours de montagne.",
+      "map.open":"Ouvrir la carte",
+      "map.selected":"Adresse principale",
+      "map.info":"Base alpine privée au-dessus de Saas-Fee. Point de départ pour l’arrivée, les navettes et les déplacements quotidiens.",
+
+      "places.fletschhorn.text":"Base alpine privée. Point d’ancrage du séjour.",
+      "places.fletschhorn.tag":"Maison · calme · famille",
+      "places.village.text":"Centre sans voitures, remontées, commerces, Foxtrail et logistique d’arrivée.",
+      "places.village.tag":"Village · toutes saisons",
+      "places.hannig.text":"Montagne ensoleillée, luge, trottinettes, aires de jeux et sentiers thématiques.",
+      "places.hannig.tag":"Hiver · été · famille",
+      "places.spielboden.text":"Marmottes, journées familiales en montagne et accès vers les paysages alpins.",
+      "places.spielboden.tag":"Été · famille · calme",
+      "places.langfluh.text":"Vues rapprochées du glacier et sensation plus haute montagne.",
+      "places.langfluh.tag":"Glacier · randonnée",
+      "places.mattmark.text":"Réservoir turquoise, vues du barrage, marches plus calmes et routes plus longues.",
+      "places.mattmark.tag":"Lac · randonnée · calme",
+
+      "shuttle.kicker":"Navettes privées",
+      "shuttle.title":"Des déplacements simples pour les groupes.",
+      "shuttle.lead":"Pour un séjour en propriété privée, la logistique compte. Transferts arrivée/départ et navettes quotidiennes aident familles, mariages, retraites et groupes de ski.",
+      "shuttle.captionTitle":"Arriver ensemble. Bouger facilement.",
+      "shuttle.captionText":"La maison reste calme pendant que le rythme des navettes rend la semaine pratique.",
+      "shuttle.howKicker":"Comment cela aide",
+      "shuttle.howTitle":"Moins de coordination, plus de montagne.",
+      "shuttle.howText":"L’objectif est d’éviter aux invités de penser à chaque déplacement. Ils arrivent, s’installent, rejoignent les remontées, reviennent du village et utilisent la propriété comme base privée.",
+      "shuttle.one.title":"Arrivée et départ",
+      "shuttle.one.text":"Une logistique plus claire pour les invités avec bagages, enfants, ski ou matériel d’événement.",
+      "shuttle.two.title":"Rythme du matin",
+      "shuttle.two.text":"Une façon plus simple de commencer les journées de montagne ensemble.",
+      "shuttle.three.title":"Retour l’après-midi",
+      "shuttle.three.text":"Utile pour ski, randonnées, village et horaires de groupe mixtes.",
+
+      "around.kicker":"Autour de la maison",
+      "around.title":"Nature, montagne et vie de village.",
+      "around.lead":"Cette page doit orienter clairement les invités : où se trouve la maison, ce qui l’entoure, comment on se déplace, et pourquoi Saas-Fee convient aux séjours privés.",
+      "around.one.kicker":"Famille",
+      "around.one.title":"Marmottes de Spielboden",
+      "around.one.text":"Un moment emblématique de Saas-Fee pour les familles et les journées d’été douces.",
+      "around.two.kicker":"Hiver",
+      "around.two.title":"Ski et glacier",
+      "around.two.text":"Ski d’altitude, mouvement hivernal et journées de groupe dans la neige.",
+      "around.three.kicker":"Été",
+      "around.three.title":"Sentiers et ponts",
+      "around.three.text":"Des promenades en forêt aux routes alpines plus actives.",
+
+      "cta.kicker":"Commencer le séjour",
+      "cta.title":"Votre chalet privé en quelques clics.",
+      "cta.text":"Envoyez d’abord les informations essentielles. La page de réservation continuera avec disponibilité, prix et demande finale."
+    }
+  };
+
+  i18n.de = Object.assign({}, i18n.en, {
+    "hero.kicker":"Lage in Saas-Fee",
+    "hero.title":"Oberhalb des Dorfes, von Bergen gehalten.",
+    "hero.lead":"Fletschhorn ist Ihre private alpine Basis oberhalb von Saas-Fee: ruhig, natürlich und verbunden mit Dorf, Bergbahnen, Wegen, Shuttles, Restaurants und dem Tal.",
+    "hero.book":"Aufenthalt buchen",
+    "hero.map":"Karte öffnen",
+    "cta.title":"Ihr privates Chalet in wenigen Klicks."
+  });
+
+  i18n.ru = Object.assign({}, i18n.en, {
+    "hero.kicker":"Локация в Саас-Фе",
+    "hero.title":"Над деревней, среди гор.",
+    "hero.lead":"Fletschhorn — ваша частная альпийская база над Саас-Фе: спокойно, природно и удобно рядом с деревней, подъёмниками, тропами, шаттлами, ресторанами и всей долиной.",
+    "hero.book":"Забронировать",
+    "hero.map":"Открыть карту",
+    "cta.title":"Ваше частное шале в несколько кликов."
+  });
+
+  const bookingCopy = {
+    en:{
+      firstNameLabel:"First name",
+      lastNameLabel:"Last name",
+      emailLabel:"Email",
+      arrivalLabel:"Arrival",
+      departureLabel:"Departure",
+      firstNamePlaceholder:"First name",
+      lastNamePlaceholder:"Last name",
+      emailPlaceholder:"Email address",
+      bookButton:"Book my stay now",
+      bookingNote:"Best Rates Guaranteed when Booking Direct",
+      missing:"Please complete your first name, last name, email, arrival date, and departure date.",
+      email:"Please enter a valid email address.",
+      date:"Departure must be after arrival."
+    },
+    fr:{
+      firstNameLabel:"Prénom",
+      lastNameLabel:"Nom",
+      emailLabel:"Email",
+      arrivalLabel:"Arrivée",
+      departureLabel:"Départ",
+      firstNamePlaceholder:"Prénom",
+      lastNamePlaceholder:"Nom",
+      emailPlaceholder:"Adresse email",
+      bookButton:"Réserver mon séjour",
+      bookingNote:"Meilleurs tarifs garantis en réservant en direct",
+      missing:"Veuillez compléter le prénom, le nom, l’email, la date d’arrivée et la date de départ.",
+      email:"Veuillez entrer une adresse email valide.",
+      date:"La date de départ doit être après la date d’arrivée."
+    },
+    de:{
+      firstNameLabel:"Vorname",
+      lastNameLabel:"Nachname",
+      emailLabel:"E-Mail",
+      arrivalLabel:"Anreise",
+      departureLabel:"Abreise",
+      firstNamePlaceholder:"Vorname",
+      lastNamePlaceholder:"Nachname",
+      emailPlaceholder:"E-Mail-Adresse",
+      bookButton:"Aufenthalt buchen",
+      bookingNote:"Beste Preise garantiert bei Direktbuchung",
+      missing:"Bitte Vorname, Nachname, E-Mail, Anreise und Abreise ausfüllen.",
+      email:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      date:"Die Abreise muss nach der Anreise liegen."
+    },
+    ru:{
+      firstNameLabel:"Имя",
+      lastNameLabel:"Фамилия",
+      emailLabel:"Email",
+      arrivalLabel:"Заезд",
+      departureLabel:"Выезд",
+      firstNamePlaceholder:"Имя",
+      lastNamePlaceholder:"Фамилия",
+      emailPlaceholder:"Email адрес",
+      bookButton:"Забронировать",
+      bookingNote:"Лучшие цены гарантированы при прямом бронировании",
+      missing:"Заполните имя, фамилию, email, дату заезда и дату выезда.",
+      email:"Введите корректный email.",
+      date:"Дата выезда должна быть позже даты заезда."
+    }
+  };
+
+  function normalizeLang(value){
+    value = String(value || "en").toLowerCase();
+    if(value.startsWith("fr")) return "fr";
+    if(value.startsWith("de")) return "de";
+    if(value.startsWith("ru")) return "ru";
+    return "en";
+  }
+
+  function currentLang(){
+    return normalizeLang(
+      localStorage.getItem("fh_lang") ||
+      localStorage.getItem("fh_language") ||
+      localStorage.getItem("fhLang") ||
+      document.documentElement.lang ||
+      "en"
+    );
+  }
+
+  function t(key){
+    const lang = currentLang();
+    return (i18n[lang] && i18n[lang][key]) || i18n.en[key] || key;
+  }
+
+  function setLanguage(lang){
+    const normalized = normalizeLang(lang);
+    localStorage.setItem("fh_lang", normalized);
+    localStorage.setItem("fh_language", normalized);
+    localStorage.setItem("fhLang", normalized);
+    document.documentElement.setAttribute("lang", normalized);
+
+    root.querySelectorAll("[data-i18n]").forEach(function(el){
+      el.textContent = t(el.dataset.i18n);
+    });
+
+    const dict = bookingCopy[normalized] || bookingCopy.en;
+
+    document.querySelectorAll("[data-booking-i18n]").forEach(function(el){
+      const key = el.getAttribute("data-booking-i18n");
+      if(dict[key]) el.textContent = dict[key];
+    });
+
+    document.querySelectorAll("[data-booking-i18n-placeholder]").forEach(function(el){
+      const key = el.getAttribute("data-booking-i18n-placeholder");
+      if(dict[key]) el.setAttribute("placeholder", dict[key]);
+    });
+
+    if(window.FHSetLanguage) window.FHSetLanguage(normalized);
+    window.dispatchEvent(new CustomEvent("fh:language",{detail:{lang:normalized}}));
+  }
+
+  document.addEventListener("click",function(event){
+    const trigger = event.target.closest("[data-fh-lang], [data-lang], [data-language]");
+    if(!trigger) return;
+    const lang = trigger.dataset.fhLang || trigger.dataset.lang || trigger.dataset.language;
+    if(lang) setTimeout(function(){ setLanguage(lang); },0);
+  });
+
+  function buildHero(images){
+    const host = document.getElementById("fh-location-slides");
+    if(!host) return;
+    host.innerHTML = "";
+
+    images.slice(0,8).forEach(function(src,index){
+      const slide = document.createElement("div");
+      slide.className = "fh-hero-slide" + (index === 0 ? " is-active" : "");
+      slide.style.backgroundImage = 'url("' + src + '")';
+      host.appendChild(slide);
+    });
+
+    const slides = Array.from(host.querySelectorAll(".fh-hero-slide"));
+    let active = 0;
+
+    if(slides.length > 1){
+      window.setInterval(function(){
+        slides[active].classList.remove("is-active");
+        active = (active + 1) % slides.length;
+        slides[active].classList.add("is-active");
+      },8500);
+    }
+  }
+
+  function applyImages(images){
+    buildHero(images);
+
+    root.querySelectorAll("[data-fh-img]").forEach(function(el){
+      const index = Number(el.getAttribute("data-fh-img")) || 0;
+      if(images[index % images.length]) el.src = images[index % images.length];
+    });
+  }
+
+  function setupShuttleSlider(){
+    const host = document.getElementById("fh-shuttle-media");
+    if(!host) return;
+
+    const slides = Array.from(host.querySelectorAll(".fh-shuttle-slide"));
+    let active = 0;
+
+    if(slides.length > 1){
+      window.setInterval(function(){
+        slides[active].classList.remove("is-active");
+        active = (active + 1) % slides.length;
+        slides[active].classList.add("is-active");
+      },6200);
+    }
+  }
+
+  function setupMapButtons(){
+    const iframe = document.getElementById("fh-osm-map");
+    const info = document.getElementById("fh-map-info");
+    const openLink = document.getElementById("fh-map-open");
+
+    root.querySelectorAll(".fh-place").forEach(function(button){
+      button.addEventListener("click",function(){
+        const lat = button.dataset.mapLat;
+        const lon = button.dataset.mapLon;
+        const title = button.dataset.mapTitle || "Fletschhorn";
+        const text = t(button.dataset.mapTextKey || "map.info");
+
+        if(iframe && lat && lon){
+          iframe.src = "https://www.google.com/maps?q=" + lat + "," + lon + "&z=13&output=embed";
+        }
+
+        if(openLink && lat && lon){
+          openLink.href = "https://www.google.com/maps/search/?api=1&query=" + lat + "," + lon;
+        }
+
+        if(info){
+          info.innerHTML = "<small>" + t("map.selected") + "</small><h3>" + title + "</h3><p>" + text + "</p>";
+        }
+      });
+    });
+  }
+
+  function setupAppear(){
+    const appearObserver = "IntersectionObserver" in window ? new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+
+        const el = entry.target;
+        if(el.classList.contains("preFade")) el.classList.add("fadeIn");
+        if(el.classList.contains("preSlide")) el.classList.add("slideIn");
+        if(el.classList.contains("preScale")) el.classList.add("scaleIn");
+        if(el.classList.contains("preClip")) el.classList.add("clipIn");
+
+        appearObserver.unobserve(el);
+      });
+    }, { threshold:.16, rootMargin:"0px 0px -6% 0px" }) : null;
+
+    root.querySelectorAll(".preFade,.preSlide,.preScale,.preClip").forEach(function(el){
+      if(appearObserver) appearObserver.observe(el);
+      else el.classList.add("fadeIn","slideIn","scaleIn","clipIn");
+    });
+  }
+
+  function validEmail(email){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
+  }
+
+  function setupBookingForm(formId,statusId,source){
+    const form = document.getElementById(formId);
+    const status = document.getElementById(statusId);
+    if(!form) return;
+
+    const params = new URLSearchParams(window.location.search);
+    let stored = {};
+    try{
+      stored = JSON.parse(localStorage.getItem("fhBookingStart") || "{}");
+    }catch(e){}
+
+    ["firstName","lastName","email","checkIn","checkOut"].forEach(function(key){
+      const value = params.get(key) || stored[key] || "";
+      if(value && form.elements[key]) form.elements[key].value = value;
+    });
+
+    form.addEventListener("submit",function(event){
       event.preventDefault();
-      fhApplyLanguage(lang);
-    });
 
-    window.addEventListener("storage", event => {
-      if (event.key === FH_CONFIG.langStorageKey) fhApplyLanguage(fhGetLang());
-    });
+      const lang = currentLang();
+      const dict = bookingCopy[lang] || bookingCopy.en;
 
-    fhLoadHtml("fh-header-slot", "Header.html");
-    fhLoadHtml("fh-footer-slot", "footer.html");
-    fhApplyLanguage(fhGetLang());
+      const payload = {
+        firstName:String(form.elements.firstName.value || "").trim(),
+        lastName:String(form.elements.lastName.value || "").trim(),
+        email:String(form.elements.email.value || "").trim(),
+        checkIn:form.elements.checkIn.value,
+        checkOut:form.elements.checkOut.value,
+        lang:lang,
+        source:source || "location",
+        listingId:CFG.listingId,
+        workerBase:CFG.workerBase,
+        createdAt:new Date().toISOString()
+      };
 
-    const revealObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      });
-    }, { threshold: .12 });
-
-    document.querySelectorAll(".fh-reveal").forEach(el => revealObserver.observe(el));
-
-    document.querySelectorAll("[data-carousel]").forEach(carousel => {
-      const slides = Array.from(carousel.querySelectorAll(".fh-slide"));
-      const dots = Array.from(carousel.querySelectorAll(".fh-dot"));
-      const prev = carousel.querySelector("[data-prev]");
-      const next = carousel.querySelector("[data-next]");
-      let index = 0;
-
-      function show(i){
-        index = (i + slides.length) % slides.length;
-        slides.forEach((slide, n) => slide.classList.toggle("active", n === index));
-        dots.forEach((dot, n) => dot.classList.toggle("active", n === index));
+      function show(message){
+        if(!status) return;
+        status.textContent = message;
+        status.classList.add("is-visible");
       }
 
-      dots.forEach(dot => {
-        dot.addEventListener("click", () => show(Number(dot.getAttribute("data-go") || 0)));
-      });
+      if(!payload.firstName || !payload.lastName || !payload.email || !payload.checkIn || !payload.checkOut){
+        show(dict.missing);
+        return;
+      }
 
-      if (prev) prev.addEventListener("click", () => show(index - 1));
-      if (next) next.addEventListener("click", () => show(index + 1));
+      if(!validEmail(payload.email)){
+        show(dict.email);
+        return;
+      }
 
-      setInterval(() => show(index + 1), 6500);
+      if(payload.checkOut <= payload.checkIn){
+        show(dict.date);
+        return;
+      }
+
+      localStorage.setItem("fhBookingStart",JSON.stringify(payload));
+
+      const next = new URL(CFG.bookingPageUrl,document.baseURI);
+      next.searchParams.set("firstName",payload.firstName);
+      next.searchParams.set("lastName",payload.lastName);
+      next.searchParams.set("email",payload.email);
+      next.searchParams.set("checkIn",payload.checkIn);
+      next.searchParams.set("checkOut",payload.checkOut);
+      next.searchParams.set("lang",payload.lang);
+      next.searchParams.set("source","location");
+
+      window.location.href = next.toString();
     });
+  }
 
-    document.querySelectorAll("img").forEach(img => {
-      img.addEventListener("error", () => {
-        img.style.opacity = "0";
-        const parent = img.parentElement;
-        if (parent) parent.style.background = "linear-gradient(135deg,#efe6d7,#c9bda8,#607257)";
-      });
-    });
+  const urlLang = new URLSearchParams(window.location.search).get("lang");
 
-    function fhValidEmail(email){
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
-    }
+  applyImages(fallbackImages);
+  setupShuttleSlider();
+  setupMapButtons();
+  setupAppear();
+  setupBookingForm("fh-standard-booking-form","fh-standard-booking-status","location");
+  setupBookingForm("fh-standard-booking-form-bottom","fh-standard-booking-status-bottom","location");
+  setLanguage(urlLang || currentLang());
+})();
+</script>
 
-    function fhShowBookingError(message){
-      const box = document.getElementById("fhBookingError");
-      if (!box) return;
-      box.textContent = message;
-      box.style.display = "block";
-    }
-
-    function fhHideBookingError(){
-      const box = document.getElementById("fhBookingError");
-      if (!box) return;
-      box.textContent = "";
-      box.style.display = "none";
-    }
-
-    const bookingForm = document.getElementById("fhBookingToolbar");
-
-    if (bookingForm){
-      bookingForm.addEventListener("submit", event => {
-        event.preventDefault();
-        fhHideBookingError();
-
-        const formData = new FormData(bookingForm);
-        const payload = {
-          firstName: String(formData.get("firstName") || "").trim(),
-          lastName: String(formData.get("lastName") || "").trim(),
-          email: String(formData.get("email") || "").trim(),
-          checkIn: String(formData.get("checkIn") || "").trim(),
-          checkOut: String(formData.get("checkOut") || "").trim(),
-          lang: fhGetLang(),
-          source: "location",
-          listingId: FH_CONFIG.listingId,
-          workerBase: FH_CONFIG.workerBase
-        };
-
-        const currentLang = fhGetLang();
-
-        const messages = {
-          en: {
-            missing: "Please complete first name, last name, email, arrival and departure.",
-            email: "Please enter a valid email address.",
-            dates: "Departure must be after arrival."
-          },
-          fr: {
-            missing: "Veuillez compléter prénom, nom, email, arrivée et départ.",
-            email: "Veuillez entrer une adresse email valide.",
-            dates: "Le départ doit être après l’arrivée."
-          },
-          de: {
-            missing: "Bitte Vorname, Nachname, E-Mail, Anreise und Abreise ausfüllen.",
-            email: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-            dates: "Die Abreise muss nach der Anreise liegen."
-          },
-          ru: {
-            missing: "Заполните имя, фамилию, email, дату заезда и дату выезда.",
-            email: "Введите корректный email.",
-            dates: "Дата выезда должна быть позже даты заезда."
-          }
-        };
-
-        const t = messages[currentLang] || messages.en;
-
-        if (!payload.firstName || !payload.lastName || !payload.email || !payload.checkIn || !payload.checkOut){
-          fhShowBookingError(t.missing);
-          return;
-        }
-
-        if (!fhValidEmail(payload.email)){
-          fhShowBookingError(t.email);
-          return;
-        }
-
-        if (new Date(payload.checkOut) <= new Date(payload.checkIn)){
-          fhShowBookingError(t.dates);
-          return;
-        }
-
-        localStorage.setItem("fhBookingStart", JSON.stringify(payload));
-
-        const params = new URLSearchParams({
-          firstName: payload.firstName,
-          lastName: payload.lastName,
-          email: payload.email,
-          checkIn: payload.checkIn,
-          checkOut: payload.checkOut,
-          lang: payload.lang,
-          source: "location"
-        });
-
-        window.location.href = FH_CONFIG.bookingPage + "?" + params.toString();
-      });
-    }
-  </script>
 </body>
 </html>
