@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="stylesheet" href="assets/fh-global.css">
 
 <div id="fh-header-slot"></div>
@@ -2771,434 +2772,322 @@
 })();
 </script>
 
-<!-- Fletschhorn About — true mobile-first behavior patch
-     This replaces the wrong Experiences patch. It targets #fh-about and keeps the existing
-     EN/FR/DE/RU language system, fh_lang localStorage key, header/footer loading,
-     booking toolbar, calendar modal, and booking.html handoff. -->
-<style id="fh-about-true-mobile-first-patch">
-#fh-about{overflow-x:hidden!important}
+<!-- Fletschhorn About — TRUE mobile recipe applied
+     This is the same recipe learned from the working mobile behavior:
+     larger mobile header, real phone hero, readable booking toolbar, wider mobile trigger,
+     horizontal carousels with peekaboo hints, bottom-sheet calendar, and no new language system. -->
+<style id="fh-about-true-mobile-recipe-final">
+#fh-about{overflow-x:hidden!important;max-width:100%!important}
 #fh-about *{min-width:0}
 
-@media(max-width:760px){
+/* The mobile recipe must trigger BEFORE the page starts looking squeezed.
+   iPhone Safari, touch devices, and narrow desktop previews all get the real mobile behavior. */
+@media (max-width:980px), (hover:none) and (pointer:coarse){
   html,body{overflow-x:hidden!important;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
-  /* Header loaded from assets/Header.html: keep it readable instead of desktop-compressed. */
-  #fh-header-slot{
-    position:relative!important;
-    z-index:260!important;
+  /* Header loaded from assets/Header.html — force readable mobile header, not mini desktop. */
+  #fh-header-slot{position:relative!important;z-index:900!important;width:100%!important}
+  body.fh-about-force-mobile-header #fh-header-slot header,
+  body.fh-about-force-mobile-header #fh-header-slot .fh-header,
+  body.fh-about-force-mobile-header #fh-header-slot .fh-site-header,
+  body.fh-about-force-mobile-header #fh-header-slot [class*="header" i]{
+    width:calc(100% - 16px)!important;
+    max-width:calc(100% - 16px)!important;
+    min-height:64px!important;
+    margin:8px auto 0!important;
+    padding:10px 12px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:10px!important;
   }
-  #fh-header-slot header,
-  #fh-header-slot .fh-header,
-  #fh-header-slot .header,
-  #fh-header-slot [class*="header"]{
-    max-width:calc(100% - 18px)!important;
-  }
-  #fh-header-slot img,
-  #fh-header-slot svg{max-height:42px!important}
-  #fh-header-slot button,
-  #fh-header-slot .fh-menu-toggle,
-  #fh-header-slot [aria-label*="menu" i]{
-    min-width:42px!important;
+  body.fh-about-force-mobile-header #fh-header-slot .fh-brand,
+  body.fh-about-force-mobile-header #fh-header-slot .fh-logo,
+  body.fh-about-force-mobile-header #fh-header-slot [class*="brand" i],
+  body.fh-about-force-mobile-header #fh-header-slot [class*="logo" i]{
     min-height:42px!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:10px!important;
+    max-width:calc(100% - 62px)!important;
+  }
+  body.fh-about-force-mobile-header #fh-header-slot img,
+  body.fh-about-force-mobile-header #fh-header-slot svg{max-height:44px!important;width:auto!important}
+  body.fh-about-force-mobile-header #fh-header-slot a,
+  body.fh-about-force-mobile-header #fh-header-slot span,
+  body.fh-about-force-mobile-header #fh-header-slot strong{
+    text-wrap:balance;
+  }
+  body.fh-about-force-mobile-header #fh-header-slot button,
+  body.fh-about-force-mobile-header #fh-header-slot .fh-menu-toggle,
+  body.fh-about-force-mobile-header #fh-header-slot .fh-hamburger,
+  body.fh-about-force-mobile-header #fh-header-slot [aria-label*="menu" i],
+  body.fh-about-force-mobile-header #fh-header-slot [class*="menu" i]{
+    min-width:46px!important;
+    min-height:46px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    flex:0 0 auto!important;
+  }
+  body.fh-about-force-mobile-header #fh-header-slot nav:not([class*="drawer" i]):not([class*="mobile" i]),
+  body.fh-about-force-mobile-header #fh-header-slot .fh-desktop-nav,
+  body.fh-about-force-mobile-header #fh-header-slot [class*="desktop" i]{
+    display:none!important;
   }
 
-  /* True mobile hero: no tall desktop hero squeezed into a phone. */
   #fh-about{
     --edge:15px!important;
+    --fh-phone-pad:15px!important;
+    --fh-card:rgba(255,250,243,.95)!important;
     background:linear-gradient(180deg,#f7f1e8 0%,#eee4d9 100%)!important;
   }
-  #fh-about .ambient{position:absolute!important;height:760px!important;opacity:.55!important;animation:none!important}
-  #fh-about .ambient::before,#fh-about .ambient::after{animation:none!important;filter:blur(10px)!important}
-  #fh-about .grain{opacity:.035!important}
+  #fh-about .ambient{position:absolute!important;height:720px!important;opacity:.52!important;animation:none!important;overflow:hidden!important}
+  #fh-about .ambient::before,#fh-about .ambient::after{animation:none!important;filter:blur(10px)!important;opacity:.16!important}
+  #fh-about .grain{opacity:.032!important}
 
+  /* HERO: real mobile composition, not a squeezed desktop split layout. */
   #fh-about .hero{
     display:block!important;
-    align-items:flex-start!important;
-    justify-content:flex-start!important;
     min-height:0!important;
     height:auto!important;
     max-height:none!important;
     overflow:hidden!important;
     background:#211d19!important;
   }
-  #fh-about .hero-media{
-    position:absolute!important;
-    inset:0!important;
-    height:100%!important;
-    min-height:560px!important;
-  }
-  #fh-about .hero-slide{
-    background-position:center 36%!important;
-    transform:none!important;
-  }
+  #fh-about .hero-media{position:absolute!important;inset:0!important;height:100%!important;min-height:560px!important;z-index:0!important}
+  #fh-about .hero-slide{background-position:center 34%!important;transform:none!important}
   #fh-about .hero-media::before{
     background:
-      linear-gradient(180deg,rgba(18,16,14,.58),rgba(18,16,14,.34) 34%,rgba(18,16,14,.78) 100%),
-      radial-gradient(circle at 50% 12%,rgba(255,255,255,.10),transparent 0 22%)!important;
+      linear-gradient(180deg,rgba(18,16,14,.58),rgba(18,16,14,.32) 34%,rgba(18,16,14,.78) 100%),
+      radial-gradient(circle at 50% 10%,rgba(255,255,255,.12),transparent 0 24%)!important;
   }
-  #fh-about .hero-media::after{
-    background:linear-gradient(180deg,transparent 70%,#f7f1e8 100%)!important;
-  }
+  #fh-about .hero-media::after{background:linear-gradient(180deg,transparent 68%,#f7f1e8 100%)!important}
   #fh-about .hero-inner{
+    position:relative!important;
+    z-index:2!important;
     width:100%!important;
     max-width:none!important;
-    padding:92px 15px 18px!important;
+    padding:104px var(--fh-phone-pad) 20px!important;
     text-align:left!important;
     color:#fffaf3!important;
   }
-  #fh-about .hero-title-system{
-    display:block!important;
-    width:100%!important;
-    text-align:left!important;
-  }
+  #fh-about .hero-title-system{display:block!important;width:100%!important;text-align:left!important;margin:0!important}
   #fh-about .hero-static-title{text-align:left!important}
   #fh-about .crest{
-    width:42px!important;
-    height:42px!important;
-    margin:0 0 10px!important;
-    font-size:17px!important;
-    place-items:center!important;
+    width:48px!important;height:48px!important;margin:0 0 12px!important;
+    font-size:18px!important;display:grid!important;place-items:center!important;
+    background:rgba(255,255,255,.06)!important;
   }
-  #fh-about .eyebrow{
-    margin:0 0 8px!important;
-    font-size:9px!important;
-    line-height:1.25!important;
-    letter-spacing:.16em!important;
-    color:rgba(255,250,243,.78)!important;
-  }
+  #fh-about .eyebrow{margin:0 0 9px!important;font-size:10px!important;line-height:1.22!important;letter-spacing:.17em!important;color:rgba(255,250,243,.80)!important}
   #fh-about h1{
     max-width:11.5ch!important;
     margin:0 0 14px!important;
-    font-size:clamp(38px,12.5vw,56px)!important;
-    line-height:.92!important;
+    font-size:clamp(42px,13vw,58px)!important;
+    line-height:.91!important;
     letter-spacing:-.058em!important;
     text-align:left!important;
   }
   #fh-about .hero-dynamic-card{
-    width:100%!important;
-    max-width:none!important;
-    margin:0!important;
-    padding:14px!important;
-    border-left:0!important;
-    border-top:1px solid rgba(255,250,243,.25)!important;
-    text-align:left!important;
-    background:rgba(255,250,243,.12)!important;
-    -webkit-backdrop-filter:blur(12px)!important;
-    backdrop-filter:blur(12px)!important;
+    width:100%!important;max-width:none!important;margin:0!important;
+    padding:15px!important;border-left:0!important;border-top:1px solid rgba(255,250,243,.26)!important;
+    text-align:left!important;background:rgba(255,250,243,.13)!important;
+    -webkit-backdrop-filter:blur(12px)!important;backdrop-filter:blur(12px)!important;
   }
-  #fh-about .hero-dynamic-card::before{
-    left:14px!important;
-    top:-1px!important;
-    width:48px!important;
-    height:1px!important;
-    transform:none!important;
-  }
-  #fh-about .hero-dynamic-kicker{
-    margin:0 0 6px!important;
-    font-size:8.8px!important;
-    letter-spacing:.13em!important;
-    color:rgba(255,250,243,.66)!important;
-  }
-  #fh-about .hero-dynamic-title{
-    max-width:100%!important;
-    margin:0 0 6px!important;
-    font-size:clamp(24px,7.5vw,31px)!important;
-    line-height:1!important;
-    letter-spacing:-.045em!important;
-  }
-  #fh-about .hero-lead{
-    max-width:100%!important;
-    font-size:13.5px!important;
-    line-height:1.45!important;
-    color:rgba(255,250,243,.84)!important;
-  }
+  #fh-about .hero-dynamic-card::before{left:15px!important;top:-1px!important;width:54px!important;height:1px!important;transform:none!important}
+  #fh-about .hero-dynamic-kicker{margin:0 0 7px!important;font-size:9px!important;letter-spacing:.13em!important;color:rgba(255,250,243,.68)!important}
+  #fh-about .hero-dynamic-title{max-width:100%!important;margin:0 0 7px!important;font-size:clamp(26px,7.8vw,34px)!important;line-height:1!important;letter-spacing:-.045em!important}
+  #fh-about .hero-lead{max-width:100%!important;font-size:14px!important;line-height:1.48!important;color:rgba(255,250,243,.86)!important}
   #fh-about .peekaboo{display:none!important}
 
-  /* Booking toolbar: compact, readable, not hidden at the bottom of a giant hero. */
+  /* Booking toolbar: readable phone form, with first/last side by side and main actions full width. */
   #fh-about .fh-booking-toolbar-wrap{
-    width:100%!important;
-    max-width:none!important;
-    margin:0!important;
-    padding:0 12px 12px!important;
-    background:linear-gradient(180deg,#f7f1e8,#f3eadf)!important;
+    width:100%!important;max-width:none!important;margin:0!important;
+    padding:0 12px 12px!important;background:linear-gradient(180deg,#f7f1e8,#f3eadf)!important;
   }
   #fh-about .fh-booking-toolbar{
-    width:100%!important;
-    margin:0!important;
-    padding:6px!important;
-    background:rgba(255,250,243,.50)!important;
-    border:1px solid rgba(255,250,243,.84)!important;
+    width:100%!important;margin:0!important;padding:6px!important;
+    background:rgba(255,250,243,.54)!important;border:1px solid rgba(255,250,243,.86)!important;
     box-shadow:0 18px 48px rgba(18,16,14,.14)!important;
-    -webkit-backdrop-filter:blur(12px)!important;
-    backdrop-filter:blur(12px)!important;
+    -webkit-backdrop-filter:blur(12px)!important;backdrop-filter:blur(12px)!important;
   }
-  #fh-about .fh-booking-form{
-    display:grid!important;
-    grid-template-columns:1fr 1fr!important;
-    background:var(--paper)!important;
-  }
+  #fh-about .fh-booking-form{display:grid!important;grid-template-columns:1fr 1fr!important;background:var(--paper)!important}
   #fh-about .fh-booking-toolbar .fh-field,
   #fh-about .fh-booking-toolbar .fh-field:nth-child(1),
   #fh-about .fh-booking-toolbar .fh-field:nth-child(2),
   #fh-about .fh-booking-toolbar .fh-field:nth-child(3),
   #fh-about .fh-booking-toolbar .fh-field:nth-child(4){
-    grid-column:auto!important;
-    padding:10px!important;
-    border-right:1px solid var(--line)!important;
-    border-bottom:1px solid var(--line)!important;
-    background:rgba(255,250,243,.98)!important;
+    grid-column:auto!important;padding:11px!important;border-right:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important;background:rgba(255,250,243,.98)!important;
   }
   #fh-about .fh-booking-toolbar .fh-field:nth-child(2){border-right:0!important}
   #fh-about .fh-booking-toolbar .fh-field:nth-child(3),
   #fh-about .fh-booking-toolbar .fh-field:nth-child(4),
-  #fh-about .fh-submit{
-    grid-column:1/-1!important;
-    border-right:0!important;
-  }
-  #fh-about .fh-booking-toolbar label{
-    margin-bottom:4px!important;
-    font-size:8.7px!important;
-    line-height:1.1!important;
-    letter-spacing:.13em!important;
-  }
-  #fh-about .fh-booking-toolbar input,
-  #fh-about .fh-date-button span{
-    min-height:22px!important;
-    font-size:14px!important;
-    line-height:1.2!important;
-  }
-  #fh-about .fh-date-button{min-height:24px!important;gap:6px!important}
-  #fh-about .fh-date-button strong{font-size:8.8px!important;letter-spacing:.10em!important}
-  #fh-about .fh-submit{
-    min-height:50px!important;
-    width:100%!important;
-    font-size:10px!important;
-    letter-spacing:.13em!important;
-  }
-  #fh-about .fh-booking-note{
-    margin:8px 2px 0!important;
-    color:rgba(26,23,20,.58)!important;
-    font-size:11.5px!important;
-    line-height:1.38!important;
-  }
-  #fh-about .fh-status{
-    color:var(--ink)!important;
-    background:rgba(255,250,243,.86)!important;
-    border-color:rgba(26,23,20,.14)!important;
-    font-size:13px!important;
-  }
+  #fh-about .fh-submit{grid-column:1/-1!important;border-right:0!important}
+  #fh-about .fh-booking-toolbar label{margin-bottom:5px!important;font-size:9px!important;line-height:1.1!important;letter-spacing:.13em!important}
+  #fh-about .fh-booking-toolbar input,#fh-about .fh-date-button span{min-height:23px!important;font-size:14.5px!important;line-height:1.2!important}
+  #fh-about .fh-date-button{min-height:25px!important;gap:6px!important}
+  #fh-about .fh-date-button strong{font-size:9px!important;letter-spacing:.10em!important}
+  #fh-about .fh-submit{min-height:52px!important;width:100%!important;font-size:10.5px!important;letter-spacing:.13em!important}
+  #fh-about .fh-booking-note{margin:8px 2px 0!important;color:rgba(26,23,20,.58)!important;font-size:12px!important;line-height:1.38!important}
+  #fh-about .fh-status{color:var(--ink)!important;background:rgba(255,250,243,.86)!important;border-color:rgba(26,23,20,.14)!important;font-size:13px!important}
   #fh-about .fh-status.error{background:rgba(180,40,40,.10)!important;color:#7d2e28!important;border-color:rgba(180,40,40,.22)!important}
   #fh-about .fh-status.success{background:rgba(45,112,74,.12)!important;color:#315c42!important;border-color:rgba(45,112,74,.22)!important}
 
-  /* Mobile section rhythm: shorter, readable, no endless oversized images. */
-  #fh-about .section{
-    padding:42px 15px!important;
-  }
-  #fh-about .section-head{
-    display:block!important;
-    margin-bottom:16px!important;
-  }
-  #fh-about .kicker{
-    margin-bottom:8px!important;
-    font-size:9.5px!important;
-    letter-spacing:.14em!important;
-  }
-  #fh-about h2{
-    font-size:clamp(31px,9.5vw,43px)!important;
-    line-height:.98!important;
-    letter-spacing:-.05em!important;
-    margin-bottom:10px!important;
-  }
-  #fh-about h3{
-    font-size:clamp(25px,7.8vw,32px)!important;
-    line-height:1!important;
-    letter-spacing:-.045em!important;
-  }
-  #fh-about p{font-size:14px!important;line-height:1.55!important}
-  #fh-about .panel{padding:20px!important;box-shadow:0 12px 34px rgba(18,16,14,.08)!important}
+  /* Page rhythm: mobile-first spacing and readable type. */
+  #fh-about .section{padding:42px var(--fh-phone-pad)!important}
+  #fh-about .section-head{display:block!important;margin-bottom:17px!important}
+  #fh-about .kicker{margin-bottom:8px!important;font-size:9.8px!important;letter-spacing:.145em!important}
+  #fh-about h2{font-size:clamp(33px,10vw,45px)!important;line-height:.98!important;letter-spacing:-.05em!important;margin-bottom:10px!important}
+  #fh-about h3{font-size:clamp(26px,8vw,34px)!important;line-height:1!important;letter-spacing:-.045em!important}
+  #fh-about p{font-size:14.5px!important;line-height:1.56!important}
+  #fh-about .panel{padding:21px!important;box-shadow:0 12px 34px rgba(18,16,14,.08)!important}
 
-  #fh-about .story-led-grid,
-  #fh-about .history-editorial,
-  #fh-about .two-col,
-  #fh-about .inquiry-card{
-    display:block!important;
-  }
-  #fh-about .story-lead-panel{
-    min-height:0!important;
-    padding:22px!important;
-    margin-bottom:12px!important;
-  }
+  #fh-about .story-led-grid,#fh-about .history-editorial,#fh-about .two-col,#fh-about .inquiry-card{display:block!important}
+  #fh-about .story-lead-panel{min-height:0!important;padding:23px!important;margin-bottom:12px!important}
   #fh-about .story-lead-panel::before{inset:10px!important}
-  #fh-about .story-lead-panel h3{font-size:clamp(33px,10vw,45px)!important}
-  #fh-about .story-proof-row{
-    display:grid!important;
-    grid-template-columns:repeat(3,minmax(0,1fr))!important;
-    gap:6px!important;
-    margin-top:18px!important;
-    padding-top:14px!important;
-  }
-  #fh-about .story-proof-row strong{font-size:25px!important}
-  #fh-about .story-proof-row span{font-size:8.8px!important;letter-spacing:.09em!important;line-height:1.2!important}
+  #fh-about .story-lead-panel h3{font-size:clamp(35px,10.5vw,47px)!important}
+  #fh-about .story-proof-row{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;margin-top:18px!important;padding-top:14px!important}
+  #fh-about .story-proof-row strong{font-size:26px!important}
+  #fh-about .story-proof-row span{font-size:9px!important;letter-spacing:.09em!important;line-height:1.2!important}
 
-  #fh-about .story-photo-wall,
-  #fh-about .history-image-stack,
-  #fh-about .image-stage{
-    min-height:0!important;
-    height:315px!important;
-    margin-bottom:12px!important;
-    box-shadow:0 16px 42px rgba(18,16,14,.12)!important;
+  /* Images: shorter, useful, not massive scroll blockers. */
+  #fh-about .story-photo-wall,#fh-about .history-image-stack,#fh-about .image-stage{
+    min-height:0!important;height:320px!important;margin-bottom:12px!important;box-shadow:0 16px 42px rgba(18,16,14,.12)!important;
   }
-  #fh-about .story-photo-small.one,
-  #fh-about .story-photo-small.two,
-  #fh-about .history-small-img,
-  #fh-about .image-stage .float-one,
-  #fh-about .image-stage .float-two{
-    display:none!important;
+  #fh-about .story-photo-small.one,#fh-about .story-photo-small.two,#fh-about .history-small-img,#fh-about .image-stage .float-one,#fh-about .image-stage .float-two{display:none!important}
+  #fh-about .story-photo-main,#fh-about .history-main-img,#fh-about .image-stage .main{inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important}
+  #fh-about .image-caption-card,#fh-about .history-quote,#fh-about .mini-card{
+    left:10px!important;right:10px!important;bottom:10px!important;width:auto!important;padding:12px!important;max-height:120px!important;overflow:hidden!important;
   }
-  #fh-about .image-caption-card,
-  #fh-about .history-quote,
-  #fh-about .mini-card{
-    left:10px!important;
-    right:10px!important;
-    bottom:10px!important;
-    width:auto!important;
-    padding:12px!important;
-    max-height:118px!important;
-    overflow:hidden!important;
-  }
-  #fh-about .history-quote span{font-size:30px!important;margin-bottom:4px!important}
-  #fh-about .image-caption-card p,
-  #fh-about .history-quote p,
-  #fh-about .mini-card p{font-size:12px!important;line-height:1.36!important}
+  #fh-about .history-quote span{font-size:31px!important;margin-bottom:4px!important}
+  #fh-about .image-caption-card p,#fh-about .history-quote p,#fh-about .mini-card p{font-size:12.2px!important;line-height:1.36!important}
 
-  /* Use horizontal cards where it reduces scroll. */
-  #fh-about .timeline,
-  #fh-about .facts,
-  #fh-about .kitchen-options-grid{
-    display:flex!important;
-    grid-template-columns:none!important;
-    gap:10px!important;
-    width:calc(100% + 15px)!important;
-    margin-right:-15px!important;
-    overflow-x:auto!important;
-    overflow-y:hidden!important;
-    padding:0 15px 6px 0!important;
-    scroll-snap-type:x mandatory!important;
-    -webkit-overflow-scrolling:touch!important;
-    scrollbar-width:none!important;
+  /* Carousels: every carousel has an inserted peekaboo + the next card visibly peeks. */
+  #fh-about .fh-carousel-peekaboo{
+    display:flex!important;align-items:center;justify-content:space-between;gap:10px;
+    width:100%;margin:0 0 9px;padding:9px 11px;
+    border:1px solid rgba(135,110,88,.18);background:rgba(255,250,243,.72);
+    color:rgba(26,23,20,.64);font-size:10px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;
   }
-  #fh-about .timeline::-webkit-scrollbar,
-  #fh-about .facts::-webkit-scrollbar,
-  #fh-about .kitchen-options-grid::-webkit-scrollbar{display:none!important}
-  #fh-about .time-row,
-  #fh-about .fact,
-  #fh-about .kitchen-option{
-    flex:0 0 84%!important;
-    scroll-snap-align:start!important;
-    min-height:170px!important;
-    padding:18px!important;
-    background:rgba(255,250,243,.95)!important;
+  #fh-about .fh-carousel-peekaboo::after{content:"→";font-size:15px;color:var(--clay-dark);animation:fhAboutPeekArrow 1.25s ease-in-out infinite alternate}
+  @keyframes fhAboutPeekArrow{from{transform:translateX(0);opacity:.65}to{transform:translateX(5px);opacity:1}}
+
+  #fh-about .timeline,#fh-about .facts,#fh-about .kitchen-options-grid{
+    display:flex!important;grid-template-columns:none!important;gap:10px!important;
+    width:calc(100% + var(--fh-phone-pad))!important;margin-right:calc(-1 * var(--fh-phone-pad))!important;
+    overflow-x:auto!important;overflow-y:hidden!important;padding:0 var(--fh-phone-pad) 7px 0!important;
+    scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important;
   }
-  #fh-about .time-row{
-    display:block!important;
+  #fh-about .timeline::-webkit-scrollbar,#fh-about .facts::-webkit-scrollbar,#fh-about .kitchen-options-grid::-webkit-scrollbar{display:none!important}
+  #fh-about .time-row,#fh-about .fact,#fh-about .kitchen-option{
+    flex:0 0 82%!important;scroll-snap-align:start!important;min-height:172px!important;padding:18px!important;background:var(--fh-card)!important;
   }
-  #fh-about .year{font-size:30px!important;margin-bottom:5px!important}
-  #fh-about .fact strong,
-  #fh-about .kitchen-option strong{font-size:28px!important;margin-bottom:8px!important}
-  #fh-about .fact span,
-  #fh-about .kitchen-option span{font-size:13px!important;line-height:1.45!important}
+  #fh-about .time-row{display:block!important}
+  #fh-about .year{font-size:31px!important;margin-bottom:5px!important}
+  #fh-about .fact strong,#fh-about .kitchen-option strong{font-size:29px!important;margin-bottom:8px!important}
+  #fh-about .fact span,#fh-about .kitchen-option span{font-size:13.2px!important;line-height:1.45!important}
 
   #fh-about .two-col .panel{margin-bottom:12px!important}
   #fh-about .inquiry-card .panel + .panel{margin-top:12px!important}
-  #fh-about .cta-button{
-    width:100%!important;
-    min-height:48px!important;
-    margin-top:16px!important;
-    font-size:10px!important;
-  }
+  #fh-about .cta-button{width:100%!important;min-height:50px!important;margin-top:16px!important;font-size:10.5px!important}
   #fh-about .contact-line{padding:12px 0!important}
 
-  /* Calendar becomes a bottom sheet. */
-  #fh-about .fh-calendar-modal{
-    align-items:flex-end!important;
-    justify-content:center!important;
-    padding:0!important;
-    z-index:400!important;
-  }
-  #fh-about .fh-calendar-card{
-    width:100%!important;
-    max-height:88svh!important;
-    border-radius:18px 18px 0 0!important;
-    padding:13px!important;
-    overflow:auto!important;
-  }
-  #fh-about .fh-calendar-title{font-size:25px!important;line-height:1!important}
-  #fh-about .fh-calendar-head{gap:8px!important;margin-bottom:10px!important}
+  /* Calendar as a bottom sheet. */
+  #fh-about .fh-calendar-modal{align-items:flex-end!important;justify-content:center!important;padding:0!important;z-index:1200!important}
+  #fh-about .fh-calendar-card{width:100%!important;max-height:88svh!important;border-radius:18px 18px 0 0!important;padding:13px!important;overflow:auto!important}
+  #fh-about .fh-calendar-title{font-size:26px!important;line-height:1!important}
+  #fh-about .fh-calendar-head{gap:8px!important;margin-bottom:10px!important;align-items:center!important}
   #fh-about .fh-calendar-nav{gap:6px!important}
-  #fh-about .fh-calendar-nav button{width:38px!important;min-height:36px!important}
-  #fh-about .fh-calendar-help{font-size:12px!important;margin-bottom:8px!important}
-  #fh-about .fh-calendar-warning{font-size:12px!important;margin-bottom:9px!important}
+  #fh-about .fh-calendar-nav button{width:39px!important;min-height:37px!important}
+  #fh-about .fh-calendar-help{font-size:12.2px!important;margin-bottom:8px!important}
+  #fh-about .fh-calendar-warning{font-size:12.2px!important;margin-bottom:9px!important}
   #fh-about .fh-weekdays,#fh-about .fh-calendar-grid{gap:3px!important}
   #fh-about .fh-weekday{font-size:8px!important;letter-spacing:.08em!important}
-  #fh-about .fh-day{min-height:47px!important;padding:4px!important}
+  #fh-about .fh-day{min-height:48px!important;padding:4px!important}
   #fh-about .fh-day-number{font-size:12px!important}
   #fh-about .fh-day-price{display:none!important}
 }
 
 @media(max-width:390px){
-  #fh-about{--edge:12px!important}
-  #fh-about .hero-inner{padding:82px 12px 16px!important}
-  #fh-about h1{font-size:36px!important}
-  #fh-about .hero-lead{font-size:13px!important}
+  #fh-about{--edge:12px!important;--fh-phone-pad:12px!important}
+  #fh-about .hero-inner{padding:92px 12px 16px!important}
+  #fh-about h1{font-size:38px!important}
+  #fh-about .hero-lead{font-size:13.5px!important}
   #fh-about .fh-booking-toolbar-wrap{padding-left:10px!important;padding-right:10px!important}
-  #fh-about .time-row,#fh-about .fact,#fh-about .kitchen-option{flex-basis:88%!important}
-  #fh-about .story-photo-wall,#fh-about .history-image-stack,#fh-about .image-stage{height:290px!important}
+  #fh-about .time-row,#fh-about .fact,#fh-about .kitchen-option{flex-basis:87%!important}
+  #fh-about .story-photo-wall,#fh-about .history-image-stack,#fh-about .image-stage{height:295px!important}
 }
 </style>
 
-<script id="fh-about-mobile-language-bridge">
+<script id="fh-about-true-mobile-recipe-js">
 (function(){
-  const root=document.getElementById('fh-about');
-  if(!root || root.dataset.aboutMobileBridge==='1') return;
-  root.dataset.aboutMobileBridge='1';
+  const root = document.getElementById('fh-about');
+  if(!root || root.dataset.trueMobileRecipeReady === '1') return;
+  root.dataset.trueMobileRecipeReady = '1';
 
-  const allowed=['en','fr','de','ru'];
+  const labels = {
+    en:{history:'Swipe the history', who:'Swipe the group types', kitchen:'Swipe the kitchen options'},
+    fr:{history:'Faites glisser l’histoire', who:'Faites glisser les formats', kitchen:'Faites glisser les options cuisine'},
+    de:{history:'Geschichte wischen', who:'Gruppenarten wischen', kitchen:'Küchenoptionen wischen'},
+    ru:{history:'Листайте историю', who:'Листайте форматы', kitchen:'Листайте варианты кухни'}
+  };
+  const carouselMap = [
+    ['.timeline','history'],
+    ['.facts','who'],
+    ['.kitchen-options-grid','kitchen']
+  ];
   function norm(v){
-    v=String(v||'en').toLowerCase();
+    v = String(v || 'en').toLowerCase();
     if(v.startsWith('fr')) return 'fr';
-    if(v.startsWith('de')||v.startsWith('ger')) return 'de';
+    if(v.startsWith('de') || v.startsWith('ger')) return 'de';
     if(v.startsWith('ru')) return 'ru';
     return 'en';
   }
-  function apply(lang){
-    lang=norm(lang);
-    if(!allowed.includes(lang)) lang='en';
-    try{
-      localStorage.setItem('fh_lang',lang);
-      localStorage.setItem('fh_language',lang);
-      localStorage.setItem('fhLang',lang);
-    }catch(e){}
-    document.documentElement.setAttribute('lang',lang);
-    root.setAttribute('data-current-lang',lang);
-    if(typeof window.setFletschhornLanguage==='function') window.setFletschhornLanguage(lang);
-    else if(typeof window.FHSetLanguage==='function') window.FHSetLanguage(lang);
-    document.dispatchEvent(new CustomEvent('fh:language',{detail:{lang}}));
-    document.dispatchEvent(new CustomEvent('fletschhorn:language',{detail:{lang}}));
-    window.dispatchEvent(new CustomEvent('fh:language-change',{detail:{lang}}));
+  function currentLang(){
+    let stored = 'en';
+    try{ stored = localStorage.getItem('fh_lang') || localStorage.getItem('fh_language') || localStorage.getItem('fhLang') || ''; }catch(e){}
+    return norm(stored || document.documentElement.lang || root.getAttribute('data-lang') || root.getAttribute('data-current-lang') || 'en');
+  }
+  function addPeekaboo(selector,key){
+    const target = root.querySelector(selector);
+    if(!target || target.dataset.peekabooReady === '1') return;
+    target.dataset.peekabooReady = '1';
+    target.classList.add('fh-has-mobile-carousel');
+    const hint = document.createElement('div');
+    hint.className = 'fh-carousel-peekaboo';
+    hint.setAttribute('aria-hidden','true');
+    hint.dataset.peekKey = key;
+    hint.textContent = (labels[currentLang()] || labels.en)[key] || labels.en[key];
+    target.parentNode.insertBefore(hint, target);
+  }
+  function updatePeekaboo(){
+    const lang = currentLang();
+    root.querySelectorAll('.fh-carousel-peekaboo[data-peek-key]').forEach(function(el){
+      const key = el.dataset.peekKey;
+      el.textContent = (labels[lang] || labels.en)[key] || labels.en[key] || 'Swipe';
+    });
+  }
+  function syncMobileClass(){
+    const isMobile = window.matchMedia('(max-width: 980px), (hover: none) and (pointer: coarse)').matches;
+    document.body.classList.toggle('fh-about-force-mobile-header', isMobile);
+    root.classList.toggle('fh-about-true-mobile', isMobile);
   }
 
-  document.addEventListener('click',function(e){
-    const trigger=e.target.closest('[data-fh-lang],[data-lang],[data-language]');
-    if(!trigger) return;
-    const lang=trigger.getAttribute('data-fh-lang')||trigger.getAttribute('data-lang')||trigger.getAttribute('data-language');
-    if(lang) setTimeout(function(){apply(lang);},0);
-  },true);
+  carouselMap.forEach(function(item){ addPeekaboo(item[0], item[1]); });
+  updatePeekaboo();
+  syncMobileClass();
 
-  window.addEventListener('storage',function(e){
-    if((e.key==='fh_lang'||e.key==='fh_language'||e.key==='fhLang') && e.newValue) apply(e.newValue);
+  window.addEventListener('resize', syncMobileClass, {passive:true});
+  window.addEventListener('orientationchange', function(){ setTimeout(syncMobileClass,80); }, {passive:true});
+  window.addEventListener('storage', function(e){
+    if(e.key === 'fh_lang' || e.key === 'fh_language' || e.key === 'fhLang') updatePeekaboo();
   });
-
-  apply(localStorage.getItem('fh_lang')||localStorage.getItem('fh_language')||localStorage.getItem('fhLang')||document.documentElement.lang||root.getAttribute('data-lang')||'en');
+  document.addEventListener('fh:language', updatePeekaboo);
+  document.addEventListener('fletschhorn:language', updatePeekaboo);
+  document.addEventListener('fletschhorn:languageChanged', updatePeekaboo);
+  document.addEventListener('click', function(e){
+    if(e.target.closest('[data-fh-lang],[data-lang],[data-language],[data-lang-switch]')) setTimeout(updatePeekaboo,80);
+  }, true);
 })();
 </script>
 
