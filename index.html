@@ -1941,6 +1941,583 @@
     }
 
 
+
+    /* =========================================================
+       EXTRA MOBILE COMPRESSION PATCH
+       Requested: subtle language selector + less scrolling on mobile
+       - language switch becomes a tiny floating pill
+       - hero and booking become shorter
+       - mobile content uses 2-column grids and horizontal carousels
+       - section spacing, image heights, and text sizes are tightened
+       ========================================================= */
+
+    @media(max-width:640px){
+      #fh-home{
+        --edge:12px;
+        --tap:40px;
+      }
+
+      /* Subtle mobile language selector */
+      #fh-home .fh-lang-switch{
+        top:68px;
+        left:auto;
+        right:10px;
+        width:auto;
+        transform:none;
+        gap:1px;
+        padding:3px;
+        border-radius:999px;
+        border:1px solid rgba(28,24,20,.09);
+        background:rgba(255,250,242,.68);
+        box-shadow:0 8px 20px rgba(20,16,12,.07);
+        -webkit-backdrop-filter:blur(12px);
+        backdrop-filter:blur(12px);
+        opacity:.72;
+      }
+
+      #fh-home .fh-lang-switch:hover,
+      #fh-home .fh-lang-switch:focus-within{
+        opacity:1;
+      }
+
+      #fh-home .fh-lang-switch button{
+        flex:0 0 auto;
+        min-height:26px;
+        padding:0 7px;
+        border-radius:999px;
+        font-size:8px;
+        line-height:1;
+        letter-spacing:.08em;
+        font-weight:850;
+        color:rgba(28,24,20,.54);
+      }
+
+      #fh-home .fh-lang-switch button.active{
+        background:rgba(31,58,47,.88);
+        color:#fffaf2;
+      }
+
+      /* Shorter first screen */
+      #fh-home .fh-hero-inner{
+        width:calc(100% - 24px);
+        min-height:82svh;
+        padding-top:104px;
+        padding-bottom:18px;
+      }
+
+      #fh-home .fh-kicker{
+        margin-bottom:7px;
+        font-size:8.5px;
+        letter-spacing:.16em;
+      }
+
+      #fh-home h1{
+        max-width:13ch;
+        font-size:clamp(29px,9vw,40px);
+        line-height:.94;
+      }
+
+      #fh-home .fh-hero-lead{
+        max-width:32em;
+        margin-top:9px;
+        font-size:12.5px;
+        line-height:1.34;
+      }
+
+      #fh-home .fh-booking{
+        margin-top:10px;
+        padding:5px;
+      }
+
+      #fh-home .fh-booking-form{
+        grid-template-columns:1fr 1fr;
+      }
+
+      #fh-home .fh-field{
+        min-height:50px;
+        padding:9px 10px;
+        border-right:1px solid var(--line);
+        border-bottom:1px solid var(--line);
+      }
+
+      #fh-home .fh-field:nth-child(3),
+      #fh-home .fh-field:nth-child(4),
+      #fh-home .fh-submit{
+        grid-column:1 / -1;
+      }
+
+      #fh-home .fh-field label{
+        margin-bottom:3px;
+        font-size:8px;
+        letter-spacing:.13em;
+      }
+
+      #fh-home .fh-field input,
+      #fh-home .fh-date-button span{
+        font-size:14px;
+      }
+
+      #fh-home .fh-date-button{
+        min-height:32px;
+        flex-direction:row;
+        align-items:center;
+      }
+
+      #fh-home .fh-date-button strong{
+        font-size:8px;
+        letter-spacing:.08em;
+      }
+
+      #fh-home .fh-submit{
+        position:relative;
+        bottom:auto;
+        min-height:44px;
+        font-size:9px;
+        letter-spacing:.11em;
+        box-shadow:none;
+      }
+
+      #fh-home .fh-booking-note{
+        display:none;
+      }
+
+      /* Global tightening */
+      #fh-home .fh-section{
+        padding:38px 12px;
+        contain-intrinsic-size:560px;
+      }
+
+      #fh-home .fh-container{
+        width:100%;
+      }
+
+      #fh-home .fh-section-head{
+        gap:9px;
+        margin-bottom:18px;
+      }
+
+      #fh-home h2{
+        font-size:clamp(27px,8.4vw,39px);
+        line-height:.96;
+        letter-spacing:-.045em;
+      }
+
+      #fh-home h3{
+        font-size:clamp(22px,7vw,32px);
+        line-height:.98;
+        letter-spacing:-.04em;
+      }
+
+      #fh-home p{
+        font-size:13px;
+        line-height:1.48;
+      }
+
+      /* Overview: reduce vertical length */
+      #fh-home .fh-overview-grid,
+      #fh-home .fh-room-grid,
+      #fh-home .fh-kitchen-grid,
+      #fh-home .fh-contact-grid,
+      #fh-home .fh-social-grid{
+        gap:12px;
+      }
+
+      #fh-home .fh-dark-panel,
+      #fh-home .fh-room-copy,
+      #fh-home .fh-panel,
+      #fh-home .fh-social-card{
+        padding:18px 14px;
+      }
+
+      #fh-home .fh-dark-panel h3{
+        font-size:clamp(27px,8.5vw,38px);
+      }
+
+      #fh-home .fh-proof{
+        grid-template-columns:repeat(3,1fr);
+        gap:6px;
+        margin-top:16px;
+        padding-top:12px;
+      }
+
+      #fh-home .fh-proof strong{
+        font-size:24px;
+      }
+
+      #fh-home .fh-proof span{
+        font-size:7.5px;
+        letter-spacing:.08em;
+      }
+
+      #fh-home .fh-photo-stage{
+        height:300px;
+        min-height:0;
+      }
+
+      #fh-home .fh-float.one,
+      #fh-home .fh-float.two{
+        display:none;
+      }
+
+      #fh-home .fh-caption,
+      #fh-home .fh-carousel-copy,
+      #fh-home .fh-map-context{
+        padding:10px;
+      }
+
+      #fh-home .fh-caption p,
+      #fh-home .fh-carousel-copy p{
+        font-size:12px;
+      }
+
+      /* Rooms and kitchen carousels shorter */
+      #fh-home .fh-carousel{
+        height:300px;
+        min-height:0;
+      }
+
+      #fh-home .fh-carousel-nav{
+        top:8px;
+        right:8px;
+        gap:5px;
+      }
+
+      #fh-home .fh-carousel-nav button{
+        width:34px;
+        height:34px;
+        min-height:34px;
+        font-size:18px;
+      }
+
+      #fh-home .fh-room-list{
+        grid-template-columns:repeat(3,1fr);
+        gap:7px;
+        margin-top:14px;
+      }
+
+      #fh-home .fh-room-list div{
+        padding-top:9px;
+      }
+
+      #fh-home .fh-room-list strong{
+        font-size:18px;
+        line-height:1;
+      }
+
+      #fh-home .fh-room-list span{
+        font-size:11px;
+        line-height:1.35;
+      }
+
+      /* Two-column cards instead of one long stack */
+      #fh-home .fh-card-grid{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:9px;
+        margin-top:20px!important;
+      }
+
+      #fh-home .fh-card img{
+        height:112px;
+      }
+
+      #fh-home .fh-card .copy{
+        padding:12px 10px;
+      }
+
+      #fh-home .fh-card .copy .fh-kicker{
+        margin-bottom:5px;
+      }
+
+      #fh-home .fh-card .copy h3{
+        font-size:20px;
+        margin-bottom:6px;
+      }
+
+      #fh-home .fh-card .copy p{
+        font-size:11.5px;
+        line-height:1.36;
+      }
+
+      /* Kitchen bullets in compact columns */
+      #fh-home .fh-kitchen-list{
+        grid-template-columns:repeat(3,1fr);
+        gap:7px;
+        margin-top:14px;
+      }
+
+      #fh-home .fh-kitchen-item{
+        padding:10px;
+      }
+
+      #fh-home .fh-kitchen-item strong{
+        font-size:12px;
+        line-height:1.18;
+      }
+
+      #fh-home .fh-kitchen-item span{
+        font-size:10.5px;
+        line-height:1.32;
+      }
+
+      /* Season cards become a swipe carousel */
+      #fh-home .fh-season-grid{
+        display:flex;
+        gap:10px;
+        overflow-x:auto;
+        overscroll-behavior-x:contain;
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
+        padding-bottom:8px;
+      }
+
+      #fh-home .fh-season-grid::-webkit-scrollbar,
+      #fh-home .fh-history-strip::-webkit-scrollbar{
+        height:4px;
+      }
+
+      #fh-home .fh-season{
+        flex:0 0 78%;
+        height:285px;
+        min-height:0;
+        scroll-snap-align:start;
+      }
+
+      #fh-home .fh-season .copy{
+        padding:16px;
+      }
+
+      #fh-home .fh-season p{
+        font-size:12px;
+        line-height:1.38;
+      }
+
+      /* Map: keep tools compact */
+      #fh-home .fh-map-grid{
+        gap:12px;
+      }
+
+      #fh-home .fh-map-card{
+        height:305px;
+        min-height:0;
+      }
+
+      #fh-home .fh-map-side{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:8px;
+      }
+
+      #fh-home .fh-map-note{
+        min-height:0;
+        padding:11px;
+      }
+
+      #fh-home .fh-map-note strong{
+        font-size:19px;
+      }
+
+      #fh-home .fh-map-note span{
+        font-size:11px;
+        line-height:1.34;
+      }
+
+      #fh-home .fh-map-context strong{
+        font-size:19px;
+      }
+
+      #fh-home .fh-map-context span{
+        font-size:11px;
+      }
+
+      /* History becomes compact horizontal carousel */
+      #fh-home .fh-history-strip{
+        display:flex;
+        gap:9px;
+        overflow-x:auto;
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
+        padding-bottom:8px;
+      }
+
+      #fh-home .fh-time-card{
+        flex:0 0 70%;
+        min-height:150px;
+        padding:16px;
+        scroll-snap-align:start;
+      }
+
+      #fh-home .fh-year{
+        font-size:29px;
+        margin-bottom:7px;
+      }
+
+      #fh-home .fh-time-card strong{
+        font-size:13px;
+        line-height:1.25;
+      }
+
+      #fh-home .fh-time-card p{
+        font-size:11.5px;
+        line-height:1.38;
+      }
+
+      /* Social section shorter */
+      #fh-home .fh-social-grid aside{
+        order:-1;
+      }
+
+      #fh-home .fh-social-links{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:8px;
+        margin-top:14px;
+      }
+
+      #fh-home .fh-social-link{
+        min-height:0;
+        padding:11px;
+        gap:8px;
+      }
+
+      #fh-home .fh-social-link strong{
+        font-size:19px;
+      }
+
+      #fh-home .fh-social-link span span{
+        font-size:10.5px;
+        line-height:1.28;
+      }
+
+      #fh-home .fh-social-link em{
+        width:25px;
+        height:25px;
+        font-size:14px;
+      }
+
+      #fh-home .fh-review-bar{
+        margin-top:10px;
+        padding:11px;
+      }
+
+      #fh-home .fh-review-bar strong{
+        font-size:21px;
+      }
+
+      #fh-home .fh-review-bar span{
+        font-size:11.5px;
+        line-height:1.35;
+      }
+
+      #fh-home .fh-tripadvisor-widget{
+        margin-top:9px;
+        margin-bottom:8px;
+        padding:8px;
+      }
+
+      #fh-home .fh-instagram-shell{
+        max-height:390px;
+      }
+
+      #fh-home .fh-instagram-fallback{
+        gap:8px;
+      }
+
+      #fh-home .fh-small-cta{
+        width:auto;
+        min-height:38px;
+        padding:10px 12px;
+        font-size:8.5px;
+      }
+
+      /* Contact: two lines feel like a dashboard, not a long block */
+      #fh-home .fh-contact-line{
+        padding:10px 0;
+      }
+
+      #fh-home .fh-contact-line span{
+        font-size:8px;
+      }
+
+      #fh-home .fh-contact-line strong{
+        font-size:13px;
+      }
+
+      /* Bottom-sheet calendar also tighter */
+      #fh-home .fh-calendar-card{
+        max-height:82svh;
+      }
+
+      #fh-home .fh-calendar-title{
+        font-size:23px;
+      }
+
+      #fh-home .fh-calendar-help,
+      #fh-home .fh-calendar-warning{
+        font-size:12px;
+      }
+
+      #fh-home .fh-day{
+        min-height:48px;
+        padding:4px;
+      }
+    }
+
+    @media(max-width:420px){
+      #fh-home .fh-room-list,
+      #fh-home .fh-kitchen-list{
+        grid-template-columns:1fr;
+      }
+
+      #fh-home .fh-card-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      #fh-home .fh-card img{
+        height:98px;
+      }
+
+      #fh-home .fh-card .copy h3{
+        font-size:18px;
+      }
+
+      #fh-home .fh-season{
+        flex-basis:84%;
+      }
+
+      #fh-home .fh-time-card{
+        flex-basis:78%;
+      }
+
+      #fh-home .fh-map-side,
+      #fh-home .fh-social-links{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media(max-width:360px){
+      #fh-home .fh-lang-switch{
+        top:64px;
+        right:7px;
+      }
+
+      #fh-home .fh-lang-switch button{
+        padding:0 5px;
+        font-size:7.5px;
+      }
+
+      #fh-home .fh-hero-inner{
+        padding-top:96px;
+      }
+
+      #fh-home h1{
+        font-size:28px;
+      }
+
+      #fh-home .fh-card-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+
     @media(prefers-reduced-motion:reduce){
       #fh-home *,
       #fh-home *:before,
