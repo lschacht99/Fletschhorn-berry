@@ -1,7 +1,16 @@
-<link rel="stylesheet" href="assets/fh-global.css">
-<div id="fh-header-slot"></div>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fletschhorn · Direct Booking</title>
+  <meta name="description" content="Direct booking for a private Fletschhorn stay in Saas-Fee.">
+  <link rel="stylesheet" href="assets/fh-global.css">
+  <style>
+    html,body{margin:0;max-width:100%;overflow-x:hidden;background:#efe7dc;}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+  </style>
 
-<style>
 #fh-booking-main,
 #fh-booking-main *{box-sizing:border-box}
 
@@ -33,7 +42,9 @@
     radial-gradient(circle at 12% 8%,rgba(255,255,255,.72),transparent 0 26%),
     radial-gradient(circle at 90% 10%,rgba(185,159,134,.18),transparent 0 25%),
     linear-gradient(180deg,#efe7dc 0%,#fbf6ef 52%,#efe7dc 100%);
-  overflow:hidden;
+  overflow-x:hidden;
+  width:100%;
+  max-width:100vw;
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
 }
@@ -754,215 +765,771 @@
 }
 
 @media(max-width:760px){
-  #fh-booking-main{overflow:hidden;padding-bottom:72px}
-  #fh-booking-main .fh-bg:before{opacity:.09}
-  #fh-booking-main .fh-grain{opacity:.035}
+  #fh-booking-main .fh-langbar{top:68px;width:auto;justify-content:center;gap:4px;padding:5px}
+  #fh-booking-main .fh-langbar button{min-width:34px;min-height:29px;padding:6px 8px;font-size:9px}
+  #fh-booking-main .fh-hero{min-height:auto;padding:120px 16px 88px}
+  #fh-booking-main h1{font-size:clamp(43px,14vw,66px)}
+  #fh-booking-main .fh-booking-wrap,
+  #fh-booking-main .fh-success{width:calc(100% - 20px);margin-top:-50px}
+  #fh-booking-main .fh-book-head{padding:22px}
+  #fh-booking-main .fh-form{padding:22px}
+  #fh-booking-main .fh-grid,
+  #fh-booking-main .fh-property-gallery,
+  #fh-booking-main .fh-success-summary{grid-template-columns:1fr}
+  #fh-booking-main .fh-contact-note{grid-template-columns:1fr;padding:15px}
+  #fh-booking-main .fh-gallery-main,
+  #fh-booking-main .fh-gallery-stack div{min-height:220px}
+  #fh-booking-main .fh-actions,
+  #fh-booking-main .fh-confirm-actions{flex-direction:column;align-items:stretch}
+  #fh-booking-main .fh-btn{width:100%}
+  #fh-booking-main .fh-calendar-card{padding:14px}
+  #fh-booking-main .fh-calendar-title{font-size:28px}
+  #fh-booking-main .fh-weekdays,
+  #fh-booking-main .fh-calendar-grid{gap:4px}
+  #fh-booking-main .fh-day{min-height:62px;padding:6px}
+  #fh-booking-main .fh-day-price{display:none}
+  #fh-booking-main .fh-confirm-modal{padding:10px}
+  #fh-booking-main .fh-confirm-card{width:calc(100vw - 20px);max-height:calc(100svh - 20px);grid-template-columns:1fr}
+  #fh-booking-main .fh-confirm-photo{min-height:145px}
+  #fh-booking-main .fh-confirm-body{padding:18px;max-height:calc(100svh - 165px)}
+  #fh-booking-main .fh-confirm-title{font-size:28px}
+  #fh-booking-main .fh-confirm-lead{font-size:14px;margin-bottom:12px}
+  #fh-booking-main .fh-price-box{padding:14px}
+  #fh-booking-main .fh-confirm-main{padding:12px}
+  #fh-booking-main .fh-section{padding:68px 16px}
+  #fh-booking-main .fh-photo-strip{grid-template-columns:1fr}
+  #fh-booking-main .fh-success-hero{min-height:240px}
+  #fh-booking-main .fh-success-inner{padding:24px}
+  #fh-booking-main .fh-mobile-sticky{display:flex}
+}
 
+
+
+/* =========================================================
+   Mobile-first behavior imported from the Fletschhorn homepage
+   Scope: visual/layout only. No worker, Guesty, language, calendar,
+   or booking JavaScript is changed.
+   ========================================================= */
+@media(max-width:760px){
+  #fh-booking-main{
+    --mobile-edge:14px;
+    overflow-x:hidden;
+  }
+
+  #fh-booking-main .fh-bg:before{
+    opacity:.08;
+    transform:scale(1.04);
+  }
+
+  #fh-booking-main .fh-grain{
+    opacity:.035;
+  }
+
+  /* Language selector: same discreet mobile feel as homepage */
   #fh-booking-main .fh-langbar{
-    top:64px;
+    top:72px;
     left:auto;
-    right:10px;
+    right:12px;
     transform:none;
+    width:auto;
+    max-width:calc(100vw - 24px);
     gap:2px;
-    padding:3px;
-    border-radius:999px;
+    padding:4px;
+    border-color:rgba(255,250,243,.22);
     background:rgba(26,23,20,.22);
-    backdrop-filter:blur(14px);
+    box-shadow:0 10px 26px rgba(0,0,0,.10);
   }
+
   #fh-booking-main .fh-langbar button{
-    min-width:28px;
-    min-height:26px;
-    padding:5px 6px;
-    font-size:8px;
+    min-width:30px;
+    min-height:28px;
+    padding:6px 7px;
+    font-size:9px;
     letter-spacing:.08em;
-    border-radius:999px;
   }
 
+  /* Hero: mobile-first scale, not a shrunken desktop hero */
   #fh-booking-main .fh-hero{
-    min-height:52svh;
-    align-items:end;
-    padding:108px 14px 76px;
-  }
-  #fh-booking-main .fh-hero:after{height:92px}
-  #fh-booking-main .fh-hero-media div{background-position:center center}
-  #fh-booking-main .fh-hero-inner{text-align:left}
-  #fh-booking-main .fh-hero .fh-eyebrow{font-size:9px;letter-spacing:.17em;margin-bottom:9px}
-  #fh-booking-main h1{
-    margin:0 0 12px;
-    font-size:clamp(38px,12.4vw,54px);
-    line-height:.92;
-    letter-spacing:-.06em;
-    max-width:94%;
-  }
-  #fh-booking-main .fh-hero-lead{
-    margin:0;
-    max-width:96%;
-    font-size:14px;
-    line-height:1.48;
-  }
-  #fh-booking-main .fh-trust-row{
-    justify-content:flex-start;
-    gap:6px;
-    margin-top:16px;
-    flex-wrap:nowrap;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-  }
-  #fh-booking-main .fh-trust-row::-webkit-scrollbar{display:none}
-  #fh-booking-main .fh-trust-pill{
-    flex:0 0 auto;
-    padding:8px 9px;
-    font-size:10px;
-    white-space:nowrap;
+    min-height:auto;
+    padding:112px var(--mobile-edge) 78px;
+    align-items:flex-start;
   }
 
+  #fh-booking-main .fh-hero:after{
+    height:96px;
+  }
+
+  #fh-booking-main .fh-hero-inner{
+    width:100%;
+  }
+
+  #fh-booking-main .fh-eyebrow,
+  #fh-booking-main .fh-kicker{
+    font-size:9.5px;
+    letter-spacing:.17em;
+    margin-bottom:9px;
+  }
+
+  #fh-booking-main h1{
+    max-width:560px;
+    font-size:clamp(36px,11vw,54px);
+    line-height:.93;
+    letter-spacing:-.055em;
+    margin-bottom:13px;
+  }
+
+  #fh-booking-main .fh-hero-lead{
+    max-width:520px;
+    font-size:14px;
+    line-height:1.44;
+  }
+
+  #fh-booking-main .fh-trust-row{
+    margin-top:16px;
+    gap:7px;
+  }
+
+  #fh-booking-main .fh-trust-pill{
+    padding:8px 10px;
+    font-size:11px;
+  }
+
+  /* Booking card: readable form, compact vertical rhythm */
   #fh-booking-main .fh-booking-wrap,
   #fh-booking-main .fh-success{
-    width:calc(100% - 18px);
+    width:calc(100% - 20px);
     margin-top:-42px;
   }
-  #fh-booking-main .fh-card,
-  #fh-booking-main .fh-main-card{border-radius:0;overflow:hidden}
-  #fh-booking-main .fh-book-head{
-    padding:18px 16px 15px;
-  }
-  #fh-booking-main .fh-kicker,
-  #fh-booking-main .fh-eyebrow{font-size:9px;letter-spacing:.16em;margin-bottom:8px}
-  #fh-booking-main h2{
-    font-size:clamp(30px,9vw,40px);
-    line-height:.98;
-  }
-  #fh-booking-main h3{
-    font-size:clamp(24px,7.4vw,32px);
-  }
-  #fh-booking-main p{font-size:14px;line-height:1.55}
 
-  #fh-booking-main .fh-form{padding:16px}
-  #fh-booking-main .fh-grid{grid-template-columns:1fr;gap:11px}
-  #fh-booking-main label{font-size:9px;letter-spacing:.14em;margin-bottom:5px}
+  #fh-booking-main .fh-book-head{
+    padding:18px 18px 16px;
+  }
+
+  #fh-booking-main h2{
+    font-size:clamp(30px,9.5vw,43px);
+    line-height:.98;
+    letter-spacing:-.045em;
+  }
+
+  #fh-booking-main h3{
+    font-size:clamp(26px,8vw,36px);
+  }
+
+  #fh-booking-main p{
+    font-size:14px;
+    line-height:1.56;
+  }
+
+  #fh-booking-main .fh-form{
+    padding:18px;
+  }
+
+  #fh-booking-main .fh-grid{
+    grid-template-columns:1fr;
+    gap:11px;
+  }
+
+  #fh-booking-main label{
+    margin-bottom:6px;
+    font-size:9.5px;
+    letter-spacing:.14em;
+  }
+
   #fh-booking-main input,
   #fh-booking-main select,
   #fh-booking-main textarea,
   #fh-booking-main .fh-date-button{
-    min-height:48px;
-    padding:12px;
+    min-height:50px;
+    padding:12px 13px;
     font-size:15px;
   }
-  #fh-booking-main .fh-date-button{align-items:flex-start;flex-direction:column;gap:5px}
-  #fh-booking-main .fh-date-button strong{font-size:11px;text-transform:uppercase;letter-spacing:.12em}
-  #fh-booking-main textarea{min-height:86px}
-  #fh-booking-main .fh-field-hint{font-size:11px;margin-top:5px}
+
+  #fh-booking-main textarea{
+    min-height:88px;
+  }
+
+  #fh-booking-main .fh-field-hint{
+    font-size:11.5px;
+    line-height:1.38;
+    margin-top:6px;
+  }
 
   #fh-booking-main .fh-contact-note{
     grid-template-columns:1fr;
-    gap:10px;
-    padding:13px;
+    gap:12px;
+    padding:14px;
   }
-  #fh-booking-main .fh-contact-note h4{font-size:23px}
-  #fh-booking-main .fh-contact-note p{font-size:12px}
-  #fh-booking-main .fh-contact-line{display:block;padding-top:7px}
-  #fh-booking-main .fh-contact-line a{display:block;margin-top:3px;font-size:13px;word-break:break-word}
-  #fh-booking-main .fh-terms-mini{font-size:10.5px;line-height:1.45;margin-top:12px}
-  #fh-booking-main .fh-actions{margin-top:14px;padding-top:14px;gap:9px;flex-direction:column;align-items:stretch}
-  #fh-booking-main .fh-btn{width:100%;min-height:49px;padding:13px 16px;font-size:10px}
-  #fh-booking-main .fh-direct-note{font-size:11.5px;line-height:1.45;max-width:none}
-  #fh-booking-main .fh-status{font-size:12px;margin-top:11px;padding:11px 12px}
 
-  #fh-booking-main .fh-calendar-modal{align-items:flex-end;padding:0;background:rgba(26,23,20,.42)}
+  #fh-booking-main .fh-contact-note h4{
+    font-size:23px;
+  }
+
+  #fh-booking-main .fh-contact-line{
+    align-items:flex-start;
+  }
+
+  #fh-booking-main .fh-actions,
+  #fh-booking-main .fh-confirm-actions{
+    flex-direction:column;
+    align-items:stretch;
+    gap:9px;
+    margin-top:16px;
+    padding-top:15px;
+  }
+
+  #fh-booking-main .fh-btn{
+    width:100%;
+    min-height:50px;
+    padding:13px 16px;
+  }
+
+  #fh-booking-main .fh-direct-note{
+    max-width:none;
+    font-size:12.5px;
+    line-height:1.42;
+  }
+
+  #fh-booking-main .fh-terms-mini{
+    margin-top:13px;
+    font-size:10.5px;
+    line-height:1.42;
+  }
+
+  /* Calendar: mobile readable, compact, prices hidden like homepage */
+  #fh-booking-main .fh-calendar-modal{
+    padding:10px;
+    align-items:flex-end;
+  }
+
   #fh-booking-main .fh-calendar-card{
     width:100%;
-    max-height:88svh;
-    padding:14px 12px 16px;
-    border-radius:18px 18px 0 0;
-    overflow:auto;
+    max-height:calc(100svh - 22px);
+    padding:14px;
+    border-radius:0;
   }
-  #fh-booking-main .fh-calendar-head{align-items:center;margin-bottom:10px}
-  #fh-booking-main .fh-calendar-title{font-size:25px}
-  #fh-booking-main .fh-calendar-help{font-size:12px;margin-bottom:9px}
-  #fh-booking-main .fh-calendar-warning{font-size:12px;padding:9px 10px;margin-bottom:10px}
-  #fh-booking-main .fh-mini-btn,
-  #fh-booking-main .fh-calendar-close{min-width:35px;min-height:34px}
-  #fh-booking-main .fh-weekdays,
-  #fh-booking-main .fh-calendar-grid{gap:3px}
-  #fh-booking-main .fh-weekday{font-size:8px;letter-spacing:.04em}
-  #fh-booking-main .fh-day{min-height:48px;padding:5px}
-  #fh-booking-main .fh-day-number{font-size:12px}
-  #fh-booking-main .fh-day-price{display:none}
-  #fh-booking-main .fh-day-status{font-size:7px;margin-top:3px;letter-spacing:.03em}
 
-  #fh-booking-main .fh-confirm-modal{align-items:flex-end;padding:0;background:rgba(26,23,20,.48)}
+  #fh-booking-main .fh-calendar-head{
+    gap:10px;
+    margin-bottom:10px;
+  }
+
+  #fh-booking-main .fh-calendar-title{
+    font-size:28px;
+  }
+
+  #fh-booking-main .fh-calendar-help{
+    margin-bottom:10px;
+    font-size:12.5px;
+  }
+
+  #fh-booking-main .fh-weekdays,
+  #fh-booking-main .fh-calendar-grid{
+    gap:4px;
+  }
+
+  #fh-booking-main .fh-weekday{
+    font-size:9px;
+  }
+
+  #fh-booking-main .fh-day{
+    min-height:58px;
+    padding:6px;
+  }
+
+  #fh-booking-main .fh-day-number{
+    font-size:12.5px;
+  }
+
+  #fh-booking-main .fh-day-price{
+    display:none;
+  }
+
+  #fh-booking-main .fh-day-status{
+    font-size:8px;
+    letter-spacing:.05em;
+  }
+
+  /* Confirmation modal: compact image + scrollable review */
+  #fh-booking-main .fh-confirm-modal{
+    padding:10px;
+    align-items:flex-end;
+  }
+
   #fh-booking-main .fh-confirm-card{
     width:100%;
-    max-height:92svh;
+    max-height:calc(100svh - 20px);
     grid-template-columns:1fr;
-    border-radius:18px 18px 0 0;
   }
-  #fh-booking-main .fh-confirm-photo{min-height:118px}
-  #fh-booking-main .fh-confirm-body{padding:17px;max-height:calc(92svh - 118px)}
-  #fh-booking-main .fh-confirm-title{font-size:27px}
-  #fh-booking-main .fh-confirm-lead{font-size:13px;margin-bottom:10px}
-  #fh-booking-main .fh-confirm-summary{gap:8px;margin:12px 0}
-  #fh-booking-main .fh-confirm-main{padding:11px 12px}
-  #fh-booking-main .fh-confirm-main strong{font-size:14px}
-  #fh-booking-main .fh-price-box{padding:13px;margin-top:10px}
-  #fh-booking-main .fh-price-main{font-size:30px}
-  #fh-booking-main .fh-line-item{font-size:12px;padding:7px 0}
-  #fh-booking-main .fh-confirm-actions{flex-direction:column;gap:8px;margin-top:12px}
 
-  #fh-booking-main .fh-section{padding:48px 12px}
-  #fh-booking-main .fh-section-head{grid-template-columns:1fr;gap:10px;margin-bottom:18px}
-  #fh-booking-main .fh-property-card{grid-template-columns:1fr;gap:13px;padding:12px}
-  #fh-booking-main .fh-property-gallery{
-    display:flex;
-    min-height:0;
+  #fh-booking-main .fh-confirm-photo{
+    min-height:132px;
+  }
+
+  #fh-booking-main .fh-confirm-body{
+    padding:17px;
+    max-height:calc(100svh - 152px);
+  }
+
+  #fh-booking-main .fh-confirm-title{
+    font-size:28px;
+  }
+
+  #fh-booking-main .fh-confirm-lead{
+    font-size:13.5px;
+    line-height:1.45;
+    margin-bottom:12px;
+  }
+
+  #fh-booking-main .fh-confirm-summary{
     gap:8px;
+    margin:12px 0;
+  }
+
+  #fh-booking-main .fh-confirm-main,
+  #fh-booking-main .fh-price-box{
+    padding:12px;
+  }
+
+  #fh-booking-main .fh-price-main{
+    font-size:clamp(30px,9vw,38px);
+  }
+
+  /* Property preview: avoid endless scroll, favor compact cards/images */
+  #fh-booking-main .fh-section{
+    padding:56px var(--mobile-edge);
+  }
+
+  #fh-booking-main .fh-section-head{
+    grid-template-columns:1fr;
+    gap:14px;
+    margin-bottom:18px;
+  }
+
+  #fh-booking-main .fh-property-card{
+    grid-template-columns:1fr;
+    gap:12px;
+    padding:12px;
+  }
+
+  #fh-booking-main .fh-property-gallery{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    min-height:0;
+  }
+
+  #fh-booking-main .fh-gallery-main{
+    grid-column:1 / -1;
+    min-height:205px;
+  }
+
+  #fh-booking-main .fh-gallery-stack{
+    display:contents;
+  }
+
+  #fh-booking-main .fh-gallery-stack div{
+    min-height:120px;
+  }
+
+  #fh-booking-main .fh-property-copy{
+    padding:8px;
+  }
+
+  #fh-booking-main .fh-chip-row{
+    gap:7px;
+    margin-top:13px;
+  }
+
+  #fh-booking-main .fh-chip{
+    padding:8px 9px;
+    font-size:11.5px;
+  }
+
+  #fh-booking-main .fh-photo-strip{
+    display:flex;
     overflow-x:auto;
+    gap:10px;
+    margin-top:14px;
+    padding-bottom:4px;
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
   }
-  #fh-booking-main .fh-property-gallery::-webkit-scrollbar{display:none}
+
+  #fh-booking-main .fh-photo-strip div{
+    flex:0 0 78%;
+    min-height:180px;
+    scroll-snap-align:start;
+  }
+
+  #fh-booking-main .fh-success-hero{
+    min-height:210px;
+  }
+
+  #fh-booking-main .fh-success-inner{
+    padding:20px;
+  }
+
+  #fh-booking-main .fh-success-summary{
+    grid-template-columns:1fr;
+    gap:9px;
+  }
+
+  #fh-booking-main .fh-mobile-sticky{
+    display:flex;
+    left:10px;
+    right:10px;
+    bottom:10px;
+    min-height:52px;
+  }
+}
+
+@media(max-width:430px){
+  #fh-booking-main .fh-hero{
+    padding-top:104px;
+    padding-bottom:70px;
+  }
+
+  #fh-booking-main h1{
+    font-size:clamp(33px,12vw,47px);
+  }
+
+  #fh-booking-main .fh-hero-lead{
+    font-size:13.5px;
+  }
+
+  #fh-booking-main .fh-trust-pill{
+    width:100%;
+    justify-content:center;
+  }
+
+  #fh-booking-main .fh-booking-wrap,
+  #fh-booking-main .fh-success{
+    width:calc(100% - 16px);
+  }
+
+  #fh-booking-main .fh-calendar-close,
+  #fh-booking-main .fh-confirm-close,
+  #fh-booking-main .fh-mini-btn{
+    min-width:38px;
+    min-height:36px;
+  }
+
+  #fh-booking-main .fh-day{
+    min-height:54px;
+    padding:5px;
+  }
+
+  #fh-booking-main .fh-gallery-main{
+    min-height:185px;
+  }
+
+  #fh-booking-main .fh-gallery-stack div{
+    min-height:105px;
+  }
+
+  #fh-booking-main .fh-photo-strip div{
+    flex-basis:84%;
+  }
+}
+
+
+
+/* =========================================================
+   REAL MOBILE PATCH
+   This catches GitHub/static pages even when the browser would otherwise
+   render a desktop-width page. It keeps Guesty/worker logic untouched.
+   ========================================================= */
+@media(max-width:1000px){
+  html,body{max-width:100%;overflow-x:hidden}
+
+  #fh-booking-main{
+    overflow-x:hidden;
+    max-width:100vw;
+  }
+
+  #fh-booking-main .fh-langbar{
+    top:78px;
+    left:auto;
+    right:12px;
+    transform:none;
+    width:auto;
+    max-width:calc(100vw - 24px);
+    gap:2px;
+    padding:4px;
+    background:rgba(26,23,20,.22);
+    border-color:rgba(255,250,243,.22);
+    box-shadow:0 10px 26px rgba(0,0,0,.10);
+  }
+
+  #fh-booking-main .fh-langbar button{
+    min-width:30px;
+    min-height:28px;
+    padding:6px 7px;
+    font-size:9px;
+    letter-spacing:.08em;
+  }
+
+  #fh-booking-main .fh-hero{
+    min-height:clamp(430px,62svh,560px);
+    padding:112px 16px 70px;
+    align-items:flex-start;
+  }
+
+  #fh-booking-main .fh-hero:after{height:96px}
+  #fh-booking-main .fh-hero-inner{width:100%;max-width:620px}
+
+  #fh-booking-main .fh-eyebrow,
+  #fh-booking-main .fh-kicker{
+    font-size:9.5px;
+    letter-spacing:.16em;
+    margin-bottom:9px;
+  }
+
+  #fh-booking-main h1{
+    max-width:570px;
+    font-size:clamp(35px,10vw,58px);
+    line-height:.94;
+    letter-spacing:-.055em;
+    margin-bottom:12px;
+  }
+
+  #fh-booking-main .fh-hero-lead{
+    max-width:520px;
+    font-size:14px;
+    line-height:1.45;
+  }
+
+  #fh-booking-main .fh-trust-row{
+    margin-top:15px;
+    gap:7px;
+  }
+
+  #fh-booking-main .fh-trust-pill{
+    padding:8px 10px;
+    font-size:11px;
+  }
+
+  #fh-booking-main .fh-booking-wrap,
+  #fh-booking-main .fh-success{
+    width:calc(100% - 20px);
+    margin-top:-34px;
+  }
+
+  #fh-booking-main .fh-book-head{padding:18px 18px 15px}
+  #fh-booking-main .fh-form{padding:17px}
+
+  #fh-booking-main h2{
+    font-size:clamp(30px,8.4vw,43px);
+    line-height:.98;
+    letter-spacing:-.045em;
+  }
+
+  #fh-booking-main h3{font-size:clamp(26px,7.4vw,36px)}
+  #fh-booking-main p{font-size:14px;line-height:1.56}
+
+  #fh-booking-main .fh-grid{
+    grid-template-columns:1fr!important;
+    gap:11px;
+  }
+
+  #fh-booking-main .fh-field,
+  #fh-booking-main .fh-field.full{grid-column:1/-1!important}
+
+  #fh-booking-main label{
+    margin-bottom:6px;
+    font-size:9.5px;
+    letter-spacing:.14em;
+  }
+
+  #fh-booking-main input,
+  #fh-booking-main select,
+  #fh-booking-main textarea,
+  #fh-booking-main .fh-date-button{
+    min-height:50px;
+    padding:12px 13px;
+    font-size:15px;
+  }
+
+  #fh-booking-main textarea{min-height:88px}
+
+  #fh-booking-main .fh-date-button strong{
+    font-size:11px;
+    white-space:nowrap;
+  }
+
+  #fh-booking-main .fh-field-hint{
+    font-size:11.5px;
+    line-height:1.38;
+    margin-top:6px;
+  }
+
+  #fh-booking-main .fh-contact-note{
+    grid-template-columns:1fr!important;
+    gap:12px;
+    padding:14px;
+  }
+
+  #fh-booking-main .fh-contact-note h4{font-size:23px}
+  #fh-booking-main .fh-contact-note p{font-size:12.5px}
+
+  #fh-booking-main .fh-contact-line{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:4px;
+    align-items:start;
+  }
+
+  #fh-booking-main .fh-actions,
+  #fh-booking-main .fh-confirm-actions{
+    flex-direction:column;
+    align-items:stretch;
+    gap:9px;
+    margin-top:16px;
+    padding-top:15px;
+  }
+
+  #fh-booking-main .fh-btn{
+    width:100%;
+    min-height:50px;
+    padding:13px 16px;
+  }
+
+  #fh-booking-main .fh-direct-note{
+    max-width:none;
+    font-size:12.5px;
+    line-height:1.42;
+  }
+
+  #fh-booking-main .fh-terms-mini{
+    margin-top:13px;
+    font-size:10.5px;
+    line-height:1.42;
+  }
+
+  #fh-booking-main .fh-calendar-modal,
+  #fh-booking-main .fh-confirm-modal{
+    padding:10px;
+    align-items:flex-end;
+  }
+
+  #fh-booking-main .fh-calendar-card{
+    width:100%;
+    max-height:calc(100svh - 22px);
+    padding:14px;
+    border-radius:0;
+  }
+
+  #fh-booking-main .fh-calendar-head{gap:10px;margin-bottom:10px}
+  #fh-booking-main .fh-calendar-title{font-size:28px}
+  #fh-booking-main .fh-calendar-help{margin-bottom:10px;font-size:12.5px}
+  #fh-booking-main .fh-weekdays,
+  #fh-booking-main .fh-calendar-grid{gap:4px}
+  #fh-booking-main .fh-weekday{font-size:9px}
+  #fh-booking-main .fh-day{min-height:58px;padding:6px}
+  #fh-booking-main .fh-day-number{font-size:12.5px}
+  #fh-booking-main .fh-day-price{display:none}
+  #fh-booking-main .fh-day-status{font-size:8px;letter-spacing:.05em}
+
+  #fh-booking-main .fh-confirm-card{
+    width:100%;
+    max-height:calc(100svh - 20px);
+    grid-template-columns:1fr!important;
+  }
+
+  #fh-booking-main .fh-confirm-photo{min-height:132px}
+  #fh-booking-main .fh-confirm-body{padding:17px;max-height:calc(100svh - 152px)}
+  #fh-booking-main .fh-confirm-title{font-size:28px}
+  #fh-booking-main .fh-confirm-lead{font-size:13.5px;line-height:1.45;margin-bottom:12px}
+  #fh-booking-main .fh-confirm-summary{gap:8px;margin:12px 0}
+  #fh-booking-main .fh-confirm-main,
+  #fh-booking-main .fh-price-box{padding:12px}
+  #fh-booking-main .fh-price-main{font-size:clamp(30px,8vw,38px)}
+
+  #fh-booking-main .fh-section{padding:54px 14px}
+  #fh-booking-main .fh-section-head{
+    grid-template-columns:1fr!important;
+    gap:14px;
+    margin-bottom:18px;
+  }
+
+  #fh-booking-main .fh-property-card{
+    grid-template-columns:1fr!important;
+    gap:12px;
+    padding:12px;
+  }
+
+  #fh-booking-main .fh-property-gallery{
+    display:flex!important;
+    overflow-x:auto;
+    gap:10px;
+    min-height:0;
+    padding-bottom:4px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+
   #fh-booking-main .fh-gallery-main,
   #fh-booking-main .fh-gallery-stack,
   #fh-booking-main .fh-gallery-stack div{
-    display:block;
-    flex:0 0 78%;
-    min-height:220px;
-    scroll-snap-align:start;
+    display:block!important;
   }
-  #fh-booking-main .fh-gallery-stack{display:contents}
-  #fh-booking-main .fh-property-copy{padding:4px 2px 2px}
-  #fh-booking-main .fh-chip-row{
-    flex-wrap:nowrap;
-    overflow-x:auto;
-    gap:6px;
-    margin-top:12px;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-  }
-  #fh-booking-main .fh-chip-row::-webkit-scrollbar{display:none}
-  #fh-booking-main .fh-chip{flex:0 0 auto;font-size:11px;padding:8px 9px;white-space:nowrap}
-  #fh-booking-main .fh-photo-strip{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    margin-top:12px;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-  }
-  #fh-booking-main .fh-photo-strip::-webkit-scrollbar{display:none}
-  #fh-booking-main .fh-photo-strip div{
-    flex:0 0 74%;
-    min-height:150px;
+
+  #fh-booking-main .fh-gallery-main,
+  #fh-booking-main .fh-gallery-stack div{
+    flex:0 0 82%;
+    min-height:215px!important;
     scroll-snap-align:start;
   }
 
-  #fh-booking-main .fh-success-hero{min-height:210px}
-  #fh-booking-main .fh-success-inner{padding:20px}
-  #fh-booking-main .fh-success-summary{grid-template-columns:1fr;gap:8px;margin-top:16px}
-  #fh-booking-main .fh-mobile-sticky{display:flex}
+  #fh-booking-main .fh-gallery-stack{
+    display:flex!important;
+    gap:10px;
+    min-width:calc(164% + 10px);
+  }
+
+  #fh-booking-main .fh-property-copy{padding:8px}
+  #fh-booking-main .fh-chip-row{gap:7px;margin-top:13px}
+  #fh-booking-main .fh-chip{padding:8px 9px;font-size:11.5px}
+
+  #fh-booking-main .fh-photo-strip{
+    display:flex!important;
+    overflow-x:auto;
+    gap:10px;
+    margin-top:14px;
+    padding-bottom:4px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  #fh-booking-main .fh-photo-strip div{
+    flex:0 0 78%;
+    min-height:180px;
+    scroll-snap-align:start;
+  }
+
+  #fh-booking-main .fh-mobile-sticky{
+    display:flex;
+    left:10px;
+    right:10px;
+    bottom:max(10px,env(safe-area-inset-bottom));
+    min-height:52px;
+  }
+}
+
+@media(max-width:430px){
+  #fh-booking-main .fh-hero{
+    min-height:420px;
+    padding-top:104px;
+    padding-bottom:64px;
+  }
+
+  #fh-booking-main h1{font-size:clamp(33px,11.5vw,47px)}
+  #fh-booking-main .fh-hero-lead{font-size:13.5px}
+  #fh-booking-main .fh-trust-pill{width:100%;justify-content:center}
+  #fh-booking-main .fh-booking-wrap,
+  #fh-booking-main .fh-success{width:calc(100% - 16px)}
+  #fh-booking-main .fh-gallery-main,
+  #fh-booking-main .fh-gallery-stack div{flex-basis:86%;min-height:190px!important}
+  #fh-booking-main .fh-photo-strip div{flex-basis:84%}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -970,7 +1537,10 @@
   #fh-booking-main *:before,
   #fh-booking-main *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
-</style>
+
+</head>
+<body>
+<div id="fh-header-slot"></div>
 
 <div id="fh-booking-main" data-page="booking" data-lang="en">
   <div class="fh-bg" aria-hidden="true"></div>
@@ -1277,13 +1847,46 @@
     bookInquiry:"/guesty/book-inquiry"
   };
 
-  const FALLBACK_IMAGES = [
-    "https://ik.imagekit.io/Redberry/Inside%20(1).jpg",
-    "https://ik.imagekit.io/Redberry/Inside%20(2).jpg",
-    "https://ik.imagekit.io/Redberry/Inside%20(3).jpg",
-    "https://ik.imagekit.io/Redberry/Inside%20(4).jpg",
-    "https://ik.imagekit.io/Redberry/Inside%20(5).jpg"
-  ];
+  const IK_BASE = "https://ik.imagekit.io/Redberry/";
+
+  function cleanImageUrl(src){
+    let value = String(src || "").trim();
+    if(!value) return "";
+
+    const duplicated = IK_BASE + IK_BASE;
+    while(value.startsWith(duplicated)){
+      value = IK_BASE + value.slice(duplicated.length);
+    }
+
+    if(value.startsWith(IK_BASE)){
+      const rest = value.slice(IK_BASE.length).replace(/^\/+/, "");
+      return IK_BASE + rest.replace(/ /g, "%20");
+    }
+
+    return value.replace(/ /g, "%20");
+  }
+
+  function ik(path){
+    return cleanImageUrl(IK_BASE + String(path || "").replace(/^\/+/, ""));
+  }
+
+  const IMAGEKIT_IMAGES = [1,2,3,4,5].map(function(n){
+    return ik("Inside (" + n + ").jpg");
+  });
+
+  const FALLBACK_IMAGES = IMAGEKIT_IMAGES.concat([
+    ik("Exterior (1).png"),
+    ik("Kitchen (3).png"),
+    ik("Kitchen (4).png"),
+    ik("Kitchen (5).png"),
+    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
+    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
+    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg"
+  ].map(cleanImageUrl));
+
+  let heroTimer = null;
+  let currentImages = FALLBACK_IMAGES.slice();
+
   const LANGS = ["en","fr","de","ru"];
 
   const I18N = {
@@ -1328,13 +1931,15 @@
       calendarHelp:"Choose your arrival date, then your departure date.",
       calendarMinWarning:"Please select at least 2 nights.",
       selectDates:"Select arrival and departure",
-      alreadyBooked:"Already booked",
       selectDeparture:"Select departure",
       available:"Available",
-      preparing:"Preparing...",
-      sending:"Sending...",
+      loadingAvailability:"Loading availability...",
+      preparingQuote:"Preparing your quote...",
+      preparingButton:"Preparing...",
+      sendingButton:"Sending...",
       guestCountMissing:"Guest count not specified",
       guestsWord:"guests",
+      alreadyBooked:"Already booked",
       confirmKicker:"Review your stay",
       confirmTitle:"Confirm your booking request.",
       confirmLead:"Please review your information and the quote before sending your request.",
@@ -1383,68 +1988,32 @@
     panelTitle:"Les détails de votre séjour.",
     firstName:"Prénom",
     lastName:"Nom",
-    email:"E-mail",
     phone:"Téléphone / WhatsApp",
     dates:"Dates",
     openCalendar:"Ouvrir le calendrier",
     guests:"Invités",
     guestsPh:"Optionnel",
     guestsHint:"Optionnel. La propriété offre jusqu’à 48 couchages. Pour un groupe plus grand ou une configuration particulière, contactez-nous directement.",
-    stayType:"Type de séjour",
-    stayPrivate:"Séjour privé au chalet",
-    stayFamily:"Réunion de famille",
-    stayRetreat:"Retraite / séjour d’équipe",
-    stayWedding:"Mariage ou événement",
-    stayOther:"Autre",
     contactTitle:"Contactez-nous si besoin.",
     contactText:"Pour toute demande en dehors du formulaire de réservation, vous pouvez écrire directement à la bonne équipe.",
     generalInquiries:"Demandes générales",
     reservationsEmail:"Réservations",
-    termsMiniTitle:"Conditions du séjour :",
-    termsMiniText:"Politique d’annulation de 60 jours · Arrivée 16h00–21h00 · Départ 11h00 · Le ménage standard après séjour est inclus dans les frais de ménage ; ménage quotidien sur demande.",
-    directNote:"Réserver directement avec nous permet d’obtenir le meilleur tarif disponible et une organisation plus personnalisée du séjour.",
-    bookNow:"Réserver maintenant",
-    propertyKicker:"Le séjour",
-    propertyTitle:"Une maison alpine privée pour votre groupe.",
-    propertyLead:"Accès privé à la propriété, environnement alpin paisible, beaux espaces communs et place pour familles, retraites et célébrations.",
-    includedKicker:"Inclus dans le séjour",
-    includedTitle:"Privé, flexible et pratique.",
-    includedText:"Accès privé exclusif à la propriété, rafraîchissements pendant le séjour, navettes privées et restauration flexible avec utilisation de la cuisine professionnelle ou service traiteur en option sur demande.",
-    calendarKicker:"Choisir les dates",
-    calendarHelp:"Choisissez votre date d’arrivée, puis votre date de départ.",
+    bookNow:"Réserver",
     calendarMinWarning:"Veuillez sélectionner au moins 2 nuits.",
     selectDates:"Sélectionnez l’arrivée et le départ",
-    selectDeparture:"Sélectionnez le départ",
+    selectDeparture:"Choisir le départ",
     available:"Disponible",
-    alreadyBooked:"Déjà réservé",
-    confirmKicker:"Vérifier votre séjour",
-    confirmTitle:"Confirmez votre demande de réservation.",
-    confirmLead:"Veuillez vérifier vos informations et le devis avant d’envoyer votre demande.",
-    confirmDatesLabel:"Dates",
-    confirmGuestsLabel:"Invités",
-    confirmContactLabel:"Vos informations",
-    confirmDirectNote:"Les réservations directes nous permettent d’offrir le meilleur tarif disponible et d’organiser le séjour avec plus de flexibilité.",
-    confirmSend:"Envoyer la demande",
-    editBooking:"Modifier les détails",
-    priceLabel:"Devis pour votre séjour",
-    priceSub:"Les détails finaux du séjour et les informations de paiement seront confirmés par e-mail.",
-    successKicker:"Demande reçue",
-    successTitle:"Merci. Nous avons bien reçu votre demande de réservation.",
-    successLead:"Votre demande a été envoyée. Notre équipe vérifiera les détails et vous enverra la confirmation, les informations de paiement et les prochaines étapes par e-mail.",
-    statusNeedFields:"Veuillez compléter les champs indiqués.",
-    statusBadEmail:"Veuillez saisir une adresse e-mail valide.",
-    statusBadDates:"La date de départ doit être après l’arrivée.",
-    statusMinNights:"Veuillez sélectionner au moins 2 nuits.",
-    statusChecking:"Vérification des disponibilités...",
-    statusQuote:"Préparation du devis...",
-    statusUnavailable:"Ces dates semblent indisponibles. Veuillez choisir une autre période.",
-    statusBook:"Envoi de la demande...",
-    statusBookSent:"Demande de réservation reçue.",
-    statusWorkerFail:"La demande n’a pas pu être finalisée. Veuillez réessayer ou contacter l’équipe.",
-    preparing:"Préparation...",
-    sending:"Envoi...",
+    loadingAvailability:"Chargement des disponibilités...",
+    preparingQuote:"Préparation de votre devis...",
+    preparingButton:"Préparation...",
+    sendingButton:"Envoi...",
     guestCountMissing:"Nombre d’invités non précisé",
     guestsWord:"invités",
+    alreadyBooked:"Déjà réservé",
+    confirmTitle:"Confirmez votre demande de réservation.",
+    confirmSend:"Envoyer la demande",
+    editBooking:"Modifier",
+    successTitle:"Merci. Nous avons bien reçu votre demande de réservation.",
     nights:"nuits",
     night:"nuit"
   });
@@ -1452,72 +2021,33 @@
   I18N.de = Object.assign({}, I18N.en, {
     heroEyebrow:"Direktbuchung · Fletschhorn Saas-Fee",
     heroTitle:"Buchen Sie Ihren privaten Aufenthalt.",
-    heroLead:"Wählen Sie Ihre Daten, ergänzen Sie Ihre Angaben und senden Sie eine klare Buchungsanfrage für die gesamte Unterkunft.",
-    trustPrivate:"Eine private Unterkunft",
-    trust48:"Bis zu 48 Schlafplätze",
-    panelKicker:"Einfache Buchung",
-    panelTitle:"Ihre Aufenthaltsdetails.",
     firstName:"Vorname",
     lastName:"Nachname",
-    email:"E-Mail",
     phone:"Telefon / WhatsApp",
     dates:"Daten",
     openCalendar:"Kalender öffnen",
     guests:"Gäste",
     guestsPh:"Optional",
     guestsHint:"Optional. Das Haus bietet Schlafplätze für bis zu 48 Personen. Für größere oder besondere Gruppen kontaktieren Sie uns bitte direkt.",
-    stayType:"Art des Aufenthalts",
-    stayPrivate:"Privater Chalet-Aufenthalt",
-    stayFamily:"Familientreffen",
-    stayRetreat:"Retreat / Teamaufenthalt",
-    stayWedding:"Hochzeit oder Event",
-    stayOther:"Andere",
     contactTitle:"Kontaktieren Sie uns bei Bedarf.",
     contactText:"Für alles außerhalb des Buchungsformulars erreichen Sie direkt das passende Team.",
     generalInquiries:"Allgemeine Anfragen",
     reservationsEmail:"Reservierungen",
-    termsMiniTitle:"Aufenthaltsbedingungen:",
-    termsMiniText:"60 Tage Stornierungsfrist · Check-in 16:00–21:00 Uhr · Check-out 11:00 Uhr · Standardreinigung nach dem Aufenthalt ist in der Reinigungsgebühr enthalten; tägliche Reinigung auf Anfrage.",
-    directNote:"Eine Direktbuchung hilft, den besten verfügbaren Preis und eine persönlichere Abstimmung des Aufenthalts zu sichern.",
     bookNow:"Jetzt buchen",
-    propertyKicker:"Der Aufenthalt",
-    propertyTitle:"Ein privates alpines Haus für Ihre Gruppe.",
-    propertyLead:"Privater Zugang zur Unterkunft, ruhige alpine Umgebung, großzügige Gemeinschaftsbereiche und Platz für Familien, Retreats und Feiern.",
-    includedKicker:"Im Aufenthalt enthalten",
-    includedTitle:"Privat, flexibel und praktisch.",
-    includedText:"Exklusiver privater Zugang zur Unterkunft, Erfrischungen während des Aufenthalts, privater Shuttle-Support und flexible Verpflegung mit Nutzung der Profiküche oder optionalem Catering auf Anfrage.",
-    calendarKicker:"Daten auswählen",
-    calendarHelp:"Wählen Sie zuerst das Anreisedatum und dann das Abreisedatum.",
     calendarMinWarning:"Bitte mindestens 2 Nächte auswählen.",
     selectDates:"Anreise und Abreise auswählen",
     selectDeparture:"Abreise auswählen",
     available:"Verfügbar",
-    alreadyBooked:"Bereits gebucht",
-    confirmKicker:"Aufenthalt prüfen",
-    confirmTitle:"Buchungsanfrage bestätigen.",
-    confirmLead:"Bitte prüfen Sie Ihre Angaben und das Angebot, bevor Sie die Anfrage senden.",
-    confirmDatesLabel:"Daten",
-    confirmGuestsLabel:"Gäste",
-    confirmContactLabel:"Ihre Angaben",
-    confirmDirectNote:"Direktbuchungen ermöglichen uns, den besten verfügbaren Preis anzubieten und den Aufenthalt flexibler abzustimmen.",
-    confirmSend:"Anfrage senden",
-    editBooking:"Details bearbeiten",
-    priceLabel:"Angebot für Ihren Aufenthalt",
-    priceSub:"Die endgültigen Aufenthaltsdetails und Zahlungsinformationen werden per E-Mail bestätigt.",
-    statusNeedFields:"Bitte füllen Sie die markierten Felder aus.",
-    statusBadEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-    statusBadDates:"Die Abreise muss nach der Anreise liegen.",
-    statusMinNights:"Bitte mindestens 2 Nächte auswählen.",
-    statusChecking:"Verfügbarkeit wird geprüft...",
-    statusQuote:"Angebot wird vorbereitet...",
-    statusUnavailable:"Diese Daten scheinen nicht verfügbar zu sein. Bitte wählen Sie einen anderen Zeitraum.",
-    statusBook:"Anfrage wird gesendet...",
-    statusBookSent:"Buchungsanfrage erhalten.",
-    statusWorkerFail:"Die Anfrage konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut oder kontaktieren Sie das Team.",
-    preparing:"Vorbereitung...",
-    sending:"Senden...",
+    loadingAvailability:"Verfügbarkeit wird geladen...",
+    preparingQuote:"Angebot wird vorbereitet...",
+    preparingButton:"Wird vorbereitet...",
+    sendingButton:"Wird gesendet...",
     guestCountMissing:"Gästezahl nicht angegeben",
     guestsWord:"Gäste",
+    alreadyBooked:"Bereits gebucht",
+    confirmTitle:"Buchungsanfrage bestätigen.",
+    confirmSend:"Anfrage senden",
+    editBooking:"Bearbeiten",
     nights:"Nächte",
     night:"Nacht"
   });
@@ -1525,72 +2055,33 @@
   I18N.ru = Object.assign({}, I18N.en, {
     heroEyebrow:"Прямое бронирование · Fletschhorn Саас-Фе",
     heroTitle:"Забронируйте частное проживание.",
-    heroLead:"Выберите даты, добавьте свои данные и отправьте понятный запрос на бронирование всей территории.",
-    trustPrivate:"Одна частная территория",
-    trust48:"До 48 спальных мест",
-    panelKicker:"Простое бронирование",
-    panelTitle:"Детали вашего проживания.",
     firstName:"Имя",
     lastName:"Фамилия",
-    email:"Эл. почта",
     phone:"Телефон / WhatsApp",
     dates:"Даты",
     openCalendar:"Открыть календарь",
     guests:"Гости",
     guestsPh:"Необязательно",
     guestsHint:"Необязательно. В доме до 48 спальных мест. Для более большой или особой группы свяжитесь с нами напрямую.",
-    stayType:"Тип проживания",
-    stayPrivate:"Частное проживание в шале",
-    stayFamily:"Семейная встреча",
-    stayRetreat:"Ретрит / командное проживание",
-    stayWedding:"Свадьба или мероприятие",
-    stayOther:"Другое",
     contactTitle:"Свяжитесь с нами при необходимости.",
     contactText:"По вопросам вне формы бронирования можно написать напрямую нужной команде.",
     generalInquiries:"Общие вопросы",
     reservationsEmail:"Бронирование",
-    termsMiniTitle:"Условия проживания:",
-    termsMiniText:"Отмена за 60 дней · Заезд 16:00–21:00 · Выезд 11:00 · Стандартная уборка после проживания включена в сбор за уборку; ежедневная уборка по запросу.",
-    directNote:"Прямое бронирование помогает получить лучший доступный тариф и более персональную организацию проживания.",
     bookNow:"Забронировать",
-    propertyKicker:"Проживание",
-    propertyTitle:"Частный альпийский дом для вашей группы.",
-    propertyLead:"Частный доступ к территории, спокойная альпийская атмосфера, просторные общие зоны и место для семей, ретритов и праздников.",
-    includedKicker:"Включено в проживание",
-    includedTitle:"Частно, гибко и практично.",
-    includedText:"Эксклюзивный частный доступ к территории, напитки во время проживания, частные трансферы и гибкое питание с использованием профессиональной кухни или кейтерингом по запросу.",
-    calendarKicker:"Выберите даты",
-    calendarHelp:"Выберите дату заезда, затем дату выезда.",
     calendarMinWarning:"Выберите минимум 2 ночи.",
     selectDates:"Выберите заезд и выезд",
-    selectDeparture:"Выберите выезд",
+    selectDeparture:"Выбрать выезд",
     available:"Доступно",
-    alreadyBooked:"Уже забронировано",
-    confirmKicker:"Проверьте проживание",
-    confirmTitle:"Подтвердите запрос на бронирование.",
-    confirmLead:"Проверьте данные и стоимость перед отправкой запроса.",
-    confirmDatesLabel:"Даты",
-    confirmGuestsLabel:"Гости",
-    confirmContactLabel:"Ваши данные",
-    confirmDirectNote:"Прямые бронирования позволяют предложить лучший доступный тариф и гибче организовать проживание.",
-    confirmSend:"Отправить запрос",
-    editBooking:"Изменить данные",
-    priceLabel:"Стоимость проживания",
-    priceSub:"Финальные детали проживания и информация об оплате будут подтверждены по электронной почте.",
-    statusNeedFields:"Заполните выделенные поля.",
-    statusBadEmail:"Введите действительный адрес электронной почты.",
-    statusBadDates:"Дата выезда должна быть после даты заезда.",
-    statusMinNights:"Выберите минимум 2 ночи.",
-    statusChecking:"Проверка доступности...",
-    statusQuote:"Подготовка стоимости...",
-    statusUnavailable:"Эти даты, похоже, недоступны. Выберите другой период.",
-    statusBook:"Отправка запроса...",
-    statusBookSent:"Запрос на бронирование получен.",
-    statusWorkerFail:"Запрос не удалось завершить. Повторите попытку или свяжитесь с командой.",
-    preparing:"Подготовка...",
-    sending:"Отправка...",
+    loadingAvailability:"Загрузка доступности...",
+    preparingQuote:"Подготовка расчета...",
+    preparingButton:"Подготовка...",
+    sendingButton:"Отправка...",
     guestCountMissing:"Количество гостей не указано",
     guestsWord:"гостей",
+    alreadyBooked:"Уже забронировано",
+    confirmTitle:"Подтвердите запрос.",
+    confirmSend:"Отправить запрос",
+    editBooking:"Изменить",
     nights:"ночей",
     night:"ночь"
   });
@@ -1622,9 +2113,6 @@
 
   function endpoint(path){return CFG.workerBase.replace(/\/$/, "") + path}
   function normalizeLang(lang){const v = String(lang || "en").toLowerCase().slice(0,2); return LANGS.includes(v) ? v : "en"}
-  function localeForLang(lang){
-    return ({en:"en-US", fr:"fr-FR", de:"de-DE", ru:"ru-RU"})[normalizeLang(lang)] || "en-US";
-  }
   function t(key){return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key}
   function htmlEscape(value){return String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 
@@ -1634,21 +2122,25 @@
     root.dataset.lang = currentLang;
     document.documentElement.setAttribute("lang", currentLang);
 
-    qsa("[data-i18n]").forEach(el => {
+    document.querySelectorAll("#fh-booking-main [data-i18n], #fh-header-slot [data-i18n], #fh-footer-slot [data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       if(t(key)) el.textContent = t(key);
     });
 
-    qsa("[data-i18n-placeholder]").forEach(el => {
+    document.querySelectorAll("#fh-booking-main [data-i18n-placeholder], #fh-header-slot [data-i18n-placeholder], #fh-footer-slot [data-i18n-placeholder]").forEach(el => {
       const key = el.getAttribute("data-i18n-placeholder");
       if(t(key)) el.setAttribute("placeholder", t(key));
     });
 
-    qsa("[data-fh-lang]").forEach(btn => {
-      const active = normalizeLang(btn.getAttribute("data-fh-lang")) === currentLang;
+    document.querySelectorAll("[data-fh-lang], [data-lang], [data-language]").forEach(btn => {
+      const value = btn.getAttribute("data-fh-lang") || btn.getAttribute("data-lang") || btn.getAttribute("data-language");
+      const active = normalizeLang(value) === currentLang;
       btn.classList.toggle("is-active", active);
+      btn.classList.toggle("active", active);
       btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
+
+    document.dispatchEvent(new CustomEvent("fh:language-change", {detail:{lang:currentLang}}));
 
     updateSummary();
     renderCalendar();
@@ -1663,6 +2155,10 @@
     if(!trigger) return;
     const lang = trigger.getAttribute("data-fh-lang") || trigger.getAttribute("data-lang") || trigger.getAttribute("data-language");
     if(LANGS.includes(normalizeLang(lang))) setLang(lang);
+  }, true);
+
+  window.addEventListener("storage", function(event){
+    if(event.key === "fh_lang" && event.newValue) setLang(event.newValue);
   });
 
   function toDateString(date){
@@ -1793,7 +2289,6 @@
     }
 
     if(!valid){
-      showStatus(t("statusNeedFields"), "bad");
       focusFirstError();
       return false;
     }
@@ -1954,7 +2449,7 @@
   function formatMoney(amount,currency){
     if(amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "—";
     try{
-      return new Intl.NumberFormat(localeForLang(currentLang), {
+      return new Intl.NumberFormat(currentLang === "en" ? "en-US" : currentLang, {
         style:"currency",
         currency:currency || CFG.currency,
         maximumFractionDigits:0
@@ -2009,8 +2504,8 @@
 
     if(!Array.isArray(found)) return [];
     return found.map(item => {
-      if(typeof item === "string") return item;
-      return item.url || item.secure_url || item.original || item.thumbnail || item.src || item.path || "";
+      if(typeof item === "string") return cleanImageUrl(item);
+      return cleanImageUrl(item.url || item.secure_url || item.original || item.thumbnail || item.src || item.path || "");
     }).filter(Boolean);
   }
 
@@ -2039,16 +2534,27 @@
     }).filter(Boolean).slice(0,10);
   }
 
+  function uniqueImages(list){
+    const seen = new Set();
+    return (list || []).map(cleanImageUrl).filter(Boolean).filter(function(src){
+      if(seen.has(src)) return false;
+      seen.add(src);
+      return true;
+    });
+  }
+
   function applyImages(images){
-    const finalImages = images.length ? images : FALLBACK_IMAGES;
-    initHero(finalImages);
-    applyGallery(finalImages);
-    applyPhotoStrip(finalImages);
+    const finalImages = uniqueImages(IMAGEKIT_IMAGES.concat(images || [], FALLBACK_IMAGES));
+    currentImages = finalImages.length ? finalImages : FALLBACK_IMAGES;
+    initHero(currentImages);
+    applyGallery(currentImages);
+    applyPhotoStrip(currentImages);
   }
 
   function initHero(images){
     const host = qs("#fhBookingHeroMedia");
     if(!host) return;
+    if(heroTimer) clearInterval(heroTimer);
     host.innerHTML = "";
 
     images.slice(0,6).forEach((src,i) => {
@@ -2062,7 +2568,7 @@
     let i = 0;
 
     if(slides.length > 1){
-      setInterval(() => {
+      heroTimer = setInterval(() => {
         slides[i].classList.remove("is-active");
         i = (i + 1) % slides.length;
         slides[i].classList.add("is-active");
@@ -2104,7 +2610,8 @@
       const description = extractDescription(data);
       const amenities = extractAmenities(data);
 
-      /* Keep public copy controlled by the page translations; use Guesty only for images and amenities. */
+      if(title && !qs("#fhPropertyTitle")?.hasAttribute("data-i18n")) qs("#fhPropertyTitle").textContent = title;
+      if(description && !qs("#fhPropertyDescription")?.hasAttribute("data-i18n")) qs("#fhPropertyDescription").textContent = description;
       if(amenities.length){
         qs("#fhAmenityChips").innerHTML = amenities.map(item => `<span class="fh-chip">${htmlEscape(item)}</span>`).join("");
       }
@@ -2173,8 +2680,8 @@
     const grid = qs("#fhCalendarGrid");
     const range = monthRange(currentCalendarDate);
 
-    title.textContent = currentCalendarDate.toLocaleDateString(localeForLang(currentLang),{month:"long",year:"numeric"});
-    grid.innerHTML = "<div style='grid-column:1/-1;padding:16px;color:rgba(26,23,20,.6);font-weight:800;'>Loading availability...</div>";
+    title.textContent = currentCalendarDate.toLocaleDateString(currentLang === "en" ? "en-US" : currentLang,{month:"long",year:"numeric"});
+    grid.innerHTML = "<div style='grid-column:1/-1;padding:16px;color:rgba(26,23,20,.6);font-weight:800;'>" + t("loadingAvailability") + "</div>";
 
     try{
       const data = await workerPost(ENDPOINTS.calendarMonthPrices, {
@@ -2203,7 +2710,7 @@
     const last = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     const today = toDateString(new Date());
 
-    title.textContent = date.toLocaleDateString(localeForLang(currentLang),{month:"long",year:"numeric"});
+    title.textContent = date.toLocaleDateString(currentLang === "en" ? "en-US" : currentLang,{month:"long",year:"numeric"});
     grid.innerHTML = "";
 
     for(let i = 0; i < first.getDay(); i++){
@@ -2372,9 +2879,9 @@
 
     const button = qs("#fhSubmitBooking");
     button.disabled = true;
-    button.textContent = t("preparing");
+    button.textContent = t("preparingButton");
 
-    showStatus(t("statusQuote"), "");
+    showStatus(t("preparingQuote"), "");
 
     try{
       const availability = await checkAvailability();
@@ -2391,7 +2898,7 @@
       applyQuoteToConfirm(quote);
 
       const confirmPhoto = qs("#fhConfirmPhoto");
-      if(confirmPhoto && FALLBACK_IMAGES[0]) confirmPhoto.style.backgroundImage = `url("${FALLBACK_IMAGES[0]}")`;
+      if(confirmPhoto && currentImages[0]) confirmPhoto.style.backgroundImage = `url("${currentImages[0]}")`;
 
       qs("#fhConfirmModal").classList.add("is-open");
       qs("#fhConfirmModal").setAttribute("aria-hidden","false");
@@ -2464,7 +2971,7 @@
 
     const button = qs("#fhConfirmSend");
     button.disabled = true;
-    button.textContent = t("sending");
+    button.textContent = t("sendingButton");
 
     showStatus(t("statusBook"), "", confirmStatus);
 
@@ -2618,4 +3125,6 @@
   updateSummary();
   loadListingPublic();
 })();
-</script> and give me the full fixed with a. Real mobile layout 
+</script>
+</body>
+</html>
