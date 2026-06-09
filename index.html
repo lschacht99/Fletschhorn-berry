@@ -71,6 +71,44 @@
     @keyframes fhTopo{
       from{transform:translate3d(0,0,0) scale(1.02)}
       to{transform:translate3d(1.2vw,-1vh,0) scale(1.06)}
+    }
+
+    #fh-home .fh-lang-switch{
+      position:fixed;
+      z-index:70;
+      top:104px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      padding:7px;
+      border:1px solid rgba(255,250,242,.55);
+      background:rgba(255,250,242,.88);
+      -webkit-backdrop-filter:blur(16px);
+      backdrop-filter:blur(16px);
+      box-shadow:0 12px 34px rgba(20,16,12,.10);
+    }
+
+    #fh-home .fh-lang-switch button{
+      border:0;
+      background:transparent;
+      color:rgba(28,24,20,.62);
+      padding:8px 11px;
+      font-size:11px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.13em;
+      font-weight:850;
+      white-space:nowrap;
+      transition:background .18s,color .18s;
+    }
+
+    #fh-home .fh-lang-switch button.active{
+      background:var(--forest);
+      color:var(--white);
+    }
 
     #fh-home .fh-hero{
       position:relative;
@@ -1312,6 +1350,21 @@
     @media(max-width:640px){
       #fh-home{--edge:16px}
 
+      #fh-home .fh-lang-switch{
+        top:82px;
+        width:calc(100% - 24px);
+        justify-content:center;
+        padding:5px;
+        gap:3px;
+      }
+
+      #fh-home .fh-lang-switch button{
+        flex:1;
+        padding:10px 4px;
+        letter-spacing:.08em;
+        font-size:10px;
+      }
+
       #fh-home .fh-hero{
         min-height:100svh;
         align-items:flex-start;
@@ -1577,6 +1630,19 @@
     #fh-home button,
     #fh-home a,
     #fh-home input{
+      touch-action:manipulation;
+    }
+
+    #fh-home .fh-lang-switch button,
+    #fh-home .fh-date-button,
+    #fh-home .fh-submit,
+    #fh-home .fh-calendar-nav button,
+    #fh-home .fh-carousel-nav button,
+    #fh-home .fh-map-note,
+    #fh-home .fh-social-link,
+    #fh-home .fh-small-cta{
+      min-height:var(--tap);
+    }
 
     #fh-home input{
       font-size:16px;
@@ -1626,6 +1692,18 @@
       }
 
       #fh-home .fh-ambient:after{
+        opacity:.045;
+        animation:none;
+      }
+
+      #fh-home .fh-lang-switch{
+        top:74px;
+        left:12px;
+        right:12px;
+        width:auto;
+        transform:none;
+        border-color:rgba(28,24,20,.10);
+      }
 
       #fh-home .fh-hero{
         min-height:auto;
@@ -1835,6 +1913,10 @@
     }
 
     @media(max-width:390px){
+      #fh-home .fh-lang-switch button{
+        font-size:9px;
+        letter-spacing:.06em;
+      }
 
       #fh-home h1{
         font-size:32px;
@@ -1871,6 +1953,49 @@
 
     @media(max-width:640px){
       #fh-home{
+        --edge:12px;
+        --tap:40px;
+      }
+
+      /* Subtle mobile language selector */
+      #fh-home .fh-lang-switch{
+        top:68px;
+        left:auto;
+        right:10px;
+        width:auto;
+        transform:none;
+        gap:1px;
+        padding:3px;
+        border-radius:999px;
+        border:1px solid rgba(28,24,20,.09);
+        background:rgba(255,250,242,.68);
+        box-shadow:0 8px 20px rgba(20,16,12,.07);
+        -webkit-backdrop-filter:blur(12px);
+        backdrop-filter:blur(12px);
+        opacity:.72;
+      }
+
+      #fh-home .fh-lang-switch:hover,
+      #fh-home .fh-lang-switch:focus-within{
+        opacity:1;
+      }
+
+      #fh-home .fh-lang-switch button{
+        flex:0 0 auto;
+        min-height:26px;
+        padding:0 7px;
+        border-radius:999px;
+        font-size:8px;
+        line-height:1;
+        letter-spacing:.08em;
+        font-weight:850;
+        color:rgba(28,24,20,.54);
+      }
+
+      #fh-home .fh-lang-switch button.active{
+        background:rgba(31,58,47,.88);
+        color:#fffaf2;
+      }
 
       /* Shorter first screen */
       #fh-home .fh-hero-inner{
@@ -2369,6 +2494,15 @@
     }
 
     @media(max-width:360px){
+      #fh-home .fh-lang-switch{
+        top:64px;
+        right:7px;
+      }
+
+      #fh-home .fh-lang-switch button{
+        padding:0 5px;
+        font-size:7.5px;
+      }
 
       #fh-home .fh-hero-inner{
         padding-top:96px;
@@ -2401,6 +2535,14 @@
 
   <div id="fh-home" data-current-lang="en">
     <div class="fh-ambient" aria-hidden="true"></div>
+
+    <div class="fh-lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang="en" class="active">EN</button>
+      <button type="button" data-lang="fr">FR</button>
+      <button type="button" data-lang="de">DE</button>
+      <button type="button" data-lang="ru">RU</button>
+    </div>
+
     <section class="fh-hero" id="top">
       <div class="fh-hero-media" id="fhHeroMedia" aria-hidden="true"></div>
 
@@ -3497,22 +3639,6 @@
           "<span>" + (t(keys.text) || active.dataset.mapText || "") + "</span>";
       }
 
-      function syncUniversalLanguageButtons(){
-        document.querySelectorAll("[data-fh-lang],[data-lang],[data-language]").forEach(function(control){
-          const lang = (
-            control.getAttribute("data-fh-lang") ||
-            control.getAttribute("data-lang") ||
-            control.getAttribute("data-language") ||
-            ""
-          ).slice(0,2).toLowerCase();
-
-          if (!T[lang]) return;
-
-          control.classList.toggle("active", lang === state.lang);
-          control.setAttribute("aria-pressed", lang === state.lang ? "true" : "false");
-        });
-      }
-
       function applyLanguage(lang){
         state.lang = T[lang] ? lang : "en";
 
@@ -3528,7 +3654,9 @@
           if (val) el.setAttribute("placeholder", val);
         });
 
-        syncUniversalLanguageButtons();
+        $$(".fh-lang-switch button").forEach(function(btn){
+          btn.classList.toggle("active", btn.getAttribute("data-lang") === state.lang);
+        });
 
         root.setAttribute("data-current-lang", state.lang);
         document.documentElement.setAttribute("lang", state.lang);
@@ -4285,6 +4413,13 @@
         updateToolbarDateText();
       }
 
+      $$(".fh-lang-switch button").forEach(function(btn){
+        btn.addEventListener("click", function(event){
+          event.preventDefault();
+          applyLanguage(btn.getAttribute("data-lang"));
+        });
+      });
+
       document.addEventListener("click", function(event){
         const external = event.target.closest("[data-fh-lang],[data-lang],[data-language]");
         if (!external) return;
@@ -4300,18 +4435,6 @@
           event.preventDefault();
           applyLanguage(lang);
         }
-      });
-
-      const universalHeaderSlot = document.getElementById("fh-header-slot");
-      if (universalHeaderSlot && "MutationObserver" in window){
-        new MutationObserver(function(){
-          syncUniversalLanguageButtons();
-        }).observe(universalHeaderSlot, { childList:true, subtree:true });
-      }
-
-      window.addEventListener("fh-language-change", function(event){
-        const lang = String((event.detail && event.detail.lang) || "").slice(0,2).toLowerCase();
-        if (T[lang]) applyLanguage(lang);
       });
 
       window.addEventListener("storage", function(event){
@@ -4381,8 +4504,6 @@
       initReveal();
       prefillExisting();
       applyLanguage(T[state.lang] ? state.lang : (T[startLang] ? startLang : "en"));
-      window.setTimeout(syncUniversalLanguageButtons, 250);
-      window.setTimeout(syncUniversalLanguageButtons, 900);
 
       function processInstagramEmbed(){
         if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function"){
