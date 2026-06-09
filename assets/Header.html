@@ -24,6 +24,46 @@
   display:none !important;
 }
 
+/* Global language toolbar — always under header */
+.fh-global-lang-switch{
+  position:fixed;
+  z-index:9996;
+  top:76px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  padding:5px;
+  border-radius:999px;
+  border:1px solid rgba(28,24,20,.10);
+  background:rgba(255,250,242,.78);
+  box-shadow:0 10px 28px rgba(20,16,12,.08);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+}
+
+.fh-global-lang-switch button{
+  border:0;
+  background:transparent;
+  color:rgba(28,24,20,.58);
+  min-height:28px;
+  padding:0 9px;
+  border-radius:999px;
+  font-size:9px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.fh-global-lang-switch button.active{
+  background:rgba(31,58,47,.92);
+  color:#fffaf2;
+}
+
 @media(max-width:880px){
   .fh-global-header{
     top:8px !important;
@@ -151,6 +191,28 @@
   html.fh-nav-open body{
     overflow:auto !important;
   }
+
+  .fh-global-lang-switch{
+    top:68px;
+    right:10px;
+    left:auto;
+    transform:none;
+    gap:1px;
+    padding:3px;
+    opacity:.76;
+  }
+
+  .fh-global-lang-switch:hover,
+  .fh-global-lang-switch:focus-within{
+    opacity:1;
+  }
+
+  .fh-global-lang-switch button{
+    min-height:26px;
+    padding:0 7px;
+    font-size:8px;
+    letter-spacing:.08em;
+  }
 }
 
 @media(max-width:430px){
@@ -187,6 +249,17 @@
     right:8px !important;
     width:calc(100vw - 16px) !important;
     border-radius:20px !important;
+  }
+
+  .fh-global-lang-switch{
+    top:61px;
+    right:8px;
+  }
+
+  .fh-global-lang-switch button{
+    min-height:24px;
+    padding:0 6px;
+    font-size:7.5px;
   }
 }
 </style>
@@ -321,6 +394,13 @@
         <span></span>
       </button>
     </header>
+
+    <div class="fh-global-lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="fr">FR</button>
+      <button type="button" data-lang="de">DE</button>
+      <button type="button" data-lang="ru">RU</button>
+    </div>
   `);
 
   const header = document.getElementById("fhGlobalHeader");
@@ -372,6 +452,81 @@
 
   window.addEventListener("scroll", onScroll, {passive:true});
   onScroll();
+
+  /*
+    Global language toolbar:
+    - always appears under the header
+    - uses fh_lang localStorage
+    - calls the page-level language function when available
+    - does not create a second translation system
+  */
+  const globalLangSwitch = document.querySelector(".fh-global-lang-switch");
+
+  function cleanLang(lang){
+    return ["en","fr","de","ru"].includes(lang) ? lang : "en";
+  }
+
+  function getStoredFhLang(){
+    try {
+      return cleanLang(localStorage.getItem("fh_lang") || "en");
+    } catch(error) {
+      return "en";
+    }
+  }
+
+  function setGlobalLangActive(lang){
+    const selectedLang = cleanLang(lang);
+
+    document.querySelectorAll(".fh-global-lang-switch button").forEach(function(btn){
+      btn.classList.toggle("active", btn.getAttribute("data-lang") === selectedLang);
+    });
+
+    document.documentElement.setAttribute("lang", selectedLang);
+
+    try {
+      localStorage.setItem("fh_lang", selectedLang);
+    } catch(error) {}
+  }
+
+  function applyGlobalLanguage(lang){
+    const selectedLang = cleanLang(lang);
+
+    setGlobalLangActive(selectedLang);
+
+    if(typeof window.setFletschhornLanguage === "function"){
+      window.setFletschhornLanguage(selectedLang);
+      return;
+    }
+
+    if(typeof window.FHSetLanguage === "function"){
+      window.FHSetLanguage(selectedLang);
+      return;
+    }
+
+    window.dispatchEvent(new CustomEvent("fh-language-change", {
+      detail:{ lang:selectedLang }
+    }));
+  }
+
+  if(globalLangSwitch){
+    const initialLang = getStoredFhLang();
+    setGlobalLangActive(initialLang);
+
+    globalLangSwitch.querySelectorAll("button[data-lang]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        applyGlobalLanguage(btn.getAttribute("data-lang"));
+      });
+    });
+
+    /*
+      Some pages define their translation function after the header loads.
+      This delayed call makes the global toolbar apply the stored language
+      once the page script is ready.
+    */
+    window.setTimeout(function(){
+      applyGlobalLanguage(getStoredFhLang());
+    }, 120);
+  }
 
   /*
     Booking safety rule:
