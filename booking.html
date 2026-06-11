@@ -218,6 +218,92 @@
     #fh-booking-page[dir="rtl"] .fh-day,#fh-booking-page[dir="rtl"] .fh-panel,#fh-booking-page[dir="rtl"] .fh-summary-item,#fh-booking-page[dir="rtl"] .fh-modal-card{text-align:right}
     #fh-booking-page[dir="rtl"] input[type="email"],#fh-booking-page[dir="rtl"] input[type="tel"],#fh-booking-page[dir="rtl"] .fh-day-price{direction:ltr;text-align:left;unicode-bidi:plaintext}
 
+
+
+    /* FINAL HERO / BOOKING PLACEMENT PATCH */
+    #fh-booking-page .fh-photo-hero{
+      min-height:100svh;
+      padding-top:clamp(132px,17vh,172px);
+      padding-bottom:18px;
+      justify-content:center;
+    }
+    #fh-booking-page .fh-hero-bg:after{
+      background:
+        linear-gradient(90deg,rgba(26,23,20,.58) 0%,rgba(26,23,20,.30) 42%,rgba(26,23,20,.62) 100%),
+        linear-gradient(180deg,rgba(26,23,20,.42) 0%,rgba(26,23,20,.16) 44%,rgba(26,23,20,.76) 100%);
+    }
+    #fh-booking-page .fh-hero-copy{
+      z-index:4;
+      width:min(980px,100%);
+      padding-inline:clamp(8px,2vw,22px);
+    }
+    #fh-booking-page .fh-hero-copy .fh-kicker{
+      color:rgba(255,250,243,.78)!important;
+    }
+    #fh-booking-page #fhHeroTitle{
+      color:#fffaf3!important;
+      font-size:clamp(62px,16vw,136px);
+      line-height:.84;
+      margin-bottom:clamp(12px,2vw,20px);
+      text-shadow:0 18px 70px rgba(0,0,0,.32);
+    }
+    #fh-booking-page .fh-hero-copy p,
+    #fh-booking-page #fhHeroLead{
+      color:rgba(255,250,243,.86)!important;
+      font-size:clamp(15px,2.2vw,20px);
+    }
+    #fh-booking-page .fh-hero-contact{
+      position:absolute;
+      z-index:6;
+      left:var(--fh-edge);
+      top:clamp(96px,13vh,142px);
+      width:min(310px,calc(100% - var(--fh-edge)*2));
+      margin:0;
+      display:grid;
+      gap:8px;
+      justify-content:stretch;
+    }
+    #fh-booking-page .fh-hero-contact a{
+      width:100%;
+      min-width:0;
+      background:rgba(255,250,243,.13);
+      border-color:rgba(255,250,243,.30);
+      box-shadow:0 14px 42px rgba(0,0,0,.12);
+    }
+    #fh-booking-page .fh-photo-hero > .fh-booking-card{
+      z-index:5;
+      width:min(520px,var(--fh-container));
+      margin:clamp(18px,3vw,28px) auto 0;
+      background:rgba(255,250,243,.94);
+      border-color:rgba(255,250,243,.64);
+      box-shadow:0 24px 80px rgba(0,0,0,.20);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+    #fh-booking-page .fh-hero-carousel-shell{
+      margin-top:clamp(14px,2.8vw,26px);
+    }
+    #fh-booking-page .fh-details-layout{grid-template-columns:1fr;}
+    #fh-booking-page .fh-description{max-width:980px;margin-inline:auto;}
+    #fh-booking-page .fh-summary-item{text-align:left;border-radius:0;font:inherit;}
+    #fh-booking-page button.fh-summary-item{cursor:pointer;}
+    #fh-booking-page button.fh-summary-item:hover,
+    #fh-booking-page button.fh-summary-item:focus{border-color:rgba(135,110,88,.38);box-shadow:0 0 0 3px rgba(185,159,134,.14);outline:0;}
+    #fh-booking-page .fh-policy-card{margin:12px 0;padding:13px;border:1px solid rgba(25,23,20,.10);background:rgba(255,255,255,.45);}
+    #fh-booking-page .fh-policy-card[hidden]{display:none!important}
+    #fh-booking-page .fh-policy-card span{display:block;margin-bottom:6px;color:var(--fh-soft);font-size:9px;text-transform:uppercase;letter-spacing:.14em;font-weight:900;}
+    #fh-booking-page .fh-policy-card p{margin:0;color:var(--fh-muted);font-size:13px;line-height:1.48;}
+
+    @media (max-width:639px){
+      #fh-booking-page .fh-photo-hero{min-height:auto;padding-top:184px;justify-content:flex-start;}
+      #fh-booking-page .fh-hero-copy{text-align:left;}
+      #fh-booking-page #fhHeroTitle{font-size:clamp(58px,18vw,86px);}
+      #fh-booking-page .fh-hero-contact{top:88px;}
+      #fh-booking-page .fh-hero-contact a{min-height:40px;padding:9px 11px;}
+      #fh-booking-page .fh-hero-contact strong{font-size:12px;}
+      #fh-booking-page .fh-photo-hero > .fh-booking-card{width:var(--fh-container);padding:16px;}
+    }
+
     @media (min-width:640px){
       :root{--fh-edge:22px}
       .fh-photo-hero{min-height:calc(100svh - 92px);padding-bottom:22px}
@@ -242,6 +328,18 @@
       .fh-day{min-height:94px;padding:9px}
     }
 
+
+
+    @media (min-width:960px){
+      #fh-booking-page .fh-photo-hero{min-height:calc(100svh - 96px);padding-top:132px;padding-bottom:130px;}
+      #fh-booking-page .fh-hero-copy{width:min(880px,calc(100% - 520px));margin-left:clamp(250px,21vw,360px);margin-right:auto;text-align:left;}
+      #fh-booking-page .fh-photo-hero > .fh-booking-card{position:absolute;right:var(--fh-edge);bottom:clamp(96px,10vh,132px);width:min(430px,36vw);max-height:min(78svh,760px);overflow:auto;margin:0;padding:22px;}
+      #fh-booking-page .fh-photo-hero .fh-selected-dates{grid-template-columns:1fr 1fr;}
+      #fh-booking-page .fh-details-layout{grid-template-columns:1fr;}
+      #fh-booking-page .fh-hero-carousel-shell{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);margin:0;}
+      #fh-booking-page .fh-booking-card{top:auto;}
+    }
+
     @media (min-width:1180px){
       .fh-day{min-height:100px}
       .fh-photo-hero{min-height:calc(100svh - 100px)}
@@ -250,6 +348,176 @@
     @media (prefers-reduced-motion:reduce){
       *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
     }
+  
+
+    /* ===== FINAL HERO LAYOUT PATCH: left/right separation + Apple-glass booking card ===== */
+    #fh-booking-page .fh-photo-hero{
+      min-height:100svh!important;
+      display:grid!important;
+      grid-template-columns:1fr!important;
+      grid-template-areas:"copy" "booking" "carousel"!important;
+      align-items:end!important;
+      gap:14px!important;
+      padding:clamp(126px,17vh,166px) var(--fh-edge) 18px calc(var(--fh-edge) + 50px)!important;
+      isolation:isolate!important;
+    }
+    #fh-booking-page .fh-hero-bg:after{
+      background:
+        linear-gradient(90deg,rgba(22,19,16,.74) 0%,rgba(22,19,16,.44) 42%,rgba(22,19,16,.58) 100%),
+        linear-gradient(180deg,rgba(22,19,16,.50) 0%,rgba(22,19,16,.18) 42%,rgba(22,19,16,.75) 100%),
+        radial-gradient(circle at 52% 18%,rgba(255,255,255,.10),transparent 0 34%)!important;
+    }
+    #fh-booking-page .fh-hero-copy{
+      grid-area:copy!important;
+      width:100%!important;
+      max-width:760px!important;
+      margin:0!important;
+      text-align:left!important;
+      z-index:4!important;
+    }
+    #fh-booking-page #fhHeroTitle{
+      color:#fffaf3!important;
+      font-size:clamp(68px,19vw,142px)!important;
+      line-height:.82!important;
+      letter-spacing:-.075em!important;
+      text-shadow:0 18px 58px rgba(0,0,0,.34)!important;
+      margin-bottom:16px!important;
+    }
+    #fh-booking-page #fhHeroLead{
+      max-width:620px!important;
+      margin-left:0!important;
+      margin-right:0!important;
+      color:rgba(255,250,243,.86)!important;
+      text-shadow:0 10px 34px rgba(0,0,0,.30)!important;
+    }
+    #fh-booking-page .fh-hero-contact{
+      position:absolute!important;
+      z-index:8!important;
+      left:var(--fh-edge)!important;
+      top:50%!important;
+      transform:translateY(-50%)!important;
+      width:40px!important;
+      display:flex!important;
+      flex-direction:column!important;
+      gap:9px!important;
+      margin:0!important;
+      justify-content:center!important;
+      align-items:stretch!important;
+      pointer-events:auto!important;
+    }
+    #fh-booking-page .fh-hero-contact a{
+      width:40px!important;
+      min-width:40px!important;
+      min-height:118px!important;
+      padding:10px 6px!important;
+      display:flex!important;
+      flex-direction:column!important;
+      align-items:center!important;
+      justify-content:center!important;
+      gap:8px!important;
+      border:1px solid rgba(255,250,243,.30)!important;
+      background:rgba(255,250,243,.13)!important;
+      color:#fffaf3!important;
+      box-shadow:0 16px 44px rgba(0,0,0,.18)!important;
+      -webkit-backdrop-filter:blur(22px) saturate(1.18)!important;
+      backdrop-filter:blur(22px) saturate(1.18)!important;
+    }
+    #fh-booking-page .fh-hero-contact span,
+    #fh-booking-page .fh-hero-contact strong{
+      writing-mode:vertical-rl!important;
+      transform:rotate(180deg)!important;
+      text-align:center!important;
+      white-space:nowrap!important;
+    }
+    #fh-booking-page .fh-hero-contact span{
+      color:rgba(255,250,243,.68)!important;
+      font-size:8px!important;
+      letter-spacing:.16em!important;
+    }
+    #fh-booking-page .fh-hero-contact strong{
+      max-height:92px!important;
+      overflow:hidden!important;
+      text-overflow:ellipsis!important;
+      font-size:10px!important;
+      line-height:1.1!important;
+      color:#fffaf3!important;
+    }
+    #fh-booking-page .fh-photo-hero > .fh-booking-card{
+      grid-area:booking!important;
+      position:relative!important;
+      z-index:5!important;
+      width:100%!important;
+      max-width:none!important;
+      max-height:none!important;
+      overflow:visible!important;
+      margin:0!important;
+      padding:18px!important;
+      border:1px solid rgba(255,250,243,.46)!important;
+      background:linear-gradient(135deg,rgba(255,250,243,.82),rgba(255,250,243,.58))!important;
+      box-shadow:0 26px 90px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.58)!important;
+      -webkit-backdrop-filter:blur(26px) saturate(1.22)!important;
+      backdrop-filter:blur(26px) saturate(1.22)!important;
+    }
+    #fh-booking-page .fh-photo-hero > .fh-booking-card:before{
+      background:linear-gradient(145deg,rgba(255,255,255,.52),rgba(255,255,255,.08) 46%,rgba(185,159,134,.10))!important;
+    }
+    #fh-booking-page .fh-photo-hero .fh-summary-item,
+    #fh-booking-page .fh-photo-hero .fh-field input,
+    #fh-booking-page .fh-photo-hero .fh-field select,
+    #fh-booking-page .fh-photo-hero .fh-live-quote,
+    #fh-booking-page .fh-photo-hero .fh-policy-card,
+    #fh-booking-page .fh-photo-hero .fh-ghost-btn{
+      background:rgba(255,250,243,.58)!important;
+      border-color:rgba(25,23,20,.12)!important;
+      -webkit-backdrop-filter:blur(10px)!important;
+      backdrop-filter:blur(10px)!important;
+    }
+    #fh-booking-page .fh-hero-carousel-shell{
+      grid-area:carousel!important;
+      position:relative!important;
+      z-index:4!important;
+      width:100%!important;
+      margin:0!important;
+      left:auto!important;
+      right:auto!important;
+      bottom:auto!important;
+      transform:none!important;
+    }
+    @media (max-width:639px){
+      #fh-booking-page .fh-photo-hero{
+        padding-top:132px!important;
+        padding-left:calc(var(--fh-edge) + 46px)!important;
+        padding-bottom:16px!important;
+      }
+      #fh-booking-page .fh-hero-contact{left:10px!important;width:34px!important;top:46%!important;}
+      #fh-booking-page .fh-hero-contact a{width:34px!important;min-width:34px!important;min-height:92px!important;padding:8px 5px!important;}
+      #fh-booking-page .fh-hero-contact strong{display:none!important;}
+      #fh-booking-page #fhHeroTitle{font-size:clamp(64px,22vw,94px)!important;}
+      #fh-booking-page #fhHeroLead{font-size:15px!important;line-height:1.48!important;}
+      #fh-booking-page .fh-photo-hero > .fh-booking-card{padding:15px!important;}
+      #fh-booking-page .fh-photo-hero .fh-selected-dates{grid-template-columns:1fr 1fr!important;}
+    }
+    @media (min-width:960px){
+      #fh-booking-page .fh-photo-hero{
+        min-height:calc(100svh - 96px)!important;
+        grid-template-columns:minmax(0,1.05fr) minmax(390px,460px)!important;
+        grid-template-areas:"copy booking" "carousel booking"!important;
+        column-gap:clamp(28px,4vw,58px)!important;
+        row-gap:18px!important;
+        padding:clamp(150px,18vh,190px) var(--fh-edge) 34px calc(var(--fh-edge) + 66px)!important;
+      }
+      #fh-booking-page .fh-hero-copy{align-self:center!important;max-width:850px!important;}
+      #fh-booking-page #fhHeroTitle{font-size:clamp(92px,9vw,158px)!important;}
+      #fh-booking-page .fh-photo-hero > .fh-booking-card{
+        align-self:center!important;
+        max-height:calc(100svh - 190px)!important;
+        overflow:auto!important;
+        padding:22px!important;
+      }
+      #fh-booking-page .fh-hero-contact{left:calc(var(--fh-edge) + 2px)!important;width:44px!important;}
+      #fh-booking-page .fh-hero-contact a{width:44px!important;min-width:44px!important;min-height:132px!important;}
+    }
+
   </style>
 </head>
 <body>
@@ -274,6 +542,60 @@
         <div class="fh-hero-rail" id="fhPhotoRail"></div>
         <button type="button" class="fh-hero-arrow" id="fhPhotoNext" aria-label="Next photo">›</button>
       </div>
+      <aside class="fh-booking-card" aria-label="Booking details">
+        <p class="fh-kicker" id="fhBookingKicker">Your stay</p>
+        <h3 id="fhBookingTitle">Booking details</h3>
+        <p class="fh-small-note" id="fhBookingNote">Select dates from the schedule. The same live schedule can open here without using check-in/check-out dropdowns.</p>
+
+        <div class="fh-selected-dates">
+          <button type="button" class="fh-summary-item fh-summary-trigger" id="fhArrivalTrigger"><span id="fhArrivalLabel">Arrival</span><b id="fhSummaryArrival">Select date</b></button>
+          <button type="button" class="fh-summary-item fh-summary-trigger" id="fhDepartureTrigger"><span id="fhDepartureLabel">Departure</span><b id="fhSummaryDeparture">Select date</b></button>
+          <div class="fh-summary-item"><span id="fhNightsLabel">Nights</span><b id="fhSummaryNights">—</b></div>
+          <div class="fh-summary-item"><span id="fhPriceLabel">Quote</span><b id="fhSummaryQuote">—</b></div>
+        </div>
+
+        <button class="fh-ghost-btn" type="button" id="fhOpenScheduleBtn">Open schedule</button>
+
+        <div class="fh-form-grid" style="margin-top:12px">
+          <div class="fh-field">
+            <label for="fhAdults" id="fhAdultsLabel">Adults</label>
+            <select id="fhAdults">
+              <option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="12">12</option><option value="16">16</option><option value="20">20</option><option value="24">24</option><option value="32">32</option><option value="40">40</option><option value="48">48</option>
+            </select>
+          </div>
+          <div class="fh-field">
+            <label for="fhChildren" id="fhChildrenLabel">Children</label>
+            <select id="fhChildren">
+              <option value="0" selected>0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="8">8</option><option value="10">10</option><option value="12">12</option>
+            </select>
+          </div>
+          <div class="fh-field">
+            <label for="fhFirstName" id="fhFirstNameLabel">First name</label>
+            <input id="fhFirstName" type="text" autocomplete="given-name" placeholder="First name">
+          </div>
+          <div class="fh-field">
+            <label for="fhLastName" id="fhLastNameLabel">Last name</label>
+            <input id="fhLastName" type="text" autocomplete="family-name" placeholder="Last name">
+          </div>
+          <div class="fh-field full">
+            <label for="fhEmail" id="fhEmailLabel">Email</label>
+            <input id="fhEmail" type="email" autocomplete="email" placeholder="email@example.com">
+          </div>
+        </div>
+
+        <div class="fh-live-quote" id="fhLiveQuote">Select available arrival and departure dates to calculate the live quote.</div>
+
+        <div class="fh-policy-card" id="fhCancellationPolicy" hidden>
+          <span id="fhCancellationPolicyLabel">Cancellation policy</span>
+          <p id="fhCancellationPolicyText"></p>
+        </div>
+
+        <div class="fh-actions">
+          <button class="fh-primary-btn" type="button" id="fhContinueBtn">Continue to checkout</button>
+          <button class="fh-ghost-btn" type="button" id="fhClearDatesBtn">Clear dates</button>
+        </div>
+        <div class="fh-message" id="fhMessage" role="status" aria-live="polite"></div>
+      </aside>
     </section>
 
     <section class="fh-section" aria-labelledby="fhListingTitle">
@@ -289,55 +611,7 @@
           <div class="fh-dynamic-info" id="fhDynamicInfo"></div>
         </article>
 
-        <aside class="fh-booking-card" aria-label="Booking details">
-          <p class="fh-kicker" id="fhBookingKicker">Your stay</p>
-          <h3 id="fhBookingTitle">Booking details</h3>
-          <p class="fh-small-note" id="fhBookingNote">Select dates from the schedule. The same live schedule can open here without using check-in/check-out dropdowns.</p>
 
-          <div class="fh-selected-dates">
-            <div class="fh-summary-item"><span id="fhArrivalLabel">Arrival</span><b id="fhSummaryArrival">Select date</b></div>
-            <div class="fh-summary-item"><span id="fhDepartureLabel">Departure</span><b id="fhSummaryDeparture">Select date</b></div>
-            <div class="fh-summary-item"><span id="fhNightsLabel">Nights</span><b id="fhSummaryNights">—</b></div>
-            <div class="fh-summary-item"><span id="fhPriceLabel">Quote</span><b id="fhSummaryQuote">—</b></div>
-          </div>
-
-          <button class="fh-ghost-btn" type="button" id="fhOpenScheduleBtn">Open schedule</button>
-
-          <div class="fh-form-grid" style="margin-top:12px">
-            <div class="fh-field">
-              <label for="fhAdults" id="fhAdultsLabel">Adults</label>
-              <select id="fhAdults">
-                <option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="12">12</option><option value="16">16</option><option value="20">20</option><option value="24">24</option><option value="32">32</option><option value="40">40</option><option value="48">48</option>
-              </select>
-            </div>
-            <div class="fh-field">
-              <label for="fhChildren" id="fhChildrenLabel">Children</label>
-              <select id="fhChildren">
-                <option value="0" selected>0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="8">8</option><option value="10">10</option><option value="12">12</option>
-              </select>
-            </div>
-            <div class="fh-field">
-              <label for="fhFirstName" id="fhFirstNameLabel">First name</label>
-              <input id="fhFirstName" type="text" autocomplete="given-name" placeholder="First name">
-            </div>
-            <div class="fh-field">
-              <label for="fhLastName" id="fhLastNameLabel">Last name</label>
-              <input id="fhLastName" type="text" autocomplete="family-name" placeholder="Last name">
-            </div>
-            <div class="fh-field full">
-              <label for="fhEmail" id="fhEmailLabel">Email</label>
-              <input id="fhEmail" type="email" autocomplete="email" placeholder="email@example.com">
-            </div>
-          </div>
-
-          <div class="fh-live-quote" id="fhLiveQuote">Select available arrival and departure dates to calculate the live quote.</div>
-
-          <div class="fh-actions">
-            <button class="fh-primary-btn" type="button" id="fhContinueBtn">Continue to checkout</button>
-            <button class="fh-ghost-btn" type="button" id="fhClearDatesBtn">Clear dates</button>
-          </div>
-          <div class="fh-message" id="fhMessage" role="status" aria-live="polite"></div>
-        </aside>
       </div>
     </section>
 
@@ -458,11 +732,11 @@
     };
 
     var TEXT = {
-      en:{heroKicker:"Direct booking",heroTitle:"Book your stay",heroLead:"Browse real photos, choose available dates, and see nightly pricing loaded directly from the booking Worker.",contactPhone:"Call",contactEmail:"Email",propertyKicker:"The property",loadingTitle:"Loading property information",fallbackTitle:"Fletschhorn private alpine house",fallbackDescription:"Property information is loading from the Worker. If this message remains visible, check that /listing or /content?lang=en returns a description field.",bookingKicker:"Your stay",bookingTitle:"Booking details",bookingNote:"Select dates from the schedule. The same live schedule can open here without using check-in/check-out dropdowns.",openSchedule:"Open schedule",scheduleKicker:"Availability & prices",scheduleTitle:"Visible schedule",modalKicker:"Choose dates",loadingSchedule:"Loading schedule from the Worker…",loadedSchedule:"Schedule loaded. Choose an available arrival date, then a departure date.",scheduleError:"The schedule could not be loaded. The page is still usable, but prices and availability need the Worker response.",available:"Available",selected:"Selected",booked:"Booked",unavailable:"Unavailable",past:"Past",noPrice:"—",arrival:"Arrival",departure:"Departure",selectDate:"Select date",nights:"Nights",night:"night",quote:"Quote",adults:"Adults",children:"Children",firstName:"First name",lastName:"Last name",email:"Email",quotePrompt:"Select available arrival and departure dates to calculate the live quote.",quoteLoading:"Calculating live quote…",quoteError:"The live quote did not load. The selected dates are saved and can still continue to checkout.",continue:"Continue to checkout",clear:"Clear dates",missingDates:"Select arrival and departure dates from the visible schedule.",badRange:"Please select at least 2 nights.",rangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",missingFirstName:"Please enter your first name.",missingLastName:"Please enter your last name.",missingEmail:"Please enter your email.",invalidEmail:"Please enter a valid email address.",redirecting:"Opening checkout…",factsGuests:"Guests",factsBedrooms:"Bedrooms",factsBathrooms:"Bathrooms",factsBeds:"Beds",address:"Address",stayTiming:"Stay timing"},
-      fr:{heroKicker:"Réservation directe",heroTitle:"Réservez votre séjour",heroLead:"Parcourez les vraies photos, choisissez les dates disponibles et consultez les prix par nuit chargés directement depuis le Worker de réservation.",contactPhone:"Téléphone",contactEmail:"Email",propertyKicker:"La propriété",loadingTitle:"Chargement des informations",fallbackTitle:"Maison alpine privée Fletschhorn",fallbackDescription:"Les informations de la propriété sont chargées depuis le Worker. Si ce message reste visible, vérifiez que /listing ou /content?lang=fr retourne un champ de description.",bookingKicker:"Votre séjour",bookingTitle:"Détails de réservation",bookingNote:"Sélectionnez les dates dans le planning. Le même planning live peut s’ouvrir ici sans menu check-in/check-out.",openSchedule:"Ouvrir le planning",scheduleKicker:"Disponibilités & prix",scheduleTitle:"Planning visible",modalKicker:"Choisir les dates",loadingSchedule:"Chargement du planning depuis le Worker…",loadedSchedule:"Planning chargé. Choisissez une date d’arrivée disponible, puis une date de départ.",scheduleError:"Le planning n’a pas pu être chargé. La page reste utilisable, mais les prix et disponibilités nécessitent la réponse du Worker.",available:"Disponible",selected:"Sélectionné",booked:"Réservé",unavailable:"Indisponible",past:"Passé",noPrice:"—",arrival:"Arrivée",departure:"Départ",selectDate:"Sélectionner",nights:"Nuits",night:"nuit",quote:"Prix",adults:"Adultes",children:"Enfants",firstName:"Prénom",lastName:"Nom",email:"Email",quotePrompt:"Sélectionnez une arrivée et un départ disponibles pour calculer le prix en direct.",quoteLoading:"Calcul du prix en direct…",quoteError:"Le prix en direct n’a pas chargé. Les dates sélectionnées sont sauvegardées et peuvent continuer vers le checkout.",continue:"Continuer au checkout",clear:"Effacer les dates",missingDates:"Sélectionnez les dates d’arrivée et de départ dans le planning visible.",badRange:"Veuillez sélectionner au moins 2 nuits.",rangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles. Veuillez choisir une autre période.",missingFirstName:"Veuillez entrer votre prénom.",missingLastName:"Veuillez entrer votre nom.",missingEmail:"Veuillez entrer votre email.",invalidEmail:"Veuillez entrer un email valide.",redirecting:"Ouverture du checkout…",factsGuests:"Invités",factsBedrooms:"Chambres",factsBathrooms:"Salles de bain",factsBeds:"Lits",address:"Adresse",stayTiming:"Horaires du séjour"},
-      de:{heroKicker:"Direktbuchung",heroTitle:"Aufenthalt buchen",heroLead:"Durchsuchen Sie echte Fotos, wählen Sie verfügbare Daten und sehen Sie Nachtpreise direkt aus dem Buchungs-Worker.",contactPhone:"Telefon",contactEmail:"E-Mail",propertyKicker:"Das Haus",loadingTitle:"Informationen werden geladen",fallbackTitle:"Fletschhorn privates Alpenhaus",fallbackDescription:"Die Objektinformationen werden vom Worker geladen. Wenn diese Nachricht sichtbar bleibt, prüfen Sie, ob /listing oder /content?lang=de ein Beschreibungsfeld zurückgibt.",bookingKicker:"Ihr Aufenthalt",bookingTitle:"Buchungsdetails",bookingNote:"Wählen Sie Daten im Kalender. Derselbe Live-Kalender kann hier geöffnet werden, ohne Check-in/Check-out Dropdowns.",openSchedule:"Kalender öffnen",scheduleKicker:"Verfügbarkeit & Preise",scheduleTitle:"Sichtbarer Kalender",modalKicker:"Daten wählen",loadingSchedule:"Kalender wird vom Worker geladen…",loadedSchedule:"Kalender geladen. Wählen Sie ein verfügbares Anreisedatum und dann ein Abreisedatum.",scheduleError:"Der Kalender konnte nicht geladen werden. Die Seite bleibt nutzbar, aber Preise und Verfügbarkeit benötigen die Worker-Antwort.",available:"Verfügbar",selected:"Ausgewählt",booked:"Belegt",unavailable:"Nicht verfügbar",past:"Vergangen",noPrice:"—",arrival:"Anreise",departure:"Abreise",selectDate:"Datum wählen",nights:"Nächte",night:"Nacht",quote:"Preis",adults:"Erwachsene",children:"Kinder",firstName:"Vorname",lastName:"Nachname",email:"E-Mail",quotePrompt:"Wählen Sie verfügbare An- und Abreisedaten, um den Live-Preis zu berechnen.",quoteLoading:"Live-Preis wird berechnet…",quoteError:"Der Live-Preis wurde nicht geladen. Die ausgewählten Daten sind gespeichert und können trotzdem zum Checkout weitergehen.",continue:"Weiter zum Checkout",clear:"Daten löschen",missingDates:"Wählen Sie Anreise und Abreise im sichtbaren Kalender.",badRange:"Bitte wählen Sie mindestens 2 Nächte.",rangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar. Bitte wählen Sie einen anderen Zeitraum.",missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",missingEmail:"Bitte geben Sie Ihre E-Mail ein.",invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",redirecting:"Checkout wird geöffnet…",factsGuests:"Gäste",factsBedrooms:"Schlafzimmer",factsBathrooms:"Badezimmer",factsBeds:"Betten",address:"Adresse",stayTiming:"Aufenthaltszeiten"},
-      ru:{heroKicker:"Прямое бронирование",heroTitle:"Забронировать пребывание",heroLead:"Посмотрите реальные фотографии, выберите доступные даты и цены за ночь, загруженные напрямую через booking Worker.",contactPhone:"Телефон",contactEmail:"Email",propertyKicker:"Объект",loadingTitle:"Загрузка информации",fallbackTitle:"Частный альпийский дом Fletschhorn",fallbackDescription:"Информация об объекте загружается из Worker. Если это сообщение остаётся видимым, проверьте, что /listing или /content?lang=ru возвращает поле description.",bookingKicker:"Ваше пребывание",bookingTitle:"Детали бронирования",bookingNote:"Выберите даты из расписания. То же live-расписание можно открыть здесь без check-in/check-out dropdown.",openSchedule:"Открыть расписание",scheduleKicker:"Доступность и цены",scheduleTitle:"Видимый календарь",modalKicker:"Выберите даты",loadingSchedule:"Календарь загружается из Worker…",loadedSchedule:"Календарь загружен. Выберите доступную дату заезда, затем дату выезда.",scheduleError:"Календарь не загрузился. Страница остаётся usable, но цены и доступность требуют ответа Worker.",available:"Доступно",selected:"Выбрано",booked:"Занято",unavailable:"Недоступно",past:"Прошло",noPrice:"—",arrival:"Заезд",departure:"Выезд",selectDate:"Выберите дату",nights:"Ночи",night:"ночь",quote:"Цена",adults:"Взрослые",children:"Дети",firstName:"Имя",lastName:"Фамилия",email:"Email",quotePrompt:"Выберите доступные даты заезда и выезда, чтобы рассчитать live quote.",quoteLoading:"Расчёт live quote…",quoteError:"Live quote не загрузился. Выбранные даты сохранены, и можно продолжить к checkout.",continue:"Перейти к checkout",clear:"Очистить даты",missingDates:"Выберите даты заезда и выезда в видимом календаре.",badRange:"Выберите минимум 2 ночи.",rangeUnavailable:"Одна или несколько выбранных ночей недоступны. Выберите другой диапазон.",missingFirstName:"Введите имя.",missingLastName:"Введите фамилию.",missingEmail:"Введите email.",invalidEmail:"Введите корректный email.",redirecting:"Открываем checkout…",factsGuests:"Гости",factsBedrooms:"Спальни",factsBathrooms:"Ванные",factsBeds:"Кровати",address:"Адрес",stayTiming:"Время пребывания"},
-      he:{heroKicker:"הזמנה ישירה",heroTitle:"הזמינו את השהייה",heroLead:"צפו בתמונות, בחרו תאריכים זמינים וראו מחירי לילה הנטענים ישירות דרך Worker ההזמנות.",contactPhone:"טלפון",contactEmail:"אימייל",propertyKicker:"הנכס",loadingTitle:"טוען מידע על הנכס",fallbackTitle:"בית אלפיני פרטי Fletschhorn",fallbackDescription:"מידע הנכס נטען מה-Worker. אם ההודעה נשארת, בדקו ש-/listing או /content?lang=he מחזיר שדה description.",bookingKicker:"השהייה שלכם",bookingTitle:"פרטי הזמנה",bookingNote:"בחרו תאריכים מתוך לוח הזמנים. אותו לוח זמנים יכול להיפתח כאן ללא תיבת check-in/check-out.",openSchedule:"פתחו לוח זמנים",scheduleKicker:"זמינות ומחירים",scheduleTitle:"לוח זמנים גלוי",modalKicker:"בחירת תאריכים",loadingSchedule:"טוען לוח זמנים מה-Worker…",loadedSchedule:"לוח הזמנים נטען. בחרו תאריך הגעה זמין ולאחר מכן תאריך עזיבה.",scheduleError:"לוח הזמנים לא נטען. הדף עדיין ניתן לשימוש, אך מחירים וזמינות דורשים תשובת Worker.",available:"זמין",selected:"נבחר",booked:"תפוס",unavailable:"לא זמין",past:"עבר",noPrice:"—",arrival:"הגעה",departure:"עזיבה",selectDate:"בחרו תאריך",nights:"לילות",night:"לילה",quote:"מחיר",adults:"מבוגרים",children:"ילדים",firstName:"שם פרטי",lastName:"שם משפחה",email:"אימייל",quotePrompt:"בחרו תאריכי הגעה ועזיבה זמינים כדי לחשב מחיר חי.",quoteLoading:"מחשב מחיר חי…",quoteError:"המחיר החי לא נטען. התאריכים נשמרו ועדיין אפשר להמשיך ל-checkout.",continue:"המשך ל-checkout",clear:"נקה תאריכים",missingDates:"בחרו תאריכי הגעה ועזיבה מתוך לוח הזמנים הגלוי.",badRange:"נא לבחור לפחות 2 לילות.",rangeUnavailable:"אחד או יותר מהלילות שנבחרו אינם זמינים. נא לבחור טווח אחר.",missingFirstName:"נא להזין שם פרטי.",missingLastName:"נא להזין שם משפחה.",missingEmail:"נא להזין אימייל.",invalidEmail:"נא להזין כתובת אימייל תקינה.",redirecting:"פותח checkout…",factsGuests:"אורחים",factsBedrooms:"חדרי שינה",factsBathrooms:"חדרי רחצה",factsBeds:"מיטות",address:"כתובת",stayTiming:"זמני שהייה"}
+      en:{heroKicker:"Direct booking",heroTitle:"Book your stay",heroLead:"Browse real photos, choose available dates, and see nightly pricing loaded directly from the booking Worker.",contactPhone:"Call",contactEmail:"Email",propertyKicker:"The property",loadingTitle:"Loading property information",fallbackTitle:"Fletschhorn private alpine house",fallbackDescription:"Property information is loading from the Worker. If this message remains visible, check that /listing or /content?lang=en returns a description field.",bookingKicker:"Your stay",bookingTitle:"Booking details",bookingNote:"Select dates from the schedule. The same live schedule can open here without using check-in/check-out dropdowns.",openSchedule:"Open schedule",scheduleKicker:"Availability & prices",scheduleTitle:"Visible schedule",modalKicker:"Choose dates",loadingSchedule:"Loading schedule from the Worker…",loadedSchedule:"Schedule loaded. Choose an available arrival date, then a departure date.",scheduleError:"The schedule could not be loaded. The page is still usable, but prices and availability need the Worker response.",available:"Available",selected:"Selected",booked:"Booked",unavailable:"Unavailable",past:"Past",noPrice:"—",arrival:"Arrival",departure:"Departure",selectDate:"Select date",nights:"Nights",night:"night",quote:"Quote",adults:"Adults",children:"Children",firstName:"First name",lastName:"Last name",email:"Email",quotePrompt:"Select available arrival and departure dates to calculate the live quote.",quoteLoading:"Calculating live quote…",quoteError:"The live quote did not load. The selected dates are saved and can still continue to checkout.",continue:"Continue to checkout",clear:"Clear dates",missingDates:"Select arrival and departure dates from the visible schedule.",badRange:"Please select at least 2 nights.",rangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",missingFirstName:"Please enter your first name.",missingLastName:"Please enter your last name.",missingEmail:"Please enter your email.",invalidEmail:"Please enter a valid email address.",redirecting:"Opening checkout…",cancellationPolicy:"Cancellation policy",factsGuests:"Guests",factsBedrooms:"Bedrooms",factsBathrooms:"Bathrooms",factsBeds:"Beds",address:"Address",stayTiming:"Stay timing"},
+      fr:{heroKicker:"Réservation directe",heroTitle:"Réservez votre séjour",heroLead:"Parcourez les vraies photos, choisissez les dates disponibles et consultez les prix par nuit chargés directement depuis le Worker de réservation.",contactPhone:"Téléphone",contactEmail:"Email",propertyKicker:"La propriété",loadingTitle:"Chargement des informations",fallbackTitle:"Maison alpine privée Fletschhorn",fallbackDescription:"Les informations de la propriété sont chargées depuis le Worker. Si ce message reste visible, vérifiez que /listing ou /content?lang=fr retourne un champ de description.",bookingKicker:"Votre séjour",bookingTitle:"Détails de réservation",bookingNote:"Sélectionnez les dates dans le planning. Le même planning live peut s’ouvrir ici sans menu check-in/check-out.",openSchedule:"Ouvrir le planning",scheduleKicker:"Disponibilités & prix",scheduleTitle:"Planning visible",modalKicker:"Choisir les dates",loadingSchedule:"Chargement du planning depuis le Worker…",loadedSchedule:"Planning chargé. Choisissez une date d’arrivée disponible, puis une date de départ.",scheduleError:"Le planning n’a pas pu être chargé. La page reste utilisable, mais les prix et disponibilités nécessitent la réponse du Worker.",available:"Disponible",selected:"Sélectionné",booked:"Réservé",unavailable:"Indisponible",past:"Passé",noPrice:"—",arrival:"Arrivée",departure:"Départ",selectDate:"Sélectionner",nights:"Nuits",night:"nuit",quote:"Prix",adults:"Adultes",children:"Enfants",firstName:"Prénom",lastName:"Nom",email:"Email",quotePrompt:"Sélectionnez une arrivée et un départ disponibles pour calculer le prix en direct.",quoteLoading:"Calcul du prix en direct…",quoteError:"Le prix en direct n’a pas chargé. Les dates sélectionnées sont sauvegardées et peuvent continuer vers le checkout.",continue:"Continuer au checkout",clear:"Effacer les dates",missingDates:"Sélectionnez les dates d’arrivée et de départ dans le planning visible.",badRange:"Veuillez sélectionner au moins 2 nuits.",rangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles. Veuillez choisir une autre période.",missingFirstName:"Veuillez entrer votre prénom.",missingLastName:"Veuillez entrer votre nom.",missingEmail:"Veuillez entrer votre email.",invalidEmail:"Veuillez entrer un email valide.",redirecting:"Ouverture du checkout…",cancellationPolicy:"Politique d’annulation",factsGuests:"Invités",factsBedrooms:"Chambres",factsBathrooms:"Salles de bain",factsBeds:"Lits",address:"Adresse",stayTiming:"Horaires du séjour"},
+      de:{heroKicker:"Direktbuchung",heroTitle:"Aufenthalt buchen",heroLead:"Durchsuchen Sie echte Fotos, wählen Sie verfügbare Daten und sehen Sie Nachtpreise direkt aus dem Buchungs-Worker.",contactPhone:"Telefon",contactEmail:"E-Mail",propertyKicker:"Das Haus",loadingTitle:"Informationen werden geladen",fallbackTitle:"Fletschhorn privates Alpenhaus",fallbackDescription:"Die Objektinformationen werden vom Worker geladen. Wenn diese Nachricht sichtbar bleibt, prüfen Sie, ob /listing oder /content?lang=de ein Beschreibungsfeld zurückgibt.",bookingKicker:"Ihr Aufenthalt",bookingTitle:"Buchungsdetails",bookingNote:"Wählen Sie Daten im Kalender. Derselbe Live-Kalender kann hier geöffnet werden, ohne Check-in/Check-out Dropdowns.",openSchedule:"Kalender öffnen",scheduleKicker:"Verfügbarkeit & Preise",scheduleTitle:"Sichtbarer Kalender",modalKicker:"Daten wählen",loadingSchedule:"Kalender wird vom Worker geladen…",loadedSchedule:"Kalender geladen. Wählen Sie ein verfügbares Anreisedatum und dann ein Abreisedatum.",scheduleError:"Der Kalender konnte nicht geladen werden. Die Seite bleibt nutzbar, aber Preise und Verfügbarkeit benötigen die Worker-Antwort.",available:"Verfügbar",selected:"Ausgewählt",booked:"Belegt",unavailable:"Nicht verfügbar",past:"Vergangen",noPrice:"—",arrival:"Anreise",departure:"Abreise",selectDate:"Datum wählen",nights:"Nächte",night:"Nacht",quote:"Preis",adults:"Erwachsene",children:"Kinder",firstName:"Vorname",lastName:"Nachname",email:"E-Mail",quotePrompt:"Wählen Sie verfügbare An- und Abreisedaten, um den Live-Preis zu berechnen.",quoteLoading:"Live-Preis wird berechnet…",quoteError:"Der Live-Preis wurde nicht geladen. Die ausgewählten Daten sind gespeichert und können trotzdem zum Checkout weitergehen.",continue:"Weiter zum Checkout",clear:"Daten löschen",missingDates:"Wählen Sie Anreise und Abreise im sichtbaren Kalender.",badRange:"Bitte wählen Sie mindestens 2 Nächte.",rangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar. Bitte wählen Sie einen anderen Zeitraum.",missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",missingEmail:"Bitte geben Sie Ihre E-Mail ein.",invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",redirecting:"Checkout wird geöffnet…",cancellationPolicy:"Stornierungsbedingungen",factsGuests:"Gäste",factsBedrooms:"Schlafzimmer",factsBathrooms:"Badezimmer",factsBeds:"Betten",address:"Adresse",stayTiming:"Aufenthaltszeiten"},
+      ru:{heroKicker:"Прямое бронирование",heroTitle:"Забронировать пребывание",heroLead:"Посмотрите реальные фотографии, выберите доступные даты и цены за ночь, загруженные напрямую через booking Worker.",contactPhone:"Телефон",contactEmail:"Email",propertyKicker:"Объект",loadingTitle:"Загрузка информации",fallbackTitle:"Частный альпийский дом Fletschhorn",fallbackDescription:"Информация об объекте загружается из Worker. Если это сообщение остаётся видимым, проверьте, что /listing или /content?lang=ru возвращает поле description.",bookingKicker:"Ваше пребывание",bookingTitle:"Детали бронирования",bookingNote:"Выберите даты из расписания. То же live-расписание можно открыть здесь без check-in/check-out dropdown.",openSchedule:"Открыть расписание",scheduleKicker:"Доступность и цены",scheduleTitle:"Видимый календарь",modalKicker:"Выберите даты",loadingSchedule:"Календарь загружается из Worker…",loadedSchedule:"Календарь загружен. Выберите доступную дату заезда, затем дату выезда.",scheduleError:"Календарь не загрузился. Страница остаётся usable, но цены и доступность требуют ответа Worker.",available:"Доступно",selected:"Выбрано",booked:"Занято",unavailable:"Недоступно",past:"Прошло",noPrice:"—",arrival:"Заезд",departure:"Выезд",selectDate:"Выберите дату",nights:"Ночи",night:"ночь",quote:"Цена",adults:"Взрослые",children:"Дети",firstName:"Имя",lastName:"Фамилия",email:"Email",quotePrompt:"Выберите доступные даты заезда и выезда, чтобы рассчитать live quote.",quoteLoading:"Расчёт live quote…",quoteError:"Live quote не загрузился. Выбранные даты сохранены, и можно продолжить к checkout.",continue:"Перейти к checkout",clear:"Очистить даты",missingDates:"Выберите даты заезда и выезда в видимом календаре.",badRange:"Выберите минимум 2 ночи.",rangeUnavailable:"Одна или несколько выбранных ночей недоступны. Выберите другой диапазон.",missingFirstName:"Введите имя.",missingLastName:"Введите фамилию.",missingEmail:"Введите email.",invalidEmail:"Введите корректный email.",redirecting:"Открываем checkout…",cancellationPolicy:"Политика отмены",factsGuests:"Гости",factsBedrooms:"Спальни",factsBathrooms:"Ванные",factsBeds:"Кровати",address:"Адрес",stayTiming:"Время пребывания"},
+      he:{heroKicker:"הזמנה ישירה",heroTitle:"הזמינו את השהייה",heroLead:"צפו בתמונות, בחרו תאריכים זמינים וראו מחירי לילה הנטענים ישירות דרך Worker ההזמנות.",contactPhone:"טלפון",contactEmail:"אימייל",propertyKicker:"הנכס",loadingTitle:"טוען מידע על הנכס",fallbackTitle:"בית אלפיני פרטי Fletschhorn",fallbackDescription:"מידע הנכס נטען מה-Worker. אם ההודעה נשארת, בדקו ש-/listing או /content?lang=he מחזיר שדה description.",bookingKicker:"השהייה שלכם",bookingTitle:"פרטי הזמנה",bookingNote:"בחרו תאריכים מתוך לוח הזמנים. אותו לוח זמנים יכול להיפתח כאן ללא תיבת check-in/check-out.",openSchedule:"פתחו לוח זמנים",scheduleKicker:"זמינות ומחירים",scheduleTitle:"לוח זמנים גלוי",modalKicker:"בחירת תאריכים",loadingSchedule:"טוען לוח זמנים מה-Worker…",loadedSchedule:"לוח הזמנים נטען. בחרו תאריך הגעה זמין ולאחר מכן תאריך עזיבה.",scheduleError:"לוח הזמנים לא נטען. הדף עדיין ניתן לשימוש, אך מחירים וזמינות דורשים תשובת Worker.",available:"זמין",selected:"נבחר",booked:"תפוס",unavailable:"לא זמין",past:"עבר",noPrice:"—",arrival:"הגעה",departure:"עזיבה",selectDate:"בחרו תאריך",nights:"לילות",night:"לילה",quote:"מחיר",adults:"מבוגרים",children:"ילדים",firstName:"שם פרטי",lastName:"שם משפחה",email:"אימייל",quotePrompt:"בחרו תאריכי הגעה ועזיבה זמינים כדי לחשב מחיר חי.",quoteLoading:"מחשב מחיר חי…",quoteError:"המחיר החי לא נטען. התאריכים נשמרו ועדיין אפשר להמשיך ל-checkout.",continue:"המשך ל-checkout",clear:"נקה תאריכים",missingDates:"בחרו תאריכי הגעה ועזיבה מתוך לוח הזמנים הגלוי.",badRange:"נא לבחור לפחות 2 לילות.",rangeUnavailable:"אחד או יותר מהלילות שנבחרו אינם זמינים. נא לבחור טווח אחר.",missingFirstName:"נא להזין שם פרטי.",missingLastName:"נא להזין שם משפחה.",missingEmail:"נא להזין אימייל.",invalidEmail:"נא להזין כתובת אימייל תקינה.",redirecting:"פותח checkout…",cancellationPolicy:"מדיניות ביטול",factsGuests:"אורחים",factsBedrooms:"חדרי שינה",factsBathrooms:"חדרי רחצה",factsBeds:"מיטות",address:"כתובת",stayTiming:"זמני שהייה"}
     };
 
     function $(id){ return document.getElementById(id); }
@@ -532,6 +806,7 @@
       setText("fhDepartureLabel", txt("departure"));
       setText("fhNightsLabel", txt("nights"));
       setText("fhPriceLabel", txt("quote"));
+      setText("fhCancellationPolicyLabel", txt("cancellationPolicy") || "Cancellation policy");
       setText("fhAdultsLabel", txt("adults"));
       setText("fhChildrenLabel", txt("children"));
       setText("fhFirstNameLabel", txt("firstName"));
@@ -540,6 +815,7 @@
       setText("fhContinueBtn", txt("continue"));
       setText("fhClearDatesBtn", txt("clear"));
       updateSummary();
+      if (state.content || state.listing) renderListing();
     }
 
     function cleanUrl(raw){
@@ -611,8 +887,15 @@
     async function loadListingAndContent(){
       var content = null, listing = null;
       try { content = await fetchJSON("/content?lang=" + encodeURIComponent(state.lang)); } catch(error) { console.warn("/content did not load.", error); }
-      try { listing = await fetchJSON("/listing?listingId=" + encodeURIComponent(CFG.listingId)); } catch(error1) {
-        try { listing = await fetchJSON("/listing"); } catch(error2) { console.warn("/listing did not load.", error2); }
+      var listingAttempts = [
+        "/listing?listingId=" + encodeURIComponent(CFG.listingId) + "&lang=" + encodeURIComponent(state.lang),
+        "/listing?guestyListingId=" + encodeURIComponent(CFG.listingId) + "&lang=" + encodeURIComponent(state.lang),
+        "/listing?listingId=" + encodeURIComponent(CFG.listingId),
+        "/listing"
+      ];
+      for (var li=0; li<listingAttempts.length; li++) {
+        try { listing = await fetchJSON(listingAttempts[li]); break; }
+        catch(error2) { if (li === listingAttempts.length - 1) console.warn("/listing did not load.", error2); }
       }
       state.content = content;
       state.listing = listing;
@@ -652,16 +935,91 @@
       });
       return Array.from(new Set(blocks)).slice(0,5);
     }
+    function collectCancellationPolicy(data){
+      var blocks = [];
+      walk(data, function(value, path){
+        var joined = path.join(".").toLowerCase();
+        if (joined.indexOf("cancel") < 0 && joined.indexOf("policy") < 0) return;
+        if (typeof value === "string") {
+          var text = value.trim();
+          if (text.length > 5 && !/^https?:\/\//i.test(text)) blocks.push(text);
+        } else if (value && typeof value === "object" && !Array.isArray(value)) {
+          var parts = [];
+          Object.keys(value).forEach(function(key){
+            var v = value[key];
+            if (typeof v === "string" || typeof v === "number" || typeof v === "boolean") parts.push(key + ": " + v);
+          });
+          if (parts.length) blocks.push(parts.join(" · "));
+        }
+      });
+      return Array.from(new Set(blocks)).filter(function(text){ return text.length > 5; }).slice(0,3).join("\n\n");
+    }
     function htmlParagraphs(blocks){
       if (!blocks || !blocks.length) return "";
       return blocks.map(function(block){
         return safe(block).split(/\n{2,}/).map(function(p){ return p.trim(); }).filter(Boolean).map(function(p){ return "<p>"+escapeHTML(p)+"</p>"; }).join("");
       }).join("");
     }
+    function pathHasCurrentLang(path){
+      if (state.lang === "en") return false;
+      return path.some(function(part){
+        part = safe(part).toLowerCase();
+        return part === state.lang || part === "lang_"+state.lang || part === state.lang+"_" || part.indexOf("."+state.lang) >= 0 || part.indexOf("_"+state.lang) >= 0 || part.indexOf(state.lang+"_") >= 0;
+      });
+    }
+    function localizedFirstString(data, keys){
+      var found = "";
+      var keySet = keys.map(function(k){ return k.toLowerCase(); });
+      walk(data, function(value, path){
+        if (found || typeof value !== "string") return;
+        var last = path.length ? path[path.length-1].toLowerCase() : "";
+        var parent = path.length > 1 ? path[path.length-2].toLowerCase() : "";
+        var goodKey = keySet.indexOf(last) >= 0 || keySet.indexOf(parent) >= 0;
+        if (goodKey && pathHasCurrentLang(path) && value.trim().length > 1) found = value.trim();
+      });
+      return found;
+    }
+    function collectLocalizedDescriptions(data){
+      if (state.lang === "en") return [];
+      var blocks = [];
+      var preferred = ["summary","description","publicdescription","overview","space","access","transit","notes","neighborhood","propertydescription","longdescription","cancellation","policy"];
+      walk(data, function(value, path){
+        if (typeof value !== "string" || !pathHasCurrentLang(path)) return;
+        var text = value.trim();
+        if (text.length < 35 || /^https?:\/\//i.test(text)) return;
+        var joined = path.join(".").toLowerCase();
+        var isPreferred = preferred.some(function(k){ return joined.indexOf(k) >= 0; });
+        if (isPreferred || text.length > 120) blocks.push(text);
+      });
+      return Array.from(new Set(blocks)).slice(0,5);
+    }
+    function guestyFallbackText(kind){
+      var copy = {
+        title:{
+          de:"Fletschhorn privates Alpenhaus",
+          ru:"Частный альпийский дом Fletschhorn",
+          he:"בית אלפיני פרטי Fletschhorn"
+        },
+        description:{
+          de:"Fletschhorn ist ein privates Alpenhaus oberhalb von Saas-Fee für Gruppenaufenthalte, Familien, Retreats und besondere Anlässe. Die Seite lädt Fotos, Verfügbarkeit, Preise und Buchungsdaten direkt über den Worker.",
+          ru:"Fletschhorn — частный альпийский дом над Саас-Фе для групповых пребываний, семей, ретритов и особых событий. Страница загружает фотографии, доступность, цены и данные бронирования напрямую через Worker.",
+          he:"Fletschhorn הוא בית אלפיני פרטי מעל Saas-Fee לשהיות קבוצתיות, משפחות, ריטריטים ואירועים מיוחדים. הדף טוען תמונות, זמינות, מחירים ופרטי הזמנה ישירות דרך ה-Worker."
+        },
+        policy:{
+          de:"Die Stornierungsbedingungen werden aus den Buchungsdaten geladen. Wenn keine übersetzte Version verfügbar ist, bestätigen Sie die endgültigen Bedingungen im Checkout.",
+          ru:"Политика отмены загружается из данных бронирования. Если переведённая версия недоступна, окончательные условия подтверждаются на этапе checkout.",
+          he:"מדיניות הביטול נטענת מנתוני ההזמנה. אם אין גרסה מתורגמת זמינה, התנאים הסופיים יאושרו בעמוד ה-checkout."
+        }
+      };
+      return copy[kind] && copy[kind][state.lang] ? copy[kind][state.lang] : "";
+    }
     function renderListing(){
       var merged = { content:state.content || {}, listing:state.listing || {} };
-      var title = findFirstString(merged, ["title","name","nickname","listingTitle","propertyName"]) || txt("fallbackTitle");
-      var descriptions = collectDescriptions(state.content).concat(collectDescriptions(state.listing));
+      var title = localizedFirstString(merged, ["title","name","nickname","listingTitle","propertyName"]) || findFirstString(state.content, ["title","name","nickname","listingTitle","propertyName"]) || (state.lang !== "en" ? guestyFallbackText("title") : "") || findFirstString(state.listing, ["title","name","nickname","listingTitle","propertyName"]) || txt("fallbackTitle");
+      var descriptions = collectLocalizedDescriptions(state.content).concat(collectLocalizedDescriptions(state.listing));
+      if (!descriptions.length) descriptions = collectDescriptions(state.content);
+      if (!descriptions.length && state.lang !== "en") descriptions = [guestyFallbackText("description")].filter(Boolean);
+      if (!descriptions.length) descriptions = collectDescriptions(state.listing);
       descriptions = Array.from(new Set(descriptions)).slice(0,4);
       var descriptionHtml = htmlParagraphs(descriptions) || "<p>"+escapeHTML(txt("fallbackDescription"))+"</p>";
       setText("fhListingTitle", title);
@@ -683,6 +1041,16 @@
       if (address) cards.push([txt("address"), address]);
       if (checkIn || checkOut) cards.push([txt("stayTiming"), [checkIn ? "Check-in: "+checkIn : "", checkOut ? "Check-out: "+checkOut : ""].filter(Boolean).join(" · ")]);
       setHTML("fhDynamicInfo", cards.map(function(c){ return '<article class="fh-info-card"><b>'+escapeHTML(c[0])+'</b><p>'+escapeHTML(c[1])+'</p></article>'; }).join(""));
+      var policy = collectLocalizedDescriptions({policy:merged}).join("\n\n") || collectCancellationPolicy(merged);
+      if (!policy && state.lang !== "en") policy = guestyFallbackText("policy");
+      var policyBox = $("fhCancellationPolicy");
+      var policyText = $("fhCancellationPolicyText");
+      if (policyBox && policyText && policy) {
+        policyText.innerHTML = htmlParagraphs([policy]);
+        policyBox.hidden = false;
+      } else if (policyBox) {
+        policyBox.hidden = true;
+      }
     }
 
     function normalizeCalendarDay(item){
@@ -819,6 +1187,27 @@
       var quote = $("fhLiveQuote");
       if (quote && !state.arrival && !state.departure) quote.textContent = txt("quotePrompt");
     }
+    function parsePriceNumber(value){
+      if (value === null || value === undefined || value === "") return null;
+      if (typeof value === "object") value = value.amount || value.value || value.price || value.total || "";
+      var n = Number(String(value).replace(/[^0-9.,-]/g, "").replace(/,/g, ""));
+      return isNaN(n) ? null : n;
+    }
+    function calendarRangeTotal(){
+      if (!state.arrival || !state.departure) return null;
+      var total = 0, currency = CFG.currency, found = 0;
+      for (var d = new Date(state.arrival + "T00:00:00"); d < new Date(state.departure + "T00:00:00"); d.setDate(d.getDate()+1)) {
+        var iso = dateToISO(d);
+        var info = state.calendarDays[iso];
+        if (!info) return null;
+        var amount = parsePriceNumber(info.price);
+        if (amount === null) return null;
+        total += amount;
+        found += 1;
+        currency = info.currency || currency;
+      }
+      return found ? { total:total, currency:currency } : null;
+    }
     async function loadQuote(){
       var quote = $("fhLiveQuote");
       if (!state.arrival || !state.departure || state.quoteLoading) return;
@@ -859,7 +1248,15 @@
         if (quote) quote.innerHTML = escapeHTML(line) + (total !== null ? "<strong>"+escapeHTML(state.quoteTotalText)+"</strong>" : "");
       } catch(error) {
         console.warn("Quote did not load.", error);
-        if (quote) quote.textContent = txt("quoteError");
+        var fallbackTotal = calendarRangeTotal();
+        if (fallbackTotal) {
+          state.quoteTotalText = formatMoney(fallbackTotal.total, fallbackTotal.currency);
+          updateSummary();
+          var fallbackLine = txt("nights") + ": " + daysBetween(state.arrival,state.departure);
+          if (quote) quote.innerHTML = escapeHTML(fallbackLine) + "<strong>"+escapeHTML(state.quoteTotalText)+"</strong>";
+        } else {
+          if (quote) quote.textContent = txt("quoteError");
+        }
       } finally {
         state.quoteLoading = false;
       }
@@ -971,6 +1368,10 @@
           selectDate(day.dataset.date);
           if (id === "fhModalCalendarGrid" && state.arrival && state.departure) window.setTimeout(closeScheduleModal, 160);
         });
+      });
+      ["fhArrivalTrigger","fhDepartureTrigger"].forEach(function(id){
+        var trigger = $(id);
+        if (trigger) trigger.addEventListener("click", openScheduleModal);
       });
       var openBtn = $("fhOpenScheduleBtn");
       if (openBtn) openBtn.addEventListener("click", openScheduleModal);
