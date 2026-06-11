@@ -52,9 +52,9 @@
 #fh-property .fh-hero{position:relative;z-index:1;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#1b1915;color:var(--white)}
 #fh-property .fh-hero-media,#fh-property .fh-hero-media:before,#fh-property .fh-hero-media:after{position:absolute;inset:0}
 #fh-property .fh-hero-media{z-index:0}
-#fh-property .fh-hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.045);transition:opacity 2.8s ease,transform 18s ease}
+#fh-property .fh-hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.045);transition:opacity 5.2s ease,transform 38s ease}
 #fh-property .fh-hero-slide.is-active{opacity:1;transform:scale(1)}
-#fh-property .fh-hero-media{opacity:0;transition:opacity 1.4s ease}
+#fh-property .fh-hero-media{opacity:0;transition:opacity 2.2s ease}
 #fh-property .fh-hero-media.is-ready{opacity:1}
 #fh-property .fh-hero-media:before{content:"";z-index:1;background:linear-gradient(180deg,rgba(18,16,13,.58) 0%,rgba(18,16,13,.28) 42%,rgba(18,16,13,.70) 100%),radial-gradient(circle at 50% 12%,rgba(255,255,255,.14),transparent 0 26%)}
 #fh-property .fh-hero-media:after{content:"";z-index:1;background:linear-gradient(180deg,transparent 72%,#fffaf3 100%)}
@@ -74,7 +74,7 @@
 #fh-property .fh-proof b{display:block;margin-bottom:6px;color:var(--white);font-size:14px}
 #fh-property .fh-proof span{display:block;color:rgba(255,250,243,.74);font-size:13px;line-height:1.45}
 #fh-property .fh-progress{width:min(520px,70vw);height:2px;background:rgba(255,250,243,.20);margin:28px auto 0;overflow:hidden}
-#fh-property .fh-progress span{display:block;height:100%;width:100%;transform-origin:left;background:rgba(255,250,243,.82);animation:fhHeroProgress 16s linear infinite}
+#fh-property .fh-progress span{display:block;height:100%;width:100%;transform-origin:left;background:rgba(255,250,243,.82);animation:fhHeroProgress 32s linear infinite}
 @keyframes fhHeroProgress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 #fh-property .fh-peek{position:absolute;z-index:4;left:50%;bottom:22px;transform:translateX(-50%);display:inline-flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,250,243,.88)}
 #fh-property .fh-peek span{font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:800;white-space:nowrap}
@@ -877,6 +877,22 @@
   #fh-property .fh-hero-contact strong{font-size:12.5px}
 }
 
+/* ===== HERO SLOWDOWN FIX =====
+   The hero had two independent slide timers: the main property hero timer
+   and the final Worker-image safety-layer timer. The final Worker hero now
+   owns the slides and clears the first timer, so the hero no longer advances
+   twice as fast.
+*/
+#fh-property .fh-hero-slide{
+  transition:opacity 5.2s ease,transform 38s ease!important;
+}
+#fh-property .fh-hero-media{
+  transition:opacity 2.2s ease!important;
+}
+#fh-property .fh-progress span{
+  animation-duration:32s!important;
+}
+
 </style>
 </head>
 <body>
@@ -1107,6 +1123,8 @@
     const mountain=mountainUrls.length?mountainUrls:exterior;
     return rotateList([imgAt(exterior,0),imgAt(inside,1),imgAt(sauna,2),imgAt(mountain,3),imgAt(prop,4),imgAt(inside,5)],1);
   }
+  const FH_HERO_INTERVAL_MS=32000;
+  const FH_HERO_PROGRESS_SECONDS=32;
   let lang="en", heroIndex=0, heroTimer=null;
   let propertyUrls=[], shuttleUrls=[], kitchenUrls=imagekitKitchenUrls.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
   const WORKER_IMAGE_BASE="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
@@ -1328,9 +1346,14 @@
   function showHero(i){
     const slides=qsa(".fh-hero-slide"); if(!slides.length) return;
     slides[heroIndex]?.classList.remove("is-active"); heroIndex=(i+slides.length)%slides.length; slides[heroIndex]?.classList.add("is-active");
-    const progress=qs("#propertySlideProgress"); if(progress){progress.style.animation="none"; void progress.offsetHeight; progress.style.animation="fhHeroProgress 16s linear infinite";}
+    const progress=qs("#propertySlideProgress"); if(progress){progress.style.animation="none"; void progress.offsetHeight; progress.style.animation="fhHeroProgress "+FH_HERO_PROGRESS_SECONDS+"s linear infinite";}
   }
-  function startHero(){if(heroTimer) clearInterval(heroTimer);heroTimer=setInterval(()=>showHero(heroIndex+1),16000);}
+  function startHero(){
+    if(heroTimer) clearInterval(heroTimer);
+    if(window.__FH_PROPERTY_FINAL_HERO_OWNS_SLIDES === true) return;
+    heroTimer=setInterval(()=>showHero(heroIndex+1),FH_HERO_INTERVAL_MS);
+    window.__FH_PROPERTY_MAIN_HERO_TIMER__=heroTimer;
+  }
   function setImg(el,url){
     if(!el||!url)return;
     el.loading=el.loading||"lazy";
@@ -1697,6 +1720,7 @@
   const WORKER="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
   const LISTING="6968339ab7d735001ca015ba";
   const BLANK="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+  const HERO_INTERVAL_MS=32000;
   let urls=[],cursor=0,heroTimer=null,applying=false;
   function clean(v){v=String(v||"").trim().replace(/^ttps:\/\//i,"https://").replace(/^\/\//,"https://").replace(/[\s'\")<>]+$/g,""); if(/^https?:\/\//i.test(v))return v; if(v.charAt(0)==="/")return WORKER.replace(/\/$/,"")+v; return "";}
   function isImg(u){return /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(u)||/assets\.guesty\.com\/image\/upload/i.test(u)||/cloudinary/i.test(u);}
@@ -1741,6 +1765,11 @@
     const wrap=img.closest(".fh-img-loading"); if(wrap)wrap.classList.remove("fh-img-loading");
   }
   function buildHero(){
+    window.__FH_PROPERTY_FINAL_HERO_OWNS_SLIDES=true;
+    if(window.__FH_PROPERTY_MAIN_HERO_TIMER__){
+      clearInterval(window.__FH_PROPERTY_MAIN_HERO_TIMER__);
+      window.__FH_PROPERTY_MAIN_HERO_TIMER__=null;
+    }
     const media=root.querySelector("#propertyHeroMedia"); if(!media||!urls.length)return;
     media.classList.remove("is-ready");
     media.innerHTML="";
@@ -1754,7 +1783,7 @@
     requestAnimationFrame(function(){media.classList.add('is-ready');});
     if(heroTimer)clearInterval(heroTimer);
     let active=0;
-    heroTimer=setInterval(function(){const slides=Array.from(media.children); if(slides.length<2)return; slides[active].classList.remove("is-active"); active=(active+1)%slides.length; slides[active].classList.add("is-active");},16000);
+    heroTimer=setInterval(function(){const slides=Array.from(media.children); if(slides.length<2)return; slides[active].classList.remove("is-active"); active=(active+1)%slides.length; slides[active].classList.add("is-active");},HERO_INTERVAL_MS);
   }
   function buildEmptyRail(id,count){
     const rail=root.querySelector("#"+id); if(!rail||rail.querySelector("img"))return;
