@@ -1096,103 +1096,125 @@
   function imgAt(arr,i){const list=arr && arr.length ? arr : fallback;return list[((i%list.length)+list.length)%list.length];}
   function randomFrom(arr,fallbackArr){const list=arr && arr.length ? arr : fallbackArr; return list[Math.floor(Math.random()*list.length)];}
   function buildPropertyGalleryImages(){
+    const worker=workerRandomUrls && workerRandomUrls.length ? workerRandomUrls : [];
+    if(worker.length) return rotateList(worker,2).slice(0,Math.min(12,worker.length));
     const prop=propertyUrls.length?propertyUrls:fallback;
     const inside=insideUrls.length?insideUrls:prop;
     const sauna=privateSaunaUrls.length?privateSaunaUrls:prop;
-    const address=imagekitAddressUrls.length?imagekitAddressUrls:prop;
-    const exterior=imagekitExteriorUrls.length?imagekitExteriorUrls:prop;
-    const mountain=imagekitMountainUrls.length?imagekitMountainUrls:exterior;
-    const group=imagekitGroupUrls.length?imagekitGroupUrls:inside;
-    return [
-      imgAt(exterior,0),
-      imgAt(address,0),
-      imgAt(inside,4),
-      imgAt(inside,8),
-      imgAt(mountain,0),
-      imgAt(inside,12),
-      imgAt(group,0),
-      imgAt(inside,14)
-    ];
+    const exterior=exteriorUrls.length?exteriorUrls:prop;
+    const mountain=mountainUrls.length?mountainUrls:exterior;
+    return rotateList([imgAt(exterior,0),imgAt(inside,1),imgAt(sauna,2),imgAt(mountain,3),imgAt(prop,4),imgAt(inside,5)],1);
   }
   let lang="en", heroIndex=0, heroTimer=null;
   let propertyUrls=[], shuttleUrls=[], kitchenUrls=imagekitKitchenUrls.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
   const WORKER_IMAGE_BASE="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
   const WORKER_LISTING_ID="6968339ab7d735001ca015ba";
 
-  function cleanWorkerName(value){
-    try{value=decodeURIComponent(String(value||"").split("?")[0].split("#")[0]);}catch(e){value=String(value||"");}
-    value=value.split("/").pop();
-    return value.toLowerCase().replace(/\.[a-z0-9]+$/i,"").replace(/[^a-z0-9א-תа-я]+/gi,"");
+  function shuffleWorkerList(input){
+    const arr=Array.from(new Set((input||[]).filter(Boolean)));
+    for(let i=arr.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      const tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp;
+    }
+    return arr;
   }
-  function directWorkerImageUrl(value){
-    if(!value) return "";
-    if(typeof value==="string") return /^https?:\/\//i.test(value)?value:"";
-    if(typeof value!=="object") return "";
-    const keys=["url","src","original","large","regular","medium","thumbnail","pictureUrl","imageUrl","downloadUrl","secure_url","secureUrl"];
-    for(let i=0;i<keys.length;i++){const found=directWorkerImageUrl(value[keys[i]]); if(found) return found;}
+  let workerRandomUrls=[];
+
+  function cleanWorkerUrl(raw){
+    raw=String(raw||"").trim();
+    if(!raw) return "";
+    raw=raw.replace(/^ttps:\/\//i,"https://").replace(/^\/\//,"https://");
+    raw=raw.replace(/[\s'\")<>]+$/g,"");
+    if(/^https?:\/\//i.test(raw)) return raw;
+    if(raw.charAt(0)==="/") return WORKER_IMAGE_BASE.replace(/\/$/,"")+raw;
     return "";
   }
-  function collectWorkerImageRecords(payload){
-    const out=[];
-    function push(url,names){
-      if(!url||!/^https?:\/\//i.test(url)) return;
-      names=(names||[]).filter(Boolean).map(String);
-      names.push(url.split("?")[0].split("#")[0].split("/").pop());
-      out.push({url,names,norms:names.map(cleanWorkerName)});
+  function isLikelyImageUrl(url){
+    url=String(url||"");
+    return /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url) || /assets\.guesty\.com\/image\/upload/i.test(url) || /cloudinary/i.test(url);
+  }
+  function collectWorkerImageUrls(payload,rawText){
+    const urls=[];
+    function add(value){
+      const url=cleanWorkerUrl(value);
+      if(url && isLikelyImageUrl(url)) urls.push(url);
     }
+    function addFromText(value){
+      value=String(value||"").replace(/ttps:\/\//gi,"https://");
+      const matches=value.match(/https?:\/\/[^\s"'<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^\s"'<>]*)?/gi)||[];
+      matches.forEach(add);
+    }
+    addFromText(rawText||"");
     function walk(value,keyName){
-      if(!value) return;
-      if(typeof value==="string"){ if(/^https?:\/\//i.test(value)) push(value,[keyName]); return; }
+      if(value===null||value===undefined) return;
+      if(typeof value==="string" || typeof value==="number"){
+        const s=String(value);
+        addFromText(s);
+        add(s);
+        if(/\.(jpg|jpeg|png|webp)$/i.test(s) && keyName){ add(WORKER_IMAGE_BASE.replace(/\/$/,"")+"/images/"+encodeURIComponent(s)); }
+        return;
+      }
       if(Array.isArray(value)){ value.forEach(function(v){walk(v,keyName);}); return; }
       if(typeof value!=="object") return;
-      const names=[keyName,value.name,value.filename,value.fileName,value.originalName,value.title,value.alt,value.key,value.path,value.public_id,value.publicId].filter(Boolean);
-      const own=directWorkerImageUrl(value); if(own) push(own,names);
+      ["workerUrl","worker_url","proxiedUrl","proxyUrl","src","url","imageUrl","image_url","secure_url","secureUrl","original","originalUrl","original_url","large","full","href","path","thumbnail","medium"].forEach(function(k){
+        if(value[k]) walk(value[k],k);
+      });
       Object.keys(value).forEach(function(k){walk(value[k],k);});
     }
     walk(payload,"");
-    const seen={};
-    return out.filter(function(r){if(seen[r.url])return false; seen[r.url]=true; return true;});
+    return Array.from(new Set(urls));
   }
-  function filterWorkerRecords(records,needles){
-    needles=(needles||[]).map(cleanWorkerName).filter(Boolean);
-    return records.filter(function(r){return r.norms.some(function(n){return needles.some(function(x){return n.indexOf(x)>=0;});});}).map(function(r){return r.url;});
+  function rotateList(arr,offset){
+    arr=arr&&arr.length?arr.slice():fallback.slice();
+    if(arr.length<2) return arr;
+    offset=((Number(offset)||0)%arr.length+arr.length)%arr.length;
+    return arr.slice(offset).concat(arr.slice(0,offset));
   }
-  function findWorkerUrl(records,candidates){
-    const targets=(candidates||[]).map(cleanWorkerName).filter(Boolean);
-    for(let t=0;t<targets.length;t++){
-      for(let i=0;i<records.length;i++){
-        if(records[i].norms.some(function(n){return n===targets[t]||n.indexOf(targets[t])>=0||targets[t].indexOf(n)>=0;})) return records[i].url;
-      }
-    }
-    return "";
+  function randomWorkerSet(offset,count){
+    const base=workerRandomUrls.length?workerRandomUrls:(propertyUrls.length?propertyUrls:fallback);
+    const list=rotateList(base,offset||0);
+    return typeof count==="number"?list.slice(0,Math.max(1,Math.min(count,list.length))):list;
   }
-  function urlsByNames(records,names,needles){
-    const matched=[];
-    names.forEach(function(name){const u=findWorkerUrl(records,[name]); if(u&&matched.indexOf(u)<0) matched.push(u);});
-    if(matched.length) return matched;
-    const bucket=filterWorkerRecords(records,needles);
-    return bucket.length?Array.from(new Set(bucket)):records.map(function(r){return r.url;});
+  async function fetchWorkerImagesOnce(url){
+    const response=await fetch(url,{method:"GET",headers:{"Accept":"application/json,text/plain,*/*"},cache:"no-store"});
+    const text=await response.text();
+    let data={}; try{data=JSON.parse(text);}catch(e){data={rawText:text};}
+    if(!response.ok || data.ok===false || data.error) throw new Error(data.error || data.message || ("Images request failed: "+response.status));
+    return collectWorkerImageUrls(data,text);
   }
   async function loadWorkerImageAssets(){
+    const base=WORKER_IMAGE_BASE.replace(/\/$/,"")+"/images";
+    const stamp=Date.now();
+    const attempts=[
+      base+"?listingId="+encodeURIComponent(WORKER_LISTING_ID)+"&page=property&random=1&limit=120&t="+stamp,
+      base+"?listingId="+encodeURIComponent(WORKER_LISTING_ID)+"&random=1&limit=120&t="+stamp,
+      base+"?page=property&random=1&limit=120&t="+stamp,
+      base+"?random=1&limit=120&t="+stamp,
+      base+"?t="+stamp
+    ];
     try{
-      const url=WORKER_IMAGE_BASE+"/images?listingId="+encodeURIComponent(WORKER_LISTING_ID)+"&source=property&t="+Date.now();
-      const response=await fetch(url,{method:"GET",headers:{"Accept":"application/json"},cache:"no-cache"});
-      const text=await response.text(); let data; try{data=JSON.parse(text);}catch(e){data={rawText:text};}
-      if(!response.ok||data.ok===false||data.error) throw new Error(data.error||data.message||"Images request failed.");
-      const records=collectWorkerImageRecords(data);
-      if(!records.length) throw new Error("No images returned by Worker.");
-      const insideNames=["Inside.jpg"].concat(Array.from({length:15},(_,i)=>`Inside (${i+1}).jpg`));
-      propertyUrls=urlsByNames(records,propertyNames,["The Property","Property"]);
-      shuttleUrls=urlsByNames(records,shuttleNames,["Shuttle"]);
-      kitchenUrls=urlsByNames(records,["Kitchen (3).png","Kitchen (4).png","Kitchen (5).png","Kitchen (6).png","Kitchen (1).png","Kitchen (2).png","Kitchen (3).jpg","Kitchen (4).jpg","Kitchen (5).jpg","Kitchen (6).jpg"],["Kitchen"]);
-      insideUrls=urlsByNames(records,insideNames,["Inside","Room","Interior"]);
-      privateSaunaUrls=urlsByNames(records,["Spa (1).jpg","Spa (3).jpg","Spa (1).png","Spa (3).png","Sauna (1).jpg","Sauna (3).jpg"],["Spa","Sauna"]);
-      groupUrls=urlsByNames(records,["Group.jpg","Group.png"],["Group","Gathering"]);
-      exteriorUrls=urlsByNames(records,["Exterior (1).png","Exterior (1).jpg","A private address above Saas-Fee.jpg","A private address above Saas-Fee.png"],["Exterior","private address","Saas-Fee"]);
-      mountainUrls=urlsByNames(records,["Montains.jpg","Mountains.jpg","Mountain.jpg"],["Montain","Mountain","Mountains"]);
+      let urls=[];
+      for(let i=0;i<attempts.length;i++){
+        try{
+          urls=await fetchWorkerImagesOnce(attempts[i]);
+          if(urls.length>1) break;
+        }catch(inner){ if(i===attempts.length-1) throw inner; }
+      }
+      urls=shuffleWorkerList(urls);
+      if(!urls.length) throw new Error("No image URLs returned by Worker /images.");
+      workerRandomUrls=urls;
+      propertyUrls=rotateList(urls,0);
+      insideUrls=rotateList(urls,3);
+      kitchenUrls=rotateList(urls,6);
+      privateSaunaUrls=rotateList(urls,9);
+      groupUrls=rotateList(urls,12);
+      exteriorUrls=rotateList(urls,15);
+      mountainUrls=rotateList(urls,18);
+      shuttleUrls=rotateList(urls,21).slice(0,Math.min(6,urls.length));
       return true;
     }catch(error){
-      console.warn("Fletschhorn property Worker images not loaded.",error);
+      console.warn("Fletschhorn property Worker random images not loaded.",error);
+      workerRandomUrls=[];
       return false;
     }
   }
@@ -1307,50 +1329,62 @@
   function startHero(){if(heroTimer) clearInterval(heroTimer);heroTimer=setInterval(()=>showHero(heroIndex+1),9000);}
   function setImg(el,url){
     if(!el||!url)return;
+    el.loading=el.loading||"lazy";
+    el.decoding="async";
     el.onerror=function(){
-      if(el.dataset.fallbackTried==="1") return;
-      el.dataset.fallbackTried="1";
-      const alt=fallback[Math.floor(Math.random()*fallback.length)];
-      if(alt && el.src!==alt) el.src=alt;
+      const tried=Number(el.dataset.fallbackTried||"0");
+      el.dataset.fallbackTried=String(tried+1);
+      if(tried<Math.min(6,workerRandomUrls.length||0)){
+        const alt=imgAt(workerRandomUrls,tried+Math.floor(Math.random()*Math.max(1,workerRandomUrls.length)));
+        if(alt && el.src!==alt){ el.src=alt; return; }
+      }
+      const blank=fallback[0];
+      if(blank && el.src!==blank) el.src=blank;
     };
+    el.dataset.workerImageApplied="true";
     el.src=url;
     const wrap=el.closest(".fh-img-loading");
     if(wrap) wrap.classList.remove("fh-img-loading");
   }
   function applyImages(){
-    const prop=propertyUrls.length?propertyUrls:fallback;
-    const inside=insideUrls.length?insideUrls:prop;
-    const sauna=privateSaunaUrls.length?privateSaunaUrls:prop;
-    const group=groupUrls.length?groupUrls:inside;
-    const exterior=exteriorUrls.length?exteriorUrls:prop;
-    const mountain=mountainUrls.length?mountainUrls:exterior;
-    qsa("[data-fh-img]").forEach((el,i)=>{const n=Number(el.getAttribute("data-fh-img"));setImg(el,imgAt(prop,Number.isFinite(n)?n:i));});
-    qsa("[data-address-img]").forEach((el,i)=>{const n=Number(el.getAttribute("data-address-img"));setImg(el,imgAt(imagekitAddressUrls,Number.isFinite(n)?n:i));});
-    qsa("[data-exterior-img]").forEach((el,i)=>{const n=Number(el.getAttribute("data-exterior-img"));setImg(el,imgAt(exterior,Number.isFinite(n)?n:i));});
-    qsa("[data-mountain-img]").forEach((el,i)=>{const n=Number(el.getAttribute("data-mountain-img"));setImg(el,imgAt(mountain,Number.isFinite(n)?n:i));});
-    qsa("[data-inside-img]").forEach((el,i)=>{const n=Number(el.getAttribute("data-inside-img"));setImg(el,imgAt(inside,Number.isFinite(n)?n:i));});
-    qsa("[data-group-img]").forEach((el,i)=>{const n=Number(el.getAttribute("data-group-img"));setImg(el,imgAt(group,Number.isFinite(n)?n:i));});
-    qsa("[data-sauna-img]").forEach((el,i)=>{const n=Number(el.getAttribute("data-sauna-img"));setImg(el,imgAt(sauna,Number.isFinite(n)?n:i));});
-    qsa("[data-kitchen-main]").forEach((el)=>setImg(el,imagekitKitchenMainUrl));
-    qsa("[data-kitchen-img]").forEach((el,i)=>setImg(el,imgAt(kitchenUrls.length?kitchenUrls:prop,i)));
+    const all=workerRandomUrls.length?workerRandomUrls:(propertyUrls.length?propertyUrls:fallback);
+    const prop=propertyUrls.length?propertyUrls:all;
+    const inside=insideUrls.length?insideUrls:all;
+    const sauna=privateSaunaUrls.length?privateSaunaUrls:all;
+    const group=groupUrls.length?groupUrls:all;
+    const exterior=exteriorUrls.length?exteriorUrls:all;
+    const mountain=mountainUrls.length?mountainUrls:all;
+    let cursor=Math.floor(Math.random()*Math.max(1,all.length));
+    function next(){ const url=imgAt(all,cursor); cursor+=1; return url; }
+    qsa("[data-fh-img]").forEach((el)=>setImg(el,next()));
+    qsa("[data-address-img]").forEach((el)=>setImg(el,next()));
+    qsa("[data-exterior-img]").forEach((el)=>setImg(el,next()));
+    qsa("[data-mountain-img]").forEach((el)=>setImg(el,next()));
+    qsa("[data-inside-img]").forEach((el)=>setImg(el,next()));
+    qsa("[data-group-img]").forEach((el)=>setImg(el,next()));
+    qsa("[data-sauna-img]").forEach((el)=>setImg(el,next()));
+    qsa("[data-kitchen-main]").forEach((el)=>setImg(el,next()));
+    qsa("[data-kitchen-img]").forEach((el)=>setImg(el,next()));
     const cta=qs(".fh-cta"); if(cta) cta.style.setProperty("--cta-bg",`url('${imgAt(exterior,0)}')`);
-    buildHeroSlides([imgAt(exterior,0), imgAt(mountain,0), randomFrom(inside,prop), randomFrom(group,prop), randomFrom(sauna,prop)].concat(prop.slice(0,7))); startHero();
+    buildHeroSlides(rotateList(all,4).slice(0,Math.min(12,all.length))); startHero();
   }
   function galleryCard(url,small,cap){return `<article class="fh-gallery-card${small?' small':''}"><img src="${url}" alt="Fletschhorn" loading="lazy"><div class="fh-gallery-caption"><small>${cap[0]}</small><strong>${cap[1]}</strong></div></article>`;}
   function buildGallery(railId,images,captions){
     const rail=qs("#"+railId); if(!rail) return;
-    const list=(images && images.length ? images : fallback).slice(0,18);
+    const offset={propertyGalleryRail:1,propertyKitchenRail:7,propertyShuttleRail:13,propertySpaRail:19}[railId]||0;
+    let source=(images && images.length>1 ? images : (workerRandomUrls.length?workerRandomUrls:fallback));
+    const list=rotateList(source,offset).slice(0,Math.min(18,Math.max(1,source.length)));
     rail.innerHTML=list.map((url,i)=>galleryCard(url,i%3===1,captions[i%captions.length])).join("");
   }
   function buildDynamic(){
     buildGallery("propertyGalleryRail",buildPropertyGalleryImages(),d("gallery"));
     buildGallery("propertyKitchenRail",kitchenUrls,d("kitchen"));
     buildGallery("propertyShuttleRail",shuttleUrls,d("shuttle"));
-    const shuttleStage=qs("#propertyShuttleGallery"); if(shuttleStage) shuttleStage.style.display=shuttleUrls.length?"block":"none";
+    const shuttleStage=qs("#propertyShuttleGallery"); if(shuttleStage) shuttleStage.style.display=(shuttleUrls.length||workerRandomUrls.length)?"block":"none";
     const suites=d("suites"); qs("#suiteGrid").innerHTML=suites.map((s,i)=>`<article class="fh-suite-card preSlide ${i%3===1?'delay-1':i%3===2?'delay-2':''}"><small>${s[0]}</small><h3>${s[1]}</h3><div class="fh-suite-meta">${s[2].map(x=>`<span>${x}</span>`).join("")}</div><p>${s[3]}</p></article>`).join("");
-    const room=d("roomCards"); const inside=insideUrls.length?insideUrls:(propertyUrls.length?propertyUrls:fallback); const group=groupUrls.length?groupUrls:inside; const roomImgs=[imgAt(inside,12), randomFrom(group,inside), imgAt(inside,6), imgAt(inside,10)]; qs("#roomGallery").innerHTML=room.map((r,i)=>`<article class="fh-room-card preSlide ${i?'delay-1':''} fh-img-loading"><img src="${roomImgs[i]||imgAt(inside,i)}" alt="${i===1?'Fletschhorn group gathering':'Fletschhorn interior'}"><div><small>${r[0]}</small><strong>${r[1]}</strong></div></article>`).join("");
+    const room=d("roomCards"); const roomImgs=rotateList(workerRandomUrls.length?workerRandomUrls:(insideUrls.length?insideUrls:(propertyUrls.length?propertyUrls:fallback)),11); qs("#roomGallery").innerHTML=room.map((r,i)=>`<article class="fh-room-card preSlide ${i?'delay-1':''} fh-img-loading"><img src="${imgAt(roomImgs,i)}" data-worker-image-applied="true" alt="${i===1?'Fletschhorn group gathering':'Fletschhorn interior'}"><div><small>${r[0]}</small><strong>${r[1]}</strong></div></article>`).join("");
     const regs=d("regionCards"); qs("#regionCards").innerHTML=regs.map((r,i)=>`<article class="fh-card preSlide ${i?'delay-1':''}"><small>${r[0]}</small><strong>${r[1]}</strong><p>${r[2]}</p></article>`).join("");
-    const cons=d("concepts"); const prop=propertyUrls.length?propertyUrls:fallback; const sauna=privateSaunaUrls.length?privateSaunaUrls:prop; const exterior=exteriorUrls.length?exteriorUrls:prop; const mountain=mountainUrls.length?mountainUrls:exterior; qs("#conceptCards").innerHTML=cons.map((c,i)=>`<article class="fh-concept preSlide ${i?'delay-1':''}"><img src="${i===2?randomFrom(inside,prop):(i===1?randomFrom(sauna,prop):randomFrom(group,mountain))}" alt="Fletschhorn"><div><small>${c[0]}</small><strong>${c[1]}</strong><p>${c[2]}</p></div></article>`).join("");
+    const cons=d("concepts"); const conceptImgs=rotateList(workerRandomUrls.length?workerRandomUrls:(propertyUrls.length?propertyUrls:fallback),17); qs("#conceptCards").innerHTML=cons.map((c,i)=>`<article class="fh-concept preSlide ${i?'delay-1':''}"><img src="${imgAt(conceptImgs,i)}" data-worker-image-applied="true" alt="Fletschhorn"><div><small>${c[0]}</small><strong>${c[1]}</strong><p>${c[2]}</p></div></article>`).join("");
     observeNew();
   }
   function setLanguage(next){
@@ -1361,7 +1395,7 @@
     try{localStorage.setItem("fh_lang",lang);localStorage.setItem("fh_language",lang);localStorage.setItem("fhLang",lang);}catch(e){}
     root.setAttribute("dir",lang==="he"?"rtl":"ltr");
     document.documentElement.setAttribute("dir",lang==="he"?"rtl":"ltr");
-    applyStaticTranslations(); buildDynamic(); buildHeroSlides(propertyUrls.length?propertyUrls:fallback); startHero();
+    applyStaticTranslations(); buildDynamic(); buildHeroSlides(rotateList(workerRandomUrls.length?workerRandomUrls:(propertyUrls.length?propertyUrls:fallback),5)); startHero();
   }
   window.FHSetLanguage=function(next){ setLanguage(next); };
   function bindGalleryButtons(){
@@ -1648,5 +1682,102 @@
 })();
 </script>
 
+
+
+<!-- Final image safety layer: random images from Worker only. Keeps every visual slot from collapsing to one image. -->
+<script>
+(function(){
+  "use strict";
+  const root=document.querySelector("#fh-property");
+  if(!root) return;
+  const WORKER="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  const LISTING="6968339ab7d735001ca015ba";
+  const BLANK="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+  let urls=[],cursor=0,heroTimer=null,applying=false;
+  function clean(v){v=String(v||"").trim().replace(/^ttps:\/\//i,"https://").replace(/^\/\//,"https://").replace(/[\s'\")<>]+$/g,""); if(/^https?:\/\//i.test(v))return v; if(v.charAt(0)==="/")return WORKER.replace(/\/$/,"")+v; return "";}
+  function isImg(u){return /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(u)||/assets\.guesty\.com\/image\/upload/i.test(u)||/cloudinary/i.test(u);}
+  function add(out,v){const u=clean(v); if(u&&isImg(u))out.push(u);}
+  function textUrls(out,t){String(t||"").replace(/ttps:\/\//gi,"https://").replace(/https?:\/\/[^\s"'<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^\s"'<>]*)?/gi,function(m){add(out,m);return m;});}
+  function walk(out,v){
+    if(v===null||v===undefined)return;
+    if(typeof v==="string"||typeof v==="number"){textUrls(out,v);add(out,v);return;}
+    if(Array.isArray(v)){v.forEach(x=>walk(out,x));return;}
+    if(typeof v==="object")Object.keys(v).forEach(k=>walk(out,v[k]));
+  }
+  function shuffle(a){a=Array.from(new Set(a.filter(Boolean))); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a;}
+  async function fetchUrls(){
+    const base=WORKER.replace(/\/$/,"")+"/images";
+    const stamp=Date.now();
+    const tries=[
+      base+"?listingId="+encodeURIComponent(LISTING)+"&random=1&limit=160&page=property&t="+stamp,
+      base+"?listingId="+encodeURIComponent(LISTING)+"&random=1&limit=160&t="+stamp,
+      base+"?random=1&limit=160&t="+stamp,
+      base+"?t="+stamp
+    ];
+    for(const url of tries){
+      try{
+        const r=await fetch(url,{cache:"no-store",headers:{Accept:"application/json,text/plain,*/*"}});
+        const txt=await r.text();
+        if(!r.ok) continue;
+        const out=[]; textUrls(out,txt);
+        try{walk(out,JSON.parse(txt));}catch(e){}
+        const got=shuffle(out);
+        if(got.length){urls=got; cursor=Math.floor(Math.random()*urls.length); return got;}
+      }catch(e){}
+    }
+    return [];
+  }
+  function next(){if(!urls.length)return BLANK; const u=urls[cursor%urls.length]; cursor++; return u;}
+  function safeUrl(u){return String(u||BLANK).replace(/"/g,"%22");}
+  function setImg(img){
+    if(!img||img.dataset.fhRandomWorkerFinal==="1")return;
+    img.dataset.fhRandomWorkerFinal="1";
+    img.loading=img.loading||"lazy"; img.decoding="async"; img.src=next();
+    img.onerror=function(){ const tries=Number(img.dataset.fhWorkerError||"0"); img.dataset.fhWorkerError=String(tries+1); if(tries<Math.min(8,urls.length)){img.src=next();}else{img.src=BLANK;} };
+    const wrap=img.closest(".fh-img-loading"); if(wrap)wrap.classList.remove("fh-img-loading");
+  }
+  function buildHero(){
+    const media=root.querySelector("#propertyHeroMedia"); if(!media||!urls.length)return;
+    media.innerHTML="";
+    const count=Math.min(10,Math.max(3,urls.length));
+    for(let i=0;i<count;i++){
+      const slide=document.createElement("div");
+      slide.className="fh-hero-slide"+(i===0?" is-active":"");
+      slide.style.backgroundImage="url(\""+safeUrl(next())+"\")";
+      media.appendChild(slide);
+    }
+    if(heroTimer)clearInterval(heroTimer);
+    let active=0;
+    heroTimer=setInterval(function(){const slides=Array.from(media.children); if(slides.length<2)return; slides[active].classList.remove("is-active"); active=(active+1)%slides.length; slides[active].classList.add("is-active");},8500);
+  }
+  function buildEmptyRail(id,count){
+    const rail=root.querySelector("#"+id); if(!rail||rail.querySelector("img"))return;
+    const caps=["Fletschhorn","Private alpine stay","Saas-Fee","Mountain house","Group stay","Interior","Terrace","Wellness"];
+    let html="";
+    for(let i=0;i<count;i++)html+='<article class="fh-gallery-card'+(i%3===1?' small':'')+'"><img src="'+safeUrl(next())+'" data-fh-random-worker-final="1" alt="Fletschhorn" loading="lazy"><div class="fh-gallery-caption"><small>'+caps[i%caps.length]+'</small><strong>'+caps[(i+1)%caps.length]+'</strong></div></article>';
+    rail.innerHTML=html;
+  }
+  function apply(){
+    if(applying||!urls.length)return; applying=true;
+    buildHero();
+    ["propertyGalleryRail","propertyKitchenRail","propertySpaRail","propertyShuttleRail"].forEach(id=>buildEmptyRail(id,8));
+    root.querySelectorAll("img").forEach(setImg);
+    const cta=root.querySelector(".fh-cta"); if(cta)cta.style.setProperty("--cta-bg",'url("'+safeUrl(next())+'")');
+    root.querySelectorAll(".fh-gallery-card,.fh-room-card,.fh-concept,.fh-kitchen-card,.fh-media-tile,.fh-photo,.fh-image-panel").forEach(el=>el.classList.remove("fh-img-loading"));
+    applying=false;
+  }
+  fetchUrls().then(function(got){
+    if(!got.length){console.warn("Worker /images returned no random images for this page.");return;}
+    apply();
+    const mo=new MutationObserver(function(muts){
+      if(muts.some(m=>m.addedNodes&&m.addedNodes.length)) setTimeout(apply,40);
+    });
+    mo.observe(root,{childList:true,subtree:true});
+    document.addEventListener("fh:language",function(){setTimeout(apply,80);});
+    document.addEventListener("fletschhorn:languageChanged",function(){setTimeout(apply,80);});
+    window.addEventListener("storage",function(e){if(e.key&&/^fh_?lang/i.test(e.key))setTimeout(apply,80);});
+  });
+})();
+</script>
 </body>
 </html>
