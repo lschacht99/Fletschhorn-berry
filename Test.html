@@ -3,832 +3,1229 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title data-field="seoTitle"></title>
-  <meta name="description" content="" data-field="seoDescription" />
+  <title></title>
+  <meta name="description" content="" />
+
+  <!--
+    PROPERTY PAGE SHELL
+    - Structure copied from the Timbercrest/HomeRunner property page logic.
+    - No hardcoded property content.
+    - Content, photos, calendar pricing and quote are loaded from Cloudflare Worker.
+    - Language toolbar is not visible; language can be controlled by URL/localStorage/header.
+  -->
 
   <style>
     :root{
-      --ink:#171717;
-      --muted:#6e6257;
-      --soft:#f6f0e7;
-      --paper:#fffaf3;
-      --line:rgba(30,22,14,.12);
-      --accent:#9b5f33;
-      --accent-dark:#6d3f22;
-      --green:#233a2d;
-      --green-soft:#e9efe6;
-      --danger:#9b1f1f;
-      --radius:26px;
-      --shadow:0 22px 70px rgba(40,28,18,.12);
-      --serif:Georgia,"Times New Roman",serif;
-      --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --tm-ink:#222222;
+      --tm-muted:#676767;
+      --tm-soft:#f7f4ef;
+      --tm-paper:#ffffff;
+      --tm-line:rgba(0,0,0,.11);
+      --tm-line-soft:rgba(0,0,0,.07);
+      --tm-accent:#f6432f;
+      --tm-accent-dark:#cf2d1c;
+      --tm-green:#263f31;
+      --tm-good:#e4f4d9;
+      --tm-booked:#fdd2d2;
+      --tm-disabled:#eeeeee;
+      --tm-shadow:0 16px 42px rgba(0,0,0,.09);
+      --tm-radius:18px;
+      --tm-serif:Georgia,"Times New Roman",serif;
+      --tm-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:var(--sans);
-      color:var(--ink);
-      background:linear-gradient(180deg,#fbf7f0 0%,#f0e5d8 48%,#fbf7f0 100%);
-      overflow-x:hidden;
-    }
+    body{margin:0;font-family:var(--tm-sans);color:var(--tm-ink);background:#fff;overflow-x:hidden}
+    body.tm-loading{cursor:default}
     a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
     img{display:block;max-width:100%}
-    button,input,select,textarea{font:inherit}
+    [hidden]{display:none!important}
 
-    .page-shell{min-height:100vh;background:
-      radial-gradient(circle at 10% 0%,rgba(255,255,255,.85),transparent 28%),
-      radial-gradient(circle at 90% 14%,rgba(166,112,70,.14),transparent 24%),
-      radial-gradient(circle at 20% 72%,rgba(36,58,45,.10),transparent 26%);
+    /* Optional internal header. Keep hidden when the site already has a global header. */
+    .tm-site-header{display:none;position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--tm-line-soft)}
+    .tm-site-header.is-visible{display:block}
+    .tm-site-header-inner{width:min(1320px,calc(100% - 32px));margin:auto;min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+    .tm-brand{display:flex;align-items:center;gap:14px;min-width:0}
+    .tm-brand-logo{width:150px;max-height:70px;object-fit:contain}
+    .tm-brand-text{font-family:var(--tm-serif);font-size:26px;line-height:1;white-space:nowrap}
+    .tm-nav{display:flex;align-items:center;gap:24px;font-size:14px;color:#333}
+    .tm-nav-book{background:var(--tm-accent);color:#fff;padding:12px 18px;border-radius:999px;font-weight:700}
+
+    .tm-page{min-height:100vh;background:#fff}
+    .tm-language-toolbar{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important}
+
+    /* Header image slider / gallery strip */
+    .property-header-slider{width:100%;overflow:hidden;background:#f1f1f1}
+    .tm-gallery-strip{display:grid;grid-auto-flow:column;grid-auto-columns:33.333%;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 0 6px;scrollbar-width:none}
+    .tm-gallery-strip::-webkit-scrollbar{display:none}
+    .tm-gallery-item{position:relative;height:600px;background:#eee;overflow:hidden;scroll-snap-align:start;cursor:pointer}
+    .tm-gallery-item img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s ease,transform .45s ease}
+    .tm-gallery-item img[src]{opacity:1}
+    .tm-gallery-item:hover img{transform:scale(1.025)}
+    .tm-gallery-actions{position:absolute;right:18px;bottom:18px;z-index:4}
+    .tm-gallery-button{border:0;border-radius:3px;background:#fff;color:#111;padding:11px 15px;box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:14px;font-weight:700;cursor:pointer}
+
+    .tm-container{width:min(1220px,calc(100% - 32px));margin:0 auto}
+
+    /* Original property layout logic: content left + sticky booking right */
+    .tm-property-intro{padding:34px 0 24px}
+    .tm-title-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:42px;align-items:start}
+    .tm-breadcrumb{min-height:18px;margin:0 0 8px;color:#777;font-size:13px}
+    .tm-property-title{min-height:58px;margin:0 0 14px;font-size:clamp(34px,4vw,46px);font-weight:500;line-height:1.12;letter-spacing:-.02em}
+    .tm-property-address{min-height:24px;margin:0 0 18px;color:#666;font-size:15px}
+    .tm-short-description{min-height:96px;margin:0;color:#444;font-size:16px;line-height:1.72;max-width:760px}
+
+    .tm-property-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:25px;max-width:680px}
+    .tm-meta-box{min-height:94px;border:1px solid var(--tm-line-soft);border-radius:4px;background:#fff;padding:18px 16px;text-align:center}
+    .tm-meta-number{display:block;min-height:36px;font-size:34px;line-height:1;font-weight:600;color:#111}
+    .tm-meta-label{display:block;margin-top:8px;color:#666;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+
+    .tm-booking-card{position:sticky;top:92px;border:1px solid var(--tm-line);background:#fff;border-radius:4px;box-shadow:var(--tm-shadow);padding:22px;z-index:10}
+    .tm-booking-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:15px}
+    .tm-booking-title{margin:0;font-size:22px;line-height:1.2;font-weight:650}
+    .tm-from-price{min-height:24px;text-align:right;color:#666;font-size:14px}
+    .tm-from-price strong{display:block;color:#111;font-size:20px}
+    .tm-booking-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .tm-field{display:grid;gap:6px}
+    .tm-field.full{grid-column:1/-1}
+    .tm-field label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#666}
+    .tm-field input,.tm-field select{width:100%;height:46px;border:1px solid var(--tm-line);border-radius:3px;background:#fff;color:#111;padding:0 10px;outline:none}
+    .tm-field input:focus,.tm-field select:focus{border-color:#111;box-shadow:0 0 0 2px rgba(0,0,0,.05)}
+    .tm-quote-box{min-height:82px;margin-top:14px;border:1px solid var(--tm-line-soft);background:#fafafa;padding:13px;border-radius:3px}
+    .tm-quote-row{display:flex;justify-content:space-between;gap:16px;padding:6px 0;border-bottom:1px solid var(--tm-line-soft);font-size:14px;color:#444}
+    .tm-quote-row:last-child{border-bottom:0;font-weight:750;color:#111}
+    .tm-book-button{width:100%;height:50px;border:1px solid var(--tm-accent);background:var(--tm-accent);color:#fff;border-radius:3px;margin-top:14px;font-weight:750;cursor:pointer;transition:.18s ease}
+    .tm-book-button:hover{background:#fff;color:var(--tm-accent)}
+    .tm-book-button:disabled{opacity:.45;cursor:not-allowed;background:#999;border-color:#999;color:#fff}
+    .tm-inquiry-link{display:block;text-align:center;margin-top:12px;font-size:14px;color:#333;text-decoration:underline;text-underline-offset:3px}
+    .tm-booking-status{min-height:20px;margin-top:10px;font-size:13px;color:#777}
+    .tm-booking-status.is-error{color:#9b1d1d}
+
+    .tm-content-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:42px;align-items:start}
+    .tm-main-content{min-width:0}
+    .tm-side-spacer{display:block}
+
+    .tm-section{padding:38px 0;border-top:1px solid var(--tm-line-soft)}
+    .tm-section-title{margin:0 0 20px;font-size:28px;line-height:1.25;font-weight:600}
+    .tm-heading-line{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+    .tm-heading-line::after{content:"";height:1px;background:var(--tm-line-soft);flex:1}
+    .tm-section-copy{min-height:70px;color:#444;line-height:1.75;font-size:16px}
+    .tm-section-copy p{margin:0 0 14px}
+    .tm-section-copy p:last-child{margin-bottom:0}
+
+    .tm-description-grid{display:grid;grid-template-columns:1fr;gap:18px}
+    .tm-text-block{display:none}
+    .tm-text-block.has-content{display:block}
+    .tm-text-block-title{font-size:19px;font-weight:650;margin:0 0 8px}
+    .tm-text-block-body{color:#444;line-height:1.75;font-size:16px;min-height:1px}
+
+    .tm-rooms-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .tm-room-card{min-height:155px;border:1px solid var(--tm-line-soft);border-radius:4px;background:#fff;padding:20px}
+    .tm-room-title{margin:0 0 12px;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+    .tm-room-line{min-height:22px;color:#555;line-height:1.5;font-size:14px}
+
+    .tm-amenities-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .tm-amenity{min-height:48px;border:1px solid var(--tm-line-soft);border-radius:3px;background:#fff;padding:13px 14px;display:flex;align-items:center;gap:10px;color:#333;font-size:14px}
+    .tm-amenity::before{content:"";width:7px;height:7px;border-radius:50%;background:#111;flex:0 0 auto;opacity:.72}
+
+    .tm-policy-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .tm-policy-card{min-height:150px;border:1px solid var(--tm-line-soft);background:#fff;border-radius:4px;padding:20px}
+    .tm-policy-card h3{margin:0 0 10px;font-size:20px}
+    .tm-policy-card div{color:#444;line-height:1.65}
+
+    /* Calendar / schedule with prices from Worker */
+    .tm-rates-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px;align-items:end}
+    .tm-rates-tools .tm-field{gap:6px}
+    .tm-calendar-shell{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .tm-month{border:1px solid var(--tm-line-soft);background:#fff;border-radius:4px;padding:14px}
+    .tm-month-title{text-align:center;font-weight:700;margin-bottom:12px;min-height:24px}
+    .tm-weekdays,.tm-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+    .tm-weekdays span{text-align:center;color:#777;font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding-bottom:5px}
+    .tm-day{min-height:68px;border:1px solid #eee;background:var(--tm-good);padding:6px;position:relative;font-size:13px;overflow:hidden}
+    .tm-day.is-empty{background:transparent;border-color:transparent}
+    .tm-day.is-disabled{background:var(--tm-disabled);color:#999}
+    .tm-day.is-booked,.tm-day.is-blocked{background:var(--tm-booked);color:#7d2222}
+    .tm-day-number{font-weight:700}
+    .tm-day-price{display:block;margin-top:7px;color:#666;font-size:12px;line-height:1.2;word-break:break-word}
+    .tm-day.is-selected{outline:2px solid #111;outline-offset:-2px;background:#b7db9f}
+    .tm-calendar-status{min-height:22px;margin-top:12px;color:#777;font-size:14px}
+
+    .tm-map-frame{min-height:360px;border:1px solid var(--tm-line-soft);background:#f2f2f2;border-radius:4px;overflow:hidden}
+    .tm-map-frame iframe{width:100%;height:380px;border:0;display:block;filter:saturate(.8)}
+    .tm-location-lines{margin-top:12px;color:#555;line-height:1.6;min-height:26px}
+
+    .tm-related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .tm-related-card{display:none;border:1px solid var(--tm-line-soft);background:#fff;border-radius:4px;overflow:hidden}
+    .tm-related-card.has-content{display:block}
+    .tm-related-card img{width:100%;height:180px;object-fit:cover;background:#eee}
+    .tm-related-body{padding:14px}
+    .tm-related-title{min-height:42px;font-size:16px;font-weight:700;line-height:1.35}
+    .tm-related-meta{margin-top:8px;color:#666;font-size:13px}
+
+    .tm-inquiry-section{background:#f7f4ef;padding:46px 0;border-top:1px solid var(--tm-line-soft)}
+    .tm-inquiry-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:32px;align-items:start}
+    .tm-inquiry-title{font-size:28px;font-weight:600;margin:0 0 12px}
+    .tm-inquiry-copy{min-height:60px;color:#555;line-height:1.7}
+    .tm-inquiry-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .tm-inquiry-form .tm-field:nth-last-child(-n+2),.tm-inquiry-form .tm-field.full{grid-column:1/-1}
+    .tm-inquiry-form textarea{width:100%;min-height:120px;border:1px solid var(--tm-line);border-radius:3px;padding:12px;resize:vertical;font:inherit}
+
+    .tm-footer{background:#333;color:#e8e2d8;padding:32px 0;margin-top:0}
+    .tm-footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px}
+    .tm-footer h3{font-size:19px;margin:0 0 10px;color:#fff}
+    .tm-footer div,.tm-footer a{color:#d7d0c6;font-size:14px;line-height:1.7}
+
+    .tm-modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.9);display:none;overflow:auto;padding:18px}
+    .tm-modal.is-open{display:block}
+    .tm-modal-bar{position:sticky;top:0;z-index:2;text-align:right;padding-bottom:12px}
+    .tm-modal-close{border:0;background:#fff;color:#111;border-radius:3px;padding:10px 14px;cursor:pointer;font-weight:700}
+    .tm-modal-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(1280px,100%);margin:auto}
+    .tm-modal-gallery img{width:100%;height:270px;object-fit:cover;background:#222}
+
+    @media(max-width:1050px){
+      .tm-title-grid,.tm-content-layout{grid-template-columns:1fr}
+      .tm-side-spacer{display:none}
+      .tm-booking-card{position:relative;top:auto}
+      .tm-rooms-grid,.tm-amenities-grid,.tm-related-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .tm-footer-grid{grid-template-columns:1fr}
     }
 
-    .site-header{
-      position:sticky;
-      top:0;
-      z-index:50;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      padding:14px clamp(16px,4vw,54px);
-      background:rgba(255,250,243,.86);
-      border-bottom:1px solid var(--line);
-      backdrop-filter:blur(18px);
-    }
-    .brand{display:flex;align-items:center;gap:12px;min-width:0}
-    .brand-mark{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;overflow:hidden;display:grid;place-items:center}
-    .brand-mark img{width:100%;height:100%;object-fit:contain}
-    .brand-name{font-family:var(--serif);font-size:24px;line-height:1;white-space:nowrap;min-width:80px}
-    .brand-sub{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-    .nav{display:flex;align-items:center;gap:18px;font-size:13px;color:#3b332c}
-    .nav a{opacity:.82}
-    .nav a:hover{opacity:1}
-    .nav .book-link{padding:10px 16px;border-radius:999px;background:var(--green);color:#fff;opacity:1}
-
-    .hero-gallery{padding:18px clamp(12px,3vw,34px) 0}
-    .photo-strip{
-      display:grid;
-      grid-template-columns:1.35fr 1fr 1fr;
-      gap:10px;
-      min-height:clamp(260px,48vw,610px);
-    }
-    .photo-tile{
-      position:relative;
-      overflow:hidden;
-      border-radius:24px;
-      background:rgba(255,255,255,.45);
-      border:1px solid rgba(255,255,255,.7);
-      box-shadow:0 18px 55px rgba(43,31,21,.10);
-    }
-    .photo-tile:first-child{grid-row:span 2}
-    .photo-tile img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease,transform .7s ease;filter:saturate(.9) contrast(1.02)}
-    .photo-tile img[src]{opacity:1}
-    .photo-tile:hover img{transform:scale(1.025)}
-    .photo-actions{position:absolute;right:18px;bottom:18px;z-index:2}
-    .small-action{border:0;border-radius:999px;background:rgba(255,250,243,.9);padding:10px 14px;box-shadow:0 12px 28px rgba(0,0,0,.14);cursor:pointer}
-
-    .main-wrap{width:min(1220px,calc(100% - 28px));margin:0 auto;padding:34px 0 80px}
-    .title-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,420px);gap:28px;align-items:start}
-    .eyebrow{min-height:18px;margin:0 0 10px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700}
-    h1{font-family:var(--serif);font-size:clamp(40px,6vw,78px);font-weight:400;line-height:.95;letter-spacing:-.045em;margin:0 0 16px;min-height:1.8em}
-    .lead{font-size:18px;line-height:1.72;color:#4d4239;max-width:760px;min-height:80px;margin:0}
-    .meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:24px}
-    .meta-card{padding:16px;border:1px solid var(--line);border-radius:18px;background:rgba(255,250,243,.72)}
-    .meta-card b{display:block;font-family:var(--serif);font-size:30px;font-weight:400;min-height:34px}
-    .meta-card span{display:block;margin-top:5px;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
-
-    .booking-card{
-      position:sticky;
-      top:88px;
-      padding:22px;
-      border-radius:var(--radius);
-      background:rgba(255,250,243,.92);
-      border:1px solid rgba(255,255,255,.78);
-      box-shadow:var(--shadow);
-    }
-    .booking-card h2{font-family:var(--serif);font-size:34px;font-weight:400;line-height:1;margin:0 0 6px}
-    .price-line{min-height:26px;color:var(--muted);margin-bottom:16px}
-    .booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .field{display:grid;gap:7px}
-    .field.full{grid-column:1/-1}
-    .field label{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:800}
-    .field input,.field select{
-      width:100%;
-      min-height:48px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--ink);
-      padding:0 12px;
-      outline:none;
-    }
-    .field input:focus,.field select:focus{border-color:rgba(155,95,51,.45);box-shadow:0 0 0 4px rgba(155,95,51,.10)}
-    .quote-box{margin-top:14px;padding:14px;border-radius:16px;background:var(--green-soft);border:1px solid rgba(35,58,45,.10);min-height:72px}
-    .quote-row{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px solid rgba(35,58,45,.10);font-size:14px}
-    .quote-row:last-child{border-bottom:0;font-weight:800}
-    .button{width:100%;min-height:50px;margin-top:14px;border:0;border-radius:999px;background:var(--green);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 16px 36px rgba(35,58,45,.24)}
-    .button.secondary{background:#fff;color:var(--green);border:1px solid rgba(35,58,45,.18);box-shadow:none}
-    .button:disabled{opacity:.45;cursor:not-allowed}
-    .status-line{min-height:20px;margin-top:10px;font-size:13px;color:var(--muted)}
-    .status-line.error{color:var(--danger)}
-
-    .section{padding:58px 0;border-top:1px solid var(--line)}
-    .section-head{display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1fr);gap:28px;align-items:start;margin-bottom:24px}
-    .section h2{font-family:var(--serif);font-size:clamp(34px,4.6vw,58px);font-weight:400;line-height:1;margin:0}
-    .section-copy{font-size:17px;line-height:1.75;color:#4f453c;min-height:92px}
-    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .content-card{padding:26px;border-radius:24px;background:rgba(255,250,243,.76);border:1px solid var(--line);min-height:170px}
-    .content-card h3{font-family:var(--serif);font-size:30px;font-weight:400;line-height:1;margin:0 0 12px}
-    .content-card p{margin:0;color:#51463c;line-height:1.7;min-height:80px}
-
-    .feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .feature-card{padding:20px;border-radius:20px;background:rgba(255,255,255,.54);border:1px solid var(--line);min-height:112px}
-    .feature-card b{display:block;font-family:var(--serif);font-size:24px;font-weight:400;min-height:28px}
-    .feature-card span{display:block;margin-top:8px;color:var(--muted);line-height:1.5;min-height:42px}
-
-    .amenities{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-    .amenity{min-height:48px;padding:13px 14px;border-radius:16px;background:rgba(255,255,255,.58);border:1px solid var(--line);display:flex;align-items:center;gap:8px;color:#3f372f}
-    .amenity::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);flex:0 0 auto}
-
-    .calendar-tools{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;margin-bottom:14px}
-    .calendar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .day-card{padding:14px;border-radius:18px;background:rgba(255,250,243,.78);border:1px solid var(--line);min-height:86px}
-    .day-card .date{font-weight:800;font-size:14px}
-    .day-card .state{margin-top:6px;font-size:12px;color:var(--muted)}
-    .day-card .rate{margin-top:8px;font-family:var(--serif);font-size:24px;min-height:26px}
-    .day-card.blocked{opacity:.55;background:rgba(231,225,218,.75)}
-    .day-card.booked{background:#f8e7e7;color:#5d1616}
-
-    .map-shell{min-height:340px;border-radius:26px;overflow:hidden;background:rgba(255,255,255,.5);border:1px solid var(--line);display:grid;place-items:center}
-    .map-shell iframe{width:100%;height:380px;border:0;filter:saturate(.85)}
-    .address-line{min-height:26px;margin-top:14px;color:#4a4038}
-
-    .footer{padding:34px clamp(16px,4vw,54px);border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;background:rgba(255,250,243,.78);color:var(--muted);font-size:14px}
-    .footer b{color:var(--ink);font-weight:700}
-
-    .modal{position:fixed;inset:0;z-index:90;background:rgba(12,10,8,.86);display:none;padding:18px;overflow:auto}
-    .modal.open{display:block}
-    .modal-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:flex-end;padding:0 0 12px}
-    .modal-close{border:0;border-radius:999px;padding:10px 14px;background:#fff;cursor:pointer}
-    .modal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(1280px,100%);margin:0 auto}
-    .modal-grid img{width:100%;height:260px;object-fit:cover;border-radius:18px;background:#ddd}
-
-    .is-empty:empty::after{content:"";display:inline-block;min-width:1ch;min-height:1em}
-
-    @media (max-width:900px){
-      .site-header{align-items:flex-start}
-      .brand-sub,.nav a:not(.book-link){display:none}
-      .photo-strip{grid-template-columns:1fr 1fr;min-height:auto}
-      .photo-tile{height:180px;border-radius:18px}
-      .photo-tile:first-child{grid-column:1/-1;grid-row:auto;height:265px}
-      .title-layout{grid-template-columns:1fr}
-      .booking-card{position:relative;top:auto}
-      .section-head{grid-template-columns:1fr}
-      .two-col{grid-template-columns:1fr}
-      .feature-grid{grid-template-columns:1fr 1fr}
-      .amenities{grid-template-columns:1fr 1fr}
-      .modal-grid{grid-template-columns:1fr 1fr}
+    @media(max-width:760px){
+      .tm-container{width:calc(100% - 22px)}
+      .tm-site-header-inner{width:calc(100% - 24px);min-height:70px}
+      .tm-nav a:not(.tm-nav-book){display:none}
+      .tm-brand-logo{width:120px}
+      .property-header-slider{padding:8px;background:#fff}
+      .tm-gallery-strip{display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;gap:8px;padding:0}
+      .tm-gallery-item{height:155px;border-radius:0}
+      .tm-gallery-item:nth-child(n+5){display:none}
+      .tm-gallery-item:first-child{height:210px;grid-column:1/-1}
+      .tm-gallery-actions{right:10px;bottom:10px}
+      .tm-gallery-button{font-size:13px;padding:9px 12px}
+      .tm-property-intro{padding-top:24px}
+      .tm-property-meta{grid-template-columns:repeat(3,1fr);gap:8px}
+      .tm-meta-box{min-height:82px;padding:14px 8px}
+      .tm-meta-number{font-size:27px}
+      .tm-meta-label{font-size:10px}
+      .tm-booking-fields{grid-template-columns:1fr 1fr}
+      .tm-rooms-grid,.tm-amenities-grid,.tm-policy-grid,.tm-related-grid{grid-template-columns:1fr 1fr}
+      .tm-rates-tools{grid-template-columns:1fr 1fr}
+      .tm-calendar-shell{grid-template-columns:1fr}
+      .tm-day{min-height:60px;padding:5px;font-size:12px}
+      .tm-day-price{font-size:11px}
+      .tm-inquiry-grid{grid-template-columns:1fr}
+      .tm-inquiry-form{grid-template-columns:1fr 1fr}
+      .tm-modal-gallery{grid-template-columns:1fr 1fr}
+      .tm-modal-gallery img{height:210px}
     }
 
-    @media (max-width:560px){
-      .site-header{padding:12px 14px}
-      .brand-name{font-size:20px}
-      .nav .book-link{padding:9px 12px;font-size:12px}
-      .hero-gallery{padding:10px 10px 0}
-      .photo-strip{grid-template-columns:1fr 1fr;gap:8px}
-      .photo-tile{height:130px;border-radius:16px}
-      .photo-tile:first-child{height:220px}
-      .main-wrap{width:calc(100% - 20px);padding-top:24px}
-      .meta-grid{grid-template-columns:1fr 1fr}
-      .booking-grid{grid-template-columns:1fr 1fr}
-      .field.full{grid-column:1/-1}
-      .feature-grid{grid-template-columns:1fr 1fr}
-      .amenities{grid-template-columns:1fr 1fr}
-      .calendar-grid{grid-template-columns:1fr 1fr}
-      .calendar-tools{grid-template-columns:1fr}
-      .modal-grid{grid-template-columns:1fr}
-      .modal-grid img{height:220px}
+    @media(max-width:460px){
+      .tm-property-title{font-size:31px}
+      .tm-short-description{font-size:15px}
+      .tm-rooms-grid,.tm-amenities-grid,.tm-policy-grid,.tm-related-grid{grid-template-columns:1fr 1fr}
+      .tm-amenity{font-size:13px;padding:11px 10px}
+      .tm-rates-tools{grid-template-columns:1fr 1fr}
+      .tm-inquiry-form{grid-template-columns:1fr}
     }
   </style>
 </head>
-<body>
-  <div class="page-shell" id="propertyPage">
-    <header class="site-header">
-      <a class="brand" href="/" aria-label="Home">
-        <span class="brand-mark"><img id="brandLogo" alt="" /></span>
-        <span>
-          <span class="brand-name is-empty" data-field="brandName"></span>
-          <span class="brand-sub is-empty" data-field="brandSubtitle"></span>
-        </span>
-      </a>
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#overview">Overview</a>
-        <a href="#amenities">Amenities</a>
-        <a href="#rates">Rates</a>
-        <a href="#location">Location</a>
-        <a class="book-link" href="#booking">Book</a>
-      </nav>
+
+<body class="tm-loading">
+  <div class="tm-page" id="tmPropertyPage">
+    <div class="tm-language-toolbar" aria-hidden="true"></div>
+
+    <header class="tm-site-header" id="internalHeader">
+      <div class="tm-site-header-inner">
+        <a class="tm-brand" href="/" aria-label="Home">
+          <img class="tm-brand-logo" id="brandLogo" alt="" />
+          <span class="tm-brand-text" id="brandText"></span>
+        </a>
+        <nav class="tm-nav" aria-label="Main navigation">
+          <a href="/properties/">Properties</a>
+          <a href="/weddings-events/">Weddings &amp; Events</a>
+          <a href="/contact-us/">Contact</a>
+          <a class="tm-nav-book" href="#rates">Book Your Stay</a>
+        </nav>
+      </div>
     </header>
 
-    <section class="hero-gallery" aria-label="Property photos">
-      <div class="photo-strip" id="photoStrip">
-        <figure class="photo-tile"><img data-photo="0" alt="" /><div class="photo-actions"><button class="small-action" type="button" data-open-gallery>View photos</button></div></figure>
-        <figure class="photo-tile"><img data-photo="1" alt="" /></figure>
-        <figure class="photo-tile"><img data-photo="2" alt="" /></figure>
-        <figure class="photo-tile"><img data-photo="3" alt="" /></figure>
-        <figure class="photo-tile"><img data-photo="4" alt="" /></figure>
-      </div>
+    <section class="property-header-slider" aria-label="Property photos">
+      <div class="tm-gallery-strip" id="photoStrip"></div>
     </section>
 
-    <main class="main-wrap">
-      <section class="title-layout" id="booking">
-        <div>
-          <p class="eyebrow is-empty" data-field="locationKicker"></p>
-          <h1 class="is-empty" data-field="title"></h1>
-          <p class="lead is-empty" data-field="description"></p>
+    <main>
+      <section class="tm-property-intro">
+        <div class="tm-container tm-title-grid">
+          <div>
+            <p class="tm-breadcrumb" id="breadcrumb"></p>
+            <h1 class="tm-property-title" id="propertyTitle"></h1>
+            <p class="tm-property-address" id="propertyAddress"></p>
+            <p class="tm-short-description" id="propertySummary"></p>
 
-          <div class="meta-grid" aria-label="Property facts">
-            <div class="meta-card"><b class="is-empty" data-field="guests"></b><span>Guests</span></div>
-            <div class="meta-card"><b class="is-empty" data-field="bedrooms"></b><span>Bedrooms</span></div>
-            <div class="meta-card"><b class="is-empty" data-field="bathrooms"></b><span>Bathrooms</span></div>
-            <div class="meta-card"><b class="is-empty" data-field="beds"></b><span>Beds</span></div>
-          </div>
-        </div>
-
-        <aside class="booking-card" aria-label="Booking form">
-          <h2>Book your stay</h2>
-          <div class="price-line is-empty" id="priceLine"></div>
-
-          <div class="booking-grid">
-            <div class="field">
-              <label for="checkIn">Check-in</label>
-              <input id="checkIn" type="date" />
-            </div>
-            <div class="field">
-              <label for="checkOut">Check-out</label>
-              <input id="checkOut" type="date" />
-            </div>
-            <div class="field">
-              <label for="adults">Adults</label>
-              <select id="adults"></select>
-            </div>
-            <div class="field">
-              <label for="children">Children</label>
-              <select id="children"></select>
+            <div class="tm-property-meta" aria-label="Property details">
+              <div class="tm-meta-box">
+                <span class="tm-meta-number" id="metaGuests"></span>
+                <span class="tm-meta-label">Guests</span>
+              </div>
+              <div class="tm-meta-box">
+                <span class="tm-meta-number" id="metaBedrooms"></span>
+                <span class="tm-meta-label">Bedrooms</span>
+              </div>
+              <div class="tm-meta-box">
+                <span class="tm-meta-number" id="metaBathrooms"></span>
+                <span class="tm-meta-label">Bathrooms</span>
+              </div>
             </div>
           </div>
 
-          <button class="button secondary" type="button" id="quoteBtn">Load price</button>
-          <div class="quote-box" id="quoteBox" hidden></div>
-          <button class="button" type="button" id="checkoutBtn" disabled>Continue</button>
-          <div class="status-line" id="bookingStatus"></div>
-        </aside>
+          <aside class="tm-booking-card" id="bookingCard" aria-label="Booking widget">
+            <div class="tm-booking-head">
+              <h2 class="tm-booking-title">Book Your Stay</h2>
+              <div class="tm-from-price" id="fromPrice"></div>
+            </div>
+
+            <div class="tm-booking-fields">
+              <div class="tm-field">
+                <label for="checkIn">Check-in</label>
+                <input id="checkIn" type="date" />
+              </div>
+              <div class="tm-field">
+                <label for="checkOut">Check-out</label>
+                <input id="checkOut" type="date" />
+              </div>
+              <div class="tm-field">
+                <label for="adultCount">Adults</label>
+                <select id="adultCount"></select>
+              </div>
+              <div class="tm-field">
+                <label for="childrenCount">Children</label>
+                <select id="childrenCount"></select>
+              </div>
+              <div class="tm-field">
+                <label for="infantCount">Infants</label>
+                <select id="infantCount"></select>
+              </div>
+              <div class="tm-field">
+                <label for="petCount">Pets</label>
+                <select id="petCount"></select>
+              </div>
+            </div>
+
+            <div class="tm-quote-box" id="quoteBox"></div>
+            <button class="tm-book-button" id="quoteButton" type="button">Check Availability</button>
+            <a class="tm-inquiry-link" href="#inquiry">Send an Inquiry</a>
+            <div class="tm-booking-status" id="bookingStatus" aria-live="polite"></div>
+          </aside>
+        </div>
       </section>
 
-      <section class="section" id="overview">
-        <div class="section-head">
-          <h2>Property overview</h2>
-          <div class="section-copy is-empty" data-field="longDescription"></div>
-        </div>
-        <div class="two-col">
-          <article class="content-card">
-            <h3>Guest access</h3>
-            <p class="is-empty" data-field="guestAccess"></p>
-          </article>
-          <article class="content-card">
-            <h3>House notes</h3>
-            <p class="is-empty" data-field="houseNotes"></p>
-          </article>
-        </div>
-      </section>
+      <div class="tm-container tm-content-layout">
+        <div class="tm-main-content">
+          <section class="tm-section" id="overview">
+            <div class="tm-heading-line"><h2 class="tm-section-title">Description</h2></div>
+            <div class="tm-section-copy" id="descriptionText"></div>
+          </section>
 
-      <section class="section" id="highlights">
-        <div class="section-head">
-          <h2>Highlights</h2>
-          <div class="section-copy is-empty" data-field="highlightIntro"></div>
-        </div>
-        <div class="feature-grid" id="featureGrid"></div>
-      </section>
+          <section class="tm-section" id="details">
+            <div class="tm-description-grid">
+              <article class="tm-text-block" id="notesBlock">
+                <h3 class="tm-text-block-title">Notes</h3>
+                <div class="tm-text-block-body" id="notesText"></div>
+              </article>
+              <article class="tm-text-block" id="neighborhoodBlock">
+                <h3 class="tm-text-block-title">Neighborhood</h3>
+                <div class="tm-text-block-body" id="neighborhoodText"></div>
+              </article>
+              <article class="tm-text-block" id="accessBlock">
+                <h3 class="tm-text-block-title">Access</h3>
+                <div class="tm-text-block-body" id="accessText"></div>
+              </article>
+              <article class="tm-text-block" id="spaceBlock">
+                <h3 class="tm-text-block-title">Space</h3>
+                <div class="tm-text-block-body" id="spaceText"></div>
+              </article>
+              <article class="tm-text-block" id="transitBlock">
+                <h3 class="tm-text-block-title">Transit</h3>
+                <div class="tm-text-block-body" id="transitText"></div>
+              </article>
+            </div>
+          </section>
 
-      <section class="section" id="amenities">
-        <div class="section-head">
-          <h2>Amenities</h2>
-          <div class="section-copy is-empty" data-field="amenityIntro"></div>
-        </div>
-        <div class="amenities" id="amenitiesGrid"></div>
-      </section>
+          <section class="tm-section" id="rooms">
+            <div class="tm-heading-line"><h2 class="tm-section-title">Rooms and Beds</h2></div>
+            <div class="tm-rooms-grid" id="roomsGrid"></div>
+          </section>
 
-      <section class="section" id="rates">
-        <div class="section-head">
-          <h2>Rates and availability</h2>
-          <div class="section-copy is-empty" data-field="ratesIntro"></div>
+          <section class="tm-section" id="amenities">
+            <div class="tm-heading-line"><h2 class="tm-section-title">Features and Amenities</h2></div>
+            <div class="tm-amenities-grid" id="amenitiesGrid"></div>
+          </section>
+
+          <section class="tm-section" id="policies">
+            <div class="tm-policy-grid">
+              <article class="tm-policy-card">
+                <h3>Cancellation Policy</h3>
+                <div id="cancellationPolicy"></div>
+              </article>
+              <article class="tm-policy-card">
+                <h3>Payment Policy</h3>
+                <div id="paymentPolicy"></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="tm-section" id="rates">
+            <div class="tm-heading-line"><h2 class="tm-section-title">Rates and Availability</h2></div>
+            <div class="tm-rates-tools">
+              <div class="tm-field">
+                <label for="calendarFrom">From</label>
+                <input id="calendarFrom" type="date" />
+              </div>
+              <div class="tm-field">
+                <label for="calendarTo">To</label>
+                <input id="calendarTo" type="date" />
+              </div>
+              <button class="tm-book-button" id="loadCalendarButton" type="button">Load Calendar</button>
+              <button class="tm-book-button" id="nextMonthButton" type="button">Next Month</button>
+            </div>
+            <div class="tm-calendar-shell" id="calendarShell"></div>
+            <div class="tm-calendar-status" id="calendarStatus" aria-live="polite"></div>
+          </section>
+
+          <section class="tm-section" id="location">
+            <div class="tm-heading-line"><h2 class="tm-section-title">Location</h2></div>
+            <div class="tm-map-frame" id="mapFrame"></div>
+            <div class="tm-location-lines" id="locationLines"></div>
+          </section>
+
+          <section class="tm-section" id="related">
+            <div class="tm-heading-line"><h2 class="tm-section-title">Other Properties You May Like</h2></div>
+            <div class="tm-related-grid" id="relatedGrid"></div>
+          </section>
         </div>
-        <div class="calendar-tools">
-          <div class="field">
-            <label for="calendarMonth">Month</label>
-            <input id="calendarMonth" type="month" />
+        <div class="tm-side-spacer" aria-hidden="true"></div>
+      </div>
+
+      <section class="tm-inquiry-section" id="inquiry">
+        <div class="tm-container tm-inquiry-grid">
+          <div>
+            <h2 class="tm-inquiry-title">Send an Inquiry</h2>
+            <div class="tm-inquiry-copy" id="inquiryCopy"></div>
           </div>
-          <button class="button secondary" type="button" id="calendarBtn">Load calendar</button>
+          <form class="tm-inquiry-form" id="inquiryForm">
+            <div class="tm-field"><label for="inqName">Name</label><input id="inqName" name="name" autocomplete="name" /></div>
+            <div class="tm-field"><label for="inqEmail">Email</label><input id="inqEmail" name="email" type="email" autocomplete="email" /></div>
+            <div class="tm-field"><label for="inqPhone">Phone</label><input id="inqPhone" name="phone" type="tel" autocomplete="tel" /></div>
+            <div class="tm-field"><label for="inqGuests">Guests</label><input id="inqGuests" name="guests" inputmode="numeric" /></div>
+            <div class="tm-field full"><label for="inqMessage">Message</label><textarea id="inqMessage" name="message"></textarea></div>
+            <button class="tm-book-button" type="submit">Send Inquiry</button>
+            <div class="tm-booking-status" id="inquiryStatus" aria-live="polite"></div>
+          </form>
         </div>
-        <div class="calendar-grid" id="calendarGrid"></div>
-      </section>
-
-      <section class="section" id="location">
-        <div class="section-head">
-          <h2>Location</h2>
-          <div class="section-copy is-empty" data-field="locationText"></div>
-        </div>
-        <div class="map-shell" id="mapShell"></div>
-        <div class="address-line is-empty" data-field="address"></div>
       </section>
     </main>
 
-    <footer class="footer">
-      <div><b class="is-empty" data-field="footerBrand"></b> <span class="is-empty" data-field="footerLocation"></span></div>
-      <div class="is-empty" data-field="footerContact"></div>
+    <footer class="tm-footer" id="footer">
+      <div class="tm-container tm-footer-grid">
+        <div>
+          <h3 id="footerBrand"></h3>
+          <div id="footerDescription"></div>
+        </div>
+        <div>
+          <h3>Quick links</h3>
+          <div><a href="#overview">Description</a></div>
+          <div><a href="#amenities">Amenities</a></div>
+          <div><a href="#rates">Rates and Availability</a></div>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <div id="footerContact"></div>
+        </div>
+      </div>
     </footer>
-  </div>
 
-  <div class="modal" id="galleryModal" aria-hidden="true">
-    <div class="modal-bar"><button class="modal-close" type="button" data-close-gallery>Close</button></div>
-    <div class="modal-grid" id="modalGrid"></div>
+    <div class="tm-modal" id="photoModal" aria-hidden="true">
+      <div class="tm-modal-bar"><button class="tm-modal-close" type="button" id="closeModalButton">Close</button></div>
+      <div class="tm-modal-gallery" id="modalGallery"></div>
+    </div>
   </div>
 
   <script>
-    /*
-      FILL ONLY THESE BLANKS FOR ANOTHER PROPERTY / WORKER.
-      The visible page stays blank until the Cloudflare Worker answers.
-    */
+    /* =========================================================
+       ONLY EDIT THIS CONFIG WHEN REUSING THE SHELL
+       ========================================================= */
     const PROPERTY_CONFIG = {
-      WORKER_BASE: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/",        // Cloudflare Worker base URL
-      PROPERTY_ID: "",        // Optional: Guesty/listing/property id, slug, or leave blank if worker has one default property
-      BRAND_NAME: "",         // Optional visible brand name if worker does not send it
-      BRAND_SUBTITLE: "",     // Optional visible brand subtitle
-      BRAND_LOGO: "",         // Optional logo URL
+      WORKER_BASE: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/",
+      PROPERTY_ID: "",
+      LISTING_QUERY: "",
+      BRAND_NAME: "",
+      BRAND_LOGO: "",
+      SHOW_INTERNAL_HEADER: false,
       CHECKOUT_URL: "checkout.html",
-
-      ENDPOINTS: {
-        listing: "/listing",
-        images: "/images",
-        calendar: "/calendar",
-        quote: "/quote"
-      }
+      CONFIRMATION_URL: "confirmation.html",
+      DEFAULT_LANG: "en",
+      CURRENCY: "USD",
+      MAX_GUESTS_FALLBACK: 32,
+      CALENDAR_MONTHS_VISIBLE: 2
     };
 
     const state = {
-      property: {},
-      images: [],
-      calendar: [],
-      quote: null
+      listing:null,
+      images:[],
+      calendar:[],
+      quote:null,
+      selectedStart:null,
+      selectedEnd:null,
+      lang:getInitialLang()
     };
 
-    const $ = (selector, root = document) => root.querySelector(selector);
-    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+    const $ = (id) => document.getElementById(id);
 
-    function clean(value){
-      if(value === null || value === undefined) return "";
-      return String(value).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+    document.addEventListener("DOMContentLoaded", initPropertyPage);
+
+    async function initPropertyPage(){
+      setupInternalHeader();
+      setupGuestSelects(PROPERTY_CONFIG.MAX_GUESTS_FALLBACK);
+      setupDates();
+      bindEvents();
+      await Promise.allSettled([loadListing(), loadImages(), loadContent()]);
+      await loadCalendarFromInputs();
+      document.body.classList.remove("tm-loading");
     }
 
-    function rootData(payload){
-      if(!payload) return {};
-      if(payload.ok && payload.data) return payload.data;
-      if(payload.ok && payload.listing) return payload.listing;
-      if(payload.ok && payload.property) return payload.property;
-      if(payload.data) return payload.data;
-      return payload;
+    function getInitialLang(){
+      const params = new URLSearchParams(location.search);
+      return params.get("lang") || localStorage.getItem("fh_lang") || PROPERTY_CONFIG.DEFAULT_LANG || "en";
     }
 
-    function endpoint(path, params = {}){
-      if(!PROPERTY_CONFIG.WORKER_BASE){
-        return null;
+    function setupInternalHeader(){
+      if(PROPERTY_CONFIG.SHOW_INTERNAL_HEADER) $("internalHeader").classList.add("is-visible");
+      setText("brandText", PROPERTY_CONFIG.BRAND_NAME);
+      setText("footerBrand", PROPERTY_CONFIG.BRAND_NAME);
+      if(PROPERTY_CONFIG.BRAND_LOGO){
+        $("brandLogo").src = PROPERTY_CONFIG.BRAND_LOGO;
+        $("brandLogo").alt = PROPERTY_CONFIG.BRAND_NAME || "";
       }
-      const url = new URL(path, PROPERTY_CONFIG.WORKER_BASE.replace(/\/$/, ""));
-      if(PROPERTY_CONFIG.PROPERTY_ID){
-        url.searchParams.set("propertyId", PROPERTY_CONFIG.PROPERTY_ID);
-        url.searchParams.set("listingId", PROPERTY_CONFIG.PROPERTY_ID);
-      }
-      Object.entries(params).forEach(([key,value]) => {
-        if(value !== "" && value !== null && value !== undefined) url.searchParams.set(key, value);
+    }
+
+    function bindEvents(){
+      $("quoteButton").addEventListener("click", handleQuoteClick);
+      $("loadCalendarButton").addEventListener("click", loadCalendarFromInputs);
+      $("nextMonthButton").addEventListener("click", nextCalendarMonth);
+      $("photoModal").addEventListener("click", (e)=>{ if(e.target === $("photoModal")) closePhotoModal(); });
+      $("closeModalButton").addEventListener("click", closePhotoModal);
+      $("inquiryForm").addEventListener("submit", handleInquirySubmit);
+      ["checkIn","checkOut","adultCount","childrenCount","infantCount","petCount"].forEach(id=>{
+        $(id).addEventListener("change", clearQuote);
       });
-      return url.toString();
-    }
 
-    async function apiGet(path, params = {}){
-      const url = endpoint(path, params);
-      if(!url) return null;
-      const res = await fetch(url, {headers:{"Accept":"application/json"}});
-      if(!res.ok) throw new Error(path + " " + res.status);
-      return res.json();
-    }
-
-    async function apiPost(path, body = {}){
-      const url = endpoint(path);
-      if(!url) return null;
-      const res = await fetch(url, {
-        method:"POST",
-        headers:{"Accept":"application/json","Content-Type":"application/json"},
-        body:JSON.stringify(body)
+      window.addEventListener("storage", (event)=>{
+        if(event.key === "fh_lang" && event.newValue){
+          state.lang = event.newValue;
+          loadContent();
+        }
       });
-      if(!res.ok) throw new Error(path + " " + res.status);
-      return res.json();
+
+      window.addEventListener("message", (event)=>{
+        const data = event.data || {};
+        if(data.lang || data.language){
+          state.lang = data.lang || data.language;
+          localStorage.setItem("fh_lang", state.lang);
+          loadContent();
+        }
+      });
     }
 
-    function pick(obj, paths){
-      for(const path of paths){
-        const value = path.split(".").reduce((acc,key) => acc && acc[key], obj);
-        if(value !== undefined && value !== null && value !== "") return value;
+    function setupGuestSelects(max){
+      fillNumberOptions("adultCount", 1, max, 2);
+      fillNumberOptions("childrenCount", 0, max, 0);
+      fillNumberOptions("infantCount", 0, 6, 0);
+      fillNumberOptions("petCount", 0, 4, 0);
+    }
+
+    function fillNumberOptions(id, min, max, selected){
+      const select = $(id);
+      select.innerHTML = "";
+      for(let n=min;n<=max;n++){
+        const opt = document.createElement("option");
+        opt.value = String(n);
+        opt.textContent = String(n);
+        if(n === selected) opt.selected = true;
+        select.appendChild(opt);
       }
-      return "";
     }
 
-    function normalizeProperty(raw){
-      const p = rootData(raw);
-      const addressObj = pick(p,["address","publicAddress","location.address"]);
-      const address = typeof addressObj === "string" ? addressObj : [
-        pick(p,["address.street","address.full","address.line1","location.address.street"]),
-        pick(p,["address.city","address.locality","location.city"]),
-        pick(p,["address.state","address.region","location.state"]),
-        pick(p,["address.country","location.country"])
-      ].filter(Boolean).join(", ");
-
-      const city = pick(p,["address.city","address.locality","location.city","city"]);
-      const region = pick(p,["address.state","address.region","location.state","region"]);
-      const country = pick(p,["address.country","location.country","country"]);
-
-      return {
-        brandName: clean(pick(p,["brandName","brand.name"]) || PROPERTY_CONFIG.BRAND_NAME),
-        brandSubtitle: clean(pick(p,["brandSubtitle","brand.subtitle"]) || PROPERTY_CONFIG.BRAND_SUBTITLE),
-        brandLogo: pick(p,["brandLogo","logo","brand.logo"]) || PROPERTY_CONFIG.BRAND_LOGO,
-        title: clean(pick(p,["title","name","nickname","listing.title","listing.name"])),
-        seoTitle: clean(pick(p,["seoTitle","title","name"])),
-        description: clean(pick(p,["description","summary","publicDescription.summary","shortDescription"])),
-        longDescription: clean(pick(p,["longDescription","space","publicDescription.space","publicDescription.description","description"])),
-        guestAccess: clean(pick(p,["guestAccess","publicDescription.access","access"])),
-        houseNotes: clean(pick(p,["houseNotes","notes","publicDescription.notes","houseRules"])),
-        highlightIntro: clean(pick(p,["highlightIntro","headline","tagline"])),
-        amenityIntro: clean(pick(p,["amenityIntro"])),
-        ratesIntro: clean(pick(p,["ratesIntro"])),
-        locationText: clean(pick(p,["locationText","neighborhoodOverview","publicDescription.neighborhood","location.description"])),
-        address: clean(address),
-        locationKicker: clean([city,region,country].filter(Boolean).join(" · ")),
-        footerLocation: clean([city,region].filter(Boolean).join(", ")),
-        footerContact: clean(pick(p,["contact","phone","email","reservationPhone"])),
-        latitude: pick(p,["latitude","lat","address.lat","geo.latitude","location.lat"]),
-        longitude: pick(p,["longitude","lng","address.lng","geo.longitude","location.lng"]),
-        guests: pick(p,["accommodates","guests","maxGuests","occupancy.value","terms.maxOccupancy"]),
-        bedrooms: pick(p,["bedrooms","numberOfBedrooms","accommodations.bedrooms"]),
-        bathrooms: pick(p,["bathrooms","numberOfBathrooms","numberOfBathroomsTotal","accommodations.bathrooms"]),
-        beds: pick(p,["beds","numberOfBeds","accommodations.beds"]),
-        minStay: pick(p,["minStay","terms.minNights","minimumNights"]),
-        maxGuests: pick(p,["maxGuests","accommodates","terms.maxOccupancy"]),
-        currency: pick(p,["currency","prices.currency","pricing.currency"]) || "USD",
-        basePrice: pick(p,["basePrice","baseRent","prices.basePrice","pricing.base","lowestPrice","offers.price"]),
-        features: normalizeFeatures(p),
-        amenities: normalizeAmenities(p)
-      };
+    function setupDates(){
+      const today = new Date();
+      const tomorrow = addDays(today, 1);
+      const after = addDays(today, 3);
+      $("checkIn").min = isoDate(today);
+      $("checkOut").min = isoDate(tomorrow);
+      $("calendarFrom").value = firstDayOfMonth(today);
+      $("calendarTo").value = lastDayOfNextMonth(today);
+      $("checkIn").addEventListener("change", ()=>{
+        const ci = parseDate($("checkIn").value);
+        if(ci){
+          $("checkOut").min = isoDate(addDays(ci,1));
+          if(!$("checkOut").value || parseDate($("checkOut").value) <= ci) $("checkOut").value = isoDate(addDays(ci,2));
+        }
+      });
     }
 
-    function normalizeFeatures(p){
-      const raw = pick(p,["features","highlights","marketingHighlights"]);
-      if(Array.isArray(raw)){
-        return raw.map(item => typeof item === "string" ? {title:item, text:""} : {
-          title:clean(item.title || item.name || item.label),
-          text:clean(item.text || item.description || item.value)
-        }).filter(item => item.title || item.text);
-      }
-      return [];
-    }
-
-    function normalizeAmenities(p){
-      const raw = pick(p,["amenities","amenityFeature","features.amenities"]);
-      if(Array.isArray(raw)){
-        return raw.map(item => clean(typeof item === "string" ? item : (item.name || item.label || item.title))).filter(Boolean);
-      }
-      return [];
-    }
-
-    function normalizeImages(raw){
-      const root = rootData(raw);
-      const arr = Array.isArray(root) ? root : (root.images || root.photos || root.pictures || root.results || []);
-      return arr.map(item => {
-        if(typeof item === "string") return {url:item, alt:""};
-        return {
-          url:item.url || item.src || item.original || item.thumbnail || item.secure_url || item.downloadUrl || "",
-          alt:item.alt || item.caption || item.name || ""
-        };
-      }).filter(item => item.url);
-    }
-
-    function normalizeCalendar(raw){
-      const root = rootData(raw);
-      const arr = Array.isArray(root) ? root : (root.days || root.calendar || root.results || root.availability || []);
-      return arr.map(item => {
-        const date = item.date || item.day || item.startDate || item.checkIn || "";
-        const status = String(item.status || item.availability || "").toLowerCase();
-        const available = item.available === true || status.includes("available") || status === "open";
-        const booked = status.includes("book") || status.includes("reserved");
-        const priceObj = item.price || item.rate || item.amount || item.nightlyRate || "";
-        const price = typeof priceObj === "object" ? (priceObj.amount || priceObj.value || priceObj.total || "") : priceObj;
-        const currency = item.currency || state.property.currency || "USD";
-        return {date, available, booked, price, currency, minStay:item.minStay || item.minNights || ""};
-      }).filter(item => item.date);
-    }
-
-    function setField(name, value){
-      $$(`[data-field="${name}"]`).forEach(el => { el.textContent = clean(value); });
-    }
-
-    function populateSelects(maxGuests = 32){
-      const adults = $("#adults");
-      const children = $("#children");
-      adults.innerHTML = "";
-      children.innerHTML = "";
-      const max = Math.max(1, Number(maxGuests) || 32);
-      for(let i=1;i<=max;i++) adults.append(new Option(String(i), String(i), i === 1, i === 1));
-      for(let i=0;i<=Math.min(12,max);i++) children.append(new Option(String(i), String(i), i === 0, i === 0));
-    }
-
-    function formatMoney(amount, currency){
-      const n = Number(amount);
-      if(!Number.isFinite(n)) return clean(amount);
+    async function loadListing(){
       try{
-        return new Intl.NumberFormat("en-US", {style:"currency", currency:currency || "USD", maximumFractionDigits:0}).format(n);
-      }catch(_){
-        return String(Math.round(n));
-      }
-    }
-
-    function formatDate(dateString){
-      const date = new Date(dateString + "T00:00:00");
-      if(Number.isNaN(date.getTime())) return dateString;
-      return date.toLocaleDateString("en-US", {month:"short", day:"numeric"});
-    }
-
-    function populateProperty(p){
-      state.property = p;
-      document.title = p.seoTitle || p.title || "";
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if(metaDescription) metaDescription.setAttribute("content", p.description || "");
-
-      setField("brandName", p.brandName);
-      setField("brandSubtitle", p.brandSubtitle);
-      setField("title", p.title);
-      setField("description", p.description);
-      setField("longDescription", p.longDescription);
-      setField("guestAccess", p.guestAccess);
-      setField("houseNotes", p.houseNotes);
-      setField("highlightIntro", p.highlightIntro);
-      setField("amenityIntro", p.amenityIntro);
-      setField("ratesIntro", p.ratesIntro);
-      setField("locationText", p.locationText);
-      setField("address", p.address);
-      setField("locationKicker", p.locationKicker);
-      setField("footerBrand", p.brandName || p.title);
-      setField("footerLocation", p.footerLocation);
-      setField("footerContact", p.footerContact);
-      setField("guests", p.guests);
-      setField("bedrooms", p.bedrooms);
-      setField("bathrooms", p.bathrooms);
-      setField("beds", p.beds);
-
-      const logo = $("#brandLogo");
-      if(p.brandLogo){ logo.src = p.brandLogo; }
-      else { logo.removeAttribute("src"); }
-
-      $("#priceLine").textContent = p.basePrice ? `Starting at ${formatMoney(p.basePrice, p.currency)} / night` : "";
-      populateSelects(p.maxGuests || p.guests || 32);
-      populateFeatures(p.features);
-      populateAmenities(p.amenities);
-      populateMap(p);
-    }
-
-    function populateImages(images){
-      state.images = images;
-      $$("[data-photo]").forEach(img => {
-        const index = Number(img.getAttribute("data-photo"));
-        const photo = images[index];
-        if(photo && photo.url){ img.src = photo.url; img.alt = photo.alt || state.property.title || ""; }
-        else { img.removeAttribute("src"); img.alt = ""; }
-      });
-      const modalGrid = $("#modalGrid");
-      modalGrid.innerHTML = "";
-      images.forEach(photo => {
-        const img = document.createElement("img");
-        img.src = photo.url;
-        img.alt = photo.alt || state.property.title || "";
-        img.loading = "lazy";
-        modalGrid.appendChild(img);
-      });
-    }
-
-    function populateFeatures(features = []){
-      const grid = $("#featureGrid");
-      grid.innerHTML = "";
-      features.slice(0,9).forEach(feature => {
-        const card = document.createElement("article");
-        card.className = "feature-card";
-        card.innerHTML = `<b>${clean(feature.title)}</b><span>${clean(feature.text)}</span>`;
-        grid.appendChild(card);
-      });
-    }
-
-    function populateAmenities(amenities = []){
-      const grid = $("#amenitiesGrid");
-      grid.innerHTML = "";
-      amenities.slice(0,40).forEach(name => {
-        const div = document.createElement("div");
-        div.className = "amenity";
-        div.textContent = clean(name).replace(/([a-z])([A-Z])/g,"$1 $2");
-        grid.appendChild(div);
-      });
-    }
-
-    function populateMap(p){
-      const shell = $("#mapShell");
-      shell.innerHTML = "";
-      if(p.latitude && p.longitude){
-        const iframe = document.createElement("iframe");
-        iframe.loading = "lazy";
-        iframe.referrerPolicy = "no-referrer-when-downgrade";
-        iframe.src = `https://www.google.com/maps?q=${encodeURIComponent(p.latitude + "," + p.longitude)}&output=embed`;
-        shell.appendChild(iframe);
-      }
-    }
-
-    function monthRange(monthValue){
-      const now = new Date();
-      const value = monthValue || `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
-      const [year,month] = value.split("-").map(Number);
-      const from = new Date(year, month - 1, 1);
-      const to = new Date(year, month, 1);
-      const iso = d => d.toISOString().slice(0,10);
-      return {from:iso(from), to:iso(to), value};
-    }
-
-    async function loadCalendar(){
-      const status = $("#bookingStatus");
-      const {from, to, value} = monthRange($("#calendarMonth").value);
-      $("#calendarMonth").value = value;
-      try{
-        const raw = await apiGet(PROPERTY_CONFIG.ENDPOINTS.calendar, {from, to});
-        state.calendar = normalizeCalendar(raw);
-        renderCalendar(state.calendar);
+        const listing = await workerGet("/listing" + querySuffix());
+        state.listing = normalizeListing(listing);
+        renderListing(state.listing);
       }catch(error){
-        renderCalendar([]);
-        status.textContent = "Calendar could not load.";
-        status.classList.add("error");
+        console.warn("Listing load failed", error);
       }
     }
 
-    function renderCalendar(days){
-      const grid = $("#calendarGrid");
+    async function loadContent(){
+      try{
+        const content = await workerGet(`/content?lang=${encodeURIComponent(state.lang)}`);
+        if(content) renderContent(content);
+      }catch(error){
+        /* Content route is optional. */
+      }
+    }
+
+    async function loadImages(){
+      try{
+        const data = await workerGet("/images" + querySuffix());
+        state.images = normalizeImages(data);
+        renderImages(state.images);
+      }catch(error){
+        console.warn("Images load failed", error);
+      }
+    }
+
+    async function loadCalendarFromInputs(){
+      const from = $("calendarFrom").value || firstDayOfMonth(new Date());
+      const to = $("calendarTo").value || lastDayOfNextMonth(new Date());
+      setText("calendarStatus", "");
+      try{
+        const data = await workerGet(`/calendar?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}${propertyParam(true)}`);
+        state.calendar = normalizeCalendar(data);
+        renderCalendar(from, to, state.calendar);
+      }catch(error){
+        setText("calendarStatus", "Calendar could not be loaded.");
+        console.warn("Calendar load failed", error);
+      }
+    }
+
+    function nextCalendarMonth(){
+      const current = parseDate($("calendarFrom").value) || new Date();
+      const next = new Date(current.getFullYear(), current.getMonth()+1, 1);
+      $("calendarFrom").value = firstDayOfMonth(next);
+      $("calendarTo").value = lastDayOfNextMonth(next);
+      loadCalendarFromInputs();
+    }
+
+    function renderListing(listing){
+      if(!listing) return;
+
+      const title = firstDefined(listing.title, listing.name, listing.nickname, listing.publicName);
+      const summary = firstDefined(listing.summary, listing.descriptionSummary, listing.shortDescription, listing.description);
+      const description = firstDefined(listing.description, listing.publicDescription, listing.descriptionText);
+      const address = formatAddress(listing.address || listing.location || listing.fullAddress || listing);
+      const maxGuests = numberValue(firstDefined(listing.guests, listing.accommodates, listing.maxGuests, listing.occupancy));
+      const bedrooms = numberValue(firstDefined(listing.bedrooms, listing.bedroomCount, listing.numberOfBedrooms));
+      const bathrooms = numberValue(firstDefined(listing.bathrooms, listing.bathroomCount, listing.numberOfBathrooms, listing.numberOfBathroomsTotal));
+      const basePrice = firstDefined(listing.price, listing.basePrice, listing.defaultRate, listing.nightlyRate);
+      const currency = firstDefined(listing.currency, listing.priceCurrency, PROPERTY_CONFIG.CURRENCY);
+
+      document.title = title || document.title;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if(metaDesc && summary) metaDesc.setAttribute("content", stripHtml(summary).slice(0,155));
+
+      setText("breadcrumb", firstDefined(listing.city, listing.area, listing.market, listing.address?.city, listing.address?.addressLocality));
+      setText("propertyTitle", title);
+      setText("propertyAddress", address);
+      setHTML("propertySummary", summary);
+      setHTML("descriptionText", description);
+      setText("metaGuests", maxGuests ? String(maxGuests) : "");
+      setText("metaBedrooms", bedrooms ? String(bedrooms) : "");
+      setText("metaBathrooms", bathrooms ? String(bathrooms) : "");
+
+      if(maxGuests) setupGuestSelects(maxGuests);
+      if(basePrice) setHTML("fromPrice", `<strong>${formatMoney(basePrice, currency)}</strong><span>per night</span>`);
+
+      renderTextBlock("notesBlock", "notesText", firstDefined(listing.notes, listing.houseRulesNotes));
+      renderTextBlock("neighborhoodBlock", "neighborhoodText", firstDefined(listing.neighborhood, listing.neighborhoodOverview));
+      renderTextBlock("accessBlock", "accessText", firstDefined(listing.access, listing.guestAccess));
+      renderTextBlock("spaceBlock", "spaceText", firstDefined(listing.space, listing.theSpace));
+      renderTextBlock("transitBlock", "transitText", firstDefined(listing.transit, listing.gettingAround));
+
+      setHTML("cancellationPolicy", firstDefined(listing.cancellationPolicy, listing.cancellation, listing.policies?.cancellation));
+      setHTML("paymentPolicy", firstDefined(listing.paymentPolicy, listing.payment, listing.policies?.payment));
+      setHTML("footerDescription", summary);
+      setHTML("footerContact", formatContact(listing));
+      setHTML("inquiryCopy", firstDefined(listing.inquiryCopy, ""));
+
+      renderRooms(normalizeRooms(listing));
+      renderAmenities(normalizeAmenities(listing));
+      renderLocation(listing, address);
+      renderRelated(normalizeRelated(listing));
+    }
+
+    function renderContent(content){
+      const c = content?.content || content?.data || content;
+      if(!c || typeof c !== "object") return;
+      setMaybe("propertyTitle", c.title || c.propertyTitle);
+      setMaybeHTML("propertySummary", c.summary || c.shortDescription);
+      setMaybeHTML("descriptionText", c.description);
+      setMaybeHTML("notesText", c.notes);
+      setMaybeHTML("neighborhoodText", c.neighborhood);
+      setMaybeHTML("accessText", c.access);
+      setMaybeHTML("spaceText", c.space);
+      setMaybeHTML("transitText", c.transit);
+      ["notes","neighborhood","access","space","transit"].forEach(key=>{
+        const block = $(key + "Block");
+        const text = $(key + "Text");
+        if(block && text && text.textContent.trim()) block.classList.add("has-content");
+      });
+    }
+
+    function renderTextBlock(blockId, textId, value){
+      const block = $(blockId);
+      if(!value){ block.classList.remove("has-content"); setHTML(textId, ""); return; }
+      setHTML(textId, value);
+      block.classList.add("has-content");
+    }
+
+    function renderImages(images){
+      const strip = $("photoStrip");
+      const modal = $("modalGallery");
+      strip.innerHTML = "";
+      modal.innerHTML = "";
+      if(!images.length) return;
+
+      images.forEach((img, index)=>{
+        const item = document.createElement("button");
+        item.type = "button";
+        item.className = "tm-gallery-item";
+        item.setAttribute("aria-label", "Open photo gallery");
+        item.innerHTML = `<img src="${escapeAttr(img.url)}" alt="${escapeAttr(img.alt || "")}" loading="${index < 3 ? "eager" : "lazy"}" decoding="async">`;
+        item.addEventListener("click", openPhotoModal);
+        if(index === 0){
+          const actions = document.createElement("div");
+          actions.className = "tm-gallery-actions";
+          actions.innerHTML = `<span class="tm-gallery-button">View all photos</span>`;
+          item.appendChild(actions);
+        }
+        strip.appendChild(item);
+
+        const modalImg = document.createElement("img");
+        modalImg.src = img.url;
+        modalImg.alt = img.alt || "";
+        modalImg.loading = "lazy";
+        modal.appendChild(modalImg);
+      });
+    }
+
+    function renderRooms(rooms){
+      const grid = $("roomsGrid");
       grid.innerHTML = "";
-      days.forEach(day => {
-        const card = document.createElement("div");
-        card.className = "day-card" + (day.booked ? " booked" : day.available ? "" : " blocked");
-        const stateText = day.booked ? "Booked" : day.available ? "Available" : "Unavailable";
+      if(!rooms.length){ $("rooms").hidden = true; return; }
+      $("rooms").hidden = false;
+      rooms.forEach(room=>{
+        const card = document.createElement("article");
+        card.className = "tm-room-card";
         card.innerHTML = `
-          <div class="date">${formatDate(day.date)}</div>
-          <div class="state">${stateText}${day.minStay ? " · " + clean(day.minStay) + " night min" : ""}</div>
-          <div class="rate">${day.price ? formatMoney(day.price, day.currency) : ""}</div>
+          <h3 class="tm-room-title">${escapeHTML(room.title || "")}</h3>
+          <div class="tm-room-line">${escapeHTML(room.beds || "")}</div>
+          <div class="tm-room-line">${escapeHTML(room.details || "")}</div>
         `;
         grid.appendChild(card);
       });
     }
 
+    function renderAmenities(amenities){
+      const grid = $("amenitiesGrid");
+      grid.innerHTML = "";
+      if(!amenities.length){ $("amenities").hidden = true; return; }
+      $("amenities").hidden = false;
+      amenities.slice(0,90).forEach(name=>{
+        const el = document.createElement("div");
+        el.className = "tm-amenity";
+        el.textContent = cleanLabel(name);
+        grid.appendChild(el);
+      });
+    }
+
+    function renderLocation(listing, address){
+      const lat = firstDefined(listing.latitude, listing.lat, listing.geo?.latitude, listing.address?.lat, listing.address?.latitude);
+      const lng = firstDefined(listing.longitude, listing.lng, listing.lon, listing.geo?.longitude, listing.address?.lng, listing.address?.longitude);
+      setText("locationLines", address || "");
+      const frame = $("mapFrame");
+      frame.innerHTML = "";
+      if(lat && lng){
+        const src = `https://maps.google.com/maps?q=${encodeURIComponent(lat + "," + lng)}&z=13&output=embed`;
+        frame.innerHTML = `<iframe src="${src}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+      }
+    }
+
+    function renderRelated(items){
+      const grid = $("relatedGrid");
+      grid.innerHTML = "";
+      if(!items.length){ $("related").hidden = true; return; }
+      $("related").hidden = false;
+      items.slice(0,3).forEach(item=>{
+        const a = document.createElement("a");
+        a.className = "tm-related-card has-content";
+        a.href = item.url || "#";
+        a.innerHTML = `
+          <img src="${escapeAttr(item.image || "")}" alt="" loading="lazy">
+          <div class="tm-related-body">
+            <div class="tm-related-title">${escapeHTML(item.title || "")}</div>
+            <div class="tm-related-meta">${escapeHTML(item.meta || "")}</div>
+          </div>
+        `;
+        grid.appendChild(a);
+      });
+    }
+
+    function renderCalendar(from, to, days){
+      const shell = $("calendarShell");
+      shell.innerHTML = "";
+      const start = parseDate(from);
+      if(!start) return;
+      const monthStart = new Date(start.getFullYear(), start.getMonth(), 1);
+      const dayMap = new Map(days.map(d=>[d.date, d]));
+      for(let i=0; i<PROPERTY_CONFIG.CALENDAR_MONTHS_VISIBLE; i++){
+        shell.appendChild(renderMonth(new Date(monthStart.getFullYear(), monthStart.getMonth()+i, 1), dayMap));
+      }
+      markSelectedDates();
+    }
+
+    function renderMonth(monthDate, dayMap){
+      const month = document.createElement("section");
+      month.className = "tm-month";
+      const title = monthDate.toLocaleDateString(undefined,{month:"long",year:"numeric"});
+      month.innerHTML = `
+        <div class="tm-month-title">${escapeHTML(title)}</div>
+        <div class="tm-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div class="tm-days"></div>
+      `;
+      const grid = month.querySelector(".tm-days");
+      const first = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
+      const last = new Date(monthDate.getFullYear(), monthDate.getMonth()+1, 0);
+      for(let blank=0; blank<first.getDay(); blank++){
+        const empty = document.createElement("div");
+        empty.className = "tm-day is-empty";
+        grid.appendChild(empty);
+      }
+      for(let d=1; d<=last.getDate(); d++){
+        const dateObj = new Date(monthDate.getFullYear(), monthDate.getMonth(), d);
+        const date = isoDate(dateObj);
+        const data = dayMap.get(date) || {date, status:"unknown"};
+        const day = document.createElement("button");
+        day.type = "button";
+        day.className = "tm-day " + calendarStatusClass(data);
+        day.dataset.date = date;
+        day.innerHTML = `<span class="tm-day-number">${d}</span><span class="tm-day-price">${escapeHTML(calendarPriceLabel(data))}</span>`;
+        day.addEventListener("click", ()=>selectCalendarDate(date, data));
+        grid.appendChild(day);
+      }
+      return month;
+    }
+
+    function selectCalendarDate(date, data){
+      if(isDayUnavailable(data)) return;
+      if(!state.selectedStart || (state.selectedStart && state.selectedEnd) || parseDate(date) < parseDate(state.selectedStart)){
+        state.selectedStart = date;
+        state.selectedEnd = null;
+        $("checkIn").value = date;
+        $("checkOut").value = "";
+      }else{
+        state.selectedEnd = date;
+        $("checkOut").value = date;
+      }
+      clearQuote();
+      markSelectedDates();
+    }
+
+    function markSelectedDates(){
+      document.querySelectorAll(".tm-day").forEach(el=>el.classList.remove("is-selected"));
+      const start = state.selectedStart ? parseDate(state.selectedStart) : null;
+      const end = state.selectedEnd ? parseDate(state.selectedEnd) : null;
+      document.querySelectorAll(".tm-day[data-date]").forEach(el=>{
+        const d = parseDate(el.dataset.date);
+        if(start && !end && isoDate(d) === isoDate(start)) el.classList.add("is-selected");
+        if(start && end && d >= start && d <= end) el.classList.add("is-selected");
+      });
+    }
+
+    async function handleQuoteClick(){
+      if(state.quote){
+        goToCheckout();
+        return;
+      }
+      clearStatus();
+      const payload = quotePayload();
+      if(!payload){
+        setStatus("Select dates and guest count.", true);
+        return;
+      }
+      $("quoteButton").disabled = true;
+      try{
+        const quote = await workerPost("/quote", payload);
+        state.quote = normalizeQuote(quote);
+        renderQuote(state.quote);
+        saveCheckoutData(payload, quote);
+        $("quoteButton").textContent = "Continue to Payment";
+      }catch(error){
+        setStatus(error.message || "Quote could not be loaded.", true);
+      }finally{
+        $("quoteButton").disabled = false;
+      }
+    }
+
     function quotePayload(){
-      const checkIn = $("#checkIn").value;
-      const checkOut = $("#checkOut").value;
-      const adults = Number($("#adults").value || 1);
-      const children = Number($("#children").value || 0);
-      return {
-        propertyId: PROPERTY_CONFIG.PROPERTY_ID || undefined,
-        checkIn,
-        checkOut,
+      const checkIn = $("checkIn").value;
+      const checkOut = $("checkOut").value;
+      const adults = numberValue($("adultCount").value) || 1;
+      const children = numberValue($("childrenCount").value) || 0;
+      const infants = numberValue($("infantCount").value) || 0;
+      const pets = numberValue($("petCount").value) || 0;
+      if(!checkIn || !checkOut || parseDate(checkOut) <= parseDate(checkIn)) return null;
+
+      const payload = {
         checkInDateLocalized: checkIn,
         checkOutDateLocalized: checkOut,
-        numberOfGuests: {
+        checkIn,
+        checkOut,
+        numberOfGuests:{
           numberOfAdults: adults,
           numberOfChildren: children,
-          numberOfInfants: 0,
-          numberOfPets: 0
+          numberOfInfants: infants,
+          numberOfPets: pets
         },
-        guests: adults + children,
-        adults,
-        children
+        guests:{adults, children, infants, pets},
+        source:"website"
       };
+      if(PROPERTY_CONFIG.PROPERTY_ID){
+        payload.listingId = PROPERTY_CONFIG.PROPERTY_ID;
+        payload.propertyId = PROPERTY_CONFIG.PROPERTY_ID;
+      }
+      return payload;
     }
 
-    async function loadQuote(){
-      const status = $("#bookingStatus");
-      const box = $("#quoteBox");
-      const checkout = $("#checkoutBtn");
-      status.textContent = "";
-      status.classList.remove("error");
-      box.hidden = true;
-      checkout.disabled = true;
+    function renderQuote(quote){
+      const box = $("quoteBox");
+      box.innerHTML = "";
+      if(!quote){ return; }
+      const rows = [];
+      if(quote.nightlyRate) rows.push(["Nightly rate", formatMoney(quote.nightlyRate, quote.currency)]);
+      if(quote.subtotal) rows.push(["Subtotal", formatMoney(quote.subtotal, quote.currency)]);
+      if(quote.fees) rows.push(["Fees", formatMoney(quote.fees, quote.currency)]);
+      if(quote.taxes) rows.push(["Taxes", formatMoney(quote.taxes, quote.currency)]);
+      if(quote.total) rows.push(["Total", formatMoney(quote.total, quote.currency)]);
+      box.innerHTML = rows.map(([label,value])=>`<div class="tm-quote-row"><span>${escapeHTML(label)}</span><span>${escapeHTML(value)}</span></div>`).join("");
+    }
 
-      const payload = quotePayload();
-      if(!payload.checkIn || !payload.checkOut){
-        status.textContent = "Select dates.";
-        status.classList.add("error");
-        return;
-      }
+    function clearQuote(){
+      state.quote = null;
+      $("quoteButton").textContent = "Check Availability";
+      $("quoteBox").innerHTML = "";
+      clearStatus();
+    }
 
+    function saveCheckoutData(payload, rawQuote){
+      const data = {
+        property: state.listing,
+        images: state.images.slice(0,8),
+        payload,
+        quote: rawQuote,
+        normalizedQuote: state.quote,
+        workerBase: cleanBase(PROPERTY_CONFIG.WORKER_BASE),
+        confirmationUrl: PROPERTY_CONFIG.CONFIRMATION_URL
+      };
+      sessionStorage.setItem("propertyCheckout", JSON.stringify(data));
+      localStorage.setItem("propertyCheckout", JSON.stringify(data));
+    }
+
+    function goToCheckout(){
+      const params = new URLSearchParams();
+      params.set("checkIn", $("checkIn").value);
+      params.set("checkOut", $("checkOut").value);
+      params.set("adults", $("adultCount").value);
+      if(PROPERTY_CONFIG.PROPERTY_ID) params.set("propertyId", PROPERTY_CONFIG.PROPERTY_ID);
+      window.location.href = PROPERTY_CONFIG.CHECKOUT_URL + "?" + params.toString();
+    }
+
+    async function handleInquirySubmit(event){
+      event.preventDefault();
+      const form = event.currentTarget;
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.property = $("propertyTitle").textContent;
+      data.checkIn = $("checkIn").value;
+      data.checkOut = $("checkOut").value;
+      if(PROPERTY_CONFIG.PROPERTY_ID) data.propertyId = PROPERTY_CONFIG.PROPERTY_ID;
+
+      setText("inquiryStatus", "");
       try{
-        let raw;
-        try{
-          raw = await apiPost(PROPERTY_CONFIG.ENDPOINTS.quote, payload);
-        }catch(_){
-          raw = await apiGet(PROPERTY_CONFIG.ENDPOINTS.quote, payload);
-        }
-        state.quote = rootData(raw);
-        renderQuote(state.quote);
-        checkout.disabled = false;
+        await workerPost("/inquiry", data);
+        setText("inquiryStatus", "Inquiry sent.");
+        form.reset();
       }catch(error){
-        status.textContent = "Price could not load.";
-        status.classList.add("error");
+        const subject = encodeURIComponent("Property inquiry" + (data.property ? ` - ${data.property}` : ""));
+        const body = encodeURIComponent(Object.entries(data).map(([k,v])=>`${k}: ${v}`).join("\n"));
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
       }
     }
 
-    function renderQuote(raw){
-      const q = rootData(raw);
-      const currency = pick(q,["currency","money.currency"]) || state.property.currency || "USD";
-      const rent = pick(q,["rent","fareAccommodation","accommodationFare","rates.rent","subtotal"]);
-      const fees = pick(q,["fees","totalFees","feeTotal","rates.fees"]);
-      const taxes = pick(q,["taxes","totalTaxes","taxTotal","rates.taxes"]);
-      const total = pick(q,["total","totalPrice","grandTotal","money.hostPayout","quote.total"]);
-
-      const rows = [
-        ["Rent", rent],
-        ["Fees", fees],
-        ["Taxes", taxes],
-        ["Total", total]
-      ].filter(([,value]) => value !== "" && value !== undefined && value !== null);
-
-      const box = $("#quoteBox");
-      box.innerHTML = rows.map(([label,value]) => `<div class="quote-row"><span>${label}</span><span>${formatMoney(value, currency)}</span></div>`).join("");
-      box.hidden = rows.length === 0;
+    function openPhotoModal(){
+      $("photoModal").classList.add("is-open");
+      $("photoModal").setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
     }
 
-    function continueCheckout(){
-      const payload = quotePayload();
-      const draft = {
-        property: state.property,
-        quote: state.quote,
-        images: state.images.slice(0,5),
-        selection: payload
+    function closePhotoModal(){
+      $("photoModal").classList.remove("is-open");
+      $("photoModal").setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+    }
+
+    async function workerGet(path){
+      const url = cleanBase(PROPERTY_CONFIG.WORKER_BASE) + path.replace(/^\//, "");
+      const response = await fetch(url, {method:"GET", headers:{"Accept":"application/json"}, cache:"no-store"});
+      if(!response.ok) throw new Error(`Worker GET failed: ${response.status}`);
+      return response.json();
+    }
+
+    async function workerPost(path, body){
+      const url = cleanBase(PROPERTY_CONFIG.WORKER_BASE) + path.replace(/^\//, "");
+      const response = await fetch(url, {
+        method:"POST",
+        headers:{"Content-Type":"application/json","Accept":"application/json"},
+        body:JSON.stringify(body)
+      });
+      const text = await response.text();
+      let data;
+      try{ data = text ? JSON.parse(text) : {}; }catch(_){ data = {raw:text}; }
+      if(!response.ok || data?.ok === false){
+        const msg = data?.error || data?.message || data?.errors?.[0]?.message || `Worker POST failed: ${response.status}`;
+        throw new Error(msg);
+      }
+      return data;
+    }
+
+    function normalizeListing(raw){
+      const d = raw?.listing || raw?.data || raw?.result || raw?.property || raw;
+      return d && typeof d === "object" ? d : null;
+    }
+
+    function normalizeImages(raw){
+      const arr = raw?.images || raw?.data || raw?.result || raw?.photos || raw;
+      if(!Array.isArray(arr)) return [];
+      return arr.map(item=>{
+        if(typeof item === "string") return {url:item, alt:""};
+        return {
+          url:firstDefined(item.url, item.src, item.original, item.large, item.medium, item.secure_url, item.thumbnail),
+          alt:firstDefined(item.alt, item.caption, item.title, item.description, "")
+        };
+      }).filter(img=>img.url);
+    }
+
+    function normalizeCalendar(raw){
+      const arr = raw?.calendar || raw?.days || raw?.data || raw?.result || raw?.availability || raw;
+      if(!Array.isArray(arr)) return [];
+      return arr.map(d=>({
+        date:firstDefined(d.date, d.day, d.dateLocalized, d.startDate),
+        status:firstDefined(d.status, d.availability, d.state, d.bookingStatus),
+        available:firstDefined(d.available, d.isAvailable, d.selectable),
+        price:firstDefined(d.price, d.rate, d.nightlyRate, d.basePrice, d.amount, d.priceAmount),
+        currency:firstDefined(d.currency, d.priceCurrency, PROPERTY_CONFIG.CURRENCY)
+      })).filter(d=>d.date);
+    }
+
+    function normalizeQuote(raw){
+      const q = raw?.quote || raw?.data || raw?.result || raw;
+      const money = q?.money || q?.price || q?.rates || q?.invoice || q;
+      return {
+        currency:firstDefined(q?.currency, q?.priceCurrency, money?.currency, PROPERTY_CONFIG.CURRENCY),
+        nightlyRate:numberValue(firstDefined(money?.nightlyRate, money?.basePrice, q?.nightlyRate)),
+        subtotal:numberValue(firstDefined(money?.subtotal, money?.accommodationFare, money?.accommodation, q?.subtotal)),
+        fees:numberValue(firstDefined(money?.fees, money?.feeTotal, money?.cleaningFee, q?.fees)),
+        taxes:numberValue(firstDefined(money?.taxes, money?.taxTotal, q?.taxes)),
+        total:numberValue(firstDefined(money?.total, money?.grandTotal, money?.totalPrice, q?.total, q?.totalPrice, q?.amount))
       };
-      sessionStorage.setItem("propertyBookingDraft", JSON.stringify(draft));
-      const url = new URL(PROPERTY_CONFIG.CHECKOUT_URL, window.location.href);
-      Object.entries({
-        propertyId: PROPERTY_CONFIG.PROPERTY_ID,
-        checkIn: payload.checkIn,
-        checkOut: payload.checkOut,
-        adults: payload.adults,
-        children: payload.children
-      }).forEach(([key,value]) => { if(value !== "" && value !== undefined) url.searchParams.set(key,value); });
-      window.location.href = url.toString();
     }
 
-    async function init(){
-      populateSelects();
-      const {value} = monthRange();
-      $("#calendarMonth").value = value;
-
-      $$("[data-open-gallery]").forEach(btn => btn.addEventListener("click", () => {
-        $("#galleryModal").classList.add("open");
-        $("#galleryModal").setAttribute("aria-hidden","false");
-      }));
-      $$("[data-close-gallery]").forEach(btn => btn.addEventListener("click", () => {
-        $("#galleryModal").classList.remove("open");
-        $("#galleryModal").setAttribute("aria-hidden","true");
-      }));
-      $("#quoteBtn").addEventListener("click", loadQuote);
-      $("#checkoutBtn").addEventListener("click", continueCheckout);
-      $("#calendarBtn").addEventListener("click", loadCalendar);
-
-      if(!PROPERTY_CONFIG.WORKER_BASE){
-        return;
-      }
-
-      const [listingResult, imagesResult] = await Promise.allSettled([
-        apiGet(PROPERTY_CONFIG.ENDPOINTS.listing),
-        apiGet(PROPERTY_CONFIG.ENDPOINTS.images)
-      ]);
-
-      if(listingResult.status === "fulfilled"){
-        populateProperty(normalizeProperty(listingResult.value));
-      }
-      if(imagesResult.status === "fulfilled"){
-        populateImages(normalizeImages(imagesResult.value));
-      }
-      await loadCalendar();
+    function normalizeRooms(listing){
+      const rooms = firstDefined(listing.rooms, listing.bedroomsList, listing.beds, listing.roomTypes, listing.accommodations, []);
+      if(!Array.isArray(rooms)) return [];
+      return rooms.map((r, index)=>{
+        if(typeof r === "string") return {title:`Bedroom ${index+1}`, beds:r, details:""};
+        const title = firstDefined(r.title, r.name, r.type, r.roomType, `Bedroom ${index+1}`);
+        const beds = Array.isArray(r.beds) ? r.beds.map(b=>typeof b === "string" ? b : `${b.count || b.numberOfBeds || ""} ${cleanLabel(b.type || b.typeOfBed || b.name || "Bed")}`.trim()).join(", ") : firstDefined(r.beds, r.bed, r.description, "");
+        return {title, beds, details:firstDefined(r.details, r.amenities, r.notes, "")};
+      });
     }
 
-    document.addEventListener("DOMContentLoaded", init);
+    function normalizeAmenities(listing){
+      const raw = firstDefined(listing.amenities, listing.amenityFeature, listing.features, []);
+      if(!Array.isArray(raw)) return [];
+      return raw.map(a=>{
+        if(typeof a === "string") return a;
+        return firstDefined(a.name, a.title, a.type, a.amenity, "");
+      }).filter(Boolean);
+    }
+
+    function normalizeRelated(listing){
+      const raw = firstDefined(listing.related, listing.similar, listing.otherProperties, []);
+      if(!Array.isArray(raw)) return [];
+      return raw.map(item=>({
+        title:firstDefined(item.title, item.name),
+        url:firstDefined(item.url, item.href, item.link),
+        image:firstDefined(item.image, item.thumbnail, item.photo, item.images?.[0]?.url, item.images?.[0]),
+        meta:firstDefined(item.meta, item.summary, item.location)
+      }));
+    }
+
+    function calendarStatusClass(day){
+      if(isDayUnavailable(day)){
+        const s = String(day.status || "").toLowerCase();
+        if(s.includes("book")) return "is-booked";
+        if(s.includes("block")) return "is-blocked";
+        return "is-disabled";
+      }
+      return "";
+    }
+
+    function calendarPriceLabel(day){
+      if(day.price) return formatMoney(day.price, day.currency || PROPERTY_CONFIG.CURRENCY);
+      const s = String(day.status || "").toLowerCase();
+      if(s.includes("book")) return "Booked";
+      if(s.includes("block")) return "Unavailable";
+      if(day.available === false) return "Unavailable";
+      return "";
+    }
+
+    function isDayUnavailable(day){
+      const s = String(day.status || "").toLowerCase();
+      return day.available === false || s.includes("book") || s.includes("block") || s.includes("unavailable") || s.includes("disabled");
+    }
+
+    function formatAddress(obj){
+      if(!obj) return "";
+      if(typeof obj === "string") return obj;
+      return [
+        obj.street || obj.streetAddress || obj.address1,
+        obj.city || obj.addressLocality,
+        obj.state || obj.addressRegion,
+        obj.postalCode || obj.zip,
+        obj.country || obj.addressCountry
+      ].filter(Boolean).join(", ");
+    }
+
+    function formatContact(listing){
+      const phone = firstDefined(listing.phone, listing.contactPhone, listing.receptionPhone);
+      const email = firstDefined(listing.email, listing.contactEmail);
+      const site = firstDefined(listing.website, listing.url);
+      return [phone, email, site].filter(Boolean).map(v=>escapeHTML(v)).join("<br>");
+    }
+
+    function querySuffix(){
+      const parts = [];
+      if(PROPERTY_CONFIG.PROPERTY_ID) parts.push(`propertyId=${encodeURIComponent(PROPERTY_CONFIG.PROPERTY_ID)}`);
+      if(PROPERTY_CONFIG.LISTING_QUERY) parts.push(PROPERTY_CONFIG.LISTING_QUERY.replace(/^\?/,""));
+      return parts.length ? "?" + parts.join("&") : "";
+    }
+
+    function propertyParam(prefixAmpersand){
+      if(!PROPERTY_CONFIG.PROPERTY_ID) return "";
+      return `${prefixAmpersand ? "&" : "?"}propertyId=${encodeURIComponent(PROPERTY_CONFIG.PROPERTY_ID)}`;
+    }
+
+    function setText(id, value){
+      const el = $(id);
+      if(el) el.textContent = value == null ? "" : String(value);
+    }
+
+    function setMaybe(id, value){
+      if(value) setText(id, value);
+    }
+
+    function setHTML(id, value){
+      const el = $(id);
+      if(el) el.innerHTML = value ? sanitizeHTML(String(value)) : "";
+    }
+
+    function setMaybeHTML(id, value){
+      if(value) setHTML(id, value);
+    }
+
+    function setStatus(message, error=false){
+      const el = $("bookingStatus");
+      el.textContent = message || "";
+      el.classList.toggle("is-error", !!error);
+    }
+
+    function clearStatus(){ setStatus("", false); }
+
+    function firstDefined(...values){
+      return values.find(v => v !== undefined && v !== null && v !== "");
+    }
+
+    function numberValue(value){
+      if(value == null || value === "") return null;
+      if(typeof value === "number") return value;
+      const cleaned = String(value).replace(/[^0-9.-]/g,"");
+      if(!cleaned) return null;
+      const num = Number(cleaned);
+      return Number.isFinite(num) ? num : null;
+    }
+
+    function formatMoney(value, currency){
+      const n = numberValue(value);
+      if(n == null) return "";
+      try{
+        return new Intl.NumberFormat(undefined,{style:"currency",currency:currency || PROPERTY_CONFIG.CURRENCY,maximumFractionDigits:0}).format(n);
+      }catch(_){
+        return `${currency || PROPERTY_CONFIG.CURRENCY} ${Math.round(n)}`;
+      }
+    }
+
+    function cleanLabel(value){
+      return String(value || "")
+        .replace(/([a-z])([A-Z])/g,"$1 $2")
+        .replace(/[_-]+/g," ")
+        .replace(/\s+/g," ")
+        .trim();
+    }
+
+    function cleanBase(base){ return String(base || "").replace(/\/+$/,"") + "/"; }
+    function parseDate(value){ return value ? new Date(value + "T00:00:00") : null; }
+    function isoDate(date){ return new Date(date.getTime() - date.getTimezoneOffset()*60000).toISOString().slice(0,10); }
+    function addDays(date, days){ const d = new Date(date); d.setDate(d.getDate()+days); return d; }
+    function firstDayOfMonth(date){ return isoDate(new Date(date.getFullYear(), date.getMonth(), 1)); }
+    function lastDayOfNextMonth(date){ return isoDate(new Date(date.getFullYear(), date.getMonth()+2, 0)); }
+
+    function escapeHTML(value){
+      return String(value ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
+    }
+    function escapeAttr(value){ return escapeHTML(value); }
+    function stripHtml(value){ const div = document.createElement("div"); div.innerHTML = sanitizeHTML(String(value || "")); return div.textContent || ""; }
+
+    function sanitizeHTML(value){
+      const template = document.createElement("template");
+      template.innerHTML = value;
+      const allowed = new Set(["P","BR","STRONG","B","EM","I","UL","OL","LI","SPAN"]);
+      template.content.querySelectorAll("*").forEach(node=>{
+        if(!allowed.has(node.tagName)){
+          node.replaceWith(document.createTextNode(node.textContent || ""));
+        }else{
+          [...node.attributes].forEach(attr=>node.removeAttribute(attr.name));
+        }
+      });
+      return template.innerHTML;
+    }
   </script>
 </body>
 </html>
