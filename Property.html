@@ -771,6 +771,110 @@
 }
 
 
+
+/* ===== WORKER FLOW + HIDDEN LANGUAGE TOOLBAR + CONTACT + RTL PATCH ===== */
+#fh-property .fh-lang-switch{
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+  opacity:0!important;
+}
+#fh-property .fh-hero-contact{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  width:min(720px,100%);
+  margin:0 auto clamp(18px,2.6vw,26px);
+}
+#fh-property .fh-hero-contact a{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  min-height:46px;
+  padding:10px 14px;
+  border:1px solid rgba(255,250,243,.24);
+  background:rgba(255,250,243,.11);
+  color:#fffaf3;
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  min-width:min(320px,100%);
+  transition:background .18s,border-color .18s,transform .18s;
+}
+#fh-property .fh-hero-contact a:hover{
+  background:rgba(255,250,243,.16);
+  border-color:rgba(255,250,243,.38);
+  transform:translateY(-1px);
+}
+#fh-property .fh-hero-contact span{
+  font-size:9px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:850;
+  color:rgba(255,250,243,.64);
+  white-space:nowrap;
+}
+#fh-property .fh-hero-contact strong{
+  color:#fffaf3;
+  font-size:13px;
+  font-weight:650;
+  overflow-wrap:anywhere;
+  text-align:right;
+}
+#fh-property .fh-day-price{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  min-height:10px!important;
+  margin-top:5px!important;
+  font-size:9px!important;
+  line-height:1.05!important;
+  font-weight:850!important;
+  color:rgba(28,24,20,.68)!important;
+  white-space:nowrap!important;
+}
+#fh-property .fh-day.start .fh-day-price,
+#fh-property .fh-day.end .fh-day-price{
+  color:rgba(255,250,243,.86)!important;
+}
+#fh-property img[data-worker-image-applied="true"],
+#fh-property img[data-fh-image-key],
+#fh-property img[data-sauna-img]{
+  display:block!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+#fh-property[dir="rtl"]{direction:rtl}
+#fh-property[dir="rtl"] .fh-hero-inner,
+#fh-property[dir="rtl"] .fh-section-head,
+#fh-property[dir="rtl"] .fh-panel,
+#fh-property[dir="rtl"] .fh-booking,
+#fh-property[dir="rtl"] .fh-calendar-card,
+#fh-property[dir="rtl"] .fh-suite-card,
+#fh-property[dir="rtl"] .fh-card,
+#fh-property[dir="rtl"] .fh-room-note,
+#fh-property[dir="rtl"] .fh-simple-notes,
+#fh-property[dir="rtl"] .fh-gallery-caption{
+  text-align:right;
+}
+#fh-property[dir="rtl"] input[type="email"],
+#fh-property[dir="rtl"] input[type="tel"],
+#fh-property[dir="rtl"] .fh-date-button span,
+#fh-property[dir="rtl"] .fh-day-price,
+#fh-property[dir="rtl"] .fh-hero-contact strong{
+  direction:ltr;
+  text-align:left;
+  unicode-bidi:plaintext;
+}
+@media(max-width:760px){
+  #fh-property .fh-hero-contact{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:16px}
+  #fh-property .fh-hero-contact a{width:100%;padding:10px 11px;min-height:42px}
+  #fh-property .fh-hero-contact span{font-size:8px}
+  #fh-property .fh-hero-contact strong{font-size:12.5px}
+}
+
 </style>
 </head>
 <body>
@@ -784,6 +888,7 @@
       <button type="button" data-lang="fr">FR</button>
       <button type="button" data-lang="de">DE</button>
       <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="he">HE</button>
     </div>
 
     <section class="fh-hero" id="property-top">
@@ -793,6 +898,10 @@
         <p class="fh-eyebrow preSlide slideIn" id="propertyHeroEyebrow" data-i18n="heroEyebrow"></p>
         <h1 class="preSlide slideIn delay-1" id="propertyHeroTitle" data-i18n="heroTitle"></h1>
         <p class="fh-hero-lead preSlide slideIn delay-2" id="propertyHeroLead" data-i18n="heroLead"></p>
+        <div class="fh-hero-contact preSlide slideIn delay-2" aria-label="Direct contact">
+          <a href="tel:+41279572131"><span data-contact-i18n="phone">Call</span><strong>+41 27 957 2131</strong></a>
+          <a href="mailto:welcome@fletschhorn.ch"><span data-contact-i18n="email">Email</span><strong>welcome@fletschhorn.ch</strong></a>
+        </div>
         <div class="fh-proof preSlide slideIn delay-3" aria-label="Property highlights">
           <div><b data-i18n="proof1b"></b><span data-i18n="proof1s"></span></div>
           <div><b data-i18n="proof2b"></b><span data-i18n="proof2s"></span></div>
@@ -845,8 +954,8 @@
         <div class="fh-container fh-spa-clean">
           <div class="fh-gallery-stage fh-clean-carousel preScale" id="propertySpaGallery">
             <div class="fh-gallery-rail" id="propertySpaRail" aria-label="Private sauna carousel">
-              <article class="fh-gallery-card"><img src="https://ik.imagekit.io/Redberry/Spa%20(1).jpg" alt="Private sauna" loading="lazy"><div class="fh-gallery-caption"><small data-i18n="wellnessK"></small><strong data-i18n="wellnessP"></strong></div></article>
-              <article class="fh-gallery-card small"><img src="https://ik.imagekit.io/Redberry/Spa%20(3).jpg" alt="Private sauna detail" loading="lazy"><div class="fh-gallery-caption"><small data-i18n="saunaImageK"></small><strong data-i18n="saunaImageP"></strong></div></article>
+              <article class="fh-gallery-card"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-sauna-img="0" data-fh-image-key="Spa (1).jpg" alt="Private sauna" loading="lazy"><div class="fh-gallery-caption"><small data-i18n="wellnessK"></small><strong data-i18n="wellnessP"></strong></div></article>
+              <article class="fh-gallery-card small"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-sauna-img="1" data-fh-image-key="Spa (3).jpg" alt="Private sauna detail" loading="lazy"><div class="fh-gallery-caption"><small data-i18n="saunaImageK"></small><strong data-i18n="saunaImageP"></strong></div></article>
             </div>
             <div class="fh-gallery-controls"><button type="button" data-gallery-prev="propertySpaRail" data-i18n="galleryPrev"></button><button type="button" data-gallery-next="propertySpaRail" data-i18n="galleryNext"></button></div>
           </div>
@@ -961,14 +1070,7 @@
   const imagekit=(name)=>"https://ik.imagekit.io/Redberry/"+encodeURIComponent(name);
   const imagekitRaw=(path)=>"https://ik.imagekit.io/Redberry/"+path;
   const exts=["jpg","jpeg","png","webp"];
-  const fallback=[
-    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
-    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
-    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg",
-    "https://assets.guesty.com/image/upload/v1769381683/production/686c48ada4bbacd7a82a4f83/gdkntjfg2shhfc8sjsox.jpg",
-    "https://assets.guesty.com/image/upload/v1769381684/production/686c48ada4bbacd7a82a4f83/kzwdncmnkciaw508jnk7.jpg",
-    "https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg"
-  ];
+  const fallback=["data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="];
 
   function buildNames(base,max){
     const names=[];
@@ -978,27 +1080,14 @@
   function unique(arr){return Array.from(new Set(arr.filter(Boolean)));}
   const propertyNames=buildNames("The Property",88);
   const shuttleNames=buildNames("Shuttle",16);
-  const imagekitKitchenUrls=[
-    imagekitRaw("Kitchen%20(3).png"),
-    imagekitRaw("Kitchen%20(4).png"),
-    imagekitRaw("Kitchen%20(5).png"),
-    imagekitRaw("Kitchen%20(6).png"),
-    imagekitRaw("Kitchen%20(1).png"),
-    imagekitRaw("Kitchen%20(2).png")
-  ];
-  const imagekitKitchenMainUrl=imagekitRaw("Kitchen%20(3).png");
-  const imagekitInsideUrls=[
-    imagekit("Inside.jpg"),
-    ...Array.from({length:15},(_,i)=>imagekit(`Inside (${i+1}).jpg`))
-  ];
-  const imagekitPrivateSaunaUrls=[
-    imagekitRaw("Spa%20(1).jpg"),
-    imagekitRaw("Spa%20(3).jpg")
-  ];
-  const imagekitGroupUrls=[imagekit("Group.jpg")];
-  const imagekitAddressUrls=[imagekitRaw("A%20private%20address%20above%20Saas-Fee.jpg"), imagekitRaw("A%20private%20address%20above%20Saas-fee.jpg"), imagekitRaw("A%20private%20address%20above%20Saas-Fee.png")];
-  const imagekitExteriorUrls=[imagekitRaw("Exterior%20(1).png")];
-  const imagekitMountainUrls=[imagekit("Montains.jpg")];
+  const imagekitKitchenUrls=[];
+  const imagekitKitchenMainUrl="";
+  const imagekitInsideUrls=[];
+  const imagekitPrivateSaunaUrls=[];
+  const imagekitGroupUrls=[];
+  const imagekitAddressUrls=[];
+  const imagekitExteriorUrls=[];
+  const imagekitMountainUrls=[];
   function checkImage(name){return new Promise(resolve=>{const img=new Image();img.onload=()=>resolve(asset(name));img.onerror=()=>resolve(null);img.src=asset(name);});}
   function probe(names){
     const batch=18;let out=[];let i=0;
@@ -1027,6 +1116,86 @@
   }
   let lang="en", heroIndex=0, heroTimer=null;
   let propertyUrls=[], shuttleUrls=[], kitchenUrls=imagekitKitchenUrls.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
+  const WORKER_IMAGE_BASE="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  const WORKER_LISTING_ID="6968339ab7d735001ca015ba";
+
+  function cleanWorkerName(value){
+    try{value=decodeURIComponent(String(value||"").split("?")[0].split("#")[0]);}catch(e){value=String(value||"");}
+    value=value.split("/").pop();
+    return value.toLowerCase().replace(/\.[a-z0-9]+$/i,"").replace(/[^a-z0-9א-תа-я]+/gi,"");
+  }
+  function directWorkerImageUrl(value){
+    if(!value) return "";
+    if(typeof value==="string") return /^https?:\/\//i.test(value)?value:"";
+    if(typeof value!=="object") return "";
+    const keys=["url","src","original","large","regular","medium","thumbnail","pictureUrl","imageUrl","downloadUrl","secure_url","secureUrl"];
+    for(let i=0;i<keys.length;i++){const found=directWorkerImageUrl(value[keys[i]]); if(found) return found;}
+    return "";
+  }
+  function collectWorkerImageRecords(payload){
+    const out=[];
+    function push(url,names){
+      if(!url||!/^https?:\/\//i.test(url)) return;
+      names=(names||[]).filter(Boolean).map(String);
+      names.push(url.split("?")[0].split("#")[0].split("/").pop());
+      out.push({url,names,norms:names.map(cleanWorkerName)});
+    }
+    function walk(value,keyName){
+      if(!value) return;
+      if(typeof value==="string"){ if(/^https?:\/\//i.test(value)) push(value,[keyName]); return; }
+      if(Array.isArray(value)){ value.forEach(function(v){walk(v,keyName);}); return; }
+      if(typeof value!=="object") return;
+      const names=[keyName,value.name,value.filename,value.fileName,value.originalName,value.title,value.alt,value.key,value.path,value.public_id,value.publicId].filter(Boolean);
+      const own=directWorkerImageUrl(value); if(own) push(own,names);
+      Object.keys(value).forEach(function(k){walk(value[k],k);});
+    }
+    walk(payload,"");
+    const seen={};
+    return out.filter(function(r){if(seen[r.url])return false; seen[r.url]=true; return true;});
+  }
+  function filterWorkerRecords(records,needles){
+    needles=(needles||[]).map(cleanWorkerName).filter(Boolean);
+    return records.filter(function(r){return r.norms.some(function(n){return needles.some(function(x){return n.indexOf(x)>=0;});});}).map(function(r){return r.url;});
+  }
+  function findWorkerUrl(records,candidates){
+    const targets=(candidates||[]).map(cleanWorkerName).filter(Boolean);
+    for(let t=0;t<targets.length;t++){
+      for(let i=0;i<records.length;i++){
+        if(records[i].norms.some(function(n){return n===targets[t]||n.indexOf(targets[t])>=0||targets[t].indexOf(n)>=0;})) return records[i].url;
+      }
+    }
+    return "";
+  }
+  function urlsByNames(records,names,needles){
+    const matched=[];
+    names.forEach(function(name){const u=findWorkerUrl(records,[name]); if(u&&matched.indexOf(u)<0) matched.push(u);});
+    if(matched.length) return matched;
+    const bucket=filterWorkerRecords(records,needles);
+    return bucket.length?Array.from(new Set(bucket)):records.map(function(r){return r.url;});
+  }
+  async function loadWorkerImageAssets(){
+    try{
+      const url=WORKER_IMAGE_BASE+"/images?listingId="+encodeURIComponent(WORKER_LISTING_ID)+"&source=property&t="+Date.now();
+      const response=await fetch(url,{method:"GET",headers:{"Accept":"application/json"},cache:"no-cache"});
+      const text=await response.text(); let data; try{data=JSON.parse(text);}catch(e){data={rawText:text};}
+      if(!response.ok||data.ok===false||data.error) throw new Error(data.error||data.message||"Images request failed.");
+      const records=collectWorkerImageRecords(data);
+      if(!records.length) throw new Error("No images returned by Worker.");
+      const insideNames=["Inside.jpg"].concat(Array.from({length:15},(_,i)=>`Inside (${i+1}).jpg`));
+      propertyUrls=urlsByNames(records,propertyNames,["The Property","Property"]);
+      shuttleUrls=urlsByNames(records,shuttleNames,["Shuttle"]);
+      kitchenUrls=urlsByNames(records,["Kitchen (3).png","Kitchen (4).png","Kitchen (5).png","Kitchen (6).png","Kitchen (1).png","Kitchen (2).png","Kitchen (3).jpg","Kitchen (4).jpg","Kitchen (5).jpg","Kitchen (6).jpg"],["Kitchen"]);
+      insideUrls=urlsByNames(records,insideNames,["Inside","Room","Interior"]);
+      privateSaunaUrls=urlsByNames(records,["Spa (1).jpg","Spa (3).jpg","Spa (1).png","Spa (3).png","Sauna (1).jpg","Sauna (3).jpg"],["Spa","Sauna"]);
+      groupUrls=urlsByNames(records,["Group.jpg","Group.png"],["Group","Gathering"]);
+      exteriorUrls=urlsByNames(records,["Exterior (1).png","Exterior (1).jpg","A private address above Saas-Fee.jpg","A private address above Saas-Fee.png"],["Exterior","private address","Saas-Fee"]);
+      mountainUrls=urlsByNames(records,["Montains.jpg","Mountains.jpg","Mountain.jpg"],["Montain","Mountain","Mountains"]);
+      return true;
+    }catch(error){
+      console.warn("Fletschhorn property Worker images not loaded.",error);
+      return false;
+    }
+  }
 
   const I18N={
     en:{
@@ -1042,6 +1211,18 @@
       heroEyebrow:"Дом · Номера · Удобства · Кухня",heroTitle:"Всё шале — полностью для вашей группы.",heroLead:"Fletschhorn объединяет приватность швейцарского шале с масштабом бывшего альпийского гостевого дома. До 48 спальных мест, номера и сьюты с видом на горы, общие пространства, террасы, сауна по запросу и профессиональная частная кухня создают полноценный частный формат пребывания.",proof1b:"До 48 гостей",proof1s:"Частный альпийский дом для семей, ретритов, свадеб, компаний и более длительных групповых пребываний.",proof2b:"Концепция кухни",proof2s:"Самостоятельное питание, частный шеф, кейтеринг, завтраки и ланчбоксы можно организовать под формат пребывания.",proof3b:"Сауна по запросу",proof3s:"Спокойное восстановление в горах после лыж, походов, встреч, праздников или дороги.",peek:"Изучить дом",overviewK:"Дом",overviewH:"Частный альпийский дом над Саас-Фе.",overviewP:"Шале находится над деревней, в тихом лесном окружении, с видом на горы, долину и природу. Внутри дом устроен и для общения, и для приватности: номера и сьюты для ночёвки, общие пространства, террасы и практичные зоны для более долгих групповых пребываний.",logicK:"Аренда всего шале",logicH:"Один частный адрес для сна, встреч, кухни, отдыха и возвращения с гор.",logicP:"Здесь Fletschhorn не представлен как обычный отель. Это частный альпийский дом для одной группы за раз, с пространством, комфортом и гибкостью для семей, ретритов, свадеб, корпоративных пребываний и праздников.",feat1b:"Исключительное пользование",feat1p:"Ваша группа может расположиться в доме приватно, без ощущения общего отеля.",feat2b:"Общение и приватность",feat2p:"Общие зоны собирают людей вместе, а номера и сьюты дают каждому личное место для отдыха.",feat3b:"Горное расположение",feat3p:"Дом находится в тихом лесном месте над Саас-Фе, с возможностью организации шаттла и доступа к деревне по запросу.",capPhoto1b:"Частный альпийский мир",capPhoto1s:"Вся территория в окружении леса и горного воздуха.",capPhoto2b:"Прибытие через лес",capPhoto2s:"Спокойно, тихо и отдельно.",capPhoto3b:"Пространства для восстановления",capPhoto3s:"Более спокойный ритм после времени на улице.",cap1b:"До 48 спальных мест",cap1s:"Публичная страница сохраняет понятную и контролируемую вместимость для частных групп.",cap2b:"Шесть типов номеров",cap2s:"Сьюты и номера подходят семьям, парам, лидерам групп и отдельным гостям.",cap3b:"Виды с балкона или террасы",cap3s:"Каждая категория номера включает выход на улицу с видом на горы, долину или лес.",cap4b:"Прибытие по договорённости",cap4s:"Прибытие следует согласовать заранее; check-in возможен до 21:00.",visualK:"Атмосфера дома",visualH:"Посмотрите дом, номера, виды и альпийское окружение до запроса.",visualP:"Крупные фотографии помогают гостям почувствовать опыт: прибытие, приватные интерьеры, номера с видом на горы, атмосферу wellness и пространства для времени вместе.",galleryPrev:"Назад",galleryNext:"Далее",insideTile1:"Частный интерьер",insideTile2:"Атмосфера номера",insideTile3:"Общие пространства",insideTile4:"Детали сьюта",saunaImageK:"Деталь сауны",saunaImageP:"Фотографии частной сауны добавлены сюда, чтобы раздел был визуально заполнен.",tile1:"Экстерьер / окружение",tile2:"Горная атмосфера",tile3:"Внутренний ритм",tile4:"Деталь частного дома",tile5:"Потенциал группового пребывания",roomsK:"Номера и сьюты",roomsH:"Номера и сьюты под разные потребности группы.",roomsP:"Fletschhorn предлагает набор номеров и сьютов для семей, пар, детей, лидеров групп и друзей. Большие сьюты подходят семьям или организаторам, а двухместные номера дают парам или отдельным гостям личное пространство для отдыха.",roomNoteH:"Номера с видами как часть большого частного пребывания.",roomNoteP:"Каждый тип номера включает балкон или террасу с видом на горы. Точное распределение комнат, вместимость, цены и актуальная доступность проходят через процесс бронирования.",amenitiesK:"Частная сауна и удобства",amenitiesH:"Всё, что нужно группе для комфортного альпийского пребывания.",amenitiesP:"Fletschhorn поддерживает более длительные частные групповые пребывания: спальные места, общие зоны, террасы, доступ к кухне, сауна по запросу, горные виды и активности Саас-Фе.",wellnessK:"Частная сауна",wellnessP:"Использование сауны можно организовать по запросу для спокойного восстановления после лыж, походов, встреч или праздников.",amenPanelK:"Комфорт и практичные детали",amenPanelH:"Практично, спокойно и связано с горами.",amenPanelP:"Дом поддерживает реальное использование: хорошо спать, легко собираться, восстанавливаться после гор и двигаться через пребывание с комфортом.",saunaB:"Частная сауна по запросу",saunaP:"Спокойное восстановление после горных дней, дороги, встреч или праздников. Детали зависят от пребывания и подтверждаются при бронировании.",kitchenB:"Профессиональная частная кухня",kitchenP:"Серьёзная кухня поддерживает концепцию частного дома, с самостоятельным питанием, шефом или кейтерингом по прямому согласованию.",winterB:"Зимний доступ",winterP:"Лыжи, сноуборд, ночные санки, Ледяной павильон, Foxtrail и высокогорные впечатления подходят для групп.",summerB:"Летний доступ",summerP:"Сурки на Spielboden, Feeblitz, походы, верёвочный парк, Trotti-самокаты и доступ к леднику создают летнюю историю дома.",shuttle1:"Доступ к деревне",shuttle1s:"Дом находится над деревней; от центра можно дойти примерно за 20 минут или согласовать шаттл.",shuttle2:"Шаттл по договорённости",shuttle2s:"Шаттл можно организовать с 11:00, а затем с 15:00 до 18:00, в зависимости от пребывания.",shuttle3:"Вечерние трансферы",shuttle3s:"Вечерние трансферы могут требовать отельное такси и не включены, если не согласованы отдельно.",shuttle4:"Комфорт номера",shuttle4s:"Чай и кофе, мини-бар, сейф, шумоизоляция, отопление, рабочий стол, телевизор, халат, тапочки и туалетные принадлежности.",spacesK:"Общие пространства",spacesH:"Собираться, работать, отдыхать и праздновать.",spacesP:"Общие пространства делают шале подходящим для аренды всего дома. Группы могут собираться на еду, разговоры, рабочие сессии, игры, спокойные утра или вечера вместе. Атмосфера ощущается как частный альпийский дом, а не лобби отеля.",kitchenK:"Питание и кухня",kitchenH:"Концепция частной кухни",kitchenLead:"Профессиональная кухня — одна из определяющих частей новой концепции Fletschhorn. Вместо публичного ресторана кухня становится частью опыта частного шале.",mealK:"Гибкое планирование еды",mealH:"Практичная кухня для пребывания вашей группы.",kitchenP2:"Группы могут строить питание под свой ритм: пользоваться кухней самостоятельно, приглашать частного шефа, организовывать кейтеринг, планировать буфеты, завтраки или ланчбоксы перед лыжным днём, походом или экскурсией.",selfB:"Самостоятельное питание",selfP:"Используйте кухню как часть вашего частного альпийского дома и планируйте еду по ритму группы.",chefB:"Частный шеф",chefP:"Пригласите или организуйте шефа для более продуманного группового ужина. Стоимость и доступность подтверждаются отдельно.",caterB:"Кейтеринг-партнёры",caterP:"Кейтеринг, буфеты или форматы мероприятий можно планировать заранее по запросу.",breakfastB:"Завтрак и ланчбоксы",breakfastP:"Простые завтраки или ланчбоксы можно организовать заранее в зависимости от пребывания.",culinaryK:"Кулинарное наследие",culinaryP:"Fletschhorn несёт сильную кулинарную и винную историю, теперь переосмысленную через более частный и гибкий групповой формат.",kitchenGalleryK:"Атмосфера кухни",kitchenGalleryH:"Планирование еды с реальными изображениями из кухонных assets.",kitchenGalleryP:"Эта секция использует только утверждённые кухонные изображения ImageKit, Kitchen (3)–Kitchen (6), для истории кухни, карусели еды и визуального ритма страницы.",regionK:"Регион Саас-Фе",regionH:"Саас-Фе превращает частный дом в круглогодичную альпийскую базу.",regionP:"Окружающий регион даёт каждой группе причину приехать: снег, ледник, летние маршруты, семейные активности, wellness и удобное перемещение по долине.",conceptK:"Концепция",conceptH:"Частное швейцарское шале с комфортом бутик-альпийского дома.",conceptP:"Каждый раздел возвращается к одной идее: приватность, время вместе, горные виды, практичный комфорт и место, которое на время пребывания ощущается полностью вашим.",ctaK:"Следующий шаг",ctaH:"Посмотрите, как дом может подойти вашей группе.",ctaP:"Расскажите размер группы, желаемые даты и формат пребывания. Мы поможем понять распределение комнат, возможности кухни, удобства и варианты бронирования.",cta:"Запросить доступность"
     }
   };
+  I18N.he = Object.assign({}, I18N.en, {
+    heroEyebrow:"הנכס · חדרים · שירותים · מטבח",
+    heroTitle:"כל השאלה, באופן פרטי לקבוצה שלכם.",
+    heroLead:"Fletschhorn פועל כבית אלפיני פרטי לקבוצות, עם חדרים וסוויטות, מרחבי התכנסות, טרסות, מטבח מקצועי פרטי וסאונה לפי בקשה.",
+    proof1b:"עד 48 אורחים",
+    proof2b:"מטבח פרטי",
+    proof3b:"סאונה לפי בקשה",
+    peek:"גלו את הנכס",
+    ctaK:"השלב הבא",
+    ctaH:"בדקו איך הנכס יכול להתאים לקבוצה שלכם.",
+    ctaP:"שלחו גודל קבוצה, תאריכים מועדפים וסוג שהייה, ונעזור להבין חדרים, מטבח, שירותים ואפשרויות הזמנה."
+  });
 
   const dynamic={
     en:{
@@ -1096,6 +1277,8 @@
     concepts:[["Частно","Весь дом как опыт.","Группа может представить пребывание ещё до чтения всех деталей."],["Естественно","Тёплый, альпийский и настоящий.","Спокойная швейцарская горная территория с глубиной."],["Практично","Сделано, чтобы группы увидели свой ритм.","Номера, кухня, wellness и регион работают вместе."]],
     kitchenCards_unused:[["Кухня","Фотографии кухни рассказывают практичную историю.","На странице теперь есть отдельный визуальный ритм для кухни вместо пустого или общего блока."],["Встречи","Еда становится частью ощущения частного дома.","Питание может быть самостоятельным, с шефом, с кейтерингом или просто выстроенным вокруг расписания группы."]]
   };
+  dynamic.he = JSON.parse(JSON.stringify(dynamic.en));
+  dynamic.he.hero = ["הנכס כבית אלפיני פרטי","חדרים, סוויטות ונופים לעד 48 אורחים","רגעי רוגע אחרי ההר","מטבח מקצועי לארוחות קבוצתיות גמישות"];
 
   function t(key){return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || "";}
   function d(group){return (dynamic[lang] && dynamic[lang][group]) || dynamic.en[group] || [];}
@@ -1171,9 +1354,16 @@
     observeNew();
   }
   function setLanguage(next){
-    lang=I18N[next]?next:"en"; try{localStorage.setItem("fh_lang",lang);}catch(e){}
+    next=String(next||"en").toLowerCase();
+    if(next.indexOf("iw")===0) next="he";
+    next=next.slice(0,2);
+    lang=I18N[next]?next:"en";
+    try{localStorage.setItem("fh_lang",lang);localStorage.setItem("fh_language",lang);localStorage.setItem("fhLang",lang);}catch(e){}
+    root.setAttribute("dir",lang==="he"?"rtl":"ltr");
+    document.documentElement.setAttribute("dir",lang==="he"?"rtl":"ltr");
     applyStaticTranslations(); buildDynamic(); buildHeroSlides(propertyUrls.length?propertyUrls:fallback); startHero();
   }
+  window.FHSetLanguage=function(next){ setLanguage(next); };
   function bindGalleryButtons(){
     root.addEventListener("click",e=>{
       const prev=e.target.closest("[data-gallery-prev]"); const next=e.target.closest("[data-gallery-next]");
@@ -1190,26 +1380,17 @@
   qsa(".fh-lang-switch button").forEach(btn=>btn.addEventListener("click",()=>setLanguage(btn.dataset.lang)));
   document.addEventListener("click",e=>{const btn=e.target.closest("[data-fh-lang], [data-lang], [data-language]"); if(!btn||root.contains(btn))return; const l=(btn.getAttribute("data-fh-lang")||btn.getAttribute("data-lang")||btn.getAttribute("data-language")||"").slice(0,2).toLowerCase(); if(I18N[l]) setLanguage(l);});
   window.addEventListener("fh:languagechange",e=>{const l=String((e.detail&&e.detail.lang)||"").slice(0,2).toLowerCase(); if(I18N[l]) setLanguage(l);});
+  document.addEventListener("fh:language-change",e=>{const l=String((e.detail&&(e.detail.lang||e.detail.language))||"").slice(0,2).toLowerCase(); if(I18N[l]) setLanguage(l);});
+  document.addEventListener("fh:languagechange",e=>{const l=String((e.detail&&(e.detail.lang||e.detail.language))||"").slice(0,2).toLowerCase(); if(I18N[l]) setLanguage(l);});
   bindGalleryButtons();
   const startLang=(localStorage.getItem("fh_lang")||document.documentElement.getAttribute("lang")||"en").slice(0,2).toLowerCase();
   lang=I18N[startLang]?startLang:"en";
   applyStaticTranslations(); applyImages(); buildDynamic(); observeNew();
-  probe(propertyNames).then(urls=>{propertyUrls=urls; applyImages(); buildDynamic(); console.log("Fletschhorn property assets loaded:",urls.length);});
-  probe(shuttleNames).then(urls=>{shuttleUrls=urls; buildDynamic(); console.log("Fletschhorn shuttle assets loaded:",urls.length);});
-  kitchenUrls=imagekitKitchenUrls.slice();
-  insideUrls=imagekitInsideUrls.slice();
-  privateSaunaUrls=imagekitPrivateSaunaUrls.slice();
-  groupUrls=imagekitGroupUrls.slice();
-  exteriorUrls=imagekitExteriorUrls.slice();
-  mountainUrls=imagekitMountainUrls.slice();
-  applyImages();
-  buildDynamic();
-  console.log("Fletschhorn ImageKit kitchen assets loaded:",kitchenUrls.length);
-  console.log("Fletschhorn ImageKit inside assets loaded:",insideUrls.length);
-  console.log("Fletschhorn ImageKit private sauna assets loaded:",privateSaunaUrls.length);
-  console.log("Fletschhorn ImageKit group assets loaded:",groupUrls.length);
-  console.log("Fletschhorn ImageKit exterior assets loaded:",exteriorUrls.length);
-  console.log("Fletschhorn ImageKit mountain assets loaded:",mountainUrls.length);
+  loadWorkerImageAssets().then(function(ok){
+    applyImages();
+    buildDynamic();
+    if(ok) console.log("Fletschhorn property Worker images loaded:",{property:propertyUrls.length,inside:insideUrls.length,kitchen:kitchenUrls.length,sauna:privateSaunaUrls.length,exterior:exteriorUrls.length,mountain:mountainUrls.length});
+  });
 })();
 </script>
 
@@ -1268,11 +1449,11 @@
   const CFG = {
     bookingPageUrl: "booking.html",
     listingId: "6968339ab7d735001ca015ba",
-    workerBase: "https://guetsyapi.moshe-cohen-h1.workers.dev",
+    workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
     minNights: 2,
     currency: "CHF"
   };
-  const ENDPOINTS = { calendarMonthPrices: "/guesty/calendar-month-prices" };
+  const ENDPOINTS = { calendarMonthPrices: "/calendar" };
 
   const BOOKING_T = {
     en:{fieldFirstName:"First name",fieldFirstNamePh:"First name",fieldLastName:"Last name",fieldLastNamePh:"Last name",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Dates",fieldDatesPh:"Select arrival and departure",openCalendar:"Open calendar",calendarKicker:"Select dates",calendarHelp:"Choose your arrival date, then your departure date.",calendarMinWarning:"Please select at least 2 nights.",selectDeparture:"Select departure",alreadyBooked:"Booked",calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",bookNow:"Book my stay now",bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",missingFirstName:"Please enter your first name.",missingLastName:"Please enter your last name.",missingEmail:"Please enter your email.",invalidEmail:"Please enter a valid email address.",missingDates:"Please choose arrival and departure dates.",badDates:"Please select at least 2 nights.",redirecting:"Opening booking…"},
@@ -1280,6 +1461,9 @@
     de:{fieldFirstName:"Vorname",fieldFirstNamePh:"Vorname",fieldLastName:"Nachname",fieldLastNamePh:"Nachname",fieldEmail:"E-Mail",fieldEmailPh:"email@example.com",fieldDates:"Daten",fieldDatesPh:"Anreise und Abreise wählen",openCalendar:"Kalender öffnen",calendarKicker:"Daten wählen",calendarHelp:"Wählen Sie zuerst die Anreise, dann die Abreise.",calendarMinWarning:"Please select at least 2 nights.",selectDeparture:"Abreise wählen",alreadyBooked:"Belegt",calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar. Bitte wählen Sie einen anderen Zeitraum.",bookNow:"Aufenthalt buchen",bookingNote:"Starten Sie hier. Ihre Angaben werden zur Buchungsseite übernommen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",missingEmail:"Bitte geben Sie Ihre E-Mail ein.",invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",missingDates:"Bitte wählen Sie Anreise- und Abreisedatum.",badDates:"Please select at least 2 nights.",redirecting:"Buchung wird geöffnet…"},
     ru:{fieldFirstName:"Имя",fieldFirstNamePh:"Имя",fieldLastName:"Фамилия",fieldLastNamePh:"Фамилия",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Даты",fieldDatesPh:"Выберите заезд и выезд",openCalendar:"Открыть календарь",calendarKicker:"Выберите даты",calendarHelp:"Выберите дату заезда, затем дату выезда.",calendarMinWarning:"Please select at least 2 nights.",selectDeparture:"Выберите выезд",alreadyBooked:"Занято",calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны. Выберите другой период.",bookNow:"Забронировать",bookingNote:"Начните здесь. Ваши данные будут перенесены на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",missingFirstName:"Введите имя.",missingLastName:"Введите фамилию.",missingEmail:"Введите email.",invalidEmail:"Введите корректный email.",missingDates:"Выберите даты заезда и выезда.",badDates:"Please select at least 2 nights.",redirecting:"Открываем бронирование…"}
   };
+  BOOKING_T.he = Object.assign({}, BOOKING_T.en, {
+    fieldFirstName:"שם פרטי", fieldFirstNamePh:"שם פרטי", fieldLastName:"שם משפחה", fieldLastNamePh:"שם משפחה", fieldEmail:"אימייל", fieldDates:"תאריכים", fieldDatesPh:"בחרו הגעה ועזיבה", openCalendar:"פתחו לוח שנה", calendarKicker:"בחירת תאריכים", calendarHelp:"בחרו תאריך הגעה ולאחר מכן תאריך עזיבה.", calendarMinWarning:"נא לבחור לפחות 2 לילות.", selectDeparture:"בחרו עזיבה", alreadyBooked:"תפוס", calendarRangeUnavailable:"אחד או יותר מהלילות שנבחרו אינם זמינים. נא לבחור טווח אחר.", bookNow:"הזמינו את השהייה", bookingNote:"התחילו כאן. הפרטים יעברו לעמוד ההזמנה, שם ניתן לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.", missingFirstName:"נא להזין שם פרטי.", missingLastName:"נא להזין שם משפחה.", missingEmail:"נא להזין אימייל.", invalidEmail:"נא להזין כתובת אימייל תקינה.", missingDates:"נא לבחור תאריכי הגעה ועזיבה.", badDates:"נא לבחור לפחות 2 לילות.", redirecting:"פותחים את ההזמנה…"
+  });
 
   const toolbarCalendar = { currentMonth: new Date(), dayMap: {}, loading: false };
 
@@ -1434,6 +1618,8 @@
     }
   });
   window.addEventListener("fh:languagechange", function(){ window.setTimeout(applyBookingLanguage,0); });
+  document.addEventListener("fh:language-change", function(){ window.setTimeout(applyBookingLanguage,0); window.setTimeout(applyBookingLanguage,80); });
+  document.addEventListener("fh:languagechange", function(){ window.setTimeout(applyBookingLanguage,0); });
 
   prefillExisting();
   applyBookingLanguage();
@@ -1442,6 +1628,25 @@
 })();
 </script>
 
+
+
+<!-- FH PROPERTY WORKER FLOW + HIDDEN LANGUAGE TOOLBAR + HERO CONTACT PATCH -->
+<script id="fh-property-worker-flow-contact-patch">
+(function(){
+  "use strict";
+  var CONTACT_LABELS={en:{phone:"Call",email:"Email"},fr:{phone:"Téléphone",email:"Email"},de:{phone:"Telefon",email:"E-Mail"},ru:{phone:"Телефон",email:"Email"},he:{phone:"טלפון",email:"אימייל"}};
+  function root(){return document.getElementById("fh-property");}
+  function lang(){var raw="en";try{raw=localStorage.getItem("fh_lang")||localStorage.getItem("fh_language")||localStorage.getItem("fhLang")||document.documentElement.lang||"en";}catch(e){raw=document.documentElement.lang||"en";}raw=String(raw||"en").toLowerCase();if(raw.indexOf("fr")===0)return"fr";if(raw.indexOf("de")===0||raw.indexOf("ger")===0)return"de";if(raw.indexOf("ru")===0)return"ru";if(raw.indexOf("he")===0||raw.indexOf("iw")===0)return"he";return"en";}
+  function applyContactLabels(){var r=root();if(!r)return;var l=lang(), labels=CONTACT_LABELS[l]||CONTACT_LABELS.en;r.setAttribute("dir",l==="he"?"rtl":"ltr");document.documentElement.setAttribute("lang",l);document.documentElement.setAttribute("dir",l==="he"?"rtl":"ltr");r.querySelectorAll('[data-contact-i18n="phone"]').forEach(function(el){el.textContent=labels.phone;});r.querySelectorAll('[data-contact-i18n="email"]').forEach(function(el){el.textContent=labels.email;});}
+  function markCurrentImages(){var r=root();if(!r)return;r.querySelectorAll('img').forEach(function(img){if(!img.dataset.fhImageKey){var src=img.getAttribute('src')||'';var name=src.split('?')[0].split('#')[0].split('/').pop();try{name=decodeURIComponent(name)}catch(e){};if(name) img.dataset.fhImageKey=name;} if(img.src&&img.src.indexOf('fletschhorn-guesty-api.bookings-e2d.workers.dev')>=0) img.dataset.workerImageApplied='true';});}
+  function boot(){applyContactLabels();markCurrentImages();}
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
+  window.addEventListener("load",boot);
+  document.addEventListener("click",function(e){if(e.target.closest("[data-fh-lang],[data-lang],[data-language]"))setTimeout(boot,40);});
+  document.addEventListener("fh:language",boot);document.addEventListener("fletschhorn:language",boot);document.addEventListener("fletschhorn:languageChanged",boot);window.addEventListener("storage",function(e){if(e.key==="fh_lang"||e.key==="fh_language"||e.key==="fhLang")boot();});
+  setTimeout(boot,200);setTimeout(boot,900);setTimeout(boot,1800);
+})();
+</script>
 
 </body>
 </html>
