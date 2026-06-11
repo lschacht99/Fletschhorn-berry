@@ -272,7 +272,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   background-position:center;
   opacity:0;
   transform:scale(1.045);
-  transition:opacity 1.4s ease, transform 8s ease;
+  transition:opacity 2.8s ease, transform 22s ease;
 }
 #fh-experiences-desktop .fh-hero-slide.is-active{opacity:1;transform:scale(1)}
 #fh-experiences-desktop .fh-hero-media::after{
@@ -3272,6 +3272,10 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   function buildHero(images){
     const host = $('#fh-exp-slides');
     if(!host) return;
+
+    if(host.dataset.fhInitialHeroBuilt === '1') return;
+    host.dataset.fhInitialHeroBuilt = '1';
+
     host.innerHTML = "";
     images.slice(0, 8).forEach((src, index) => {
       const slide = document.createElement('div');
@@ -3279,14 +3283,16 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
       slide.style.backgroundImage = `url("${src}")`;
       host.appendChild(slide);
     });
+
     const slides = $all('.fh-hero-slide');
     let active = 0;
-    if(slides.length > 1){
+    if(slides.length > 1 && !window.__fhExperiencesHeroIntervalStarted){
+      window.__fhExperiencesHeroIntervalStarted = true;
       window.setInterval(() => {
         slides[active]?.classList.remove('is-active');
         active = (active + 1) % slides.length;
         slides[active]?.classList.add('is-active');
-      }, 8500);
+      }, 19000);
     }
   }
 
@@ -4879,7 +4885,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   background-position:center;
   opacity:0;
   transform:scale(1.045);
-  transition:opacity 1.4s ease, transform 8s ease;
+  transition:opacity 2.8s ease, transform 22s ease;
 }
 #fh-experiences-mobile .fh-hero-slide.is-active{opacity:1;transform:scale(1)}
 #fh-experiences-mobile .fh-hero-media::after{
@@ -7161,6 +7167,10 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   function buildHero(images){
     const host = $('#fh-exp-slides');
     if(!host) return;
+
+    if(host.dataset.fhInitialHeroBuilt === '1') return;
+    host.dataset.fhInitialHeroBuilt = '1';
+
     host.innerHTML = "";
     images.slice(0, 8).forEach((src, index) => {
       const slide = document.createElement('div');
@@ -7168,14 +7178,16 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
       slide.style.backgroundImage = `url("${src}")`;
       host.appendChild(slide);
     });
+
     const slides = $all('.fh-hero-slide');
     let active = 0;
-    if(slides.length > 1){
+    if(slides.length > 1 && !window.__fhExperiencesHeroIntervalStarted){
+      window.__fhExperiencesHeroIntervalStarted = true;
       window.setInterval(() => {
         slides[active]?.classList.remove('is-active');
         active = (active + 1) % slides.length;
         slides[active]?.classList.add('is-active');
-      }, 8500);
+      }, 19000);
     }
   }
 
@@ -8880,6 +8892,48 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
 }
 </style>
 
+
+
+<style id="fh-hero-slow-stable-final-override">
+/* HARD FIX: the hero was being rebuilt several times by the final Worker image loader.
+   This makes the hero calm and prevents the visual snap/flicker. */
+#fh-experiences-desktop .fh-hero-slide,
+#fh-experiences-mobile .fh-hero-slide{
+  opacity:0!important;
+  transform:scale(1.035)!important;
+  transition:opacity 2.8s ease-in-out, transform 22s ease-out!important;
+  will-change:opacity,transform;
+}
+#fh-experiences-desktop .fh-hero-slide.is-active,
+#fh-experiences-mobile .fh-hero-slide.is-active{
+  opacity:1!important;
+  transform:scale(1)!important;
+}
+#fh-experiences-desktop .fh-hero-media,
+#fh-experiences-mobile .fh-hero-media{
+  background:#171411;
+}
+#fh-experiences-desktop .fh-hero-media.is-preparing,
+#fh-experiences-mobile .fh-hero-media.is-preparing{
+  opacity:0;
+}
+#fh-experiences-desktop .fh-hero-media.is-ready,
+#fh-experiences-mobile .fh-hero-media.is-ready{
+  opacity:1;
+  transition:opacity 1.6s ease-in-out;
+}
+@media(max-width:760px){
+  #fh-experiences-desktop .fh-hero-slide,
+  #fh-experiences-mobile .fh-hero-slide{
+    transform:scale(1.015)!important;
+  }
+  #fh-experiences-desktop .fh-hero-slide.is-active,
+  #fh-experiences-mobile .fh-hero-slide.is-active{
+    transform:scale(1)!important;
+  }
+}
+</style>
+
 <script id="fh-final-random-worker-images-loader">
 (function(){
   "use strict";
@@ -9032,7 +9086,18 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   function buildHero(root, urls, seed){
     const host = root.querySelector(".fh-hero-media");
     if(!host || !urls.length) return;
-    const heroUrls = urls.length >= 8 ? urls.slice(0, 8) : Array.from({length:8}, function(_, i){ return urls[(seed + i) % urls.length]; });
+
+    /* Important: do not rebuild the hero again after it has been built once.
+       The previous version called the Worker image loader several times after load,
+       so the hero appeared to reload/snap too quickly even when the slide interval was slow. */
+    if(host.dataset.fhHeroLocked === "1") return;
+    host.dataset.fhHeroLocked = "1";
+    host.classList.add("is-preparing");
+
+    const heroUrls = urls.length >= 8
+      ? urls.slice(0, 8)
+      : Array.from({length:8}, function(_, i){ return urls[(seed + i) % urls.length]; });
+
     host.innerHTML = "";
     heroUrls.forEach(function(url, index){
       const slide = document.createElement("div");
@@ -9041,6 +9106,11 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
       slide.dataset.fhRandomWorkerImage = "true";
       host.appendChild(slide);
     });
+
+    window.setTimeout(function(){
+      host.classList.remove("is-preparing");
+      host.classList.add("is-ready");
+    }, 80);
   }
 
   function applyRandomWorkerImages(urls, reason){
@@ -9109,23 +9179,28 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   }
 
   async function runFinalImageFix(){
+    if(window.__fhFinalRandomImageFixDone || window.__fhFinalRandomImageFixRunning) return;
+    window.__fhFinalRandomImageFixRunning = true;
+
     try{
       const workerImages = await fetchWorkerImages();
       if(workerImages.length){
         applyRandomWorkerImages(workerImages, "worker-/images");
+        window.__fhFinalRandomImageFixDone = true;
         return;
       }
       throw new Error("No images returned from Worker.");
     }catch(error){
       console.warn("Fletschhorn random Worker image loader fell back because /images was not usable from the page:", error);
       applyRandomWorkerImages(EMERGENCY_GUESTY_FALLBACKS, "emergency-guesty-fallback");
+      window.__fhFinalRandomImageFixDone = true;
+    }finally{
+      window.__fhFinalRandomImageFixRunning = false;
     }
   }
 
   function boot(){
     runFinalImageFix();
-    window.setTimeout(runFinalImageFix, 900);
-    window.setTimeout(runFinalImageFix, 2600);
   }
 
   if(document.readyState === "loading"){
@@ -9134,8 +9209,8 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     boot();
   }
 
-  window.addEventListener("load", function(){ window.setTimeout(runFinalImageFix, 250); }, { once:true });
-  window.addEventListener("fh:worker-images-loaded", function(){ window.setTimeout(runFinalImageFix, 80); });
+  /* Do not run this again on load/timeouts. Re-running was the real cause of the fast hero reload. */
+  window.addEventListener("fh:worker-images-loaded", function(){ runFinalImageFix(); });
 })();
 </script>
 
