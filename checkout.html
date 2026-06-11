@@ -1,1 +1,370 @@
-/p/hello marc/p/
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fletschhorn · Secure Checkout</title>
+  <meta name="description" content="Secure checkout for a private Fletschhorn stay in Saas-Fee.">
+  <link rel="stylesheet" href="assets/fh-global.css">
+  <link rel="stylesheet" href="assets/fh-booking-flow.css">
+</head>
+<body>
+<div id="fh-header-slot"></div>
+
+<div id="fh-checkout-main" class="fh-flow" data-page="checkout" data-lang="en">
+  <div class="fh-bg" aria-hidden="true"></div>
+  <div class="fh-grain" aria-hidden="true"></div>
+
+  <section class="fh-hero" id="top">
+    <div class="fh-hero-media" id="fhHeroMedia" aria-hidden="true"></div>
+    <div class="fh-hero-inner">
+      <p class="fh-eyebrow">Secure checkout · Fletschhorn Saas-Fee</p>
+      <h1>Confirm your stay.</h1>
+      <p class="fh-hero-lead">Review the live Guesty quote and complete the payment details securely. Card details are tokenized with GuestyPay and are never sent to the Worker.</p>
+      <div class="fh-trust-row">
+        <span class="fh-trust-pill">Live Guesty quote</span>
+        <span class="fh-trust-pill">GuestyPay tokenization</span>
+        <span class="fh-trust-pill">Private property</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="fh-wrap">
+    <div class="fh-checkout-layout">
+      <section class="fh-card fh-main-card">
+        <div class="fh-head">
+          <p class="fh-kicker">Step 2</p>
+          <h2>Payment details.</h2>
+        </div>
+        <div class="fh-body">
+          <div class="fh-secure-box">The browser sends card information only to GuestyPay for tokenization. The Worker receives only the GuestyPay token.</div>
+
+          <form id="fhPaymentForm" class="fh-form" style="padding-left:0;padding-right:0;padding-bottom:0" novalidate>
+            <div class="fh-pay-grid">
+              <div class="fh-field full">
+                <label for="fhCardName">Name on card</label>
+                <input id="fhCardName" name="cardName" autocomplete="cc-name" required>
+              </div>
+              <div class="fh-field full">
+                <label for="fhCardNumber">Card number</label>
+                <input id="fhCardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
+              </div>
+              <div class="fh-field">
+                <label for="fhExpMonth">Exp. month</label>
+                <input id="fhExpMonth" name="expMonth" inputmode="numeric" autocomplete="cc-exp-month" placeholder="MM" maxlength="2" required>
+              </div>
+              <div class="fh-field">
+                <label for="fhExpYear">Exp. year</label>
+                <input id="fhExpYear" name="expYear" inputmode="numeric" autocomplete="cc-exp-year" placeholder="YYYY" maxlength="4" required>
+              </div>
+              <div class="fh-field">
+                <label for="fhCvc">CVC</label>
+                <input id="fhCvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" required>
+              </div>
+              <div class="fh-field">
+                <label for="fhCountry">Billing country</label>
+                <input id="fhCountry" name="country" autocomplete="country" placeholder="CH" maxlength="2" required>
+              </div>
+              <div class="fh-field full">
+                <label for="fhAddress">Billing address</label>
+                <input id="fhAddress" name="address" autocomplete="billing address-line1" required>
+              </div>
+              <div class="fh-field">
+                <label for="fhCity">City</label>
+                <input id="fhCity" name="city" autocomplete="billing address-level2" required>
+              </div>
+              <div class="fh-field">
+                <label for="fhPostal">Postal code</label>
+                <input id="fhPostal" name="postal" autocomplete="billing postal-code" required>
+              </div>
+            </div>
+
+            <label class="fh-checkbox"><input id="fhAccept" type="checkbox" required> <span>I accept the rental agreement, cancellation policy, house rules, payment terms, and private-stay conditions for Fletschhorn.</span></label>
+
+            <div class="fh-actions">
+              <button class="fh-btn dark" id="fhPayButton" type="submit">Pay and confirm booking</button>
+              <a class="fh-btn light" href="booking.html">Edit stay</a>
+            </div>
+            <div class="fh-status" id="fhCheckoutStatus" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </section>
+
+      <aside class="fh-card fh-main-card">
+        <div class="fh-head">
+          <p class="fh-kicker">Your stay</p>
+          <h2>Quote summary.</h2>
+        </div>
+        <div class="fh-body">
+          <div class="fh-mini-summary">
+            <div><span>Dates</span><strong id="fhSumDates">—</strong></div>
+            <div><span>Guests</span><strong id="fhSumGuests">—</strong></div>
+            <div><span>Guest</span><strong id="fhSumGuest">—</strong></div>
+            <div><span>Stay type</span><strong id="fhSumStay">—</strong></div>
+          </div>
+          <div class="fh-price-box">
+            <div class="fh-price-label">Live Guesty total</div>
+            <div class="fh-price-main" id="fhQuoteTotal">Preparing quote...</div>
+            <p style="margin:8px 0 0">This quote is refreshed on checkout before payment.</p>
+            <div class="fh-line-items" id="fhQuoteLines"></div>
+          </div>
+          <div class="fh-status warn is-visible" style="display:block">For launch: test with Guesty sandbox/test card first. Do not run real card payments until the payment provider ID is verified in Guesty.</div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<div id="fh-footer-slot"></div>
+
+<script>
+(function(){
+  document.body.classList.add("fh-github-version");
+  const ASSET_BASE = new URL("assets/", document.baseURI).href;
+  async function loadHtml(slotId, fileName){
+    const slot = document.getElementById(slotId);
+    if(!slot) return;
+    try{
+      const response = await fetch(ASSET_BASE + fileName, {cache:"no-cache"});
+      if(!response.ok) throw new Error(fileName + " failed: " + response.status);
+      slot.innerHTML = await response.text();
+      slot.querySelectorAll("script").forEach(function(oldScript){
+        const s = document.createElement("script");
+        Array.from(oldScript.attributes).forEach(function(attr){s.setAttribute(attr.name, attr.value)});
+        s.textContent = oldScript.textContent;
+        oldScript.replaceWith(s);
+      });
+    }catch(error){console.error("Fletschhorn header/footer load error:", error)}
+  }
+  loadHtml("fh-header-slot", "Header.html");
+  loadHtml("fh-footer-slot", "footer.html");
+})();
+</script>
+
+<script>
+(function(){
+  const root = document.getElementById("fh-checkout-main");
+  const CFG = {
+    listingId:"6968339ab7d735001ca015ba",
+    workerBase:"https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
+    currency:"CHF",
+    confirmationPage:"confirmation.html",
+    bookingPage:"booking.html"
+  };
+  const ROUTES = {config:"/config", images:"/images", quote:"/quote", paymentProvider:"/payment-provider", book:"/book"};
+  const FALLBACK_IMAGES = [
+    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
+    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg"
+  ];
+
+  const qs = (s) => root.querySelector(s);
+  const qsa = (s) => Array.from(root.querySelectorAll(s));
+  const status = qs("#fhCheckoutStatus");
+  let draft = {};
+  let quoteData = null;
+  let paymentProviderId = "";
+  let heroTimer = null;
+
+  function endpoint(path){return CFG.workerBase.replace(/\/$/,"") + path}
+  function showStatus(message, mode){status.className="fh-status is-visible"+(mode?" "+mode:"");status.textContent=message}
+  function clearStatus(){status.className="fh-status";status.textContent=""}
+  function escapeHtml(v){return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+  function numberFromAny(v){if(v===null||v===undefined||v==="")return null;if(typeof v==="number")return Number.isFinite(v)?v:null;if(typeof v==="string"){const n=Number(v.replace(/[^\d.-]/g,""));return Number.isFinite(n)?n:null}if(typeof v==="object")return numberFromAny(v.amount??v.value??v.total??v.price);return null}
+  function walk(obj,fn){if(!obj||typeof obj!=="object")return null;const direct=fn(obj);if(direct!==undefined&&direct!==null)return direct;if(Array.isArray(obj)){for(const item of obj){const v=walk(item,fn);if(v!==undefined&&v!==null)return v}}else{for(const k of Object.keys(obj)){const v=walk(obj[k],fn);if(v!==undefined&&v!==null)return v}}return null}
+  function findTotal(obj){return walk(obj,x=>{for(const k of ["total","totalPrice","grandTotal","quoteTotal","balanceDue","paymentDueNow"]){const n=numberFromAny(x[k]);if(n&&n>0)return n}return null})}
+  function findCurrency(obj){return walk(obj,x=>typeof x.currency==="string"?x.currency:null)||CFG.currency}
+  function findQuoteId(obj){return walk(obj,x=>typeof x.quoteId==="string"?x.quoteId:(typeof x._id==="string"&&(x.ratePlans||x.rates||x.breakdown||x.total)?x._id:null))||""}
+  function findRatePlanId(obj){return walk(obj,x=>typeof x.ratePlanId==="string"?x.ratePlanId:(typeof x.rateplanId==="string"?x.rateplanId:(Array.isArray(x.ratePlans)&&x.ratePlans[0]?(x.ratePlans[0].id||x.ratePlans[0]._id||x.ratePlans[0].ratePlanId):null)))||""}
+  function findBreakdown(obj){return walk(obj,x=>Array.isArray(x.breakdown)?x.breakdown:(Array.isArray(x.invoiceItems)?x.invoiceItems:(Array.isArray(x.lineItems)?x.lineItems:null)))||[]}
+  function formatMoney(amount,currency){const n=Number(amount);if(!Number.isFinite(n)||n<=0)return "—";try{return new Intl.NumberFormat("en-US",{style:"currency",currency:currency||CFG.currency,maximumFractionDigits:0}).format(n)}catch(e){return Math.round(n).toLocaleString()+" "+(currency||CFG.currency)}}
+  function apiGet(path,params){const url=new URL(endpoint(path));Object.keys(params||{}).forEach(k=>{if(params[k]!==undefined&&params[k]!==null&&params[k]!=="")url.searchParams.set(k,params[k])});return fetch(url.toString(),{headers:{Accept:"application/json"}}).then(readApi)}
+  function apiPost(path,body){return fetch(endpoint(path),{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(body||{})}).then(readApi)}
+  async function readApi(res){const text=await res.text();let data={};try{data=text?JSON.parse(text):{}}catch(e){data={rawText:text}}if(!res.ok||data.ok===false||data.error){const err=new Error(data.message||data.error||"Request failed");err.data=data;err.status=res.status;throw err}return data}
+
+  function readDraft(){
+    const params = new URLSearchParams(location.search);
+    try{draft = JSON.parse(localStorage.getItem("fhBookingDraft") || "{}") || {}}catch(e){draft = {}}
+    draft.checkIn = params.get("checkIn") || draft.checkIn || "";
+    draft.checkOut = params.get("checkOut") || draft.checkOut || "";
+    draft.guests = Number(params.get("guests") || draft.guests || 12);
+    draft.language = params.get("lang") || draft.language || "en";
+    draft.listingId = draft.listingId || CFG.listingId;
+    draft.numberOfGuests = draft.numberOfGuests || {numberOfAdults:Math.max(1,Number(draft.guests||12)),numberOfChildren:0,numberOfInfants:0,numberOfPets:0};
+    if(!draft.checkIn || !draft.checkOut){
+      showStatus("Missing dates. Please go back to booking and choose a stay first.", "bad");
+    }
+  }
+
+  function renderSummary(){
+    const nights = draft.checkIn && draft.checkOut ? Math.round((new Date(draft.checkOut+"T00:00:00")-new Date(draft.checkIn+"T00:00:00"))/86400000) : 0;
+    qs("#fhSumDates").textContent = draft.checkIn && draft.checkOut ? `${draft.checkIn} → ${draft.checkOut}${nights>0?` · ${nights} nights`:""}` : "—";
+    qs("#fhSumGuests").textContent = draft.guests ? `${draft.guests} guests` : "—";
+    qs("#fhSumGuest").textContent = `${draft.firstName||""} ${draft.lastName||""}`.trim() || "—";
+    qs("#fhSumStay").textContent = draft.stayTypeText || draft.stayType || "—";
+    qs("#fhCardName").value = `${draft.firstName||""} ${draft.lastName||""}`.trim();
+  }
+
+  async function loadImages(){
+    applyImages(FALLBACK_IMAGES);
+    try{const data=await apiGet(ROUTES.images,{listingId:CFG.listingId});const images=(data.images||[]).map(i=>typeof i==="string"?i:(i.url||i.src||i.original||"")).filter(Boolean);if(images.length)applyImages(images)}catch(e){}
+  }
+  function applyImages(images){const host=qs("#fhHeroMedia");if(heroTimer)clearInterval(heroTimer);host.innerHTML="";images.slice(0,5).forEach((src,i)=>{const el=document.createElement("div");el.style.backgroundImage=`url("${src}")`;if(i===0)el.classList.add("is-active");host.appendChild(el)});const slides=Array.from(host.children);let i=0;if(slides.length>1)heroTimer=setInterval(()=>{slides[i].classList.remove("is-active");i=(i+1)%slides.length;slides[i].classList.add("is-active")},8000)}
+
+  async function loadConfig(){
+    try{const cfg=await apiGet(ROUTES.config,{});if(cfg.listingId)CFG.listingId=cfg.listingId;if(cfg.currency)CFG.currency=cfg.currency;if(cfg.paymentProviderId)paymentProviderId=cfg.paymentProviderId}catch(e){}
+    try{const pp=await apiGet(ROUTES.paymentProvider,{listingId:CFG.listingId});paymentProviderId=pp.paymentProviderId||pp.id||paymentProviderId||""}catch(e){console.warn("Payment provider unavailable",e)}
+  }
+
+  async function refreshQuote(){
+    if(!draft.checkIn || !draft.checkOut) return null;
+    qs("#fhQuoteTotal").textContent = "Preparing quote...";
+    quoteData = await apiPost(ROUTES.quote, {
+      listingId: CFG.listingId,
+      checkIn: draft.checkIn,
+      checkOut: draft.checkOut,
+      guests: Number(draft.guests || 12),
+      guestsCount: Number(draft.guests || 12),
+      numberOfGuests: draft.numberOfGuests || {numberOfAdults:Number(draft.guests||12),numberOfChildren:0,numberOfInfants:0,numberOfPets:0},
+      language: draft.language || "en",
+      source: "checkout-page"
+    });
+    const total=findTotal(quoteData);
+    const currency=findCurrency(quoteData);
+    const quoteId=findQuoteId(quoteData);
+    const ratePlanId=findRatePlanId(quoteData);
+    const items=findBreakdown(quoteData);
+    qs("#fhQuoteTotal").textContent = total ? formatMoney(total,currency) : "Quote returned";
+    qs("#fhQuoteLines").innerHTML = items.length ? items.slice(0,10).map(item=>{const label=item.label||item.title||item.name||item.type||"Item";const amount=numberFromAny(item.amount??item.total??item.value??item.price);return `<div class="fh-line-item"><span>${escapeHtml(label)}</span><strong>${amount?formatMoney(amount,currency):"Included"}</strong></div>`}).join("") : "";
+    draft = Object.assign({}, draft, {quote:quoteData, quoteId, ratePlanId, quoteTotal:total, currency});
+    localStorage.setItem("fhBookingDraft", JSON.stringify(draft));
+    return quoteData;
+  }
+
+  function validateCard(){
+    qsa(".fh-field.is-error").forEach(f=>f.classList.remove("is-error"));
+    const required=["#fhCardName","#fhCardNumber","#fhExpMonth","#fhExpYear","#fhCvc","#fhCountry","#fhAddress","#fhCity","#fhPostal"];
+    let ok=true;
+    required.forEach(sel=>{const el=qs(sel);if(!el.value.trim()){el.closest(".fh-field").classList.add("is-error");ok=false}});
+    if(!qs("#fhAccept").checked){showStatus("Please accept the rental agreement before continuing.","bad");ok=false}
+    if(!ok) qsa(".fh-field.is-error input")[0]?.focus();
+    return ok;
+  }
+
+  async function tokenizeCard(){
+    if(!paymentProviderId){throw new Error("Missing GuestyPay payment provider ID. Check /payment-provider and GUESTY_PAYMENT_PROVIDER_ID in Cloudflare.")}
+    if(!quoteData) await refreshQuote();
+    const amount = Math.round(Number(draft.quoteTotal || findTotal(quoteData) || 0));
+    const currency = draft.currency || findCurrency(quoteData) || CFG.currency;
+    const successURL = new URL(location.href);successURL.searchParams.set("threeDS","success");
+    const failureURL = new URL(location.href);failureURL.searchParams.set("threeDS","failed");
+    const payload = {
+      listingId: CFG.listingId,
+      paymentProviderId,
+      card: {
+        number: qs("#fhCardNumber").value.replace(/\s+/g,""),
+        exp_month: qs("#fhExpMonth").value.trim().padStart(2,"0"),
+        exp_year: qs("#fhExpYear").value.trim(),
+        cvc: qs("#fhCvc").value.trim()
+      },
+      billing_details: {
+        name: qs("#fhCardName").value.trim(),
+        address: {
+          line1: qs("#fhAddress").value.trim(),
+          city: qs("#fhCity").value.trim(),
+          postal_code: qs("#fhPostal").value.trim(),
+          country: qs("#fhCountry").value.trim().toUpperCase()
+        }
+      },
+      threeDS: {amount, currency, successURL: successURL.toString(), failureURL: failureURL.toString()},
+      merchantData: {transactionDate:new Date().toISOString(),transactionDescription:"Fletschhorn direct booking",transactionId:"fh-"+Date.now()}
+    };
+    const res = await fetch("https://pay.guesty.com/api/tokenize/v2", {method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(payload)});
+    const text = await res.text();
+    let data;try{data=JSON.parse(text)}catch(e){data={rawText:text}}
+    if(!res.ok || data.error){throw new Error(data.message || data.error || "GuestyPay tokenization failed")}
+    const token = data._id || data.id || data.ccToken;
+    if(!token) throw new Error("GuestyPay did not return a token.");
+    const pending = {draft, quoteData, ccToken:token, paymentProviderId, createdAt:new Date().toISOString()};
+    sessionStorage.setItem("fhPendingGuestyBook", JSON.stringify(pending));
+    if(data.threeDS && data.threeDS.authURL){
+      showStatus("3D Secure authentication is required. Redirecting...", "warn");
+      window.location.href = data.threeDS.authURL;
+      return null;
+    }
+    return token;
+  }
+
+  async function bookWithToken(token){
+    if(!quoteData) await refreshQuote();
+    const quoteId = draft.quoteId || findQuoteId(quoteData);
+    const ratePlanId = draft.ratePlanId || findRatePlanId(quoteData);
+    if(!quoteId) throw new Error("Missing quoteId from Guesty quote.");
+    if(!ratePlanId) throw new Error("Missing ratePlanId from Guesty quote.");
+    const bookPayload = {
+      quoteId,
+      ratePlanId,
+      ccToken: token,
+      paymentProviderId,
+      acceptAgreement: true,
+      guest: {firstName:draft.firstName,lastName:draft.lastName,email:draft.email,phone:draft.phone,note:draft.message || draft.stayTypeText || "Direct booking"},
+      policy: {privacy:true,terms:true,rentalAgreement:true},
+      source: "checkout-page"
+    };
+    const result = await apiPost(ROUTES.book, bookPayload);
+    const reservation = result.reservation || result.data || result;
+    const reservationId = reservation.id || reservation._id || result.reservationId || result.id || "";
+    const confirmationCode = reservation.confirmationCode || result.confirmationCode || "";
+    const complete = Object.assign({}, draft, {bookingResponse:result,reservationId,confirmationCode,completedAt:new Date().toISOString()});
+    localStorage.setItem("fhBookingComplete", JSON.stringify(complete));
+    sessionStorage.removeItem("fhPendingGuestyBook");
+    const params = new URLSearchParams({reservationId:reservationId || "", confirmationCode:confirmationCode || ""});
+    window.location.href = CFG.confirmationPage + "?" + params.toString();
+  }
+
+  async function handlePayment(event){
+    event.preventDefault();
+    clearStatus();
+    if(!validateCard()) return;
+    const btn=qs("#fhPayButton");btn.disabled=true;btn.textContent="Processing...";
+    try{
+      await refreshQuote();
+      showStatus("Tokenizing card with GuestyPay...", "");
+      const token = await tokenizeCard();
+      if(token){
+        showStatus("Creating reservation in Guesty...", "");
+        await bookWithToken(token);
+      }
+    }catch(error){
+      console.error("Checkout error", error);
+      showStatus(error.message || "Checkout failed. Please try again.", "bad");
+      btn.disabled=false;btn.textContent="Pay and confirm booking";
+    }
+  }
+
+  async function resumeAfterThreeDS(){
+    const params=new URLSearchParams(location.search);
+    if(params.get("threeDS")==="failed") showStatus("3D Secure authentication failed. Please try another card or retry.", "bad");
+    if(params.get("threeDS")!=="success") return;
+    let pending={};try{pending=JSON.parse(sessionStorage.getItem("fhPendingGuestyBook")||"{}")||{}}catch(e){}
+    if(!pending.ccToken) return;
+    draft = pending.draft || draft;
+    quoteData = pending.quoteData || quoteData;
+    paymentProviderId = pending.paymentProviderId || paymentProviderId;
+    showStatus("3D Secure completed. Creating reservation in Guesty...", "");
+    await bookWithToken(pending.ccToken);
+  }
+
+  async function init(){
+    readDraft();
+    renderSummary();
+    loadImages();
+    await loadConfig();
+    await refreshQuote().catch(error=>showStatus(error.message||"Could not prepare quote.","bad"));
+    await resumeAfterThreeDS().catch(error=>showStatus(error.message||"Could not complete 3D Secure booking.","bad"));
+    qs("#fhPaymentForm").addEventListener("submit", handlePayment);
+  }
+  init();
+})();
+</script>
+</body>
+</html>
