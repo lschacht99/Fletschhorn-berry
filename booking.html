@@ -1351,7 +1351,7 @@
     function quoteKey(){
       var adults = Number($("fhAdults") ? $("fhAdults").value : 2) || 1;
       var children = Number($("fhChildren") ? $("fhChildren").value : 0) || 0;
-      return [state.arrival || "", state.departure || "", adults, children, state.lang].join("|");
+      return [CFG.listingId, state.arrival || "", state.departure || "", adults, children, state.lang].join("|");
     }
     function quoteCooldownMessage(){
       var remaining = Math.max(1, Math.ceil((state.quoteRetryAt - Date.now()) / 1000));
@@ -1361,13 +1361,19 @@
       if (state.lang === "he") return "Guesty מגביל זמנית בקשות מחיר. נסו שוב בעוד כ-" + remaining + " שניות.";
       return "Guesty is temporarily limiting price requests. Try again in about " + remaining + " seconds.";
     }
+    function quoteRefreshNeededMessage(){
+      if (state.lang === "fr") return "Le nombre de voyageurs a changé. Le prix final sera recalculé une seule fois au moment de continuer vers le checkout.";
+      if (state.lang === "de") return "Die Gästeanzahl wurde geändert. Der finale Preis wird einmal neu berechnet, wenn Sie zum Checkout weitergehen.";
+      if (state.lang === "ru") return "Количество гостей изменилось. Итоговая цена будет пересчитана один раз при переходе к checkout.";
+      if (state.lang === "he") return "מספר האורחים השתנה. המחיר הסופי יחושב פעם אחת כשתמשיכו ל-checkout.";
+      return "Guest count changed. The final price will be refreshed once when you continue to checkout.";
+    }
     function scheduleQuoteLoad(delay){
       window.clearTimeout(state.quoteTimer);
       state.quoteTimer = window.setTimeout(function(){
         if (state.arrival && state.departure) loadQuote();
       }, delay || 700);
     }
-
     function parsePriceNumber(value){
       if (value === null || value === undefined || value === "") return null;
       if (typeof value === "object") value = value.amount || value.value || value.price || value.total || "";
@@ -1478,6 +1484,9 @@
       if (!state.arrival || !state.departure) return false;
       var key = quoteKey();
       if (state.quoteLoading) return false;
+      if (!options.force && state.quoteData && state.quoteData.total !== null && !state.quoteEstimateOnly && state.quoteLastKey === key) {
+        return true;
+      }
       if (state.quoteFailedKey === key && Date.now() < state.quoteRetryAt && !options.force) {
         if (quote) quote.textContent = quoteCooldownMessage();
         showMessage(quoteCooldownMessage(), "error");
@@ -1532,6 +1541,8 @@
         state.quoteBreakdown = breakdown;
         state.quoteEstimateOnly = false;
         state.quoteTotalText = total !== null ? formatMoney(total,currency) : "—";
+        state.quoteFailedKey = "";
+        state.quoteRetryAt = 0;
         updateSummary();
         renderPricingBreakdown();
         if (quote) quote.innerHTML = escapeHTML(line) + (total !== null ? "<strong>"+escapeHTML(state.quoteTotalText)+"</strong>" : "");
@@ -1608,6 +1619,7 @@
       window.location.href = CFG.checkoutUrl + "?" + params.toString();
     }
     function clearDates(){
+      window.clearTimeout(state.quoteTimer);
       state.arrival = "";
       state.departure = "";
       clearQuoteState();
@@ -1689,7 +1701,19 @@
       if (continueBtn) continueBtn.addEventListener("click", continueCheckout);
       var clearBtn = $("fhClearDatesBtn");
       if (clearBtn) clearBtn.addEventListener("click", clearDates);
-      ["fhAdults","fhChildren"].forEach(function(id){ var el = $(id); if (el) el.addEventListener("change", function(){ clearQuoteState(); saveStart(false); if (state.arrival && state.departure) scheduleQuoteLoad(900); }); });
+      ["fhAdults","fhChildren"].forEach(function(id){
+        var el = $(id);
+        if (el) el.addEventListener("change", function(){
+          window.clearTimeout(state.quoteTimer);
+          clearQuoteState();
+          saveStart(false);
+          updateSummary();
+          if (state.arrival && state.departure) {
+            var quote = $("fhLiveQuote");
+            if (quote) quote.textContent = quoteRefreshNeededMessage();
+          }
+        });
+      });
       ["fhFirstName","fhLastName","fhEmail"].forEach(function(id){ var el = $(id); if (el) el.addEventListener("input", function(){ clearMessage(); saveStart(false); }); });
       document.addEventListener("click", function(event){
         var trigger = event.target.closest("[data-fh-lang],[data-lang],[data-language]");
@@ -1713,7 +1737,10 @@
       applyLanguage();
       loadListingAndContent();
       renderCalendars();
-      if (state.arrival && state.departure) scheduleQuoteLoad(900);
+      if (state.arrival && state.departure && !state.quoteTotalText) {
+        var quote = $("fhLiveQuote");
+        if (quote) quote.textContent = txt("quotePrompt");
+      }
     }
     async function boot(){
       prefill();
