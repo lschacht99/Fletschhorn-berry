@@ -1324,9 +1324,9 @@
         </div>
 
         <div class="image-stage preScale" style="--d:.12s">
-          <img class="main" src="https://ik.imagekit.io/Redberry/Kitchen%20(3).png" alt="Private kitchen at Fletschhorn" />
-          <img class="float-one preSlide" style="--d:.20s" src="https://ik.imagekit.io/Redberry/Kitchen%20(1).png" alt="Kitchen detail at Fletschhorn" />
-          <img class="float-two preSlide" style="--d:.28s" src="https://ik.imagekit.io/Redberry/Kitchen%20(5).png" alt="Kitchen preparation area at Fletschhorn" />
+          <img class="main" data-guesty-img="12" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23efe7dc'/%3E%3Cstop offset='.45' stop-color='%23fffaf3'/%3E%3Cstop offset='1' stop-color='%23cdbda9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Cpath d='M0 690 C270 595 430 650 650 585 C880 518 1040 560 1260 492 C1420 442 1510 440 1600 455 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.22'/%3E%3Cpath d='M0 760 C260 690 500 712 760 640 C1040 563 1300 600 1600 535 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.30'/%3E%3Ctext x='80' y='120' font-family='Georgia,serif' font-size='54' fill='%231a1714' fill-opacity='.28'%3EFletschhorn%3C/text%3E%3C/svg%3E" alt="Private kitchen at Fletschhorn" />
+          <img class="float-one preSlide" style="--d:.20s" data-guesty-img="22" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23efe7dc'/%3E%3Cstop offset='.45' stop-color='%23fffaf3'/%3E%3Cstop offset='1' stop-color='%23cdbda9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Cpath d='M0 690 C270 595 430 650 650 585 C880 518 1040 560 1260 492 C1420 442 1510 440 1600 455 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.22'/%3E%3Cpath d='M0 760 C260 690 500 712 760 640 C1040 563 1300 600 1600 535 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.30'/%3E%3Ctext x='80' y='120' font-family='Georgia,serif' font-size='54' fill='%231a1714' fill-opacity='.28'%3EFletschhorn%3C/text%3E%3C/svg%3E" alt="Kitchen detail at Fletschhorn" />
+          <img class="float-two preSlide" style="--d:.28s" data-guesty-img="32" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23efe7dc'/%3E%3Cstop offset='.45' stop-color='%23fffaf3'/%3E%3Cstop offset='1' stop-color='%23cdbda9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Cpath d='M0 690 C270 595 430 650 650 585 C880 518 1040 560 1260 492 C1420 442 1510 440 1600 455 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.22'/%3E%3Cpath d='M0 760 C260 690 500 712 760 640 C1040 563 1300 600 1600 535 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.30'/%3E%3Ctext x='80' y='120' font-family='Georgia,serif' font-size='54' fill='%231a1714' fill-opacity='.28'%3EFletschhorn%3C/text%3E%3C/svg%3E" alt="Kitchen preparation area at Fletschhorn" />
           <div class="mini-card preFade" style="--d:.36s">
             <p class="kicker" data-i18n="kitchen.card.kicker">Flexible food planning</p>
             <p data-i18n="kitchen.card.text">Self-catering is part of the stay. Chefs and caterers can be arranged on request for an additional fee.</p>
@@ -1395,11 +1395,11 @@
 
 <script>
 (function(){
-  const WORKER_URL = "https://saas-fee.moshe-cohen-h1.workers.dev";
+  const WORKER_URL = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
 
   const FH_CONFIG = {
     workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
-    cloudflarePropertyEndpoint: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/api/listing",
+    cloudflarePropertyEndpoint: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images?listingId=6968339ab7d735001ca015ba",
     cloudflareInquiryEndpoint: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/api/inquiry",
     bookingWorkerUrl: WORKER_URL,
     propertyId: "6968339ab7d735001ca015ba"
@@ -1411,12 +1411,13 @@
   window.CLOUDFLARE_INQUIRY_ENDPOINT = FH_CONFIG.cloudflareInquiryEndpoint;
   window.FH_BOOKING_WORKER_URL = WORKER_URL;
 
-  const FH_LANGUAGES = ["en","fr","de","ru"];
+  const FH_LANGUAGES = ["en","fr","de","ru","he"];
   const FH_LANG_LABELS = {
     en:"English",
     fr:"Français",
     de:"Deutsch",
-    ru:"Русский"
+    ru:"Русский",
+    he:"עברית"
   };
 
   const fallbackImages = [
@@ -1452,6 +1453,12 @@
       {eyebrow:"Дом с историей",title:"Прошлое придает шале глубину.",lead:"От первых горных постоялых дворов до знаменитой кулинарной главы — у этого места есть история, которую невозможно создать с нуля."},
       {eyebrow:"Новая частная концепция",title:"Одна группа, один дом, один ритм.",lead:"Комнаты, кухня, общие пространства, террасы, сауна и горное окружение складываются в одну частную альпийскую базу."},
       {eyebrow:"Кулинарная память",title:"История кухни, переосмысленная в частном формате.",lead:"Кулинарное прошлое Fletschhorn сегодня живет в гибкой концепции частной кухни для эксклюзивных групповых проживаний."}
+    ],
+    he: [
+      {eyebrow:"שאלה שווייצרי פרטי · סאס-פה",title:"יותר ממקום לישון בו.",lead:"Fletschhorn נושא יותר ממאה שנה של אירוח אלפיני, זיכרון קולינרי וחיי הרים — וכיום הוא מעוצב כבית פרטי שלם לשהייה בלעדית של קבוצות."},
+      {eyebrow:"בית עם היסטוריה",title:"העבר נותן לשאלה את העומק שלו.",lead:"מהפונדקים ההרריים הראשונים ועד לפרק קולינרי מפורסם, הנכס מחזיק סיפור שאי אפשר ליצור מאפס."},
+      {eyebrow:"קונספט פרטי חדש",title:"קבוצה אחת, בית אחד, קצב אחד.",lead:"החדרים, המטבח, החללים המשותפים, המרפסות, הסאונה והסביבה ההררית מתחברים לבסיס אלפיני פרטי אחד."},
+      {eyebrow:"זיכרון קולינרי",title:"סיפור אוכל, שנבנה מחדש באופן פרטי.",lead:"העבר הקולינרי של Fletschhorn ממשיך כיום דרך קונספט גמיש של מטבח פרטי לשהיות קבוצתיות בלעדיות."}
     ]
   };
 
@@ -1773,6 +1780,116 @@
     }
   };
 
+  I18N.en = Object.assign(I18N.en || {}, {
+    "heroContact.phoneLabel":"Call",
+    "heroContact.emailLabel":"Email",
+    "contact.phone.label":"Phone",
+    "contact.phone.value":"+41 27 957 2131",
+    "contact.email.label":"Email",
+    "contact.email.value":"welcome@fletschhorn.ch"
+  });
+  I18N.fr = Object.assign(I18N.fr || {}, {
+    "heroContact.phoneLabel":"Téléphone",
+    "heroContact.emailLabel":"Email",
+    "contact.phone.label":"Téléphone",
+    "contact.phone.value":"+41 27 957 2131",
+    "contact.email.label":"Email",
+    "contact.email.value":"welcome@fletschhorn.ch"
+  });
+  I18N.de = Object.assign(I18N.de || {}, {
+    "heroContact.phoneLabel":"Telefon",
+    "heroContact.emailLabel":"E-Mail",
+    "contact.phone.label":"Telefon",
+    "contact.phone.value":"+41 27 957 2131",
+    "contact.email.label":"E-Mail",
+    "contact.email.value":"welcome@fletschhorn.ch"
+  });
+  I18N.ru = Object.assign(I18N.ru || {}, {
+    "heroContact.phoneLabel":"Телефон",
+    "heroContact.emailLabel":"Email",
+    "contact.phone.label":"Телефон",
+    "contact.phone.value":"+41 27 957 2131",
+    "contact.email.label":"Email",
+    "contact.email.value":"welcome@fletschhorn.ch"
+  });
+  I18N.he = {
+    "hero.eyebrow":"על Fletschhorn · סאס-פה",
+    "hero.title":"בית הררי פרטי עם סיפור חי.",
+    "hero.scroll":"להתחיל עם ההיסטוריה",
+    "heroContact.phoneLabel":"טלפון",
+    "heroContact.emailLabel":"אימייל",
+    "heritage.kicker":"המורשת",
+    "heritage.title":"כתובת בסאס-פה עם יותר ממאה שנה מאחוריה.",
+    "heritage.lead":"העומק של Fletschhorn מגיע מחיי המקום: תחילת התיירות האלפינית, צמיחת סאס-פה, שאיפה קולינרית, תרבות יין ודורות של אורחים שנמשכו למיקום השקט מעל הכפר.",
+    "heritage.quote":"סיפור הררי שהתחיל עם המטיילים הראשונים לסאס-פה.",
+    "timeline.1906.title":"הסיפור מתחיל עם המטיילים הראשונים של סאס-פה.",
+    "timeline.1906.text":"משפחה בונה פונדקים הרריים בסאס-פה כדי לקבל את פני התיירים הראשונים שמגיעים לכפר. כאן מתחיל הסיפור של Fletschhorn.",
+    "timeline.1951.title":"סאס-פה נפתחת עוד יותר לעולם.",
+    "timeline.1951.text":"המכונית הראשונה מגיעה לסאס-פה, ומספר האורחים גדל כשהכפר מתפתח ליעד סקי בינלאומי.",
+    "timeline.1970.title":"משפחת Dütsch מפתחת את הנכס.",
+    "timeline.1970.text":"Fletschhorn הופך למקום עם מוניטין חזק של אירוח וקולינריה, ומתרחב לגודל ולנוכחות הנוכחיים שלו.",
+    "timeline.1980.title":"Markus Neff מעצב יעד הררי.",
+    "timeline.1980.text":"שף צעיר מצטרף למסעדה ועוזר להפוך את Fletschhorn לכתובת מיוחדת גבוה בהרים.",
+    "timeline.1994.title":"Irma Dütsch נכנסת להיסטוריה הקולינרית של שווייץ.",
+    "timeline.1994.text":"Irma Dütsch, בעלת הנכס והשפית שלו, הופכת לאישה השווייצרית הראשונה שקיבלה כוכב מישלן.",
+    "timeline.today.title":"הסיפור ממשיך דרך מפגשים פרטיים.",
+    "timeline.today.text":"הבית נושא כיום את ההיסטוריה שלו לצורה אינטימית יותר: קבוצה אחת בכל פעם, מוקפת יער, נופי הרים והשקט של סאס-פה.",
+    "house.kicker":"הבית כיום",
+    "house.title":"כתובת אלפינית אחת, כולה עבור הקבוצה שלכם.",
+    "house.lead":"Fletschhorn מיועד למי שרוצה פרטיות בלי לוותר על המרחב והנוחות של נכס גדול. החדרים, אזורי האירוח, המרפסות, הסאונה, המטבח והיער שמסביב יוצרים יחד סביבה אלפינית פרטית שלמה.",
+    "house.difference.kicker":"מה הופך אותו לשונה",
+    "house.difference.title":"החוויה מתחילה כשהקבוצה לוקחת את הבית לעצמה.",
+    "house.difference.text":"משפחות, ריטריטים, קבוצות סקי, סופי שבוע של חתונה ומפגשים פרטיים יכולים להתמקם בתחושה שיש להם בסיס הררי משלהם מעל סאס-פה. יש מקום להתכנס, מקום להתרחק, ומבנה שמרגיש מחושב מההגעה ועד העזיבה.",
+    "house.stat.sleeping":"מקומות לינה",
+    "house.stat.group":"קבוצה בכל פעם",
+    "house.stat.alpine":"סביבה אלפינית",
+    "house.caption.kicker":"שהייה שלמה",
+    "house.caption.text":"חללי שינה, חדרי התכנסות, מרפסות, מטבח, סאונה וגישה להרים — בנויים כדי לתמוך בקצב המלא של שהייה קבוצתית פרטית.",
+    "who.kicker":"למי זה מתאים",
+    "who.title":"פרטי, גמיש, ונוצר להתכנסות.",
+    "who.lead":"הבית מתאים לקבוצות שרוצות יותר ממקום לינה. הוא נותן להן מסגרת: מקום להגיע יחד, לאכול יחד, לנוח, לחגוג, לעבוד, לגלוש, לטייל ולחזור לאותו עולם אלפיני פרטי.",
+    "who.families.title":"משפחות",
+    "who.families.text":"בית אלפיני פרטי למפגשים משפחתיים, חופשות, שבועות סקי ושהיות רב-דוריות.",
+    "who.retreats.title":"ריטריטים",
+    "who.retreats.text":"מרחב לצוותים, קבוצות יצירה, סדנאות, פורמטים של וולנס וזמן ממוקד הרחק מהשגרה.",
+    "who.weddings.title":"חתונות",
+    "who.weddings.text":"סוף שבוע בבית הררי שנבנה סביב האנשים שנשארים, חוגגים ומתכנסים יחד.",
+    "who.events.title":"אירועים",
+    "who.events.text":"חגיגות פרטיות ומפגשים המעוצבים לפי העונה, גודל הקבוצה ותוכנית האוכל.",
+    "kitchen.kicker":"קונספט המטבח הפרטי",
+    "kitchen.title":"מטבח מקצועי, זמין לשימוש בדרך שלכם.",
+    "kitchen.lead":"בלב Fletschhorn נמצא מטבח מקצועי לקבוצות שרוצות חופש סביב האוכל. השתמשו בו בעצמכם, הביאו את הצוות שלכם, או בקשו מאיתנו לעזור לארגן שף פרטי או קייטרינג לאירוע.",
+    "kitchen.panel.kicker":"אוכל, בדרך שלכם",
+    "kitchen.panel.title":"המטבח שלכם לשהייה — עם תמיכה זמינה לפי בקשה.",
+    "kitchen.panel.p1":"השאלה מספק את המרחב ואת המטבח המקצועי. הקבוצה שלכם יכולה לבשל בעצמה, להביא שף משלה, או לבקש עזרה בארגון שף או ספק קייטרינג זמין.",
+    "kitchen.panel.p2":"שירותי שף וקייטרינג הם אופציונליים ומתומחרים בנפרד. כך החוויה נשארת גמישה: בישול עצמי פשוט לחלק מהקבוצות, שף פרטי לאחרות, קייטרינג לאירועים או שילוב לפי לוח הזמנים.",
+    "kitchen.panel.p3":"חוויית האוכל שייכת לקבוצה שלכם, לתקציב שלכם, לאירוע שלכם ולאווירה שאתם רוצים ליצור.",
+    "kitchen.card.kicker":"תכנון אוכל גמיש",
+    "kitchen.card.text":"בישול עצמי הוא חלק מהשהייה. ניתן לארגן שפים וספקי קייטרינג לפי בקשה בתשלום נוסף.",
+    "kitchen.option1.title":"להשתמש בו בעצמכם",
+    "kitchen.option1.text":"המטבח זמין לקבוצות שרוצות לבשל בעצמן ולשמור על ארוחות פשוטות, גמישות ופרטיות.",
+    "kitchen.option2.title":"להביא שף משלכם",
+    "kitchen.option2.text":"הקבוצה שלכם יכולה להביא שף או צוות אוכל משלה, בהתאם לפורמט השהייה.",
+    "kitchen.option3.title":"לבקש מאיתנו לארגן מישהו",
+    "kitchen.option3.text":"אנחנו יכולים לעזור לחבר אתכם לשפים או ספקי קייטרינג זמינים לאירועים, ריטריטים וארוחות קבוצתיות.",
+    "kitchen.option4.title":"תשלום נוסף",
+    "kitchen.option4.text":"שירותי שף וקייטרינג הם תוספות אופציונליות ומתומחרים בנפרד מהשכרת השאלה.",
+    "inquiry.kicker":"התחילו את השהייה הקבוצתית שלכם",
+    "inquiry.title":"ספרו לנו איזה סוג שהייה תרצו לבנות.",
+    "inquiry.text":"שתפו את התאריכים, מספר האורחים וסוג השהייה שאתם מתכננים. הצוות יכול לעזור להבין את הסידור הטוב ביותר לבית, כולל חלוקת חדרים, שימוש במטבח, סאונה, הגעה ואפשרויות הזמנה ישירה.",
+    "inquiry.cta":"שליחת פנייה",
+    "contact.property.label":"נכס",
+    "contact.property.value":"Fletschhorn שאלה שווייצרי פרטי",
+    "contact.location.label":"מיקום",
+    "contact.location.value":"סאס-פה, שווייץ",
+    "contact.direct.label":"הערה ישירה",
+    "contact.direct.value":"המחירים הטובים ביותר מובטחים בהזמנה ישירה",
+    "contact.phone.label":"טלפון",
+    "contact.phone.value":"+41 27 957 2131",
+    "contact.email.label":"אימייל",
+    "contact.email.value":"welcome@fletschhorn.ch"
+  };
+
   let activeLang = "en";
   let heroCopy = heroCopyByLang.en;
   let slides = [];
@@ -1807,6 +1924,8 @@
       root.dataset.lang = lang;
       root.dataset.languageLabel = FH_LANG_LABELS[lang] || FH_LANG_LABELS.en;
       document.documentElement.setAttribute("lang", lang);
+      document.documentElement.setAttribute("dir", lang === "he" ? "rtl" : "ltr");
+      root.setAttribute("dir", lang === "he" ? "rtl" : "ltr");
     }
 
     function applyHeroCopy(index){
@@ -1869,6 +1988,7 @@
     window.setFletschhornLanguage = setFletschhornLanguage;
     window.FHSetLanguage = setFletschhornLanguage;
     window.FLETCHHORN_LANGUAGES = FH_LANGUAGES;
+    window.FH_LANGUAGES = FH_LANGUAGES;
 
     document.addEventListener("fletschhorn:language", event => {
       setFletschhornLanguage(event.detail?.lang || event.detail?.language);
@@ -2004,18 +2124,18 @@
   document.body.classList.add("fh-github-version");
 
   const ASSET_BASE = new URL("assets/", document.baseURI).href;
-  const FH_LANGUAGES = ["en","fr","de","ru"];
+  const FH_LANGUAGES = ["en","fr","de","ru","he"];
 
   const CFG = {
     bookingPageUrl: "booking.html",
     listingId: "6968339ab7d735001ca015ba",
-    workerBase: "https://guetsyapi.moshe-cohen-h1.workers.dev",
+    workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
     minNights: 2,
     currency: "CHF"
   };
 
   const ENDPOINTS = {
-    calendarMonthPrices: "/guesty/calendar-month-prices"
+    calendarMonthPrices: "/calendar"
   };
 
   const root = document.getElementById("fh-about") || document;
@@ -2138,6 +2258,34 @@
     }
   };
 
+  T.he = {
+    fieldFirstName:"שם פרטי",
+    fieldFirstNamePh:"שם פרטי",
+    fieldLastName:"שם משפחה",
+    fieldLastNamePh:"שם משפחה",
+    fieldEmail:"אימייל",
+    fieldEmailPh:"email@example.com",
+    fieldDates:"תאריכים",
+    fieldDatesPh:"בחרו תאריך הגעה ועזיבה",
+    openCalendar:"פתחו לוח שנה",
+    calendarKicker:"בחירת תאריכים",
+    calendarHelp:"בחרו את תאריך ההגעה ולאחר מכן את תאריך העזיבה.",
+    calendarMinWarning:"בחרו לפחות 2 לילות.",
+    selectDeparture:"בחרו עזיבה",
+    alreadyBooked:"תפוס",
+    calendarRangeUnavailable:"לילה אחד או יותר בטווח שנבחר אינו זמין. בחרו טווח אחר.",
+    minNights:"בחרו לפחות 2 לילות.",
+    bookNow:"הזמינו את השהייה",
+    bookingNote:"התחילו כאן. הפרטים שלכם יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הפנייה הסופית.",
+    missingFirstName:"נא להזין שם פרטי.",
+    missingLastName:"נא להזין שם משפחה.",
+    missingEmail:"נא להזין אימייל.",
+    invalidEmail:"נא להזין כתובת אימייל תקינה.",
+    missingDates:"נא לבחור תאריכי הגעה ועזיבה.",
+    badDates:"תאריך העזיבה חייב להיות אחרי תאריך ההגעה.",
+    redirecting:"פותחים את ההזמנה…"
+  };
+
   function $(selector){ return root.querySelector(selector); }
   function $$(selector){ return Array.from(root.querySelectorAll(selector)); }
 
@@ -2214,6 +2362,8 @@
     const next = normalizeLang(lang);
     state.lang = next;
     document.documentElement.setAttribute("lang", next);
+    document.documentElement.setAttribute("dir", next === "he" ? "rtl" : "ltr");
+    if (root && root.setAttribute) root.setAttribute("dir", next === "he" ? "rtl" : "ltr");
     try { localStorage.setItem("fh_lang", next); } catch(error) {}
 
     if (typeof previousSetFletschhornLanguage === "function") previousSetFletschhornLanguage(next);
@@ -2319,7 +2469,7 @@
       checkIn: $("#fhArrival") ? $("#fhArrival").value : "",
       checkOut: $("#fhDeparture") ? $("#fhDeparture").value : "",
       language: state.lang,
-      source: "homepage",
+      source: "about-us",
       pageSource: "fletschhorn-about-toolbar-schedule",
       pageUrl: window.location.href,
       createdAt: new Date().toISOString()
@@ -2960,8 +3110,8 @@
       checkIn:dateVal('#fh-exp-checkin'),
       checkOut:dateVal('#fh-exp-checkout'),
       listingId:'6968339ab7d735001ca015ba',
-      workerBase:'https://guetsyapi.moshe-cohen-h1.workers.dev',
-      source:source||'experiences',
+      workerBase:'https://fletschhorn-guesty-api.bookings-e2d.workers.dev',
+      source:source||'about-us',
       lang:lang,
       createdAt:new Date().toISOString()
     };
@@ -2976,7 +3126,7 @@
     const href=(a.getAttribute('href')||'').toLowerCase().trim();
     if(href==='booking.html'||href.startsWith('booking.html?')||href==='#book'||href==='#booking'||href.includes('contact-booking')){
       e.preventDefault();
-      persistAndGo('experiences');
+      persistAndGo('about-us');
     }
   },true);
 
@@ -4307,9 +4457,9 @@
         </div>
 
         <div class="image-stage preScale" style="--d:.12s">
-          <img class="main" src="https://ik.imagekit.io/Redberry/Kitchen%20(3).png" alt="Private kitchen at Fletschhorn" />
-          <img class="float-one preSlide" style="--d:.20s" src="https://ik.imagekit.io/Redberry/Kitchen%20(1).png" alt="Kitchen detail at Fletschhorn" />
-          <img class="float-two preSlide" style="--d:.28s" src="https://ik.imagekit.io/Redberry/Kitchen%20(5).png" alt="Kitchen preparation area at Fletschhorn" />
+          <img class="main" data-guesty-img="12" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23efe7dc'/%3E%3Cstop offset='.45' stop-color='%23fffaf3'/%3E%3Cstop offset='1' stop-color='%23cdbda9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Cpath d='M0 690 C270 595 430 650 650 585 C880 518 1040 560 1260 492 C1420 442 1510 440 1600 455 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.22'/%3E%3Cpath d='M0 760 C260 690 500 712 760 640 C1040 563 1300 600 1600 535 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.30'/%3E%3Ctext x='80' y='120' font-family='Georgia,serif' font-size='54' fill='%231a1714' fill-opacity='.28'%3EFletschhorn%3C/text%3E%3C/svg%3E" alt="Private kitchen at Fletschhorn" />
+          <img class="float-one preSlide" style="--d:.20s" data-guesty-img="22" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23efe7dc'/%3E%3Cstop offset='.45' stop-color='%23fffaf3'/%3E%3Cstop offset='1' stop-color='%23cdbda9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Cpath d='M0 690 C270 595 430 650 650 585 C880 518 1040 560 1260 492 C1420 442 1510 440 1600 455 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.22'/%3E%3Cpath d='M0 760 C260 690 500 712 760 640 C1040 563 1300 600 1600 535 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.30'/%3E%3Ctext x='80' y='120' font-family='Georgia,serif' font-size='54' fill='%231a1714' fill-opacity='.28'%3EFletschhorn%3C/text%3E%3C/svg%3E" alt="Kitchen detail at Fletschhorn" />
+          <img class="float-two preSlide" style="--d:.28s" data-guesty-img="32" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23efe7dc'/%3E%3Cstop offset='.45' stop-color='%23fffaf3'/%3E%3Cstop offset='1' stop-color='%23cdbda9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Cpath d='M0 690 C270 595 430 650 650 585 C880 518 1040 560 1260 492 C1420 442 1510 440 1600 455 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.22'/%3E%3Cpath d='M0 760 C260 690 500 712 760 640 C1040 563 1300 600 1600 535 L1600 1000 L0 1000 Z' fill='%23876e58' fill-opacity='.30'/%3E%3Ctext x='80' y='120' font-family='Georgia,serif' font-size='54' fill='%231a1714' fill-opacity='.28'%3EFletschhorn%3C/text%3E%3C/svg%3E" alt="Kitchen preparation area at Fletschhorn" />
           <div class="mini-card preFade" style="--d:.36s">
             <p class="kicker" data-i18n="kitchen.card.kicker">Flexible food planning</p>
             <p data-i18n="kitchen.card.text">Self-catering is part of the stay. Chefs and caterers can be arranged on request for an additional fee.</p>
@@ -4378,11 +4528,11 @@
 
 <script>
 (function(){
-  const WORKER_URL = "https://saas-fee.moshe-cohen-h1.workers.dev";
+  const WORKER_URL = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
 
   const FH_CONFIG = {
     workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
-    cloudflarePropertyEndpoint: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/api/listing",
+    cloudflarePropertyEndpoint: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images?listingId=6968339ab7d735001ca015ba",
     cloudflareInquiryEndpoint: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/api/inquiry",
     bookingWorkerUrl: WORKER_URL,
     propertyId: "6968339ab7d735001ca015ba"
@@ -4394,12 +4544,13 @@
   window.CLOUDFLARE_INQUIRY_ENDPOINT = FH_CONFIG.cloudflareInquiryEndpoint;
   window.FH_BOOKING_WORKER_URL = WORKER_URL;
 
-  const FH_LANGUAGES = ["en","fr","de","ru"];
+  const FH_LANGUAGES = ["en","fr","de","ru","he"];
   const FH_LANG_LABELS = {
     en:"English",
     fr:"Français",
     de:"Deutsch",
-    ru:"Русский"
+    ru:"Русский",
+    he:"עברית"
   };
 
   const fallbackImages = [
@@ -4435,6 +4586,12 @@
       {eyebrow:"Дом с историей",title:"Прошлое придает шале глубину.",lead:"От первых горных постоялых дворов до знаменитой кулинарной главы — у этого места есть история, которую невозможно создать с нуля."},
       {eyebrow:"Новая частная концепция",title:"Одна группа, один дом, один ритм.",lead:"Комнаты, кухня, общие пространства, террасы, сауна и горное окружение складываются в одну частную альпийскую базу."},
       {eyebrow:"Кулинарная память",title:"История кухни, переосмысленная в частном формате.",lead:"Кулинарное прошлое Fletschhorn сегодня живет в гибкой концепции частной кухни для эксклюзивных групповых проживаний."}
+    ],
+    he: [
+      {eyebrow:"שאלה שווייצרי פרטי · סאס-פה",title:"יותר ממקום לישון בו.",lead:"Fletschhorn נושא יותר ממאה שנה של אירוח אלפיני, זיכרון קולינרי וחיי הרים — וכיום הוא מעוצב כבית פרטי שלם לשהייה בלעדית של קבוצות."},
+      {eyebrow:"בית עם היסטוריה",title:"העבר נותן לשאלה את העומק שלו.",lead:"מהפונדקים ההרריים הראשונים ועד לפרק קולינרי מפורסם, הנכס מחזיק סיפור שאי אפשר ליצור מאפס."},
+      {eyebrow:"קונספט פרטי חדש",title:"קבוצה אחת, בית אחד, קצב אחד.",lead:"החדרים, המטבח, החללים המשותפים, המרפסות, הסאונה והסביבה ההררית מתחברים לבסיס אלפיני פרטי אחד."},
+      {eyebrow:"זיכרון קולינרי",title:"סיפור אוכל, שנבנה מחדש באופן פרטי.",lead:"העבר הקולינרי של Fletschhorn ממשיך כיום דרך קונספט גמיש של מטבח פרטי לשהיות קבוצתיות בלעדיות."}
     ]
   };
 
@@ -4756,6 +4913,116 @@
     }
   };
 
+  I18N.en = Object.assign(I18N.en || {}, {
+    "heroContact.phoneLabel":"Call",
+    "heroContact.emailLabel":"Email",
+    "contact.phone.label":"Phone",
+    "contact.phone.value":"+41 27 957 2131",
+    "contact.email.label":"Email",
+    "contact.email.value":"welcome@fletschhorn.ch"
+  });
+  I18N.fr = Object.assign(I18N.fr || {}, {
+    "heroContact.phoneLabel":"Téléphone",
+    "heroContact.emailLabel":"Email",
+    "contact.phone.label":"Téléphone",
+    "contact.phone.value":"+41 27 957 2131",
+    "contact.email.label":"Email",
+    "contact.email.value":"welcome@fletschhorn.ch"
+  });
+  I18N.de = Object.assign(I18N.de || {}, {
+    "heroContact.phoneLabel":"Telefon",
+    "heroContact.emailLabel":"E-Mail",
+    "contact.phone.label":"Telefon",
+    "contact.phone.value":"+41 27 957 2131",
+    "contact.email.label":"E-Mail",
+    "contact.email.value":"welcome@fletschhorn.ch"
+  });
+  I18N.ru = Object.assign(I18N.ru || {}, {
+    "heroContact.phoneLabel":"Телефон",
+    "heroContact.emailLabel":"Email",
+    "contact.phone.label":"Телефон",
+    "contact.phone.value":"+41 27 957 2131",
+    "contact.email.label":"Email",
+    "contact.email.value":"welcome@fletschhorn.ch"
+  });
+  I18N.he = {
+    "hero.eyebrow":"על Fletschhorn · סאס-פה",
+    "hero.title":"בית הררי פרטי עם סיפור חי.",
+    "hero.scroll":"להתחיל עם ההיסטוריה",
+    "heroContact.phoneLabel":"טלפון",
+    "heroContact.emailLabel":"אימייל",
+    "heritage.kicker":"המורשת",
+    "heritage.title":"כתובת בסאס-פה עם יותר ממאה שנה מאחוריה.",
+    "heritage.lead":"העומק של Fletschhorn מגיע מחיי המקום: תחילת התיירות האלפינית, צמיחת סאס-פה, שאיפה קולינרית, תרבות יין ודורות של אורחים שנמשכו למיקום השקט מעל הכפר.",
+    "heritage.quote":"סיפור הררי שהתחיל עם המטיילים הראשונים לסאס-פה.",
+    "timeline.1906.title":"הסיפור מתחיל עם המטיילים הראשונים של סאס-פה.",
+    "timeline.1906.text":"משפחה בונה פונדקים הרריים בסאס-פה כדי לקבל את פני התיירים הראשונים שמגיעים לכפר. כאן מתחיל הסיפור של Fletschhorn.",
+    "timeline.1951.title":"סאס-פה נפתחת עוד יותר לעולם.",
+    "timeline.1951.text":"המכונית הראשונה מגיעה לסאס-פה, ומספר האורחים גדל כשהכפר מתפתח ליעד סקי בינלאומי.",
+    "timeline.1970.title":"משפחת Dütsch מפתחת את הנכס.",
+    "timeline.1970.text":"Fletschhorn הופך למקום עם מוניטין חזק של אירוח וקולינריה, ומתרחב לגודל ולנוכחות הנוכחיים שלו.",
+    "timeline.1980.title":"Markus Neff מעצב יעד הררי.",
+    "timeline.1980.text":"שף צעיר מצטרף למסעדה ועוזר להפוך את Fletschhorn לכתובת מיוחדת גבוה בהרים.",
+    "timeline.1994.title":"Irma Dütsch נכנסת להיסטוריה הקולינרית של שווייץ.",
+    "timeline.1994.text":"Irma Dütsch, בעלת הנכס והשפית שלו, הופכת לאישה השווייצרית הראשונה שקיבלה כוכב מישלן.",
+    "timeline.today.title":"הסיפור ממשיך דרך מפגשים פרטיים.",
+    "timeline.today.text":"הבית נושא כיום את ההיסטוריה שלו לצורה אינטימית יותר: קבוצה אחת בכל פעם, מוקפת יער, נופי הרים והשקט של סאס-פה.",
+    "house.kicker":"הבית כיום",
+    "house.title":"כתובת אלפינית אחת, כולה עבור הקבוצה שלכם.",
+    "house.lead":"Fletschhorn מיועד למי שרוצה פרטיות בלי לוותר על המרחב והנוחות של נכס גדול. החדרים, אזורי האירוח, המרפסות, הסאונה, המטבח והיער שמסביב יוצרים יחד סביבה אלפינית פרטית שלמה.",
+    "house.difference.kicker":"מה הופך אותו לשונה",
+    "house.difference.title":"החוויה מתחילה כשהקבוצה לוקחת את הבית לעצמה.",
+    "house.difference.text":"משפחות, ריטריטים, קבוצות סקי, סופי שבוע של חתונה ומפגשים פרטיים יכולים להתמקם בתחושה שיש להם בסיס הררי משלהם מעל סאס-פה. יש מקום להתכנס, מקום להתרחק, ומבנה שמרגיש מחושב מההגעה ועד העזיבה.",
+    "house.stat.sleeping":"מקומות לינה",
+    "house.stat.group":"קבוצה בכל פעם",
+    "house.stat.alpine":"סביבה אלפינית",
+    "house.caption.kicker":"שהייה שלמה",
+    "house.caption.text":"חללי שינה, חדרי התכנסות, מרפסות, מטבח, סאונה וגישה להרים — בנויים כדי לתמוך בקצב המלא של שהייה קבוצתית פרטית.",
+    "who.kicker":"למי זה מתאים",
+    "who.title":"פרטי, גמיש, ונוצר להתכנסות.",
+    "who.lead":"הבית מתאים לקבוצות שרוצות יותר ממקום לינה. הוא נותן להן מסגרת: מקום להגיע יחד, לאכול יחד, לנוח, לחגוג, לעבוד, לגלוש, לטייל ולחזור לאותו עולם אלפיני פרטי.",
+    "who.families.title":"משפחות",
+    "who.families.text":"בית אלפיני פרטי למפגשים משפחתיים, חופשות, שבועות סקי ושהיות רב-דוריות.",
+    "who.retreats.title":"ריטריטים",
+    "who.retreats.text":"מרחב לצוותים, קבוצות יצירה, סדנאות, פורמטים של וולנס וזמן ממוקד הרחק מהשגרה.",
+    "who.weddings.title":"חתונות",
+    "who.weddings.text":"סוף שבוע בבית הררי שנבנה סביב האנשים שנשארים, חוגגים ומתכנסים יחד.",
+    "who.events.title":"אירועים",
+    "who.events.text":"חגיגות פרטיות ומפגשים המעוצבים לפי העונה, גודל הקבוצה ותוכנית האוכל.",
+    "kitchen.kicker":"קונספט המטבח הפרטי",
+    "kitchen.title":"מטבח מקצועי, זמין לשימוש בדרך שלכם.",
+    "kitchen.lead":"בלב Fletschhorn נמצא מטבח מקצועי לקבוצות שרוצות חופש סביב האוכל. השתמשו בו בעצמכם, הביאו את הצוות שלכם, או בקשו מאיתנו לעזור לארגן שף פרטי או קייטרינג לאירוע.",
+    "kitchen.panel.kicker":"אוכל, בדרך שלכם",
+    "kitchen.panel.title":"המטבח שלכם לשהייה — עם תמיכה זמינה לפי בקשה.",
+    "kitchen.panel.p1":"השאלה מספק את המרחב ואת המטבח המקצועי. הקבוצה שלכם יכולה לבשל בעצמה, להביא שף משלה, או לבקש עזרה בארגון שף או ספק קייטרינג זמין.",
+    "kitchen.panel.p2":"שירותי שף וקייטרינג הם אופציונליים ומתומחרים בנפרד. כך החוויה נשארת גמישה: בישול עצמי פשוט לחלק מהקבוצות, שף פרטי לאחרות, קייטרינג לאירועים או שילוב לפי לוח הזמנים.",
+    "kitchen.panel.p3":"חוויית האוכל שייכת לקבוצה שלכם, לתקציב שלכם, לאירוע שלכם ולאווירה שאתם רוצים ליצור.",
+    "kitchen.card.kicker":"תכנון אוכל גמיש",
+    "kitchen.card.text":"בישול עצמי הוא חלק מהשהייה. ניתן לארגן שפים וספקי קייטרינג לפי בקשה בתשלום נוסף.",
+    "kitchen.option1.title":"להשתמש בו בעצמכם",
+    "kitchen.option1.text":"המטבח זמין לקבוצות שרוצות לבשל בעצמן ולשמור על ארוחות פשוטות, גמישות ופרטיות.",
+    "kitchen.option2.title":"להביא שף משלכם",
+    "kitchen.option2.text":"הקבוצה שלכם יכולה להביא שף או צוות אוכל משלה, בהתאם לפורמט השהייה.",
+    "kitchen.option3.title":"לבקש מאיתנו לארגן מישהו",
+    "kitchen.option3.text":"אנחנו יכולים לעזור לחבר אתכם לשפים או ספקי קייטרינג זמינים לאירועים, ריטריטים וארוחות קבוצתיות.",
+    "kitchen.option4.title":"תשלום נוסף",
+    "kitchen.option4.text":"שירותי שף וקייטרינג הם תוספות אופציונליות ומתומחרים בנפרד מהשכרת השאלה.",
+    "inquiry.kicker":"התחילו את השהייה הקבוצתית שלכם",
+    "inquiry.title":"ספרו לנו איזה סוג שהייה תרצו לבנות.",
+    "inquiry.text":"שתפו את התאריכים, מספר האורחים וסוג השהייה שאתם מתכננים. הצוות יכול לעזור להבין את הסידור הטוב ביותר לבית, כולל חלוקת חדרים, שימוש במטבח, סאונה, הגעה ואפשרויות הזמנה ישירה.",
+    "inquiry.cta":"שליחת פנייה",
+    "contact.property.label":"נכס",
+    "contact.property.value":"Fletschhorn שאלה שווייצרי פרטי",
+    "contact.location.label":"מיקום",
+    "contact.location.value":"סאס-פה, שווייץ",
+    "contact.direct.label":"הערה ישירה",
+    "contact.direct.value":"המחירים הטובים ביותר מובטחים בהזמנה ישירה",
+    "contact.phone.label":"טלפון",
+    "contact.phone.value":"+41 27 957 2131",
+    "contact.email.label":"אימייל",
+    "contact.email.value":"welcome@fletschhorn.ch"
+  };
+
   let activeLang = "en";
   let heroCopy = heroCopyByLang.en;
   let slides = [];
@@ -4790,6 +5057,8 @@
       root.dataset.lang = lang;
       root.dataset.languageLabel = FH_LANG_LABELS[lang] || FH_LANG_LABELS.en;
       document.documentElement.setAttribute("lang", lang);
+      document.documentElement.setAttribute("dir", lang === "he" ? "rtl" : "ltr");
+      root.setAttribute("dir", lang === "he" ? "rtl" : "ltr");
     }
 
     function applyHeroCopy(index){
@@ -4852,6 +5121,7 @@
     window.setFletschhornLanguage = setFletschhornLanguage;
     window.FHSetLanguage = setFletschhornLanguage;
     window.FLETCHHORN_LANGUAGES = FH_LANGUAGES;
+    window.FH_LANGUAGES = FH_LANGUAGES;
 
     document.addEventListener("fletschhorn:language", event => {
       setFletschhornLanguage(event.detail?.lang || event.detail?.language);
@@ -4987,18 +5257,18 @@
   document.body.classList.add("fh-github-version");
 
   const ASSET_BASE = new URL("assets/", document.baseURI).href;
-  const FH_LANGUAGES = ["en","fr","de","ru"];
+  const FH_LANGUAGES = ["en","fr","de","ru","he"];
 
   const CFG = {
     bookingPageUrl: "booking.html",
     listingId: "6968339ab7d735001ca015ba",
-    workerBase: "https://guetsyapi.moshe-cohen-h1.workers.dev",
+    workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
     minNights: 2,
     currency: "CHF"
   };
 
   const ENDPOINTS = {
-    calendarMonthPrices: "/guesty/calendar-month-prices"
+    calendarMonthPrices: "/calendar"
   };
 
   const root = document.getElementById("fh-about") || document;
@@ -5121,6 +5391,34 @@
     }
   };
 
+  T.he = {
+    fieldFirstName:"שם פרטי",
+    fieldFirstNamePh:"שם פרטי",
+    fieldLastName:"שם משפחה",
+    fieldLastNamePh:"שם משפחה",
+    fieldEmail:"אימייל",
+    fieldEmailPh:"email@example.com",
+    fieldDates:"תאריכים",
+    fieldDatesPh:"בחרו תאריך הגעה ועזיבה",
+    openCalendar:"פתחו לוח שנה",
+    calendarKicker:"בחירת תאריכים",
+    calendarHelp:"בחרו את תאריך ההגעה ולאחר מכן את תאריך העזיבה.",
+    calendarMinWarning:"בחרו לפחות 2 לילות.",
+    selectDeparture:"בחרו עזיבה",
+    alreadyBooked:"תפוס",
+    calendarRangeUnavailable:"לילה אחד או יותר בטווח שנבחר אינו זמין. בחרו טווח אחר.",
+    minNights:"בחרו לפחות 2 לילות.",
+    bookNow:"הזמינו את השהייה",
+    bookingNote:"התחילו כאן. הפרטים שלכם יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הפנייה הסופית.",
+    missingFirstName:"נא להזין שם פרטי.",
+    missingLastName:"נא להזין שם משפחה.",
+    missingEmail:"נא להזין אימייל.",
+    invalidEmail:"נא להזין כתובת אימייל תקינה.",
+    missingDates:"נא לבחור תאריכי הגעה ועזיבה.",
+    badDates:"תאריך העזיבה חייב להיות אחרי תאריך ההגעה.",
+    redirecting:"פותחים את ההזמנה…"
+  };
+
   function $(selector){ return root.querySelector(selector); }
   function $$(selector){ return Array.from(root.querySelectorAll(selector)); }
 
@@ -5197,6 +5495,8 @@
     const next = normalizeLang(lang);
     state.lang = next;
     document.documentElement.setAttribute("lang", next);
+    document.documentElement.setAttribute("dir", next === "he" ? "rtl" : "ltr");
+    if (root && root.setAttribute) root.setAttribute("dir", next === "he" ? "rtl" : "ltr");
     try { localStorage.setItem("fh_lang", next); } catch(error) {}
 
     if (typeof previousSetFletschhornLanguage === "function") previousSetFletschhornLanguage(next);
@@ -5302,7 +5602,7 @@
       checkIn: $("#fhArrival") ? $("#fhArrival").value : "",
       checkOut: $("#fhDeparture") ? $("#fhDeparture").value : "",
       language: state.lang,
-      source: "homepage",
+      source: "about-us",
       pageSource: "fletschhorn-about-toolbar-schedule",
       pageUrl: window.location.href,
       createdAt: new Date().toISOString()
@@ -6140,3 +6440,323 @@
   });
 })();
 </script>
+
+<!-- FH ABOUT-US WORKER FLOW + HIDDEN LANGUAGE TOOLBAR + HERO CONTACT PATCH -->
+<style id="fh-about-worker-contact-hidden-language-patch">
+  #fh-about .fh-lang-switch,
+  #fh-about .language-toolbar,
+  #fh-about .fh-language-toolbar,
+  #fh-about [data-page-language-toolbar],
+  #fh-about [data-fh-page-language-toolbar]{
+    display:none!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    opacity:0!important;
+  }
+
+  #fh-about .hero-contact-strip{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:8px;
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,250,243,.22);
+  }
+
+  #fh-about .hero-contact-link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    padding:11px 12px;
+    border:1px solid rgba(255,250,243,.22);
+    background:rgba(255,250,243,.075);
+    color:#fffaf3;
+    -webkit-backdrop-filter:blur(10px);
+    backdrop-filter:blur(10px);
+    transition:background .18s,border-color .18s,transform .18s;
+  }
+
+  #fh-about .hero-contact-link:hover{
+    background:rgba(255,250,243,.13);
+    border-color:rgba(255,250,243,.38);
+    transform:translateY(-1px);
+  }
+
+  #fh-about .hero-contact-link span{
+    font-size:9px;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-weight:850;
+    color:rgba(255,250,243,.62);
+    white-space:nowrap;
+  }
+
+  #fh-about .hero-contact-link strong{
+    font-size:13px;
+    font-weight:650;
+    color:#fffaf3;
+    overflow-wrap:anywhere;
+    text-align:right;
+  }
+
+  #fh-about .fh-day-price{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    min-height:10px!important;
+    margin-top:5px!important;
+    font-size:9px!important;
+    line-height:1.05!important;
+    font-weight:850!important;
+    color:rgba(26,23,20,.68)!important;
+    white-space:nowrap!important;
+  }
+
+  #fh-about .fh-day.start .fh-day-price,
+  #fh-about .fh-day.end .fh-day-price{
+    color:rgba(255,250,243,.86)!important;
+  }
+
+  #fh-about img[data-worker-image-applied="true"],
+  #fh-about img[data-guesty-img]{
+    display:block!important;
+    opacity:1!important;
+    visibility:visible!important;
+  }
+
+  #fh-about[dir="rtl"]{direction:rtl}
+  #fh-about[dir="rtl"] .hero-inner,
+  #fh-about[dir="rtl"] .hero-title-system,
+  #fh-about[dir="rtl"] .hero-dynamic-card,
+  #fh-about[dir="rtl"] .fh-booking-toolbar,
+  #fh-about[dir="rtl"] .fh-calendar-card,
+  #fh-about[dir="rtl"] .panel,
+  #fh-about[dir="rtl"] .contact-line{text-align:right}
+
+  #fh-about[dir="rtl"] .hero-dynamic-card{
+    border-left:0;
+    border-right:1px solid rgba(255,250,243,.34);
+    padding-left:0;
+    padding-right:24px;
+  }
+
+  #fh-about[dir="rtl"] .hero-dynamic-card::before{left:auto;right:-1px}
+
+  #fh-about[dir="rtl"] input[type="email"],
+  #fh-about[dir="rtl"] input[type="tel"],
+  #fh-about[dir="rtl"] .fh-date-button span,
+  #fh-about[dir="rtl"] .fh-day-price,
+  #fh-about[dir="rtl"] .hero-contact-link strong,
+  #fh-about[dir="rtl"] .contact-line strong{
+    direction:ltr;
+    text-align:left;
+    unicode-bidi:plaintext;
+  }
+
+  @media(max-width:980px){
+    #fh-about[dir="rtl"] .hero-dynamic-card{
+      border-right:0;
+      padding-right:20px;
+      padding-left:20px;
+      text-align:center;
+    }
+  }
+
+  @media(max-width:640px){
+    #fh-about .hero-contact-strip{margin-top:14px;padding-top:12px}
+    #fh-about .hero-contact-link{padding:10px 11px}
+    #fh-about .hero-contact-link span{font-size:8px}
+    #fh-about .hero-contact-link strong{font-size:12.5px}
+  }
+</style>
+
+<script id="fh-about-worker-contact-hidden-language-patch-js">
+(function(){
+  "use strict";
+
+  var WORKER = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  var LISTING_ID = "6968339ab7d735001ca015ba";
+  var CONTACT = {
+    phone: "+41 27 957 2131",
+    phoneHref: "tel:+41279572131",
+    email: "welcome@fletschhorn.ch",
+    emailHref: "mailto:welcome@fletschhorn.ch"
+  };
+
+  var CONTACT_LABELS = {
+    en: { phone:"Call", email:"Email" },
+    fr: { phone:"Téléphone", email:"Email" },
+    de: { phone:"Telefon", email:"E-Mail" },
+    ru: { phone:"Телефон", email:"Email" },
+    he: { phone:"טלפון", email:"אימייל" }
+  };
+
+  function root(){ return document.getElementById("fh-about"); }
+
+  function lang(){
+    var raw = "en";
+    try { raw = localStorage.getItem("fh_lang") || localStorage.getItem("fh_language") || localStorage.getItem("fhLang") || document.documentElement.lang || "en"; }
+    catch(e) { raw = document.documentElement.lang || "en"; }
+    raw = String(raw || "en").toLowerCase().slice(0,2);
+    return ["en","fr","de","ru","he"].indexOf(raw) >= 0 ? raw : "en";
+  }
+
+  function setDirection(){
+    var r = root();
+    var l = lang();
+    if(!r) return;
+    r.setAttribute("dir", l === "he" ? "rtl" : "ltr");
+    document.documentElement.setAttribute("lang", l);
+    document.documentElement.setAttribute("dir", l === "he" ? "rtl" : "ltr");
+  }
+
+  function applyContactLabels(){
+    var r = root();
+    if(!r) return;
+    var labels = CONTACT_LABELS[lang()] || CONTACT_LABELS.en;
+    r.querySelectorAll('[data-contact-label="phone"]').forEach(function(el){ el.textContent = labels.phone; });
+    r.querySelectorAll('[data-contact-label="email"]').forEach(function(el){ el.textContent = labels.email; });
+    setDirection();
+  }
+
+  function injectContacts(){
+    var r = root();
+    if(!r) return false;
+
+    var card = r.querySelector(".hero-dynamic-card");
+    if(card && !card.querySelector(".hero-contact-strip")){
+      var strip = document.createElement("div");
+      strip.className = "hero-contact-strip";
+      strip.setAttribute("aria-label", "Direct contact");
+      strip.innerHTML =
+        '<a class="hero-contact-link" href="' + CONTACT.phoneHref + '">' +
+          '<span data-contact-label="phone">Call</span>' +
+          '<strong>' + CONTACT.phone + '</strong>' +
+        '</a>' +
+        '<a class="hero-contact-link" href="' + CONTACT.emailHref + '">' +
+          '<span data-contact-label="email">Email</span>' +
+          '<strong>' + CONTACT.email + '</strong>' +
+        '</a>';
+      card.appendChild(strip);
+    }
+
+    var contactPanel = r.querySelector("#inquiry .inquiry-card > .panel:last-child");
+    if(contactPanel && !contactPanel.querySelector('[href^="tel:"]')){
+      var phoneLine = document.createElement("div");
+      phoneLine.className = "contact-line";
+      phoneLine.innerHTML = '<span data-contact-label="phone">Call</span><strong><a href="' + CONTACT.phoneHref + '">' + CONTACT.phone + '</a></strong>';
+      contactPanel.appendChild(phoneLine);
+    }
+    if(contactPanel && !contactPanel.querySelector('[href^="mailto:"]')){
+      var emailLine = document.createElement("div");
+      emailLine.className = "contact-line";
+      emailLine.innerHTML = '<span data-contact-label="email">Email</span><strong><a href="' + CONTACT.emailHref + '">' + CONTACT.email + '</a></strong>';
+      contactPanel.appendChild(emailLine);
+    }
+
+    applyContactLabels();
+    return true;
+  }
+
+  function directImageUrl(value){
+    if(!value) return "";
+    if(typeof value === "string") return /^https?:\/\//i.test(value) ? value : "";
+    if(typeof value !== "object") return "";
+    var keys = ["url","src","original","large","regular","medium","thumbnail","pictureUrl","imageUrl","downloadUrl","secure_url"];
+    for(var i=0;i<keys.length;i++){
+      var next = value[keys[i]];
+      var found = directImageUrl(next);
+      if(found) return found;
+    }
+    return "";
+  }
+
+  function collectImages(payload){
+    var out = [];
+    function walk(value){
+      if(!value) return;
+      if(typeof value === "string"){
+        if(/^https?:\/\//i.test(value)) out.push(value);
+        return;
+      }
+      if(Array.isArray(value)){ value.forEach(walk); return; }
+      if(typeof value !== "object") return;
+      var own = directImageUrl(value);
+      if(own) out.push(own);
+      Object.keys(value).forEach(function(key){ walk(value[key]); });
+    }
+    walk(payload);
+    return out.filter(function(url, index, arr){ return url && arr.indexOf(url) === index; });
+  }
+
+  function applyImages(images){
+    var r = root();
+    if(!r || !images || !images.length) return;
+
+    r.querySelectorAll("img[data-guesty-img], .image-stage img, .history-image-stack img, .story-photo-wall img").forEach(function(img, i){
+      var requested = Number(img.getAttribute("data-guesty-img"));
+      var idx = Number.isFinite(requested) && requested >= 0 ? requested : i;
+      var url = images[idx % images.length];
+      if(url){
+        img.src = url;
+        img.dataset.workerImageApplied = "true";
+        img.loading = "lazy";
+        img.decoding = "async";
+      }
+    });
+
+    var hero = r.querySelector("#aboutHeroMedia");
+    if(hero){
+      hero.innerHTML = "";
+      images.slice(0,8).forEach(function(url, i){
+        var slide = document.createElement("div");
+        slide.className = "hero-slide" + (i === 0 ? " active" : "");
+        slide.style.backgroundImage = 'url("' + String(url).replace(/"/g,"%22") + '")';
+        hero.appendChild(slide);
+      });
+    }
+  }
+
+  async function loadWorkerImages(){
+    var r = root();
+    if(!r || r.dataset.workerImagesLoaded === "1") return;
+    r.dataset.workerImagesLoaded = "1";
+
+    try {
+      var url = WORKER + "/images?listingId=" + encodeURIComponent(LISTING_ID) + "&source=about-us&t=" + Date.now();
+      var res = await fetch(url, { method:"GET", headers:{ "Accept":"application/json" }, cache:"no-cache" });
+      var text = await res.text();
+      var data;
+      try { data = JSON.parse(text); } catch(e) { data = { rawText:text }; }
+      if(!res.ok || data.ok === false || data.error) throw new Error(data.error || data.message || "Images request failed.");
+      var images = collectImages(data);
+      if(!images.length) throw new Error("No images returned by Worker.");
+      applyImages(images);
+      setTimeout(function(){ applyImages(images); }, 900);
+    } catch(error) {
+      console.warn("Fletschhorn about-us Worker images not loaded.", error);
+    }
+  }
+
+  function bootPatch(){
+    if(!injectContacts()) return;
+    loadWorkerImages();
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", bootPatch);
+  else bootPatch();
+
+  window.addEventListener("load", bootPatch);
+  document.addEventListener("mercury:load", bootPatch);
+  document.addEventListener("fh:language", function(){ setTimeout(applyContactLabels, 0); });
+  document.addEventListener("fletschhorn:language", function(){ setTimeout(applyContactLabels, 0); });
+  document.addEventListener("fletschhorn:languageChanged", function(){ setTimeout(applyContactLabels, 0); });
+  window.addEventListener("storage", function(e){ if(e.key === "fh_lang" || e.key === "fh_language" || e.key === "fhLang") applyContactLabels(); });
+  setTimeout(bootPatch, 120);
+  setTimeout(bootPatch, 600);
+  setTimeout(bootPatch, 1400);
+})();
+</script>
+
