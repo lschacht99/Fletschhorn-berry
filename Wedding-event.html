@@ -1862,6 +1862,34 @@
   #fh-events .fh-event-copy p{font-size:14.5px!important;line-height:1.55!important;}
 }
 
+
+
+/* Fletschhorn patch: language is controlled by the shared header, not this page toolbar. */
+#fh-events .fh-lang-switcher{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  width:0!important;
+  height:0!important;
+  overflow:hidden!important;
+}
+
+/* Keep calendar nightly prices visible on mobile too. */
+#fh-events .fh-day-price{display:block!important;}
+@media(max-width:720px){
+  #fh-events .fh-day{min-height:74px!important;padding:6px!important;}
+  #fh-events .fh-day-price{display:block!important;margin-top:9px!important;font-size:9px!important;line-height:1.15!important;}
+  #fh-events .fh-day-status{font-size:8px!important;}
+}
+
+#fh-events[dir="rtl"] .fh-standard-booking-bar,
+#fh-events[dir="rtl"] .fh-event-form,
+#fh-events[dir="rtl"] .fh-modal-card,
+#fh-events[dir="rtl"] .fh-calendar-card{
+  direction:rtl;
+}
+#fh-events[dir="rtl"] .fh-day{text-align:right;}
 </style>
 
 <style>
@@ -1914,10 +1942,28 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 @media(max-width:1120px){#fh-events .fh-standard-booking-bar{grid-template-columns:repeat(6,minmax(0,1fr));}#fh-events .fh-standard-booking-field:nth-child(1),#fh-events .fh-standard-booking-field:nth-child(2),#fh-events .fh-standard-booking-field:nth-child(3){grid-column:span 2;}#fh-events .fh-standard-booking-field:nth-child(4){grid-column:span 4;}#fh-events .fh-standard-booking-btn{grid-column:span 2;}#fh-events .fh-standard-booking-field{border-bottom:1px solid var(--fh-line);}}
 @media(max-width:720px){#fh-events .fh-standard-booking-shell{padding:7px;}#fh-events .fh-standard-booking-bar{grid-template-columns:1fr;}#fh-events .fh-standard-booking-field,#fh-events .fh-standard-booking-field:nth-child(1),#fh-events .fh-standard-booking-field:nth-child(2),#fh-events .fh-standard-booking-field:nth-child(3),#fh-events .fh-standard-booking-field:nth-child(4),#fh-events .fh-standard-booking-btn{grid-column:auto;}#fh-events .fh-standard-booking-field{border-right:0;border-bottom:1px solid var(--fh-line);padding:12px 14px;}#fh-events .fh-standard-booking-btn{min-height:52px;}#fh-events .fh-lang-switcher{right:10px;bottom:10px;}#fh-events .fh-calendar-card{padding:14px;}#fh-events .fh-calendar-title{font-size:28px;}#fh-events .fh-weekdays,#fh-events .fh-calendar-grid{gap:4px;}#fh-events .fh-day{min-height:62px;padding:6px;}#fh-events .fh-day-price{display:none;}}
 </style>
+<style>
+/* Final override after the standard toolbar stylesheet. */
+#fh-events .fh-lang-switcher{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  width:0!important;
+  height:0!important;
+  overflow:hidden!important;
+}
+#fh-events .fh-day-price{display:block!important;}
+@media(max-width:720px){
+  #fh-events .fh-day{min-height:74px!important;padding:6px!important;}
+  #fh-events .fh-day-price{display:block!important;margin-top:9px!important;font-size:9px!important;line-height:1.15!important;}
+  #fh-events .fh-day-status{font-size:8px!important;}
+}
+</style>
 
 
 <div id="fh-events">
-  <div class="fh-lang-switcher" aria-label="Language selector"><button type="button" data-fh-lang="en">EN</button><button type="button" data-fh-lang="fr">FR</button><button type="button" data-fh-lang="de">DE</button><button type="button" data-fh-lang="ru">RU</button></div>
+  <div class="fh-lang-switcher" aria-label="Language selector"><button type="button" data-fh-lang="en">EN</button><button type="button" data-fh-lang="fr">FR</button><button type="button" data-fh-lang="de">DE</button><button type="button" data-fh-lang="ru">RU</button><button type="button" data-fh-lang="he">HE</button></div>
   <div class="fh-atmosphere" aria-hidden="true"></div>
   <div class="fh-petal-layer" aria-hidden="true"></div>
   <div class="fh-grain" aria-hidden="true"></div>
@@ -2065,15 +2111,15 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
       <div class="fh-container fh-wedding-gallery fh-stagger">
         <article class="fh-gallery-card">
-          <img src="https://ik.imagekit.io/Redberry/Exterior%202.jpg" alt="Wedding weekend arrival at Fletschhorn" />
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-fh-worker-image="ynowbkmnknjm38unkn13.jpg" alt="Wedding weekend arrival at Fletschhorn" />
           <div class="fh-gallery-copy"><strong data-fh-i18n="gallery1Title">The first view</strong><span data-fh-i18n="gallery1Text">The weekend begins with the mountains already in the frame.</span></div>
         </article>
         <article class="fh-gallery-card">
-          <img src="https://ik.imagekit.io/Redberry/The%20People.jpg" alt="Kitchen and gathering detail at Fletschhorn" />
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-fh-worker-image="m4dmbmdielanubvzdgvf.jpg" alt="Kitchen and gathering detail at Fletschhorn" />
           <div class="fh-gallery-copy"><strong data-fh-i18n="gallery2Title">The people</strong><span data-fh-i18n="gallery2Text">The faces, the laughter, and the guests who make the weekend yours.</span></div>
         </article>
         <article class="fh-gallery-card">
-          <img src="https://ik.imagekit.io/Redberry/Love%20%286%29.jpg" alt="Private celebration atmosphere" />
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-fh-worker-image="bwarbedrbihgqu6fyctt.jpg" alt="Private celebration atmosphere" />
           <div class="fh-gallery-copy"><strong data-fh-i18n="gallery3Title">The memory</strong><span data-fh-i18n="gallery3Text">A wedding weekend that stays with people long after they leave.</span></div>
         </article>
       </div>
@@ -2102,22 +2148,22 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
       <div class="fh-container fh-event-types fh-stagger">
         <article class="fh-event-card">
-          <img src="https://ik.imagekit.io/Redberry/Event%20(1).jpg" alt="Private alpine milestone event at Fletschhorn" />
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-fh-worker-image="nhbliowk99qiv0jgf77b.jpg" alt="Private alpine milestone event at Fletschhorn" />
           <div class="fh-event-copy"><h3 data-fh-i18n="eventCard1Title">Milestones</h3><p data-fh-i18n="eventCard1Text">Birthdays, anniversaries, family reunions, and private celebrations with space to stay together.</p></div>
         </article>
 
         <article class="fh-event-card">
-          <img src="https://ik.imagekit.io/Redberry/Event%20(2).jpg" alt="Group retreat at Fletschhorn" />
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-fh-worker-image="gs7vewokpklgmw32z6tb.jpg" alt="Group retreat at Fletschhorn" />
           <div class="fh-event-copy"><h3 data-fh-i18n="eventCard2Title">Retreats</h3><p data-fh-i18n="eventCard2Text">A private base for teams, communities, families, and creative groups.</p></div>
         </article>
 
         <article class="fh-event-card">
-          <img src="https://ik.imagekit.io/Redberry/Event%20(3).jpg" alt="Workshop and gathering space at Fletschhorn" />
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-fh-worker-image="uyb97nsacpy6ipo49rpy.jpg" alt="Workshop and gathering space at Fletschhorn" />
           <div class="fh-event-copy"><h3 data-fh-i18n="eventCard3Title">Workshops</h3><p data-fh-i18n="eventCard3Text">A focused environment for presentations, planning sessions, and small private programs.</p></div>
         </article>
 
         <article class="fh-event-card">
-          <img src="https://ik.imagekit.io/Redberry/Event%20(4).jpg" alt="Private gathering at Fletschhorn" />
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-fh-worker-image="zpwembp1gflcyocsnvnd.jpg" alt="Private gathering at Fletschhorn" />
           <div class="fh-event-copy"><h3 data-fh-i18n="eventCard4Title">Celebrations</h3><p data-fh-i18n="eventCard4Text">Food, music, speeches, conversation, and a house that gives the evening a center.</p></div>
         </article>
       </div>
@@ -2174,10 +2220,10 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       </div>
 
       <div class="fh-container fh-flow-grid fh-stagger">
-        <article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Events%20%287%29.jpg')"><b>01</b><h3 data-fh-i18n="flow1Title">Send the vision</h3><p data-fh-i18n="flow1Text">Date, group size, overnight needs, and the atmosphere you imagine.</p></article>
-        <article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Events%20%288%29.jpg')"><b>02</b><h3 data-fh-i18n="flow2Title">Confirm the fit</h3><p data-fh-i18n="flow2Text">Availability, capacity, access, and service needs are reviewed directly.</p></article>
-        <article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Love%20%288%29.jpg')"><b>03</b><h3 data-fh-i18n="flow3Title">Shape the stay</h3><p data-fh-i18n="flow3Text">Arrival, group rhythm, food needs, sauna option, and guest flow are clarified.</p></article>
-        <article class="fh-flow" style="--flow-img:url('https://ik.imagekit.io/Redberry/Love%20%289%29.jpg')"><b>04</b><h3 data-fh-i18n="flow4Title">Prepare the house</h3><p data-fh-i18n="flow4Text">The property becomes the private alpine setting for the weekend.</p></article>
+        <article class="fh-flow" data-fh-worker-bg="gs7vewokpklgmw32z6tb.jpg"><b>01</b><h3 data-fh-i18n="flow1Title">Send the vision</h3><p data-fh-i18n="flow1Text">Date, group size, overnight needs, and the atmosphere you imagine.</p></article>
+        <article class="fh-flow" data-fh-worker-bg="uyb97nsacpy6ipo49rpy.jpg"><b>02</b><h3 data-fh-i18n="flow2Title">Confirm the fit</h3><p data-fh-i18n="flow2Text">Availability, capacity, access, and service needs are reviewed directly.</p></article>
+        <article class="fh-flow" data-fh-worker-bg="ckbf70ughwsig7rug262.jpg"><b>03</b><h3 data-fh-i18n="flow3Title">Shape the stay</h3><p data-fh-i18n="flow3Text">Arrival, group rhythm, food needs, sauna option, and guest flow are clarified.</p></article>
+        <article class="fh-flow" data-fh-worker-bg="lkmprvbufk4kvqaiupxe.jpg"><b>04</b><h3 data-fh-i18n="flow4Title">Prepare the house</h3><p data-fh-i18n="flow4Text">The property becomes the private alpine setting for the weekend.</p></article>
       </div>
       <div class="fh-container fh-inline-carousel fh-plan-visual fh-preclip">
         <div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="19" aria-hidden="true"></div>
@@ -2345,66 +2391,165 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
   if(!root || root.dataset.fhEventsReady === 'true') return;
   root.dataset.fhEventsReady = 'true';
 
-  const WORKER_URL = "https://saas-fee.moshe-cohen-h1.workers.dev";
-  const EVENT_ENDPOINT = WORKER_URL + "/quote";
+  const WORKER_URL = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  const EVENT_ENDPOINT = WORKER_URL.replace(/\/$/,"") + "/quote";
+  const IMAGE_ENDPOINT = WORKER_URL.replace(/\/$/,"") + "/images";
+  const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
-  const IMAGEKIT_BASE = 'https://ik.imagekit.io/Redberry/';
+  const PHOTO_IDS = {
+    hero:[
+      "sgnvt8esvocag0t0zt4k.jpg"
+    ],
+    wedding:[
+      "ynowbkmnknjm38unkn13.jpg",
+      "m4dmbmdielanubvzdgvf.jpg",
+      "bwarbedrbihgqu6fyctt.jpg",
+      "ckbf70ughwsig7rug262.jpg",
+      "z2jwcdtswmr2ihr14gqm.jpg",
+      "lkmprvbufk4kvqaiupxe.jpg",
+      "o5amfaz3mnbsvvmz8owc.jpg",
+      "bwarbedrbihgqu6fyctt.jpg"
+    ],
+    event:[
+      "nhbliowk99qiv0jgf77b.jpg",
+      "gs7vewokpklgmw32z6tb.jpg",
+      "uyb97nsacpy6ipo49rpy.jpg",
+      "zpwembp1gflcyocsnvnd.jpg",
+      "e8imjtm3b6zscb4exc1i.jpg"
+    ]
+  };
 
-  function fhAsset(name){
-    return IMAGEKIT_BASE + encodeURIComponent(name).replace(/%2F/g,'/');
+  const LOVE_IMAGES = PHOTO_IDS.wedding;
+  const EVENT_IMAGES = PHOTO_IDS.event;
+
+  let workerImagesPromise = null;
+
+  function cleanImageId(value){
+    const raw = String(value || "").trim();
+    const file = raw.split("?")[0].split("#")[0].split("/").pop();
+    return file || raw;
+  }
+
+  function imageNeedles(id){
+    const file = cleanImageId(id);
+    const stem = file.replace(/\.(jpg|jpeg|png|webp)$/i, "");
+    return [file.toLowerCase(), stem.toLowerCase()].filter(Boolean);
+  }
+
+  function flattenStrings(value, output){
+    if(value === null || value === undefined) return output;
+    if(typeof value === "string" || typeof value === "number"){
+      output.push(String(value));
+      return output;
+    }
+    if(Array.isArray(value)){
+      value.forEach(item => flattenStrings(item, output));
+      return output;
+    }
+    if(typeof value === "object"){
+      Object.keys(value).forEach(key => flattenStrings(value[key], output));
+    }
+    return output;
+  }
+
+  function findBestImageUrl(item){
+    if(!item) return "";
+    if(typeof item === "string") return item;
+
+    const preferredKeys = [
+      "src","url","imageUrl","image_url","secure_url","full","large","original","originalUrl","original_url",
+      "downloadUrl","download_url","publicUrl","public_url","thumbnail","thumb"
+    ];
+
+    for(const key of preferredKeys){
+      if(typeof item[key] === "string" && /^https?:\/\//i.test(item[key])) return item[key];
+    }
+
+    const strings = flattenStrings(item, []);
+    return strings.find(value => /^https?:\/\//i.test(value) && /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(value)) || "";
+  }
+
+  function collectWorkerImages(data){
+    const images = [];
+    function walk(value){
+      if(!value) return;
+      if(typeof value === "string"){
+        if(/^https?:\/\//i.test(value) && /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(value)) images.push({url:value, raw:value});
+        return;
+      }
+      if(Array.isArray(value)){ value.forEach(walk); return; }
+      if(typeof value === "object"){
+        const url = findBestImageUrl(value);
+        if(url) images.push({url, raw:value, text:flattenStrings(value, []).join(" ")});
+        Object.keys(value).forEach(key => walk(value[key]));
+      }
+    }
+    walk(data);
+    const seen = new Set();
+    return images.filter(item => {
+      if(!item.url || seen.has(item.url)) return false;
+      seen.add(item.url);
+      return true;
+    });
+  }
+
+  async function loadWorkerImages(){
+    if(workerImagesPromise) return workerImagesPromise;
+    workerImagesPromise = fetch(IMAGE_ENDPOINT, {headers:{"Accept":"application/json"}, cache:"force-cache"})
+      .then(response => {
+        if(!response.ok) throw new Error("Worker /images failed: " + response.status);
+        return response.json();
+      })
+      .then(data => collectWorkerImages(data))
+      .catch(error => {
+        console.warn("Fletschhorn Worker images could not be loaded.", error);
+        return [];
+      });
+    return workerImagesPromise;
+  }
+
+  async function resolveWorkerImage(id){
+    const needles = imageNeedles(id);
+    const images = await loadWorkerImages();
+    const match = images.find(item => {
+      const haystack = ((item.url || "") + " " + (item.text || "") + " " + JSON.stringify(item.raw || "")).toLowerCase();
+      return needles.some(needle => haystack.includes(needle));
+    });
+    return match ? match.url : "";
+  }
+
+  async function setBackgroundFromWorker(el, id){
+    if(!el || !id) return;
+    const url = await resolveWorkerImage(id);
+    if(url) el.style.setProperty("--flow-img", `url("${url}")`);
+  }
+
+  async function applyWorkerImages(){
+    root.querySelectorAll("img[data-fh-worker-image]").forEach(async img => {
+      const id = img.getAttribute("data-fh-worker-image");
+      if(!img.getAttribute("src")) img.src = TRANSPARENT_PIXEL;
+      const url = await resolveWorkerImage(id);
+      if(url){
+        img.src = url;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.classList.add("fh-worker-loaded");
+        img.style.opacity = "1";
+      }
+    });
+
+    root.querySelectorAll("[data-fh-worker-bg]").forEach(el => {
+      setBackgroundFromWorker(el, el.getAttribute("data-fh-worker-bg"));
+    });
   }
 
   function fhImageCandidates(src){
-    const safeFallbacks = [
-      'https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg',
-      'https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg',
-      'https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg'
-    ];
-
-    const decoded = decodeURIComponent(String(src || '').replace(IMAGEKIT_BASE, ''));
-    const candidates = [src];
-
-    const match = decoded.match(/^(Events?|Love)\s*(?:\((\d+)\))?\.(jpg|jpeg|png)$/i);
-    if(match){
-      const family = match[1].toLowerCase();
-      const num = match[2];
-      const ext = match[3];
-
-      if(family.startsWith('event') && num){
-        ['Event','Events'].forEach(prefix=>{
-          ['jpg','JPG','jpeg','png'].forEach(extension=>{
-            candidates.push(fhAsset(`${prefix} (${num}).${extension}`));
-            candidates.push(IMAGEKIT_BASE + `${prefix}%20(${num}).${extension}`);
-          });
-        });
-      }
-
-      if(family === 'love'){
-        const names = num ? [`Love (${num}).${ext}`, `Love (${num}).JPG`, `Love (${num}).png`] : ['Love.jpg','Love.JPG','Love.png'];
-        names.forEach(name=>candidates.push(fhAsset(name)));
-      }
-    }
-
-    safeFallbacks.forEach(url=>candidates.push(url));
-    return [...new Set(candidates.filter(Boolean))];
+    return [src].filter(Boolean);
   }
 
   function fhBackgroundStack(src){
-    return fhImageCandidates(src).slice(0,6).map(url => `url("${url}")`).join(',');
+    return src ? `url("${src}")` : "linear-gradient(135deg,#d9d1c8,#b8ad9f 45%,#345f46)";
   }
-
-  const LOVE_IMAGES = [
-    fhAsset('Love.jpg'),
-    ...Array.from({length:22}, (_,i)=>fhAsset(`Love (${i+1}).jpg`))
-  ];
-
-  const EVENT_IMAGES = Array.from({length:23}, (_,i)=>fhAsset(`Event (${i+1}).jpg`));
-
-  const IMG = {
-    exteriorA:'https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1b68ef5d-fcdf-4818-8644-77ce85f68263/1_9418_.jpg',
-    exteriorB:'https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/1733756344115-UN1RO9UJ7JQZQ8U5LPNB/1521689.jpg',
-    kitchen:'https://images.squarespace-cdn.com/content/v1/673741d2c1ef856ba12e223e/F0D4842C-DED9-4E2C-8C71-0182B84AA01B_1_105_c.jpg'
-  };
 
   const translations = {
     en:{
@@ -2613,11 +2758,33 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     selectSupport:['Ранняя идея','Ищем место','Дата выбрана','Готовы обсуждать детали']
   });
 
+  translations.he = Object.assign({}, translations.en, {
+    heroEyebrow:'בית אלפיני פרטי · חתונות · ריטריטים · אירועים',
+    heroTitle:'חתונות ואירועים באלפים.',
+    heroLead:'בית אלפיני פרטי בסאס-פה לחתונות, ריטריטים, אירועים משפחתיים ומפגשים משמעותיים.',
+    heroCtaWedding:'החתונה שלכם',
+    heroCtaEvents:'האירוע שלכם',
+    proof1Title:'פרטי',
+    proof1Text:'בית לקבוצה אחת בכל פעם',
+    proof2Text:'מקומות לינה לקבוצות',
+    proof3Text:'קצה היער, נוף אלפיני וגישה לכפר',
+    weddingBigLabel:'החתונה שלכם',
+    eventBigLabel:'האירוע שלכם',
+    quickSubmit:'שליחה',
+    formSubmit:'שליחת בקשה',
+    finalCta:'התחלת בקשה',
+    selectEventType:['חתונה','אירוע פרטי','ריטריט','מצגת / סדנה','מפגש משפחתי','אחר'],
+    selectOvernight:['לאישור','כן','לא','חלק מהאורחים'],
+    selectSeason:['לאישור','חורף','אביב','קיץ','סתיו'],
+    selectSupport:['רעיון ראשוני','מחפשים מקום','תאריך כבר נבחר','מוכנים לדבר על פרטים']
+  });
+
   function normalizeLang(lang){
     lang = String(lang || '').toLowerCase();
     if(lang.startsWith('fr')) return 'fr';
     if(lang.startsWith('de')) return 'de';
     if(lang.startsWith('ru')) return 'ru';
+    if(lang.startsWith('he') || lang.startsWith('iw')) return 'he';
     return 'en';
   }
 
@@ -2652,6 +2819,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     const activeLang = normalizeLang(lang);
     const dict = translations[activeLang] || translations.en;
     root.dataset.lang = activeLang;
+    root.setAttribute('dir', activeLang === 'he' ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('dir', activeLang === 'he' ? 'rtl' : 'ltr');
 
     root.querySelectorAll('[data-fh-i18n]').forEach(el=>{
       const key = el.getAttribute('data-fh-i18n');
@@ -2687,17 +2856,21 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
   }).observe(document.documentElement, {attributes:true, attributeFilter:['lang','data-lang']});
 
 
-  function buildCarousel(host, images, delay){
-    if(!host || !images || !images.length) return;
+  function buildCarousel(host, imageIds, delay){
+    if(!host || !imageIds || !imageIds.length) return;
     const offset = Number(host.getAttribute('data-fh-carousel-offset') || 0);
-    const selected = images.slice(offset).concat(images.slice(0, offset));
+    const selected = imageIds.slice(offset).concat(imageIds.slice(0, offset));
     host.innerHTML = '';
 
-    selected.forEach((src, index)=>{
+    selected.forEach((id, index)=>{
       const slide = document.createElement('div');
       slide.className = 'fh-carousel-slide' + (index === 0 ? ' fh-active' : '');
-      slide.style.backgroundImage = fhBackgroundStack(src);
+      slide.dataset.fhWorkerImage = id;
+      slide.style.backgroundImage = 'linear-gradient(135deg,#d9d1c8,#b8ad9f 45%,#345f46)';
       host.appendChild(slide);
+      resolveWorkerImage(id).then(url=>{
+        if(url) slide.style.backgroundImage = `url("${url}")`;
+      });
     });
 
     const slides = Array.from(host.querySelectorAll('.fh-carousel-slide'));
@@ -2722,21 +2895,25 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     buildCarousel(host, EVENT_IMAGES, 5200);
   });
 
-
   const heroSlides = [
-    {image:LOVE_IMAGES[0], theme:{green:'#345f46'}},
-    {image:EVENT_IMAGES[0], theme:{green:'#3f6f51'}},
-    {image:LOVE_IMAGES[3], theme:{green:'#2f5b43'}},
-    {image:EVENT_IMAGES[5], theme:{green:'#345f46'}}
+    {image:PHOTO_IDS.hero[0], theme:{green:'#345f46'}},
+    {image:PHOTO_IDS.wedding[0], theme:{green:'#3f6f51'}},
+    {image:PHOTO_IDS.wedding[3], theme:{green:'#2f5b43'}},
+    {image:PHOTO_IDS.event[0], theme:{green:'#345f46'}}
   ];
 
   const slideHost = root.querySelector('[data-fh-event-slides]');
   if(slideHost){
+    slideHost.innerHTML = '';
     heroSlides.forEach((slide, index)=>{
       const el = document.createElement('div');
       el.className = 'fh-slide' + (index === 0 ? ' fh-active' : '');
-      el.style.backgroundImage = fhBackgroundStack(slide.image);
+      el.dataset.fhWorkerImage = slide.image;
+      el.style.backgroundImage = 'linear-gradient(180deg,rgba(23,19,16,.62),rgba(23,19,16,.34) 42%,rgba(23,19,16,.70)),linear-gradient(135deg,#d9d1c8,#b8ad9f 45%,#345f46)';
       slideHost.appendChild(el);
+      resolveWorkerImage(slide.image).then(url=>{
+        if(url) el.style.backgroundImage = `linear-gradient(180deg,rgba(23,19,16,.62),rgba(23,19,16,.34) 42%,rgba(23,19,16,.70)),url("${url}")`;
+      });
     });
 
     const slideEls = Array.from(slideHost.querySelectorAll('.fh-slide'));
@@ -2978,28 +3155,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     });
   }
 
-  root.querySelectorAll('img').forEach(img=>{
-    img.dataset.fhTryIndex = '0';
-    img.dataset.fhCandidates = JSON.stringify(fhImageCandidates(img.getAttribute('src')));
-    img.addEventListener('load', ()=>{
-      img.style.opacity = '1';
-      img.classList.add('fh-loaded');
-    });
-    img.addEventListener('error', ()=>{
-      const candidates = JSON.parse(img.dataset.fhCandidates || '[]');
-      let next = Number(img.dataset.fhTryIndex || 0) + 1;
-      img.dataset.fhTryIndex = String(next);
-
-      if(candidates[next]){
-        img.style.opacity = '1';
-        img.src = candidates[next];
-        return;
-      }
-
-      img.style.opacity = '1';
-      img.src = 'https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg';
-    });
-  });
+  applyWorkerImages();
 })();
 </script>
 <div id="fh-footer-slot"></div>
@@ -3015,7 +3171,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
   const CFG = {
     bookingPageUrl:"booking.html",
     listingId:"6968339ab7d735001ca015ba",
-    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev"
+    workerBase:"https://fletschhorn-guesty-api.bookings-e2d.workers.dev"
   };
 
   async function loadHtml(slotId,fileName){
@@ -3045,7 +3201,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
   loadHtml("fh-footer-slot","footer.html");
 
   const ENDPOINTS = {
-    calendarMonthPrices: "/guesty/calendar-month-prices"
+    calendarMonthPrices: "/calendar"
   };
 
   const bookingCopy={
@@ -3129,6 +3285,27 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       minNights:"Please select at least 2 nights.",
       calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны. Пожалуйста, выберите другой период."
     }
+,
+    he:{
+      firstNameLabel:"שם פרטי",
+      lastNameLabel:"שם משפחה",
+      emailLabel:"אימייל",
+      fieldDates:"תאריכים",
+      fieldDatesPh:"בחרו הגעה ועזיבה",
+      openCalendar:"פתיחת לוח שנה",
+      calendarKicker:"בחירת תאריכים",
+      calendarHelp:"בחרו תאריך הגעה ואז תאריך עזיבה.",
+      calendarMinWarning:"יש לבחור לפחות 2 לילות.",
+      selectDeparture:"בחרו עזיבה",
+      alreadyBooked:"תפוס",
+      bookButton:"הזמנת השהייה",
+      bookingNote:"הפרטים יועברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
+      missing:"יש להשלים שם פרטי, שם משפחה, אימייל, תאריך הגעה ותאריך עזיבה.",
+      email:"יש להזין כתובת אימייל תקינה.",
+      date:"תאריך העזיבה חייב להיות אחרי תאריך ההגעה.",
+      minNights:"יש לבחור לפחות 2 לילות.",
+      calendarRangeUnavailable:"לילה אחד או יותר בטווח שנבחר אינו זמין. בחרו טווח אחר."
+    }
   };
 
   const bookingState = {
@@ -3143,6 +3320,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     if(value.startsWith("fr")) return "fr";
     if(value.startsWith("de")) return "de";
     if(value.startsWith("ru")) return "ru";
+    if(value.startsWith("he") || value.startsWith("iw")) return "he";
     return "en";
   }
 
@@ -3169,6 +3347,9 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     localStorage.setItem("fh_language",normalized);
     localStorage.setItem("fhLang",normalized);
     document.documentElement.setAttribute("lang",normalized);
+    document.documentElement.setAttribute("dir",normalized === "he" ? "rtl" : "ltr");
+    const eventsRoot=document.getElementById("fh-events");
+    if(eventsRoot) eventsRoot.setAttribute("dir",normalized === "he" ? "rtl" : "ltr");
 
     document.querySelectorAll("#fh-events .fh-lang-switcher button").forEach(function(button){
       button.classList.toggle("is-active",normalizeLang(button.dataset.fhLang)===normalized);
@@ -3337,8 +3518,10 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     if(!/^\d{4}-\d{2}-\d{2}/.test(String(date))) return null;
     const available=item.available===true || item.isAvailable===true || item.status==="available" || item.status==="AVAILABLE" || item.availability==="available";
     const unavailable=item.available===false || item.isAvailable===false || item.status==="unavailable" || item.status==="booked" || item.status==="BLOCKED" || item.status==="UNAVAILABLE" || item.availability==="unavailable";
-    const price=item.price || item.nightlyPrice || item.basePrice || item.rate || item.amount || item.totalPrice || null;
-    return {date:String(date).slice(0,10),available:unavailable ? false : available,unavailable:unavailable,price:price,currency:item.currency || "CHF"};
+    const rawPrice=item.price || item.nightlyPrice || item.basePrice || item.rate || item.amount || item.totalPrice || item.nightlyRate || item.dayRate || null;
+    const price=(rawPrice && typeof rawPrice==="object") ? (rawPrice.amount || rawPrice.value || rawPrice.price || rawPrice.total || null) : rawPrice;
+    const currency=item.currency || (rawPrice && rawPrice.currency) || "CHF";
+    return {date:String(date).slice(0,10),available:unavailable ? false : available,unavailable:unavailable,price:price,currency:currency};
   }
 
   function collectCalendarDays(data){
