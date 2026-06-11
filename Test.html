@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Book your stay</title>
   <meta name="description" content="" />
+  <link rel="stylesheet" href="assets/fh-global.css">
 
   <!--
     CLEAN WORKER PROPERTY SHELL
@@ -209,10 +210,118 @@
       .tm-modal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .tm-modal-grid img{height:190px}
     }
+
+
+    /* ===== FLETSCHHORN DESIGN MATCH + SHARED HEADER/FOOTER SAFE LAYOUT ===== */
+    :root{
+      --tm-ink:#191714;
+      --tm-soft-ink:#3f3932;
+      --tm-muted:rgba(25,23,20,.67);
+      --tm-line:rgba(25,23,20,.13);
+      --tm-light-line:rgba(25,23,20,.08);
+      --tm-paper:#fffaf3;
+      --tm-warm:#f7f1e8;
+      --tm-warm-2:#efe5d9;
+      --tm-dark:#22392f;
+      --tm-footer:#22392f;
+      --tm-accent:#22392f;
+      --tm-accent-dark:#314f43;
+      --tm-available:#e4f4d9;
+      --tm-selected:#b7db9f;
+      --tm-unavailable:#eee7dc;
+      --tm-booked:#f3d4cc;
+      --tm-shadow:0 18px 48px rgba(22,19,16,.11);
+    }
+    body{background:#efe5d9;color:var(--tm-ink)}
+    body.fh-github-version{background:#efe5d9}
+    .tm-page{
+      background:linear-gradient(180deg,#efe5d9 0%,#fffaf3 28%,#f3eadf 64%,#fbf6ef 100%);
+      color:var(--tm-ink);
+      padding-top:0;
+    }
+    #fh-header-slot:empty,#fh-footer-slot:empty{display:none}
+    .tm-container{width:min(1180px,calc(100% - 28px));}
+    .tm-hero{
+      min-height:132px;
+      background:
+        radial-gradient(circle at 14% 0%,rgba(255,255,255,.72),transparent 0 30%),
+        linear-gradient(135deg,#efe5d9 0%,#fffaf3 54%,#f7f1e8 100%);
+      border-bottom:1px solid rgba(25,23,20,.10);
+      color:var(--tm-ink);
+    }
+    .tm-hero-inner{padding:30px 0 24px;align-items:center;}
+    .tm-kicker{color:#876e58;letter-spacing:.18em;font-size:10px;font-weight:850;}
+    .tm-hero h1{font-size:clamp(34px,4.7vw,58px);letter-spacing:-.055em;color:var(--tm-ink)}
+    .tm-hero-action,.tm-book-btn{
+      background:#22392f;border-color:#22392f;color:#fffaf3;border-radius:0;letter-spacing:.13em;text-transform:uppercase;font-size:11px;font-weight:850;
+    }
+    .tm-hero-action:hover,.tm-book-btn:hover{background:#314f43;border-color:#314f43;color:#fffaf3;}
+    .tm-photo-section{background:#fffaf3;padding:16px 0 0;}
+    .tm-photo-grid{
+      gap:10px;
+      min-height:260px;
+      padding:0;
+      background:transparent;
+    }
+    .tm-photo-card{
+      background:#d8cfc2;
+      border:1px solid rgba(25,23,20,.08);
+      min-height:190px;
+      box-shadow:none;
+    }
+    .tm-photo-card:first-child{min-height:390px;}
+    .tm-photo-card img{filter:saturate(.95) contrast(1.02);}
+    .tm-small-btn{border-radius:0;color:#191714;background:#fffaf3;border:1px solid rgba(25,23,20,.10);box-shadow:0 12px 34px rgba(22,19,16,.16)}
+    .tm-title-band,.tm-inquiry{background:transparent;border-color:rgba(25,23,20,.10);}
+    .tm-title-layout{gap:24px;align-items:start;}
+    .tm-property-name,.tm-section-head h2,.tm-inquiry h2,.tm-booking-card h2{
+      font-family:Georgia,"Times New Roman",serif;color:#191714;font-weight:400;letter-spacing:-.05em;
+    }
+    .tm-summary{color:rgba(25,23,20,.67);}
+    .tm-meta-row{border-color:rgba(25,23,20,.11);background:rgba(255,250,243,.72);box-shadow:0 14px 42px rgba(22,19,16,.06)}
+    .tm-meta:first-child{background:#22392f;color:#fffaf3;}
+    .tm-meta:first-child span{color:rgba(255,250,243,.72)}
+    .tm-booking-card,.tm-description-block,.tm-card,.tm-calendar-wrap,.tm-inquiry-form{
+      background:rgba(255,250,243,.92);
+      border:1px solid rgba(25,23,20,.10);
+      box-shadow:0 14px 42px rgba(22,19,16,.08);
+      border-radius:0;
+    }
+    .tm-booking-card{top:104px;}
+    .tm-field input,.tm-field select,.tm-field textarea{
+      background:#fffaf3;border-color:rgba(25,23,20,.13);border-radius:0;color:#191714;
+    }
+    .tm-field input:focus,.tm-field select:focus,.tm-field textarea:focus{outline:1px solid #22392f;border-color:#22392f;}
+    .tm-section-head::after{background:rgba(25,23,20,.10)}
+    .tm-description-block h3,.tm-card h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.035em;color:#191714;}
+    .tm-amenity{background:rgba(255,250,243,.75);border-color:rgba(25,23,20,.10);}
+    .tm-amenity::before{background:#b99f86;opacity:1;}
+    .tm-day{background:#fffaf3;border-color:rgba(25,23,20,.10);}
+    .tm-day.is-selected{background:#22392f;color:#fffaf3;border-color:#22392f;}
+    .tm-day.is-range{background:rgba(34,57,47,.11);}
+    .tm-day.is-blocked{background:#eee7dc;color:rgba(25,23,20,.48);}
+    .tm-map{background:#d8cfc2;border:1px solid rgba(25,23,20,.10);}
+    .tm-modal{background:rgba(25,23,20,.72)}
+    .tm-modal-bar{background:#22392f;color:#fffaf3;}
+    .tm-modal-close{border-radius:0;background:#fffaf3;color:#191714;}
+    #fh-footer-slot{background:#22392f;color:#fffaf3;}
+    @media(max-width:720px){
+      .tm-page{padding-top:0;}
+      .tm-hero{min-height:118px;}
+      .tm-hero-inner{padding:24px 0 20px;gap:14px;}
+      .tm-photo-grid{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 14px 4px 0;scrollbar-width:none;}
+      .tm-photo-grid::-webkit-scrollbar{display:none}
+      .tm-photo-card,.tm-photo-card:first-child{flex:0 0 82%;min-height:295px;scroll-snap-align:start;grid-column:auto;grid-row:auto;}
+      .tm-photo-card:nth-child(even){flex-basis:74%;}
+      .tm-photo-overlay{position:sticky;right:0;align-self:flex-end;min-width:max-content;margin-left:-90px;bottom:12px;}
+      .tm-title-band{padding-top:22px;}
+    }
+
   </style>
 </head>
 
 <body>
+  <div id="fh-header-slot"></div>
   <div class="tm-language-toolbar" aria-hidden="true"></div>
 
   <div class="tm-page">
@@ -360,19 +469,43 @@
       </div>
     </section>
 
-    <footer class="tm-footer">
-      <div class="tm-container tm-footer-grid">
-        <div><h3 id="footerBrand"></h3><div id="footerAddress"></div></div>
-        <div><h3>Contact</h3><div id="footerContact"></div></div>
-        <div><h3>Booking</h3><div id="footerBooking"></div></div>
-      </div>
-    </footer>
+    <div id="fh-footer-slot"></div>
   </div>
 
   <div class="tm-modal" id="photoModal" aria-hidden="true">
     <div class="tm-modal-bar"><button class="tm-modal-close" id="closePhotoModal" type="button">Close</button></div>
     <div class="tm-modal-grid" id="modalGrid"></div>
   </div>
+
+
+
+  <script>
+  (function(){
+    "use strict";
+    document.body.classList.add("fh-github-version");
+    const ASSET_BASE = new URL("assets/", document.baseURI).href;
+    async function loadHtml(slotId, fileName){
+      const slot = document.getElementById(slotId);
+      if (!slot) return;
+      try {
+        const response = await fetch(ASSET_BASE + fileName, { cache:"no-cache" });
+        if (!response.ok) throw new Error(fileName + " failed: " + response.status);
+        const html = await response.text();
+        slot.innerHTML = html;
+        slot.querySelectorAll("script").forEach(function(oldScript){
+          const newScript = document.createElement("script");
+          Array.from(oldScript.attributes).forEach(function(attr){ newScript.setAttribute(attr.name, attr.value); });
+          newScript.textContent = oldScript.textContent;
+          oldScript.replaceWith(newScript);
+        });
+      } catch(error) {
+        console.error("Fletschhorn shared header/footer load error:", error);
+      }
+    }
+    loadHtml("fh-header-slot", "Header.html");
+    loadHtml("fh-footer-slot", "footer.html");
+  })();
+  </script>
 
   <script>
     const CONFIG = {
@@ -491,17 +624,47 @@
       return new Date(date.getFullYear(), date.getMonth()+1, 0);
     }
 
+
+    function localizedText(value){
+      if(value == null) return "";
+      if(typeof value === "string" || typeof value === "number") return clean(value);
+      if(typeof value === "object"){
+        const langKey = String(state.lang || "en").slice(0,2).toLowerCase();
+        const candidates = [value[langKey], value.en, value.fr, value.de, value.ru, value.he, value.title, value.name, value.summary, value.description, value.text, value.plainText, value.body];
+        for(const item of candidates){
+          const txt = localizedText(item);
+          if(txt) return txt;
+        }
+      }
+      return "";
+    }
+
+    function firstTextFrom(sources, paths){
+      for(const source of sources){
+        if(!source) continue;
+        const direct = localizedText(source);
+        if(direct && typeof source !== "object") return direct;
+        for(const path of paths){
+          const txt = localizedText(pick(source, [path]));
+          if(txt) return txt;
+        }
+      }
+      return "";
+    }
+
     function normalizeListing(raw){
       const l = unwrap(raw) || {};
-      const publicDescription = l.publicDescription || l.description || l.descriptions || {};
+      const contentRoot = state.content || {};
+      const contentSources = [contentRoot, contentRoot.content, contentRoot.property, contentRoot.listing, contentRoot.page, contentRoot.hero, contentRoot.data, contentRoot.result].filter(Boolean);
+      const publicDescription = l.publicDescription || l.description || l.descriptions || l.descriptionSummary || {};
       const terms = l.terms || l.policies || {};
       const addressObj = l.address || l.location || {};
 
-      const title = clean(pick(l,["title","name","nickname","internalName","listing.title","listing.name"])) || clean(pick(state.content || {},["title","propertyTitle","name"]));
-      const summary = clean(pick(state.content || {},["summary","description","hero.description","property.description"])) || clean(pick(publicDescription,["summary","description","plainText","text","overview"]));
-      const space = clean(pick(publicDescription,["space","theSpace","property","rooms"]));
-      const access = clean(pick(publicDescription,["access","guestAccess","interactionWithGuests","transit"]));
-      const notes = clean(pick(publicDescription,["notes","neighborhood","houseRules","otherThingsToNote"]));
+      const title = firstTextFrom([l].concat(contentSources),["title","name","nickname","internalName","listing.title","listing.name","propertyTitle","heroTitle","hero.title"]);
+      const summary = firstTextFrom(contentSources,["summary","description","overview","plainText","text","body","hero.description","heroLead","property.description","listing.description","content.description"]) || firstTextFrom([publicDescription,l],["summary","description","plainText","text","overview","publicDescription.summary","descriptionSummary"]);
+      const space = firstTextFrom([publicDescription,l].concat(contentSources),["space","theSpace","property","rooms","publicDescription.space","sections.space"]);
+      const access = firstTextFrom([publicDescription,l].concat(contentSources),["access","guestAccess","interactionWithGuests","transit","publicDescription.access"]);
+      const notes = firstTextFrom([publicDescription,l].concat(contentSources),["notes","neighborhood","houseRules","otherThingsToNote","publicDescription.notes"]);
 
       const address = clean(pick(addressObj,["full","fullAddress","display","street","addressLine1"])) || [addressObj.street, addressObj.city, addressObj.state, addressObj.country].filter(Boolean).join(", ");
       const lat = Number(pick(addressObj,["lat","latitude","geo.lat","coordinates.lat"]));
@@ -511,7 +674,7 @@
       const bedrooms = Number(pick(l,["bedrooms","bedroomCount","roomCount.bedrooms","property.bedrooms"])) || "";
       const bathrooms = pick(l,["bathrooms","bathroomsFull","bathroomCount","roomCount.bathrooms","property.bathrooms"]);
       const beds = pick(l,["beds","bedCount","roomCount.beds"]);
-      const currency = clean(pick(l,["currency","prices.currency","pricing.currency"])) || "USD";
+      const currency = clean(pick(l,["currency","prices.currency","pricing.currency"])) || "CHF";
       const basePrice = pick(l,["basePrice","prices.basePrice","pricing.basePrice","pricing.nightly","defaultDailyPrice"]);
 
       return {
