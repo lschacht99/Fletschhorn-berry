@@ -1940,7 +1940,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 #fh-events .fh-lang-switcher button{border:0;background:transparent;color:var(--fh-ink);padding:7px 8px;font-size:10px;letter-spacing:.12em;font-weight:850;}
 #fh-events .fh-lang-switcher button.is-active{background:var(--fh-green);color:#fff;}
 @media(max-width:1120px){#fh-events .fh-standard-booking-bar{grid-template-columns:repeat(6,minmax(0,1fr));}#fh-events .fh-standard-booking-field:nth-child(1),#fh-events .fh-standard-booking-field:nth-child(2),#fh-events .fh-standard-booking-field:nth-child(3){grid-column:span 2;}#fh-events .fh-standard-booking-field:nth-child(4){grid-column:span 4;}#fh-events .fh-standard-booking-btn{grid-column:span 2;}#fh-events .fh-standard-booking-field{border-bottom:1px solid var(--fh-line);}}
-@media(max-width:720px){#fh-events .fh-standard-booking-shell{padding:7px;}#fh-events .fh-standard-booking-bar{grid-template-columns:1fr;}#fh-events .fh-standard-booking-field,#fh-events .fh-standard-booking-field:nth-child(1),#fh-events .fh-standard-booking-field:nth-child(2),#fh-events .fh-standard-booking-field:nth-child(3),#fh-events .fh-standard-booking-field:nth-child(4),#fh-events .fh-standard-booking-btn{grid-column:auto;}#fh-events .fh-standard-booking-field{border-right:0;border-bottom:1px solid var(--fh-line);padding:12px 14px;}#fh-events .fh-standard-booking-btn{min-height:52px;}#fh-events .fh-lang-switcher{right:10px;bottom:10px;}#fh-events .fh-calendar-card{padding:14px;}#fh-events .fh-calendar-title{font-size:28px;}#fh-events .fh-weekdays,#fh-events .fh-calendar-grid{gap:4px;}#fh-events .fh-day{min-height:62px;padding:6px;}#fh-events .fh-day-price{display:none;}}
+@media(max-width:720px){#fh-events .fh-standard-booking-shell{padding:7px;}#fh-events .fh-standard-booking-bar{grid-template-columns:1fr;}#fh-events .fh-standard-booking-field,#fh-events .fh-standard-booking-field:nth-child(1),#fh-events .fh-standard-booking-field:nth-child(2),#fh-events .fh-standard-booking-field:nth-child(3),#fh-events .fh-standard-booking-field:nth-child(4),#fh-events .fh-standard-booking-btn{grid-column:auto;}#fh-events .fh-standard-booking-field{border-right:0;border-bottom:1px solid var(--fh-line);padding:12px 14px;}#fh-events .fh-standard-booking-btn{min-height:52px;}#fh-events .fh-lang-switcher{right:10px;bottom:10px;}#fh-events .fh-calendar-card{padding:14px;}#fh-events .fh-calendar-title{font-size:28px;}#fh-events .fh-weekdays,#fh-events .fh-calendar-grid{gap:4px;}#fh-events .fh-day{min-height:62px;padding:6px;}#fh-events .fh-day-price{display:block!important;}}
 </style>
 <style>
 /* Final override after the standard toolbar stylesheet. */
@@ -2396,28 +2396,35 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
   const IMAGE_ENDPOINT = WORKER_URL.replace(/\/$/,"") + "/images";
   const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
-  const PHOTO_IDS = {
+  const PHOTO_MANIFEST = {
     hero:[
-      "sgnvt8esvocag0t0zt4k.jpg"
+      {id:"sgnvt8esvocag0t0zt4k.jpg", url:"https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/sgnvt8esvocag0t0zt4k.jpg"}
     ],
     wedding:[
-      "ynowbkmnknjm38unkn13.jpg",
-      "m4dmbmdielanubvzdgvf.jpg",
-      "bwarbedrbihgqu6fyctt.jpg",
-      "ckbf70ughwsig7rug262.jpg",
-      "z2jwcdtswmr2ihr14gqm.jpg",
-      "lkmprvbufk4kvqaiupxe.jpg",
-      "o5amfaz3mnbsvvmz8owc.jpg",
-      "bwarbedrbihgqu6fyctt.jpg"
+      {id:"ynowbkmnknjm38unkn13.jpg", url:"https://assets.guesty.com/image/upload/v1781188727/production/686c48ada4bbacd7a82a4f83/ynowbkmnknjm38unkn13.jpg"},
+      {id:"m4dmbmdielanubvzdgvf.jpg", url:"https://assets.guesty.com/image/upload/v1781188703/production/686c48ada4bbacd7a82a4f83/m4dmbmdielanubvzdgvf.jpg"},
+      {id:"bwarbedrbihgqu6fyctt.jpg", url:"https://assets.guesty.com/image/upload/v1781188729/production/686c48ada4bbacd7a82a4f83/bwarbedrbihgqu6fyctt.jpg"},
+      {id:"ckbf70ughwsig7rug262.jpg", url:"https://assets.guesty.com/image/upload/v1781188728/production/686c48ada4bbacd7a82a4f83/ckbf70ughwsig7rug262.jpg"},
+      {id:"z2jwcdtswmr2ihr14gqm.jpg", url:"https://assets.guesty.com/image/upload/v1781188708/production/686c48ada4bbacd7a82a4f83/z2jwcdtswmr2ihr14gqm.jpg"},
+      {id:"lkmprvbufk4kvqaiupxe.jpg", url:"https://assets.guesty.com/image/upload/v1781188709/production/686c48ada4bbacd7a82a4f83/lkmprvbufk4kvqaiupxe.jpg"},
+      {id:"o5amfaz3mnbsvvmz8owc.jpg", url:"https://assets.guesty.com/image/upload/v1781188730/production/686c48ada4bbacd7a82a4f83/o5amfaz3mnbsvvmz8owc.jpg"}
     ],
     event:[
-      "nhbliowk99qiv0jgf77b.jpg",
-      "gs7vewokpklgmw32z6tb.jpg",
-      "uyb97nsacpy6ipo49rpy.jpg",
-      "zpwembp1gflcyocsnvnd.jpg",
-      "e8imjtm3b6zscb4exc1i.jpg"
+      {id:"nhbliowk99qiv0jgf77b.jpg", url:"https://assets.guesty.com/image/upload/v1781188578/production/686c48ada4bbacd7a82a4f83/nhbliowk99qiv0jgf77b.jpg"},
+      {id:"gs7vewokpklgmw32z6tb.jpg", url:"https://assets.guesty.com/image/upload/v1781188711/production/686c48ada4bbacd7a82a4f83/gs7vewokpklgmw32z6tb.jpg"},
+      {id:"uyb97nsacpy6ipo49rpy.jpg", url:"https://assets.guesty.com/image/upload/v1781188597/production/686c48ada4bbacd7a82a4f83/uyb97nsacpy6ipo49rpy.jpg"},
+      {id:"zpwembp1gflcyocsnvnd.jpg", url:"https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/zpwembp1gflcyocsnvnd.jpg"},
+      {id:"e8imjtm3b6zscb4exc1i.jpg", url:"https://assets.guesty.com/image/upload/v1781188784/production/686c48ada4bbacd7a82a4f83/e8imjtm3b6zscb4exc1i.jpg"}
     ]
   };
+
+  const PHOTO_IDS = Object.fromEntries(Object.keys(PHOTO_MANIFEST).map(key => [key, PHOTO_MANIFEST[key].map(item => item.id)]));
+  const PHOTO_DIRECT = new Map();
+  Object.values(PHOTO_MANIFEST).flat().forEach(item => {
+    PHOTO_DIRECT.set(cleanImageId(item.id).toLowerCase(), item.url);
+    PHOTO_DIRECT.set(cleanImageId(item.url).toLowerCase(), item.url);
+    PHOTO_DIRECT.set(String(item.url).toLowerCase(), item.url);
+  });
 
   const LOVE_IMAGES = PHOTO_IDS.wedding;
   const EVENT_IMAGES = PHOTO_IDS.event;
@@ -2425,15 +2432,16 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
   let workerImagesPromise = null;
 
   function cleanImageId(value){
-    const raw = String(value || "").trim();
+    const raw = String(value || "").trim().replace(/^ttps:\/\//i,"https://");
     const file = raw.split("?")[0].split("#")[0].split("/").pop();
     return file || raw;
   }
 
   function imageNeedles(id){
-    const file = cleanImageId(id);
+    const raw = String(id || "").trim().replace(/^ttps:\/\//i,"https://");
+    const file = cleanImageId(raw);
     const stem = file.replace(/\.(jpg|jpeg|png|webp)$/i, "");
-    return [file.toLowerCase(), stem.toLowerCase()].filter(Boolean);
+    return [raw, file, stem].map(v => String(v || "").toLowerCase()).filter(Boolean);
   }
 
   function flattenStrings(value, output){
@@ -2452,21 +2460,36 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     return output;
   }
 
+  function absoluteImageUrl(value){
+    const raw = String(value || "").trim().replace(/^ttps:\/\//i,"https://");
+    if(!raw) return "";
+    if(/^https?:\/\//i.test(raw)) return raw;
+    if(/^\/[^/]/.test(raw)) return WORKER_URL.replace(/\/$/,"") + raw;
+    return "";
+  }
+
   function findBestImageUrl(item){
     if(!item) return "";
-    if(typeof item === "string") return item;
+    if(typeof item === "string") return absoluteImageUrl(item);
 
     const preferredKeys = [
-      "src","url","imageUrl","image_url","secure_url","full","large","original","originalUrl","original_url",
-      "downloadUrl","download_url","publicUrl","public_url","thumbnail","thumb"
+      "workerUrl","worker_url","src","url","imageUrl","image_url","secure_url","full","large","original","originalUrl","original_url",
+      "downloadUrl","download_url","publicUrl","public_url","thumbnail","thumb","path","href"
     ];
 
     for(const key of preferredKeys){
-      if(typeof item[key] === "string" && /^https?:\/\//i.test(item[key])) return item[key];
+      if(typeof item[key] === "string"){
+        const url = absoluteImageUrl(item[key]);
+        if(url && /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url)) return url;
+      }
     }
 
     const strings = flattenStrings(item, []);
-    return strings.find(value => /^https?:\/\//i.test(value) && /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(value)) || "";
+    for(const value of strings){
+      const url = absoluteImageUrl(value);
+      if(url && /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url)) return url;
+    }
+    return "";
   }
 
   function collectWorkerImages(data){
@@ -2474,13 +2497,15 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     function walk(value){
       if(!value) return;
       if(typeof value === "string"){
-        if(/^https?:\/\//i.test(value) && /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(value)) images.push({url:value, raw:value});
+        const url = absoluteImageUrl(value);
+        if(url && /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url)) images.push({url:value.startsWith("/") ? absoluteImageUrl(value) : url, raw:value, text:value});
         return;
       }
       if(Array.isArray(value)){ value.forEach(walk); return; }
       if(typeof value === "object"){
+        const strings = flattenStrings(value, []);
         const url = findBestImageUrl(value);
-        if(url) images.push({url, raw:value, text:flattenStrings(value, []).join(" ")});
+        if(url) images.push({url, raw:value, text:strings.join(" ")});
         Object.keys(value).forEach(key => walk(value[key]));
       }
     }
@@ -2502,20 +2527,23 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       })
       .then(data => collectWorkerImages(data))
       .catch(error => {
-        console.warn("Fletschhorn Worker images could not be loaded.", error);
+        console.warn("Fletschhorn Worker images could not be loaded. Direct Guesty URLs will be used as safety fallback.", error);
         return [];
       });
     return workerImagesPromise;
   }
 
   async function resolveWorkerImage(id){
-    const needles = imageNeedles(id);
+    const raw = String(id || "").trim().replace(/^ttps:\/\//i,"https://");
+    const file = cleanImageId(raw).toLowerCase();
+    const directFallback = PHOTO_DIRECT.get(file) || PHOTO_DIRECT.get(raw.toLowerCase()) || (/^https?:\/\//i.test(raw) ? raw : "");
+    const needles = imageNeedles(raw);
     const images = await loadWorkerImages();
     const match = images.find(item => {
       const haystack = ((item.url || "") + " " + (item.text || "") + " " + JSON.stringify(item.raw || "")).toLowerCase();
       return needles.some(needle => haystack.includes(needle));
     });
-    return match ? match.url : "";
+    return match ? match.url : directFallback;
   }
 
   async function setBackgroundFromWorker(el, id){
@@ -3201,7 +3229,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
   loadHtml("fh-footer-slot","footer.html");
 
   const ENDPOINTS = {
-    calendarMonthPrices: "/calendar"
+    calendarMonthPrices: "/calendar",
+    quote: "/quote"
   };
 
   const bookingCopy={
@@ -3512,16 +3541,81 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     return data;
   }
 
+  function numericAmount(value){
+    if(value === null || value === undefined || value === "") return null;
+    if(typeof value === "number" && isFinite(value)) return value;
+    const cleaned = String(value).replace(/[^0-9.,-]/g, "").replace(/,/g, "");
+    const n = Number(cleaned);
+    return isFinite(n) && n > 0 ? n : null;
+  }
+
+  function currencyFrom(value){
+    let found = "";
+    function walk(v){
+      if(found || !v || typeof v !== "object") return;
+      if(Array.isArray(v)){ v.forEach(walk); return; }
+      Object.keys(v).forEach(function(key){
+        if(found) return;
+        if(/currency|currencyCode/i.test(key) && typeof v[key] === "string" && /^[A-Z]{3}$/.test(v[key])) found = v[key];
+        else walk(v[key]);
+      });
+    }
+    walk(value);
+    return found || "CHF";
+  }
+
+  function extractMoney(value){
+    const candidates = [];
+    function scorePath(path){
+      const p = path.join(".");
+      let score = 0;
+      if(/nightly|perNight|daily/i.test(p)) score += 80;
+      if(/base|rate|price/i.test(p)) score += 55;
+      if(/total|amount|grandTotal|subTotal|subtotal/i.test(p)) score += 35;
+      if(/quote|money|fare|hostPayout|invoice|payment/i.test(p)) score += 20;
+      if(/tax|fee|cleaning|deposit|damage|security|commission|discount/i.test(p)) score -= 45;
+      return score;
+    }
+    function walk(v, path){
+      if(v === null || v === undefined || path.length > 10) return;
+      const key = path[path.length - 1] || "";
+      const relevant = /(price|rate|amount|total|base|nightly|fare|payout|subtotal|quote)/i.test(path.join("."));
+      if((typeof v === "number" || typeof v === "string") && relevant){
+        const n = numericAmount(v);
+        if(n) candidates.push({amount:n, score:scorePath(path), path:path.join(".")});
+        return;
+      }
+      if(Array.isArray(v)){ v.forEach((item, index) => walk(item, path.concat(String(index)))); return; }
+      if(typeof v === "object"){
+        const amount = numericAmount(v.amount || v.value || v.price || v.total || v.nightlyPrice || v.basePrice || v.rate);
+        if(amount && /(price|rate|amount|total|base|nightly|fare|payout|quote|money)/i.test(path.join("."))){
+          candidates.push({amount, score:scorePath(path) + 20, path:path.join(".")});
+        }
+        Object.keys(v).forEach(childKey => walk(v[childKey], path.concat(childKey)));
+      }
+    }
+    walk(value, []);
+    candidates.sort((a,b) => b.score - a.score || a.amount - b.amount);
+    const best = candidates.find(c => c.score > 0 && c.amount > 0);
+    return best ? {amount:best.amount, currency:currencyFrom(value), path:best.path} : null;
+  }
+
   function normalizeCalendarDay(item){
     if(!item || typeof item!=="object") return null;
-    const date=item.date || item.day || item.dateString || item.startDate || item._id || "";
+    const date=item.date || item.day || item.dateString || item.startDate || item.start || item._id || "";
     if(!/^\d{4}-\d{2}-\d{2}/.test(String(date))) return null;
-    const available=item.available===true || item.isAvailable===true || item.status==="available" || item.status==="AVAILABLE" || item.availability==="available";
-    const unavailable=item.available===false || item.isAvailable===false || item.status==="unavailable" || item.status==="booked" || item.status==="BLOCKED" || item.status==="UNAVAILABLE" || item.availability==="unavailable";
-    const rawPrice=item.price || item.nightlyPrice || item.basePrice || item.rate || item.amount || item.totalPrice || item.nightlyRate || item.dayRate || null;
-    const price=(rawPrice && typeof rawPrice==="object") ? (rawPrice.amount || rawPrice.value || rawPrice.price || rawPrice.total || null) : rawPrice;
-    const currency=item.currency || (rawPrice && rawPrice.currency) || "CHF";
-    return {date:String(date).slice(0,10),available:unavailable ? false : available,unavailable:unavailable,price:price,currency:currency};
+    const available=item.available===true || item.isAvailable===true || item.status==="available" || item.status==="AVAILABLE" || item.availability==="available" || item.bookable===true;
+    const unavailable=item.available===false || item.isAvailable===false || item.status==="unavailable" || item.status==="booked" || item.status==="BLOCKED" || item.status==="UNAVAILABLE" || item.availability==="unavailable" || item.bookable===false;
+    const rawPrice=item.price || item.nightlyPrice || item.basePrice || item.rate || item.amount || item.totalPrice || item.nightlyRate || item.dayRate || item.minPrice || item.avgPrice || item.averagePrice || null;
+    const directAmount=(rawPrice && typeof rawPrice==="object") ? numericAmount(rawPrice.amount || rawPrice.value || rawPrice.price || rawPrice.total || rawPrice.rate) : numericAmount(rawPrice);
+    const deepMoney=directAmount ? {amount:directAmount,currency:(rawPrice && rawPrice.currency) || item.currency || "CHF"} : extractMoney(item);
+    return {
+      date:String(date).slice(0,10),
+      available:unavailable ? false : available,
+      unavailable:unavailable,
+      price:deepMoney ? deepMoney.amount : null,
+      currency:(deepMoney && deepMoney.currency) || item.currency || "CHF"
+    };
   }
 
   function collectCalendarDays(data){
@@ -3537,8 +3631,65 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     return found;
   }
 
+  function nextIso(iso){
+    const d=new Date(iso+"T00:00:00");
+    d.setDate(d.getDate()+1);
+    return toDateString(d);
+  }
+
+  async function loadOneNightPrice(iso){
+    const out=nextIso(iso);
+    const payload={
+      listingId:CFG.listingId,
+      guestyListingId:CFG.listingId,
+      checkIn:iso,
+      checkOut:out,
+      arrival:iso,
+      departure:out,
+      startDate:iso,
+      endDate:out,
+      from:iso,
+      to:out,
+      guests:2,
+      adults:2,
+      numberOfAdults:2,
+      "numberOfGuests.numberOfAdults":2,
+      "numberOfGuests.numberOfChildren":0,
+      "numberOfGuests.numberOfInfants":0,
+      numberOfGuests:{numberOfAdults:2,numberOfChildren:0,numberOfInfants:0},
+      source:"wedding-events-toolbar-nightly-price"
+    };
+    const data=await workerGetOrPost(ENDPOINTS.quote,payload);
+    return extractMoney(data);
+  }
+
+  async function hydrateCalendarPrices(monthKey){
+    const days=Object.values(bookingState.dayMap || {}).filter(function(day){
+      return day && day.date && !day.unavailable && day.available !== false && !dateIsPast(day.date) && !day.price;
+    }).slice(0,31);
+
+    for(let i=0;i<days.length;i+=4){
+      const batch=days.slice(i,i+4);
+      await Promise.all(batch.map(async function(day){
+        try{
+          const money=await loadOneNightPrice(day.date);
+          if(monthKey !== bookingState.priceHydrationKey) return;
+          if(money && money.amount){
+            bookingState.dayMap[day.date].price=money.amount;
+            bookingState.dayMap[day.date].currency=money.currency || "CHF";
+          }
+        }catch(error){
+          console.warn("Could not load nightly quote for",day.date,error);
+        }
+      }));
+      if(monthKey === bookingState.priceHydrationKey) renderToolbarCalendar();
+    }
+  }
+
   async function loadToolbarCalendarMonth(){
     const range=monthRange(bookingState.calendarMonth);
+    const monthKey=range.from+"|"+range.to;
+    bookingState.priceHydrationKey=monthKey;
     bookingState.loading=true;
     try{
       const data=await workerGetOrPost(ENDPOINTS.calendarMonthPrices,{
@@ -3548,17 +3699,24 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
         to:range.to,
         startDate:range.from,
         endDate:range.to,
+        guests:2,
+        adults:2,
+        numberOfAdults:2,
+        "numberOfGuests.numberOfAdults":2,
+        "numberOfGuests.numberOfChildren":0,
+        "numberOfGuests.numberOfInfants":0,
         language:bookingState.lang,
         source:"wedding-events-toolbar-calendar"
       });
       bookingState.dayMap={};
       collectCalendarDays(data).forEach(function(day){ bookingState.dayMap[day.date]=day; });
     }catch(error){
-      console.warn("Could not load calendar month prices.",error);
+      console.warn("Could not load calendar month availability.",error);
       bookingState.dayMap={};
     }finally{
       bookingState.loading=false;
       renderToolbarCalendar();
+      hydrateCalendarPrices(monthKey);
     }
   }
 
@@ -3621,8 +3779,9 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       if(arrival && iso===arrival) btn.classList.add("start");
       if(departure && iso===departure) btn.classList.add("end");
       if(arrival && departure && iso>arrival && iso<departure) btn.classList.add("range");
+      const priceText=formatMoney(info.price,info.currency);
       btn.innerHTML='<span class="fh-day-number">'+dayNum+'</span>'+
-        (info.price ? '<span class="fh-day-price">'+formatMoney(info.price,info.currency)+'</span>' : '')+
+        (priceText ? '<span class="fh-day-price">'+priceText+'</span>' : '')+
         (unavailable ? '<span class="fh-day-status">'+t("alreadyBooked")+'</span>' : '');
       if(past || unavailable) btn.disabled=true;
       else btn.addEventListener("click",function(){ selectToolbarDate(iso); });
