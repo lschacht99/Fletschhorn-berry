@@ -3,1201 +3,1018 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Book your stay</title>
-  <meta name="description" content="" />
+  <title>Fletschhorn · Book your stay</title>
+  <meta name="description" content="Book your private Fletschhorn stay with live availability, nightly prices, and images loaded through the Cloudflare Worker." />
   <link rel="stylesheet" href="assets/fh-global.css">
 
-  <!--
-    CLEAN WORKER PROPERTY SHELL
-    - No hardcoded property description.
-    - Listing text, title, rooms, amenities, rules, address load from /listing and /content?lang=...
-    - Photos load from /images.
-    - Calendar/prices load from /calendar?from=YYYY-MM-DD&to=YYYY-MM-DD.
-    - Quote sends numberOfGuests.numberOfAdults to /quote.
-    - Hidden language toolbar: language can still be driven by header/localStorage/query string.
-  -->
-
   <style>
+    /*
+      Fletschhorn visible schedule booking shell
+      Mobile-first layout, then desktop enhancement.
+      Shared header/footer are loaded from assets/Header.html and assets/footer.html.
+      Data is loaded from the Cloudflare Worker:
+        /content?lang=...
+        /listing
+        /images
+        /calendar?from=YYYY-MM-DD&to=YYYY-MM-DD
+        /quote
+    */
+
     :root{
-      --tm-ink:#222222;
-      --tm-soft-ink:#4f4b47;
-      --tm-muted:#77716a;
-      --tm-line:rgba(34,34,34,.12);
-      --tm-light-line:rgba(34,34,34,.08);
-      --tm-paper:#ffffff;
-      --tm-warm:#f7f2ea;
-      --tm-warm-2:#efe8dd;
-      --tm-dark:#383838;
-      --tm-footer:#303535;
-      --tm-accent:#f6432f;
-      --tm-accent-dark:#d73422;
-      --tm-available:#e4f4d9;
-      --tm-selected:#b7db9f;
-      --tm-unavailable:#eeeeee;
-      --tm-booked:#fdd2d2;
-      --tm-shadow:0 18px 42px rgba(33,33,33,.10);
-      --tm-serif:Georgia,"Times New Roman",serif;
-      --tm-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --fh-cream:#f7f1e8;
+      --fh-paper:#fffaf3;
+      --fh-paper-2:#fbf6ef;
+      --fh-stone:#d8cfc2;
+      --fh-line:rgba(25,23,20,.13);
+      --fh-line-soft:rgba(25,23,20,.08);
+      --fh-ink:#191714;
+      --fh-muted:rgba(25,23,20,.68);
+      --fh-soft:rgba(25,23,20,.48);
+      --fh-forest:#22392f;
+      --fh-forest-2:#314f43;
+      --fh-clay:#b99f86;
+      --fh-clay-2:#876e58;
+      --fh-white:#fffaf3;
+      --fh-shadow:0 24px 70px rgba(22,19,16,.13);
+      --fh-soft-shadow:0 13px 34px rgba(22,19,16,.08);
+      --fh-serif:Georgia,"Times New Roman",serif;
+      --fh-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --fh-edge:14px;
+      --fh-container:min(1180px,calc(100% - (var(--fh-edge) * 2)));
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:#fff;color:var(--tm-ink);font-family:var(--tm-sans);overflow-x:hidden}
+    html{scroll-behavior:smooth;background:var(--fh-cream)}
+    body{margin:0;background:var(--fh-cream);color:var(--fh-ink);font-family:var(--fh-sans);overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+    body.fh-github-version{background:var(--fh-cream)}
     a{color:inherit;text-decoration:none}
     img{display:block;max-width:100%}
-    button,input,select,textarea{font:inherit}
-    [hidden],.is-hidden{display:none!important}
-    .tm-language-toolbar{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    *{box-sizing:border-box}
 
-    .tm-page{background:#fff;min-height:100vh}
-    .tm-container{width:min(1180px,calc(100% - 32px));margin:0 auto}
+    #fh-header-slot,#fh-footer-slot{position:relative;z-index:40}
 
-    /* Tiny hero: clean, short, site-color compatible */
-    .tm-hero{
-      min-height:154px;
+    #fh-book-stay{
+      position:relative;
+      left:50%;right:50%;width:100vw;max-width:100vw;
+      margin-left:-50vw;margin-right:-50vw;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 12% 0%,rgba(255,255,255,.66),transparent 0 22%),
+        radial-gradient(circle at 86% 7%,rgba(185,159,134,.19),transparent 0 20%),
+        linear-gradient(180deg,#efe5d9 0%,#fffaf3 25%,#f3eadf 62%,#fbf6ef 100%);
+      color:var(--fh-ink);
+      font-family:var(--fh-sans);
+    }
+
+    #fh-book-stay:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.08;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='760' viewBox='0 0 1200 760'%3E%3Cg fill='none' stroke='%238a7b69' stroke-opacity='.65' stroke-width='1.1'%3E%3Cpath d='M-60 120c178 46 322 47 435 10 105-34 219-31 336 13 128 47 259 48 416-8 65-23 123-26 181-15'/%3E%3Cpath d='M-60 255c188 33 344 27 465-15 106-35 214-31 329 10 137 49 272 45 420-9 68-24 127-26 180-16'/%3E%3Cpath d='M-60 388c202 22 364 15 492-20 103-27 208-25 327 3 134 32 263 31 402-8 76-21 132-22 187-13'/%3E%3Cpath d='M-60 523c210 15 379 6 515-24 102-22 207-21 320-3 126 20 247 20 369-6 73-15 131-15 183-8'/%3E%3Cpath d='M-60 658c232 6 410-7 550-31 102-17 205-16 311-4 123 13 238 13 355-7 73-12 127-11 180-7'/%3E%3C/g%3E%3C/svg%3E");
+      background-size:cover;
+      background-position:center top;
+    }
+
+    #fh-book-stay .fh-container{width:var(--fh-container);margin-inline:auto;position:relative;z-index:1}
+    #fh-book-stay .fh-section{padding:46px var(--fh-edge);position:relative;z-index:1}
+    #fh-book-stay .fh-section + .fh-section{padding-top:28px}
+    #fh-book-stay .fh-kicker{margin:0 0 10px;color:var(--fh-clay-2);font-size:10px;line-height:1;text-transform:uppercase;letter-spacing:.18em;font-weight:900}
+    #fh-book-stay h1,#fh-book-stay h2,#fh-book-stay h3,#fh-book-stay p{margin-top:0}
+    #fh-book-stay h1,#fh-book-stay h2,#fh-book-stay h3{font-family:var(--fh-serif);font-weight:400;letter-spacing:-.055em;text-wrap:balance;color:var(--fh-ink)}
+    #fh-book-stay h1{font-size:clamp(39px,12vw,68px);line-height:.88;margin:0 0 12px}
+    #fh-book-stay h2{font-size:clamp(31px,8vw,54px);line-height:.95;margin:0 0 14px}
+    #fh-book-stay h3{font-size:clamp(24px,6vw,36px);line-height:.98;margin:0 0 12px}
+    #fh-book-stay p{font-size:15px;line-height:1.62;color:var(--fh-muted);margin-bottom:14px}
+
+    .fh-mini-hero{
+      position:relative;
+      min-height:168px;
       display:flex;
-      align-items:center;
+      align-items:flex-end;
+      padding:78px var(--fh-edge) 24px;
+      background:linear-gradient(135deg,rgba(34,57,47,.98),rgba(49,79,67,.92));
+      color:var(--fh-white);
+      overflow:hidden;
+    }
+    .fh-mini-hero:before{
+      content:"";
+      position:absolute;inset:0;
+      opacity:.2;
       background:
-        linear-gradient(90deg,rgba(255,255,255,.82),rgba(255,255,255,.50)),
-        linear-gradient(135deg,var(--tm-warm) 0%,#fff 52%,var(--tm-warm-2) 100%);
-      border-bottom:1px solid var(--tm-light-line);
+        radial-gradient(circle at 12% 0%,rgba(255,250,243,.42),transparent 0 28%),
+        radial-gradient(circle at 80% 10%,rgba(185,159,134,.42),transparent 0 26%);
+      pointer-events:none;
     }
-    .tm-hero-inner{display:flex;align-items:end;justify-content:space-between;gap:24px;padding:34px 0 28px}
-    .tm-kicker{margin:0 0 8px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--tm-muted);font-weight:750}
-    .tm-hero h1{margin:0;font-family:var(--tm-serif);font-size:clamp(38px,5vw,64px);font-weight:400;letter-spacing:-.045em;line-height:.95;color:var(--tm-ink)}
-    .tm-hero-action{display:inline-flex;align-items:center;justify-content:center;background:var(--tm-accent);border:1px solid var(--tm-accent);color:#fff;border-radius:2px;padding:12px 18px;font-weight:750;white-space:nowrap;transition:.18s ease}
-    .tm-hero-action:hover{background:#fff;color:var(--tm-accent)}
+    .fh-mini-hero .fh-container{display:grid;gap:12px}
+    .fh-mini-hero h1{color:var(--fh-white);margin-bottom:0}
+    .fh-mini-hero p{margin:0;color:rgba(255,250,243,.76);max-width:680px;font-size:14.5px;line-height:1.5}
+    .fh-hero-contact{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .fh-hero-contact a{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:9px 11px;border:1px solid rgba(255,250,243,.22);background:rgba(255,250,243,.10);color:var(--fh-white);font-size:12px;line-height:1;backdrop-filter:blur(10px)}
+    .fh-hero-contact span{color:rgba(255,250,243,.62);font-size:9px;text-transform:uppercase;letter-spacing:.13em;font-weight:900}
 
-    /* Clean photo frame. Same worker loading logic, less visual mess. */
-    .tm-photo-section{padding:18px 0 0;background:#fff}
-    .tm-photo-grid{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;min-height:220px}
-    .tm-photo-card{position:relative;min-height:220px;background:#eee;overflow:hidden;border:1px solid rgba(0,0,0,.04)}
-    .tm-photo-card:first-child{grid-column:span 2;grid-row:span 2;min-height:448px}
-    .tm-photo-card img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .22s ease,transform .35s ease}
-    .tm-photo-card img[src]{opacity:1}
-    .tm-photo-card:hover img{transform:scale(1.018)}
-    .tm-photo-overlay{position:absolute;right:14px;bottom:14px;display:flex;gap:8px;z-index:3}
-    .tm-small-btn{border:0;border-radius:2px;background:#fff;color:#111;padding:10px 13px;font-size:13px;font-weight:750;box-shadow:0 8px 22px rgba(0,0,0,.18);cursor:pointer}
+    .fh-grid-main{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
 
-    .tm-title-band{padding:30px 0 22px;border-bottom:1px solid var(--tm-light-line)}
-    .tm-title-layout{display:grid;grid-template-columns:minmax(0,1fr) 348px;gap:42px;align-items:start}
-    .tm-property-name{margin:0 0 10px;font-size:clamp(30px,4vw,46px);line-height:1.08;font-weight:520;letter-spacing:-.03em;color:var(--tm-ink)}
-    .tm-address{margin:0 0 18px;color:var(--tm-muted);font-size:15px;line-height:1.55}
-    .tm-summary{max-width:780px;margin:0;color:var(--tm-soft-ink);font-size:16px;line-height:1.72}
-    .tm-meta-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px;max-width:640px}
-    .tm-meta{border:1px solid var(--tm-light-line);background:#fff;min-height:82px;padding:14px 12px;text-align:center}
-    .tm-meta strong{display:block;font-size:29px;line-height:1.1;font-weight:680;color:#111}
-    .tm-meta span{display:block;margin-top:6px;color:var(--tm-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
-
-    .tm-booking-card{position:sticky;top:88px;border:1px solid var(--tm-line);background:#fff;box-shadow:var(--tm-shadow);padding:18px;z-index:10}
-    .tm-booking-card h2{margin:0 0 4px;font-size:21px;line-height:1.2;font-weight:680}
-    .tm-price-line{min-height:24px;margin:0 0 14px;color:var(--tm-muted);font-size:14px}
-    .tm-price-line strong{color:#111;font-size:18px}
-    .tm-booking-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-    .tm-field{display:grid;gap:5px}
-    .tm-field.full{grid-column:1/-1}
-    .tm-field label{font-size:10px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:#6f6a64}
-    .tm-field input,.tm-field select,.tm-field textarea{width:100%;border:1px solid var(--tm-line);background:#fff;color:#111;border-radius:2px;outline:none}
-    .tm-field input,.tm-field select{height:43px;padding:0 9px}
-    .tm-field textarea{min-height:112px;padding:10px;resize:vertical}
-    .tm-field input:focus,.tm-field select:focus,.tm-field textarea:focus{border-color:#222;box-shadow:0 0 0 2px rgba(34,34,34,.05)}
-    .tm-quote-box{display:none;margin-top:12px;border:1px solid var(--tm-light-line);background:#fafafa;padding:10px}
-    .tm-quote-box.has-content{display:block}
-    .tm-quote-row{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px solid var(--tm-light-line);font-size:14px;color:#4c4945}
-    .tm-quote-row:last-child{border-bottom:0;font-weight:800;color:#111}
-    .tm-book-btn{width:100%;height:48px;border:1px solid var(--tm-accent);background:var(--tm-accent);color:#fff;border-radius:2px;margin-top:12px;font-weight:800;cursor:pointer;transition:.18s ease}
-    .tm-book-btn:hover{background:#fff;color:var(--tm-accent)}
-    .tm-book-btn:disabled{background:#999;border-color:#999;color:#fff;opacity:.5;cursor:not-allowed}
-    .tm-status{min-height:18px;margin-top:9px;font-size:12px;color:var(--tm-muted)}
-    .tm-status.is-error{color:#9b1d1d}
-
-    .tm-main-layout{display:grid;grid-template-columns:minmax(0,1fr) 348px;gap:42px;align-items:start;padding:0 0 42px}
-    .tm-content{min-width:0}
-    .tm-side{display:block}
-    .tm-section{display:none;padding:38px 0;border-bottom:1px solid var(--tm-light-line)}
-    .tm-section.has-content{display:block}
-    .tm-section-head{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-    .tm-section-head h2{margin:0;font-size:26px;line-height:1.2;font-weight:640;letter-spacing:-.01em}
-    .tm-section-head::after{content:"";height:1px;background:var(--tm-light-line);flex:1}
-    .tm-text{color:var(--tm-soft-ink);font-size:16px;line-height:1.76}
-    .tm-text p{margin:0 0 14px}
-    .tm-text p:last-child{margin-bottom:0}
-
-    .tm-description-blocks{display:grid;gap:22px}
-    .tm-description-block{display:none}
-    .tm-description-block.has-content{display:block}
-    .tm-description-block h3{margin:0 0 7px;font-size:19px;font-weight:680;color:#222}
-
-    .tm-room-grid,.tm-amenity-grid,.tm-policy-grid{display:grid;gap:12px}
-    .tm-room-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .tm-amenity-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .tm-policy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .tm-card{border:1px solid var(--tm-light-line);background:#fff;padding:16px;min-height:120px}
-    .tm-card h3{margin:0 0 8px;font-size:15px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:#222}
-    .tm-card div{font-size:14px;line-height:1.58;color:var(--tm-soft-ink)}
-    .tm-amenity{display:flex;align-items:center;gap:10px;min-height:44px;border:1px solid var(--tm-light-line);padding:11px 12px;background:#fff;font-size:14px;color:#333}
-    .tm-amenity::before{content:"";width:6px;height:6px;background:#222;border-radius:999px;opacity:.66;flex:0 0 auto}
-
-    .tm-calendar-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:14px;align-items:end}
-    .tm-calendar-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .tm-month{border:1px solid var(--tm-light-line);background:#fff;padding:12px}
-    .tm-month-title{text-align:center;font-weight:800;margin-bottom:10px;min-height:22px}
-    .tm-weekdays,.tm-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
-    .tm-weekdays span{text-align:center;color:var(--tm-muted);font-size:10px;text-transform:uppercase;letter-spacing:.04em;padding-bottom:4px}
-    .tm-day{min-height:62px;border:1px solid #eee;background:var(--tm-available);padding:5px;font-size:12px;cursor:pointer;position:relative;overflow:hidden}
-    .tm-day.is-empty{background:transparent;border-color:transparent;cursor:default}
-    .tm-day.is-disabled{background:var(--tm-unavailable);color:#999;cursor:not-allowed}
-    .tm-day.is-booked,.tm-day.is-blocked{background:var(--tm-booked);color:#7d2222;cursor:not-allowed}
-    .tm-day.is-selected{background:var(--tm-selected);outline:2px solid #222;outline-offset:-2px}
-    .tm-day-number{font-weight:800}
-    .tm-day-price{display:block;margin-top:5px;color:#62605c;font-size:11px;line-height:1.2;word-break:break-word}
-    .tm-calendar-note{min-height:20px;margin-top:10px;color:var(--tm-muted);font-size:13px}
-
-    .tm-map{height:340px;border:1px solid var(--tm-light-line);background:#f2f2f2;overflow:hidden}
-    .tm-map iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.85)}
-    .tm-location-lines{margin-top:12px;color:var(--tm-soft-ink);font-size:15px;line-height:1.65}
-
-    .tm-inquiry{background:var(--tm-warm);border-top:1px solid var(--tm-light-line);padding:38px 0}
-    .tm-inquiry-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:32px;align-items:start}
-    .tm-inquiry h2{margin:0 0 10px;font-size:28px;font-weight:640;letter-spacing:-.02em}
-    .tm-inquiry p{margin:0;color:var(--tm-soft-ink);line-height:1.68}
-    .tm-inquiry-form{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-    .tm-inquiry-form .full{grid-column:1/-1}
-
-    .tm-footer{background:var(--tm-footer);color:#e9e2d8;padding:30px 0}
-    .tm-footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
-    .tm-footer h3{margin:0 0 8px;color:#fff;font-size:18px}
-    .tm-footer div,.tm-footer a{font-size:14px;line-height:1.7;color:#d8d0c5}
-
-    .tm-modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.92);display:none;overflow:auto;padding:16px}
-    .tm-modal.is-open{display:block}
-    .tm-modal-bar{position:sticky;top:0;z-index:2;text-align:right;padding-bottom:12px}
-    .tm-modal-close{border:0;background:#fff;color:#111;padding:10px 14px;font-weight:800;cursor:pointer}
-    .tm-modal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(1280px,100%);margin:0 auto}
-    .tm-modal-grid img{width:100%;height:270px;object-fit:cover;background:#222}
-
-    @media(max-width:1050px){
-      .tm-title-layout,.tm-main-layout{grid-template-columns:1fr}
-      .tm-side{display:none}
-      .tm-booking-card{position:relative;top:auto;margin-top:22px}
-      .tm-room-grid,.tm-amenity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .tm-footer-grid{grid-template-columns:1fr}
+    .fh-gallery-card-main{
+      background:rgba(255,250,243,.72);
+      border:1px solid var(--fh-line);
+      box-shadow:var(--fh-shadow);
+      padding:10px;
     }
-
-    @media(max-width:760px){
-      .tm-container{width:calc(100% - 22px)}
-      .tm-hero{min-height:124px}
-      .tm-hero-inner{padding:26px 0 22px;align-items:start;flex-direction:column;gap:14px}
-      .tm-hero h1{font-size:42px}
-      .tm-photo-section{padding-top:10px}
-      .tm-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;min-height:0}
-      .tm-photo-card,.tm-photo-card:first-child{grid-column:auto;grid-row:auto;min-height:156px;height:156px}
-      .tm-photo-card:nth-child(n+5){display:none}
-      .tm-photo-overlay{right:9px;bottom:9px}
-      .tm-small-btn{padding:8px 10px;font-size:12px}
-      .tm-title-band{padding-top:24px}
-      .tm-meta-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
-      .tm-meta{min-height:76px;padding:12px 7px}
-      .tm-meta strong{font-size:25px}
-      .tm-meta span{font-size:9px}
-      .tm-booking-fields{grid-template-columns:1fr 1fr}
-      .tm-room-grid,.tm-amenity-grid,.tm-policy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .tm-calendar-tools{grid-template-columns:1fr 1fr}
-      .tm-calendar-wrap{grid-template-columns:1fr}
-      .tm-day{min-height:58px;font-size:12px}
-      .tm-inquiry-grid{grid-template-columns:1fr}
-      .tm-inquiry-form{grid-template-columns:1fr 1fr}
-      .tm-modal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .tm-modal-grid img{height:190px}
-    }
-
-
-    /* ===== FLETSCHHORN DESIGN MATCH + SHARED HEADER/FOOTER SAFE LAYOUT ===== */
-    :root{
-      --tm-ink:#191714;
-      --tm-soft-ink:#3f3932;
-      --tm-muted:rgba(25,23,20,.67);
-      --tm-line:rgba(25,23,20,.13);
-      --tm-light-line:rgba(25,23,20,.08);
-      --tm-paper:#fffaf3;
-      --tm-warm:#f7f1e8;
-      --tm-warm-2:#efe5d9;
-      --tm-dark:#22392f;
-      --tm-footer:#22392f;
-      --tm-accent:#22392f;
-      --tm-accent-dark:#314f43;
-      --tm-available:#e4f4d9;
-      --tm-selected:#b7db9f;
-      --tm-unavailable:#eee7dc;
-      --tm-booked:#f3d4cc;
-      --tm-shadow:0 18px 48px rgba(22,19,16,.11);
-    }
-    body{background:#efe5d9;color:var(--tm-ink)}
-    body.fh-github-version{background:#efe5d9}
-    .tm-page{
-      background:linear-gradient(180deg,#efe5d9 0%,#fffaf3 28%,#f3eadf 64%,#fbf6ef 100%);
-      color:var(--tm-ink);
-      padding-top:0;
-    }
-    #fh-header-slot:empty,#fh-footer-slot:empty{display:none}
-    .tm-container{width:min(1180px,calc(100% - 28px));}
-    .tm-hero{
-      min-height:132px;
-      background:
-        radial-gradient(circle at 14% 0%,rgba(255,255,255,.72),transparent 0 30%),
-        linear-gradient(135deg,#efe5d9 0%,#fffaf3 54%,#f7f1e8 100%);
-      border-bottom:1px solid rgba(25,23,20,.10);
-      color:var(--tm-ink);
-    }
-    .tm-hero-inner{padding:30px 0 24px;align-items:center;}
-    .tm-kicker{color:#876e58;letter-spacing:.18em;font-size:10px;font-weight:850;}
-    .tm-hero h1{font-size:clamp(34px,4.7vw,58px);letter-spacing:-.055em;color:var(--tm-ink)}
-    .tm-hero-action,.tm-book-btn{
-      background:#22392f;border-color:#22392f;color:#fffaf3;border-radius:0;letter-spacing:.13em;text-transform:uppercase;font-size:11px;font-weight:850;
-    }
-    .tm-hero-action:hover,.tm-book-btn:hover{background:#314f43;border-color:#314f43;color:#fffaf3;}
-    .tm-photo-section{background:#fffaf3;padding:16px 0 0;}
-    .tm-photo-grid{
-      gap:10px;
-      min-height:260px;
+    .fh-main-image-wrap{
+      position:relative;
+      width:100%;
+      aspect-ratio:4/3;
+      min-height:280px;
+      border:0;
       padding:0;
-      background:transparent;
+      overflow:hidden;
+      background:#d9d1c6;
+      display:block;
     }
-    .tm-photo-card{
-      background:#d8cfc2;
-      border:1px solid rgba(25,23,20,.08);
-      min-height:190px;
-      box-shadow:none;
+    .fh-main-image-wrap img{width:100%;height:100%;object-fit:cover;filter:saturate(.96) contrast(1.02)}
+    .fh-main-image-caption{
+      position:absolute;
+      left:10px;right:10px;bottom:10px;
+      background:rgba(255,250,243,.90);
+      border:1px solid rgba(255,255,255,.56);
+      backdrop-filter:blur(12px);
+      padding:11px 12px;
+      font-size:12px;
+      line-height:1.35;
+      color:var(--fh-muted);
+      text-align:left;
     }
-    .tm-photo-card:first-child{min-height:390px;}
-    .tm-photo-card img{filter:saturate(.95) contrast(1.02);}
-    .tm-small-btn{border-radius:0;color:#191714;background:#fffaf3;border:1px solid rgba(25,23,20,.10);box-shadow:0 12px 34px rgba(22,19,16,.16)}
-    .tm-title-band,.tm-inquiry{background:transparent;border-color:rgba(25,23,20,.10);}
-    .tm-title-layout{gap:24px;align-items:start;}
-    .tm-property-name,.tm-section-head h2,.tm-inquiry h2,.tm-booking-card h2{
-      font-family:Georgia,"Times New Roman",serif;color:#191714;font-weight:400;letter-spacing:-.05em;
+    .fh-main-image-caption b{display:block;color:var(--fh-ink);font-size:13px;margin-bottom:3px}
+
+    .fh-image-rail-shell{display:grid;grid-template-columns:38px 1fr 38px;gap:8px;align-items:center;margin-top:10px}
+    .fh-rail-btn{min-height:42px;border:1px solid var(--fh-line);background:var(--fh-paper);color:var(--fh-forest);font-weight:900;box-shadow:var(--fh-soft-shadow)}
+    .fh-thumb-rail{display:flex;gap:9px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px 0 4px}
+    .fh-thumb-rail::-webkit-scrollbar{display:none}
+    .fh-thumb{flex:0 0 106px;height:74px;border:2px solid transparent;background:#d9d1c6;padding:0;overflow:hidden;scroll-snap-align:start;opacity:.82;transition:opacity .18s,border-color .18s,transform .18s}
+    .fh-thumb.is-active{opacity:1;border-color:var(--fh-forest);transform:translateY(-1px)}
+    .fh-thumb img{width:100%;height:100%;object-fit:cover}
+
+    .fh-panel{
+      background:rgba(255,250,243,.82);
+      border:1px solid var(--fh-line);
+      box-shadow:var(--fh-soft-shadow);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
     }
-    .tm-summary{color:rgba(25,23,20,.67);}
-    .tm-meta-row{border-color:rgba(25,23,20,.11);background:rgba(255,250,243,.72);box-shadow:0 14px 42px rgba(22,19,16,.06)}
-    .tm-meta:first-child{background:#22392f;color:#fffaf3;}
-    .tm-meta:first-child span{color:rgba(255,250,243,.72)}
-    .tm-booking-card,.tm-description-block,.tm-card,.tm-calendar-wrap,.tm-inquiry-form{
-      background:rgba(255,250,243,.92);
+    .fh-panel:before{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:radial-gradient(circle at 12% 0%,rgba(255,255,255,.58),transparent 0 25%),linear-gradient(135deg,rgba(255,255,255,.32),transparent 60%);
+    }
+    .fh-panel > *{position:relative}
+    .fh-description p:last-child{margin-bottom:0}
+    .fh-muted{color:var(--fh-muted)}
+    .fh-loading-line{min-height:18px;border-radius:999px;background:linear-gradient(90deg,#ded4c8 25%,#f1e8dc 50%,#ded4c8 75%);background-size:200% 100%;animation:fhShimmer 1.25s infinite}
+    @keyframes fhShimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+
+    .fh-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
+    .fh-stat{padding:13px;border:1px solid var(--fh-line-soft);background:rgba(255,255,255,.48)}
+    .fh-stat b{display:block;color:var(--fh-ink);font-size:14px;margin-bottom:4px}
+    .fh-stat span{display:block;color:var(--fh-muted);font-size:12px;line-height:1.35}
+
+    .fh-schedule-card{background:var(--fh-paper);border:1px solid var(--fh-line);box-shadow:var(--fh-shadow);overflow:hidden}
+    .fh-schedule-head{display:grid;gap:12px;padding:18px;border-bottom:1px solid var(--fh-line);background:rgba(255,250,243,.86)}
+    .fh-schedule-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+    .fh-schedule-title-row h2{margin-bottom:0}
+    .fh-month-nav{display:flex;gap:7px;flex:0 0 auto}
+    .fh-month-nav button{width:40px;min-height:38px;border:1px solid var(--fh-line);background:#fffaf3;color:var(--fh-forest);font-weight:900}
+    .fh-schedule-status{min-height:22px;font-size:13px;line-height:1.45;color:var(--fh-muted)}
+    .fh-schedule-status.error{color:#8b2e25;font-weight:750}
+    .fh-legend{display:flex;gap:8px;flex-wrap:wrap;color:var(--fh-muted);font-size:11px;line-height:1.2}
+    .fh-legend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+    .fh-dot{width:10px;height:10px;border:1px solid var(--fh-line);display:inline-block;background:#fff}
+    .fh-dot.available{background:#e4f4d9}.fh-dot.selected{background:var(--fh-forest)}.fh-dot.booked{background:#fdd2d2}.fh-dot.closed{background:#eeeeee}
+
+    .fh-calendar-wrap{padding:10px;background:rgba(247,241,232,.66)}
+    .fh-weekdays,.fh-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+    .fh-weekday{text-align:center;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:900;color:var(--fh-soft);padding:5px 0}
+    .fh-day{
+      min-height:64px;
       border:1px solid rgba(25,23,20,.10);
-      box-shadow:0 14px 42px rgba(22,19,16,.08);
-      border-radius:0;
+      background:rgba(255,250,243,.92);
+      color:var(--fh-ink);
+      text-align:left;
+      padding:6px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:4px;
+      transition:border-color .16s,background .16s,transform .16s;
     }
-    .tm-booking-card{top:104px;}
-    .tm-field input,.tm-field select,.tm-field textarea{
-      background:#fffaf3;border-color:rgba(25,23,20,.13);border-radius:0;color:#191714;
-    }
-    .tm-field input:focus,.tm-field select:focus,.tm-field textarea:focus{outline:1px solid #22392f;border-color:#22392f;}
-    .tm-section-head::after{background:rgba(25,23,20,.10)}
-    .tm-description-block h3,.tm-card h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.035em;color:#191714;}
-    .tm-amenity{background:rgba(255,250,243,.75);border-color:rgba(25,23,20,.10);}
-    .tm-amenity::before{background:#b99f86;opacity:1;}
-    .tm-day{background:#fffaf3;border-color:rgba(25,23,20,.10);}
-    .tm-day.is-selected{background:#22392f;color:#fffaf3;border-color:#22392f;}
-    .tm-day.is-range{background:rgba(34,57,47,.11);}
-    .tm-day.is-blocked{background:#eee7dc;color:rgba(25,23,20,.48);}
-    .tm-map{background:#d8cfc2;border:1px solid rgba(25,23,20,.10);}
-    .tm-modal{background:rgba(25,23,20,.72)}
-    .tm-modal-bar{background:#22392f;color:#fffaf3;}
-    .tm-modal-close{border-radius:0;background:#fffaf3;color:#191714;}
-    #fh-footer-slot{background:#22392f;color:#fffaf3;}
-    @media(max-width:720px){
-      .tm-page{padding-top:0;}
-      .tm-hero{min-height:118px;}
-      .tm-hero-inner{padding:24px 0 20px;gap:14px;}
-      .tm-photo-grid{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 14px 4px 0;scrollbar-width:none;}
-      .tm-photo-grid::-webkit-scrollbar{display:none}
-      .tm-photo-card,.tm-photo-card:first-child{flex:0 0 82%;min-height:295px;scroll-snap-align:start;grid-column:auto;grid-row:auto;}
-      .tm-photo-card:nth-child(even){flex-basis:74%;}
-      .tm-photo-overlay{position:sticky;right:0;align-self:flex-end;min-width:max-content;margin-left:-90px;bottom:12px;}
-      .tm-title-band{padding-top:22px;}
+    .fh-day:not(:disabled):hover{border-color:rgba(25,23,20,.28);transform:translateY(-1px)}
+    .fh-day.empty{visibility:hidden;pointer-events:none}
+    .fh-day.past,.fh-day.unavailable{opacity:.48;cursor:not-allowed}
+    .fh-day.unavailable{background:#eeeeee}
+    .fh-day.available{background:#e4f4d9}
+    .fh-day.no-data{background:rgba(255,250,243,.92)}
+    .fh-day.start,.fh-day.end{background:var(--fh-forest);border-color:var(--fh-forest);color:var(--fh-white);opacity:1}
+    .fh-day.range{background:rgba(34,57,47,.14);border-color:rgba(34,57,47,.17)}
+    .fh-day-number{display:block;font-size:12px;font-weight:900;line-height:1}
+    .fh-day-price{display:block;font-size:9px;font-weight:900;line-height:1.1;color:rgba(25,23,20,.66);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .fh-day-status{display:block;font-size:8px;line-height:1;text-transform:uppercase;letter-spacing:.05em;font-weight:900;color:rgba(25,23,20,.45);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .fh-day.start .fh-day-price,.fh-day.end .fh-day-price,.fh-day.start .fh-day-status,.fh-day.end .fh-day-status{color:rgba(255,250,243,.80)}
+
+    .fh-booking-summary{display:grid;gap:14px;padding:18px;border-top:1px solid var(--fh-line);background:linear-gradient(180deg,rgba(255,250,243,.96),rgba(251,246,239,.96))}
+    .fh-summary-grid{display:grid;grid-template-columns:1fr;gap:10px}
+    .fh-summary-item{border:1px solid var(--fh-line-soft);background:rgba(255,255,255,.48);padding:12px}
+    .fh-summary-item span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.14em;font-weight:900;color:var(--fh-soft);margin-bottom:6px}
+    .fh-summary-item b{display:block;font-size:14px;color:var(--fh-ink);font-weight:750;overflow-wrap:anywhere}
+
+    .fh-form-grid{display:grid;grid-template-columns:1fr;gap:10px}
+    .fh-field{display:grid;gap:6px}
+    .fh-field label{font-size:10px;text-transform:uppercase;letter-spacing:.13em;font-weight:900;color:var(--fh-soft)}
+    .fh-field input,.fh-field select{width:100%;min-height:46px;border:1px solid var(--fh-line);background:var(--fh-paper);color:var(--fh-ink);padding:0 12px;outline:none}
+    .fh-field input:focus,.fh-field select:focus{border-color:var(--fh-forest);box-shadow:0 0 0 3px rgba(34,57,47,.10)}
+    .fh-actions{display:grid;gap:10px}
+    .fh-primary-btn{min-height:50px;border:0;background:var(--fh-forest);color:var(--fh-white);text-transform:uppercase;letter-spacing:.13em;font-size:11px;font-weight:900;padding:0 18px;transition:background .18s,opacity .18s,transform .18s}
+    .fh-primary-btn:hover{background:var(--fh-forest-2);transform:translateY(-1px)}
+    .fh-primary-btn:disabled{opacity:.62;cursor:wait;transform:none}
+    .fh-ghost-btn{min-height:46px;border:1px solid var(--fh-line);background:rgba(255,255,255,.48);color:var(--fh-forest);text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:900;padding:0 14px}
+    .fh-live-quote{border:1px solid rgba(34,57,47,.16);background:rgba(34,57,47,.06);padding:13px;color:var(--fh-muted);font-size:13px;line-height:1.45}
+    .fh-live-quote strong{display:block;color:var(--fh-forest);font-size:20px;margin-top:4px}
+    .fh-message{display:none;border:1px solid var(--fh-line);padding:12px 13px;font-size:13px;line-height:1.45;color:var(--fh-muted);background:rgba(255,255,255,.52)}
+    .fh-message.show{display:block}
+    .fh-message.error{border-color:rgba(150,47,35,.22);background:rgba(150,47,35,.08);color:#8b2e25;font-weight:700}
+    .fh-message.success{border-color:rgba(34,57,47,.18);background:rgba(34,57,47,.08);color:var(--fh-forest);font-weight:700}
+
+    .fh-info-list{display:grid;gap:10px;margin-top:18px}
+    .fh-info-card{padding:16px;border:1px solid var(--fh-line);background:rgba(255,250,243,.72);box-shadow:var(--fh-soft-shadow)}
+    .fh-info-card b{display:block;margin-bottom:6px;color:var(--fh-ink)}
+    .fh-info-card p{font-size:14px;line-height:1.55;margin:0;color:var(--fh-muted)}
+
+    #fh-book-stay[dir="rtl"]{direction:rtl}
+    #fh-book-stay[dir="rtl"] .fh-day,#fh-book-stay[dir="rtl"] .fh-main-image-caption,#fh-book-stay[dir="rtl"] .fh-panel,#fh-book-stay[dir="rtl"] .fh-summary-item{text-align:right}
+    #fh-book-stay[dir="rtl"] input[type="email"],#fh-book-stay[dir="rtl"] input[type="tel"],#fh-book-stay[dir="rtl"] .fh-day-price{direction:ltr;text-align:left;unicode-bidi:plaintext}
+
+    @media (min-width:640px){
+      :root{--fh-edge:22px}
+      .fh-mini-hero{min-height:184px;padding-top:86px;padding-bottom:30px}
+      .fh-mini-hero .fh-container{grid-template-columns:minmax(0,1fr) auto;align-items:end}
+      .fh-hero-contact{justify-content:flex-end;margin-top:0}
+      .fh-main-image-wrap{aspect-ratio:16/10;min-height:360px}
+      .fh-thumb{flex-basis:128px;height:86px}
+      .fh-stat-grid{grid-template-columns:repeat(4,1fr)}
+      .fh-summary-grid{grid-template-columns:repeat(3,1fr)}
+      .fh-form-grid{grid-template-columns:repeat(2,1fr)}
+      .fh-actions{grid-template-columns:1fr auto;align-items:stretch}
+      .fh-info-list{grid-template-columns:repeat(2,1fr)}
+      .fh-day{min-height:82px;padding:8px}
+      .fh-day-price{font-size:10px}
     }
 
+    @media (min-width:960px){
+      :root{--fh-edge:34px}
+      #fh-book-stay .fh-section{padding-top:64px;padding-bottom:64px}
+      .fh-mini-hero{min-height:200px;padding-top:98px;padding-bottom:34px}
+      .fh-grid-main{grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:24px}
+      .fh-gallery-card-main{position:sticky;top:92px}
+      .fh-main-image-wrap{aspect-ratio:16/10;min-height:480px}
+      .fh-panel{padding:28px}
+      .fh-schedule-layout{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(340px,.82fr);gap:0}
+      .fh-booking-summary{border-top:0;border-left:1px solid var(--fh-line);align-content:start}
+      .fh-calendar-wrap{padding:14px}
+      .fh-day{min-height:92px;padding:9px}
+      .fh-form-grid{grid-template-columns:1fr 1fr}
+      .fh-field.full{grid-column:1 / -1}
+    }
+
+    @media (min-width:1180px){
+      .fh-main-image-wrap{min-height:540px}
+      .fh-day{min-height:98px}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    }
   </style>
 </head>
-
 <body>
   <div id="fh-header-slot"></div>
-  <div class="tm-language-toolbar" aria-hidden="true"></div>
 
-  <div class="tm-page">
-    <section class="tm-hero" aria-label="Booking hero">
-      <div class="tm-container tm-hero-inner">
+  <main id="fh-book-stay" data-current-lang="en" dir="ltr">
+    <section class="fh-mini-hero" aria-labelledby="fhPageTitle">
+      <div class="fh-container">
         <div>
-          <p class="tm-kicker" id="heroKicker"></p>
-          <h1>Book your stay</h1>
+          <p class="fh-kicker" id="fhHeroKicker">Direct booking</p>
+          <h1 id="fhPageTitle">Book your stay</h1>
+          <p id="fhHeroLead">Live photos, availability, and nightly pricing are loaded directly through the booking Worker.</p>
         </div>
-        <a class="tm-hero-action" href="#bookingCard">Check availability</a>
+        <div class="fh-hero-contact" aria-label="Direct contact">
+          <a href="tel:+41279572131"><span>Call</span><strong>+41 27 957 2131</strong></a>
+          <a href="mailto:welcome@fletschhorn.ch"><span>Email</span><strong>welcome@fletschhorn.ch</strong></a>
+        </div>
       </div>
     </section>
 
-    <section class="tm-photo-section" aria-label="Property photos">
-      <div class="tm-container">
-        <div class="tm-photo-grid" id="photoGrid"></div>
-      </div>
-    </section>
-
-    <section class="tm-title-band">
-      <div class="tm-container tm-title-layout">
-        <div>
-          <h2 class="tm-property-name" id="propertyTitle"></h2>
-          <p class="tm-address" id="propertyAddress"></p>
-          <p class="tm-summary" id="propertySummary"></p>
-          <div class="tm-meta-row" id="metaRow" hidden>
-            <div class="tm-meta"><strong id="guestCount"></strong><span>Guests</span></div>
-            <div class="tm-meta"><strong id="bedroomCount"></strong><span>Bedrooms</span></div>
-            <div class="tm-meta"><strong id="bathroomCount"></strong><span>Bathrooms</span></div>
+    <section class="fh-section" aria-labelledby="fhListingTitle">
+      <div class="fh-container fh-grid-main">
+        <div class="fh-gallery-card-main" aria-label="Property photos">
+          <button type="button" class="fh-main-image-wrap" id="fhMainImageButton" aria-label="View selected property image">
+            <img id="fhMainImage" alt="Fletschhorn property" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" loading="eager" decoding="async">
+            <span class="fh-main-image-caption"><b id="fhImageCaptionTitle">Photos loading</b><span id="fhImageCaptionText">Images are loaded from the Cloudflare Worker.</span></span>
+          </button>
+          <div class="fh-image-rail-shell">
+            <button type="button" class="fh-rail-btn" id="fhPhotoPrev" aria-label="Previous photo">‹</button>
+            <div class="fh-thumb-rail" id="fhThumbRail" aria-label="Browse property photos"></div>
+            <button type="button" class="fh-rail-btn" id="fhPhotoNext" aria-label="Next photo">›</button>
           </div>
         </div>
 
-        <aside class="tm-booking-card" id="bookingCard" aria-label="Booking form">
-          <h2>Book your stay</h2>
-          <p class="tm-price-line" id="fromPrice"></p>
-          <div class="tm-booking-fields">
-            <div class="tm-field">
-              <label for="checkIn">Check-in</label>
-              <input id="checkIn" type="date" />
-            </div>
-            <div class="tm-field">
-              <label for="checkOut">Check-out</label>
-              <input id="checkOut" type="date" />
-            </div>
-            <div class="tm-field">
-              <label for="adults">Adults</label>
-              <select id="adults"></select>
-            </div>
-            <div class="tm-field">
-              <label for="children">Children</label>
-              <select id="children"></select>
-            </div>
+        <div class="fh-panel fh-description">
+          <p class="fh-kicker" id="fhPropertyKicker">The property</p>
+          <h2 id="fhListingTitle">Loading property information</h2>
+          <div id="fhDescriptionText">
+            <p class="fh-loading-line" aria-hidden="true"></p>
+            <p class="fh-loading-line" aria-hidden="true" style="width:78%"></p>
           </div>
-          <div class="tm-quote-box" id="quoteBox"></div>
-          <button class="tm-book-btn" id="continueBtn" type="button" disabled>Continue</button>
-          <div class="tm-status" id="bookingStatus"></div>
-        </aside>
-      </div>
-    </section>
-
-    <main class="tm-container tm-main-layout">
-      <div class="tm-content">
-        <section class="tm-section" id="aboutSection">
-          <div class="tm-section-head"><h2>About this property</h2></div>
-          <div class="tm-description-blocks">
-            <article class="tm-description-block" id="summaryBlock">
-              <h3>Overview</h3>
-              <div class="tm-text" id="descriptionFull"></div>
-            </article>
-            <article class="tm-description-block" id="spaceBlock">
-              <h3>The space</h3>
-              <div class="tm-text" id="descriptionSpace"></div>
-            </article>
-            <article class="tm-description-block" id="accessBlock">
-              <h3>Guest access</h3>
-              <div class="tm-text" id="descriptionAccess"></div>
-            </article>
-            <article class="tm-description-block" id="notesBlock">
-              <h3>Good to know</h3>
-              <div class="tm-text" id="descriptionNotes"></div>
-            </article>
-          </div>
-        </section>
-
-        <section class="tm-section" id="roomsSection">
-          <div class="tm-section-head"><h2>Rooms and beds</h2></div>
-          <div class="tm-room-grid" id="roomsGrid"></div>
-        </section>
-
-        <section class="tm-section" id="amenitiesSection">
-          <div class="tm-section-head"><h2>Amenities</h2></div>
-          <div class="tm-amenity-grid" id="amenitiesGrid"></div>
-        </section>
-
-        <section class="tm-section has-content" id="availabilitySection">
-          <div class="tm-section-head"><h2>Availability and prices</h2></div>
-          <div class="tm-calendar-tools">
-            <div class="tm-field">
-              <label for="calMonth">Month</label>
-              <input id="calMonth" type="month" />
-            </div>
-            <div class="tm-field">
-              <label for="calAdults">Adults</label>
-              <select id="calAdults"></select>
-            </div>
-            <div class="tm-field">
-              <label for="calChildren">Children</label>
-              <select id="calChildren"></select>
-            </div>
-            <button class="tm-book-btn" id="reloadCalendar" type="button" style="margin-top:0">Load prices</button>
-          </div>
-          <div class="tm-calendar-wrap" id="calendarWrap"></div>
-          <div class="tm-calendar-note" id="calendarStatus"></div>
-        </section>
-
-        <section class="tm-section" id="policiesSection">
-          <div class="tm-section-head"><h2>Policies</h2></div>
-          <div class="tm-policy-grid" id="policiesGrid"></div>
-        </section>
-
-        <section class="tm-section" id="locationSection">
-          <div class="tm-section-head"><h2>Location</h2></div>
-          <div class="tm-map" id="mapFrame"></div>
-          <div class="tm-location-lines" id="locationLines"></div>
-        </section>
-      </div>
-      <div class="tm-side" aria-hidden="true"></div>
-    </main>
-
-    <section class="tm-inquiry" id="inquiry">
-      <div class="tm-container tm-inquiry-grid">
-        <div>
-          <h2>Have a question?</h2>
-          <p id="inquiryCopy"></p>
+          <div class="fh-stat-grid" id="fhListingStats" aria-label="Property facts"></div>
+          <div class="fh-info-list" id="fhDynamicInfo"></div>
         </div>
-        <form class="tm-inquiry-form" id="inquiryForm">
-          <div class="tm-field"><label for="inqName">Name</label><input id="inqName" name="name" autocomplete="name" /></div>
-          <div class="tm-field"><label for="inqEmail">Email</label><input id="inqEmail" name="email" type="email" autocomplete="email" /></div>
-          <div class="tm-field"><label for="inqPhone">Phone</label><input id="inqPhone" name="phone" type="tel" autocomplete="tel" /></div>
-          <div class="tm-field"><label for="inqGuests">Guests</label><input id="inqGuests" name="guests" inputmode="numeric" /></div>
-          <div class="tm-field full"><label for="inqMessage">Message</label><textarea id="inqMessage" name="message"></textarea></div>
-          <button class="tm-book-btn full" type="submit">Send inquiry</button>
-          <div class="tm-status full" id="inquiryStatus"></div>
-        </form>
       </div>
     </section>
 
-    <div id="fh-footer-slot"></div>
-  </div>
+    <section class="fh-section" id="fh-visible-schedule" aria-labelledby="fhScheduleTitle">
+      <div class="fh-container">
+        <div class="fh-schedule-card">
+          <div class="fh-schedule-head">
+            <div class="fh-schedule-title-row">
+              <div>
+                <p class="fh-kicker" id="fhScheduleKicker">Availability & prices</p>
+                <h2 id="fhScheduleTitle">Visible schedule</h2>
+              </div>
+              <div class="fh-month-nav" aria-label="Month navigation">
+                <button type="button" id="fhPrevMonth" aria-label="Previous month">‹</button>
+                <button type="button" id="fhNextMonth" aria-label="Next month">›</button>
+              </div>
+            </div>
+            <div class="fh-schedule-status" id="fhScheduleStatus">Loading schedule from the Worker…</div>
+            <div class="fh-legend" aria-label="Calendar legend">
+              <span><i class="fh-dot available"></i>Available</span>
+              <span><i class="fh-dot selected"></i>Selected</span>
+              <span><i class="fh-dot booked"></i>Booked</span>
+              <span><i class="fh-dot closed"></i>Unavailable</span>
+            </div>
+          </div>
 
-  <div class="tm-modal" id="photoModal" aria-hidden="true">
-    <div class="tm-modal-bar"><button class="tm-modal-close" id="closePhotoModal" type="button">Close</button></div>
-    <div class="tm-modal-grid" id="modalGrid"></div>
-  </div>
+          <div class="fh-schedule-layout">
+            <div class="fh-calendar-wrap">
+              <div class="fh-weekdays" aria-hidden="true">
+                <div class="fh-weekday">Sun</div><div class="fh-weekday">Mon</div><div class="fh-weekday">Tue</div><div class="fh-weekday">Wed</div><div class="fh-weekday">Thu</div><div class="fh-weekday">Fri</div><div class="fh-weekday">Sat</div>
+              </div>
+              <div class="fh-calendar-grid" id="fhCalendarGrid" aria-label="Availability calendar"></div>
+            </div>
 
+            <aside class="fh-booking-summary" aria-label="Booking summary">
+              <div class="fh-summary-grid">
+                <div class="fh-summary-item"><span>Arrival</span><b id="fhSummaryArrival">Select date</b></div>
+                <div class="fh-summary-item"><span>Departure</span><b id="fhSummaryDeparture">Select date</b></div>
+                <div class="fh-summary-item"><span>Nights</span><b id="fhSummaryNights">—</b></div>
+              </div>
 
+              <div class="fh-form-grid">
+                <div class="fh-field">
+                  <label for="fhAdults">Adults</label>
+                  <select id="fhAdults">
+                    <option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="12">12</option><option value="16">16</option><option value="20">20</option><option value="24">24</option><option value="32">32</option><option value="40">40</option><option value="48">48</option>
+                  </select>
+                </div>
+                <div class="fh-field">
+                  <label for="fhChildren">Children</label>
+                  <select id="fhChildren">
+                    <option value="0" selected>0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="8">8</option><option value="10">10</option><option value="12">12</option>
+                  </select>
+                </div>
+                <div class="fh-field">
+                  <label for="fhFirstName">First name</label>
+                  <input id="fhFirstName" type="text" autocomplete="given-name" placeholder="First name">
+                </div>
+                <div class="fh-field">
+                  <label for="fhLastName">Last name</label>
+                  <input id="fhLastName" type="text" autocomplete="family-name" placeholder="Last name">
+                </div>
+                <div class="fh-field full">
+                  <label for="fhEmail">Email</label>
+                  <input id="fhEmail" type="email" autocomplete="email" placeholder="email@example.com">
+                </div>
+              </div>
+
+              <div class="fh-live-quote" id="fhLiveQuote">Select available arrival and departure dates to calculate the live quote.</div>
+
+              <div class="fh-actions">
+                <button class="fh-primary-btn" type="button" id="fhContinueBtn">Continue to checkout</button>
+                <button class="fh-ghost-btn" type="button" id="fhClearDatesBtn">Clear dates</button>
+              </div>
+              <div class="fh-message" id="fhMessage" role="status" aria-live="polite"></div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="fh-footer-slot"></div>
 
   <script>
   (function(){
     "use strict";
+
     document.body.classList.add("fh-github-version");
-    const ASSET_BASE = new URL("assets/", document.baseURI).href;
+    var ASSET_BASE = new URL("assets/", document.baseURI).href;
+
     async function loadHtml(slotId, fileName){
-      const slot = document.getElementById(slotId);
+      var slot = document.getElementById(slotId);
       if (!slot) return;
       try {
-        const response = await fetch(ASSET_BASE + fileName, { cache:"no-cache" });
+        var response = await fetch(ASSET_BASE + fileName, { cache:"no-cache" });
         if (!response.ok) throw new Error(fileName + " failed: " + response.status);
-        const html = await response.text();
+        var html = await response.text();
         slot.innerHTML = html;
         slot.querySelectorAll("script").forEach(function(oldScript){
-          const newScript = document.createElement("script");
+          var newScript = document.createElement("script");
           Array.from(oldScript.attributes).forEach(function(attr){ newScript.setAttribute(attr.name, attr.value); });
           newScript.textContent = oldScript.textContent;
           oldScript.replaceWith(newScript);
         });
       } catch(error) {
-        console.error("Fletschhorn shared header/footer load error:", error);
+        console.error("Fletschhorn header/footer load error:", error);
       }
     }
+
     loadHtml("fh-header-slot", "Header.html");
     loadHtml("fh-footer-slot", "footer.html");
   })();
   </script>
 
   <script>
-    const CONFIG = {
-      WORKER_BASE: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
-      CHECKOUT_URL: "checkout.html",
-      PROPERTY_ID: "",
-      DEFAULT_LANG: "en",
-      MAX_VISIBLE_PHOTOS: 9,
-      MAX_AMENITIES: 30
+  (function(){
+    "use strict";
+
+    var root = document.getElementById("fh-book-stay");
+    if (!root || root.dataset.ready === "1") return;
+    root.dataset.ready = "1";
+
+    var CFG = {
+      workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
+      listingId: "6968339ab7d735001ca015ba",
+      checkoutUrl: "checkout.html",
+      minNights: 2,
+      currency: "CHF"
     };
 
-    const state = {
-      listing:null,
-      content:null,
-      images:[],
-      calendar:new Map(),
-      selectedStart:null,
-      selectedEnd:null,
-      lastQuote:null,
-      lang:getLang()
+    var BLANK = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+    var state = {
+      lang: getInitialLang(),
+      images: [],
+      selectedImageIndex: 0,
+      currentMonth: startOfMonth(new Date()),
+      calendarDays: {},
+      arrival: "",
+      departure: "",
+      quoteLoading: false,
+      listing: null,
+      content: null
     };
 
-    const $ = (id) => document.getElementById(id);
-    const clean = (value) => String(value ?? "").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim();
-    const htmlText = (value) => {
-      const text = clean(value);
-      if(!text) return "";
-      return text.split(/\n{2,}|(?<=\.)\s+(?=[A-ZÀ-Ü])/).filter(Boolean).slice(0,8).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+    var TEXT = {
+      en:{heroKicker:"Direct booking",heroLead:"Live photos, availability, and nightly pricing are loaded directly through the booking Worker.",propertyKicker:"The property",loadingTitle:"Loading property information",fallbackTitle:"Fletschhorn private stay",fallbackDescription:"Property information is loading from the Worker. If this message remains visible, check that /listing or /content?lang=en returns a description field.",scheduleKicker:"Availability & prices",scheduleTitle:"Visible schedule",loadingSchedule:"Loading schedule from the Worker…",loadedSchedule:"Schedule loaded. Choose an available arrival date, then a departure date.",scheduleError:"The schedule could not be loaded. The page is still usable, but prices and availability need the Worker response.",available:"Available",booked:"Booked",unavailable:"Unavailable",past:"Past",noPrice:"—",arrival:"Arrival",departure:"Departure",selectDate:"Select date",nights:"Nights",night:"night",adults:"Adults",children:"Children",firstName:"First name",lastName:"Last name",email:"Email",quotePrompt:"Select available arrival and departure dates to calculate the live quote.",quoteLoading:"Calculating live quote…",quoteError:"The live quote did not load. The selected dates are saved and can still continue to checkout.",continue:"Continue to checkout",clear:"Clear dates",missingDates:"Select arrival and departure dates from the visible schedule.",badRange:"Please select at least 2 nights.",rangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",missingFirstName:"Please enter your first name.",missingLastName:"Please enter your last name.",missingEmail:"Please enter your email.",invalidEmail:"Please enter a valid email address.",redirecting:"Opening checkout…",photosLoading:"Photos loading",photosLoaded:"Browse photos",photoCaption:"Images are loaded from the Cloudflare Worker.",factsGuests:"Guests",factsBedrooms:"Bedrooms",factsBathrooms:"Bathrooms",factsBeds:"Beds"},
+      fr:{heroKicker:"Réservation directe",heroLead:"Les photos, disponibilités et prix par nuit sont chargés directement depuis le Worker de réservation.",propertyKicker:"La propriété",loadingTitle:"Chargement des informations",fallbackTitle:"Séjour privé Fletschhorn",fallbackDescription:"Les informations de la propriété sont chargées depuis le Worker. Si ce message reste visible, vérifiez que /listing ou /content?lang=fr retourne un champ de description.",scheduleKicker:"Disponibilités & prix",scheduleTitle:"Planning visible",loadingSchedule:"Chargement du planning depuis le Worker…",loadedSchedule:"Planning chargé. Choisissez une date d’arrivée disponible, puis une date de départ.",scheduleError:"Le planning n’a pas pu être chargé. La page reste utilisable, mais les prix et disponibilités nécessitent la réponse du Worker.",available:"Disponible",booked:"Réservé",unavailable:"Indisponible",past:"Passé",noPrice:"—",arrival:"Arrivée",departure:"Départ",selectDate:"Sélectionner",nights:"Nuits",night:"nuit",adults:"Adultes",children:"Enfants",firstName:"Prénom",lastName:"Nom",email:"Email",quotePrompt:"Sélectionnez une arrivée et un départ disponibles pour calculer le prix en direct.",quoteLoading:"Calcul du prix en direct…",quoteError:"Le prix en direct n’a pas chargé. Les dates sélectionnées sont sauvegardées et peuvent continuer vers le checkout.",continue:"Continuer au checkout",clear:"Effacer les dates",missingDates:"Sélectionnez les dates d’arrivée et de départ dans le planning visible.",badRange:"Veuillez sélectionner au moins 2 nuits.",rangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles. Veuillez choisir une autre période.",missingFirstName:"Veuillez entrer votre prénom.",missingLastName:"Veuillez entrer votre nom.",missingEmail:"Veuillez entrer votre email.",invalidEmail:"Veuillez entrer un email valide.",redirecting:"Ouverture du checkout…",photosLoading:"Photos en chargement",photosLoaded:"Parcourir les photos",photoCaption:"Les images sont chargées depuis le Worker Cloudflare.",factsGuests:"Invités",factsBedrooms:"Chambres",factsBathrooms:"Salles de bain",factsBeds:"Lits"},
+      de:{heroKicker:"Direktbuchung",heroLead:"Fotos, Verfügbarkeit und Nachtpreise werden direkt über den Buchungs-Worker geladen.",propertyKicker:"Das Haus",loadingTitle:"Informationen werden geladen",fallbackTitle:"Fletschhorn Privatainenthalt",fallbackDescription:"Die Objektinformationen werden vom Worker geladen. Wenn diese Nachricht sichtbar bleibt, prüfen Sie, ob /listing oder /content?lang=de ein Beschreibungsfeld zurückgibt.",scheduleKicker:"Verfügbarkeit & Preise",scheduleTitle:"Sichtbarer Kalender",loadingSchedule:"Kalender wird vom Worker geladen…",loadedSchedule:"Kalender geladen. Wählen Sie ein verfügbares Anreisedatum und dann ein Abreisedatum.",scheduleError:"Der Kalender konnte nicht geladen werden. Die Seite bleibt nutzbar, aber Preise und Verfügbarkeit benötigen die Worker-Antwort.",available:"Verfügbar",booked:"Belegt",unavailable:"Nicht verfügbar",past:"Vergangen",noPrice:"—",arrival:"Anreise",departure:"Abreise",selectDate:"Datum wählen",nights:"Nächte",night:"Nacht",adults:"Erwachsene",children:"Kinder",firstName:"Vorname",lastName:"Nachname",email:"E-Mail",quotePrompt:"Wählen Sie verfügbare An- und Abreisedaten, um den Live-Preis zu berechnen.",quoteLoading:"Live-Preis wird berechnet…",quoteError:"Der Live-Preis wurde nicht geladen. Die ausgewählten Daten sind gespeichert und können trotzdem zum Checkout weitergehen.",continue:"Weiter zum Checkout",clear:"Daten löschen",missingDates:"Wählen Sie Anreise und Abreise im sichtbaren Kalender.",badRange:"Bitte wählen Sie mindestens 2 Nächte.",rangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar. Bitte wählen Sie einen anderen Zeitraum.",missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",missingEmail:"Bitte geben Sie Ihre E-Mail ein.",invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",redirecting:"Checkout wird geöffnet…",photosLoading:"Fotos werden geladen",photosLoaded:"Fotos durchsuchen",photoCaption:"Bilder werden über den Cloudflare Worker geladen.",factsGuests:"Gäste",factsBedrooms:"Schlafzimmer",factsBathrooms:"Badezimmer",factsBeds:"Betten"},
+      ru:{heroKicker:"Прямое бронирование",heroLead:"Фотографии, доступность и цены за ночь загружаются напрямую через booking Worker.",propertyKicker:"Объект",loadingTitle:"Загрузка информации",fallbackTitle:"Частное пребывание Fletschhorn",fallbackDescription:"Информация об объекте загружается из Worker. Если это сообщение остаётся видимым, проверьте, что /listing или /content?lang=ru возвращает поле description.",scheduleKicker:"Доступность и цены",scheduleTitle:"Видимый календарь",loadingSchedule:"Календарь загружается из Worker…",loadedSchedule:"Календарь загружен. Выберите доступную дату заезда, затем дату выезда.",scheduleError:"Календарь не загрузился. Страница остаётся usable, но цены и доступность требуют ответа Worker.",available:"Доступно",booked:"Занято",unavailable:"Недоступно",past:"Прошло",noPrice:"—",arrival:"Заезд",departure:"Выезд",selectDate:"Выберите дату",nights:"Ночи",night:"ночь",adults:"Взрослые",children:"Дети",firstName:"Имя",lastName:"Фамилия",email:"Email",quotePrompt:"Выберите доступные даты заезда и выезда, чтобы рассчитать live quote.",quoteLoading:"Расчёт live quote…",quoteError:"Live quote не загрузился. Выбранные даты сохранены, и можно продолжить к checkout.",continue:"Перейти к checkout",clear:"Очистить даты",missingDates:"Выберите даты заезда и выезда в видимом календаре.",badRange:"Выберите минимум 2 ночи.",rangeUnavailable:"Одна или несколько выбранных ночей недоступны. Выберите другой диапазон.",missingFirstName:"Введите имя.",missingLastName:"Введите фамилию.",missingEmail:"Введите email.",invalidEmail:"Введите корректный email.",redirecting:"Открываем checkout…",photosLoading:"Фотографии загружаются",photosLoaded:"Смотреть фото",photoCaption:"Изображения загружаются из Cloudflare Worker.",factsGuests:"Гости",factsBedrooms:"Спальни",factsBathrooms:"Ванные",factsBeds:"Кровати"},
+      he:{heroKicker:"הזמנה ישירה",heroLead:"תמונות, זמינות ומחירי לילה נטענים ישירות דרך Worker ההזמנות.",propertyKicker:"הנכס",loadingTitle:"טוען מידע על הנכס",fallbackTitle:"שהייה פרטית ב-Fletschhorn",fallbackDescription:"מידע הנכס נטען מה-Worker. אם ההודעה נשארת, בדקו ש-/listing או /content?lang=he מחזיר שדה description.",scheduleKicker:"זמינות ומחירים",scheduleTitle:"לוח זמנים גלוי",loadingSchedule:"טוען לוח זמנים מה-Worker…",loadedSchedule:"לוח הזמנים נטען. בחרו תאריך הגעה זמין ואז תאריך עזיבה.",scheduleError:"לוח הזמנים לא נטען. הדף עדיין ניתן לשימוש, אבל מחירים וזמינות צריכים את תשובת ה-Worker.",available:"זמין",booked:"תפוס",unavailable:"לא זמין",past:"עבר",noPrice:"—",arrival:"הגעה",departure:"עזיבה",selectDate:"בחרו תאריך",nights:"לילות",night:"לילה",adults:"מבוגרים",children:"ילדים",firstName:"שם פרטי",lastName:"שם משפחה",email:"אימייל",quotePrompt:"בחרו תאריכי הגעה ועזיבה זמינים כדי לחשב מחיר חי.",quoteLoading:"מחשב מחיר חי…",quoteError:"המחיר החי לא נטען. התאריכים נשמרו ועדיין אפשר להמשיך ל-checkout.",continue:"המשך ל-checkout",clear:"נקה תאריכים",missingDates:"בחרו תאריכי הגעה ועזיבה מתוך לוח הזמנים הגלוי.",badRange:"נא לבחור לפחות 2 לילות.",rangeUnavailable:"אחד או יותר מהלילות שנבחרו אינם זמינים. נא לבחור טווח אחר.",missingFirstName:"נא להזין שם פרטי.",missingLastName:"נא להזין שם משפחה.",missingEmail:"נא להזין אימייל.",invalidEmail:"נא להזין כתובת אימייל תקינה.",redirecting:"פותח checkout…",photosLoading:"תמונות נטענות",photosLoaded:"עיון בתמונות",photoCaption:"התמונות נטענות דרך Cloudflare Worker.",factsGuests:"אורחים",factsBedrooms:"חדרי שינה",factsBathrooms:"חדרי רחצה",factsBeds:"מיטות"}
     };
-    const escapeHtml = (s) => String(s ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
 
-    function getLang(){
-      const url = new URL(window.location.href);
-      return url.searchParams.get("lang") || localStorage.getItem("fh_lang") || document.documentElement.lang || CONFIG.DEFAULT_LANG;
+    function $(id){ return document.getElementById(id); }
+    function qsa(selector, base){ return Array.prototype.slice.call((base || document).querySelectorAll(selector)); }
+    function txt(key){ var bundle = TEXT[state.lang] || TEXT.en; return bundle[key] || TEXT.en[key] || ""; }
+    function setText(id, value){ var el = $(id); if (el) el.textContent = value || ""; }
+    function setHTML(id, value){ var el = $(id); if (el) el.innerHTML = value || ""; }
+    function safe(value){ return String(value == null ? "" : value); }
+    function escapeHTML(value){ return safe(value).replace(/[&<>'"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]; }); }
+    function endpoint(path){ return CFG.workerBase.replace(/\/$/, "") + path; }
+    function pad(n){ return String(n).padStart(2,"0"); }
+    function toDateString(date){ return date.getFullYear()+"-"+pad(date.getMonth()+1)+"-"+pad(date.getDate()); }
+    function startOfMonth(date){ return new Date(date.getFullYear(), date.getMonth(), 1); }
+    function addMonths(date, amount){ return new Date(date.getFullYear(), date.getMonth()+amount, 1); }
+    function monthRange(date){ return { from:toDateString(new Date(date.getFullYear(),date.getMonth(),1)), to:toDateString(new Date(date.getFullYear(),date.getMonth()+1,1)) }; }
+    function daysBetween(startIso, endIso){ if(!startIso || !endIso) return 0; return Math.round((new Date(endIso+"T00:00:00") - new Date(startIso+"T00:00:00"))/86400000); }
+    function todayIso(){ var d = new Date(); d.setHours(0,0,0,0); return toDateString(d); }
+    function getInitialLang(){
+      var raw = "en";
+      try { raw = new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("fh_lang") || localStorage.getItem("fh_language") || localStorage.getItem("fhLang") || document.documentElement.getAttribute("lang") || "en"; } catch(error) {}
+      raw = String(raw || "en").toLowerCase();
+      if (raw.indexOf("fr") === 0) return "fr";
+      if (raw.indexOf("de") === 0 || raw.indexOf("ger") === 0) return "de";
+      if (raw.indexOf("ru") === 0) return "ru";
+      if (raw.indexOf("he") === 0 || raw.indexOf("iw") === 0) return "he";
+      return "en";
+    }
+    function applyLanguage(){
+      root.dataset.currentLang = state.lang;
+      root.setAttribute("dir", state.lang === "he" ? "rtl" : "ltr");
+      document.documentElement.setAttribute("lang", state.lang);
+      document.documentElement.setAttribute("dir", state.lang === "he" ? "rtl" : "ltr");
+      try { localStorage.setItem("fh_lang", state.lang); } catch(error) {}
+
+      setText("fhHeroKicker", txt("heroKicker"));
+      setText("fhHeroLead", txt("heroLead"));
+      setText("fhPropertyKicker", txt("propertyKicker"));
+      setText("fhScheduleKicker", txt("scheduleKicker"));
+      setText("fhScheduleTitle", txt("scheduleTitle"));
+      setText("fhContinueBtn", txt("continue"));
+      setText("fhClearDatesBtn", txt("clear"));
+      setText("fhImageCaptionTitle", state.images.length ? txt("photosLoaded") : txt("photosLoading"));
+      setText("fhImageCaptionText", txt("photoCaption"));
+
+      var labels = [
+        ["fhAdults", txt("adults")], ["fhChildren", txt("children")], ["fhFirstName", txt("firstName")], ["fhLastName", txt("lastName")], ["fhEmail", txt("email")]
+      ];
+      labels.forEach(function(pair){ var input = $(pair[0]); if (input && input.previousElementSibling) input.previousElementSibling.textContent = pair[1]; });
+      var summary = document.querySelectorAll(".fh-summary-item span");
+      if (summary[0]) summary[0].textContent = txt("arrival");
+      if (summary[1]) summary[1].textContent = txt("departure");
+      if (summary[2]) summary[2].textContent = txt("nights");
+      var legend = document.querySelectorAll(".fh-legend span");
+      if (legend[0]) legend[0].lastChild.textContent = txt("available");
+      if (legend[2]) legend[2].lastChild.textContent = txt("booked");
+      if (legend[3]) legend[3].lastChild.textContent = txt("unavailable");
+      updateSummary();
     }
 
-    function endpoint(path){
-      const base = CONFIG.WORKER_BASE.replace(/\/+$/," ").trim();
-      return base + "/" + String(path).replace(/^\/+/,"");
+    async function fetchJSON(path, options){
+      var response = await fetch(endpoint(path), Object.assign({ headers:{"Accept":"application/json,text/plain,*/*"}, cache:"default" }, options || {}));
+      var text = await response.text();
+      var data;
+      try { data = JSON.parse(text); } catch(error) { data = { rawText:text }; }
+      if (!response.ok || data.ok === false || data.error) throw new Error(data.error || data.message || ("Worker request failed: " + response.status));
+      return data;
     }
 
-    async function apiGet(path){
-      const res = await fetch(endpoint(path), {headers:{"Accept":"application/json"}, cache:"no-store"});
-      if(!res.ok) throw new Error(`${path} returned ${res.status}`);
-      return res.json();
+    function walk(value, callback, path){
+      path = path || [];
+      if (value === null || value === undefined) return;
+      callback(value, path);
+      if (Array.isArray(value)) { value.forEach(function(v,i){ walk(v, callback, path.concat(String(i))); }); return; }
+      if (typeof value === "object") Object.keys(value).forEach(function(k){ walk(value[k], callback, path.concat(k)); });
     }
 
-    async function apiPost(path, body){
-      const res = await fetch(endpoint(path), {
-        method:"POST",
-        headers:{"Content-Type":"application/json","Accept":"application/json"},
-        body:JSON.stringify(body)
-      });
-      const json = await res.json().catch(() => ({}));
-      if(!res.ok || json.ok === false) throw new Error(json.error || json.message || `${path} returned ${res.status}`);
-      return json;
-    }
-
-    function unwrap(raw, keys=[]){
-      if(!raw) return null;
-      let obj = raw;
-      for(const key of keys){
-        if(obj && obj[key] != null) obj = obj[key];
-      }
-      if(obj && obj.data && typeof obj.data === "object") return obj.data;
-      if(obj && obj.result && typeof obj.result === "object") return obj.result;
-      if(obj && obj.listing && typeof obj.listing === "object") return obj.listing;
-      return obj;
-    }
-
-    function pick(obj, paths){
-      for(const path of paths){
-        const parts = path.split(".");
-        let cur = obj;
-        for(const p of parts){
-          if(cur == null) break;
-          cur = cur[p];
-        }
-        if(cur != null && cur !== "") return cur;
-      }
+    function cleanUrl(raw){
+      raw = safe(raw).trim().replace(/^ttps:\/\//i,"https://").replace(/^\/\//,"https://").replace(/[\s'")<>]+$/g,"");
+      if (/^https?:\/\//i.test(raw)) return raw;
+      if (raw.charAt(0) === "/") return CFG.workerBase.replace(/\/$/,"") + raw;
       return "";
     }
-
-    function asArray(value){
-      if(!value) return [];
-      if(Array.isArray(value)) return value;
-      if(Array.isArray(value.items)) return value.items;
-      if(Array.isArray(value.results)) return value.results;
-      if(Array.isArray(value.images)) return value.images;
-      if(Array.isArray(value.data)) return value.data;
-      return [];
+    function isImageUrl(url){ return /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url) || /assets\.guesty\.com\/image\/upload/i.test(url) || /cloudinary/i.test(url); }
+    function collectImageUrls(data){
+      var out = [];
+      function add(v){ var u = cleanUrl(v); if (u && isImageUrl(u)) out.push(u); }
+      walk(data, function(value){
+        if (typeof value === "string" || typeof value === "number") {
+          var s = safe(value).replace(/ttps:\/\//gi,"https://");
+          s.replace(/https?:\/\/[^\s"'<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^\s"'<>]*)?/gi, function(match){ add(match); return match; });
+          add(s);
+        }
+      });
+      return Array.from(new Set(out));
+    }
+    function shuffle(list){
+      var arr = Array.from(new Set((list || []).filter(Boolean)));
+      for (var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp; }
+      return arr;
     }
 
-    function money(value, currency="USD"){
-      const n = Number(value);
-      if(!Number.isFinite(n)) return "";
-      try{return new Intl.NumberFormat("en-US",{style:"currency",currency,maximumFractionDigits:0}).format(n)}
-      catch{return `$${Math.round(n)}`}
-    }
-
-    function formatDate(date){
-      return date.toISOString().slice(0,10);
-    }
-
-    function addDays(date, days){
-      const d = new Date(date);
-      d.setDate(d.getDate()+days);
-      return d;
-    }
-
-    function monthStart(date){
-      return new Date(date.getFullYear(), date.getMonth(), 1);
-    }
-
-    function monthEnd(date){
-      return new Date(date.getFullYear(), date.getMonth()+1, 0);
-    }
-
-
-    function localizedText(value){
-      if(value == null) return "";
-      if(typeof value === "string" || typeof value === "number") return clean(value);
-      if(typeof value === "object"){
-        const langKey = String(state.lang || "en").slice(0,2).toLowerCase();
-        const candidates = [value[langKey], value.en, value.fr, value.de, value.ru, value.he, value.title, value.name, value.summary, value.description, value.text, value.plainText, value.body];
-        for(const item of candidates){
-          const txt = localizedText(item);
-          if(txt) return txt;
+    async function loadImages(){
+      var attempts = [
+        "/images?listingId=" + encodeURIComponent(CFG.listingId) + "&random=1&limit=160&page=booking",
+        "/images?listingId=" + encodeURIComponent(CFG.listingId) + "&random=1&limit=160",
+        "/images?random=1&limit=160",
+        "/images"
+      ];
+      for (var i=0;i<attempts.length;i++){
+        try {
+          var data = await fetchJSON(attempts[i]);
+          var urls = shuffle(collectImageUrls(data));
+          if (urls.length) { state.images = urls; renderImages(); return; }
+        } catch(error) {
+          if (i === attempts.length - 1) console.warn("Images did not load from Worker.", error);
         }
       }
-      return "";
-    }
-
-    function firstTextFrom(sources, paths){
-      for(const source of sources){
-        if(!source) continue;
-        const direct = localizedText(source);
-        if(direct && typeof source !== "object") return direct;
-        for(const path of paths){
-          const txt = localizedText(pick(source, [path]));
-          if(txt) return txt;
-        }
-      }
-      return "";
-    }
-
-    function normalizeListing(raw){
-      const l = unwrap(raw) || {};
-      const contentRoot = state.content || {};
-      const contentSources = [contentRoot, contentRoot.content, contentRoot.property, contentRoot.listing, contentRoot.page, contentRoot.hero, contentRoot.data, contentRoot.result].filter(Boolean);
-      const publicDescription = l.publicDescription || l.description || l.descriptions || l.descriptionSummary || {};
-      const terms = l.terms || l.policies || {};
-      const addressObj = l.address || l.location || {};
-
-      const title = firstTextFrom([l].concat(contentSources),["title","name","nickname","internalName","listing.title","listing.name","propertyTitle","heroTitle","hero.title"]);
-      const summary = firstTextFrom(contentSources,["summary","description","overview","plainText","text","body","hero.description","heroLead","property.description","listing.description","content.description"]) || firstTextFrom([publicDescription,l],["summary","description","plainText","text","overview","publicDescription.summary","descriptionSummary"]);
-      const space = firstTextFrom([publicDescription,l].concat(contentSources),["space","theSpace","property","rooms","publicDescription.space","sections.space"]);
-      const access = firstTextFrom([publicDescription,l].concat(contentSources),["access","guestAccess","interactionWithGuests","transit","publicDescription.access"]);
-      const notes = firstTextFrom([publicDescription,l].concat(contentSources),["notes","neighborhood","houseRules","otherThingsToNote","publicDescription.notes"]);
-
-      const address = clean(pick(addressObj,["full","fullAddress","display","street","addressLine1"])) || [addressObj.street, addressObj.city, addressObj.state, addressObj.country].filter(Boolean).join(", ");
-      const lat = Number(pick(addressObj,["lat","latitude","geo.lat","coordinates.lat"]));
-      const lng = Number(pick(addressObj,["lng","lon","longitude","geo.lng","geo.lon","coordinates.lng","coordinates.lon"]));
-
-      const guests = Number(pick(l,["accommodates","occupancy","maxOccupancy","maxGuests","pricing.guestsIncludedInRegularFee"])) || "";
-      const bedrooms = Number(pick(l,["bedrooms","bedroomCount","roomCount.bedrooms","property.bedrooms"])) || "";
-      const bathrooms = pick(l,["bathrooms","bathroomsFull","bathroomCount","roomCount.bathrooms","property.bathrooms"]);
-      const beds = pick(l,["beds","bedCount","roomCount.beds"]);
-      const currency = clean(pick(l,["currency","prices.currency","pricing.currency"])) || "CHF";
-      const basePrice = pick(l,["basePrice","prices.basePrice","pricing.basePrice","pricing.nightly","defaultDailyPrice"]);
-
-      return {
-        raw:l,
-        id:clean(pick(l,["_id","id","listingId","propertyId"])),
-        title,
-        summary,
-        space,
-        access,
-        notes,
-        address:clean(address),
-        lat:Number.isFinite(lat) ? lat : null,
-        lng:Number.isFinite(lng) ? lng : null,
-        guests,
-        bedrooms,
-        bathrooms:clean(bathrooms),
-        beds,
-        currency,
-        basePrice,
-        rooms:normalizeRooms(l),
-        amenities:normalizeAmenities(l),
-        policies:normalizePolicies(l, terms),
-        contacts:normalizeContacts(l)
-      };
-    }
-
-    function normalizeContacts(l){
-      const phone = clean(pick(l,["phone","contact.phone","account.phone","host.phone"]));
-      const email = clean(pick(l,["email","contact.email","account.email","host.email"]));
-      return {phone,email};
-    }
-
-    function normalizeRooms(l){
-      const rooms = asArray(pick(l,["rooms","bedroomsList","bedroomsData","roomDetails"]));
-      if(rooms.length){
-        return rooms.map((room, i) => {
-          const title = clean(room.title || room.name || room.type || `Bedroom ${i+1}`);
-          const beds = asArray(room.beds || room.bedTypes).map(b => {
-            const count = b.count || b.quantity || b.numberOfBeds || 1;
-            const type = clean(b.type || b.name || b.bedType || "Bed");
-            return `${count} ${type}`;
-          }).join(", ") || clean(room.bed || room.description || room.summary);
-          return {title,beds};
-        }).filter(r => r.title || r.beds);
-      }
-
-      const beds = asArray(pick(l,["beds","bedTypes","bed"]));
-      if(beds.length){
-        return beds.map((bed, i) => ({
-          title:clean(bed.room || bed.roomName || bed.title || `Sleeping area ${i+1}`),
-          beds:clean(`${bed.count || bed.numberOfBeds || bed.quantity || 1} ${bed.type || bed.name || bed.bedType || "Bed"}`)
-        }));
-      }
-
-      const bedrooms = Number(pick(l,["bedrooms","bedroomCount"]));
-      const bedCount = Number(pick(l,["bedsCount","bedCount","roomCount.beds"]));
-      if(bedrooms || bedCount){
-        return [{title:"Sleeping arrangements", beds:[bedrooms ? `${bedrooms} bedrooms` : "", bedCount ? `${bedCount} beds` : ""].filter(Boolean).join(" · ")}];
-      }
-      return [];
-    }
-
-    function normalizeAmenities(l){
-      const raw = asArray(pick(l,["amenities","amenityFeature","features","propertyAmenities"]));
-      return raw.map(a => clean(a.title || a.name || a.type || a)).filter(Boolean).map(formatLabel).filter(unique);
-    }
-
-    function normalizePolicies(l, terms){
-      const out = [];
-      const checkIn = clean(pick(l,["checkInTime","defaultCheckInTime","terms.checkIn","pms.checkInTime"]));
-      const checkOut = clean(pick(l,["checkOutTime","defaultCheckOutTime","terms.checkOut","pms.checkOutTime"]));
-      const rules = clean(pick(terms,["houseRules","rules","notes"])) || clean(pick(l,["houseRules","publicDescription.houseRules"]));
-      const cancellation = clean(pick(terms,["cancellation","cancellationPolicy","cancellationPolicyName"])) || clean(pick(l,["cancellationPolicy","cancellationPolicyName"]));
-
-      if(checkIn || checkOut) out.push({title:"Arrival", body:[checkIn ? `Check-in: ${checkIn}` : "", checkOut ? `Check-out: ${checkOut}` : ""].filter(Boolean).join("\n")});
-      if(rules) out.push({title:"House rules", body:rules});
-      if(cancellation) out.push({title:"Cancellation", body:cancellation});
-      return out;
-    }
-
-    function formatLabel(value){
-      return clean(value)
-        .replace(/([a-z])([A-Z])/g,"$1 $2")
-        .replace(/[_-]+/g," ")
-        .replace(/\b\w/g,c=>c.toUpperCase());
-    }
-
-    function unique(value, index, arr){
-      return value && arr.indexOf(value) === index;
-    }
-
-    function normalizeImages(raw){
-      const base = unwrap(raw) || raw;
-      const arr = asArray(base);
-      return arr.map(item => {
-        if(typeof item === "string") return item;
-        return item.url || item.src || item.original || item.thumbnail || item.large || item.medium || item.secure_url || item.originalUrl || item.imageUrl || "";
-      }).map(clean).filter(Boolean).filter(unique);
-    }
-
-    function normalizeCalendar(raw){
-      const base = unwrap(raw) || raw;
-      const arr = Array.isArray(base) ? base : asArray(base.days || base.calendar || base.rates || base.availability || base.data || base);
-      const map = new Map();
-      arr.forEach(item => {
-        const date = clean(item.date || item.day || item.startDate || item.start || item.dateString);
-        if(!date) return;
-        const price = item.price ?? item.basePrice ?? item.rate ?? item.amount ?? pick(item,["price.total","price.basePrice","pricing.price","pricing.basePrice"]);
-        const currency = clean(item.currency || item.priceCurrency || pick(item,["price.currency","pricing.currency"])) || (state.listing && state.listing.currency) || "USD";
-        const status = clean(item.status || item.availability || item.type || "").toLowerCase();
-        const available = item.available ?? item.isAvailable ?? item.selectable ?? item.availableForCheckIn;
-        const blocked = available === false || status.includes("book") || status.includes("block") || status.includes("unavailable") || item.blocked === true || item.isBlocked === true;
-        map.set(date.slice(0,10), {date:date.slice(0,10), price, currency, blocked, status});
-      });
-      return map;
-    }
-
-    function fillSelect(select, max, start=0, selected=0){
-      select.innerHTML = "";
-      for(let i=start;i<=max;i++){
-        const option = document.createElement("option");
-        option.value = String(i);
-        option.textContent = String(i);
-        if(i === selected) option.selected = true;
-        select.appendChild(option);
-      }
-    }
-
-    function setContent(id, value){
-      const el = $(id);
-      if(el) el.textContent = clean(value);
-    }
-
-    function setHtml(id, value){
-      const el = $(id);
-      if(el) el.innerHTML = htmlText(value);
-    }
-
-    function showIf(sectionId, condition){
-      const el = $(sectionId);
-      if(el) el.classList.toggle("has-content", Boolean(condition));
-    }
-
-    function renderListing(){
-      const l = state.listing;
-      if(!l) return;
-
-      document.title = l.title ? `${l.title} · Book your stay` : "Book your stay";
-      const meta = document.querySelector('meta[name="description"]');
-      if(meta && l.summary) meta.content = l.summary.slice(0,155);
-
-      setContent("heroKicker", l.title || "Direct booking");
-      setContent("propertyTitle", l.title);
-      setContent("propertyAddress", l.address);
-      setContent("propertySummary", l.summary);
-      setContent("guestCount", l.guests);
-      setContent("bedroomCount", l.bedrooms);
-      setContent("bathroomCount", l.bathrooms);
-
-      const hasMeta = Boolean(l.guests || l.bedrooms || l.bathrooms);
-      $("metaRow").hidden = !hasMeta;
-
-      const basePrice = Number(l.basePrice);
-      $("fromPrice").innerHTML = Number.isFinite(basePrice) ? `From <strong>${money(basePrice,l.currency)}</strong> / night` : "";
-
-      setHtml("descriptionFull", l.summary || pick(l.raw,["description","publicDescription.summary"]));
-      setHtml("descriptionSpace", l.space);
-      setHtml("descriptionAccess", l.access);
-      setHtml("descriptionNotes", l.notes);
-
-      toggleBlock("summaryBlock", $("descriptionFull").innerHTML);
-      toggleBlock("spaceBlock", $("descriptionSpace").innerHTML);
-      toggleBlock("accessBlock", $("descriptionAccess").innerHTML);
-      toggleBlock("notesBlock", $("descriptionNotes").innerHTML);
-      showIf("aboutSection", document.querySelectorAll("#aboutSection .tm-description-block.has-content").length > 0);
-
-      renderRooms(l.rooms);
-      renderAmenities(l.amenities);
-      renderPolicies(l.policies);
-      renderLocation(l);
-      renderFooter(l);
-      setupGuestLimits(l.guests || 32);
-    }
-
-    function toggleBlock(id, content){
-      const el = $(id);
-      if(el) el.classList.toggle("has-content", Boolean(clean(content)) || Boolean(content));
-    }
-
-    function renderRooms(rooms){
-      const grid = $("roomsGrid");
-      grid.innerHTML = "";
-      rooms.forEach(room => {
-        const card = document.createElement("article");
-        card.className = "tm-card";
-        card.innerHTML = `<h3>${escapeHtml(room.title)}</h3><div>${escapeHtml(room.beds)}</div>`;
-        grid.appendChild(card);
-      });
-      showIf("roomsSection", rooms.length);
-    }
-
-    function renderAmenities(amenities){
-      const grid = $("amenitiesGrid");
-      grid.innerHTML = "";
-      amenities.slice(0, CONFIG.MAX_AMENITIES).forEach(name => {
-        const item = document.createElement("div");
-        item.className = "tm-amenity";
-        item.textContent = name;
-        grid.appendChild(item);
-      });
-      showIf("amenitiesSection", amenities.length);
-    }
-
-    function renderPolicies(policies){
-      const grid = $("policiesGrid");
-      grid.innerHTML = "";
-      policies.forEach(policy => {
-        const card = document.createElement("article");
-        card.className = "tm-card";
-        card.innerHTML = `<h3>${escapeHtml(policy.title)}</h3><div>${escapeHtml(policy.body).replace(/\n/g,"<br>")}</div>`;
-        grid.appendChild(card);
-      });
-      showIf("policiesSection", policies.length);
-    }
-
-    function renderLocation(l){
-      const hasCoordinates = l.lat != null && l.lng != null;
-      if(hasCoordinates){
-        $("mapFrame").innerHTML = `<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(l.lat+','+l.lng)}&z=13&output=embed"></iframe>`;
-      }
-      $("locationLines").textContent = l.address || "";
-      showIf("locationSection", hasCoordinates || l.address);
-    }
-
-    function renderFooter(l){
-      setContent("footerBrand", l.title || "Book your stay");
-      setContent("footerAddress", l.address);
-      const contact = [l.contacts.email, l.contacts.phone].filter(Boolean).join("\n");
-      $("footerContact").innerHTML = escapeHtml(contact).replace(/\n/g,"<br>");
-      $("footerBooking").textContent = "Direct booking powered by the property booking system.";
-      $("inquiryCopy").textContent = l.title ? `Send a question about ${l.title}.` : "Send a question about this stay.";
+      renderImages();
     }
 
     function renderImages(){
-      const grid = $("photoGrid");
-      const modal = $("modalGrid");
-      grid.innerHTML = "";
-      modal.innerHTML = "";
-      const images = state.images;
-
-      images.slice(0, CONFIG.MAX_VISIBLE_PHOTOS).forEach((src, index) => {
-        const card = document.createElement("button");
-        card.type = "button";
-        card.className = "tm-photo-card";
-        card.setAttribute("aria-label", `Open photo ${index+1}`);
-        card.innerHTML = `<img src="${escapeHtml(src)}" alt="" loading="${index < 4 ? "eager" : "lazy"}" decoding="async">`;
-        card.addEventListener("click", openPhotoModal);
-        grid.appendChild(card);
-      });
-
-      if(images.length){
-        const overlay = document.createElement("div");
-        overlay.className = "tm-photo-overlay";
-        overlay.innerHTML = `<button class="tm-small-btn" type="button">View all photos</button>`;
-        overlay.querySelector("button").addEventListener("click", openPhotoModal);
-        grid.appendChild(overlay);
+      var urls = state.images.length ? state.images : [BLANK];
+      if (state.selectedImageIndex >= urls.length) state.selectedImageIndex = 0;
+      var main = $("fhMainImage");
+      if (main) {
+        main.onerror = function(){ if (this.src !== BLANK) this.src = BLANK; };
+        main.src = urls[state.selectedImageIndex] || BLANK;
       }
+      setText("fhImageCaptionTitle", state.images.length ? txt("photosLoaded") : txt("photosLoading"));
+      setText("fhImageCaptionText", txt("photoCaption"));
+      var rail = $("fhThumbRail");
+      if (!rail) return;
+      rail.innerHTML = urls.slice(0,36).map(function(url,index){
+        return '<button type="button" class="fh-thumb'+(index===state.selectedImageIndex?' is-active':'')+'" data-photo-index="'+index+'" aria-label="Photo '+(index+1)+'"><img src="'+escapeHTML(url)+'" alt="Fletschhorn photo '+(index+1)+'" loading="lazy" decoding="async"></button>';
+      }).join("");
+    }
+    function selectImage(index){
+      if (!state.images.length) return;
+      state.selectedImageIndex = ((index % state.images.length) + state.images.length) % state.images.length;
+      renderImages();
+      var rail = $("fhThumbRail");
+      var active = rail ? rail.querySelector('[data-photo-index="'+state.selectedImageIndex+'"]') : null;
+      if (active) active.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
+    }
 
-      images.forEach(src => {
-        const img = document.createElement("img");
-        img.src = src;
-        img.alt = "";
-        img.loading = "lazy";
-        modal.appendChild(img);
+    async function loadListingAndContent(){
+      var content = null, listing = null;
+      try { content = await fetchJSON("/content?lang=" + encodeURIComponent(state.lang)); } catch(error) { console.warn("/content did not load.", error); }
+      try { listing = await fetchJSON("/listing?listingId=" + encodeURIComponent(CFG.listingId)); } catch(error1) {
+        try { listing = await fetchJSON("/listing"); } catch(error2) { console.warn("/listing did not load.", error2); }
+      }
+      state.content = content;
+      state.listing = listing;
+      renderListing();
+    }
+
+    function findFirstString(data, keys){
+      var found = "";
+      var keySet = keys.map(function(k){ return k.toLowerCase(); });
+      walk(data, function(value, path){
+        if (found || typeof value !== "string") return;
+        var last = path.length ? path[path.length-1].toLowerCase() : "";
+        if (keySet.indexOf(last) >= 0 && value.trim().length > 1) found = value.trim();
       });
+      return found;
+    }
+    function findFirstNumber(data, keys){
+      var found = null;
+      var keySet = keys.map(function(k){ return k.toLowerCase(); });
+      walk(data, function(value, path){
+        if (found !== null) return;
+        var last = path.length ? path[path.length-1].toLowerCase() : "";
+        if (keySet.indexOf(last) >= 0 && value !== "" && value !== null && !isNaN(Number(value))) found = Number(value);
+      });
+      return found;
+    }
+    function collectDescriptions(data){
+      var blocks = [];
+      var preferred = ["summary","description","publicdescription","overview","space","access","transit","notes","neighborhood","propertydescription"];
+      walk(data, function(value, path){
+        if (typeof value !== "string") return;
+        var text = value.trim();
+        if (text.length < 45) return;
+        if (/^https?:\/\//i.test(text)) return;
+        var joined = path.join(".").toLowerCase();
+        var isPreferred = preferred.some(function(k){ return joined.indexOf(k) >= 0; });
+        if (isPreferred || text.length > 160) blocks.push(text);
+      });
+      return Array.from(new Set(blocks)).slice(0,5);
+    }
+    function htmlParagraphs(blocks){
+      if (!blocks || !blocks.length) return "";
+      return blocks.map(function(block){
+        return safe(block).split(/\n{2,}/).map(function(p){ return p.trim(); }).filter(Boolean).map(function(p){ return "<p>"+escapeHTML(p)+"</p>"; }).join("");
+      }).join("");
+    }
+    function renderListing(){
+      var merged = { content:state.content || {}, listing:state.listing || {} };
+      var title = findFirstString(merged, ["title","name","nickname","listingTitle","propertyName"]) || txt("fallbackTitle");
+      var descriptions = collectDescriptions(state.content).concat(collectDescriptions(state.listing));
+      descriptions = Array.from(new Set(descriptions)).slice(0,4);
+      var descriptionHtml = htmlParagraphs(descriptions) || "<p>"+escapeHTML(txt("fallbackDescription"))+"</p>";
+      setText("fhListingTitle", title);
+      setHTML("fhDescriptionText", descriptionHtml);
+
+      var guests = findFirstNumber(merged, ["accommodates","guests","maxGuests","personCapacity","occupancy","guestCapacity"]);
+      var bedrooms = findFirstNumber(merged, ["bedrooms","numberOfBedrooms","bedroomCount"]);
+      var bathrooms = findFirstNumber(merged, ["bathrooms","numberOfBathrooms","numberOfBathroomsTotal","bathroomCount"]);
+      var beds = findFirstNumber(merged, ["beds","numberOfBeds","bedCount"]);
+      var stats = [];
+      if (guests !== null) stats.push([txt("factsGuests"), guests]);
+      if (bedrooms !== null) stats.push([txt("factsBedrooms"), bedrooms]);
+      if (bathrooms !== null) stats.push([txt("factsBathrooms"), bathrooms]);
+      if (beds !== null) stats.push([txt("factsBeds"), beds]);
+      setHTML("fhListingStats", stats.map(function(s){ return '<div class="fh-stat"><b>'+escapeHTML(s[1])+'</b><span>'+escapeHTML(s[0])+'</span></div>'; }).join(""));
+
+      var address = findFirstString(merged, ["full","fullAddress","address","streetAddress"]);
+      var checkIn = findFirstString(merged, ["checkIn","checkInTime","checkin"]);
+      var checkOut = findFirstString(merged, ["checkOut","checkOutTime","checkout"]);
+      var cards = [];
+      if (address) cards.push(["Address", address]);
+      if (checkIn || checkOut) cards.push(["Stay timing", [checkIn ? "Check-in: "+checkIn : "", checkOut ? "Check-out: "+checkOut : ""].filter(Boolean).join(" · ")]);
+      setHTML("fhDynamicInfo", cards.map(function(c){ return '<article class="fh-info-card"><b>'+escapeHTML(c[0])+'</b><p>'+escapeHTML(c[1])+'</p></article>'; }).join(""));
     }
 
-    function openPhotoModal(){
-      $("photoModal").classList.add("is-open");
-      $("photoModal").setAttribute("aria-hidden","false");
+    function normalizeCalendarDay(item){
+      if (!item || typeof item !== "object") return null;
+      var date = item.date || item.day || item.dateString || item.startDate || item.start || item._id || "";
+      date = safe(date).slice(0,10);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+      var status = safe(item.status || item.availability || item.state || "").toLowerCase();
+      var available = item.available === true || item.isAvailable === true || item.bookable === true || status === "available" || status === "open";
+      var unavailable = item.available === false || item.isAvailable === false || item.bookable === false || ["unavailable","booked","blocked","closed","reserved","not_available"].indexOf(status) >= 0;
+      var price = item.price || item.nightlyPrice || item.nightly_price || item.basePrice || item.base_price || item.rate || item.amount || item.total || null;
+      if (price && typeof price === "object") price = price.amount || price.value || price.price || null;
+      var currency = item.currency || item.priceCurrency || CFG.currency;
+      return { date:date, available: unavailable ? false : available, unavailable:unavailable, status:status, price:price, currency:currency };
     }
-
-    function closePhotoModal(){
-      $("photoModal").classList.remove("is-open");
-      $("photoModal").setAttribute("aria-hidden","true");
+    function collectCalendarDays(data){
+      var found = [];
+      walk(data, function(value){ var day = normalizeCalendarDay(value); if (day) found.push(day); });
+      return found;
     }
-
-    function setupGuestLimits(maxGuests){
-      const max = Math.max(1, Math.min(Number(maxGuests) || 32, 60));
-      fillSelect($("adults"), max, 1, 2);
-      fillSelect($("children"), max, 0, 0);
-      fillSelect($("calAdults"), max, 1, 2);
-      fillSelect($("calChildren"), max, 0, 0);
-    }
-
     async function loadCalendar(){
-      const monthValue = $("calMonth").value;
-      const base = monthValue ? new Date(monthValue + "-01T00:00:00") : monthStart(new Date());
-      const from = formatDate(monthStart(base));
-      const to = formatDate(addDays(monthEnd(new Date(base.getFullYear(), base.getMonth()+1, 1)), 1));
-      $("calendarStatus").textContent = "";
-
-      try{
-        const raw = await apiGet(`calendar?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
-        state.calendar = normalizeCalendar(raw);
-        renderCalendar(base);
-      }catch(error){
-        $("calendarStatus").textContent = "Calendar could not load.";
-        renderCalendar(base);
+      var range = monthRange(state.currentMonth);
+      setText("fhScheduleStatus", txt("loadingSchedule"));
+      var statusEl = $("fhScheduleStatus");
+      if (statusEl) statusEl.classList.remove("error");
+      try {
+        var path = "/calendar?from="+encodeURIComponent(range.from)+"&to="+encodeURIComponent(range.to)+"&listingId="+encodeURIComponent(CFG.listingId)+"&guestyListingId="+encodeURIComponent(CFG.listingId);
+        var data = await fetchJSON(path, { cache:"default" });
+        var days = collectCalendarDays(data);
+        state.calendarDays = {};
+        days.forEach(function(day){ state.calendarDays[day.date] = day; });
+        setText("fhScheduleStatus", txt("loadedSchedule"));
+      } catch(error) {
+        console.warn("Calendar did not load.", error);
+        state.calendarDays = {};
+        setText("fhScheduleStatus", txt("scheduleError"));
+        if (statusEl) statusEl.classList.add("error");
       }
+      renderCalendar();
     }
 
-    function renderCalendar(base){
-      const wrap = $("calendarWrap");
-      wrap.innerHTML = "";
-      [0,1].forEach(offset => {
-        const date = new Date(base.getFullYear(), base.getMonth()+offset, 1);
-        wrap.appendChild(renderMonth(date));
-      });
-      refreshSelection();
+    function formatMoney(amount, currency){
+      if (amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "";
+      try { return new Intl.NumberFormat(state.lang === "en" ? "en-US" : state.lang, { style:"currency", currency:currency || CFG.currency, maximumFractionDigits:0 }).format(Number(amount)); }
+      catch(error) { return Math.round(Number(amount)).toLocaleString() + " " + (currency || CFG.currency); }
+    }
+    function monthTitle(date){
+      try { return date.toLocaleDateString(state.lang === "en" ? "en-US" : state.lang, { month:"long", year:"numeric" }); }
+      catch(error) { return date.toLocaleDateString("en-US", { month:"long", year:"numeric" }); }
+    }
+    function isPast(iso){ return iso < todayIso(); }
+    function dateUnavailable(iso){
+      var day = state.calendarDays[iso];
+      return !!(day && (day.unavailable === true || day.available === false));
+    }
+    function rangeHasUnavailable(startIso, endIso){
+      if (!startIso || !endIso) return false;
+      var start = new Date(startIso+"T00:00:00");
+      var end = new Date(endIso+"T00:00:00");
+      for (var d = new Date(start); d < end; d.setDate(d.getDate()+1)) {
+        var iso = toDateString(d);
+        if (isPast(iso) || dateUnavailable(iso)) return true;
+      }
+      return false;
+    }
+    function renderCalendar(){
+      var grid = $("fhCalendarGrid");
+      if (!grid) return;
+      var month = state.currentMonth;
+      var first = new Date(month.getFullYear(), month.getMonth(), 1);
+      var last = new Date(month.getFullYear(), month.getMonth()+1, 0);
+      var html = "";
+      for (var i=0;i<first.getDay();i++) html += '<button type="button" class="fh-day empty" tabindex="-1" aria-hidden="true"></button>';
+      for (var dayNum=1; dayNum<=last.getDate(); dayNum++) {
+        var date = new Date(month.getFullYear(), month.getMonth(), dayNum);
+        var iso = toDateString(date);
+        var info = state.calendarDays[iso] || null;
+        var classes = ["fh-day"];
+        var disabled = false;
+        var statusText = "";
+        if (isPast(iso)) { classes.push("past"); disabled = true; statusText = txt("past"); }
+        else if (info && (info.unavailable || info.available === false)) { classes.push("unavailable"); disabled = true; statusText = (info.status && info.status !== "unavailable") ? info.status : txt("booked"); }
+        else if (info && info.available === true) { classes.push("available"); statusText = txt("available"); }
+        else { classes.push("no-data"); statusText = ""; }
+        if (state.arrival === iso) classes.push("start");
+        if (state.departure === iso) classes.push("end");
+        if (state.arrival && state.departure && iso > state.arrival && iso < state.departure) classes.push("range");
+        var price = info ? formatMoney(info.price, info.currency) : "";
+        html += '<button type="button" class="'+classes.join(" ")+'" data-date="'+iso+'" '+(disabled?'disabled':'')+' aria-label="'+escapeHTML(iso + (price ? ' '+price : ''))+'">'
+          + '<span class="fh-day-number">'+dayNum+'</span>'
+          + '<span><span class="fh-day-price">'+escapeHTML(price || txt("noPrice"))+'</span>'
+          + '<span class="fh-day-status">'+escapeHTML(statusText)+'</span></span>'
+          + '</button>';
+      }
+      grid.innerHTML = html;
+      setText("fhScheduleTitle", monthTitle(month));
+      updateSummary();
     }
 
-    function renderMonth(date){
-      const month = document.createElement("div");
-      month.className = "tm-month";
-      const title = date.toLocaleString("en-US", {month:"long",year:"numeric"});
-      month.innerHTML = `<div class="tm-month-title">${escapeHtml(title)}</div><div class="tm-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="tm-days"></div>`;
-      const days = month.querySelector(".tm-days");
-      const first = monthStart(date);
-      const last = monthEnd(date);
-      for(let i=0;i<first.getDay();i++){
-        const empty = document.createElement("div");
-        empty.className = "tm-day is-empty";
-        days.appendChild(empty);
-      }
-      for(let d=1; d<=last.getDate(); d++){
-        const cur = new Date(date.getFullYear(), date.getMonth(), d);
-        const iso = formatDate(cur);
-        const data = state.calendar.get(iso);
-        const past = cur < monthStart(new Date()) && iso < formatDate(new Date());
-        const blocked = past || (data && data.blocked);
-        const cell = document.createElement("button");
-        cell.type = "button";
-        cell.className = "tm-day" + (blocked ? " is-blocked" : "");
-        cell.dataset.date = iso;
-        cell.disabled = Boolean(blocked);
-        cell.innerHTML = `<span class="tm-day-number">${d}</span>${data && data.price ? `<span class="tm-day-price">${money(data.price,data.currency)}</span>` : ""}`;
-        cell.addEventListener("click", () => selectDate(iso));
-        days.appendChild(cell);
-      }
-      return month;
+    function showMessage(message, type){
+      var box = $("fhMessage");
+      if (!box) return;
+      box.textContent = message || "";
+      box.className = "fh-message" + (message ? " show" : "") + (type ? " " + type : "");
     }
-
+    function clearMessage(){ showMessage("", ""); }
     function selectDate(iso){
-      if(!state.selectedStart || (state.selectedStart && state.selectedEnd) || iso < state.selectedStart){
-        state.selectedStart = iso;
-        state.selectedEnd = null;
-        $("checkIn").value = iso;
-        $("checkOut").value = "";
-      }else if(iso > state.selectedStart){
-        state.selectedEnd = iso;
-        $("checkOut").value = iso;
+      clearMessage();
+      if (!state.arrival || (state.arrival && state.departure) || iso <= state.arrival) {
+        state.arrival = iso;
+        state.departure = "";
+      } else {
+        var nights = daysBetween(state.arrival, iso);
+        if (nights < CFG.minNights) { showMessage(txt("badRange"), "error"); state.departure = ""; renderCalendar(); updateSummary(); return; }
+        if (rangeHasUnavailable(state.arrival, iso)) { showMessage(txt("rangeUnavailable"), "error"); state.departure = ""; renderCalendar(); updateSummary(); return; }
+        state.departure = iso;
       }
-      refreshSelection();
-      maybeQuote();
+      renderCalendar();
+      updateSummary();
+      saveStart(false);
+      if (state.arrival && state.departure) loadQuote();
     }
-
-    function refreshSelection(){
-      document.querySelectorAll(".tm-day").forEach(cell => {
-        const iso = cell.dataset.date;
-        const selected = iso && state.selectedStart && (iso === state.selectedStart || iso === state.selectedEnd || (state.selectedEnd && iso > state.selectedStart && iso < state.selectedEnd));
-        cell.classList.toggle("is-selected", Boolean(selected));
-      });
+    function updateSummary(){
+      setText("fhSummaryArrival", state.arrival || txt("selectDate"));
+      setText("fhSummaryDeparture", state.departure || txt("selectDate"));
+      var nights = daysBetween(state.arrival, state.departure);
+      setText("fhSummaryNights", nights > 0 ? nights + " " + (nights === 1 ? txt("night") : txt("nights")) : "—");
+      var quote = $("fhLiveQuote");
+      if (quote && !state.arrival && !state.departure) quote.textContent = txt("quotePrompt");
     }
-
-    function quotePayload(){
-      const checkIn = $("checkIn").value;
-      const checkOut = $("checkOut").value;
-      const adults = Number($("adults").value || 1);
-      const children = Number($("children").value || 0);
-      const listingId = CONFIG.PROPERTY_ID || (state.listing && state.listing.id) || "";
-      return {
-        listingId,
-        propertyId:listingId,
-        checkIn,
-        checkOut,
-        from:checkIn,
-        to:checkOut,
-        numberOfGuests:{
-          numberOfAdults:adults,
-          numberOfChildren:children,
-          numberOfInfants:0,
-          numberOfPets:0
+    async function loadQuote(){
+      var quote = $("fhLiveQuote");
+      if (!state.arrival || !state.departure || state.quoteLoading) return;
+      state.quoteLoading = true;
+      if (quote) quote.textContent = txt("quoteLoading");
+      var adults = Number($("fhAdults") ? $("fhAdults").value : 2) || 1;
+      var children = Number($("fhChildren") ? $("fhChildren").value : 0) || 0;
+      var payload = {
+        listingId: CFG.listingId,
+        guestyListingId: CFG.listingId,
+        checkIn: state.arrival,
+        checkOut: state.departure,
+        startDate: state.arrival,
+        endDate: state.departure,
+        numberOfGuests: {
+          numberOfAdults: adults,
+          numberOfChildren: children,
+          numberOfInfants: 0,
+          numberOfPets: 0
         },
-        guests:{adults,children,infants:0,pets:0}
+        guests: adults + children,
+        lang: state.lang,
+        source: "visible-schedule"
+      };
+      try {
+        var response = await fetch(endpoint("/quote"), { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify(payload), cache:"default" });
+        var text = await response.text();
+        var data;
+        try { data = JSON.parse(text); } catch(error) { data = { rawText:text }; }
+        if (!response.ok || data.ok === false || data.error) throw new Error(data.error || data.message || "Quote failed");
+        var total = findFirstNumber(data, ["total","totalPrice","grandTotal","amount","price","quoteTotal"]);
+        var currency = findFirstString(data, ["currency","priceCurrency"]) || CFG.currency;
+        var line = txt("nights") + ": " + daysBetween(state.arrival,state.departure) + " · " + txt("adults") + ": " + adults + (children ? " · " + txt("children") + ": " + children : "");
+        if (quote) quote.innerHTML = escapeHTML(line) + (total !== null ? "<strong>"+escapeHTML(formatMoney(total,currency))+"</strong>" : "");
+      } catch(error) {
+        console.warn("Quote did not load.", error);
+        if (quote) quote.textContent = txt("quoteError");
+      } finally {
+        state.quoteLoading = false;
+      }
+    }
+    function currentPayload(){
+      return {
+        listingId: CFG.listingId,
+        guestyListingId: CFG.listingId,
+        workerBase: CFG.workerBase,
+        checkIn: state.arrival,
+        checkOut: state.departure,
+        arrivalDate: state.arrival,
+        departureDate: state.departure,
+        adults: Number($("fhAdults") ? $("fhAdults").value : 2) || 1,
+        children: Number($("fhChildren") ? $("fhChildren").value : 0) || 0,
+        firstName: $("fhFirstName") ? $("fhFirstName").value.trim() : "",
+        lastName: $("fhLastName") ? $("fhLastName").value.trim() : "",
+        email: $("fhEmail") ? $("fhEmail").value.trim() : "",
+        lang: state.lang,
+        source: "visible-schedule",
+        pageUrl: window.location.href,
+        createdAt: new Date().toISOString()
       };
     }
-
-    function canQuote(){
-      const p = quotePayload();
-      return p.checkIn && p.checkOut && p.checkOut > p.checkIn && p.numberOfGuests.numberOfAdults > 0;
+    function saveStart(logErrors){
+      try { localStorage.setItem("fhBookingStart", JSON.stringify(currentPayload())); }
+      catch(error) { if (logErrors) console.warn("Could not save booking start.", error); }
     }
-
-    async function maybeQuote(){
-      $("continueBtn").disabled = true;
-      $("bookingStatus").textContent = "";
-      $("bookingStatus").classList.remove("is-error");
-      if(!canQuote()) return;
-
-      try{
-        const quote = await apiPost("quote", quotePayload());
-        state.lastQuote = quote;
-        renderQuote(quote);
-        $("continueBtn").disabled = false;
-      }catch(error){
-        $("quoteBox").classList.remove("has-content");
-        $("bookingStatus").textContent = error.message || "Price could not load.";
-        $("bookingStatus").classList.add("is-error");
-      }
+    function emailValid(email){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+    function continueCheckout(){
+      var payload = currentPayload();
+      if (!payload.checkIn || !payload.checkOut) { showMessage(txt("missingDates"), "error"); return; }
+      if (daysBetween(payload.checkIn,payload.checkOut) < CFG.minNights) { showMessage(txt("badRange"), "error"); return; }
+      if (!payload.firstName) { showMessage(txt("missingFirstName"), "error"); var fn=$("fhFirstName"); if(fn) fn.focus(); return; }
+      if (!payload.lastName) { showMessage(txt("missingLastName"), "error"); var ln=$("fhLastName"); if(ln) ln.focus(); return; }
+      if (!payload.email) { showMessage(txt("missingEmail"), "error"); var em=$("fhEmail"); if(em) em.focus(); return; }
+      if (!emailValid(payload.email)) { showMessage(txt("invalidEmail"), "error"); var em2=$("fhEmail"); if(em2) em2.focus(); return; }
+      saveStart(true);
+      showMessage(txt("redirecting"), "success");
+      var params = new URLSearchParams();
+      ["firstName","lastName","email","checkIn","checkOut","adults","children","lang","source"].forEach(function(key){ params.set(key, safe(payload[key])); });
+      var btn = $("fhContinueBtn");
+      if (btn) { btn.disabled = true; btn.textContent = txt("redirecting"); }
+      window.location.href = CFG.checkoutUrl + "?" + params.toString();
     }
-
-    function findPrice(obj){
-      const candidates = [
-        "total", "totalPrice", "amount", "price", "quote.total", "quote.totalPrice",
-        "money.total", "pricing.total", "rates.total", "invoice.total", "reservation.money.hostPayout"
+    function clearDates(){
+      state.arrival = "";
+      state.departure = "";
+      clearMessage();
+      var quote = $("fhLiveQuote");
+      if (quote) quote.textContent = txt("quotePrompt");
+      renderCalendar();
+      updateSummary();
+      saveStart(false);
+    }
+    function prefill(){
+      var data = {};
+      try { data = JSON.parse(localStorage.getItem("fhBookingStart") || "{}"); } catch(error) {}
+      var params = new URLSearchParams(window.location.search);
+      state.arrival = params.get("checkIn") || params.get("arrivalDate") || data.checkIn || data.arrivalDate || "";
+      state.departure = params.get("checkOut") || params.get("departureDate") || data.checkOut || data.departureDate || "";
+      var fields = [
+        ["fhFirstName", params.get("firstName") || data.firstName],
+        ["fhLastName", params.get("lastName") || data.lastName],
+        ["fhEmail", params.get("email") || data.email],
+        ["fhAdults", params.get("adults") || data.adults],
+        ["fhChildren", params.get("children") || data.children]
       ];
-      for(const path of candidates){
-        const value = pick(obj,path.split ? [path] : path);
-        const n = Number(value);
-        if(Number.isFinite(n) && n > 0) return n;
-      }
-      if(obj && typeof obj === "object"){
-        for(const value of Object.values(obj)){
-          if(value && typeof value === "object"){
-            const nested = findPrice(value);
-            if(nested) return nested;
-          }
-        }
-      }
-      return null;
+      fields.forEach(function(pair){ var el = $(pair[0]); if (el && pair[1] !== undefined && pair[1] !== null && pair[1] !== "") el.value = pair[1]; });
     }
 
-    function renderQuote(quote){
-      const currency = clean(pick(quote,["currency","quote.currency","pricing.currency"])) || (state.listing && state.listing.currency) || "USD";
-      const total = findPrice(quote);
-      const nights = nightsBetween($("checkIn").value, $("checkOut").value);
-      const rows = [];
-      rows.push([`${nights} night${nights === 1 ? "" : "s"}`, total ? money(total,currency) : "Live price loaded"]);
-      if(total) rows.push(["Total", money(total,currency)]);
-      $("quoteBox").innerHTML = rows.map(([a,b]) => `<div class="tm-quote-row"><span>${escapeHtml(a)}</span><span>${escapeHtml(b)}</span></div>`).join("");
-      $("quoteBox").classList.add("has-content");
-    }
-
-    function nightsBetween(start,end){
-      const a = new Date(start + "T00:00:00");
-      const b = new Date(end + "T00:00:00");
-      return Math.max(1, Math.round((b-a)/86400000));
-    }
-
-    function continueToCheckout(){
-      if(!canQuote()) return;
-      const p = quotePayload();
-      const params = new URLSearchParams({
-        checkIn:p.checkIn,
-        checkOut:p.checkOut,
-        adults:String(p.numberOfGuests.numberOfAdults),
-        children:String(p.numberOfGuests.numberOfChildren),
-        listingId:p.listingId || ""
+    function bind(){
+      var rail = $("fhThumbRail");
+      if (rail) rail.addEventListener("click", function(event){
+        var btn = event.target.closest("[data-photo-index]");
+        if (btn) selectImage(Number(btn.dataset.photoIndex) || 0);
       });
-      sessionStorage.setItem("fh_booking_payload", JSON.stringify({payload:p, quote:state.lastQuote, listing:state.listing}));
-      window.location.href = `${CONFIG.CHECKOUT_URL}?${params.toString()}`;
+      var prev = $("fhPhotoPrev");
+      var next = $("fhPhotoNext");
+      if (prev) prev.addEventListener("click", function(){ selectImage(state.selectedImageIndex - 1); });
+      if (next) next.addEventListener("click", function(){ selectImage(state.selectedImageIndex + 1); });
+      var prevMonth = $("fhPrevMonth");
+      var nextMonth = $("fhNextMonth");
+      if (prevMonth) prevMonth.addEventListener("click", function(){ state.currentMonth = addMonths(state.currentMonth,-1); loadCalendar(); });
+      if (nextMonth) nextMonth.addEventListener("click", function(){ state.currentMonth = addMonths(state.currentMonth,1); loadCalendar(); });
+      var grid = $("fhCalendarGrid");
+      if (grid) grid.addEventListener("click", function(event){
+        var day = event.target.closest(".fh-day[data-date]");
+        if (!day || day.disabled) return;
+        selectDate(day.dataset.date);
+      });
+      var continueBtn = $("fhContinueBtn");
+      if (continueBtn) continueBtn.addEventListener("click", continueCheckout);
+      var clearBtn = $("fhClearDatesBtn");
+      if (clearBtn) clearBtn.addEventListener("click", clearDates);
+      ["fhAdults","fhChildren"].forEach(function(id){ var el = $(id); if (el) el.addEventListener("change", function(){ saveStart(false); if (state.arrival && state.departure) loadQuote(); }); });
+      ["fhFirstName","fhLastName","fhEmail"].forEach(function(id){ var el = $(id); if (el) el.addEventListener("input", function(){ clearMessage(); saveStart(false); }); });
+
+      document.addEventListener("click", function(event){
+        var trigger = event.target.closest("[data-fh-lang],[data-lang],[data-language]");
+        if (!trigger || root.contains(trigger)) return;
+        var raw = trigger.getAttribute("data-fh-lang") || trigger.getAttribute("data-lang") || trigger.getAttribute("data-language") || "";
+        setLanguage(raw);
+      });
+      window.addEventListener("fh:languagechange", function(event){ setLanguage(event.detail && (event.detail.lang || event.detail.language)); });
+      document.addEventListener("fh:language-change", function(event){ setLanguage(event.detail && (event.detail.lang || event.detail.language)); });
+      window.addEventListener("storage", function(event){ if (event.key === "fh_lang" || event.key === "fh_language" || event.key === "fhLang") setLanguage(event.newValue); });
+    }
+    function setLanguage(raw){
+      raw = safe(raw || "en").toLowerCase();
+      var next = "en";
+      if (raw.indexOf("fr") === 0) next = "fr";
+      else if (raw.indexOf("de") === 0 || raw.indexOf("ger") === 0) next = "de";
+      else if (raw.indexOf("ru") === 0) next = "ru";
+      else if (raw.indexOf("he") === 0 || raw.indexOf("iw") === 0) next = "he";
+      if (next === state.lang) return;
+      state.lang = next;
+      applyLanguage();
+      loadListingAndContent();
+      renderCalendar();
+      if (state.arrival && state.departure) loadQuote();
     }
 
-    function syncDateInputs(){
-      state.selectedStart = $("checkIn").value || null;
-      state.selectedEnd = $("checkOut").value || null;
-      refreshSelection();
-      maybeQuote();
-    }
-
-    async function loadAll(){
-      const today = new Date();
-      $("calMonth").value = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}`;
-      fillSelect($("adults"), 32, 1, 2);
-      fillSelect($("children"), 32, 0, 0);
-      fillSelect($("calAdults"), 32, 1, 2);
-      fillSelect($("calChildren"), 32, 0, 0);
-
-      const [contentRaw, listingRaw, imagesRaw] = await Promise.allSettled([
-        apiGet(`content?lang=${encodeURIComponent(state.lang)}`),
-        apiGet("listing"),
-        apiGet("images")
-      ]);
-
-      if(contentRaw.status === "fulfilled") state.content = unwrap(contentRaw.value) || contentRaw.value;
-      if(listingRaw.status === "fulfilled") state.listing = normalizeListing(listingRaw.value);
-      else state.listing = normalizeListing({});
-      if(imagesRaw.status === "fulfilled") state.images = normalizeImages(imagesRaw.value);
-
-      renderListing();
+    async function boot(){
+      prefill();
+      applyLanguage();
+      bind();
       renderImages();
-      await loadCalendar();
+      renderCalendar();
+      updateSummary();
+      await Promise.allSettled([loadImages(), loadListingAndContent(), loadCalendar()]);
+      if (state.arrival && state.departure) loadQuote();
     }
 
-    function bindEvents(){
-      $("closePhotoModal").addEventListener("click", closePhotoModal);
-      $("photoModal").addEventListener("click", (e) => { if(e.target.id === "photoModal") closePhotoModal(); });
-      $("reloadCalendar").addEventListener("click", loadCalendar);
-      $("continueBtn").addEventListener("click", continueToCheckout);
-      ["checkIn","checkOut","adults","children"].forEach(id => $(id).addEventListener("change", syncDateInputs));
-      $("calAdults").addEventListener("change", () => { $("adults").value = $("calAdults").value; maybeQuote(); });
-      $("calChildren").addEventListener("change", () => { $("children").value = $("calChildren").value; maybeQuote(); });
-      $("inquiryForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        $("inquiryStatus").textContent = "Inquiry form is ready to connect to the Worker or CRM endpoint.";
-      });
-    }
-
-    bindEvents();
-    loadAll().catch(error => {
-      $("bookingStatus").textContent = error.message || "Worker content could not load.";
-      $("bookingStatus").classList.add("is-error");
-    });
+    boot().catch(function(error){ console.error("Fletschhorn booking shell boot error:", error); });
+  })();
   </script>
 </body>
 </html>
