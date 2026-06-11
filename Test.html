@@ -2576,6 +2576,37 @@
       display:block!important;
       white-space:nowrap;
     }
+
+
+    /* HARD FIX: force Worker media/prices visible even if older mobile rules still exist. */
+    #fh-home .fh-day-price{
+      display:block!important;
+      visibility:visible!important;
+      opacity:1!important;
+      min-height:10px!important;
+      margin-top:5px!important;
+      font-size:9px!important;
+      line-height:1.05!important;
+      font-weight:850!important;
+      color:rgba(28,24,20,.68)!important;
+      white-space:nowrap!important;
+    }
+
+    #fh-home .fh-day-price.missing{
+      display:none!important;
+    }
+
+    #fh-home .fh-day.start .fh-day-price,
+    #fh-home .fh-day.end .fh-day-price{
+      color:rgba(255,250,242,.86)!important;
+    }
+
+    #fh-home img[data-worker-image-applied="true"],
+    #fh-home img[data-img]{
+      display:block!important;
+      opacity:1!important;
+      visibility:visible!important;
+    }
   </style>
 </head>
 
@@ -2980,7 +3011,7 @@
       const root = document.getElementById("fh-home");
       if (!root) return;
 
-      root.dataset.ready = "fh-github-index-worker-images-schedule-he-v4";
+      root.dataset.ready = "fh-github-index-worker-images-schedule-he-v5-hard-fix";
 
       const CFG = {
         bookingPageUrl: "booking.html",
@@ -4123,6 +4154,7 @@
       async function loadToolbarCalendarMonth(){
         const range = monthRange(toolbarCalendar.currentMonth);
         toolbarCalendar.loading = true;
+        renderToolbarCalendar();
 
         try {
           const data = await workerGetOrPost(ENDPOINTS.calendarMonthPrices, {
@@ -4136,18 +4168,39 @@
             source: "homepage-toolbar-calendar"
           });
 
-          const days = collectCalendarDays(data);
+          let days = [];
+
+          if (data && Array.isArray(data.days)){
+            days = data.days.map(normalizeCalendarDay).filter(Boolean);
+          } else if (data && data.data && Array.isArray(data.data.days)){
+            days = data.data.days.map(normalizeCalendarDay).filter(Boolean);
+          } else {
+            days = collectCalendarDays(data);
+          }
+
           toolbarCalendar.dayMap = {};
 
           days.forEach(function(day){
-            toolbarCalendar.dayMap[day.date] = day;
+            if (day && day.date){
+              toolbarCalendar.dayMap[day.date] = day;
+            }
           });
+
+          console.log(
+            "Fletschhorn calendar prices loaded:",
+            range.from,
+            "to",
+            range.to,
+            Object.keys(toolbarCalendar.dayMap).length,
+            "days"
+          );
         } catch(error) {
           console.warn("Could not load calendar month prices.", error);
           toolbarCalendar.dayMap = {};
         } finally {
           toolbarCalendar.loading = false;
           renderToolbarCalendar();
+          updateToolbarDateText();
         }
       }
 
@@ -4211,6 +4264,8 @@
           grid.appendChild(empty);
         }
 
+        let renderedPrices = 0;
+
         for (let dayNum = 1; dayNum <= last.getDate(); dayNum++){
           const date = new Date(year, month, dayNum);
           const iso = toDateString(date);
@@ -4234,12 +4289,21 @@
             btn.classList.add("range");
           }
 
+          const hasPrice = info.price !== null && info.price !== undefined && info.price !== "" && !isNaN(Number(info.price));
+          const formattedPrice = hasPrice ? formatToolbarMoney(info.price, info.currency || CFG.currency) : "";
+
+          if (hasPrice && formattedPrice) renderedPrices++;
+
+          btn.dataset.price = hasPrice ? String(info.price) : "";
+          btn.dataset.currency = info.currency || CFG.currency;
+          btn.title = hasPrice ? iso + " · " + formattedPrice : iso;
+
           btn.innerHTML =
             '<span class="fh-day-number">' + dayNum + '</span>' +
             (
-              info.price
-                ? '<span class="fh-day-price">' + formatToolbarMoney(info.price, info.currency || CFG.currency) + '</span>'
-                : ''
+              formattedPrice
+                ? '<span class="fh-day-price" aria-label="Nightly price">' + formattedPrice + '</span>'
+                : '<span class="fh-day-price missing" aria-hidden="true"></span>'
             ) +
             (
               unavailable
@@ -4256,6 +4320,11 @@
           }
 
           grid.appendChild(btn);
+        }
+
+        grid.dataset.priceCount = String(renderedPrices);
+        if (Object.keys(toolbarCalendar.dayMap || {}).length && !renderedPrices){
+          console.warn("Fletschhorn calendar loaded days, but no visible prices were rendered.", toolbarCalendar.dayMap);
         }
       }
 
@@ -4402,29 +4471,84 @@
         window.location.href = CFG.bookingPageUrl + "?" + params.toString();
       }
 
-      function normalizeWorkerImageItem(item, index){
-        if (!item) return null;
+      function looksLikeImageUrl(value){
+        if (typeof value !== "string") return false;
+        const clean = value.trim();
+        if (!clean) return false;
+        return (
+          clean.indexOf("http://") === 0 ||
+          clean.indexOf("https://") === 0 ||
+          clean.indexOf("//") === 0 ||
+          clean.indexOf("data:image") === 0 ||
+          /\.(avif|webp|jpe?g|png|gif|svg)(\?|#|$)/i.test(clean)
+        );
+      }
 
-        if (typeof item === "string"){
-          return imageRecord(item, "Fletschhorn image " + (index + 1));
+      function extractImageUrl(value, depth){
+        depth = depth || 0;
+        if (!value || depth > 5) return "";
+
+        if (typeof value === "string"){
+          const clean = value.trim();
+          return looksLikeImageUrl(clean) ? clean : "";
         }
 
-        if (typeof item !== "object") return null;
+        if (Array.isArray(value)){
+          for (let i = 0; i < value.length; i++){
+            const found = extractImageUrl(value[i], depth + 1);
+            if (found) return found;
+          }
+          return "";
+        }
 
-        const url =
-          item.url ||
-          item.original ||
-          item.src ||
-          item.large ||
-          item.thumbnail ||
-          item.href ||
-          item.imageUrl ||
-          item.secure_url ||
-          "";
+        if (typeof value !== "object") return "";
 
+        const priorityKeys = [
+          "url",
+          "original",
+          "large",
+          "regular",
+          "src",
+          "href",
+          "imageUrl",
+          "image_url",
+          "secure_url",
+          "thumbnail",
+          "thumb",
+          "medium",
+          "small",
+          "file",
+          "image",
+          "picture",
+          "photo"
+        ];
+
+        for (let i = 0; i < priorityKeys.length; i++){
+          const key = priorityKeys[i];
+          if (Object.prototype.hasOwnProperty.call(value, key)){
+            const found = extractImageUrl(value[key], depth + 1);
+            if (found) return found;
+          }
+        }
+
+        const keys = Object.keys(value);
+        for (let i = 0; i < keys.length; i++){
+          const found = extractImageUrl(value[keys[i]], depth + 1);
+          if (found) return found;
+        }
+
+        return "";
+      }
+
+      function normalizeWorkerImageItem(item, index){
+        const url = extractImageUrl(item, 0);
         if (!url) return null;
 
-        return imageRecord(url, item.alt || item.caption || item.title || ("Fletschhorn image " + (index + 1)));
+        const alt = item && typeof item === "object"
+          ? (item.alt || item.caption || item.title || item.description || item.name || ("Fletschhorn image " + (index + 1)))
+          : ("Fletschhorn image " + (index + 1));
+
+        return imageRecord(url, alt);
       }
 
       function normalizeWorkerImages(data){
@@ -4500,6 +4624,43 @@
             soft: pickWorkerImages(pool, 1, 17)[0]
           }
         };
+      }
+
+      function forceApplyWorkerImagesToVisibleSlots(workerImages){
+        const pool = workerImages && workerImages.length ? workerImages : placeholderSet();
+        const clean = pool.map(function(item, index){ return normalizeWorkerImageItem(item, index); }).filter(Boolean);
+        if (!clean.length) return;
+
+        // Hero: force one visible background immediately, then rebuild the slideshow.
+        const hero = $("#fhHeroMedia");
+        if (hero){
+          hero.style.backgroundImage = 'url("' + String(clean[0].url).replace(/"/g, "%22") + '")';
+          hero.style.backgroundSize = "cover";
+          hero.style.backgroundPosition = "center";
+        }
+
+        // Any direct image slot that is still empty, broken, or placeholder gets a Worker image.
+        const imgs = Array.from(root.querySelectorAll("img"));
+        imgs.forEach(function(img, index){
+          const current = img.getAttribute("src") || "";
+          const shouldReplace =
+            img.hasAttribute("data-img") ||
+            !current ||
+            current.indexOf("data:image/svg+xml") === 0 ||
+            current.indexOf("assets/Saas-Fee-Logo.jpeg") !== -1 ||
+            current === "[object Object]";
+
+          if (!shouldReplace) return;
+
+          const item = clean[index % clean.length];
+          img.loading = "lazy";
+          img.decoding = "async";
+          img.src = item.url;
+          if (!img.alt) img.alt = item.alt || "Fletschhorn image";
+          img.dataset.workerImageApplied = "true";
+        });
+
+        console.log("Fletschhorn Worker images applied:", clean.length, "images loaded.");
       }
 
       async function loadWorkerImages(){
@@ -4681,18 +4842,21 @@
       }
 
       async function initWorkerDrivenMedia(){
+        // First render a safe placeholder so the layout is never empty.
         setHeroSlides(IMAGES.hero);
         setStaticImages();
         initCarousel("inside", IMAGES.inside);
         initCarousel("kitchen", IMAGES.kitchen);
         startSlideshow();
 
-        await loadWorkerImages();
+        // Then replace every media slot with images coming from the Worker.
+        const workerImages = await loadWorkerImages();
 
         setHeroSlides(IMAGES.hero);
         setStaticImages();
         initCarousel("inside", IMAGES.inside);
         initCarousel("kitchen", IMAGES.kitchen);
+        forceApplyWorkerImagesToVisibleSlots(workerImages && workerImages.length ? workerImages : IMAGES.hero);
         startSlideshow();
       }
 
@@ -4924,5 +5088,407 @@
       console.log("Booking handoff URL:", CFG.bookingPageUrl);
     })();
   </script>
+
+
+<!-- FH WORKER MEDIA + PRICE EMERGENCY PATCH v2026-06-11-2
+     This patch is intentionally independent from the page's older slideshow/calendar code. -->
+<style id="fh-worker-media-price-patch-css">
+  #fh-home .fh-lang-switch{display:none!important;visibility:hidden!important;pointer-events:none!important;}
+  #fh-home .fh-day-price{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    min-height:10px!important;
+    margin-top:5px!important;
+    font-size:9px!important;
+    line-height:1.05!important;
+    font-weight:850!important;
+    color:rgba(28,24,20,.68)!important;
+    white-space:nowrap!important;
+  }
+  #fh-home .fh-day-price.missing{display:none!important;}
+  #fh-home .fh-day.start .fh-day-price,
+  #fh-home .fh-day.end .fh-day-price{color:rgba(255,250,242,.88)!important;}
+  #fh-home img[data-fh-worker-image="true"]{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    object-fit:cover!important;
+  }
+</style>
+<script id="fh-worker-media-price-patch-js">
+(function(){
+  "use strict";
+
+  window.__FH_WORKER_PATCH_VERSION = "worker-media-prices-v2026-06-11-2";
+
+  var WORKER = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  var LISTING_ID = "6968339ab7d735001ca015ba";
+  var DEFAULT_CURRENCY = "CHF";
+  var imageUrls = [];
+  var priceMap = Object.create(null);
+  var fetchedRanges = Object.create(null);
+  var heroTimer = null;
+
+  function root(){ return document.getElementById("fh-home") || document; }
+
+  function log(){
+    try { console.log.apply(console, arguments); } catch(e) {}
+  }
+
+  function warn(){
+    try { console.warn.apply(console, arguments); } catch(e) {}
+  }
+
+  function isUrl(value){
+    return typeof value === "string" && /^https?:\/\//i.test(value.trim());
+  }
+
+  function looksLikeImageUrl(value){
+    if (!isUrl(value)) return false;
+    var clean = value.trim();
+    return /\.(avif|webp|jpe?g|png|gif|svg)(\?|#|$)/i.test(clean) ||
+      /cloudinary|guesty|image|images|upload|media|assets/i.test(clean);
+  }
+
+  function extractUrls(value, out, seen, depth){
+    if (!value || depth > 7) return;
+
+    if (typeof value === "string"){
+      var clean = value.trim();
+      if (looksLikeImageUrl(clean) && !seen[clean]){
+        seen[clean] = true;
+        out.push(clean);
+      }
+      return;
+    }
+
+    if (Array.isArray(value)){
+      value.forEach(function(item){ extractUrls(item, out, seen, depth + 1); });
+      return;
+    }
+
+    if (typeof value !== "object") return;
+
+    [
+      "url", "original", "large", "regular", "src", "href", "secure_url",
+      "imageUrl", "image_url", "thumbnail", "thumb", "medium", "small",
+      "file", "image", "picture", "photo"
+    ].forEach(function(key){
+      if (Object.prototype.hasOwnProperty.call(value, key)){
+        extractUrls(value[key], out, seen, depth + 1);
+      }
+    });
+
+    Object.keys(value).forEach(function(key){
+      extractUrls(value[key], out, seen, depth + 1);
+    });
+  }
+
+  function normalizeImageUrls(data){
+    var out = [];
+    var seen = Object.create(null);
+
+    if (data && Array.isArray(data.images)) extractUrls(data.images, out, seen, 0);
+    if (!out.length && data && data.listing) extractUrls(data.listing, out, seen, 0);
+    if (!out.length && data && data.data) extractUrls(data.data, out, seen, 0);
+    if (!out.length) extractUrls(data, out, seen, 0);
+
+    return out.filter(function(url){ return /^https?:\/\//i.test(url); });
+  }
+
+  function setImg(img, url, alt){
+    if (!img || !url) return;
+    img.loading = img.loading || "lazy";
+    img.decoding = "async";
+    img.src = url;
+    img.setAttribute("data-fh-worker-image", "true");
+    if (!img.alt) img.alt = alt || "Fletschhorn image";
+  }
+
+  function applyHeroImages(urls){
+    var hero = document.getElementById("fhHeroMedia") || root().querySelector(".fh-hero-media");
+    if (!hero || !urls.length) return;
+
+    if (heroTimer){
+      clearInterval(heroTimer);
+      heroTimer = null;
+    }
+
+    hero.innerHTML = "";
+    hero.style.backgroundImage = "url('" + urls[0].replace(/'/g, "%27") + "')";
+    hero.style.backgroundSize = "cover";
+    hero.style.backgroundPosition = "center";
+
+    urls.slice(0, 8).forEach(function(url, index){
+      var slide = document.createElement("div");
+      slide.className = "fh-hero-slide" + (index === 0 ? " active" : "");
+      slide.style.backgroundImage = "url('" + url.replace(/'/g, "%27") + "')";
+      slide.style.backgroundSize = "cover";
+      slide.style.backgroundPosition = "center";
+      hero.appendChild(slide);
+    });
+
+    var slides = Array.prototype.slice.call(hero.querySelectorAll(".fh-hero-slide"));
+    if (slides.length > 1){
+      var active = 0;
+      heroTimer = setInterval(function(){
+        if (!document.body.contains(hero)){
+          clearInterval(heroTimer);
+          heroTimer = null;
+          return;
+        }
+        slides[active].classList.remove("active");
+        active = (active + 1) % slides.length;
+        slides[active].classList.add("active");
+      }, 5200);
+    }
+  }
+
+  function applyInlineImages(urls){
+    if (!urls.length) return;
+
+    var r = root();
+    var selectors = [
+      "img[data-img]",
+      ".fh-season img",
+      ".fh-use-card img",
+      ".fh-carousel-slide img",
+      ".fh-overview img",
+      ".fh-image-card img",
+      ".fh-card img",
+      "img[src='']",
+      "img:not([src])"
+    ];
+
+    var imgs = Array.prototype.slice.call(r.querySelectorAll(selectors.join(",")));
+    var seen = [];
+    imgs = imgs.filter(function(img){
+      if (seen.indexOf(img) >= 0) return false;
+      seen.push(img);
+      return true;
+    });
+
+    imgs.forEach(function(img, index){
+      setImg(img, urls[index % urls.length], "Fletschhorn image " + (index + 1));
+    });
+
+    Array.prototype.slice.call(r.querySelectorAll(".fh-carousel-track")).forEach(function(track, trackIndex){
+      var existingSlides = Array.prototype.slice.call(track.querySelectorAll(".fh-carousel-slide"));
+
+      if (!existingSlides.length){
+        urls.slice(trackIndex * 5, trackIndex * 5 + 8).forEach(function(url, i){
+          var slide = document.createElement("div");
+          slide.className = "fh-carousel-slide";
+          var img = document.createElement("img");
+          setImg(img, url, "Fletschhorn carousel image " + (i + 1));
+          slide.appendChild(img);
+          track.appendChild(slide);
+        });
+      } else {
+        existingSlides.forEach(function(slide, i){
+          var img = slide.querySelector("img") || document.createElement("img");
+          if (!img.parentNode) slide.appendChild(img);
+          setImg(img, urls[(trackIndex * 8 + i) % urls.length], "Fletschhorn carousel image " + (i + 1));
+        });
+      }
+    });
+
+    log("FH PATCH images applied:", urls.length, "worker urls;", imgs.length, "img tags updated.");
+  }
+
+  async function loadImages(){
+    try {
+      var url = WORKER + "/images?listingId=" + encodeURIComponent(LISTING_ID) + "&t=" + Date.now();
+      var res = await fetch(url, { cache:"no-store", headers:{ "accept":"application/json" } });
+      var data = await res.json();
+
+      if (!res.ok || data.ok === false) throw new Error(data.error || data.message || "Images request failed");
+
+      imageUrls = normalizeImageUrls(data);
+      if (!imageUrls.length) throw new Error("Worker returned images but no usable URL was found");
+
+      applyHeroImages(imageUrls);
+      applyInlineImages(imageUrls);
+    } catch(error){
+      warn("FH PATCH image loading failed:", error);
+    }
+  }
+
+  function ymd(date){
+    var y = date.getFullYear();
+    var m = String(date.getMonth() + 1).padStart(2, "0");
+    var d = String(date.getDate()).padStart(2, "0");
+    return y + "-" + m + "-" + d;
+  }
+
+  function padDate(iso, days){
+    var d = new Date(iso + "T00:00:00");
+    d.setDate(d.getDate() + days);
+    return ymd(d);
+  }
+
+  function formatMoney(amount, currency){
+    var n = Number(amount);
+    if (!Number.isFinite(n)) return "";
+    try {
+      return new Intl.NumberFormat("en-US", {
+        style:"currency",
+        currency: currency || DEFAULT_CURRENCY,
+        maximumFractionDigits:0
+      }).format(n);
+    } catch(e){
+      return (currency || DEFAULT_CURRENCY) + " " + Math.round(n);
+    }
+  }
+
+  function normalizeDay(day){
+    if (!day || typeof day !== "object") return null;
+    var date = day.date || day.day || day.localDate || day.dateLocalized || day.startDate || day.from;
+    if (!date) return null;
+    date = String(date).slice(0,10);
+    var price = day.price;
+    if (price && typeof price === "object") price = price.amount || price.value || price.price || price.total;
+    if (price === undefined || price === null) price = day.rate || day.amount || day.nightlyPrice || day.basePrice;
+    if (price === undefined || price === null) return null;
+    return {
+      date: date,
+      price: Number(price),
+      currency: day.currency || (day.price && day.price.currency) || DEFAULT_CURRENCY,
+      available: day.available !== false && day.isAvailable !== false && day.status !== "unavailable"
+    };
+  }
+
+  function saveDays(data){
+    var days = [];
+    if (data && Array.isArray(data.days)) days = data.days;
+    else if (data && data.data && Array.isArray(data.data.days)) days = data.data.days;
+    else {
+      (function walk(value){
+        if (!value || typeof value !== "object") return;
+        if (Array.isArray(value)) return value.forEach(walk);
+        var d = normalizeDay(value);
+        if (d) days.push(value);
+        Object.keys(value).forEach(function(key){ walk(value[key]); });
+      })(data);
+    }
+
+    days.map(normalizeDay).filter(Boolean).forEach(function(day){
+      priceMap[day.date] = day;
+    });
+  }
+
+  function calendarGrid(){
+    return document.getElementById("fhToolbarCalendarGrid") || root().querySelector(".fh-calendar-grid, .fh-toolbar-calendar-grid");
+  }
+
+  function visibleCalendarDates(grid){
+    return Array.prototype.slice.call((grid || calendarGrid() || document).querySelectorAll(".fh-day[data-date], [data-date]")).map(function(btn){
+      return btn.getAttribute("data-date");
+    }).filter(function(date){ return /^\d{4}-\d{2}-\d{2}$/.test(date); });
+  }
+
+  async function ensurePricesForDates(dates){
+    if (!dates.length) return;
+    var sorted = dates.slice().sort();
+    var from = padDate(sorted[0], -1);
+    var to = padDate(sorted[sorted.length - 1], 1);
+    var key = from + "_" + to;
+    if (fetchedRanges[key]) return;
+    fetchedRanges[key] = true;
+
+    try {
+      var url = WORKER + "/calendar?from=" + encodeURIComponent(from) + "&to=" + encodeURIComponent(to) + "&listingId=" + encodeURIComponent(LISTING_ID) + "&t=" + Date.now();
+      var res = await fetch(url, { cache:"no-store", headers:{ "accept":"application/json" } });
+      var data = await res.json();
+      if (!res.ok || data.ok === false) throw new Error(data.error || data.message || "Calendar request failed");
+      saveDays(data);
+      injectPrices();
+      log("FH PATCH calendar prices loaded:", from, "to", to, Object.keys(priceMap).length, "priced days.");
+    } catch(error){
+      warn("FH PATCH calendar price loading failed:", error);
+    }
+  }
+
+  function injectPrices(){
+    var grid = calendarGrid();
+    if (!grid) return;
+
+    var count = 0;
+    Array.prototype.slice.call(grid.querySelectorAll(".fh-day[data-date], [data-date]")).forEach(function(btn){
+      var date = btn.getAttribute("data-date");
+      var info = priceMap[date];
+      if (!info || !Number.isFinite(Number(info.price))) return;
+
+      var label = formatMoney(info.price, info.currency || DEFAULT_CURRENCY);
+      var priceEl = btn.querySelector(".fh-day-price");
+      if (!priceEl){
+        priceEl = document.createElement("span");
+        priceEl.className = "fh-day-price";
+        btn.appendChild(priceEl);
+      }
+      priceEl.classList.remove("missing");
+      priceEl.textContent = label;
+      priceEl.style.display = "block";
+      priceEl.style.visibility = "visible";
+      priceEl.style.opacity = "1";
+      btn.setAttribute("data-price", String(info.price));
+      count++;
+    });
+
+    if (count) grid.setAttribute("data-fh-patch-prices", String(count));
+  }
+
+  function watchCalendar(){
+    var bodyObserver = new MutationObserver(function(){
+      var grid = calendarGrid();
+      if (!grid || grid.__fhPatchWatched) return;
+      grid.__fhPatchWatched = true;
+
+      var gridObserver = new MutationObserver(function(){
+        var dates = visibleCalendarDates(grid);
+        injectPrices();
+        ensurePricesForDates(dates);
+      });
+      gridObserver.observe(grid, { childList:true, subtree:true });
+
+      var dates = visibleCalendarDates(grid);
+      injectPrices();
+      ensurePricesForDates(dates);
+    });
+
+    bodyObserver.observe(document.body, { childList:true, subtree:true });
+
+    document.addEventListener("click", function(event){
+      if (event.target.closest("#fhOpenToolbarCalendar, [data-calendar-open], .fh-date-trigger")){
+        setTimeout(function(){
+          var dates = visibleCalendarDates(calendarGrid());
+          injectPrices();
+          ensurePricesForDates(dates);
+        }, 250);
+      }
+    });
+
+    var tries = 0;
+    var timer = setInterval(function(){
+      tries++;
+      var dates = visibleCalendarDates(calendarGrid());
+      injectPrices();
+      ensurePricesForDates(dates);
+      if (tries > 30) clearInterval(timer);
+    }, 1000);
+  }
+
+  function init(){
+    log("FH PATCH active:", window.__FH_WORKER_PATCH_VERSION);
+    loadImages();
+    watchCalendar();
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+
 </body>
 </html>
