@@ -3,1229 +3,1038 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title></title>
+  <title>Book your stay</title>
   <meta name="description" content="" />
 
   <!--
-    PROPERTY PAGE SHELL
-    - Structure copied from the Timbercrest/HomeRunner property page logic.
-    - No hardcoded property content.
-    - Content, photos, calendar pricing and quote are loaded from Cloudflare Worker.
-    - Language toolbar is not visible; language can be controlled by URL/localStorage/header.
+    CLEAN WORKER PROPERTY SHELL
+    - No hardcoded property description.
+    - Listing text, title, rooms, amenities, rules, address load from /listing and /content?lang=...
+    - Photos load from /images.
+    - Calendar/prices load from /calendar?from=YYYY-MM-DD&to=YYYY-MM-DD.
+    - Quote sends numberOfGuests.numberOfAdults to /quote.
+    - Hidden language toolbar: language can still be driven by header/localStorage/query string.
   -->
 
   <style>
     :root{
       --tm-ink:#222222;
-      --tm-muted:#676767;
-      --tm-soft:#f7f4ef;
+      --tm-soft-ink:#4f4b47;
+      --tm-muted:#77716a;
+      --tm-line:rgba(34,34,34,.12);
+      --tm-light-line:rgba(34,34,34,.08);
       --tm-paper:#ffffff;
-      --tm-line:rgba(0,0,0,.11);
-      --tm-line-soft:rgba(0,0,0,.07);
+      --tm-warm:#f7f2ea;
+      --tm-warm-2:#efe8dd;
+      --tm-dark:#383838;
+      --tm-footer:#303535;
       --tm-accent:#f6432f;
-      --tm-accent-dark:#cf2d1c;
-      --tm-green:#263f31;
-      --tm-good:#e4f4d9;
+      --tm-accent-dark:#d73422;
+      --tm-available:#e4f4d9;
+      --tm-selected:#b7db9f;
+      --tm-unavailable:#eeeeee;
       --tm-booked:#fdd2d2;
-      --tm-disabled:#eeeeee;
-      --tm-shadow:0 16px 42px rgba(0,0,0,.09);
-      --tm-radius:18px;
+      --tm-shadow:0 18px 42px rgba(33,33,33,.10);
       --tm-serif:Georgia,"Times New Roman",serif;
       --tm-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:var(--tm-sans);color:var(--tm-ink);background:#fff;overflow-x:hidden}
-    body.tm-loading{cursor:default}
+    body{margin:0;background:#fff;color:var(--tm-ink);font-family:var(--tm-sans);overflow-x:hidden}
     a{color:inherit;text-decoration:none}
-    button,input,select{font:inherit}
     img{display:block;max-width:100%}
-    [hidden]{display:none!important}
-
-    /* Optional internal header. Keep hidden when the site already has a global header. */
-    .tm-site-header{display:none;position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--tm-line-soft)}
-    .tm-site-header.is-visible{display:block}
-    .tm-site-header-inner{width:min(1320px,calc(100% - 32px));margin:auto;min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:22px}
-    .tm-brand{display:flex;align-items:center;gap:14px;min-width:0}
-    .tm-brand-logo{width:150px;max-height:70px;object-fit:contain}
-    .tm-brand-text{font-family:var(--tm-serif);font-size:26px;line-height:1;white-space:nowrap}
-    .tm-nav{display:flex;align-items:center;gap:24px;font-size:14px;color:#333}
-    .tm-nav-book{background:var(--tm-accent);color:#fff;padding:12px 18px;border-radius:999px;font-weight:700}
-
-    .tm-page{min-height:100vh;background:#fff}
+    button,input,select,textarea{font:inherit}
+    [hidden],.is-hidden{display:none!important}
     .tm-language-toolbar{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important}
 
-    /* Header image slider / gallery strip */
-    .property-header-slider{width:100%;overflow:hidden;background:#f1f1f1}
-    .tm-gallery-strip{display:grid;grid-auto-flow:column;grid-auto-columns:33.333%;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 0 6px;scrollbar-width:none}
-    .tm-gallery-strip::-webkit-scrollbar{display:none}
-    .tm-gallery-item{position:relative;height:600px;background:#eee;overflow:hidden;scroll-snap-align:start;cursor:pointer}
-    .tm-gallery-item img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s ease,transform .45s ease}
-    .tm-gallery-item img[src]{opacity:1}
-    .tm-gallery-item:hover img{transform:scale(1.025)}
-    .tm-gallery-actions{position:absolute;right:18px;bottom:18px;z-index:4}
-    .tm-gallery-button{border:0;border-radius:3px;background:#fff;color:#111;padding:11px 15px;box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:14px;font-weight:700;cursor:pointer}
+    .tm-page{background:#fff;min-height:100vh}
+    .tm-container{width:min(1180px,calc(100% - 32px));margin:0 auto}
 
-    .tm-container{width:min(1220px,calc(100% - 32px));margin:0 auto}
+    /* Tiny hero: clean, short, site-color compatible */
+    .tm-hero{
+      min-height:154px;
+      display:flex;
+      align-items:center;
+      background:
+        linear-gradient(90deg,rgba(255,255,255,.82),rgba(255,255,255,.50)),
+        linear-gradient(135deg,var(--tm-warm) 0%,#fff 52%,var(--tm-warm-2) 100%);
+      border-bottom:1px solid var(--tm-light-line);
+    }
+    .tm-hero-inner{display:flex;align-items:end;justify-content:space-between;gap:24px;padding:34px 0 28px}
+    .tm-kicker{margin:0 0 8px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--tm-muted);font-weight:750}
+    .tm-hero h1{margin:0;font-family:var(--tm-serif);font-size:clamp(38px,5vw,64px);font-weight:400;letter-spacing:-.045em;line-height:.95;color:var(--tm-ink)}
+    .tm-hero-action{display:inline-flex;align-items:center;justify-content:center;background:var(--tm-accent);border:1px solid var(--tm-accent);color:#fff;border-radius:2px;padding:12px 18px;font-weight:750;white-space:nowrap;transition:.18s ease}
+    .tm-hero-action:hover{background:#fff;color:var(--tm-accent)}
 
-    /* Original property layout logic: content left + sticky booking right */
-    .tm-property-intro{padding:34px 0 24px}
-    .tm-title-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:42px;align-items:start}
-    .tm-breadcrumb{min-height:18px;margin:0 0 8px;color:#777;font-size:13px}
-    .tm-property-title{min-height:58px;margin:0 0 14px;font-size:clamp(34px,4vw,46px);font-weight:500;line-height:1.12;letter-spacing:-.02em}
-    .tm-property-address{min-height:24px;margin:0 0 18px;color:#666;font-size:15px}
-    .tm-short-description{min-height:96px;margin:0;color:#444;font-size:16px;line-height:1.72;max-width:760px}
+    /* Clean photo frame. Same worker loading logic, less visual mess. */
+    .tm-photo-section{padding:18px 0 0;background:#fff}
+    .tm-photo-grid{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;min-height:220px}
+    .tm-photo-card{position:relative;min-height:220px;background:#eee;overflow:hidden;border:1px solid rgba(0,0,0,.04)}
+    .tm-photo-card:first-child{grid-column:span 2;grid-row:span 2;min-height:448px}
+    .tm-photo-card img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .22s ease,transform .35s ease}
+    .tm-photo-card img[src]{opacity:1}
+    .tm-photo-card:hover img{transform:scale(1.018)}
+    .tm-photo-overlay{position:absolute;right:14px;bottom:14px;display:flex;gap:8px;z-index:3}
+    .tm-small-btn{border:0;border-radius:2px;background:#fff;color:#111;padding:10px 13px;font-size:13px;font-weight:750;box-shadow:0 8px 22px rgba(0,0,0,.18);cursor:pointer}
 
-    .tm-property-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:25px;max-width:680px}
-    .tm-meta-box{min-height:94px;border:1px solid var(--tm-line-soft);border-radius:4px;background:#fff;padding:18px 16px;text-align:center}
-    .tm-meta-number{display:block;min-height:36px;font-size:34px;line-height:1;font-weight:600;color:#111}
-    .tm-meta-label{display:block;margin-top:8px;color:#666;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+    .tm-title-band{padding:30px 0 22px;border-bottom:1px solid var(--tm-light-line)}
+    .tm-title-layout{display:grid;grid-template-columns:minmax(0,1fr) 348px;gap:42px;align-items:start}
+    .tm-property-name{margin:0 0 10px;font-size:clamp(30px,4vw,46px);line-height:1.08;font-weight:520;letter-spacing:-.03em;color:var(--tm-ink)}
+    .tm-address{margin:0 0 18px;color:var(--tm-muted);font-size:15px;line-height:1.55}
+    .tm-summary{max-width:780px;margin:0;color:var(--tm-soft-ink);font-size:16px;line-height:1.72}
+    .tm-meta-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px;max-width:640px}
+    .tm-meta{border:1px solid var(--tm-light-line);background:#fff;min-height:82px;padding:14px 12px;text-align:center}
+    .tm-meta strong{display:block;font-size:29px;line-height:1.1;font-weight:680;color:#111}
+    .tm-meta span{display:block;margin-top:6px;color:var(--tm-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
 
-    .tm-booking-card{position:sticky;top:92px;border:1px solid var(--tm-line);background:#fff;border-radius:4px;box-shadow:var(--tm-shadow);padding:22px;z-index:10}
-    .tm-booking-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:15px}
-    .tm-booking-title{margin:0;font-size:22px;line-height:1.2;font-weight:650}
-    .tm-from-price{min-height:24px;text-align:right;color:#666;font-size:14px}
-    .tm-from-price strong{display:block;color:#111;font-size:20px}
-    .tm-booking-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .tm-field{display:grid;gap:6px}
+    .tm-booking-card{position:sticky;top:88px;border:1px solid var(--tm-line);background:#fff;box-shadow:var(--tm-shadow);padding:18px;z-index:10}
+    .tm-booking-card h2{margin:0 0 4px;font-size:21px;line-height:1.2;font-weight:680}
+    .tm-price-line{min-height:24px;margin:0 0 14px;color:var(--tm-muted);font-size:14px}
+    .tm-price-line strong{color:#111;font-size:18px}
+    .tm-booking-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .tm-field{display:grid;gap:5px}
     .tm-field.full{grid-column:1/-1}
-    .tm-field label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#666}
-    .tm-field input,.tm-field select{width:100%;height:46px;border:1px solid var(--tm-line);border-radius:3px;background:#fff;color:#111;padding:0 10px;outline:none}
-    .tm-field input:focus,.tm-field select:focus{border-color:#111;box-shadow:0 0 0 2px rgba(0,0,0,.05)}
-    .tm-quote-box{min-height:82px;margin-top:14px;border:1px solid var(--tm-line-soft);background:#fafafa;padding:13px;border-radius:3px}
-    .tm-quote-row{display:flex;justify-content:space-between;gap:16px;padding:6px 0;border-bottom:1px solid var(--tm-line-soft);font-size:14px;color:#444}
-    .tm-quote-row:last-child{border-bottom:0;font-weight:750;color:#111}
-    .tm-book-button{width:100%;height:50px;border:1px solid var(--tm-accent);background:var(--tm-accent);color:#fff;border-radius:3px;margin-top:14px;font-weight:750;cursor:pointer;transition:.18s ease}
-    .tm-book-button:hover{background:#fff;color:var(--tm-accent)}
-    .tm-book-button:disabled{opacity:.45;cursor:not-allowed;background:#999;border-color:#999;color:#fff}
-    .tm-inquiry-link{display:block;text-align:center;margin-top:12px;font-size:14px;color:#333;text-decoration:underline;text-underline-offset:3px}
-    .tm-booking-status{min-height:20px;margin-top:10px;font-size:13px;color:#777}
-    .tm-booking-status.is-error{color:#9b1d1d}
+    .tm-field label{font-size:10px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:#6f6a64}
+    .tm-field input,.tm-field select,.tm-field textarea{width:100%;border:1px solid var(--tm-line);background:#fff;color:#111;border-radius:2px;outline:none}
+    .tm-field input,.tm-field select{height:43px;padding:0 9px}
+    .tm-field textarea{min-height:112px;padding:10px;resize:vertical}
+    .tm-field input:focus,.tm-field select:focus,.tm-field textarea:focus{border-color:#222;box-shadow:0 0 0 2px rgba(34,34,34,.05)}
+    .tm-quote-box{display:none;margin-top:12px;border:1px solid var(--tm-light-line);background:#fafafa;padding:10px}
+    .tm-quote-box.has-content{display:block}
+    .tm-quote-row{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px solid var(--tm-light-line);font-size:14px;color:#4c4945}
+    .tm-quote-row:last-child{border-bottom:0;font-weight:800;color:#111}
+    .tm-book-btn{width:100%;height:48px;border:1px solid var(--tm-accent);background:var(--tm-accent);color:#fff;border-radius:2px;margin-top:12px;font-weight:800;cursor:pointer;transition:.18s ease}
+    .tm-book-btn:hover{background:#fff;color:var(--tm-accent)}
+    .tm-book-btn:disabled{background:#999;border-color:#999;color:#fff;opacity:.5;cursor:not-allowed}
+    .tm-status{min-height:18px;margin-top:9px;font-size:12px;color:var(--tm-muted)}
+    .tm-status.is-error{color:#9b1d1d}
 
-    .tm-content-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:42px;align-items:start}
-    .tm-main-content{min-width:0}
-    .tm-side-spacer{display:block}
+    .tm-main-layout{display:grid;grid-template-columns:minmax(0,1fr) 348px;gap:42px;align-items:start;padding:0 0 42px}
+    .tm-content{min-width:0}
+    .tm-side{display:block}
+    .tm-section{display:none;padding:38px 0;border-bottom:1px solid var(--tm-light-line)}
+    .tm-section.has-content{display:block}
+    .tm-section-head{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    .tm-section-head h2{margin:0;font-size:26px;line-height:1.2;font-weight:640;letter-spacing:-.01em}
+    .tm-section-head::after{content:"";height:1px;background:var(--tm-light-line);flex:1}
+    .tm-text{color:var(--tm-soft-ink);font-size:16px;line-height:1.76}
+    .tm-text p{margin:0 0 14px}
+    .tm-text p:last-child{margin-bottom:0}
 
-    .tm-section{padding:38px 0;border-top:1px solid var(--tm-line-soft)}
-    .tm-section-title{margin:0 0 20px;font-size:28px;line-height:1.25;font-weight:600}
-    .tm-heading-line{display:flex;align-items:center;gap:16px;margin-bottom:22px}
-    .tm-heading-line::after{content:"";height:1px;background:var(--tm-line-soft);flex:1}
-    .tm-section-copy{min-height:70px;color:#444;line-height:1.75;font-size:16px}
-    .tm-section-copy p{margin:0 0 14px}
-    .tm-section-copy p:last-child{margin-bottom:0}
+    .tm-description-blocks{display:grid;gap:22px}
+    .tm-description-block{display:none}
+    .tm-description-block.has-content{display:block}
+    .tm-description-block h3{margin:0 0 7px;font-size:19px;font-weight:680;color:#222}
 
-    .tm-description-grid{display:grid;grid-template-columns:1fr;gap:18px}
-    .tm-text-block{display:none}
-    .tm-text-block.has-content{display:block}
-    .tm-text-block-title{font-size:19px;font-weight:650;margin:0 0 8px}
-    .tm-text-block-body{color:#444;line-height:1.75;font-size:16px;min-height:1px}
+    .tm-room-grid,.tm-amenity-grid,.tm-policy-grid{display:grid;gap:12px}
+    .tm-room-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .tm-amenity-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .tm-policy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .tm-card{border:1px solid var(--tm-light-line);background:#fff;padding:16px;min-height:120px}
+    .tm-card h3{margin:0 0 8px;font-size:15px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:#222}
+    .tm-card div{font-size:14px;line-height:1.58;color:var(--tm-soft-ink)}
+    .tm-amenity{display:flex;align-items:center;gap:10px;min-height:44px;border:1px solid var(--tm-light-line);padding:11px 12px;background:#fff;font-size:14px;color:#333}
+    .tm-amenity::before{content:"";width:6px;height:6px;background:#222;border-radius:999px;opacity:.66;flex:0 0 auto}
 
-    .tm-rooms-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-    .tm-room-card{min-height:155px;border:1px solid var(--tm-line-soft);border-radius:4px;background:#fff;padding:20px}
-    .tm-room-title{margin:0 0 12px;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-    .tm-room-line{min-height:22px;color:#555;line-height:1.5;font-size:14px}
-
-    .tm-amenities-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-    .tm-amenity{min-height:48px;border:1px solid var(--tm-line-soft);border-radius:3px;background:#fff;padding:13px 14px;display:flex;align-items:center;gap:10px;color:#333;font-size:14px}
-    .tm-amenity::before{content:"";width:7px;height:7px;border-radius:50%;background:#111;flex:0 0 auto;opacity:.72}
-
-    .tm-policy-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .tm-policy-card{min-height:150px;border:1px solid var(--tm-line-soft);background:#fff;border-radius:4px;padding:20px}
-    .tm-policy-card h3{margin:0 0 10px;font-size:20px}
-    .tm-policy-card div{color:#444;line-height:1.65}
-
-    /* Calendar / schedule with prices from Worker */
-    .tm-rates-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px;align-items:end}
-    .tm-rates-tools .tm-field{gap:6px}
-    .tm-calendar-shell{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .tm-month{border:1px solid var(--tm-line-soft);background:#fff;border-radius:4px;padding:14px}
-    .tm-month-title{text-align:center;font-weight:700;margin-bottom:12px;min-height:24px}
+    .tm-calendar-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:14px;align-items:end}
+    .tm-calendar-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .tm-month{border:1px solid var(--tm-light-line);background:#fff;padding:12px}
+    .tm-month-title{text-align:center;font-weight:800;margin-bottom:10px;min-height:22px}
     .tm-weekdays,.tm-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
-    .tm-weekdays span{text-align:center;color:#777;font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding-bottom:5px}
-    .tm-day{min-height:68px;border:1px solid #eee;background:var(--tm-good);padding:6px;position:relative;font-size:13px;overflow:hidden}
-    .tm-day.is-empty{background:transparent;border-color:transparent}
-    .tm-day.is-disabled{background:var(--tm-disabled);color:#999}
-    .tm-day.is-booked,.tm-day.is-blocked{background:var(--tm-booked);color:#7d2222}
-    .tm-day-number{font-weight:700}
-    .tm-day-price{display:block;margin-top:7px;color:#666;font-size:12px;line-height:1.2;word-break:break-word}
-    .tm-day.is-selected{outline:2px solid #111;outline-offset:-2px;background:#b7db9f}
-    .tm-calendar-status{min-height:22px;margin-top:12px;color:#777;font-size:14px}
+    .tm-weekdays span{text-align:center;color:var(--tm-muted);font-size:10px;text-transform:uppercase;letter-spacing:.04em;padding-bottom:4px}
+    .tm-day{min-height:62px;border:1px solid #eee;background:var(--tm-available);padding:5px;font-size:12px;cursor:pointer;position:relative;overflow:hidden}
+    .tm-day.is-empty{background:transparent;border-color:transparent;cursor:default}
+    .tm-day.is-disabled{background:var(--tm-unavailable);color:#999;cursor:not-allowed}
+    .tm-day.is-booked,.tm-day.is-blocked{background:var(--tm-booked);color:#7d2222;cursor:not-allowed}
+    .tm-day.is-selected{background:var(--tm-selected);outline:2px solid #222;outline-offset:-2px}
+    .tm-day-number{font-weight:800}
+    .tm-day-price{display:block;margin-top:5px;color:#62605c;font-size:11px;line-height:1.2;word-break:break-word}
+    .tm-calendar-note{min-height:20px;margin-top:10px;color:var(--tm-muted);font-size:13px}
 
-    .tm-map-frame{min-height:360px;border:1px solid var(--tm-line-soft);background:#f2f2f2;border-radius:4px;overflow:hidden}
-    .tm-map-frame iframe{width:100%;height:380px;border:0;display:block;filter:saturate(.8)}
-    .tm-location-lines{margin-top:12px;color:#555;line-height:1.6;min-height:26px}
+    .tm-map{height:340px;border:1px solid var(--tm-light-line);background:#f2f2f2;overflow:hidden}
+    .tm-map iframe{width:100%;height:100%;border:0;display:block;filter:saturate(.85)}
+    .tm-location-lines{margin-top:12px;color:var(--tm-soft-ink);font-size:15px;line-height:1.65}
 
-    .tm-related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-    .tm-related-card{display:none;border:1px solid var(--tm-line-soft);background:#fff;border-radius:4px;overflow:hidden}
-    .tm-related-card.has-content{display:block}
-    .tm-related-card img{width:100%;height:180px;object-fit:cover;background:#eee}
-    .tm-related-body{padding:14px}
-    .tm-related-title{min-height:42px;font-size:16px;font-weight:700;line-height:1.35}
-    .tm-related-meta{margin-top:8px;color:#666;font-size:13px}
+    .tm-inquiry{background:var(--tm-warm);border-top:1px solid var(--tm-light-line);padding:38px 0}
+    .tm-inquiry-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:32px;align-items:start}
+    .tm-inquiry h2{margin:0 0 10px;font-size:28px;font-weight:640;letter-spacing:-.02em}
+    .tm-inquiry p{margin:0;color:var(--tm-soft-ink);line-height:1.68}
+    .tm-inquiry-form{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .tm-inquiry-form .full{grid-column:1/-1}
 
-    .tm-inquiry-section{background:#f7f4ef;padding:46px 0;border-top:1px solid var(--tm-line-soft)}
-    .tm-inquiry-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:32px;align-items:start}
-    .tm-inquiry-title{font-size:28px;font-weight:600;margin:0 0 12px}
-    .tm-inquiry-copy{min-height:60px;color:#555;line-height:1.7}
-    .tm-inquiry-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .tm-inquiry-form .tm-field:nth-last-child(-n+2),.tm-inquiry-form .tm-field.full{grid-column:1/-1}
-    .tm-inquiry-form textarea{width:100%;min-height:120px;border:1px solid var(--tm-line);border-radius:3px;padding:12px;resize:vertical;font:inherit}
+    .tm-footer{background:var(--tm-footer);color:#e9e2d8;padding:30px 0}
+    .tm-footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+    .tm-footer h3{margin:0 0 8px;color:#fff;font-size:18px}
+    .tm-footer div,.tm-footer a{font-size:14px;line-height:1.7;color:#d8d0c5}
 
-    .tm-footer{background:#333;color:#e8e2d8;padding:32px 0;margin-top:0}
-    .tm-footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px}
-    .tm-footer h3{font-size:19px;margin:0 0 10px;color:#fff}
-    .tm-footer div,.tm-footer a{color:#d7d0c6;font-size:14px;line-height:1.7}
-
-    .tm-modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.9);display:none;overflow:auto;padding:18px}
+    .tm-modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.92);display:none;overflow:auto;padding:16px}
     .tm-modal.is-open{display:block}
     .tm-modal-bar{position:sticky;top:0;z-index:2;text-align:right;padding-bottom:12px}
-    .tm-modal-close{border:0;background:#fff;color:#111;border-radius:3px;padding:10px 14px;cursor:pointer;font-weight:700}
-    .tm-modal-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(1280px,100%);margin:auto}
-    .tm-modal-gallery img{width:100%;height:270px;object-fit:cover;background:#222}
+    .tm-modal-close{border:0;background:#fff;color:#111;padding:10px 14px;font-weight:800;cursor:pointer}
+    .tm-modal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(1280px,100%);margin:0 auto}
+    .tm-modal-grid img{width:100%;height:270px;object-fit:cover;background:#222}
 
     @media(max-width:1050px){
-      .tm-title-grid,.tm-content-layout{grid-template-columns:1fr}
-      .tm-side-spacer{display:none}
-      .tm-booking-card{position:relative;top:auto}
-      .tm-rooms-grid,.tm-amenities-grid,.tm-related-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .tm-title-layout,.tm-main-layout{grid-template-columns:1fr}
+      .tm-side{display:none}
+      .tm-booking-card{position:relative;top:auto;margin-top:22px}
+      .tm-room-grid,.tm-amenity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .tm-footer-grid{grid-template-columns:1fr}
     }
 
     @media(max-width:760px){
       .tm-container{width:calc(100% - 22px)}
-      .tm-site-header-inner{width:calc(100% - 24px);min-height:70px}
-      .tm-nav a:not(.tm-nav-book){display:none}
-      .tm-brand-logo{width:120px}
-      .property-header-slider{padding:8px;background:#fff}
-      .tm-gallery-strip{display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;gap:8px;padding:0}
-      .tm-gallery-item{height:155px;border-radius:0}
-      .tm-gallery-item:nth-child(n+5){display:none}
-      .tm-gallery-item:first-child{height:210px;grid-column:1/-1}
-      .tm-gallery-actions{right:10px;bottom:10px}
-      .tm-gallery-button{font-size:13px;padding:9px 12px}
-      .tm-property-intro{padding-top:24px}
-      .tm-property-meta{grid-template-columns:repeat(3,1fr);gap:8px}
-      .tm-meta-box{min-height:82px;padding:14px 8px}
-      .tm-meta-number{font-size:27px}
-      .tm-meta-label{font-size:10px}
+      .tm-hero{min-height:124px}
+      .tm-hero-inner{padding:26px 0 22px;align-items:start;flex-direction:column;gap:14px}
+      .tm-hero h1{font-size:42px}
+      .tm-photo-section{padding-top:10px}
+      .tm-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;min-height:0}
+      .tm-photo-card,.tm-photo-card:first-child{grid-column:auto;grid-row:auto;min-height:156px;height:156px}
+      .tm-photo-card:nth-child(n+5){display:none}
+      .tm-photo-overlay{right:9px;bottom:9px}
+      .tm-small-btn{padding:8px 10px;font-size:12px}
+      .tm-title-band{padding-top:24px}
+      .tm-meta-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+      .tm-meta{min-height:76px;padding:12px 7px}
+      .tm-meta strong{font-size:25px}
+      .tm-meta span{font-size:9px}
       .tm-booking-fields{grid-template-columns:1fr 1fr}
-      .tm-rooms-grid,.tm-amenities-grid,.tm-policy-grid,.tm-related-grid{grid-template-columns:1fr 1fr}
-      .tm-rates-tools{grid-template-columns:1fr 1fr}
-      .tm-calendar-shell{grid-template-columns:1fr}
-      .tm-day{min-height:60px;padding:5px;font-size:12px}
-      .tm-day-price{font-size:11px}
+      .tm-room-grid,.tm-amenity-grid,.tm-policy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .tm-calendar-tools{grid-template-columns:1fr 1fr}
+      .tm-calendar-wrap{grid-template-columns:1fr}
+      .tm-day{min-height:58px;font-size:12px}
       .tm-inquiry-grid{grid-template-columns:1fr}
       .tm-inquiry-form{grid-template-columns:1fr 1fr}
-      .tm-modal-gallery{grid-template-columns:1fr 1fr}
-      .tm-modal-gallery img{height:210px}
-    }
-
-    @media(max-width:460px){
-      .tm-property-title{font-size:31px}
-      .tm-short-description{font-size:15px}
-      .tm-rooms-grid,.tm-amenities-grid,.tm-policy-grid,.tm-related-grid{grid-template-columns:1fr 1fr}
-      .tm-amenity{font-size:13px;padding:11px 10px}
-      .tm-rates-tools{grid-template-columns:1fr 1fr}
-      .tm-inquiry-form{grid-template-columns:1fr}
+      .tm-modal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .tm-modal-grid img{height:190px}
     }
   </style>
 </head>
 
-<body class="tm-loading">
-  <div class="tm-page" id="tmPropertyPage">
-    <div class="tm-language-toolbar" aria-hidden="true"></div>
+<body>
+  <div class="tm-language-toolbar" aria-hidden="true"></div>
 
-    <header class="tm-site-header" id="internalHeader">
-      <div class="tm-site-header-inner">
-        <a class="tm-brand" href="/" aria-label="Home">
-          <img class="tm-brand-logo" id="brandLogo" alt="" />
-          <span class="tm-brand-text" id="brandText"></span>
-        </a>
-        <nav class="tm-nav" aria-label="Main navigation">
-          <a href="/properties/">Properties</a>
-          <a href="/weddings-events/">Weddings &amp; Events</a>
-          <a href="/contact-us/">Contact</a>
-          <a class="tm-nav-book" href="#rates">Book Your Stay</a>
-        </nav>
+  <div class="tm-page">
+    <section class="tm-hero" aria-label="Booking hero">
+      <div class="tm-container tm-hero-inner">
+        <div>
+          <p class="tm-kicker" id="heroKicker"></p>
+          <h1>Book your stay</h1>
+        </div>
+        <a class="tm-hero-action" href="#bookingCard">Check availability</a>
       </div>
-    </header>
-
-    <section class="property-header-slider" aria-label="Property photos">
-      <div class="tm-gallery-strip" id="photoStrip"></div>
     </section>
 
-    <main>
-      <section class="tm-property-intro">
-        <div class="tm-container tm-title-grid">
-          <div>
-            <p class="tm-breadcrumb" id="breadcrumb"></p>
-            <h1 class="tm-property-title" id="propertyTitle"></h1>
-            <p class="tm-property-address" id="propertyAddress"></p>
-            <p class="tm-short-description" id="propertySummary"></p>
-
-            <div class="tm-property-meta" aria-label="Property details">
-              <div class="tm-meta-box">
-                <span class="tm-meta-number" id="metaGuests"></span>
-                <span class="tm-meta-label">Guests</span>
-              </div>
-              <div class="tm-meta-box">
-                <span class="tm-meta-number" id="metaBedrooms"></span>
-                <span class="tm-meta-label">Bedrooms</span>
-              </div>
-              <div class="tm-meta-box">
-                <span class="tm-meta-number" id="metaBathrooms"></span>
-                <span class="tm-meta-label">Bathrooms</span>
-              </div>
-            </div>
-          </div>
-
-          <aside class="tm-booking-card" id="bookingCard" aria-label="Booking widget">
-            <div class="tm-booking-head">
-              <h2 class="tm-booking-title">Book Your Stay</h2>
-              <div class="tm-from-price" id="fromPrice"></div>
-            </div>
-
-            <div class="tm-booking-fields">
-              <div class="tm-field">
-                <label for="checkIn">Check-in</label>
-                <input id="checkIn" type="date" />
-              </div>
-              <div class="tm-field">
-                <label for="checkOut">Check-out</label>
-                <input id="checkOut" type="date" />
-              </div>
-              <div class="tm-field">
-                <label for="adultCount">Adults</label>
-                <select id="adultCount"></select>
-              </div>
-              <div class="tm-field">
-                <label for="childrenCount">Children</label>
-                <select id="childrenCount"></select>
-              </div>
-              <div class="tm-field">
-                <label for="infantCount">Infants</label>
-                <select id="infantCount"></select>
-              </div>
-              <div class="tm-field">
-                <label for="petCount">Pets</label>
-                <select id="petCount"></select>
-              </div>
-            </div>
-
-            <div class="tm-quote-box" id="quoteBox"></div>
-            <button class="tm-book-button" id="quoteButton" type="button">Check Availability</button>
-            <a class="tm-inquiry-link" href="#inquiry">Send an Inquiry</a>
-            <div class="tm-booking-status" id="bookingStatus" aria-live="polite"></div>
-          </aside>
-        </div>
-      </section>
-
-      <div class="tm-container tm-content-layout">
-        <div class="tm-main-content">
-          <section class="tm-section" id="overview">
-            <div class="tm-heading-line"><h2 class="tm-section-title">Description</h2></div>
-            <div class="tm-section-copy" id="descriptionText"></div>
-          </section>
-
-          <section class="tm-section" id="details">
-            <div class="tm-description-grid">
-              <article class="tm-text-block" id="notesBlock">
-                <h3 class="tm-text-block-title">Notes</h3>
-                <div class="tm-text-block-body" id="notesText"></div>
-              </article>
-              <article class="tm-text-block" id="neighborhoodBlock">
-                <h3 class="tm-text-block-title">Neighborhood</h3>
-                <div class="tm-text-block-body" id="neighborhoodText"></div>
-              </article>
-              <article class="tm-text-block" id="accessBlock">
-                <h3 class="tm-text-block-title">Access</h3>
-                <div class="tm-text-block-body" id="accessText"></div>
-              </article>
-              <article class="tm-text-block" id="spaceBlock">
-                <h3 class="tm-text-block-title">Space</h3>
-                <div class="tm-text-block-body" id="spaceText"></div>
-              </article>
-              <article class="tm-text-block" id="transitBlock">
-                <h3 class="tm-text-block-title">Transit</h3>
-                <div class="tm-text-block-body" id="transitText"></div>
-              </article>
-            </div>
-          </section>
-
-          <section class="tm-section" id="rooms">
-            <div class="tm-heading-line"><h2 class="tm-section-title">Rooms and Beds</h2></div>
-            <div class="tm-rooms-grid" id="roomsGrid"></div>
-          </section>
-
-          <section class="tm-section" id="amenities">
-            <div class="tm-heading-line"><h2 class="tm-section-title">Features and Amenities</h2></div>
-            <div class="tm-amenities-grid" id="amenitiesGrid"></div>
-          </section>
-
-          <section class="tm-section" id="policies">
-            <div class="tm-policy-grid">
-              <article class="tm-policy-card">
-                <h3>Cancellation Policy</h3>
-                <div id="cancellationPolicy"></div>
-              </article>
-              <article class="tm-policy-card">
-                <h3>Payment Policy</h3>
-                <div id="paymentPolicy"></div>
-              </article>
-            </div>
-          </section>
-
-          <section class="tm-section" id="rates">
-            <div class="tm-heading-line"><h2 class="tm-section-title">Rates and Availability</h2></div>
-            <div class="tm-rates-tools">
-              <div class="tm-field">
-                <label for="calendarFrom">From</label>
-                <input id="calendarFrom" type="date" />
-              </div>
-              <div class="tm-field">
-                <label for="calendarTo">To</label>
-                <input id="calendarTo" type="date" />
-              </div>
-              <button class="tm-book-button" id="loadCalendarButton" type="button">Load Calendar</button>
-              <button class="tm-book-button" id="nextMonthButton" type="button">Next Month</button>
-            </div>
-            <div class="tm-calendar-shell" id="calendarShell"></div>
-            <div class="tm-calendar-status" id="calendarStatus" aria-live="polite"></div>
-          </section>
-
-          <section class="tm-section" id="location">
-            <div class="tm-heading-line"><h2 class="tm-section-title">Location</h2></div>
-            <div class="tm-map-frame" id="mapFrame"></div>
-            <div class="tm-location-lines" id="locationLines"></div>
-          </section>
-
-          <section class="tm-section" id="related">
-            <div class="tm-heading-line"><h2 class="tm-section-title">Other Properties You May Like</h2></div>
-            <div class="tm-related-grid" id="relatedGrid"></div>
-          </section>
-        </div>
-        <div class="tm-side-spacer" aria-hidden="true"></div>
+    <section class="tm-photo-section" aria-label="Property photos">
+      <div class="tm-container">
+        <div class="tm-photo-grid" id="photoGrid"></div>
       </div>
+    </section>
 
-      <section class="tm-inquiry-section" id="inquiry">
-        <div class="tm-container tm-inquiry-grid">
-          <div>
-            <h2 class="tm-inquiry-title">Send an Inquiry</h2>
-            <div class="tm-inquiry-copy" id="inquiryCopy"></div>
+    <section class="tm-title-band">
+      <div class="tm-container tm-title-layout">
+        <div>
+          <h2 class="tm-property-name" id="propertyTitle"></h2>
+          <p class="tm-address" id="propertyAddress"></p>
+          <p class="tm-summary" id="propertySummary"></p>
+          <div class="tm-meta-row" id="metaRow" hidden>
+            <div class="tm-meta"><strong id="guestCount"></strong><span>Guests</span></div>
+            <div class="tm-meta"><strong id="bedroomCount"></strong><span>Bedrooms</span></div>
+            <div class="tm-meta"><strong id="bathroomCount"></strong><span>Bathrooms</span></div>
           </div>
-          <form class="tm-inquiry-form" id="inquiryForm">
-            <div class="tm-field"><label for="inqName">Name</label><input id="inqName" name="name" autocomplete="name" /></div>
-            <div class="tm-field"><label for="inqEmail">Email</label><input id="inqEmail" name="email" type="email" autocomplete="email" /></div>
-            <div class="tm-field"><label for="inqPhone">Phone</label><input id="inqPhone" name="phone" type="tel" autocomplete="tel" /></div>
-            <div class="tm-field"><label for="inqGuests">Guests</label><input id="inqGuests" name="guests" inputmode="numeric" /></div>
-            <div class="tm-field full"><label for="inqMessage">Message</label><textarea id="inqMessage" name="message"></textarea></div>
-            <button class="tm-book-button" type="submit">Send Inquiry</button>
-            <div class="tm-booking-status" id="inquiryStatus" aria-live="polite"></div>
-          </form>
         </div>
-      </section>
+
+        <aside class="tm-booking-card" id="bookingCard" aria-label="Booking form">
+          <h2>Book your stay</h2>
+          <p class="tm-price-line" id="fromPrice"></p>
+          <div class="tm-booking-fields">
+            <div class="tm-field">
+              <label for="checkIn">Check-in</label>
+              <input id="checkIn" type="date" />
+            </div>
+            <div class="tm-field">
+              <label for="checkOut">Check-out</label>
+              <input id="checkOut" type="date" />
+            </div>
+            <div class="tm-field">
+              <label for="adults">Adults</label>
+              <select id="adults"></select>
+            </div>
+            <div class="tm-field">
+              <label for="children">Children</label>
+              <select id="children"></select>
+            </div>
+          </div>
+          <div class="tm-quote-box" id="quoteBox"></div>
+          <button class="tm-book-btn" id="continueBtn" type="button" disabled>Continue</button>
+          <div class="tm-status" id="bookingStatus"></div>
+        </aside>
+      </div>
+    </section>
+
+    <main class="tm-container tm-main-layout">
+      <div class="tm-content">
+        <section class="tm-section" id="aboutSection">
+          <div class="tm-section-head"><h2>About this property</h2></div>
+          <div class="tm-description-blocks">
+            <article class="tm-description-block" id="summaryBlock">
+              <h3>Overview</h3>
+              <div class="tm-text" id="descriptionFull"></div>
+            </article>
+            <article class="tm-description-block" id="spaceBlock">
+              <h3>The space</h3>
+              <div class="tm-text" id="descriptionSpace"></div>
+            </article>
+            <article class="tm-description-block" id="accessBlock">
+              <h3>Guest access</h3>
+              <div class="tm-text" id="descriptionAccess"></div>
+            </article>
+            <article class="tm-description-block" id="notesBlock">
+              <h3>Good to know</h3>
+              <div class="tm-text" id="descriptionNotes"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="tm-section" id="roomsSection">
+          <div class="tm-section-head"><h2>Rooms and beds</h2></div>
+          <div class="tm-room-grid" id="roomsGrid"></div>
+        </section>
+
+        <section class="tm-section" id="amenitiesSection">
+          <div class="tm-section-head"><h2>Amenities</h2></div>
+          <div class="tm-amenity-grid" id="amenitiesGrid"></div>
+        </section>
+
+        <section class="tm-section has-content" id="availabilitySection">
+          <div class="tm-section-head"><h2>Availability and prices</h2></div>
+          <div class="tm-calendar-tools">
+            <div class="tm-field">
+              <label for="calMonth">Month</label>
+              <input id="calMonth" type="month" />
+            </div>
+            <div class="tm-field">
+              <label for="calAdults">Adults</label>
+              <select id="calAdults"></select>
+            </div>
+            <div class="tm-field">
+              <label for="calChildren">Children</label>
+              <select id="calChildren"></select>
+            </div>
+            <button class="tm-book-btn" id="reloadCalendar" type="button" style="margin-top:0">Load prices</button>
+          </div>
+          <div class="tm-calendar-wrap" id="calendarWrap"></div>
+          <div class="tm-calendar-note" id="calendarStatus"></div>
+        </section>
+
+        <section class="tm-section" id="policiesSection">
+          <div class="tm-section-head"><h2>Policies</h2></div>
+          <div class="tm-policy-grid" id="policiesGrid"></div>
+        </section>
+
+        <section class="tm-section" id="locationSection">
+          <div class="tm-section-head"><h2>Location</h2></div>
+          <div class="tm-map" id="mapFrame"></div>
+          <div class="tm-location-lines" id="locationLines"></div>
+        </section>
+      </div>
+      <div class="tm-side" aria-hidden="true"></div>
     </main>
 
-    <footer class="tm-footer" id="footer">
+    <section class="tm-inquiry" id="inquiry">
+      <div class="tm-container tm-inquiry-grid">
+        <div>
+          <h2>Have a question?</h2>
+          <p id="inquiryCopy"></p>
+        </div>
+        <form class="tm-inquiry-form" id="inquiryForm">
+          <div class="tm-field"><label for="inqName">Name</label><input id="inqName" name="name" autocomplete="name" /></div>
+          <div class="tm-field"><label for="inqEmail">Email</label><input id="inqEmail" name="email" type="email" autocomplete="email" /></div>
+          <div class="tm-field"><label for="inqPhone">Phone</label><input id="inqPhone" name="phone" type="tel" autocomplete="tel" /></div>
+          <div class="tm-field"><label for="inqGuests">Guests</label><input id="inqGuests" name="guests" inputmode="numeric" /></div>
+          <div class="tm-field full"><label for="inqMessage">Message</label><textarea id="inqMessage" name="message"></textarea></div>
+          <button class="tm-book-btn full" type="submit">Send inquiry</button>
+          <div class="tm-status full" id="inquiryStatus"></div>
+        </form>
+      </div>
+    </section>
+
+    <footer class="tm-footer">
       <div class="tm-container tm-footer-grid">
-        <div>
-          <h3 id="footerBrand"></h3>
-          <div id="footerDescription"></div>
-        </div>
-        <div>
-          <h3>Quick links</h3>
-          <div><a href="#overview">Description</a></div>
-          <div><a href="#amenities">Amenities</a></div>
-          <div><a href="#rates">Rates and Availability</a></div>
-        </div>
-        <div>
-          <h3>Contact</h3>
-          <div id="footerContact"></div>
-        </div>
+        <div><h3 id="footerBrand"></h3><div id="footerAddress"></div></div>
+        <div><h3>Contact</h3><div id="footerContact"></div></div>
+        <div><h3>Booking</h3><div id="footerBooking"></div></div>
       </div>
     </footer>
+  </div>
 
-    <div class="tm-modal" id="photoModal" aria-hidden="true">
-      <div class="tm-modal-bar"><button class="tm-modal-close" type="button" id="closeModalButton">Close</button></div>
-      <div class="tm-modal-gallery" id="modalGallery"></div>
-    </div>
+  <div class="tm-modal" id="photoModal" aria-hidden="true">
+    <div class="tm-modal-bar"><button class="tm-modal-close" id="closePhotoModal" type="button">Close</button></div>
+    <div class="tm-modal-grid" id="modalGrid"></div>
   </div>
 
   <script>
-    /* =========================================================
-       ONLY EDIT THIS CONFIG WHEN REUSING THE SHELL
-       ========================================================= */
-    const PROPERTY_CONFIG = {
-      WORKER_BASE: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev/",
-      PROPERTY_ID: "",
-      LISTING_QUERY: "",
-      BRAND_NAME: "",
-      BRAND_LOGO: "",
-      SHOW_INTERNAL_HEADER: false,
+    const CONFIG = {
+      WORKER_BASE: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
       CHECKOUT_URL: "checkout.html",
-      CONFIRMATION_URL: "confirmation.html",
+      PROPERTY_ID: "",
       DEFAULT_LANG: "en",
-      CURRENCY: "USD",
-      MAX_GUESTS_FALLBACK: 32,
-      CALENDAR_MONTHS_VISIBLE: 2
+      MAX_VISIBLE_PHOTOS: 9,
+      MAX_AMENITIES: 30
     };
 
     const state = {
       listing:null,
+      content:null,
       images:[],
-      calendar:[],
-      quote:null,
+      calendar:new Map(),
       selectedStart:null,
       selectedEnd:null,
-      lang:getInitialLang()
+      lastQuote:null,
+      lang:getLang()
     };
 
     const $ = (id) => document.getElementById(id);
+    const clean = (value) => String(value ?? "").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim();
+    const htmlText = (value) => {
+      const text = clean(value);
+      if(!text) return "";
+      return text.split(/\n{2,}|(?<=\.)\s+(?=[A-ZÀ-Ü])/).filter(Boolean).slice(0,8).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+    };
+    const escapeHtml = (s) => String(s ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
 
-    document.addEventListener("DOMContentLoaded", initPropertyPage);
-
-    async function initPropertyPage(){
-      setupInternalHeader();
-      setupGuestSelects(PROPERTY_CONFIG.MAX_GUESTS_FALLBACK);
-      setupDates();
-      bindEvents();
-      await Promise.allSettled([loadListing(), loadImages(), loadContent()]);
-      await loadCalendarFromInputs();
-      document.body.classList.remove("tm-loading");
+    function getLang(){
+      const url = new URL(window.location.href);
+      return url.searchParams.get("lang") || localStorage.getItem("fh_lang") || document.documentElement.lang || CONFIG.DEFAULT_LANG;
     }
 
-    function getInitialLang(){
-      const params = new URLSearchParams(location.search);
-      return params.get("lang") || localStorage.getItem("fh_lang") || PROPERTY_CONFIG.DEFAULT_LANG || "en";
+    function endpoint(path){
+      const base = CONFIG.WORKER_BASE.replace(/\/+$/," ").trim();
+      return base + "/" + String(path).replace(/^\/+/,"");
     }
 
-    function setupInternalHeader(){
-      if(PROPERTY_CONFIG.SHOW_INTERNAL_HEADER) $("internalHeader").classList.add("is-visible");
-      setText("brandText", PROPERTY_CONFIG.BRAND_NAME);
-      setText("footerBrand", PROPERTY_CONFIG.BRAND_NAME);
-      if(PROPERTY_CONFIG.BRAND_LOGO){
-        $("brandLogo").src = PROPERTY_CONFIG.BRAND_LOGO;
-        $("brandLogo").alt = PROPERTY_CONFIG.BRAND_NAME || "";
+    async function apiGet(path){
+      const res = await fetch(endpoint(path), {headers:{"Accept":"application/json"}, cache:"no-store"});
+      if(!res.ok) throw new Error(`${path} returned ${res.status}`);
+      return res.json();
+    }
+
+    async function apiPost(path, body){
+      const res = await fetch(endpoint(path), {
+        method:"POST",
+        headers:{"Content-Type":"application/json","Accept":"application/json"},
+        body:JSON.stringify(body)
+      });
+      const json = await res.json().catch(() => ({}));
+      if(!res.ok || json.ok === false) throw new Error(json.error || json.message || `${path} returned ${res.status}`);
+      return json;
+    }
+
+    function unwrap(raw, keys=[]){
+      if(!raw) return null;
+      let obj = raw;
+      for(const key of keys){
+        if(obj && obj[key] != null) obj = obj[key];
       }
+      if(obj && obj.data && typeof obj.data === "object") return obj.data;
+      if(obj && obj.result && typeof obj.result === "object") return obj.result;
+      if(obj && obj.listing && typeof obj.listing === "object") return obj.listing;
+      return obj;
     }
 
-    function bindEvents(){
-      $("quoteButton").addEventListener("click", handleQuoteClick);
-      $("loadCalendarButton").addEventListener("click", loadCalendarFromInputs);
-      $("nextMonthButton").addEventListener("click", nextCalendarMonth);
-      $("photoModal").addEventListener("click", (e)=>{ if(e.target === $("photoModal")) closePhotoModal(); });
-      $("closeModalButton").addEventListener("click", closePhotoModal);
-      $("inquiryForm").addEventListener("submit", handleInquirySubmit);
-      ["checkIn","checkOut","adultCount","childrenCount","infantCount","petCount"].forEach(id=>{
-        $(id).addEventListener("change", clearQuote);
-      });
-
-      window.addEventListener("storage", (event)=>{
-        if(event.key === "fh_lang" && event.newValue){
-          state.lang = event.newValue;
-          loadContent();
+    function pick(obj, paths){
+      for(const path of paths){
+        const parts = path.split(".");
+        let cur = obj;
+        for(const p of parts){
+          if(cur == null) break;
+          cur = cur[p];
         }
-      });
-
-      window.addEventListener("message", (event)=>{
-        const data = event.data || {};
-        if(data.lang || data.language){
-          state.lang = data.lang || data.language;
-          localStorage.setItem("fh_lang", state.lang);
-          loadContent();
-        }
-      });
+        if(cur != null && cur !== "") return cur;
+      }
+      return "";
     }
 
-    function setupGuestSelects(max){
-      fillNumberOptions("adultCount", 1, max, 2);
-      fillNumberOptions("childrenCount", 0, max, 0);
-      fillNumberOptions("infantCount", 0, 6, 0);
-      fillNumberOptions("petCount", 0, 4, 0);
+    function asArray(value){
+      if(!value) return [];
+      if(Array.isArray(value)) return value;
+      if(Array.isArray(value.items)) return value.items;
+      if(Array.isArray(value.results)) return value.results;
+      if(Array.isArray(value.images)) return value.images;
+      if(Array.isArray(value.data)) return value.data;
+      return [];
     }
 
-    function fillNumberOptions(id, min, max, selected){
-      const select = $(id);
+    function money(value, currency="USD"){
+      const n = Number(value);
+      if(!Number.isFinite(n)) return "";
+      try{return new Intl.NumberFormat("en-US",{style:"currency",currency,maximumFractionDigits:0}).format(n)}
+      catch{return `$${Math.round(n)}`}
+    }
+
+    function formatDate(date){
+      return date.toISOString().slice(0,10);
+    }
+
+    function addDays(date, days){
+      const d = new Date(date);
+      d.setDate(d.getDate()+days);
+      return d;
+    }
+
+    function monthStart(date){
+      return new Date(date.getFullYear(), date.getMonth(), 1);
+    }
+
+    function monthEnd(date){
+      return new Date(date.getFullYear(), date.getMonth()+1, 0);
+    }
+
+    function normalizeListing(raw){
+      const l = unwrap(raw) || {};
+      const publicDescription = l.publicDescription || l.description || l.descriptions || {};
+      const terms = l.terms || l.policies || {};
+      const addressObj = l.address || l.location || {};
+
+      const title = clean(pick(l,["title","name","nickname","internalName","listing.title","listing.name"])) || clean(pick(state.content || {},["title","propertyTitle","name"]));
+      const summary = clean(pick(state.content || {},["summary","description","hero.description","property.description"])) || clean(pick(publicDescription,["summary","description","plainText","text","overview"]));
+      const space = clean(pick(publicDescription,["space","theSpace","property","rooms"]));
+      const access = clean(pick(publicDescription,["access","guestAccess","interactionWithGuests","transit"]));
+      const notes = clean(pick(publicDescription,["notes","neighborhood","houseRules","otherThingsToNote"]));
+
+      const address = clean(pick(addressObj,["full","fullAddress","display","street","addressLine1"])) || [addressObj.street, addressObj.city, addressObj.state, addressObj.country].filter(Boolean).join(", ");
+      const lat = Number(pick(addressObj,["lat","latitude","geo.lat","coordinates.lat"]));
+      const lng = Number(pick(addressObj,["lng","lon","longitude","geo.lng","geo.lon","coordinates.lng","coordinates.lon"]));
+
+      const guests = Number(pick(l,["accommodates","occupancy","maxOccupancy","maxGuests","pricing.guestsIncludedInRegularFee"])) || "";
+      const bedrooms = Number(pick(l,["bedrooms","bedroomCount","roomCount.bedrooms","property.bedrooms"])) || "";
+      const bathrooms = pick(l,["bathrooms","bathroomsFull","bathroomCount","roomCount.bathrooms","property.bathrooms"]);
+      const beds = pick(l,["beds","bedCount","roomCount.beds"]);
+      const currency = clean(pick(l,["currency","prices.currency","pricing.currency"])) || "USD";
+      const basePrice = pick(l,["basePrice","prices.basePrice","pricing.basePrice","pricing.nightly","defaultDailyPrice"]);
+
+      return {
+        raw:l,
+        id:clean(pick(l,["_id","id","listingId","propertyId"])),
+        title,
+        summary,
+        space,
+        access,
+        notes,
+        address:clean(address),
+        lat:Number.isFinite(lat) ? lat : null,
+        lng:Number.isFinite(lng) ? lng : null,
+        guests,
+        bedrooms,
+        bathrooms:clean(bathrooms),
+        beds,
+        currency,
+        basePrice,
+        rooms:normalizeRooms(l),
+        amenities:normalizeAmenities(l),
+        policies:normalizePolicies(l, terms),
+        contacts:normalizeContacts(l)
+      };
+    }
+
+    function normalizeContacts(l){
+      const phone = clean(pick(l,["phone","contact.phone","account.phone","host.phone"]));
+      const email = clean(pick(l,["email","contact.email","account.email","host.email"]));
+      return {phone,email};
+    }
+
+    function normalizeRooms(l){
+      const rooms = asArray(pick(l,["rooms","bedroomsList","bedroomsData","roomDetails"]));
+      if(rooms.length){
+        return rooms.map((room, i) => {
+          const title = clean(room.title || room.name || room.type || `Bedroom ${i+1}`);
+          const beds = asArray(room.beds || room.bedTypes).map(b => {
+            const count = b.count || b.quantity || b.numberOfBeds || 1;
+            const type = clean(b.type || b.name || b.bedType || "Bed");
+            return `${count} ${type}`;
+          }).join(", ") || clean(room.bed || room.description || room.summary);
+          return {title,beds};
+        }).filter(r => r.title || r.beds);
+      }
+
+      const beds = asArray(pick(l,["beds","bedTypes","bed"]));
+      if(beds.length){
+        return beds.map((bed, i) => ({
+          title:clean(bed.room || bed.roomName || bed.title || `Sleeping area ${i+1}`),
+          beds:clean(`${bed.count || bed.numberOfBeds || bed.quantity || 1} ${bed.type || bed.name || bed.bedType || "Bed"}`)
+        }));
+      }
+
+      const bedrooms = Number(pick(l,["bedrooms","bedroomCount"]));
+      const bedCount = Number(pick(l,["bedsCount","bedCount","roomCount.beds"]));
+      if(bedrooms || bedCount){
+        return [{title:"Sleeping arrangements", beds:[bedrooms ? `${bedrooms} bedrooms` : "", bedCount ? `${bedCount} beds` : ""].filter(Boolean).join(" · ")}];
+      }
+      return [];
+    }
+
+    function normalizeAmenities(l){
+      const raw = asArray(pick(l,["amenities","amenityFeature","features","propertyAmenities"]));
+      return raw.map(a => clean(a.title || a.name || a.type || a)).filter(Boolean).map(formatLabel).filter(unique);
+    }
+
+    function normalizePolicies(l, terms){
+      const out = [];
+      const checkIn = clean(pick(l,["checkInTime","defaultCheckInTime","terms.checkIn","pms.checkInTime"]));
+      const checkOut = clean(pick(l,["checkOutTime","defaultCheckOutTime","terms.checkOut","pms.checkOutTime"]));
+      const rules = clean(pick(terms,["houseRules","rules","notes"])) || clean(pick(l,["houseRules","publicDescription.houseRules"]));
+      const cancellation = clean(pick(terms,["cancellation","cancellationPolicy","cancellationPolicyName"])) || clean(pick(l,["cancellationPolicy","cancellationPolicyName"]));
+
+      if(checkIn || checkOut) out.push({title:"Arrival", body:[checkIn ? `Check-in: ${checkIn}` : "", checkOut ? `Check-out: ${checkOut}` : ""].filter(Boolean).join("\n")});
+      if(rules) out.push({title:"House rules", body:rules});
+      if(cancellation) out.push({title:"Cancellation", body:cancellation});
+      return out;
+    }
+
+    function formatLabel(value){
+      return clean(value)
+        .replace(/([a-z])([A-Z])/g,"$1 $2")
+        .replace(/[_-]+/g," ")
+        .replace(/\b\w/g,c=>c.toUpperCase());
+    }
+
+    function unique(value, index, arr){
+      return value && arr.indexOf(value) === index;
+    }
+
+    function normalizeImages(raw){
+      const base = unwrap(raw) || raw;
+      const arr = asArray(base);
+      return arr.map(item => {
+        if(typeof item === "string") return item;
+        return item.url || item.src || item.original || item.thumbnail || item.large || item.medium || item.secure_url || item.originalUrl || item.imageUrl || "";
+      }).map(clean).filter(Boolean).filter(unique);
+    }
+
+    function normalizeCalendar(raw){
+      const base = unwrap(raw) || raw;
+      const arr = Array.isArray(base) ? base : asArray(base.days || base.calendar || base.rates || base.availability || base.data || base);
+      const map = new Map();
+      arr.forEach(item => {
+        const date = clean(item.date || item.day || item.startDate || item.start || item.dateString);
+        if(!date) return;
+        const price = item.price ?? item.basePrice ?? item.rate ?? item.amount ?? pick(item,["price.total","price.basePrice","pricing.price","pricing.basePrice"]);
+        const currency = clean(item.currency || item.priceCurrency || pick(item,["price.currency","pricing.currency"])) || (state.listing && state.listing.currency) || "USD";
+        const status = clean(item.status || item.availability || item.type || "").toLowerCase();
+        const available = item.available ?? item.isAvailable ?? item.selectable ?? item.availableForCheckIn;
+        const blocked = available === false || status.includes("book") || status.includes("block") || status.includes("unavailable") || item.blocked === true || item.isBlocked === true;
+        map.set(date.slice(0,10), {date:date.slice(0,10), price, currency, blocked, status});
+      });
+      return map;
+    }
+
+    function fillSelect(select, max, start=0, selected=0){
       select.innerHTML = "";
-      for(let n=min;n<=max;n++){
-        const opt = document.createElement("option");
-        opt.value = String(n);
-        opt.textContent = String(n);
-        if(n === selected) opt.selected = true;
-        select.appendChild(opt);
+      for(let i=start;i<=max;i++){
+        const option = document.createElement("option");
+        option.value = String(i);
+        option.textContent = String(i);
+        if(i === selected) option.selected = true;
+        select.appendChild(option);
       }
     }
 
-    function setupDates(){
-      const today = new Date();
-      const tomorrow = addDays(today, 1);
-      const after = addDays(today, 3);
-      $("checkIn").min = isoDate(today);
-      $("checkOut").min = isoDate(tomorrow);
-      $("calendarFrom").value = firstDayOfMonth(today);
-      $("calendarTo").value = lastDayOfNextMonth(today);
-      $("checkIn").addEventListener("change", ()=>{
-        const ci = parseDate($("checkIn").value);
-        if(ci){
-          $("checkOut").min = isoDate(addDays(ci,1));
-          if(!$("checkOut").value || parseDate($("checkOut").value) <= ci) $("checkOut").value = isoDate(addDays(ci,2));
-        }
-      });
+    function setContent(id, value){
+      const el = $(id);
+      if(el) el.textContent = clean(value);
     }
 
-    async function loadListing(){
-      try{
-        const listing = await workerGet("/listing" + querySuffix());
-        state.listing = normalizeListing(listing);
-        renderListing(state.listing);
-      }catch(error){
-        console.warn("Listing load failed", error);
-      }
+    function setHtml(id, value){
+      const el = $(id);
+      if(el) el.innerHTML = htmlText(value);
     }
 
-    async function loadContent(){
-      try{
-        const content = await workerGet(`/content?lang=${encodeURIComponent(state.lang)}`);
-        if(content) renderContent(content);
-      }catch(error){
-        /* Content route is optional. */
-      }
+    function showIf(sectionId, condition){
+      const el = $(sectionId);
+      if(el) el.classList.toggle("has-content", Boolean(condition));
     }
 
-    async function loadImages(){
-      try{
-        const data = await workerGet("/images" + querySuffix());
-        state.images = normalizeImages(data);
-        renderImages(state.images);
-      }catch(error){
-        console.warn("Images load failed", error);
-      }
+    function renderListing(){
+      const l = state.listing;
+      if(!l) return;
+
+      document.title = l.title ? `${l.title} · Book your stay` : "Book your stay";
+      const meta = document.querySelector('meta[name="description"]');
+      if(meta && l.summary) meta.content = l.summary.slice(0,155);
+
+      setContent("heroKicker", l.title || "Direct booking");
+      setContent("propertyTitle", l.title);
+      setContent("propertyAddress", l.address);
+      setContent("propertySummary", l.summary);
+      setContent("guestCount", l.guests);
+      setContent("bedroomCount", l.bedrooms);
+      setContent("bathroomCount", l.bathrooms);
+
+      const hasMeta = Boolean(l.guests || l.bedrooms || l.bathrooms);
+      $("metaRow").hidden = !hasMeta;
+
+      const basePrice = Number(l.basePrice);
+      $("fromPrice").innerHTML = Number.isFinite(basePrice) ? `From <strong>${money(basePrice,l.currency)}</strong> / night` : "";
+
+      setHtml("descriptionFull", l.summary || pick(l.raw,["description","publicDescription.summary"]));
+      setHtml("descriptionSpace", l.space);
+      setHtml("descriptionAccess", l.access);
+      setHtml("descriptionNotes", l.notes);
+
+      toggleBlock("summaryBlock", $("descriptionFull").innerHTML);
+      toggleBlock("spaceBlock", $("descriptionSpace").innerHTML);
+      toggleBlock("accessBlock", $("descriptionAccess").innerHTML);
+      toggleBlock("notesBlock", $("descriptionNotes").innerHTML);
+      showIf("aboutSection", document.querySelectorAll("#aboutSection .tm-description-block.has-content").length > 0);
+
+      renderRooms(l.rooms);
+      renderAmenities(l.amenities);
+      renderPolicies(l.policies);
+      renderLocation(l);
+      renderFooter(l);
+      setupGuestLimits(l.guests || 32);
     }
 
-    async function loadCalendarFromInputs(){
-      const from = $("calendarFrom").value || firstDayOfMonth(new Date());
-      const to = $("calendarTo").value || lastDayOfNextMonth(new Date());
-      setText("calendarStatus", "");
-      try{
-        const data = await workerGet(`/calendar?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}${propertyParam(true)}`);
-        state.calendar = normalizeCalendar(data);
-        renderCalendar(from, to, state.calendar);
-      }catch(error){
-        setText("calendarStatus", "Calendar could not be loaded.");
-        console.warn("Calendar load failed", error);
-      }
-    }
-
-    function nextCalendarMonth(){
-      const current = parseDate($("calendarFrom").value) || new Date();
-      const next = new Date(current.getFullYear(), current.getMonth()+1, 1);
-      $("calendarFrom").value = firstDayOfMonth(next);
-      $("calendarTo").value = lastDayOfNextMonth(next);
-      loadCalendarFromInputs();
-    }
-
-    function renderListing(listing){
-      if(!listing) return;
-
-      const title = firstDefined(listing.title, listing.name, listing.nickname, listing.publicName);
-      const summary = firstDefined(listing.summary, listing.descriptionSummary, listing.shortDescription, listing.description);
-      const description = firstDefined(listing.description, listing.publicDescription, listing.descriptionText);
-      const address = formatAddress(listing.address || listing.location || listing.fullAddress || listing);
-      const maxGuests = numberValue(firstDefined(listing.guests, listing.accommodates, listing.maxGuests, listing.occupancy));
-      const bedrooms = numberValue(firstDefined(listing.bedrooms, listing.bedroomCount, listing.numberOfBedrooms));
-      const bathrooms = numberValue(firstDefined(listing.bathrooms, listing.bathroomCount, listing.numberOfBathrooms, listing.numberOfBathroomsTotal));
-      const basePrice = firstDefined(listing.price, listing.basePrice, listing.defaultRate, listing.nightlyRate);
-      const currency = firstDefined(listing.currency, listing.priceCurrency, PROPERTY_CONFIG.CURRENCY);
-
-      document.title = title || document.title;
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if(metaDesc && summary) metaDesc.setAttribute("content", stripHtml(summary).slice(0,155));
-
-      setText("breadcrumb", firstDefined(listing.city, listing.area, listing.market, listing.address?.city, listing.address?.addressLocality));
-      setText("propertyTitle", title);
-      setText("propertyAddress", address);
-      setHTML("propertySummary", summary);
-      setHTML("descriptionText", description);
-      setText("metaGuests", maxGuests ? String(maxGuests) : "");
-      setText("metaBedrooms", bedrooms ? String(bedrooms) : "");
-      setText("metaBathrooms", bathrooms ? String(bathrooms) : "");
-
-      if(maxGuests) setupGuestSelects(maxGuests);
-      if(basePrice) setHTML("fromPrice", `<strong>${formatMoney(basePrice, currency)}</strong><span>per night</span>`);
-
-      renderTextBlock("notesBlock", "notesText", firstDefined(listing.notes, listing.houseRulesNotes));
-      renderTextBlock("neighborhoodBlock", "neighborhoodText", firstDefined(listing.neighborhood, listing.neighborhoodOverview));
-      renderTextBlock("accessBlock", "accessText", firstDefined(listing.access, listing.guestAccess));
-      renderTextBlock("spaceBlock", "spaceText", firstDefined(listing.space, listing.theSpace));
-      renderTextBlock("transitBlock", "transitText", firstDefined(listing.transit, listing.gettingAround));
-
-      setHTML("cancellationPolicy", firstDefined(listing.cancellationPolicy, listing.cancellation, listing.policies?.cancellation));
-      setHTML("paymentPolicy", firstDefined(listing.paymentPolicy, listing.payment, listing.policies?.payment));
-      setHTML("footerDescription", summary);
-      setHTML("footerContact", formatContact(listing));
-      setHTML("inquiryCopy", firstDefined(listing.inquiryCopy, ""));
-
-      renderRooms(normalizeRooms(listing));
-      renderAmenities(normalizeAmenities(listing));
-      renderLocation(listing, address);
-      renderRelated(normalizeRelated(listing));
-    }
-
-    function renderContent(content){
-      const c = content?.content || content?.data || content;
-      if(!c || typeof c !== "object") return;
-      setMaybe("propertyTitle", c.title || c.propertyTitle);
-      setMaybeHTML("propertySummary", c.summary || c.shortDescription);
-      setMaybeHTML("descriptionText", c.description);
-      setMaybeHTML("notesText", c.notes);
-      setMaybeHTML("neighborhoodText", c.neighborhood);
-      setMaybeHTML("accessText", c.access);
-      setMaybeHTML("spaceText", c.space);
-      setMaybeHTML("transitText", c.transit);
-      ["notes","neighborhood","access","space","transit"].forEach(key=>{
-        const block = $(key + "Block");
-        const text = $(key + "Text");
-        if(block && text && text.textContent.trim()) block.classList.add("has-content");
-      });
-    }
-
-    function renderTextBlock(blockId, textId, value){
-      const block = $(blockId);
-      if(!value){ block.classList.remove("has-content"); setHTML(textId, ""); return; }
-      setHTML(textId, value);
-      block.classList.add("has-content");
-    }
-
-    function renderImages(images){
-      const strip = $("photoStrip");
-      const modal = $("modalGallery");
-      strip.innerHTML = "";
-      modal.innerHTML = "";
-      if(!images.length) return;
-
-      images.forEach((img, index)=>{
-        const item = document.createElement("button");
-        item.type = "button";
-        item.className = "tm-gallery-item";
-        item.setAttribute("aria-label", "Open photo gallery");
-        item.innerHTML = `<img src="${escapeAttr(img.url)}" alt="${escapeAttr(img.alt || "")}" loading="${index < 3 ? "eager" : "lazy"}" decoding="async">`;
-        item.addEventListener("click", openPhotoModal);
-        if(index === 0){
-          const actions = document.createElement("div");
-          actions.className = "tm-gallery-actions";
-          actions.innerHTML = `<span class="tm-gallery-button">View all photos</span>`;
-          item.appendChild(actions);
-        }
-        strip.appendChild(item);
-
-        const modalImg = document.createElement("img");
-        modalImg.src = img.url;
-        modalImg.alt = img.alt || "";
-        modalImg.loading = "lazy";
-        modal.appendChild(modalImg);
-      });
+    function toggleBlock(id, content){
+      const el = $(id);
+      if(el) el.classList.toggle("has-content", Boolean(clean(content)) || Boolean(content));
     }
 
     function renderRooms(rooms){
       const grid = $("roomsGrid");
       grid.innerHTML = "";
-      if(!rooms.length){ $("rooms").hidden = true; return; }
-      $("rooms").hidden = false;
-      rooms.forEach(room=>{
+      rooms.forEach(room => {
         const card = document.createElement("article");
-        card.className = "tm-room-card";
-        card.innerHTML = `
-          <h3 class="tm-room-title">${escapeHTML(room.title || "")}</h3>
-          <div class="tm-room-line">${escapeHTML(room.beds || "")}</div>
-          <div class="tm-room-line">${escapeHTML(room.details || "")}</div>
-        `;
+        card.className = "tm-card";
+        card.innerHTML = `<h3>${escapeHtml(room.title)}</h3><div>${escapeHtml(room.beds)}</div>`;
         grid.appendChild(card);
       });
+      showIf("roomsSection", rooms.length);
     }
 
     function renderAmenities(amenities){
       const grid = $("amenitiesGrid");
       grid.innerHTML = "";
-      if(!amenities.length){ $("amenities").hidden = true; return; }
-      $("amenities").hidden = false;
-      amenities.slice(0,90).forEach(name=>{
-        const el = document.createElement("div");
-        el.className = "tm-amenity";
-        el.textContent = cleanLabel(name);
-        grid.appendChild(el);
+      amenities.slice(0, CONFIG.MAX_AMENITIES).forEach(name => {
+        const item = document.createElement("div");
+        item.className = "tm-amenity";
+        item.textContent = name;
+        grid.appendChild(item);
       });
+      showIf("amenitiesSection", amenities.length);
     }
 
-    function renderLocation(listing, address){
-      const lat = firstDefined(listing.latitude, listing.lat, listing.geo?.latitude, listing.address?.lat, listing.address?.latitude);
-      const lng = firstDefined(listing.longitude, listing.lng, listing.lon, listing.geo?.longitude, listing.address?.lng, listing.address?.longitude);
-      setText("locationLines", address || "");
-      const frame = $("mapFrame");
-      frame.innerHTML = "";
-      if(lat && lng){
-        const src = `https://maps.google.com/maps?q=${encodeURIComponent(lat + "," + lng)}&z=13&output=embed`;
-        frame.innerHTML = `<iframe src="${src}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
-      }
-    }
-
-    function renderRelated(items){
-      const grid = $("relatedGrid");
+    function renderPolicies(policies){
+      const grid = $("policiesGrid");
       grid.innerHTML = "";
-      if(!items.length){ $("related").hidden = true; return; }
-      $("related").hidden = false;
-      items.slice(0,3).forEach(item=>{
-        const a = document.createElement("a");
-        a.className = "tm-related-card has-content";
-        a.href = item.url || "#";
-        a.innerHTML = `
-          <img src="${escapeAttr(item.image || "")}" alt="" loading="lazy">
-          <div class="tm-related-body">
-            <div class="tm-related-title">${escapeHTML(item.title || "")}</div>
-            <div class="tm-related-meta">${escapeHTML(item.meta || "")}</div>
-          </div>
-        `;
-        grid.appendChild(a);
+      policies.forEach(policy => {
+        const card = document.createElement("article");
+        card.className = "tm-card";
+        card.innerHTML = `<h3>${escapeHtml(policy.title)}</h3><div>${escapeHtml(policy.body).replace(/\n/g,"<br>")}</div>`;
+        grid.appendChild(card);
       });
+      showIf("policiesSection", policies.length);
     }
 
-    function renderCalendar(from, to, days){
-      const shell = $("calendarShell");
-      shell.innerHTML = "";
-      const start = parseDate(from);
-      if(!start) return;
-      const monthStart = new Date(start.getFullYear(), start.getMonth(), 1);
-      const dayMap = new Map(days.map(d=>[d.date, d]));
-      for(let i=0; i<PROPERTY_CONFIG.CALENDAR_MONTHS_VISIBLE; i++){
-        shell.appendChild(renderMonth(new Date(monthStart.getFullYear(), monthStart.getMonth()+i, 1), dayMap));
+    function renderLocation(l){
+      const hasCoordinates = l.lat != null && l.lng != null;
+      if(hasCoordinates){
+        $("mapFrame").innerHTML = `<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${encodeURIComponent(l.lat+','+l.lng)}&z=13&output=embed"></iframe>`;
       }
-      markSelectedDates();
+      $("locationLines").textContent = l.address || "";
+      showIf("locationSection", hasCoordinates || l.address);
     }
 
-    function renderMonth(monthDate, dayMap){
-      const month = document.createElement("section");
-      month.className = "tm-month";
-      const title = monthDate.toLocaleDateString(undefined,{month:"long",year:"numeric"});
-      month.innerHTML = `
-        <div class="tm-month-title">${escapeHTML(title)}</div>
-        <div class="tm-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
-        <div class="tm-days"></div>
-      `;
-      const grid = month.querySelector(".tm-days");
-      const first = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
-      const last = new Date(monthDate.getFullYear(), monthDate.getMonth()+1, 0);
-      for(let blank=0; blank<first.getDay(); blank++){
-        const empty = document.createElement("div");
-        empty.className = "tm-day is-empty";
-        grid.appendChild(empty);
-      }
-      for(let d=1; d<=last.getDate(); d++){
-        const dateObj = new Date(monthDate.getFullYear(), monthDate.getMonth(), d);
-        const date = isoDate(dateObj);
-        const data = dayMap.get(date) || {date, status:"unknown"};
-        const day = document.createElement("button");
-        day.type = "button";
-        day.className = "tm-day " + calendarStatusClass(data);
-        day.dataset.date = date;
-        day.innerHTML = `<span class="tm-day-number">${d}</span><span class="tm-day-price">${escapeHTML(calendarPriceLabel(data))}</span>`;
-        day.addEventListener("click", ()=>selectCalendarDate(date, data));
-        grid.appendChild(day);
-      }
-      return month;
+    function renderFooter(l){
+      setContent("footerBrand", l.title || "Book your stay");
+      setContent("footerAddress", l.address);
+      const contact = [l.contacts.email, l.contacts.phone].filter(Boolean).join("\n");
+      $("footerContact").innerHTML = escapeHtml(contact).replace(/\n/g,"<br>");
+      $("footerBooking").textContent = "Direct booking powered by the property booking system.";
+      $("inquiryCopy").textContent = l.title ? `Send a question about ${l.title}.` : "Send a question about this stay.";
     }
 
-    function selectCalendarDate(date, data){
-      if(isDayUnavailable(data)) return;
-      if(!state.selectedStart || (state.selectedStart && state.selectedEnd) || parseDate(date) < parseDate(state.selectedStart)){
-        state.selectedStart = date;
-        state.selectedEnd = null;
-        $("checkIn").value = date;
-        $("checkOut").value = "";
-      }else{
-        state.selectedEnd = date;
-        $("checkOut").value = date;
-      }
-      clearQuote();
-      markSelectedDates();
-    }
+    function renderImages(){
+      const grid = $("photoGrid");
+      const modal = $("modalGrid");
+      grid.innerHTML = "";
+      modal.innerHTML = "";
+      const images = state.images;
 
-    function markSelectedDates(){
-      document.querySelectorAll(".tm-day").forEach(el=>el.classList.remove("is-selected"));
-      const start = state.selectedStart ? parseDate(state.selectedStart) : null;
-      const end = state.selectedEnd ? parseDate(state.selectedEnd) : null;
-      document.querySelectorAll(".tm-day[data-date]").forEach(el=>{
-        const d = parseDate(el.dataset.date);
-        if(start && !end && isoDate(d) === isoDate(start)) el.classList.add("is-selected");
-        if(start && end && d >= start && d <= end) el.classList.add("is-selected");
+      images.slice(0, CONFIG.MAX_VISIBLE_PHOTOS).forEach((src, index) => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "tm-photo-card";
+        card.setAttribute("aria-label", `Open photo ${index+1}`);
+        card.innerHTML = `<img src="${escapeHtml(src)}" alt="" loading="${index < 4 ? "eager" : "lazy"}" decoding="async">`;
+        card.addEventListener("click", openPhotoModal);
+        grid.appendChild(card);
       });
-    }
 
-    async function handleQuoteClick(){
-      if(state.quote){
-        goToCheckout();
-        return;
+      if(images.length){
+        const overlay = document.createElement("div");
+        overlay.className = "tm-photo-overlay";
+        overlay.innerHTML = `<button class="tm-small-btn" type="button">View all photos</button>`;
+        overlay.querySelector("button").addEventListener("click", openPhotoModal);
+        grid.appendChild(overlay);
       }
-      clearStatus();
-      const payload = quotePayload();
-      if(!payload){
-        setStatus("Select dates and guest count.", true);
-        return;
-      }
-      $("quoteButton").disabled = true;
-      try{
-        const quote = await workerPost("/quote", payload);
-        state.quote = normalizeQuote(quote);
-        renderQuote(state.quote);
-        saveCheckoutData(payload, quote);
-        $("quoteButton").textContent = "Continue to Payment";
-      }catch(error){
-        setStatus(error.message || "Quote could not be loaded.", true);
-      }finally{
-        $("quoteButton").disabled = false;
-      }
-    }
 
-    function quotePayload(){
-      const checkIn = $("checkIn").value;
-      const checkOut = $("checkOut").value;
-      const adults = numberValue($("adultCount").value) || 1;
-      const children = numberValue($("childrenCount").value) || 0;
-      const infants = numberValue($("infantCount").value) || 0;
-      const pets = numberValue($("petCount").value) || 0;
-      if(!checkIn || !checkOut || parseDate(checkOut) <= parseDate(checkIn)) return null;
-
-      const payload = {
-        checkInDateLocalized: checkIn,
-        checkOutDateLocalized: checkOut,
-        checkIn,
-        checkOut,
-        numberOfGuests:{
-          numberOfAdults: adults,
-          numberOfChildren: children,
-          numberOfInfants: infants,
-          numberOfPets: pets
-        },
-        guests:{adults, children, infants, pets},
-        source:"website"
-      };
-      if(PROPERTY_CONFIG.PROPERTY_ID){
-        payload.listingId = PROPERTY_CONFIG.PROPERTY_ID;
-        payload.propertyId = PROPERTY_CONFIG.PROPERTY_ID;
-      }
-      return payload;
-    }
-
-    function renderQuote(quote){
-      const box = $("quoteBox");
-      box.innerHTML = "";
-      if(!quote){ return; }
-      const rows = [];
-      if(quote.nightlyRate) rows.push(["Nightly rate", formatMoney(quote.nightlyRate, quote.currency)]);
-      if(quote.subtotal) rows.push(["Subtotal", formatMoney(quote.subtotal, quote.currency)]);
-      if(quote.fees) rows.push(["Fees", formatMoney(quote.fees, quote.currency)]);
-      if(quote.taxes) rows.push(["Taxes", formatMoney(quote.taxes, quote.currency)]);
-      if(quote.total) rows.push(["Total", formatMoney(quote.total, quote.currency)]);
-      box.innerHTML = rows.map(([label,value])=>`<div class="tm-quote-row"><span>${escapeHTML(label)}</span><span>${escapeHTML(value)}</span></div>`).join("");
-    }
-
-    function clearQuote(){
-      state.quote = null;
-      $("quoteButton").textContent = "Check Availability";
-      $("quoteBox").innerHTML = "";
-      clearStatus();
-    }
-
-    function saveCheckoutData(payload, rawQuote){
-      const data = {
-        property: state.listing,
-        images: state.images.slice(0,8),
-        payload,
-        quote: rawQuote,
-        normalizedQuote: state.quote,
-        workerBase: cleanBase(PROPERTY_CONFIG.WORKER_BASE),
-        confirmationUrl: PROPERTY_CONFIG.CONFIRMATION_URL
-      };
-      sessionStorage.setItem("propertyCheckout", JSON.stringify(data));
-      localStorage.setItem("propertyCheckout", JSON.stringify(data));
-    }
-
-    function goToCheckout(){
-      const params = new URLSearchParams();
-      params.set("checkIn", $("checkIn").value);
-      params.set("checkOut", $("checkOut").value);
-      params.set("adults", $("adultCount").value);
-      if(PROPERTY_CONFIG.PROPERTY_ID) params.set("propertyId", PROPERTY_CONFIG.PROPERTY_ID);
-      window.location.href = PROPERTY_CONFIG.CHECKOUT_URL + "?" + params.toString();
-    }
-
-    async function handleInquirySubmit(event){
-      event.preventDefault();
-      const form = event.currentTarget;
-      const data = Object.fromEntries(new FormData(form).entries());
-      data.property = $("propertyTitle").textContent;
-      data.checkIn = $("checkIn").value;
-      data.checkOut = $("checkOut").value;
-      if(PROPERTY_CONFIG.PROPERTY_ID) data.propertyId = PROPERTY_CONFIG.PROPERTY_ID;
-
-      setText("inquiryStatus", "");
-      try{
-        await workerPost("/inquiry", data);
-        setText("inquiryStatus", "Inquiry sent.");
-        form.reset();
-      }catch(error){
-        const subject = encodeURIComponent("Property inquiry" + (data.property ? ` - ${data.property}` : ""));
-        const body = encodeURIComponent(Object.entries(data).map(([k,v])=>`${k}: ${v}`).join("\n"));
-        window.location.href = `mailto:?subject=${subject}&body=${body}`;
-      }
+      images.forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "";
+        img.loading = "lazy";
+        modal.appendChild(img);
+      });
     }
 
     function openPhotoModal(){
       $("photoModal").classList.add("is-open");
       $("photoModal").setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
     }
 
     function closePhotoModal(){
       $("photoModal").classList.remove("is-open");
       $("photoModal").setAttribute("aria-hidden","true");
-      document.body.style.overflow = "";
     }
 
-    async function workerGet(path){
-      const url = cleanBase(PROPERTY_CONFIG.WORKER_BASE) + path.replace(/^\//, "");
-      const response = await fetch(url, {method:"GET", headers:{"Accept":"application/json"}, cache:"no-store"});
-      if(!response.ok) throw new Error(`Worker GET failed: ${response.status}`);
-      return response.json();
+    function setupGuestLimits(maxGuests){
+      const max = Math.max(1, Math.min(Number(maxGuests) || 32, 60));
+      fillSelect($("adults"), max, 1, 2);
+      fillSelect($("children"), max, 0, 0);
+      fillSelect($("calAdults"), max, 1, 2);
+      fillSelect($("calChildren"), max, 0, 0);
     }
 
-    async function workerPost(path, body){
-      const url = cleanBase(PROPERTY_CONFIG.WORKER_BASE) + path.replace(/^\//, "");
-      const response = await fetch(url, {
-        method:"POST",
-        headers:{"Content-Type":"application/json","Accept":"application/json"},
-        body:JSON.stringify(body)
-      });
-      const text = await response.text();
-      let data;
-      try{ data = text ? JSON.parse(text) : {}; }catch(_){ data = {raw:text}; }
-      if(!response.ok || data?.ok === false){
-        const msg = data?.error || data?.message || data?.errors?.[0]?.message || `Worker POST failed: ${response.status}`;
-        throw new Error(msg);
+    async function loadCalendar(){
+      const monthValue = $("calMonth").value;
+      const base = monthValue ? new Date(monthValue + "-01T00:00:00") : monthStart(new Date());
+      const from = formatDate(monthStart(base));
+      const to = formatDate(addDays(monthEnd(new Date(base.getFullYear(), base.getMonth()+1, 1)), 1));
+      $("calendarStatus").textContent = "";
+
+      try{
+        const raw = await apiGet(`calendar?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
+        state.calendar = normalizeCalendar(raw);
+        renderCalendar(base);
+      }catch(error){
+        $("calendarStatus").textContent = "Calendar could not load.";
+        renderCalendar(base);
       }
-      return data;
     }
 
-    function normalizeListing(raw){
-      const d = raw?.listing || raw?.data || raw?.result || raw?.property || raw;
-      return d && typeof d === "object" ? d : null;
+    function renderCalendar(base){
+      const wrap = $("calendarWrap");
+      wrap.innerHTML = "";
+      [0,1].forEach(offset => {
+        const date = new Date(base.getFullYear(), base.getMonth()+offset, 1);
+        wrap.appendChild(renderMonth(date));
+      });
+      refreshSelection();
     }
 
-    function normalizeImages(raw){
-      const arr = raw?.images || raw?.data || raw?.result || raw?.photos || raw;
-      if(!Array.isArray(arr)) return [];
-      return arr.map(item=>{
-        if(typeof item === "string") return {url:item, alt:""};
-        return {
-          url:firstDefined(item.url, item.src, item.original, item.large, item.medium, item.secure_url, item.thumbnail),
-          alt:firstDefined(item.alt, item.caption, item.title, item.description, "")
-        };
-      }).filter(img=>img.url);
+    function renderMonth(date){
+      const month = document.createElement("div");
+      month.className = "tm-month";
+      const title = date.toLocaleString("en-US", {month:"long",year:"numeric"});
+      month.innerHTML = `<div class="tm-month-title">${escapeHtml(title)}</div><div class="tm-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="tm-days"></div>`;
+      const days = month.querySelector(".tm-days");
+      const first = monthStart(date);
+      const last = monthEnd(date);
+      for(let i=0;i<first.getDay();i++){
+        const empty = document.createElement("div");
+        empty.className = "tm-day is-empty";
+        days.appendChild(empty);
+      }
+      for(let d=1; d<=last.getDate(); d++){
+        const cur = new Date(date.getFullYear(), date.getMonth(), d);
+        const iso = formatDate(cur);
+        const data = state.calendar.get(iso);
+        const past = cur < monthStart(new Date()) && iso < formatDate(new Date());
+        const blocked = past || (data && data.blocked);
+        const cell = document.createElement("button");
+        cell.type = "button";
+        cell.className = "tm-day" + (blocked ? " is-blocked" : "");
+        cell.dataset.date = iso;
+        cell.disabled = Boolean(blocked);
+        cell.innerHTML = `<span class="tm-day-number">${d}</span>${data && data.price ? `<span class="tm-day-price">${money(data.price,data.currency)}</span>` : ""}`;
+        cell.addEventListener("click", () => selectDate(iso));
+        days.appendChild(cell);
+      }
+      return month;
     }
 
-    function normalizeCalendar(raw){
-      const arr = raw?.calendar || raw?.days || raw?.data || raw?.result || raw?.availability || raw;
-      if(!Array.isArray(arr)) return [];
-      return arr.map(d=>({
-        date:firstDefined(d.date, d.day, d.dateLocalized, d.startDate),
-        status:firstDefined(d.status, d.availability, d.state, d.bookingStatus),
-        available:firstDefined(d.available, d.isAvailable, d.selectable),
-        price:firstDefined(d.price, d.rate, d.nightlyRate, d.basePrice, d.amount, d.priceAmount),
-        currency:firstDefined(d.currency, d.priceCurrency, PROPERTY_CONFIG.CURRENCY)
-      })).filter(d=>d.date);
+    function selectDate(iso){
+      if(!state.selectedStart || (state.selectedStart && state.selectedEnd) || iso < state.selectedStart){
+        state.selectedStart = iso;
+        state.selectedEnd = null;
+        $("checkIn").value = iso;
+        $("checkOut").value = "";
+      }else if(iso > state.selectedStart){
+        state.selectedEnd = iso;
+        $("checkOut").value = iso;
+      }
+      refreshSelection();
+      maybeQuote();
     }
 
-    function normalizeQuote(raw){
-      const q = raw?.quote || raw?.data || raw?.result || raw;
-      const money = q?.money || q?.price || q?.rates || q?.invoice || q;
+    function refreshSelection(){
+      document.querySelectorAll(".tm-day").forEach(cell => {
+        const iso = cell.dataset.date;
+        const selected = iso && state.selectedStart && (iso === state.selectedStart || iso === state.selectedEnd || (state.selectedEnd && iso > state.selectedStart && iso < state.selectedEnd));
+        cell.classList.toggle("is-selected", Boolean(selected));
+      });
+    }
+
+    function quotePayload(){
+      const checkIn = $("checkIn").value;
+      const checkOut = $("checkOut").value;
+      const adults = Number($("adults").value || 1);
+      const children = Number($("children").value || 0);
+      const listingId = CONFIG.PROPERTY_ID || (state.listing && state.listing.id) || "";
       return {
-        currency:firstDefined(q?.currency, q?.priceCurrency, money?.currency, PROPERTY_CONFIG.CURRENCY),
-        nightlyRate:numberValue(firstDefined(money?.nightlyRate, money?.basePrice, q?.nightlyRate)),
-        subtotal:numberValue(firstDefined(money?.subtotal, money?.accommodationFare, money?.accommodation, q?.subtotal)),
-        fees:numberValue(firstDefined(money?.fees, money?.feeTotal, money?.cleaningFee, q?.fees)),
-        taxes:numberValue(firstDefined(money?.taxes, money?.taxTotal, q?.taxes)),
-        total:numberValue(firstDefined(money?.total, money?.grandTotal, money?.totalPrice, q?.total, q?.totalPrice, q?.amount))
+        listingId,
+        propertyId:listingId,
+        checkIn,
+        checkOut,
+        from:checkIn,
+        to:checkOut,
+        numberOfGuests:{
+          numberOfAdults:adults,
+          numberOfChildren:children,
+          numberOfInfants:0,
+          numberOfPets:0
+        },
+        guests:{adults,children,infants:0,pets:0}
       };
     }
 
-    function normalizeRooms(listing){
-      const rooms = firstDefined(listing.rooms, listing.bedroomsList, listing.beds, listing.roomTypes, listing.accommodations, []);
-      if(!Array.isArray(rooms)) return [];
-      return rooms.map((r, index)=>{
-        if(typeof r === "string") return {title:`Bedroom ${index+1}`, beds:r, details:""};
-        const title = firstDefined(r.title, r.name, r.type, r.roomType, `Bedroom ${index+1}`);
-        const beds = Array.isArray(r.beds) ? r.beds.map(b=>typeof b === "string" ? b : `${b.count || b.numberOfBeds || ""} ${cleanLabel(b.type || b.typeOfBed || b.name || "Bed")}`.trim()).join(", ") : firstDefined(r.beds, r.bed, r.description, "");
-        return {title, beds, details:firstDefined(r.details, r.amenities, r.notes, "")};
-      });
+    function canQuote(){
+      const p = quotePayload();
+      return p.checkIn && p.checkOut && p.checkOut > p.checkIn && p.numberOfGuests.numberOfAdults > 0;
     }
 
-    function normalizeAmenities(listing){
-      const raw = firstDefined(listing.amenities, listing.amenityFeature, listing.features, []);
-      if(!Array.isArray(raw)) return [];
-      return raw.map(a=>{
-        if(typeof a === "string") return a;
-        return firstDefined(a.name, a.title, a.type, a.amenity, "");
-      }).filter(Boolean);
-    }
+    async function maybeQuote(){
+      $("continueBtn").disabled = true;
+      $("bookingStatus").textContent = "";
+      $("bookingStatus").classList.remove("is-error");
+      if(!canQuote()) return;
 
-    function normalizeRelated(listing){
-      const raw = firstDefined(listing.related, listing.similar, listing.otherProperties, []);
-      if(!Array.isArray(raw)) return [];
-      return raw.map(item=>({
-        title:firstDefined(item.title, item.name),
-        url:firstDefined(item.url, item.href, item.link),
-        image:firstDefined(item.image, item.thumbnail, item.photo, item.images?.[0]?.url, item.images?.[0]),
-        meta:firstDefined(item.meta, item.summary, item.location)
-      }));
-    }
-
-    function calendarStatusClass(day){
-      if(isDayUnavailable(day)){
-        const s = String(day.status || "").toLowerCase();
-        if(s.includes("book")) return "is-booked";
-        if(s.includes("block")) return "is-blocked";
-        return "is-disabled";
-      }
-      return "";
-    }
-
-    function calendarPriceLabel(day){
-      if(day.price) return formatMoney(day.price, day.currency || PROPERTY_CONFIG.CURRENCY);
-      const s = String(day.status || "").toLowerCase();
-      if(s.includes("book")) return "Booked";
-      if(s.includes("block")) return "Unavailable";
-      if(day.available === false) return "Unavailable";
-      return "";
-    }
-
-    function isDayUnavailable(day){
-      const s = String(day.status || "").toLowerCase();
-      return day.available === false || s.includes("book") || s.includes("block") || s.includes("unavailable") || s.includes("disabled");
-    }
-
-    function formatAddress(obj){
-      if(!obj) return "";
-      if(typeof obj === "string") return obj;
-      return [
-        obj.street || obj.streetAddress || obj.address1,
-        obj.city || obj.addressLocality,
-        obj.state || obj.addressRegion,
-        obj.postalCode || obj.zip,
-        obj.country || obj.addressCountry
-      ].filter(Boolean).join(", ");
-    }
-
-    function formatContact(listing){
-      const phone = firstDefined(listing.phone, listing.contactPhone, listing.receptionPhone);
-      const email = firstDefined(listing.email, listing.contactEmail);
-      const site = firstDefined(listing.website, listing.url);
-      return [phone, email, site].filter(Boolean).map(v=>escapeHTML(v)).join("<br>");
-    }
-
-    function querySuffix(){
-      const parts = [];
-      if(PROPERTY_CONFIG.PROPERTY_ID) parts.push(`propertyId=${encodeURIComponent(PROPERTY_CONFIG.PROPERTY_ID)}`);
-      if(PROPERTY_CONFIG.LISTING_QUERY) parts.push(PROPERTY_CONFIG.LISTING_QUERY.replace(/^\?/,""));
-      return parts.length ? "?" + parts.join("&") : "";
-    }
-
-    function propertyParam(prefixAmpersand){
-      if(!PROPERTY_CONFIG.PROPERTY_ID) return "";
-      return `${prefixAmpersand ? "&" : "?"}propertyId=${encodeURIComponent(PROPERTY_CONFIG.PROPERTY_ID)}`;
-    }
-
-    function setText(id, value){
-      const el = $(id);
-      if(el) el.textContent = value == null ? "" : String(value);
-    }
-
-    function setMaybe(id, value){
-      if(value) setText(id, value);
-    }
-
-    function setHTML(id, value){
-      const el = $(id);
-      if(el) el.innerHTML = value ? sanitizeHTML(String(value)) : "";
-    }
-
-    function setMaybeHTML(id, value){
-      if(value) setHTML(id, value);
-    }
-
-    function setStatus(message, error=false){
-      const el = $("bookingStatus");
-      el.textContent = message || "";
-      el.classList.toggle("is-error", !!error);
-    }
-
-    function clearStatus(){ setStatus("", false); }
-
-    function firstDefined(...values){
-      return values.find(v => v !== undefined && v !== null && v !== "");
-    }
-
-    function numberValue(value){
-      if(value == null || value === "") return null;
-      if(typeof value === "number") return value;
-      const cleaned = String(value).replace(/[^0-9.-]/g,"");
-      if(!cleaned) return null;
-      const num = Number(cleaned);
-      return Number.isFinite(num) ? num : null;
-    }
-
-    function formatMoney(value, currency){
-      const n = numberValue(value);
-      if(n == null) return "";
       try{
-        return new Intl.NumberFormat(undefined,{style:"currency",currency:currency || PROPERTY_CONFIG.CURRENCY,maximumFractionDigits:0}).format(n);
-      }catch(_){
-        return `${currency || PROPERTY_CONFIG.CURRENCY} ${Math.round(n)}`;
+        const quote = await apiPost("quote", quotePayload());
+        state.lastQuote = quote;
+        renderQuote(quote);
+        $("continueBtn").disabled = false;
+      }catch(error){
+        $("quoteBox").classList.remove("has-content");
+        $("bookingStatus").textContent = error.message || "Price could not load.";
+        $("bookingStatus").classList.add("is-error");
       }
     }
 
-    function cleanLabel(value){
-      return String(value || "")
-        .replace(/([a-z])([A-Z])/g,"$1 $2")
-        .replace(/[_-]+/g," ")
-        .replace(/\s+/g," ")
-        .trim();
-    }
-
-    function cleanBase(base){ return String(base || "").replace(/\/+$/,"") + "/"; }
-    function parseDate(value){ return value ? new Date(value + "T00:00:00") : null; }
-    function isoDate(date){ return new Date(date.getTime() - date.getTimezoneOffset()*60000).toISOString().slice(0,10); }
-    function addDays(date, days){ const d = new Date(date); d.setDate(d.getDate()+days); return d; }
-    function firstDayOfMonth(date){ return isoDate(new Date(date.getFullYear(), date.getMonth(), 1)); }
-    function lastDayOfNextMonth(date){ return isoDate(new Date(date.getFullYear(), date.getMonth()+2, 0)); }
-
-    function escapeHTML(value){
-      return String(value ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
-    }
-    function escapeAttr(value){ return escapeHTML(value); }
-    function stripHtml(value){ const div = document.createElement("div"); div.innerHTML = sanitizeHTML(String(value || "")); return div.textContent || ""; }
-
-    function sanitizeHTML(value){
-      const template = document.createElement("template");
-      template.innerHTML = value;
-      const allowed = new Set(["P","BR","STRONG","B","EM","I","UL","OL","LI","SPAN"]);
-      template.content.querySelectorAll("*").forEach(node=>{
-        if(!allowed.has(node.tagName)){
-          node.replaceWith(document.createTextNode(node.textContent || ""));
-        }else{
-          [...node.attributes].forEach(attr=>node.removeAttribute(attr.name));
+    function findPrice(obj){
+      const candidates = [
+        "total", "totalPrice", "amount", "price", "quote.total", "quote.totalPrice",
+        "money.total", "pricing.total", "rates.total", "invoice.total", "reservation.money.hostPayout"
+      ];
+      for(const path of candidates){
+        const value = pick(obj,path.split ? [path] : path);
+        const n = Number(value);
+        if(Number.isFinite(n) && n > 0) return n;
+      }
+      if(obj && typeof obj === "object"){
+        for(const value of Object.values(obj)){
+          if(value && typeof value === "object"){
+            const nested = findPrice(value);
+            if(nested) return nested;
+          }
         }
-      });
-      return template.innerHTML;
+      }
+      return null;
     }
+
+    function renderQuote(quote){
+      const currency = clean(pick(quote,["currency","quote.currency","pricing.currency"])) || (state.listing && state.listing.currency) || "USD";
+      const total = findPrice(quote);
+      const nights = nightsBetween($("checkIn").value, $("checkOut").value);
+      const rows = [];
+      rows.push([`${nights} night${nights === 1 ? "" : "s"}`, total ? money(total,currency) : "Live price loaded"]);
+      if(total) rows.push(["Total", money(total,currency)]);
+      $("quoteBox").innerHTML = rows.map(([a,b]) => `<div class="tm-quote-row"><span>${escapeHtml(a)}</span><span>${escapeHtml(b)}</span></div>`).join("");
+      $("quoteBox").classList.add("has-content");
+    }
+
+    function nightsBetween(start,end){
+      const a = new Date(start + "T00:00:00");
+      const b = new Date(end + "T00:00:00");
+      return Math.max(1, Math.round((b-a)/86400000));
+    }
+
+    function continueToCheckout(){
+      if(!canQuote()) return;
+      const p = quotePayload();
+      const params = new URLSearchParams({
+        checkIn:p.checkIn,
+        checkOut:p.checkOut,
+        adults:String(p.numberOfGuests.numberOfAdults),
+        children:String(p.numberOfGuests.numberOfChildren),
+        listingId:p.listingId || ""
+      });
+      sessionStorage.setItem("fh_booking_payload", JSON.stringify({payload:p, quote:state.lastQuote, listing:state.listing}));
+      window.location.href = `${CONFIG.CHECKOUT_URL}?${params.toString()}`;
+    }
+
+    function syncDateInputs(){
+      state.selectedStart = $("checkIn").value || null;
+      state.selectedEnd = $("checkOut").value || null;
+      refreshSelection();
+      maybeQuote();
+    }
+
+    async function loadAll(){
+      const today = new Date();
+      $("calMonth").value = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}`;
+      fillSelect($("adults"), 32, 1, 2);
+      fillSelect($("children"), 32, 0, 0);
+      fillSelect($("calAdults"), 32, 1, 2);
+      fillSelect($("calChildren"), 32, 0, 0);
+
+      const [contentRaw, listingRaw, imagesRaw] = await Promise.allSettled([
+        apiGet(`content?lang=${encodeURIComponent(state.lang)}`),
+        apiGet("listing"),
+        apiGet("images")
+      ]);
+
+      if(contentRaw.status === "fulfilled") state.content = unwrap(contentRaw.value) || contentRaw.value;
+      if(listingRaw.status === "fulfilled") state.listing = normalizeListing(listingRaw.value);
+      else state.listing = normalizeListing({});
+      if(imagesRaw.status === "fulfilled") state.images = normalizeImages(imagesRaw.value);
+
+      renderListing();
+      renderImages();
+      await loadCalendar();
+    }
+
+    function bindEvents(){
+      $("closePhotoModal").addEventListener("click", closePhotoModal);
+      $("photoModal").addEventListener("click", (e) => { if(e.target.id === "photoModal") closePhotoModal(); });
+      $("reloadCalendar").addEventListener("click", loadCalendar);
+      $("continueBtn").addEventListener("click", continueToCheckout);
+      ["checkIn","checkOut","adults","children"].forEach(id => $(id).addEventListener("change", syncDateInputs));
+      $("calAdults").addEventListener("change", () => { $("adults").value = $("calAdults").value; maybeQuote(); });
+      $("calChildren").addEventListener("change", () => { $("children").value = $("calChildren").value; maybeQuote(); });
+      $("inquiryForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        $("inquiryStatus").textContent = "Inquiry form is ready to connect to the Worker or CRM endpoint.";
+      });
+    }
+
+    bindEvents();
+    loadAll().catch(error => {
+      $("bookingStatus").textContent = error.message || "Worker content could not load.";
+      $("bookingStatus").classList.add("is-error");
+    });
   </script>
 </body>
 </html>
