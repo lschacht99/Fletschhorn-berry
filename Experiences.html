@@ -18,6 +18,94 @@
     #fh-experiences-mobile{display:none!important}
   }
 </style>
+
+<style id="fh-worker-flow-hidden-language-toolbar-hard-fix">
+  #fh-experiences-desktop .fh-lang-switch,
+  #fh-experiences-mobile .fh-lang-switch {
+    display:none!important;
+    visibility:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+  }
+
+  #fh-experiences-desktop[dir="rtl"],
+  #fh-experiences-mobile[dir="rtl"] {
+    direction:rtl;
+  }
+
+  #fh-experiences-desktop[dir="rtl"] input[type="email"],
+  #fh-experiences-mobile[dir="rtl"] input[type="email"],
+  #fh-experiences-desktop[dir="rtl"] input[type="tel"],
+  #fh-experiences-mobile[dir="rtl"] input[type="tel"],
+  #fh-experiences-desktop[dir="rtl"] .fh-date-button span,
+  #fh-experiences-mobile[dir="rtl"] .fh-date-button span,
+  #fh-experiences-desktop[dir="rtl"] .fh-day-price,
+  #fh-experiences-mobile[dir="rtl"] .fh-day-price {
+    direction:ltr!important;
+    text-align:left!important;
+    unicode-bidi:plaintext!important;
+  }
+
+  #fh-experiences-desktop .fh-day-price,
+  #fh-experiences-mobile .fh-day-price {
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    min-height:10px!important;
+    margin-top:5px!important;
+    font-size:9px!important;
+    line-height:1.05!important;
+    font-weight:850!important;
+    color:rgba(25,23,21,.68)!important;
+    white-space:nowrap!important;
+  }
+
+  #fh-experiences-desktop .fh-day.start .fh-day-price,
+  #fh-experiences-desktop .fh-day.end .fh-day-price,
+  #fh-experiences-mobile .fh-day.start .fh-day-price,
+  #fh-experiences-mobile .fh-day.end .fh-day-price {
+    color:rgba(255,250,243,.86)!important;
+  }
+
+  #fh-experiences-desktop img[data-worker-image-applied="true"],
+  #fh-experiences-mobile img[data-worker-image-applied="true"] {
+    display:block!important;
+    opacity:1!important;
+    visibility:visible!important;
+  }
+
+  #fh-experiences-desktop .fh-mobile-booking-field .fh-date-button {
+    width:100%!important;
+    min-height:28px!important;
+    border:0!important;
+    outline:0!important;
+    padding:0!important;
+    background:transparent!important;
+    color:var(--fh-ink)!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:8px!important;
+    text-align:left!important;
+  }
+
+  #fh-experiences-desktop .fh-mobile-booking-field .fh-date-button span {
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    font-size:14px!important;
+    line-height:1.2!important;
+  }
+
+  #fh-experiences-desktop .fh-mobile-booking-field .fh-date-button strong {
+    flex:0 0 auto!important;
+    color:var(--fh-clay-dark)!important;
+    font-size:9px!important;
+    text-transform:uppercase!important;
+    letter-spacing:.10em!important;
+    font-weight:850!important;
+  }
+</style>
 </head>
 <body>
 <div id="fh-header-slot"></div>
@@ -2188,7 +2276,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     z-index:1!important;
     height:238px!important;
     margin:0!important;
-    background-image:linear-gradient(180deg,rgba(18,16,14,.10),rgba(18,16,14,.42)),url('https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg');
+    background-image:linear-gradient(180deg,rgba(18,16,14,.10),rgba(18,16,14,.42)),url('https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(8).jpg');
     background-size:cover!important;
     background-position:center top!important;
     overflow:hidden!important;
@@ -2479,47 +2567,47 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
           <div class="fh-nature-window">
             <div class="fh-nature-track">
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(1).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 1" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(1).jpg" alt="Saas-Fee nature view 1" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Forest paths around Saas-Fee</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(2).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 2" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(2).jpg" alt="Saas-Fee nature view 2" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Alpine nature close to the house</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(3).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 3" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(3).jpg" alt="Saas-Fee nature view 3" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Quiet mountain textures</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(4).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 4" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(4).jpg" alt="Saas-Fee nature view 4" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Fresh air, slow mornings</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(5).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 5" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(5).jpg" alt="Saas-Fee nature view 5" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Summer paths and open valley</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(6).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 6" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(6).jpg" alt="Saas-Fee nature view 6" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Soft alpine day plans</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(7).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 7" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(7).jpg" alt="Saas-Fee nature view 7" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Nature for families and groups</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(8).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 8" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(8).jpg" alt="Saas-Fee nature view 8" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Mountain calm around Fletschhorn</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(9).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 9" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(9).jpg" alt="Saas-Fee nature view 9" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Walks, viewpoints, and fresh air</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(10).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 10" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(10).jpg" alt="Saas-Fee nature view 10" loading="lazy" decoding="async">
               <span class="fh-photo-caption">The valley beyond the house</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(11).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 11" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(11).jpg" alt="Saas-Fee nature view 11" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Return to one private base</span>
             </figure>
             </div>
@@ -2761,13 +2849,14 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
                 <label for="fh-mobile-email" data-mobile-i18n="email">Email</label>
                 <input id="fh-mobile-email" name="email" type="email" autocomplete="email" placeholder="email@example.com" required>
               </div>
-              <div class="fh-mobile-booking-field">
-                <label for="fh-mobile-checkin" data-mobile-i18n="arrival">Arrival</label>
-                <input id="fh-mobile-checkin" name="checkIn" type="date" required>
-              </div>
-              <div class="fh-mobile-booking-field">
-                <label for="fh-mobile-checkout" data-mobile-i18n="departure">Departure</label>
-                <input id="fh-mobile-checkout" name="checkOut" type="date" required>
+              <div class="fh-mobile-booking-field full fh-date-field">
+                <label data-mobile-i18n="dates">Dates</label>
+                <button type="button" class="fh-date-button" data-mobile-open-calendar>
+                  <span data-mobile-date-text>Select arrival and departure</span>
+                  <strong data-mobile-i18n="openCalendar">Open calendar</strong>
+                </button>
+                <input id="fh-mobile-checkin" name="checkIn" type="hidden" required>
+                <input id="fh-mobile-checkout" name="checkOut" type="hidden" required>
               </div>
               <div class="fh-mobile-booking-error" id="fh-mobile-booking-error" data-mobile-i18n="error">Please complete the highlighted fields.</div>
               <button type="submit" data-i18n="cta.button">Book my stay now</button>
@@ -2939,19 +3028,30 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   loadHtml('fh-footer-slot', 'footer.html');
 
   const LISTING_ID = "6968339ab7d735001ca015ba";
-  const BOOKING_WORKER_BASE = "https://guetsyapi.moshe-cohen-h1.workers.dev";
-  const SEARCH_ENDPOINT = BOOKING_WORKER_BASE + "/guesty/book-inquiry";
+  const BOOKING_WORKER_BASE = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  const SEARCH_ENDPOINT = BOOKING_WORKER_BASE + "/search";
 
-  const fallbackImages = [
-    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
-    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
-    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg",
-    "https://assets.guesty.com/image/upload/v1769381683/production/686c48ada4bbacd7a82a4f83/gdkntjfg2shhfc8sjsox.jpg",
-    "https://assets.guesty.com/image/upload/v1769381684/production/686c48ada4bbacd7a82a4f83/kzwdncmnkciaw508jnk7.jpg",
-    "https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg",
-    "https://assets.guesty.com/image/upload/v1769381550/production/686c48ada4bbacd7a82a4f83/vzgtukkezd2kk28kcphi.jpg",
-    "https://assets.guesty.com/image/upload/v1769381488/production/686c48ada4bbacd7a82a4f83/tgbuyyre4bz9oyczaasv.jpg"
+  const WORKER_IMAGE_NAMES = [
+    "Nature (1).jpg",
+    "Nature (2).jpg",
+    "Nature (3).jpg",
+    "Nature (4).jpg",
+    "Nature (5).jpg",
+    "Nature (6).jpg",
+    "Nature (7).jpg",
+    "Nature (8).jpg",
+    "Nature (9).jpg",
+    "Nature (10).jpg",
+    "Nature (11).jpg"
   ];
+
+  const WORKER_IMAGE_BASE = BOOKING_WORKER_BASE.replace(/\/$/, "") + "/images/";
+
+  function workerImageUrl(name){
+    return WORKER_IMAGE_BASE + encodeURIComponent(String(name || "").trim());
+  }
+
+  const fallbackImages = WORKER_IMAGE_NAMES.map(workerImageUrl);
 
   const i18n = {
     en:{
@@ -3015,9 +3115,92 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     "modal.title":"Отправить запрос на проживание","modal.name":"Имя","modal.namePh":"Ваше имя","modal.checkin":"Заезд","modal.checkout":"Выезд","modal.guestsPh":"До 48 спальных мест","modal.season":"Сезон","modal.notes":"Заметки","modal.notesPh":"Возраст, мобильность, даты, желаемые активности, нужен ли гид…","modal.submit":"Отправить запрос","modal.sending":"Проверяем доступность…","modal.sent":"Ваш запрос отправлен. Мы свяжемся с вами со следующими деталями.","modal.failed":"Запрос не удалось отправить с этой страницы. Попробуйте ещё раз или свяжитесь с объектом напрямую."
   };
 
+  const he = {
+    "hero.kicker":"חוויות סביב סאס-פה",
+    "hero.title":"בסיס פרטי לכל עונה בסאס-פה.",
+    "hero.lead":"מסקי על הקרחון ומזחלות חורף ועד טיולי קיץ, מרמיטות, אגמי הרים, פארק חבלים וימים אלפיניים רגועים — סאס-פה מציעה חוויה לכל סוג קבוצה. Fletschhorn נותן לכם בסיס אלפיני פרטי מעל הכפר, קרוב לחוויות שהופכות את העמק למיוחד.",
+    "hero.note":"המחירים הטובים ביותר מובטחים בהזמנה ישירה",
+    "hero.scroll":"פתחו את האזור",
+    "filters.all":"הכל",
+    "filters.allText":"הציגו את כל העמק סביב הבית.",
+    "filters.winter":"חורף",
+    "filters.winterText":"סקי, שלג, מזחלות, קרחון ורגעים חמימים.",
+    "filters.summer":"קיץ",
+    "filters.summerText":"מרמיטות, טיולים, קורקינטים, אגמים וחבלים.",
+    "filters.calm":"ימים רגועים",
+    "filters.calmText":"וולנס, הליכות בכפר ושבילים קלים.",
+    "filters.house":"בית וכפר",
+    "filters.family":"משפחה",
+    "filters.adrenaline":"אדרנלין",
+    "filters.trek":"מסלולים",
+    "form.guestsLabel":"אורחים",
+    "form.guestsPlaceholder":"משפחה, קבוצה, ריטריט…",
+    "form.datesLabel":"תאריכים",
+    "form.datesPlaceholder":"חורף, קיץ, תאריכים מדויקים…",
+    "form.contactLabel":"יצירת קשר",
+    "form.contactPlaceholder":"אימייל או טלפון",
+    "form.planBtn":"להזמין את השהייה",
+    "area.kicker":"האזור",
+    "area.title":"אזור הררי לקבוצות, משפחות, גולשים, מטיילים וימים איטיים.",
+    "area.lead":"סאס-פה מוקפת בשמונה-עשר פסגות בגובה 4,000 מטר. השתמשו במפה, בפילטרים, בכרטיסי הפעילויות, במסלולים וברעיונות היום כדי לבנות את השהייה סביב הקבוצה שלכם.",
+    "area.privateKicker":"בסיס פרטי, עמק פעיל",
+    "area.privateTitle":"הבית רגוע; האזור מלא אפשרויות.",
+    "area.privateText":"השהייה לא תלויה בפעילות אחת. אורחים יכולים להתפצל לפי גיל, מזג אוויר, רמת אנרגיה או עונה, ואז לחזור לבית פרטי אחד בסוף היום.",
+    "area.safety":"הערת בטיחות: תנאי ההר משתנים במהירות. פתיחת מסלולים, רכבלים, מזג אוויר ודרישות מדריך צריכים להיבדק תמיד מול המידע הרשמי של Saas-Fee/Saastal לפני יציאה.",
+    "map.kicker":"מפה אינטראקטיבית",
+    "map.title":"המפה היא כלי ההתמצאות של כל השהייה.",
+    "map.open":"פתחו מפה מלאה",
+    "map.selected":"אזור נבחר",
+    "helper.all":"מוצג כל האזור: הבית, הכפר, רכבלים, נקודות קרחון, וולנס, פעילויות משפחתיות וימי הר גדולים יותר.",
+    "helper.house":"מוצגים הבית והכפר: הגעה, מרכז הכפר, וולנס קרוב ותנועה מעשית.",
+    "helper.winter":"מוצגות אפשרויות חורף: סקי, מזחלות, קרחון, Ice Pavilion ואפשרויות שלג.",
+    "helper.summer":"מוצגות אפשרויות קיץ: מרמיטות, טיולים, קורקינטים, רכבת הרים, פארק חבלים, מאגר ונופי קרחון.",
+    "helper.family":"מוצגות אפשרויות משפחתיות: הכפר, מרמיטות Spielboden, Hannig, Feeblitz, Aqua Allalin ומסלולים קלים.",
+    "helper.adrenaline":"מוצגות אפשרויות אנרגטיות: Gorge Alpine, פארק חבלים, Feeblitz, מזחלות, קורקינטים ומסלולי הר חזקים יותר.",
+    "helper.trek":"מוצגות אפשרויות מסלול: Längfluh, Almageller Adventure Trail, Mattmark, Gorge Alpine וגישה אלפינית גבוהה.",
+    "helper.calm":"מוצגים ימים רגועים: Fletschhorn, הליכות בכפר, Aqua Allalin, Spielboden, Mattmark וזמן הררי ללא לחץ.",
+    "activities.kicker":"מאתר פעילויות",
+    "activities.title":"בחרו חוויות לפי עונה, קצב ורמת אנרגיה.",
+    "activities.lead":"אותם פילטרים מחברים בין המפה לכרטיסי הפעילות, כדי שאורחים יבחרו במהירות את סוג היום שמתאים להם.",
+    "groups.kicker":"משפחות, קבוצות וריטריטים",
+    "groups.title":"פעילויות פשוטות לגילאים מעורבים. חוויות משותפות לקבוצות.",
+    "groups.lead":"משפחות וקבוצות רב-דוריות יכולות לבחור בין הליכות עדינות, אזורי משחק, רכבלים, מרמיטות, משחקי שלג, חיפוש אוצרות ופעילויות בכפר.",
+    "groups.familyKicker":"למשפחות",
+    "groups.familyTitle":"להתפצל ולהתחבר מחדש בקלות.",
+    "groups.familyText":"חלק מהאורחים יכולים לגלוש, ואחרים לבחור Aqua Allalin, הליכה בכפר, נקודת תצפית ברכבל או שביל יער עדין. היתרון של Fletschhorn הוא שלכל הקבוצה יש מקום פרטי אחד לחזור אליו.",
+    "groups.retreatKicker":"לריטריטים",
+    "groups.retreatTitle":"פעילות ושקט באותו עמק.",
+    "groups.retreatText":"לריטריטים, חברות וקבוצות פרטיות, סאס-פה מציעה סביבה טבעית גם לתנועה וגם לשקט: טיולים מודרכים, סקי, אתגרי צוות, זמן וולנס או רגעים איטיים בכפר וביער.",
+    "dayplans.kicker":"קצבים מוכנים",
+    "dayplans.title":"תוכניות יום פשוטות שאורחים מבינים בשניות.",
+    "dayplans.lead":"השתמשו בקצבים לדוגמה כדי לדמיין יום מלא סביב הבית, מזמן משפחתי רגוע ועד תוכניות הר פעילות.",
+    "cta.kicker":"תכנון השהייה",
+    "cta.title":"בנו את הקצב שמתאים לקבוצה שלכם.",
+    "cta.text":"חלק מהקבוצות מגיעות לסקי. אחרות מגיעות לזמן משפחה, וולנס, טיולים, עבודה או חגיגה פרטית. ספרו לנו מתי אתם מגיעים, מי מצטרף ואיזו חוויה אתם רוצים.",
+    "cta.button":"להזמין את השהייה",
+    "cta.note":"המחירים הטובים ביותר מובטחים בהזמנה ישירה",
+    "cta.seasonKicker":"עונה אחר עונה",
+    "cta.winter":"סקי, סנובורד, מזחלות, חוויות קרחון, חיפוש אוצרות בכפר וריסט וולנס.",
+    "cta.summer":"מרמיטות, טיולים, אגמי הרים, פארק חבלים, קורקינטים, רכבלים ונופי קרחון.",
+    "modal.title":"בקשת שהייה פרטית",
+    "modal.name":"שם",
+    "modal.namePh":"השם שלכם",
+    "modal.checkin":"צ׳ק-אין",
+    "modal.checkout":"צ׳ק-אאוט",
+    "modal.guestsPh":"עד 48 מקומות לינה",
+    "modal.season":"עונה",
+    "modal.notes":"הערות",
+    "modal.notesPh":"טווח גילאים, צרכי נגישות, תאריכים, פעילויות רצויות, צורך במדריך…",
+    "modal.submit":"שליחת בקשה",
+    "modal.sending":"בודקים זמינות…",
+    "modal.sent":"הבקשה נשלחה. נחזור אליכם עם הפרטים הבאים.",
+    "modal.failed":"לא ניתן היה לשלוח את הבקשה מהעמוד. נסו שוב או צרו קשר ישירות עם הנכס."
+  };
+
   i18n.fr = {...i18n.en, ...fr};
   i18n.de = {...i18n.en, ...de};
   i18n.ru = {...i18n.en, ...ru};
+  i18n.he = {...i18n.en, ...he};
 
   const placeBase = {
     fletschhorn:{name:"Fletschhorn / Wildistrasse", lat:46.1237861, lon:7.929103, filter:"house"},
@@ -3044,6 +3227,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     if(value.startsWith('fr')) return 'fr';
     if(value.startsWith('de')) return 'de';
     if(value.startsWith('ru')) return 'ru';
+    if(value.startsWith('he') || value.startsWith('iw')) return 'he';
     return 'en';
   }
 
@@ -3056,7 +3240,9 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     localStorage.setItem('fh_lang', currentLang);
     localStorage.setItem('fhLang', currentLang);
     root.setAttribute('data-current-lang', currentLang);
+    root.setAttribute('dir', currentLang === 'he' ? 'rtl' : 'ltr');
     document.documentElement.setAttribute('lang', currentLang);
+    document.documentElement.setAttribute('dir', currentLang === 'he' ? 'rtl' : 'ltr');
     $all('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     $all('[data-i18n-placeholder]').forEach(el => { el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder)); });
     const helper = $('#fh-map-helper');
@@ -3119,6 +3305,167 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
       if(el.dataset.officialImage === 'true') return;
       if(images[index % images.length]) el.style.setProperty('--activity-image', `url("${images[index % images.length]}")`);
     });
+  }
+
+
+  function imageNameFromUrl(url){
+    try{
+      const clean = String(url || "").split("?")[0].split("#")[0];
+      const name = clean.substring(clean.lastIndexOf("/") + 1);
+      return decodeURIComponent(name.replace(/\+/g, "%20"));
+    }catch(error){
+      return "";
+    }
+  }
+
+  function extractWorkerImageUrl(value, depth){
+    depth = depth || 0;
+    if(!value || depth > 6) return "";
+    if(typeof value === "string"){
+      const clean = value.trim();
+      if(/^https?:\/\//i.test(clean) && /\.(jpe?g|png|webp|gif)(\?|#|$)/i.test(clean)) return clean;
+      if(/^data:image\//i.test(clean)) return clean;
+      return "";
+    }
+    if(Array.isArray(value)){
+      for(let i=0;i<value.length;i++){
+        const found = extractWorkerImageUrl(value[i], depth + 1);
+        if(found) return found;
+      }
+      return "";
+    }
+    if(typeof value !== "object") return "";
+    const priority = ["url","src","href","original","large","regular","secure_url","imageUrl","image_url","file","image","photo","picture","thumbnail","thumb","medium","small"];
+    for(let i=0;i<priority.length;i++){
+      if(Object.prototype.hasOwnProperty.call(value, priority[i])){
+        const found = extractWorkerImageUrl(value[priority[i]], depth + 1);
+        if(found) return found;
+      }
+    }
+    const keys = Object.keys(value);
+    for(let i=0;i<keys.length;i++){
+      const found = extractWorkerImageUrl(value[keys[i]], depth + 1);
+      if(found) return found;
+    }
+    return "";
+  }
+
+  function collectWorkerImages(data){
+    const records = [];
+    const seen = new Set();
+
+    function add(item){
+      const url = extractWorkerImageUrl(item, 0);
+      if(!url || seen.has(url)) return;
+      seen.add(url);
+
+      const names = new Set();
+      const fileName = imageNameFromUrl(url);
+      if(fileName) names.add(fileName);
+
+      if(item && typeof item === "object" && !Array.isArray(item)){
+        ["name","fileName","filename","title","caption","alt","label","key"].forEach(function(k){
+          if(item[k]) names.add(String(item[k]).trim());
+        });
+      }
+
+      records.push({ url:url, names:Array.from(names).filter(Boolean) });
+    }
+
+    if(data && Array.isArray(data.images)) data.images.forEach(add);
+    if(data && data.data && Array.isArray(data.data.images)) data.data.images.forEach(add);
+    if(data && data.listing && Array.isArray(data.listing.images)) data.listing.images.forEach(add);
+
+    if(!records.length){
+      (function walk(value){
+        if(!value || typeof value !== "object") return;
+        if(Array.isArray(value)){ value.forEach(walk); return; }
+        add(value);
+        Object.keys(value).forEach(function(k){ walk(value[k]); });
+      })(data);
+    }
+
+    return records;
+  }
+
+  function applyWorkerImagesByName(records){
+    const byName = {};
+    (records || []).forEach(function(record){
+      (record.names || []).forEach(function(name){
+        byName[name] = record.url;
+      });
+    });
+
+    WORKER_IMAGE_NAMES.forEach(function(name){
+      if(!byName[name]) byName[name] = workerImageUrl(name);
+    });
+
+    root.querySelectorAll("img").forEach(function(img, index){
+      const current = img.getAttribute("src") || "";
+      const oldName = imageNameFromUrl(current);
+      if(byName[oldName]){
+        img.src = byName[oldName];
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.dataset.workerImageApplied = "true";
+      }
+    });
+
+    root.querySelectorAll("[style]").forEach(function(el){
+      const style = el.getAttribute("style") || "";
+      WORKER_IMAGE_NAMES.forEach(function(name){
+        if(style.indexOf(encodeURIComponent(name).replace(/%20/g, "%20")) !== -1 || style.indexOf(name) !== -1){
+          el.style.backgroundImage = 'url("' + (byName[name] || workerImageUrl(name)) + '")';
+          el.dataset.workerImageApplied = "true";
+        }
+      });
+    });
+
+    root.querySelectorAll(".fh-mobile-hero-media").forEach(function(el){
+      el.style.backgroundImage = 'linear-gradient(180deg,rgba(18,16,14,.10),rgba(18,16,14,.42)),url("' + (byName["Nature (8).jpg"] || fallbackImages[7] || fallbackImages[0]) + '")';
+      el.style.backgroundSize = "cover";
+      el.style.backgroundPosition = "center top";
+      el.dataset.workerImageApplied = "true";
+    });
+  }
+
+  async function loadWorkerImages(){
+    try{
+      const url = new URL(BOOKING_WORKER_BASE.replace(/\/$/, "") + "/images");
+      url.searchParams.set("listingId", LISTING_ID);
+      url.searchParams.set("source", "experiences");
+      url.searchParams.set("lang", currentLang || "en");
+
+      const response = await fetch(url.href, {
+        method:"GET",
+        headers:{ "Accept":"application/json" },
+        cache:"no-cache"
+      });
+
+      const text = await response.text();
+      let data;
+      try{ data = JSON.parse(text); }catch(error){ data = { rawText:text }; }
+
+      if(!response.ok || data.ok === false || data.error){
+        throw new Error(data.error || data.message || "Worker images request failed.");
+      }
+
+      const records = collectWorkerImages(data);
+      const urls = records.map(function(r){ return r.url; }).filter(Boolean);
+      const named = WORKER_IMAGE_NAMES.map(workerImageUrl);
+      const merged = [];
+      named.concat(urls).forEach(function(url){
+        if(url && !merged.includes(url)) merged.push(url);
+      });
+
+      applyImages(merged.length ? merged : fallbackImages);
+      applyWorkerImagesByName(records);
+      window.dispatchEvent(new CustomEvent("fh:worker-images-loaded", { detail:{ page:"experiences", count:merged.length }}));
+    }catch(error){
+      console.warn("Fletschhorn Worker images unavailable; using Worker direct image paths.", error);
+      applyImages(fallbackImages);
+      applyWorkerImagesByName([]);
+    }
   }
 
   function mapSrc(place){ return `https://www.google.com/maps?q=${place.lat},${place.lon}&z=13&output=embed`; }
@@ -3386,7 +3733,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     });
   }
 
-  applyImages(fallbackImages);
+  loadWorkerImages();
   watchGlobalLanguageSwitcher();
   applyLanguage(currentLang);
   applyFilter('all', false);
@@ -3398,13 +3745,15 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   "use strict";
 
   const root = document.getElementById("fh-experiences-desktop");
-  if(!root || root.dataset.toolbarCalendarReady === "1") return;
-  root.dataset.toolbarCalendarReady = "1";
+  if(!root) return;
+
+  // Override older toolbar listeners cleanly for the new Fletschhorn Worker flow.
+  root.dataset.toolbarCalendarReady = "worker-calendar-v2";
 
   const CFG = {
     bookingPageUrl:"booking.html",
     listingId:"6968339ab7d735001ca015ba",
-    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev",
+    workerBase:"https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
     minNights:2,
     currency:"CHF"
   };
@@ -3420,86 +3769,187 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   state.currentMonth.setHours(0,0,0,0);
 
   function $(selector){ return root.querySelector(selector); }
+  function $all(selector){ return Array.from(root.querySelectorAll(selector)); }
   function endpoint(path){ return CFG.workerBase.replace(/\/$/,"") + path; }
   function pad(n){ return String(n).padStart(2,"0"); }
   function ymd(date){ return date.getFullYear()+"-"+pad(date.getMonth()+1)+"-"+pad(date.getDate()); }
   function parseDate(value){ return value ? new Date(value + "T00:00:00") : null; }
+  function monthRange(date){
+    const from = new Date(date.getFullYear(), date.getMonth(), 1);
+    const to = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+    return { from:ymd(from), to:ymd(to) };
+  }
   function nightsBetween(a,b){
     const start = parseDate(a), end = parseDate(b);
     if(!start || !end) return 0;
     return Math.round((end - start) / 86400000);
   }
-  function getLang(){
-    return localStorage.getItem("fh_lang") || localStorage.getItem("fhLang") || document.documentElement.lang || "en";
+  function normalizeLang(value){
+    value = String(value || "en").toLowerCase();
+    if(value.startsWith("fr")) return "fr";
+    if(value.startsWith("de")) return "de";
+    if(value.startsWith("ru")) return "ru";
+    if(value.startsWith("he") || value.startsWith("iw")) return "he";
+    return "en";
   }
-  function money(value){
+  function getLang(){
+    return normalizeLang(localStorage.getItem("fh_lang") || localStorage.getItem("fhLang") || document.documentElement.lang || "en");
+  }
+  function localeForLang(lang){
+    return { en:"en-US", fr:"fr-FR", de:"de-DE", ru:"ru-RU", he:"he-IL" }[lang || getLang()] || "en-US";
+  }
+  function label(key){
+    const lang = getLang();
+    const dict = {
+      en:{ dates:"Select arrival and departure", selectDeparture:"Select departure", openCalendar:"Open calendar", minNights:"Please select at least 2 nights.", rangeUnavailable:"One or more selected nights is unavailable. Please choose another range.", booked:"Booked", nightly:"Nightly", estimatedTotal:"Estimated total" },
+      fr:{ dates:"Sélectionnez l’arrivée et le départ", selectDeparture:"Choisir le départ", openCalendar:"Ouvrir le calendrier", minNights:"Veuillez sélectionner au moins 2 nuits.", rangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles.", booked:"Réservé", nightly:"Nuit", estimatedTotal:"Total estimé" },
+      de:{ dates:"Anreise und Abreise auswählen", selectDeparture:"Abreise auswählen", openCalendar:"Kalender öffnen", minNights:"Bitte mindestens 2 Nächte auswählen.", rangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.", booked:"Gebucht", nightly:"Nacht", estimatedTotal:"Geschätzter Gesamtpreis" },
+      ru:{ dates:"Выберите заезд и выезд", selectDeparture:"Выбрать выезд", openCalendar:"Открыть календарь", minNights:"Выберите минимум 2 ночи.", rangeUnavailable:"Одна или несколько выбранных ночей недоступны.", booked:"Занято", nightly:"Ночь", estimatedTotal:"Ориентировочная сумма" },
+      he:{ dates:"בחרו תאריך הגעה ועזיבה", selectDeparture:"בחרו עזיבה", openCalendar:"פתחו יומן", minNights:"יש לבחור לפחות 2 לילות.", rangeUnavailable:"לילה אחד או יותר בטווח שבחרתם אינו זמין. בחרו טווח אחר.", booked:"תפוס", nightly:"לילה", estimatedTotal:"מחיר משוער" }
+    };
+    return (dict[lang] && dict[lang][key]) || dict.en[key] || key;
+  }
+  function money(value, currency){
     const n = Number(value);
     if(!Number.isFinite(n) || n <= 0) return "";
-    return new Intl.NumberFormat(getLang(), { style:"currency", currency:CFG.currency, maximumFractionDigits:0 }).format(n);
+    try{
+      return new Intl.NumberFormat(localeForLang(getLang()), { style:"currency", currency:currency || CFG.currency, maximumFractionDigits:0 }).format(n);
+    }catch(error){
+      return Math.round(n).toLocaleString() + " " + (currency || CFG.currency);
+    }
   }
   function monthTitle(date){
-    return new Intl.DateTimeFormat(getLang(), { month:"long", year:"numeric" }).format(date);
+    return new Intl.DateTimeFormat(localeForLang(getLang()), { month:"long", year:"numeric" }).format(date);
+  }
+  function allCheckInFields(){
+    return $all("#fh-exp-checkin, #fh-mobile-checkin, input[name='checkIn'], input[name='arrivalDate']");
+  }
+  function allCheckOutFields(){
+    return $all("#fh-exp-checkout, #fh-mobile-checkout, input[name='checkOut'], input[name='departureDate']");
   }
   function setHiddenDates(){
-    const checkIn = $("#fh-exp-checkin");
-    const checkOut = $("#fh-exp-checkout");
-    if(checkIn) checkIn.value = state.checkIn || "";
-    if(checkOut) checkOut.value = state.checkOut || "";
+    allCheckInFields().forEach(function(el){ el.value = state.checkIn || ""; });
+    allCheckOutFields().forEach(function(el){ el.value = state.checkOut || ""; });
+  }
+  function totalForRange(){
+    if(!state.checkIn || !state.checkOut) return null;
+    const a = parseDate(state.checkIn), b = parseDate(state.checkOut);
+    if(!a || !b || b <= a) return null;
+    let total = 0, counted = 0, missing = 0, currency = CFG.currency;
+    for(let d = new Date(a); d < b; d.setDate(d.getDate()+1)){
+      const info = state.dayMap[ymd(d)];
+      const price = info && (info.price || info.nightlyPrice || info.basePrice || info.rate || info.amount);
+      if(price === undefined || price === null || price === "" || isNaN(Number(price))){ missing++; continue; }
+      total += Number(price);
+      counted++;
+      currency = (info && info.currency) || currency;
+    }
+    if(!counted || missing) return null;
+    return { total, currency, nights:counted };
   }
   function updateDateText(){
-    const text = $("#fhToolbarDateText");
-    if(!text) return;
-    if(state.checkIn && state.checkOut){
-      const a = parseDate(state.checkIn), b = parseDate(state.checkOut);
-      const fmt = new Intl.DateTimeFormat(getLang(), { month:"short", day:"numeric", year:"numeric" });
-      text.textContent = fmt.format(a) + " → " + fmt.format(b);
-    }else if(state.checkIn){
-      text.textContent = state.checkIn + " → Select departure";
-    }else{
-      text.textContent = "Select arrival and departure";
-    }
+    const texts = $all("#fhToolbarDateText, [data-mobile-date-text]");
+    const total = totalForRange();
+    texts.forEach(function(text){
+      if(state.checkIn && state.checkOut){
+        text.textContent = total
+          ? state.checkIn + " → " + state.checkOut + " · " + label("estimatedTotal") + " " + money(total.total, total.currency)
+          : state.checkIn + " → " + state.checkOut;
+      }else if(state.checkIn){
+        text.textContent = state.checkIn + " → " + label("selectDeparture");
+      }else{
+        text.textContent = label("dates");
+      }
+    });
+    $all(".fh-date-button strong").forEach(function(el){ el.textContent = label("openCalendar"); });
   }
   function showWarning(message){
     const warning = $("#fhToolbarCalendarWarning");
     if(!warning) return;
-    warning.textContent = message || "Please select at least 2 nights.";
+    warning.textContent = message || label("minNights");
     warning.classList.add("show");
   }
   function hideWarning(){
     const warning = $("#fhToolbarCalendarWarning");
     if(warning) warning.classList.remove("show");
   }
-  async function loadMonth(){
-    const month = state.currentMonth.getMonth()+1;
-    const year = state.currentMonth.getFullYear();
-    state.loading = true;
+  function normalizeDay(item){
+    if(!item || typeof item !== "object") return null;
+    const date = item.date || item.day || item.dateString || item.startDate || item._id || "";
+    if(!/^\d{4}-\d{2}-\d{2}/.test(String(date))) return null;
+    const unavailable = item.available === false || item.isAvailable === false ||
+      item.status === "unavailable" || item.status === "booked" || item.status === "BLOCKED" ||
+      item.status === "UNAVAILABLE" || item.availability === "unavailable";
+    const available = item.available === true || item.isAvailable === true ||
+      item.status === "available" || item.status === "AVAILABLE" || item.availability === "available";
+    const price = item.price || item.nightlyPrice || item.basePrice || item.rate || item.amount || item.totalPrice || null;
+    return { date:String(date).slice(0,10), available: unavailable ? false : available, unavailable, price, currency:item.currency || CFG.currency };
+  }
+  function collectDays(data){
+    const out = [];
+    function walk(value){
+      if(!value || typeof value !== "object") return;
+      if(Array.isArray(value)){ value.forEach(walk); return; }
+      const day = normalizeDay(value);
+      if(day) out.push(day);
+      Object.keys(value).forEach(function(k){ walk(value[k]); });
+    }
+    walk(data);
+    return out;
+  }
+  async function workerGetOrPost(path, payload){
     try{
-      const url = new URL(endpoint("/guesty/calendar-month-prices"));
-      url.searchParams.set("listingId", CFG.listingId);
-      url.searchParams.set("year", String(year));
-      url.searchParams.set("month", String(month));
-      const response = await fetch(url.href, { cache:"no-store" });
-      const data = await response.json().catch(() => ({}));
-      const days = Array.isArray(data.days) ? data.days : Array.isArray(data.calendar) ? data.calendar : [];
-      state.dayMap = {};
-      days.forEach(function(day){
-        const date = day.date || day.day || day.dateString;
-        if(!date) return;
-        state.dayMap[date] = day;
+      const url = new URL(endpoint(path));
+      Object.keys(payload || {}).forEach(function(key){
+        if(payload[key] !== undefined && payload[key] !== null && payload[key] !== "") url.searchParams.set(key, payload[key]);
       });
+      const response = await fetch(url.href, { method:"GET", headers:{"Accept":"application/json"}, cache:"no-store" });
+      const text = await response.text();
+      let data; try{ data = JSON.parse(text); }catch(error){ data = { rawText:text }; }
+      if(response.ok && data && data.ok !== false && !data.error) return data;
+    }catch(error){}
+
+    const response = await fetch(endpoint(path), {
+      method:"POST",
+      headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+      body:JSON.stringify(payload || {})
+    });
+    const text = await response.text();
+    let data; try{ data = JSON.parse(text); }catch(error){ data = { rawText:text }; }
+    if(!response.ok || data.ok === false || data.error) throw new Error(data.error || data.message || "Calendar request failed.");
+    return data;
+  }
+  async function loadMonth(){
+    const range = monthRange(state.currentMonth);
+    state.loading = true;
+    renderCalendar();
+    try{
+      const data = await workerGetOrPost("/calendar", {
+        listingId:CFG.listingId,
+        guestyListingId:CFG.listingId,
+        from:range.from,
+        to:range.to,
+        startDate:range.from,
+        endDate:range.to,
+        language:getLang(),
+        source:"experiences-toolbar-calendar"
+      });
+      const days = collectDays(data);
+      state.dayMap = {};
+      days.forEach(function(day){ state.dayMap[day.date] = day; });
     }catch(error){
-      console.warn("Fletschhorn calendar prices unavailable:", error);
+      console.warn("Fletschhorn Worker calendar prices unavailable:", error);
       state.dayMap = {};
     }finally{
       state.loading = false;
       renderCalendar();
+      updateDateText();
     }
   }
   function isUnavailable(dateString){
     const info = state.dayMap[dateString];
     if(!info) return false;
-    if(info.available === false || info.isAvailable === false || info.status === "unavailable" || info.status === "booked") return true;
-    return false;
+    return info.unavailable === true || info.available === false;
   }
   function rangeUnavailable(start,end){
     const a = parseDate(start), b = parseDate(end);
@@ -3547,10 +3997,10 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
       if(dateString === state.checkOut) btn.classList.add("end");
       if(state.checkIn && state.checkOut && dateString > state.checkIn && dateString < state.checkOut) btn.classList.add("range");
 
-      const price = info.price || info.nightlyPrice || info.rate || info.basePrice;
+      const price = info.price || info.nightlyPrice || info.rate || info.basePrice || info.amount;
       btn.innerHTML = '<span class="fh-day-number">'+day+'</span>' +
-        '<span class="fh-day-price">'+(money(price) || '&nbsp;')+'</span>' +
-        '<span class="fh-day-status">'+(past ? '' : unavailable ? 'Booked' : (price ? 'Nightly' : ''))+'</span>';
+        '<span class="fh-day-price'+(price ? '' : ' missing')+'">'+(money(price, info.currency) || '&nbsp;')+'</span>' +
+        '<span class="fh-day-status">'+(past ? '' : unavailable ? label("booked") : (price ? label("nightly") : ''))+'</span>';
       btn.disabled = past || unavailable;
       btn.addEventListener("click", function(){ chooseDate(dateString); });
       grid.appendChild(btn);
@@ -3568,12 +4018,12 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     }
     const nights = nightsBetween(state.checkIn, dateString);
     if(nights < CFG.minNights){
-      showWarning("Please select at least 2 nights.");
+      showWarning(label("minNights"));
       renderCalendar();
       return;
     }
     if(rangeUnavailable(state.checkIn, dateString)){
-      showWarning("One or more selected nights is unavailable. Please choose another range.");
+      showWarning(label("rangeUnavailable"));
       state.checkIn = dateString;
       state.checkOut = "";
       setHiddenDates();
@@ -3587,7 +4037,11 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     renderCalendar();
     closeCalendar();
   }
-  function openCalendar(){
+  function openCalendar(event){
+    if(event){
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
     const modal = $("#fhToolbarCalendarModal");
     if(!modal) return;
     hideWarning();
@@ -3595,7 +4049,11 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     modal.setAttribute("aria-hidden","false");
     loadMonth();
   }
-  function closeCalendar(){
+  function closeCalendar(event){
+    if(event){
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
     const modal = $("#fhToolbarCalendarModal");
     if(!modal) return;
     modal.classList.remove("open");
@@ -3604,34 +4062,46 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   function initFromStorage(){
     try{
       const saved = JSON.parse(localStorage.getItem("fhBookingStart") || "{}");
-      state.checkIn = saved.checkIn || saved.arrival || "";
-      state.checkOut = saved.checkOut || saved.departure || "";
+      state.checkIn = saved.checkIn || saved.arrival || saved.arrivalDate || "";
+      state.checkOut = saved.checkOut || saved.departure || saved.departureDate || "";
       if(saved.firstName && $("#fh-exp-first-name")) $("#fh-exp-first-name").value = saved.firstName;
       if(saved.lastName && $("#fh-exp-last-name")) $("#fh-exp-last-name").value = saved.lastName;
       if(saved.email && $("#fh-exp-email")) $("#fh-exp-email").value = saved.email;
+      if(saved.firstName && $("#fh-mobile-first-name")) $("#fh-mobile-first-name").value = saved.firstName;
+      if(saved.lastName && $("#fh-mobile-last-name")) $("#fh-mobile-last-name").value = saved.lastName;
+      if(saved.email && $("#fh-mobile-email")) $("#fh-mobile-email").value = saved.email;
     }catch(error){}
+
     const params = new URLSearchParams(window.location.search);
     if(params.get("checkIn")) state.checkIn = params.get("checkIn");
     if(params.get("checkOut")) state.checkOut = params.get("checkOut");
     if(params.get("firstName") && $("#fh-exp-first-name")) $("#fh-exp-first-name").value = params.get("firstName");
     if(params.get("lastName") && $("#fh-exp-last-name")) $("#fh-exp-last-name").value = params.get("lastName");
     if(params.get("email") && $("#fh-exp-email")) $("#fh-exp-email").value = params.get("email");
+    if(params.get("firstName") && $("#fh-mobile-first-name")) $("#fh-mobile-first-name").value = params.get("firstName");
+    if(params.get("lastName") && $("#fh-mobile-last-name")) $("#fh-mobile-last-name").value = params.get("lastName");
+    if(params.get("email") && $("#fh-mobile-email")) $("#fh-mobile-email").value = params.get("email");
+
     setHiddenDates();
     updateDateText();
   }
 
-  const openBtn = $("#fhOpenToolbarCalendar");
+  $all("#fhOpenToolbarCalendar, [data-mobile-open-calendar]").forEach(function(btn){
+    btn.addEventListener("click", openCalendar, true);
+  });
   const closeBtn = $("#fhToolbarCloseCalendar");
   const prevBtn = $("#fhToolbarPrevMonth");
   const nextBtn = $("#fhToolbarNextMonth");
   const modal = $("#fhToolbarCalendarModal");
-
-  if(openBtn) openBtn.addEventListener("click", openCalendar);
-  if(closeBtn) closeBtn.addEventListener("click", closeCalendar);
-  if(prevBtn) prevBtn.addEventListener("click", function(){ state.currentMonth.setMonth(state.currentMonth.getMonth()-1); loadMonth(); });
-  if(nextBtn) nextBtn.addEventListener("click", function(){ state.currentMonth.setMonth(state.currentMonth.getMonth()+1); loadMonth(); });
-  if(modal) modal.addEventListener("click", function(event){ if(event.target === modal) closeCalendar(); });
+  if(closeBtn) closeBtn.addEventListener("click", closeCalendar, true);
+  if(prevBtn) prevBtn.addEventListener("click", function(event){ event.preventDefault(); event.stopImmediatePropagation(); state.currentMonth.setMonth(state.currentMonth.getMonth()-1); loadMonth(); }, true);
+  if(nextBtn) nextBtn.addEventListener("click", function(event){ event.preventDefault(); event.stopImmediatePropagation(); state.currentMonth.setMonth(state.currentMonth.getMonth()+1); loadMonth(); }, true);
+  if(modal) modal.addEventListener("click", function(event){ if(event.target === modal) closeCalendar(event); }, true);
   document.addEventListener("keydown", function(event){ if(event.key === "Escape") closeCalendar(); });
+
+  window.addEventListener("storage", updateDateText);
+  window.addEventListener("fh:language", updateDateText);
+  window.addEventListener("fh:lang-applied", updateDateText);
 
   initFromStorage();
   renderCalendar();
@@ -3831,6 +4301,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     if(value.startsWith('fr')) return 'fr';
     if(value.startsWith('de')) return 'de';
     if(value.startsWith('ru')) return 'ru';
+    if(value.startsWith('he') || value.startsWith('iw')) return 'he';
     return 'en';
   }
   function currentLang(){return normalizeLang(localStorage.getItem('fh_lang') || localStorage.getItem('fhLang') || document.documentElement.lang || 'en')}
@@ -4114,9 +4585,9 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   const BOOKING_PAGE = "booking.html";
 
   const mobileCopy = {
-    en:{firstName:'First name',lastName:'Last name',email:'Email',arrival:'Arrival',departure:'Departure',firstNamePh:'First name',lastNamePh:'Last name',error:'Please complete the highlighted fields.'},
-    fr:{firstName:'Prénom',lastName:'Nom',email:'Email',arrival:'Arrivée',departure:'Départ',firstNamePh:'Prénom',lastNamePh:'Nom',error:'Veuillez compléter les champs indiqués.'},
-    de:{firstName:'Vorname',lastName:'Nachname',email:'E-Mail',arrival:'Anreise',departure:'Abreise',firstNamePh:'Vorname',lastNamePh:'Nachname',error:'Bitte füllen Sie die markierten Felder aus.'},
+    en:{firstName:'First name',lastName:'Last name',email:'Email',arrival:'Arrival',departure:'Departure',dates:'Dates',openCalendar:'Open calendar',firstNamePh:'First name',lastNamePh:'Last name',error:'Please complete the highlighted fields.'},
+    fr:{firstName:'Prénom',lastName:'Nom',email:'Email',arrival:'Arrivée',departure:'Départ',dates:'Dates',openCalendar:'Ouvrir le calendrier',firstNamePh:'Prénom',lastNamePh:'Nom',error:'Veuillez compléter les champs indiqués.'},
+    de:{firstName:'Vorname',lastName:'Nachname',email:'E-Mail',arrival:'Anreise',departure:'Abreise',dates:'Daten',openCalendar:'Kalender öffnen',firstNamePh:'Vorname',lastNamePh:'Nachname',error:'Bitte füllen Sie die markierten Felder aus.'},
     ru:{firstName:'Имя',lastName:'Фамилия',email:'Email',arrival:'Заезд',departure:'Выезд',firstNamePh:'Имя',lastNamePh:'Фамилия',error:'Пожалуйста, заполните выделенные поля.'}
   };
 
@@ -4124,7 +4595,8 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   function qsa(sel, host=document){ return Array.from(host.querySelectorAll(sel)); }
   function normalizeLang(lang){
     lang = String(lang || 'en').toLowerCase().slice(0,2);
-    return ['en','fr','de','ru'].includes(lang) ? lang : 'en';
+    if(lang === 'iw') lang = 'he';
+    return ['en','fr','de','ru','he'].includes(lang) ? lang : 'en';
   }
   function currentLang(){
     return normalizeLang(localStorage.getItem('fh_lang') || localStorage.getItem('fhLang') || document.documentElement.lang || 'en');
@@ -4213,6 +4685,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
         checkIn,
         checkOut,
         listingId: LISTING_ID,
+        workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
         lang: currentLang(),
         source: 'experiences-mobile'
       };
@@ -5990,47 +6463,47 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
           <div class="fh-nature-window">
             <div class="fh-nature-track">
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(1).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 1" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(1).jpg" alt="Saas-Fee nature view 1" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Forest paths around Saas-Fee</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(2).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 2" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(2).jpg" alt="Saas-Fee nature view 2" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Alpine nature close to the house</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(3).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 3" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(3).jpg" alt="Saas-Fee nature view 3" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Quiet mountain textures</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(4).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 4" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(4).jpg" alt="Saas-Fee nature view 4" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Fresh air, slow mornings</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(5).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 5" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(5).jpg" alt="Saas-Fee nature view 5" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Summer paths and open valley</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(6).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 6" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(6).jpg" alt="Saas-Fee nature view 6" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Soft alpine day plans</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(7).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 7" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(7).jpg" alt="Saas-Fee nature view 7" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Nature for families and groups</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(8).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 8" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(8).jpg" alt="Saas-Fee nature view 8" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Mountain calm around Fletschhorn</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(9).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 9" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(9).jpg" alt="Saas-Fee nature view 9" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Walks, viewpoints, and fresh air</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(10).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 10" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(10).jpg" alt="Saas-Fee nature view 10" loading="lazy" decoding="async">
               <span class="fh-photo-caption">The valley beyond the house</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
-              <img src="https://ik.imagekit.io/Redberry/Nature%20(11).jpg?updatedAt=1779972119505" alt="Saas-Fee nature view 11" loading="lazy" decoding="async">
+              <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(11).jpg" alt="Saas-Fee nature view 11" loading="lazy" decoding="async">
               <span class="fh-photo-caption">Return to one private base</span>
             </figure>
             </div>
@@ -6444,19 +6917,30 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   loadHtml('fh-footer-slot', 'footer.html');
 
   const LISTING_ID = "6968339ab7d735001ca015ba";
-  const BOOKING_WORKER_BASE = "https://guetsyapi.moshe-cohen-h1.workers.dev";
-  const SEARCH_ENDPOINT = BOOKING_WORKER_BASE + "/guesty/book-inquiry";
+  const BOOKING_WORKER_BASE = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  const SEARCH_ENDPOINT = BOOKING_WORKER_BASE + "/search";
 
-  const fallbackImages = [
-    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
-    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
-    "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg",
-    "https://assets.guesty.com/image/upload/v1769381683/production/686c48ada4bbacd7a82a4f83/gdkntjfg2shhfc8sjsox.jpg",
-    "https://assets.guesty.com/image/upload/v1769381684/production/686c48ada4bbacd7a82a4f83/kzwdncmnkciaw508jnk7.jpg",
-    "https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg",
-    "https://assets.guesty.com/image/upload/v1769381550/production/686c48ada4bbacd7a82a4f83/vzgtukkezd2kk28kcphi.jpg",
-    "https://assets.guesty.com/image/upload/v1769381488/production/686c48ada4bbacd7a82a4f83/tgbuyyre4bz9oyczaasv.jpg"
+  const WORKER_IMAGE_NAMES = [
+    "Nature (1).jpg",
+    "Nature (2).jpg",
+    "Nature (3).jpg",
+    "Nature (4).jpg",
+    "Nature (5).jpg",
+    "Nature (6).jpg",
+    "Nature (7).jpg",
+    "Nature (8).jpg",
+    "Nature (9).jpg",
+    "Nature (10).jpg",
+    "Nature (11).jpg"
   ];
+
+  const WORKER_IMAGE_BASE = BOOKING_WORKER_BASE.replace(/\/$/, "") + "/images/";
+
+  function workerImageUrl(name){
+    return WORKER_IMAGE_BASE + encodeURIComponent(String(name || "").trim());
+  }
+
+  const fallbackImages = WORKER_IMAGE_NAMES.map(workerImageUrl);
 
   const i18n = {
     en:{
@@ -6520,9 +7004,92 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     "modal.title":"Отправить запрос на проживание","modal.name":"Имя","modal.namePh":"Ваше имя","modal.checkin":"Заезд","modal.checkout":"Выезд","modal.guestsPh":"До 48 спальных мест","modal.season":"Сезон","modal.notes":"Заметки","modal.notesPh":"Возраст, мобильность, даты, желаемые активности, нужен ли гид…","modal.submit":"Отправить запрос","modal.sending":"Проверяем доступность…","modal.sent":"Ваш запрос отправлен. Мы свяжемся с вами со следующими деталями.","modal.failed":"Запрос не удалось отправить с этой страницы. Попробуйте ещё раз или свяжитесь с объектом напрямую."
   };
 
+  const he = {
+    "hero.kicker":"חוויות סביב סאס-פה",
+    "hero.title":"בסיס פרטי לכל עונה בסאס-פה.",
+    "hero.lead":"מסקי על הקרחון ומזחלות חורף ועד טיולי קיץ, מרמיטות, אגמי הרים, פארק חבלים וימים אלפיניים רגועים — סאס-פה מציעה חוויה לכל סוג קבוצה. Fletschhorn נותן לכם בסיס אלפיני פרטי מעל הכפר, קרוב לחוויות שהופכות את העמק למיוחד.",
+    "hero.note":"המחירים הטובים ביותר מובטחים בהזמנה ישירה",
+    "hero.scroll":"פתחו את האזור",
+    "filters.all":"הכל",
+    "filters.allText":"הציגו את כל העמק סביב הבית.",
+    "filters.winter":"חורף",
+    "filters.winterText":"סקי, שלג, מזחלות, קרחון ורגעים חמימים.",
+    "filters.summer":"קיץ",
+    "filters.summerText":"מרמיטות, טיולים, קורקינטים, אגמים וחבלים.",
+    "filters.calm":"ימים רגועים",
+    "filters.calmText":"וולנס, הליכות בכפר ושבילים קלים.",
+    "filters.house":"בית וכפר",
+    "filters.family":"משפחה",
+    "filters.adrenaline":"אדרנלין",
+    "filters.trek":"מסלולים",
+    "form.guestsLabel":"אורחים",
+    "form.guestsPlaceholder":"משפחה, קבוצה, ריטריט…",
+    "form.datesLabel":"תאריכים",
+    "form.datesPlaceholder":"חורף, קיץ, תאריכים מדויקים…",
+    "form.contactLabel":"יצירת קשר",
+    "form.contactPlaceholder":"אימייל או טלפון",
+    "form.planBtn":"להזמין את השהייה",
+    "area.kicker":"האזור",
+    "area.title":"אזור הררי לקבוצות, משפחות, גולשים, מטיילים וימים איטיים.",
+    "area.lead":"סאס-פה מוקפת בשמונה-עשר פסגות בגובה 4,000 מטר. השתמשו במפה, בפילטרים, בכרטיסי הפעילויות, במסלולים וברעיונות היום כדי לבנות את השהייה סביב הקבוצה שלכם.",
+    "area.privateKicker":"בסיס פרטי, עמק פעיל",
+    "area.privateTitle":"הבית רגוע; האזור מלא אפשרויות.",
+    "area.privateText":"השהייה לא תלויה בפעילות אחת. אורחים יכולים להתפצל לפי גיל, מזג אוויר, רמת אנרגיה או עונה, ואז לחזור לבית פרטי אחד בסוף היום.",
+    "area.safety":"הערת בטיחות: תנאי ההר משתנים במהירות. פתיחת מסלולים, רכבלים, מזג אוויר ודרישות מדריך צריכים להיבדק תמיד מול המידע הרשמי של Saas-Fee/Saastal לפני יציאה.",
+    "map.kicker":"מפה אינטראקטיבית",
+    "map.title":"המפה היא כלי ההתמצאות של כל השהייה.",
+    "map.open":"פתחו מפה מלאה",
+    "map.selected":"אזור נבחר",
+    "helper.all":"מוצג כל האזור: הבית, הכפר, רכבלים, נקודות קרחון, וולנס, פעילויות משפחתיות וימי הר גדולים יותר.",
+    "helper.house":"מוצגים הבית והכפר: הגעה, מרכז הכפר, וולנס קרוב ותנועה מעשית.",
+    "helper.winter":"מוצגות אפשרויות חורף: סקי, מזחלות, קרחון, Ice Pavilion ואפשרויות שלג.",
+    "helper.summer":"מוצגות אפשרויות קיץ: מרמיטות, טיולים, קורקינטים, רכבת הרים, פארק חבלים, מאגר ונופי קרחון.",
+    "helper.family":"מוצגות אפשרויות משפחתיות: הכפר, מרמיטות Spielboden, Hannig, Feeblitz, Aqua Allalin ומסלולים קלים.",
+    "helper.adrenaline":"מוצגות אפשרויות אנרגטיות: Gorge Alpine, פארק חבלים, Feeblitz, מזחלות, קורקינטים ומסלולי הר חזקים יותר.",
+    "helper.trek":"מוצגות אפשרויות מסלול: Längfluh, Almageller Adventure Trail, Mattmark, Gorge Alpine וגישה אלפינית גבוהה.",
+    "helper.calm":"מוצגים ימים רגועים: Fletschhorn, הליכות בכפר, Aqua Allalin, Spielboden, Mattmark וזמן הררי ללא לחץ.",
+    "activities.kicker":"מאתר פעילויות",
+    "activities.title":"בחרו חוויות לפי עונה, קצב ורמת אנרגיה.",
+    "activities.lead":"אותם פילטרים מחברים בין המפה לכרטיסי הפעילות, כדי שאורחים יבחרו במהירות את סוג היום שמתאים להם.",
+    "groups.kicker":"משפחות, קבוצות וריטריטים",
+    "groups.title":"פעילויות פשוטות לגילאים מעורבים. חוויות משותפות לקבוצות.",
+    "groups.lead":"משפחות וקבוצות רב-דוריות יכולות לבחור בין הליכות עדינות, אזורי משחק, רכבלים, מרמיטות, משחקי שלג, חיפוש אוצרות ופעילויות בכפר.",
+    "groups.familyKicker":"למשפחות",
+    "groups.familyTitle":"להתפצל ולהתחבר מחדש בקלות.",
+    "groups.familyText":"חלק מהאורחים יכולים לגלוש, ואחרים לבחור Aqua Allalin, הליכה בכפר, נקודת תצפית ברכבל או שביל יער עדין. היתרון של Fletschhorn הוא שלכל הקבוצה יש מקום פרטי אחד לחזור אליו.",
+    "groups.retreatKicker":"לריטריטים",
+    "groups.retreatTitle":"פעילות ושקט באותו עמק.",
+    "groups.retreatText":"לריטריטים, חברות וקבוצות פרטיות, סאס-פה מציעה סביבה טבעית גם לתנועה וגם לשקט: טיולים מודרכים, סקי, אתגרי צוות, זמן וולנס או רגעים איטיים בכפר וביער.",
+    "dayplans.kicker":"קצבים מוכנים",
+    "dayplans.title":"תוכניות יום פשוטות שאורחים מבינים בשניות.",
+    "dayplans.lead":"השתמשו בקצבים לדוגמה כדי לדמיין יום מלא סביב הבית, מזמן משפחתי רגוע ועד תוכניות הר פעילות.",
+    "cta.kicker":"תכנון השהייה",
+    "cta.title":"בנו את הקצב שמתאים לקבוצה שלכם.",
+    "cta.text":"חלק מהקבוצות מגיעות לסקי. אחרות מגיעות לזמן משפחה, וולנס, טיולים, עבודה או חגיגה פרטית. ספרו לנו מתי אתם מגיעים, מי מצטרף ואיזו חוויה אתם רוצים.",
+    "cta.button":"להזמין את השהייה",
+    "cta.note":"המחירים הטובים ביותר מובטחים בהזמנה ישירה",
+    "cta.seasonKicker":"עונה אחר עונה",
+    "cta.winter":"סקי, סנובורד, מזחלות, חוויות קרחון, חיפוש אוצרות בכפר וריסט וולנס.",
+    "cta.summer":"מרמיטות, טיולים, אגמי הרים, פארק חבלים, קורקינטים, רכבלים ונופי קרחון.",
+    "modal.title":"בקשת שהייה פרטית",
+    "modal.name":"שם",
+    "modal.namePh":"השם שלכם",
+    "modal.checkin":"צ׳ק-אין",
+    "modal.checkout":"צ׳ק-אאוט",
+    "modal.guestsPh":"עד 48 מקומות לינה",
+    "modal.season":"עונה",
+    "modal.notes":"הערות",
+    "modal.notesPh":"טווח גילאים, צרכי נגישות, תאריכים, פעילויות רצויות, צורך במדריך…",
+    "modal.submit":"שליחת בקשה",
+    "modal.sending":"בודקים זמינות…",
+    "modal.sent":"הבקשה נשלחה. נחזור אליכם עם הפרטים הבאים.",
+    "modal.failed":"לא ניתן היה לשלוח את הבקשה מהעמוד. נסו שוב או צרו קשר ישירות עם הנכס."
+  };
+
   i18n.fr = {...i18n.en, ...fr};
   i18n.de = {...i18n.en, ...de};
   i18n.ru = {...i18n.en, ...ru};
+  i18n.he = {...i18n.en, ...he};
 
   const placeBase = {
     fletschhorn:{name:"Fletschhorn / Wildistrasse", lat:46.1237861, lon:7.929103, filter:"house"},
@@ -6549,6 +7116,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     if(value.startsWith('fr')) return 'fr';
     if(value.startsWith('de')) return 'de';
     if(value.startsWith('ru')) return 'ru';
+    if(value.startsWith('he') || value.startsWith('iw')) return 'he';
     return 'en';
   }
 
@@ -6561,7 +7129,9 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     localStorage.setItem('fh_lang', currentLang);
     localStorage.setItem('fhLang', currentLang);
     root.setAttribute('data-current-lang', currentLang);
+    root.setAttribute('dir', currentLang === 'he' ? 'rtl' : 'ltr');
     document.documentElement.setAttribute('lang', currentLang);
+    document.documentElement.setAttribute('dir', currentLang === 'he' ? 'rtl' : 'ltr');
     $all('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     $all('[data-i18n-placeholder]').forEach(el => { el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder)); });
     const helper = $('#fh-map-helper');
@@ -6624,6 +7194,167 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
       if(el.dataset.officialImage === 'true') return;
       if(images[index % images.length]) el.style.setProperty('--activity-image', `url("${images[index % images.length]}")`);
     });
+  }
+
+
+  function imageNameFromUrl(url){
+    try{
+      const clean = String(url || "").split("?")[0].split("#")[0];
+      const name = clean.substring(clean.lastIndexOf("/") + 1);
+      return decodeURIComponent(name.replace(/\+/g, "%20"));
+    }catch(error){
+      return "";
+    }
+  }
+
+  function extractWorkerImageUrl(value, depth){
+    depth = depth || 0;
+    if(!value || depth > 6) return "";
+    if(typeof value === "string"){
+      const clean = value.trim();
+      if(/^https?:\/\//i.test(clean) && /\.(jpe?g|png|webp|gif)(\?|#|$)/i.test(clean)) return clean;
+      if(/^data:image\//i.test(clean)) return clean;
+      return "";
+    }
+    if(Array.isArray(value)){
+      for(let i=0;i<value.length;i++){
+        const found = extractWorkerImageUrl(value[i], depth + 1);
+        if(found) return found;
+      }
+      return "";
+    }
+    if(typeof value !== "object") return "";
+    const priority = ["url","src","href","original","large","regular","secure_url","imageUrl","image_url","file","image","photo","picture","thumbnail","thumb","medium","small"];
+    for(let i=0;i<priority.length;i++){
+      if(Object.prototype.hasOwnProperty.call(value, priority[i])){
+        const found = extractWorkerImageUrl(value[priority[i]], depth + 1);
+        if(found) return found;
+      }
+    }
+    const keys = Object.keys(value);
+    for(let i=0;i<keys.length;i++){
+      const found = extractWorkerImageUrl(value[keys[i]], depth + 1);
+      if(found) return found;
+    }
+    return "";
+  }
+
+  function collectWorkerImages(data){
+    const records = [];
+    const seen = new Set();
+
+    function add(item){
+      const url = extractWorkerImageUrl(item, 0);
+      if(!url || seen.has(url)) return;
+      seen.add(url);
+
+      const names = new Set();
+      const fileName = imageNameFromUrl(url);
+      if(fileName) names.add(fileName);
+
+      if(item && typeof item === "object" && !Array.isArray(item)){
+        ["name","fileName","filename","title","caption","alt","label","key"].forEach(function(k){
+          if(item[k]) names.add(String(item[k]).trim());
+        });
+      }
+
+      records.push({ url:url, names:Array.from(names).filter(Boolean) });
+    }
+
+    if(data && Array.isArray(data.images)) data.images.forEach(add);
+    if(data && data.data && Array.isArray(data.data.images)) data.data.images.forEach(add);
+    if(data && data.listing && Array.isArray(data.listing.images)) data.listing.images.forEach(add);
+
+    if(!records.length){
+      (function walk(value){
+        if(!value || typeof value !== "object") return;
+        if(Array.isArray(value)){ value.forEach(walk); return; }
+        add(value);
+        Object.keys(value).forEach(function(k){ walk(value[k]); });
+      })(data);
+    }
+
+    return records;
+  }
+
+  function applyWorkerImagesByName(records){
+    const byName = {};
+    (records || []).forEach(function(record){
+      (record.names || []).forEach(function(name){
+        byName[name] = record.url;
+      });
+    });
+
+    WORKER_IMAGE_NAMES.forEach(function(name){
+      if(!byName[name]) byName[name] = workerImageUrl(name);
+    });
+
+    root.querySelectorAll("img").forEach(function(img, index){
+      const current = img.getAttribute("src") || "";
+      const oldName = imageNameFromUrl(current);
+      if(byName[oldName]){
+        img.src = byName[oldName];
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.dataset.workerImageApplied = "true";
+      }
+    });
+
+    root.querySelectorAll("[style]").forEach(function(el){
+      const style = el.getAttribute("style") || "";
+      WORKER_IMAGE_NAMES.forEach(function(name){
+        if(style.indexOf(encodeURIComponent(name).replace(/%20/g, "%20")) !== -1 || style.indexOf(name) !== -1){
+          el.style.backgroundImage = 'url("' + (byName[name] || workerImageUrl(name)) + '")';
+          el.dataset.workerImageApplied = "true";
+        }
+      });
+    });
+
+    root.querySelectorAll(".fh-mobile-hero-media").forEach(function(el){
+      el.style.backgroundImage = 'linear-gradient(180deg,rgba(18,16,14,.10),rgba(18,16,14,.42)),url("' + (byName["Nature (8).jpg"] || fallbackImages[7] || fallbackImages[0]) + '")';
+      el.style.backgroundSize = "cover";
+      el.style.backgroundPosition = "center top";
+      el.dataset.workerImageApplied = "true";
+    });
+  }
+
+  async function loadWorkerImages(){
+    try{
+      const url = new URL(BOOKING_WORKER_BASE.replace(/\/$/, "") + "/images");
+      url.searchParams.set("listingId", LISTING_ID);
+      url.searchParams.set("source", "experiences");
+      url.searchParams.set("lang", currentLang || "en");
+
+      const response = await fetch(url.href, {
+        method:"GET",
+        headers:{ "Accept":"application/json" },
+        cache:"no-cache"
+      });
+
+      const text = await response.text();
+      let data;
+      try{ data = JSON.parse(text); }catch(error){ data = { rawText:text }; }
+
+      if(!response.ok || data.ok === false || data.error){
+        throw new Error(data.error || data.message || "Worker images request failed.");
+      }
+
+      const records = collectWorkerImages(data);
+      const urls = records.map(function(r){ return r.url; }).filter(Boolean);
+      const named = WORKER_IMAGE_NAMES.map(workerImageUrl);
+      const merged = [];
+      named.concat(urls).forEach(function(url){
+        if(url && !merged.includes(url)) merged.push(url);
+      });
+
+      applyImages(merged.length ? merged : fallbackImages);
+      applyWorkerImagesByName(records);
+      window.dispatchEvent(new CustomEvent("fh:worker-images-loaded", { detail:{ page:"experiences", count:merged.length }}));
+    }catch(error){
+      console.warn("Fletschhorn Worker images unavailable; using Worker direct image paths.", error);
+      applyImages(fallbackImages);
+      applyWorkerImagesByName([]);
+    }
   }
 
   function mapSrc(place){ return `https://www.google.com/maps?q=${place.lat},${place.lon}&z=13&output=embed`; }
@@ -6891,7 +7622,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     });
   }
 
-  applyImages(fallbackImages);
+  loadWorkerImages();
   watchGlobalLanguageSwitcher();
   applyLanguage(currentLang);
   applyFilter('all', false);
@@ -6903,13 +7634,15 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   "use strict";
 
   const root = document.getElementById("fh-experiences-mobile");
-  if(!root || root.dataset.toolbarCalendarReady === "1") return;
-  root.dataset.toolbarCalendarReady = "1";
+  if(!root) return;
+
+  // Override older toolbar listeners cleanly for the new Fletschhorn Worker flow.
+  root.dataset.toolbarCalendarReady = "worker-calendar-v2";
 
   const CFG = {
     bookingPageUrl:"booking.html",
     listingId:"6968339ab7d735001ca015ba",
-    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev",
+    workerBase:"https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
     minNights:2,
     currency:"CHF"
   };
@@ -6925,86 +7658,187 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   state.currentMonth.setHours(0,0,0,0);
 
   function $(selector){ return root.querySelector(selector); }
+  function $all(selector){ return Array.from(root.querySelectorAll(selector)); }
   function endpoint(path){ return CFG.workerBase.replace(/\/$/,"") + path; }
   function pad(n){ return String(n).padStart(2,"0"); }
   function ymd(date){ return date.getFullYear()+"-"+pad(date.getMonth()+1)+"-"+pad(date.getDate()); }
   function parseDate(value){ return value ? new Date(value + "T00:00:00") : null; }
+  function monthRange(date){
+    const from = new Date(date.getFullYear(), date.getMonth(), 1);
+    const to = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+    return { from:ymd(from), to:ymd(to) };
+  }
   function nightsBetween(a,b){
     const start = parseDate(a), end = parseDate(b);
     if(!start || !end) return 0;
     return Math.round((end - start) / 86400000);
   }
-  function getLang(){
-    return localStorage.getItem("fh_lang") || localStorage.getItem("fhLang") || document.documentElement.lang || "en";
+  function normalizeLang(value){
+    value = String(value || "en").toLowerCase();
+    if(value.startsWith("fr")) return "fr";
+    if(value.startsWith("de")) return "de";
+    if(value.startsWith("ru")) return "ru";
+    if(value.startsWith("he") || value.startsWith("iw")) return "he";
+    return "en";
   }
-  function money(value){
+  function getLang(){
+    return normalizeLang(localStorage.getItem("fh_lang") || localStorage.getItem("fhLang") || document.documentElement.lang || "en");
+  }
+  function localeForLang(lang){
+    return { en:"en-US", fr:"fr-FR", de:"de-DE", ru:"ru-RU", he:"he-IL" }[lang || getLang()] || "en-US";
+  }
+  function label(key){
+    const lang = getLang();
+    const dict = {
+      en:{ dates:"Select arrival and departure", selectDeparture:"Select departure", openCalendar:"Open calendar", minNights:"Please select at least 2 nights.", rangeUnavailable:"One or more selected nights is unavailable. Please choose another range.", booked:"Booked", nightly:"Nightly", estimatedTotal:"Estimated total" },
+      fr:{ dates:"Sélectionnez l’arrivée et le départ", selectDeparture:"Choisir le départ", openCalendar:"Ouvrir le calendrier", minNights:"Veuillez sélectionner au moins 2 nuits.", rangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles.", booked:"Réservé", nightly:"Nuit", estimatedTotal:"Total estimé" },
+      de:{ dates:"Anreise und Abreise auswählen", selectDeparture:"Abreise auswählen", openCalendar:"Kalender öffnen", minNights:"Bitte mindestens 2 Nächte auswählen.", rangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.", booked:"Gebucht", nightly:"Nacht", estimatedTotal:"Geschätzter Gesamtpreis" },
+      ru:{ dates:"Выберите заезд и выезд", selectDeparture:"Выбрать выезд", openCalendar:"Открыть календарь", minNights:"Выберите минимум 2 ночи.", rangeUnavailable:"Одна или несколько выбранных ночей недоступны.", booked:"Занято", nightly:"Ночь", estimatedTotal:"Ориентировочная сумма" },
+      he:{ dates:"בחרו תאריך הגעה ועזיבה", selectDeparture:"בחרו עזיבה", openCalendar:"פתחו יומן", minNights:"יש לבחור לפחות 2 לילות.", rangeUnavailable:"לילה אחד או יותר בטווח שבחרתם אינו זמין. בחרו טווח אחר.", booked:"תפוס", nightly:"לילה", estimatedTotal:"מחיר משוער" }
+    };
+    return (dict[lang] && dict[lang][key]) || dict.en[key] || key;
+  }
+  function money(value, currency){
     const n = Number(value);
     if(!Number.isFinite(n) || n <= 0) return "";
-    return new Intl.NumberFormat(getLang(), { style:"currency", currency:CFG.currency, maximumFractionDigits:0 }).format(n);
+    try{
+      return new Intl.NumberFormat(localeForLang(getLang()), { style:"currency", currency:currency || CFG.currency, maximumFractionDigits:0 }).format(n);
+    }catch(error){
+      return Math.round(n).toLocaleString() + " " + (currency || CFG.currency);
+    }
   }
   function monthTitle(date){
-    return new Intl.DateTimeFormat(getLang(), { month:"long", year:"numeric" }).format(date);
+    return new Intl.DateTimeFormat(localeForLang(getLang()), { month:"long", year:"numeric" }).format(date);
+  }
+  function allCheckInFields(){
+    return $all("#fh-exp-checkin, #fh-mobile-checkin, input[name='checkIn'], input[name='arrivalDate']");
+  }
+  function allCheckOutFields(){
+    return $all("#fh-exp-checkout, #fh-mobile-checkout, input[name='checkOut'], input[name='departureDate']");
   }
   function setHiddenDates(){
-    const checkIn = $("#fh-exp-checkin");
-    const checkOut = $("#fh-exp-checkout");
-    if(checkIn) checkIn.value = state.checkIn || "";
-    if(checkOut) checkOut.value = state.checkOut || "";
+    allCheckInFields().forEach(function(el){ el.value = state.checkIn || ""; });
+    allCheckOutFields().forEach(function(el){ el.value = state.checkOut || ""; });
+  }
+  function totalForRange(){
+    if(!state.checkIn || !state.checkOut) return null;
+    const a = parseDate(state.checkIn), b = parseDate(state.checkOut);
+    if(!a || !b || b <= a) return null;
+    let total = 0, counted = 0, missing = 0, currency = CFG.currency;
+    for(let d = new Date(a); d < b; d.setDate(d.getDate()+1)){
+      const info = state.dayMap[ymd(d)];
+      const price = info && (info.price || info.nightlyPrice || info.basePrice || info.rate || info.amount);
+      if(price === undefined || price === null || price === "" || isNaN(Number(price))){ missing++; continue; }
+      total += Number(price);
+      counted++;
+      currency = (info && info.currency) || currency;
+    }
+    if(!counted || missing) return null;
+    return { total, currency, nights:counted };
   }
   function updateDateText(){
-    const text = $("#fhToolbarDateText");
-    if(!text) return;
-    if(state.checkIn && state.checkOut){
-      const a = parseDate(state.checkIn), b = parseDate(state.checkOut);
-      const fmt = new Intl.DateTimeFormat(getLang(), { month:"short", day:"numeric", year:"numeric" });
-      text.textContent = fmt.format(a) + " → " + fmt.format(b);
-    }else if(state.checkIn){
-      text.textContent = state.checkIn + " → Select departure";
-    }else{
-      text.textContent = "Select arrival and departure";
-    }
+    const texts = $all("#fhToolbarDateText, [data-mobile-date-text]");
+    const total = totalForRange();
+    texts.forEach(function(text){
+      if(state.checkIn && state.checkOut){
+        text.textContent = total
+          ? state.checkIn + " → " + state.checkOut + " · " + label("estimatedTotal") + " " + money(total.total, total.currency)
+          : state.checkIn + " → " + state.checkOut;
+      }else if(state.checkIn){
+        text.textContent = state.checkIn + " → " + label("selectDeparture");
+      }else{
+        text.textContent = label("dates");
+      }
+    });
+    $all(".fh-date-button strong").forEach(function(el){ el.textContent = label("openCalendar"); });
   }
   function showWarning(message){
     const warning = $("#fhToolbarCalendarWarning");
     if(!warning) return;
-    warning.textContent = message || "Please select at least 2 nights.";
+    warning.textContent = message || label("minNights");
     warning.classList.add("show");
   }
   function hideWarning(){
     const warning = $("#fhToolbarCalendarWarning");
     if(warning) warning.classList.remove("show");
   }
-  async function loadMonth(){
-    const month = state.currentMonth.getMonth()+1;
-    const year = state.currentMonth.getFullYear();
-    state.loading = true;
+  function normalizeDay(item){
+    if(!item || typeof item !== "object") return null;
+    const date = item.date || item.day || item.dateString || item.startDate || item._id || "";
+    if(!/^\d{4}-\d{2}-\d{2}/.test(String(date))) return null;
+    const unavailable = item.available === false || item.isAvailable === false ||
+      item.status === "unavailable" || item.status === "booked" || item.status === "BLOCKED" ||
+      item.status === "UNAVAILABLE" || item.availability === "unavailable";
+    const available = item.available === true || item.isAvailable === true ||
+      item.status === "available" || item.status === "AVAILABLE" || item.availability === "available";
+    const price = item.price || item.nightlyPrice || item.basePrice || item.rate || item.amount || item.totalPrice || null;
+    return { date:String(date).slice(0,10), available: unavailable ? false : available, unavailable, price, currency:item.currency || CFG.currency };
+  }
+  function collectDays(data){
+    const out = [];
+    function walk(value){
+      if(!value || typeof value !== "object") return;
+      if(Array.isArray(value)){ value.forEach(walk); return; }
+      const day = normalizeDay(value);
+      if(day) out.push(day);
+      Object.keys(value).forEach(function(k){ walk(value[k]); });
+    }
+    walk(data);
+    return out;
+  }
+  async function workerGetOrPost(path, payload){
     try{
-      const url = new URL(endpoint("/guesty/calendar-month-prices"));
-      url.searchParams.set("listingId", CFG.listingId);
-      url.searchParams.set("year", String(year));
-      url.searchParams.set("month", String(month));
-      const response = await fetch(url.href, { cache:"no-store" });
-      const data = await response.json().catch(() => ({}));
-      const days = Array.isArray(data.days) ? data.days : Array.isArray(data.calendar) ? data.calendar : [];
-      state.dayMap = {};
-      days.forEach(function(day){
-        const date = day.date || day.day || day.dateString;
-        if(!date) return;
-        state.dayMap[date] = day;
+      const url = new URL(endpoint(path));
+      Object.keys(payload || {}).forEach(function(key){
+        if(payload[key] !== undefined && payload[key] !== null && payload[key] !== "") url.searchParams.set(key, payload[key]);
       });
+      const response = await fetch(url.href, { method:"GET", headers:{"Accept":"application/json"}, cache:"no-store" });
+      const text = await response.text();
+      let data; try{ data = JSON.parse(text); }catch(error){ data = { rawText:text }; }
+      if(response.ok && data && data.ok !== false && !data.error) return data;
+    }catch(error){}
+
+    const response = await fetch(endpoint(path), {
+      method:"POST",
+      headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+      body:JSON.stringify(payload || {})
+    });
+    const text = await response.text();
+    let data; try{ data = JSON.parse(text); }catch(error){ data = { rawText:text }; }
+    if(!response.ok || data.ok === false || data.error) throw new Error(data.error || data.message || "Calendar request failed.");
+    return data;
+  }
+  async function loadMonth(){
+    const range = monthRange(state.currentMonth);
+    state.loading = true;
+    renderCalendar();
+    try{
+      const data = await workerGetOrPost("/calendar", {
+        listingId:CFG.listingId,
+        guestyListingId:CFG.listingId,
+        from:range.from,
+        to:range.to,
+        startDate:range.from,
+        endDate:range.to,
+        language:getLang(),
+        source:"experiences-toolbar-calendar"
+      });
+      const days = collectDays(data);
+      state.dayMap = {};
+      days.forEach(function(day){ state.dayMap[day.date] = day; });
     }catch(error){
-      console.warn("Fletschhorn calendar prices unavailable:", error);
+      console.warn("Fletschhorn Worker calendar prices unavailable:", error);
       state.dayMap = {};
     }finally{
       state.loading = false;
       renderCalendar();
+      updateDateText();
     }
   }
   function isUnavailable(dateString){
     const info = state.dayMap[dateString];
     if(!info) return false;
-    if(info.available === false || info.isAvailable === false || info.status === "unavailable" || info.status === "booked") return true;
-    return false;
+    return info.unavailable === true || info.available === false;
   }
   function rangeUnavailable(start,end){
     const a = parseDate(start), b = parseDate(end);
@@ -7052,10 +7886,10 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
       if(dateString === state.checkOut) btn.classList.add("end");
       if(state.checkIn && state.checkOut && dateString > state.checkIn && dateString < state.checkOut) btn.classList.add("range");
 
-      const price = info.price || info.nightlyPrice || info.rate || info.basePrice;
+      const price = info.price || info.nightlyPrice || info.rate || info.basePrice || info.amount;
       btn.innerHTML = '<span class="fh-day-number">'+day+'</span>' +
-        '<span class="fh-day-price">'+(money(price) || '&nbsp;')+'</span>' +
-        '<span class="fh-day-status">'+(past ? '' : unavailable ? 'Booked' : (price ? 'Nightly' : ''))+'</span>';
+        '<span class="fh-day-price'+(price ? '' : ' missing')+'">'+(money(price, info.currency) || '&nbsp;')+'</span>' +
+        '<span class="fh-day-status">'+(past ? '' : unavailable ? label("booked") : (price ? label("nightly") : ''))+'</span>';
       btn.disabled = past || unavailable;
       btn.addEventListener("click", function(){ chooseDate(dateString); });
       grid.appendChild(btn);
@@ -7073,12 +7907,12 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     }
     const nights = nightsBetween(state.checkIn, dateString);
     if(nights < CFG.minNights){
-      showWarning("Please select at least 2 nights.");
+      showWarning(label("minNights"));
       renderCalendar();
       return;
     }
     if(rangeUnavailable(state.checkIn, dateString)){
-      showWarning("One or more selected nights is unavailable. Please choose another range.");
+      showWarning(label("rangeUnavailable"));
       state.checkIn = dateString;
       state.checkOut = "";
       setHiddenDates();
@@ -7092,7 +7926,11 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     renderCalendar();
     closeCalendar();
   }
-  function openCalendar(){
+  function openCalendar(event){
+    if(event){
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
     const modal = $("#fhToolbarCalendarModal");
     if(!modal) return;
     hideWarning();
@@ -7100,7 +7938,11 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     modal.setAttribute("aria-hidden","false");
     loadMonth();
   }
-  function closeCalendar(){
+  function closeCalendar(event){
+    if(event){
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
     const modal = $("#fhToolbarCalendarModal");
     if(!modal) return;
     modal.classList.remove("open");
@@ -7109,34 +7951,46 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   function initFromStorage(){
     try{
       const saved = JSON.parse(localStorage.getItem("fhBookingStart") || "{}");
-      state.checkIn = saved.checkIn || saved.arrival || "";
-      state.checkOut = saved.checkOut || saved.departure || "";
+      state.checkIn = saved.checkIn || saved.arrival || saved.arrivalDate || "";
+      state.checkOut = saved.checkOut || saved.departure || saved.departureDate || "";
       if(saved.firstName && $("#fh-exp-first-name")) $("#fh-exp-first-name").value = saved.firstName;
       if(saved.lastName && $("#fh-exp-last-name")) $("#fh-exp-last-name").value = saved.lastName;
       if(saved.email && $("#fh-exp-email")) $("#fh-exp-email").value = saved.email;
+      if(saved.firstName && $("#fh-mobile-first-name")) $("#fh-mobile-first-name").value = saved.firstName;
+      if(saved.lastName && $("#fh-mobile-last-name")) $("#fh-mobile-last-name").value = saved.lastName;
+      if(saved.email && $("#fh-mobile-email")) $("#fh-mobile-email").value = saved.email;
     }catch(error){}
+
     const params = new URLSearchParams(window.location.search);
     if(params.get("checkIn")) state.checkIn = params.get("checkIn");
     if(params.get("checkOut")) state.checkOut = params.get("checkOut");
     if(params.get("firstName") && $("#fh-exp-first-name")) $("#fh-exp-first-name").value = params.get("firstName");
     if(params.get("lastName") && $("#fh-exp-last-name")) $("#fh-exp-last-name").value = params.get("lastName");
     if(params.get("email") && $("#fh-exp-email")) $("#fh-exp-email").value = params.get("email");
+    if(params.get("firstName") && $("#fh-mobile-first-name")) $("#fh-mobile-first-name").value = params.get("firstName");
+    if(params.get("lastName") && $("#fh-mobile-last-name")) $("#fh-mobile-last-name").value = params.get("lastName");
+    if(params.get("email") && $("#fh-mobile-email")) $("#fh-mobile-email").value = params.get("email");
+
     setHiddenDates();
     updateDateText();
   }
 
-  const openBtn = $("#fhOpenToolbarCalendar");
+  $all("#fhOpenToolbarCalendar, [data-mobile-open-calendar]").forEach(function(btn){
+    btn.addEventListener("click", openCalendar, true);
+  });
   const closeBtn = $("#fhToolbarCloseCalendar");
   const prevBtn = $("#fhToolbarPrevMonth");
   const nextBtn = $("#fhToolbarNextMonth");
   const modal = $("#fhToolbarCalendarModal");
-
-  if(openBtn) openBtn.addEventListener("click", openCalendar);
-  if(closeBtn) closeBtn.addEventListener("click", closeCalendar);
-  if(prevBtn) prevBtn.addEventListener("click", function(){ state.currentMonth.setMonth(state.currentMonth.getMonth()-1); loadMonth(); });
-  if(nextBtn) nextBtn.addEventListener("click", function(){ state.currentMonth.setMonth(state.currentMonth.getMonth()+1); loadMonth(); });
-  if(modal) modal.addEventListener("click", function(event){ if(event.target === modal) closeCalendar(); });
+  if(closeBtn) closeBtn.addEventListener("click", closeCalendar, true);
+  if(prevBtn) prevBtn.addEventListener("click", function(event){ event.preventDefault(); event.stopImmediatePropagation(); state.currentMonth.setMonth(state.currentMonth.getMonth()-1); loadMonth(); }, true);
+  if(nextBtn) nextBtn.addEventListener("click", function(event){ event.preventDefault(); event.stopImmediatePropagation(); state.currentMonth.setMonth(state.currentMonth.getMonth()+1); loadMonth(); }, true);
+  if(modal) modal.addEventListener("click", function(event){ if(event.target === modal) closeCalendar(event); }, true);
   document.addEventListener("keydown", function(event){ if(event.key === "Escape") closeCalendar(); });
+
+  window.addEventListener("storage", updateDateText);
+  window.addEventListener("fh:language", updateDateText);
+  window.addEventListener("fh:lang-applied", updateDateText);
 
   initFromStorage();
   renderCalendar();
@@ -7336,6 +8190,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     if(value.startsWith('fr')) return 'fr';
     if(value.startsWith('de')) return 'de';
     if(value.startsWith('ru')) return 'ru';
+    if(value.startsWith('he') || value.startsWith('iw')) return 'he';
     return 'en';
   }
   function currentLang(){return normalizeLang(localStorage.getItem('fh_lang') || localStorage.getItem('fhLang') || document.documentElement.lang || 'en')}
