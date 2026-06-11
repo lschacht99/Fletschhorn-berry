@@ -91,6 +91,7 @@
 }
 
 #fh-checkout-main .fh-langbar{
+  display:none!important;
   position:fixed;
   z-index:60;
   top:76px;
@@ -511,11 +512,12 @@
   <div class="fh-bg" aria-hidden="true"></div>
   <div class="fh-grain" aria-hidden="true"></div>
 
-  <div class="fh-langbar" role="group" aria-label="Choose language">
+  <div class="fh-langbar" role="group" aria-label="Choose language" hidden>
     <button type="button" data-fh-lang="en">EN</button>
     <button type="button" data-fh-lang="fr">FR</button>
     <button type="button" data-fh-lang="de">DE</button>
     <button type="button" data-fh-lang="ru">RU</button>
+    <button type="button" data-fh-lang="he">HE</button>
   </div>
 
   <main class="fh-page">
@@ -523,7 +525,7 @@
       <aside class="fh-image-card" id="fhCheckoutSideImage" aria-hidden="true">
         <div class="fh-image-caption">
           <span data-i18n="imageKicker">Private alpine stay</span>
-          <strong data-i18n="imageTitle">Your request is now with the Fletschhorn team.</strong>
+          <strong data-i18n="imageTitle">Your Fletschhorn booking is now confirmed.</strong>
         </div>
       </aside>
 
@@ -533,9 +535,9 @@
         </div>
 
         <article class="fh-confirm-card">
-          <div class="fh-status" data-i18n="status">Request received</div>
-          <h1 data-i18n="title">Thank you.</h1>
-          <p class="fh-lead" data-i18n="lead">We have received your booking request. Our team will review the stay details and send confirmation, payment information, and next steps by email.</p>
+          <div class="fh-status" data-i18n="status">Booking confirmed</div>
+          <h1 data-i18n="title">Your stay is confirmed.</h1>
+          <p class="fh-lead" data-i18n="lead">Your booking has been received with the fixed calendar total from checkout. Reservation details and next steps will be sent by email.</p>
 
           <div class="fh-summary">
             <div class="fh-summary-item">
@@ -553,6 +555,10 @@
             <div class="fh-summary-item">
               <span class="fh-label" data-i18n="guestsLabel">Guests</span>
               <strong id="fhGuests">—</strong>
+            </div>
+            <div class="fh-summary-item">
+              <span class="fh-label" data-i18n="totalLabel">Total charged</span>
+              <strong id="fhTotal">—</strong>
             </div>
             <div class="fh-summary-item wide">
               <span class="fh-label" data-i18n="requestLabel">Request reference</span>
@@ -635,12 +641,13 @@
     "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg"
   ].map(cleanImageUrl));
 
-  const LANGS = ["en","fr","de","ru"];
+  const LANGS = ["en","fr","de","ru","he"];
   const I18N = {
-    en:{status:"Request received",title:"Thank you.",lead:"We have received your booking request. Our team will review the stay details and send confirmation, payment information, and next steps by email.",imageKicker:"Private alpine stay",imageTitle:"Your request is now with the Fletschhorn team.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Guest",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Guests",requestLabel:"Request reference",note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",homeBtn:"Return home",newBtn:"Start another request",sentByEmail:"Sent by email",night:"night",nights:"nights",guestWord:"guests"},
-    fr:{status:"Demande reçue",title:"Merci.",lead:"Nous avons bien reçu votre demande de réservation. Notre équipe vérifiera les détails du séjour et vous enverra la confirmation, les informations de paiement et les prochaines étapes par email.",imageKicker:"Séjour alpin privé",imageTitle:"Votre demande est maintenant entre les mains de l’équipe Fletschhorn.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Client",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Invités",requestLabel:"Référence",note:"Veuillez vérifier votre boîte mail. Si quelque chose doit être ajusté, répondez directement à l’email de confirmation.",homeBtn:"Retour à l’accueil",newBtn:"Nouvelle demande",sentByEmail:"Envoyé par email",night:"nuit",nights:"nuits",guestWord:"invités"},
-    de:{status:"Anfrage erhalten",title:"Vielen Dank.",lead:"Wir haben Ihre Buchungsanfrage erhalten. Unser Team prüft die Aufenthaltsdetails und sendet Bestätigung, Zahlungsinformationen und nächste Schritte per E-Mail.",imageKicker:"Privater alpiner Aufenthalt",imageTitle:"Ihre Anfrage liegt jetzt beim Fletschhorn-Team.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Gast",emailLabel:"E-Mail",datesLabel:"Daten",guestsLabel:"Gäste",requestLabel:"Referenz",note:"Bitte prüfen Sie Ihren Posteingang. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",homeBtn:"Zur Startseite",newBtn:"Neue Anfrage",sentByEmail:"Per E-Mail gesendet",night:"Nacht",nights:"Nächte",guestWord:"Gäste"},
-    ru:{status:"Запрос получен",title:"Спасибо.",lead:"Мы получили ваш запрос на бронирование. Наша команда проверит детали проживания и отправит подтверждение, информацию об оплате и следующие шаги по email.",imageKicker:"Частное альпийское пребывание",imageTitle:"Ваш запрос уже у команды Fletschhorn.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Гость",emailLabel:"Email",datesLabel:"Даты",guestsLabel:"Гости",requestLabel:"Номер запроса",note:"Проверьте вашу почту. Если нужно что-то изменить, ответьте прямо на письмо с подтверждением.",homeBtn:"На главную",newBtn:"Новый запрос",sentByEmail:"Отправлено по email",night:"ночь",nights:"ночей",guestWord:"гостей"}
+    en:{status:"Booking confirmed",title:"Your stay is confirmed.",lead:"Your booking has been received with the fixed calendar total from checkout. Reservation details and next steps will be sent by email.",imageKicker:"Private alpine stay",imageTitle:"Your Fletschhorn booking is now confirmed.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Guest",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Guests",totalLabel:"Total charged",requestLabel:"Reservation reference",note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",homeBtn:"Return home",newBtn:"Start another request",sentByEmail:"Sent by email",night:"night",nights:"nights",guestWord:"guests"},
+    fr:{status:"Réservation confirmée",title:"Votre séjour est confirmé.",lead:"Votre réservation a été reçue avec le total fixe du calendrier validé au checkout. Les détails de réservation et les prochaines étapes seront envoyés par email.",imageKicker:"Séjour alpin privé",imageTitle:"Votre réservation Fletschhorn est maintenant confirmée.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Client",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Invités",totalLabel:"Total facturé",requestLabel:"Référence de réservation",note:"Veuillez vérifier votre boîte mail. Si quelque chose doit être ajusté, répondez directement à l’email de confirmation.",homeBtn:"Retour à l’accueil",newBtn:"Nouvelle demande",sentByEmail:"Envoyé par email",night:"nuit",nights:"nuits",guestWord:"invités"},
+    de:{status:"Buchung bestätigt",title:"Ihr Aufenthalt ist bestätigt.",lead:"Ihre Buchung wurde mit der festen Kalendersumme aus dem Checkout empfangen. Reservierungsdetails und nächste Schritte werden per E-Mail gesendet.",imageKicker:"Privater alpiner Aufenthalt",imageTitle:"Ihre Fletschhorn-Buchung ist jetzt bestätigt.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Gast",emailLabel:"E-Mail",datesLabel:"Daten",guestsLabel:"Gäste",totalLabel:"Berechneter Gesamtbetrag",requestLabel:"Reservierungsreferenz",note:"Bitte prüfen Sie Ihren Posteingang. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",homeBtn:"Zur Startseite",newBtn:"Neue Anfrage",sentByEmail:"Per E-Mail gesendet",night:"Nacht",nights:"Nächte",guestWord:"Gäste"},
+    ru:{status:"Бронирование подтверждено",title:"Ваше пребывание подтверждено.",lead:"Ваше бронирование получено с фиксированной календарной суммой из checkout. Детали резервации и следующие шаги будут отправлены по email.",imageKicker:"Частное альпийское пребывание",imageTitle:"Ваше бронирование Fletschhorn подтверждено.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Гость",emailLabel:"Email",datesLabel:"Даты",guestsLabel:"Гости",totalLabel:"Списанная сумма",requestLabel:"Номер резервации",note:"Проверьте вашу почту. Если нужно что-то изменить, ответьте прямо на письмо с подтверждением.",homeBtn:"На главную",newBtn:"Новый запрос",sentByEmail:"Отправлено по email",night:"ночь",nights:"ночей",guestWord:"гостей"},
+    he:{status:"ההזמנה אושרה",title:"השהייה שלכם אושרה.",lead:"ההזמנה התקבלה עם המחיר הקבוע מה-calendar total של checkout. פרטי ההזמנה והשלבים הבאים יישלחו באימייל.",imageKicker:"שהייה אלפינית פרטית",imageTitle:"הזמנת Fletschhorn שלכם אושרה.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"אורח",emailLabel:"אימייל",datesLabel:"תאריכים",guestsLabel:"אורחים",totalLabel:"סה״כ שחויב",requestLabel:"מספר הזמנה",note:"בדקו את תיבת המייל. אם צריך לשנות משהו, השיבו ישירות לאימייל האישור.",homeBtn:"חזרה לבית",newBtn:"הזמנה חדשה",sentByEmail:"נשלח באימייל",night:"לילה",nights:"לילות",guestWord:"אורחים"}
   };
 
   function normalizeLang(lang){
@@ -676,9 +683,12 @@
       checkIn:params.get("checkIn") || stored.checkIn || "",
       checkOut:params.get("checkOut") || stored.checkOut || "",
       guests:params.get("guests") || stored.guests || "",
-      lang:params.get("lang") || stored.language || localStorage.getItem("fh_lang") || "en",
+      lang:params.get("lang") || stored.lang || stored.language || localStorage.getItem("fh_lang") || "en",
       reservationId:params.get("reservationId") || stored.reservationId || "",
-      confirmationCode:params.get("confirmationCode") || stored.confirmationCode || ""
+      confirmationCode:params.get("confirmationCode") || stored.confirmationCode || "",
+      finalTotal:params.get("finalTotal") || stored.finalTotal || "",
+      finalCurrency:params.get("finalCurrency") || stored.finalCurrency || stored.currency || "CHF",
+      finalPriceText:params.get("finalPriceText") || stored.finalPriceText || ""
     };
   }
 
@@ -694,6 +704,8 @@
     try{localStorage.setItem("fh_lang", currentLang)}catch(e){}
     root.dataset.lang = currentLang;
     document.documentElement.setAttribute("lang", currentLang);
+    document.documentElement.setAttribute("dir", currentLang === "he" ? "rtl" : "ltr");
+    root.setAttribute("dir", currentLang === "he" ? "rtl" : "ltr");
     root.querySelectorAll("[data-i18n]").forEach(function(el){
       const key = el.getAttribute("data-i18n");
       if(t(key)) el.textContent = t(key);
@@ -717,6 +729,13 @@
     if(LANGS.includes(normalizeLang(lang))) setLang(lang);
   });
 
+  function formatMoney(amount,currency){
+    const n = Number(amount);
+    if(!Number.isFinite(n) || n <= 0) return "";
+    try{return new Intl.NumberFormat(currentLang === "en" ? "en-US" : currentLang, {style:"currency", currency:currency || "CHF", maximumFractionDigits:0}).format(n)}
+    catch(e){return Math.round(n).toLocaleString() + " " + (currency || "CHF")}
+  }
+
   function renderData(){
     const nights = nightsBetween(data.checkIn, data.checkOut);
     const guest = [data.firstName,data.lastName].filter(Boolean).join(" ");
@@ -732,7 +751,9 @@
     setText("fhGuest", guest);
     setText("fhEmail", data.email);
     setText("fhDates", dates);
+    const totalText = data.finalPriceText || formatMoney(data.finalTotal, data.finalCurrency) || "—";
     setText("fhGuests", data.guests ? `${data.guests} ${t("guestWord")}` : "—");
+    setText("fhTotal", totalText);
     setText("fhReference", reference);
   }
 
