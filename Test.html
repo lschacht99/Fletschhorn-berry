@@ -1432,7 +1432,18 @@
       }
 
       #fh-home .fh-day-price{
-        display:none;
+        display:block!important;
+        margin-top:5px;
+        font-size:8.5px;
+        line-height:1.05;
+        font-weight:850;
+        color:rgba(28,24,20,.62);
+        white-space:nowrap;
+      }
+
+      #fh-home .fh-day.start .fh-day-price,
+      #fh-home .fh-day.end .fh-day-price{
+        color:rgba(255,250,242,.78);
       }
 
       #fh-home .fh-section{
@@ -2559,6 +2570,12 @@
         scroll-behavior:auto!important;
       }
     }
+
+    /* Safety override: Worker calendar prices must remain visible on desktop and mobile. */
+    #fh-home .fh-day-price{
+      display:block!important;
+      white-space:nowrap;
+    }
   </style>
 </head>
 
@@ -2963,7 +2980,7 @@
       const root = document.getElementById("fh-home");
       if (!root) return;
 
-      root.dataset.ready = "fh-github-index-worker-images-schedule-he-v3";
+      root.dataset.ready = "fh-github-index-worker-images-schedule-he-v4";
 
       const CFG = {
         bookingPageUrl: "booking.html",
@@ -4561,6 +4578,39 @@
         };
       }
 
+      function startSlideshow(){
+        const hero = $("#fhHeroMedia");
+        if (!hero) return;
+
+        const slides = Array.from(hero.querySelectorAll(".fh-hero-slide"));
+
+        if (state.heroTimer){
+          window.clearInterval(state.heroTimer);
+          state.heroTimer = null;
+        }
+
+        if (!slides.length) return;
+
+        slides.forEach(function(slide, index){
+          slide.classList.toggle("active", index === 0);
+        });
+
+        if (slides.length < 2) return;
+
+        let index = 0;
+        state.heroTimer = window.setInterval(function(){
+          if (!document.body.contains(hero)){
+            window.clearInterval(state.heroTimer);
+            state.heroTimer = null;
+            return;
+          }
+
+          slides[index].classList.remove("active");
+          index = (index + 1) % slides.length;
+          slides[index].classList.add("active");
+        }, 5200);
+      }
+
       function setHeroSlides(urls){
         const hero = $("#fhHeroMedia");
         if (!hero) return;
@@ -4635,13 +4685,7 @@
         setStaticImages();
         initCarousel("inside", IMAGES.inside);
         initCarousel("kitchen", IMAGES.kitchen);
-        if (typeof window.startSlideshow === "function") {
-  window.startSlideshow();
-} else if (typeof startSlideshow === "function") {
-  startSlideshow();
-} else {
-  console.warn("Fletschhorn: images loaded, but no slideshow function was found.");
-};
+        startSlideshow();
 
         await loadWorkerImages();
 
