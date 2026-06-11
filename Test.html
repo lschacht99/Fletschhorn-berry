@@ -4635,7 +4635,13 @@
         setStaticImages();
         initCarousel("inside", IMAGES.inside);
         initCarousel("kitchen", IMAGES.kitchen);
-        startSlideshow();
+        if (typeof window.startSlideshow === "function") {
+  window.startSlideshow();
+} else if (typeof startSlideshow === "function") {
+  startSlideshow();
+} else {
+  console.warn("Fletschhorn: images loaded, but no slideshow function was found.");
+};
 
         await loadWorkerImages();
 
