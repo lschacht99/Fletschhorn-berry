@@ -400,6 +400,7 @@
       <button type="button" data-lang="fr">FR</button>
       <button type="button" data-lang="de">DE</button>
       <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="he">HE</button>
     </div>
   `);
 
@@ -463,7 +464,7 @@
   const globalLangSwitch = document.querySelector(".fh-global-lang-switch");
 
   function cleanLang(lang){
-    return ["en","fr","de","ru"].includes(lang) ? lang : "en";
+    return ["en","fr","de","ru","he"].includes(lang) ? lang : "en";
   }
 
   function getStoredFhLang(){
@@ -482,6 +483,7 @@
     });
 
     document.documentElement.setAttribute("lang", selectedLang);
+    document.documentElement.setAttribute("dir", selectedLang === "he" ? "rtl" : "ltr");
 
     try {
       localStorage.setItem("fh_lang", selectedLang);
