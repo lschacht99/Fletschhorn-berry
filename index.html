@@ -1432,7 +1432,18 @@
       }
 
       #fh-home .fh-day-price{
-        display:none;
+        display:block!important;
+        margin-top:5px;
+        font-size:8.5px;
+        line-height:1.05;
+        font-weight:850;
+        color:rgba(28,24,20,.62);
+        white-space:nowrap;
+      }
+
+      #fh-home .fh-day.start .fh-day-price,
+      #fh-home .fh-day.end .fh-day-price{
+        color:rgba(255,250,242,.78);
       }
 
       #fh-home .fh-section{
@@ -2519,26 +2530,14 @@
 
 
 
-
-    /* =========================================================
-       LANGUAGE TOOLBAR HIDDEN + HEBREW RTL SUPPORT
-       The page-level language toolbar stays in the DOM for JS
-       compatibility, but is completely invisible. Language is
-       controlled by the shared header / localStorage / URL.
-       ========================================================= */
-
+    /* Header-controlled language mode.
+       The page-level language bar stays in the DOM only for legacy JS compatibility,
+       but it is invisible because the shared header now controls fh_lang. */
     #fh-home .fh-lang-switch{
       display:none!important;
       visibility:hidden!important;
-      opacity:0!important;
       pointer-events:none!important;
-      position:absolute!important;
-      width:0!important;
-      height:0!important;
-      max-width:0!important;
-      max-height:0!important;
-      overflow:hidden!important;
-      clip-path:inset(50%)!important;
+      opacity:0!important;
     }
 
     #fh-home[dir="rtl"]{
@@ -2546,85 +2545,20 @@
     }
 
     #fh-home[dir="rtl"] .fh-booking,
-    #fh-home[dir="rtl"] .fh-field,
-    #fh-home[dir="rtl"] .fh-date-button,
-    #fh-home[dir="rtl"] .fh-panel,
-    #fh-home[dir="rtl"] .fh-room-copy,
-    #fh-home[dir="rtl"] .fh-card .copy,
-    #fh-home[dir="rtl"] .fh-season .copy,
+    #fh-home[dir="rtl"] .fh-calendar-card,
     #fh-home[dir="rtl"] .fh-map-note,
-    #fh-home[dir="rtl"] .fh-map-context,
-    #fh-home[dir="rtl"] .fh-social-card,
-    #fh-home[dir="rtl"] .fh-contact-line,
-    #fh-home[dir="rtl"] .fh-status{
+    #fh-home[dir="rtl"] .fh-social-link,
+    #fh-home[dir="rtl"] .fh-contact-line{
       text-align:right;
     }
 
-    #fh-home[dir="rtl"] input,
-    #fh-home[dir="rtl"] textarea,
-    #fh-home[dir="rtl"] select{
-      direction:rtl;
-      text-align:right;
-    }
-
-    #fh-home[dir="rtl"] input[type="email"]{
+    #fh-home[dir="rtl"] input[type="email"],
+    #fh-home[dir="rtl"] input[type="tel"],
+    #fh-home[dir="rtl"] .fh-date-button span,
+    #fh-home[dir="rtl"] .fh-day-price{
       direction:ltr;
       text-align:left;
-    }
-
-    #fh-home[dir="rtl"] .fh-field{
-      border-right:0;
-      border-left:1px solid var(--line);
-    }
-
-    #fh-home[dir="rtl"] .fh-date-button{
-      flex-direction:row-reverse;
-    }
-
-    #fh-home[dir="rtl"] .fh-carousel-nav{
-      right:auto;
-      left:18px;
-      flex-direction:row-reverse;
-    }
-
-    #fh-home[dir="rtl"] .fh-map-open{
-      right:auto;
-      left:18px;
-    }
-
-    #fh-home[dir="rtl"] .fh-map-context{
-      left:auto;
-      right:18px;
-    }
-
-    #fh-home[dir="rtl"] .fh-time-card:before{
-      left:auto;
-      right:0;
-    }
-
-    #fh-home[dir="rtl"] .fh-social-link{
-      flex-direction:row-reverse;
-    }
-
-    @media(max-width:640px){
-      #fh-home[dir="rtl"] .fh-field:nth-child(odd){
-        border-left:1px solid var(--line);
-      }
-
-      #fh-home[dir="rtl"] .fh-carousel-nav{
-        right:auto;
-        left:8px;
-      }
-
-      #fh-home[dir="rtl"] .fh-map-open{
-        right:auto;
-        left:10px;
-      }
-
-      #fh-home[dir="rtl"] .fh-map-context{
-        left:10px;
-        right:10px;
-      }
+      unicode-bidi:plaintext;
     }
 
     @media(prefers-reduced-motion:reduce){
@@ -2636,6 +2570,125 @@
         scroll-behavior:auto!important;
       }
     }
+
+    /* Safety override: Worker calendar prices must remain visible on desktop and mobile. */
+    #fh-home .fh-day-price{
+      display:block!important;
+      white-space:nowrap;
+    }
+
+
+    /* HARD FIX: force Worker media/prices visible even if older mobile rules still exist. */
+    #fh-home .fh-day-price{
+      display:block!important;
+      visibility:visible!important;
+      opacity:1!important;
+      min-height:10px!important;
+      margin-top:5px!important;
+      font-size:9px!important;
+      line-height:1.05!important;
+      font-weight:850!important;
+      color:rgba(28,24,20,.68)!important;
+      white-space:nowrap!important;
+    }
+
+    #fh-home .fh-day-price.missing{
+      display:none!important;
+    }
+
+    #fh-home .fh-day.start .fh-day-price,
+    #fh-home .fh-day.end .fh-day-price{
+      color:rgba(255,250,242,.86)!important;
+    }
+
+    #fh-home img[data-worker-image-applied="true"],
+    #fh-home img[data-img]{
+      display:block!important;
+      opacity:1!important;
+      visibility:visible!important;
+    }
+
+
+    /* HERO CONTACT INFO — direct phone/email visible before booking toolbar */
+    #fh-home .fh-hero-contact{
+      width:min(760px,100%);
+      margin:clamp(13px,1.8vw,20px) auto 0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    #fh-home .fh-hero-contact-item{
+      min-height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:11px 15px;
+      border:1px solid rgba(255,250,242,.28);
+      background:rgba(255,250,242,.14);
+      color:var(--white);
+      -webkit-backdrop-filter:blur(12px);
+      backdrop-filter:blur(12px);
+      box-shadow:0 12px 34px rgba(20,16,12,.12);
+      transition:background .18s,border-color .18s,transform .18s;
+    }
+
+    #fh-home .fh-hero-contact-item:hover{
+      background:rgba(255,250,242,.20);
+      border-color:rgba(255,250,242,.42);
+      transform:translateY(-1px);
+    }
+
+    #fh-home .fh-hero-contact-item span{
+      color:rgba(255,250,242,.68);
+      font-size:9px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.15em;
+      font-weight:850;
+      white-space:nowrap;
+    }
+
+    #fh-home .fh-hero-contact-item strong{
+      color:#fffaf2;
+      font-size:13px;
+      line-height:1.15;
+      font-weight:850;
+      overflow-wrap:anywhere;
+    }
+
+    #fh-home .fh-hero-contact-item[href^="tel"] strong,
+    #fh-home .fh-hero-contact-item[href^="mailto"] strong{
+      direction:ltr;
+      unicode-bidi:plaintext;
+    }
+
+    @media(max-width:640px){
+      #fh-home .fh-hero-contact{
+        margin-top:8px;
+        gap:6px;
+      }
+
+      #fh-home .fh-hero-contact-item{
+        flex:1 1 100%;
+        min-height:36px;
+        padding:8px 10px;
+        gap:7px;
+      }
+
+      #fh-home .fh-hero-contact-item span{
+        font-size:7.5px;
+        letter-spacing:.10em;
+      }
+
+      #fh-home .fh-hero-contact-item strong{
+        font-size:11.5px;
+      }
+    }
+
   </style>
 </head>
 
@@ -2645,7 +2698,7 @@
   <div id="fh-home" data-current-lang="en">
     <div class="fh-ambient" aria-hidden="true"></div>
 
-    <div class="fh-lang-switch" role="group" aria-label="Language" aria-hidden="true" hidden>
+    <div class="fh-lang-switch" role="group" aria-label="Language">
       <button type="button" data-lang="en" class="active">EN</button>
       <button type="button" data-lang="fr">FR</button>
       <button type="button" data-lang="de">DE</button>
@@ -2660,6 +2713,17 @@
         <p class="fh-kicker fh-reveal" data-i18n="heroKicker">Private Swiss chalet · Saas-Fee</p>
         <h1 class="fh-reveal" data-i18n="heroTitle">Your Private Swiss Chalet Above Saas-Fee</h1>
         <p class="fh-hero-lead fh-reveal" data-i18n="heroLead">Reserve the whole chalet for your group: 14 rooms, up to 48 sleeping places, flexible kitchen access, and a private alpine base above Saas-Fee.</p>
+
+        <div class="fh-hero-contact fh-reveal" aria-label="Direct contact">
+          <a class="fh-hero-contact-item" href="tel:+41279572131">
+            <span data-i18n="heroContactPhone">Call direct</span>
+            <strong>+41 27 957 2131</strong>
+          </a>
+          <a class="fh-hero-contact-item" href="mailto:welcome@fletschhorn.ch">
+            <span data-i18n="heroContactEmail">Email</span>
+            <strong>welcome@fletschhorn.ch</strong>
+          </a>
+        </div>
 
         <div class="fh-booking fh-reveal" id="booking">
           <div class="fh-booking-form" id="fhBookingFields">
@@ -2931,7 +2995,8 @@
 
         <div class="fh-panel fh-reveal">
           <div class="fh-contact-line"><span data-i18n="addressLabel">Address</span><strong>Wildistrasse, 3906 Saas-Fee, Switzerland</strong></div>
-          <div class="fh-contact-line"><span data-i18n="phoneLabel">Phone</span><strong>+41 27 957 2131</strong></div>
+          <div class="fh-contact-line"><span data-i18n="phoneLabel">Phone</span><strong><a href="tel:+41279572131">+41 27 957 2131</a></strong></div>
+          <div class="fh-contact-line"><span data-i18n="emailLabel">Email</span><strong><a href="mailto:welcome@fletschhorn.ch">welcome@fletschhorn.ch</a></strong></div>
           <div class="fh-contact-line"><span data-i18n="directLabel">Direct note</span><strong data-i18n="directText">Best rates are available when booking direct.</strong></div>
         </div>
       </div>
@@ -3040,18 +3105,19 @@
       const root = document.getElementById("fh-home");
       if (!root) return;
 
-      root.dataset.ready = "fh-github-index-toolbar-schedule-v2";
+      root.dataset.ready = "fh-github-index-worker-images-schedule-he-v5-hard-fix";
 
       const CFG = {
         bookingPageUrl: "booking.html",
         listingId: "6968339ab7d735001ca015ba",
-        workerBase: "https://guetsyapi.moshe-cohen-h1.workers.dev",
+        workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
         minNights: 2,
         currency: "CHF"
       };
 
       const ENDPOINTS = {
-        calendarMonthPrices: "/guesty/calendar-month-prices"
+        calendarMonthPrices: "/calendar",
+        images: "/images"
       };
 
       function $(selector){
@@ -3066,62 +3132,29 @@
         return CFG.workerBase.replace(/\/$/, "") + path;
       }
 
-      const IK = "https://ik.imagekit.io/Redberry/";
+      const PLACEHOLDER_IMAGE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23efe5d9'/%3E%3Cstop offset='.45' stop-color='%23fffaf2'/%3E%3Cstop offset='1' stop-color='%23cdbda9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Cpath d='M0 690 C270 595 430 650 650 585 C880 518 1040 560 1260 492 C1420 442 1510 440 1600 455 L1600 1000 L0 1000 Z' fill='%231f3a2f' fill-opacity='.22'/%3E%3Cpath d='M0 760 C260 690 500 712 760 640 C1040 563 1300 600 1600 535 L1600 1000 L0 1000 Z' fill='%231f3a2f' fill-opacity='.30'/%3E%3Ctext x='80' y='120' font-family='Georgia,serif' font-size='54' fill='%231c1814' fill-opacity='.28'%3EFletschhorn%3C/text%3E%3C/svg%3E";
 
-      const FALLBACK = [
-        "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
-        "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg",
-        "https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg",
-        "https://assets.guesty.com/image/upload/v1769381683/production/686c48ada4bbacd7a82a4f83/gdkntjfg2shhfc8sjsox.jpg",
-        "https://assets.guesty.com/image/upload/v1769381684/production/686c48ada4bbacd7a82a4f83/kzwdncmnkciaw508jnk7.jpg",
-        "https://assets.guesty.com/image/upload/v1769381682/production/686c48ada4bbacd7a82a4f83/dd5cbgw8fhyfwsxhsqq2.jpg"
-      ];
-
-      function img(name){
-        return IK + encodeURIComponent(name).replace(/%2F/g, "/");
+      function imageRecord(src, alt){
+        return { url: src || PLACEHOLDER_IMAGE, alt: alt || "Fletschhorn image" };
       }
 
-      function raw(path){
-        return IK + path;
+      function placeholderSet(){
+        return [imageRecord(PLACEHOLDER_IMAGE, "Fletschhorn image placeholder")];
       }
 
-      function seq(base,max,ext){
-        const urls = [];
-        for (let i=1;i<=max;i++) urls.push(img(base + " (" + i + ")." + ext));
-        return urls;
-      }
-
-      const IMAGES = {
-        hero: [
-          raw("Exterior%20(1).png"),
-          img("Montains.jpg"),
-          raw("A%20private%20address%20above%20Saas-Fee.jpg"),
-          img("Inside (1).jpg"),
-          img("Inside (3).jpg"),
-          raw("Kitchen%20(3).png")
-        ].concat(FALLBACK),
-        overview: [
-          raw("Exterior%20(1).png"),
-          img("Inside (1).jpg"),
-          img("Inside (2).jpg")
-        ],
-        inside: seq("Inside",15,"jpg").concat(FALLBACK),
-        kitchen: [
-          raw("Kitchen%20(3).png"),
-          raw("Kitchen%20(4).png"),
-          raw("Kitchen%20(5).png"),
-          raw("Kitchen%20(6).png"),
-          raw("Kitchen%20(1).png"),
-          raw("Kitchen%20(2).png")
-        ].concat(FALLBACK),
+      let IMAGES = {
+        hero: placeholderSet(),
+        overview: placeholderSet(),
+        inside: placeholderSet(),
+        kitchen: placeholderSet(),
         cards: {
-          family: img("Inside (3).jpg"),
-          retreat: img("Inside (6).jpg"),
-          event: img("Events (1).jpg"),
-          ski: img("Home-winter (1).jpg"),
-          winter: img("Home-winter (2).jpg"),
-          summer: img("Montains.jpg"),
-          soft: raw("Spa%20(1).jpg")
+          family: imageRecord(PLACEHOLDER_IMAGE, "Family stay"),
+          retreat: imageRecord(PLACEHOLDER_IMAGE, "Retreat stay"),
+          event: imageRecord(PLACEHOLDER_IMAGE, "Wedding or event"),
+          ski: imageRecord(PLACEHOLDER_IMAGE, "Ski group"),
+          winter: imageRecord(PLACEHOLDER_IMAGE, "Winter around Fletschhorn"),
+          summer: imageRecord(PLACEHOLDER_IMAGE, "Summer around Fletschhorn"),
+          soft: imageRecord(PLACEHOLDER_IMAGE, "Soft alpine day at Fletschhorn")
         }
       };
 
@@ -3142,6 +3175,8 @@
           heroKicker:"Private Swiss chalet · Saas-Fee",
           heroTitle:"Your Private Swiss Chalet Above Saas-Fee",
           heroLead:"Reserve the whole chalet for your group: 14 rooms, up to 48 sleeping places, flexible kitchen access, and a private alpine base above Saas-Fee.",
+          heroContactPhone:"Call direct",
+          heroContactEmail:"Email",
           fieldFirstName:"First name",
           fieldFirstNamePh:"First name",
           fieldLastName:"Last name",
@@ -3160,6 +3195,7 @@
           alreadyBooked:"Booked",
           calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",
           minNights:"Please select at least 2 nights.",
+          estimatedTotal:"Estimated total",
           bookNow:"Book my stay now",
           bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
           privateKicker:"The private chalet",
@@ -3254,6 +3290,7 @@
           contactText:"Start with your name, email, and preferred dates. The booking page will let you review availability, price, and send the final inquiry.",
           addressLabel:"Address",
           phoneLabel:"Phone",
+          emailLabel:"Email",
           directLabel:"Direct note",
           directText:"Best rates are available when booking direct.",
           socialKicker:"Social presence",
@@ -3280,6 +3317,8 @@
           heroKicker:"Chalet suisse privé · Saas-Fee",
           heroTitle:"Votre chalet suisse privé au-dessus de Saas-Fee",
           heroLead:"Réservez tout le chalet pour votre groupe : 14 chambres, jusqu’à 48 couchages, un accès flexible à la cuisine et une base alpine privée au-dessus de Saas-Fee.",
+          heroContactPhone:"Appeler direct",
+          heroContactEmail:"Email",
           fieldFirstName:"Prénom",
           fieldFirstNamePh:"Prénom",
           fieldLastName:"Nom",
@@ -3298,6 +3337,7 @@
           alreadyBooked:"Réservé",
           calendarRangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles.",
           minNights:"Veuillez sélectionner au moins 2 nuits.",
+          estimatedTotal:"Total estimé",
           bookNow:"Réserver mon séjour",
           bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
           socialKicker:"Présence sociale",
@@ -3324,6 +3364,8 @@
           heroKicker:"Privates Schweizer Chalet · Saas-Fee",
           heroTitle:"Ihr privates Schweizer Chalet oberhalb von Saas-Fee",
           heroLead:"Reservieren Sie das ganze Chalet für Ihre Gruppe: 14 Zimmer, bis zu 48 Schlafplätze, flexibler Küchenzugang und eine private alpine Basis oberhalb von Saas-Fee.",
+          heroContactPhone:"Direkt anrufen",
+          heroContactEmail:"E-Mail",
           fieldFirstName:"Vorname",
           fieldFirstNamePh:"Vorname",
           fieldLastName:"Nachname",
@@ -3342,6 +3384,7 @@
           alreadyBooked:"Gebucht",
           calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.",
           minNights:"Bitte mindestens 2 Nächte auswählen.",
+          estimatedTotal:"Geschätzter Gesamtpreis",
           bookNow:"Aufenthalt buchen",
           bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
           socialKicker:"Soziale Präsenz",
@@ -3368,6 +3411,8 @@
           heroKicker:"Частное швейцарское шале · Саас-Фе",
           heroTitle:"Ваше частное швейцарское шале над Саас-Фе",
           heroLead:"Забронируйте всё шале для вашей группы: 14 комнат, до 48 спальных мест, гибкий доступ к кухне и частная альпийская база над Саас-Фе.",
+          heroContactPhone:"Позвонить напрямую",
+          heroContactEmail:"Email",
           fieldFirstName:"Имя",
           fieldFirstNamePh:"Имя",
           fieldLastName:"Фамилия",
@@ -3386,6 +3431,7 @@
           alreadyBooked:"Занято",
           calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны.",
           minNights:"Выберите минимум 2 ночи.",
+          estimatedTotal:"Ориентировочная сумма",
           bookNow:"Забронировать",
           bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
           socialKicker:"Социальные профили",
@@ -3407,149 +3453,150 @@
           missingDates:"Выберите даты заезда и выезда.",
           badDates:"Дата выезда должна быть после даты заезда.",
           redirecting:"Открываем бронирование…"
+        },
+        he: {
+          heroKicker:"שאלה שווייצרית פרטית · סאס-פה",
+          heroTitle:"השאלה השווייצרית הפרטית שלכם מעל סאס-פה",
+          heroLead:"הזמינו את כל השאלה לקבוצה שלכם: 14 חדרים, עד 48 מקומות לינה, גישה גמישה למטבח ובסיס אלפיני פרטי מעל סאס-פה.",
+          heroContactPhone:"התקשרות ישירה",
+          heroContactEmail:"אימייל",
+          fieldFirstName:"שם פרטי",
+          fieldFirstNamePh:"שם פרטי",
+          fieldLastName:"שם משפחה",
+          fieldLastNamePh:"שם משפחה",
+          fieldEmail:"אימייל",
+          fieldEmailPh:"email@example.com",
+          fieldArrival:"הגעה",
+          fieldDeparture:"עזיבה",
+          fieldDates:"תאריכים",
+          fieldDatesPh:"בחרו תאריך הגעה ועזיבה",
+          openCalendar:"פתחו יומן",
+          calendarKicker:"בחירת תאריכים",
+          calendarHelp:"בחרו את תאריך ההגעה ואז את תאריך העזיבה.",
+          calendarMinWarning:"יש לבחור לפחות 2 לילות.",
+          selectDeparture:"בחרו עזיבה",
+          alreadyBooked:"תפוס",
+          calendarRangeUnavailable:"לילה אחד או יותר בטווח שבחרתם אינו זמין. בחרו טווח אחר.",
+          minNights:"יש לבחור לפחות 2 לילות.",
+          estimatedTotal:"מחיר משוער",
+          bookNow:"להזמין את השהייה",
+          bookingNote:"התחילו כאן. הפרטים יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
+          privateKicker:"השאלה הפרטית",
+          privateTitle:"בית אלפיני פרטי לקבוצות שרוצות את כל המקום לעצמן.",
+          privateLead:"Fletschhorn הוא חוויית שאלה פרטית מלאה מעל סאס-פה, עם מקום לישון, להתכנס, לבשל, לחגוג, לנוח ולצאת אל ההרים.",
+          conceptKicker:"הקונספט",
+          conceptTitle:"בסיס אלפיני פרטי לקבוצה אחת בכל פעם.",
+          conceptText:"משפחות, ריטריטים, חתונות, אירועים פרטיים וקבוצות סקי יכולות לקחת את כל הנכס כבסיס אלפיני פרטי.",
+          proofGuests:"מקומות לינה",
+          proofHistory:"שנות היסטוריה אלפינית",
+          proofProperty:"חוויית נכס פרטי",
+          experienceKicker:"החוויה",
+          experienceText:"נכס פרטי מעל הכפר סאס-פה — חללים רחבים, אוויר הרים ופרטיות מלאה לקבוצה שלכם.",
+          roomsKicker:"חדרים וסוויטות",
+          roomsTitle:"מרחבי לינה פרטיים תחת גג אלפיני אחד.",
+          roomsLead:"החדרים והסוויטות נותנים לקבוצה תחושה של בית אחד, ועדיין שומרים על פרטיות למשפחות, זוגות ואורחים שצריכים מרחב אישי.",
+          insidePhotoKicker:"בתוך Fletschhorn",
+          insidePhotoText:"חדרי שינה, סוויטות, פנים חמים ופינות שקטות לאורחים שרוצים לנוח.",
+          sleepKicker:"קצב הלינה",
+          sleepTitle:"ביחד, אבל לא בצפיפות.",
+          sleepText:"בסיס פרטי שבו הקבוצה נשארת יחד בלי להתפצל בין מלונות שונים.",
+          roomPoint1Title:"עד 48 מקומות לינה",
+          roomPoint1Text:"קיבולת ברורה לתכנון קבוצתי.",
+          roomPoint2Title:"חדרים וסוויטות",
+          roomPoint2Text:"מתאים לקבוצות מעורבות, משפחות, ריטריטים וחגיגות.",
+          roomPoint3Title:"בסיס פרטי אחד",
+          roomPoint3Text:"האורחים נשארים יחד בלי להרגיש שהם מפוזרים בין מלונות שונים.",
+          staysKicker:"למה הבית מתאים",
+          staysTitle:"בנוי למשפחות, ריטריטים, חתונות וקבוצות סקי.",
+          staysLead:"בסיס אלפיני פרטי עם מקום להתכנס, לחגוג, לנוח ולגלות את סאס-פה יחד.",
+          familyKicker:"משפחות",
+          familyTitle:"מרחב לכולם.",
+          familyText:"חדרי שינה, חללים משותפים, בקרים איטיים וימי הרים נוחים יחד.",
+          retreatKicker:"ריטריטים",
+          retreatTitle:"בסיס אלפיני ממוקד.",
+          retreatText:"חללי התכנסות, פינות שקטות ומספיק פרטיות לריסט אמיתי.",
+          eventKicker:"חתונות ואירועים",
+          eventTitle:"הרגע שלכם, כאן.",
+          eventText:"בלב האלפים, הנכס הופך לתפאורה לחגיגה פרטית.",
+          skiKicker:"קבוצות סקי",
+          skiTitle:"ימי הרים וחזרה חמימה.",
+          skiText:"בסיס פרטי לסקי, אוויר קרחונים וערבים יחד.",
+          foodKicker:"מטבח ותכנון אוכל",
+          foodTitle:"קונספט מטבח גמיש לשהיות קבוצתיות פרטיות.",
+          foodText:"המטבח יכול לתמוך בבישול עצמי, שיחות עם שף או קייטרינג, תכנון ארוחות בוקר, בופה וקופסאות אוכל לפי סוג הקבוצה.",
+          foodItem1Title:"גישה למטבח",
+          foodItem1Text:"קבוצות יכולות לארגן את הארוחות סביב המטבח והקצב של השהייה.",
+          foodItem2Title:"שף או קייטרינג בתיאום",
+          foodItem2Text:"לחתונות, ריטריטים ואירועים מיוחדים אפשר לתאם תמיכה בנפרד.",
+          foodItem3Title:"תכנון פשוט",
+          foodItem3Text:"ארוחות בוקר, בופה, ארוחות ארוזות ולוגיסטיקה קבוצתית יכולים להיות מתוכננים לפני ההגעה.",
+          foodNoteKicker:"קצב פרטי",
+          foodNote:"תכנון האוכל הולך לפי הקבוצה, התאריכים וסוג השהייה.",
+          mapKicker:"גישה ומיקום",
+          mapTitle:"מעל סאס-פה, פרטי מספיק כדי להרגיש רחוק.",
+          mapLead:"השאלה נמצאת מעל הכפר. סאס-פה הוא כפר ללא רכבים, לכן כדאי לתכנן את ההגעה מראש לפי מזוודות, מזג אוויר וזמני העברה.",
+          mapDefault:"לחצו על הכרטיסים כדי לראות את מיקום הנכס, המסלול מהכפר, תכנון הגעה או תנועה בערב.",
+          openMap:"פתחו מפה",
+          mapCard1Title:"Fletschhorn",
+          mapCard1Text:"ראו את המיקום המדויק של הנכס מעל הכפר.",
+          mapCard2Title:"מרכז הכפר",
+          mapCard2Text:"ראו את מסלול ההליכה מנקודת ההגעה בכפר.",
+          mapCard3Title:"תכנון הגעה",
+          mapCard3Text:"ראו את המסלול הפרקטי להגעה מתואמת.",
+          mapCard4Title:"תוכניות ערב",
+          mapCard4Text:"ראו את אזור הכפר לארוחות ערב ותכנון מוניות.",
+          areaKicker:"חוויות סביב סאס-פה",
+          areaTitle:"בסיס פרטי לחורף, קיץ וימים אלפיניים איטיים.",
+          areaLead:"סאס-פה נותנת לקבוצות סיבה להגיע בכל עונה: סקי, גישה לקרחון, מסלולי קיץ, מרמיטות ב-Spielboden, Aqua Allalin, Mattmark, Feeblitz, פארק חבלים, Hannig ונופים אלפיניים גבוהים.",
+          winterKicker:"חורף",
+          winterTitle:"ימי סקי, אוויר קרחון וערבים שקטים.",
+          winterText:"סקי בגובה, מזחלות לילה ב-Hannig, ביקור ב-Ice Pavilion, Aqua Allalin וחזרה חמימה לשאלה הפרטית.",
+          summerKicker:"אביב / קיץ",
+          summerTitle:"שבילים, מרמיטות, מים ומסלולי הרים.",
+          summerText:"מרמיטות ב-Spielboden, Feeblitz, פארק חבלים, סכר Mattmark, קורקינטים Trotti ומסלולים לרמות אנרגיה שונות.",
+          softKicker:"ימים רכים",
+          softTitle:"וולנס, זמן בכפר ובקרים איטיים.",
+          softText:"שקט, נופים, פנים חמים, סאונה לפי בקשה והתחושה של שהייה מעל הרעש.",
+          historyKicker:"היסטוריה",
+          historyTitle:"נכס הררי עם מאה שנות סיפור מאחוריו.",
+          historyLead:"הסיפור של הנכס נותן לשהייה את האופי שלה.",
+          h1906Title:"תחילת אירוח ההרים.",
+          h1906Text:"משפחה בונה פונדקי הרים בסאס-פה עבור המטיילים הראשונים שהגיעו לכפר.",
+          h1970Title:"הנכס מתפתח.",
+          h1970Text:"משפחת Dütsch מפתחת את Fletschhorn לנכס אלפיני מוערך.",
+          h1994Title:"היסטוריה קולינרית שווייצרית.",
+          h1994Text:"Irma Dütsch הופכת לאישה השווייצרית הראשונה שזכתה בכוכב מישלן.",
+          hNowTitle:"שאלה פרטי מחודש.",
+          hNowText:"הסיפור ממשיך כבסיס אלפיני פרטי לקבוצות, אירועים ושהיות בנכס כולו.",
+          contactKicker:"יצירת קשר והזמנה",
+          contactTitle:"הפכו את המקום הזה לשלכם.",
+          contactText:"התחילו עם שם, אימייל ותאריכים מועדפים. עמוד ההזמנה יאפשר לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
+          addressLabel:"כתובת",
+          phoneLabel:"טלפון",
+          emailLabel:"אימייל",
+          directLabel:"הערה ישירה",
+          directText:"המחירים הטובים ביותר זמינים בהזמנה ישירה.",
+          socialKicker:"נוכחות חברתית",
+          socialTitle:"הקצב של Fletschhorn",
+          socialLead:"עקבו אחרי אווירת ההרים, רגעי העונה והיומיום של Fletschhorn בסאס-פה.",
+          instagramFallback:"אם תצוגת Instagram לא נטענת בדפדפן, פתחו את הפרופיל הרשמי ישירות.",
+          openInstagram:"פתחו Instagram",
+          findUsKicker:"מצאו אותנו ב",
+          findUsTitle:"עקבו, התחברו וקראו חוויות אורחים.",
+          findUsText:"השתמשו בפרופילים הרשמיים וברשתות הביקורות לעדכונים, נוכחות מקומית ומשוב עצמאי.",
+          facebookText:"עדכונים וחדשות על הנכס.",
+          linkedinText:"פרופיל מקצועי ונוכחות החברה.",
+          tripadvisorText:"ביקורות אורחים עצמאיות ותמונת דירוג מ-Tripadvisor.",
+          openReviews:"פתחו ביקורות",
+          missingFirstName:"נא להזין שם פרטי.",
+          missingLastName:"נא להזין שם משפחה.",
+          missingEmail:"נא להזין אימייל.",
+          invalidEmail:"נא להזין כתובת אימייל תקינה.",
+          missingDates:"נא לבחור תאריכי הגעה ועזיבה.",
+          badDates:"תאריך העזיבה חייב להיות אחרי תאריך ההגעה.",
+          redirecting:"פותחים את ההזמנה…"
         }
       };
-
-      T.he = {
-        "metaTitle": "פלטשהורן · בקתה שווייצרית פרטית בסאס-פה",
-        "metaDescription": "בקתה שווייצרית פרטית מעל סאס-פה למשפחות, ריטריטים, חתונות, קבוצות סקי ושהיות אלפיניות בנכס שלם.",
-        "heroKicker": "בקתה שווייצרית פרטית · סאס-פה",
-        "heroTitle": "הבקתה השווייצרית הפרטית שלכם מעל סאס-פה",
-        "heroLead": "הזמינו את כל הבקתה עבור הקבוצה שלכם: 14 חדרים, עד 48 מקומות לינה, גישה גמישה למטבח ובסיס אלפיני פרטי מעל סאס-פה.",
-        "fieldFirstName": "שם פרטי",
-        "fieldFirstNamePh": "שם פרטי",
-        "fieldLastName": "שם משפחה",
-        "fieldLastNamePh": "שם משפחה",
-        "fieldEmail": "אימייל",
-        "fieldEmailPh": "email@example.com",
-        "fieldArrival": "הגעה",
-        "fieldDeparture": "עזיבה",
-        "fieldDates": "תאריכים",
-        "fieldDatesPh": "בחרו תאריך הגעה ועזיבה",
-        "openCalendar": "פתחו יומן",
-        "calendarKicker": "בחירת תאריכים",
-        "calendarHelp": "בחרו קודם את תאריך ההגעה, ואז את תאריך העזיבה.",
-        "calendarMinWarning": "יש לבחור לפחות 2 לילות.",
-        "selectDeparture": "בחרו עזיבה",
-        "alreadyBooked": "תפוס",
-        "calendarRangeUnavailable": "לילה אחד או יותר בטווח שבחרתם אינו זמין. בחרו טווח אחר.",
-        "minNights": "יש לבחור לפחות 2 לילות.",
-        "bookNow": "הזמינו את השהייה",
-        "bookingNote": "התחילו כאן. הפרטים שלכם יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
-        "privateKicker": "הבקתה הפרטית",
-        "privateTitle": "בית אלפיני פרטי לקבוצות שרוצות את כל המקום לעצמן.",
-        "privateLead": "פלטשהורן מציע חוויית בקתה פרטית מלאה מעל סאס-פה, עם מקום לישון, להתכנס, לבשל, לחגוג, להירגע ולגלות את ההרים.",
-        "conceptKicker": "הקונספט",
-        "conceptTitle": "בסיס אלפיני פרטי לקבוצה אחת בכל פעם.",
-        "conceptText": "משפחות, ריטריטים, חתונות, חגיגות פרטיות וקבוצות סקי יכולות לקחת את כל הנכס כבסיס אלפיני פרטי.",
-        "proofGuests": "מקומות לינה",
-        "proofHistory": "שנות היסטוריה אלפינית",
-        "proofProperty": "חוויית נכס פרטי",
-        "experienceKicker": "החוויה",
-        "experienceText": "נכס פרטי מעל הכפר סאס-פה — מרחבים נדיבים, אוויר הרים ופרטיות מלאה לקבוצה שלכם.",
-        "roomsKicker": "חדרים וסוויטות",
-        "roomsTitle": "מרחבי שינה פרטיים, תחת גג אלפיני אחד.",
-        "roomsLead": "החדרים והסוויטות נותנים לקבוצה תחושה של בית אחד משותף, ועדיין שומרים על פרטיות למשפחות, זוגות ואורחים שזקוקים למרחב משלהם.",
-        "insidePhotoKicker": "בתוך פלטשהורן",
-        "insidePhotoText": "חדרי שינה, סוויטות, חללים חמימים ופינות שקטות לאורחים שצריכים לנוח.",
-        "sleepKicker": "קצב הלינה",
-        "sleepTitle": "ביחד, אבל לא צפוף.",
-        "sleepText": "בסיס פרטי שבו הקבוצה יכולה להישאר יחד בלי להתפצל בין מלונות שונים.",
-        "roomPoint1Title": "עד 48 מקומות לינה",
-        "roomPoint1Text": "קיבולת ברורה לתכנון קבוצתי.",
-        "roomPoint2Title": "חדרים וסוויטות",
-        "roomPoint2Text": "מתאים לקבוצות מעורבות, משפחות, ריטריטים וחגיגות.",
-        "roomPoint3Title": "בסיס פרטי אחד",
-        "roomPoint3Text": "האורחים נשארים יחד בלי להרגיש שהם מפוזרים בין מלונות שונים.",
-        "staysKicker": "למה הבית מתאים",
-        "staysTitle": "נבנה למשפחות, ריטריטים, חתונות וקבוצות סקי.",
-        "staysLead": "בסיס אלפיני פרטי אחד עם מקום להתכנס, לחגוג, לנוח ולגלות את סאס-פה יחד.",
-        "familyKicker": "משפחות",
-        "familyTitle": "מקום לכולם.",
-        "familyText": "חדרי שינה, חללים משותפים, בקרים איטיים וימי הרים קלים ביחד.",
-        "retreatKicker": "ריטריטים",
-        "retreatTitle": "בסיס אלפיני ממוקד.",
-        "retreatText": "חללי מפגש, פינות שקטות ומספיק פרטיות לאיפוס אמיתי.",
-        "eventKicker": "חתונות ואירועים",
-        "eventTitle": "הרגע שלכם, כאן.",
-        "eventText": "בלב האלפים, הנכס הופך לתפאורה של חגיגה פרטית.",
-        "skiKicker": "קבוצות סקי",
-        "skiTitle": "ימי הרים וחזרה חמימה.",
-        "skiText": "בית בסיס פרטי לסקי, אוויר קרחונים וערבים יחד.",
-        "foodKicker": "מטבח ותכנון אוכל",
-        "foodTitle": "קונספט מטבח גמיש לשהיות קבוצתיות פרטיות.",
-        "foodText": "המטבח יכול לתמוך בבישול עצמאי, תיאום עם שף או קייטרינג, תכנון ארוחות בוקר, בופה וקופסאות אוכל לפי סוג הקבוצה.",
-        "foodItem1Title": "גישה למטבח",
-        "foodItem1Text": "קבוצות יכולות לארגן את הארוחות סביב המטבח וקצב השהייה שלהן.",
-        "foodItem2Title": "שף או קייטרינג בתיאום",
-        "foodItem2Text": "לחתונות, ריטריטים ואירועים מיוחדים אפשר לדון בתמיכה נפרדת.",
-        "foodItem3Title": "תכנון פשוט",
-        "foodItem3Text": "ארוחות בוקר, בופה, ארוחות ארוזות ולוגיסטיקה קבוצתית אפשר לתכנן לפני ההגעה.",
-        "foodNoteKicker": "קצב פרטי",
-        "foodNote": "תכנון האוכל עוקב אחרי הקבוצה, התאריכים וסוג השהייה.",
-        "mapKicker": "גישה ומיקום",
-        "mapTitle": "מעל סאס-פה, מספיק פרטי כדי להרגיש במקום אחר.",
-        "mapLead": "הבקתה יושבת מעל הכפר. סאס-פה היא עיירה ללא מכוניות, לכן כדאי לתכנן את ההגעה בזהירות לפי מזוודות, מזג אוויר ותזמון העברות.",
-        "mapDefault": "לחצו על הכרטיסים כדי לראות את מיקום הנכס, הדרך מהכפר, תכנון ההגעה או תנועה בערב.",
-        "openMap": "פתחו מפה",
-        "mapCard1Title": "פלטשהורן",
-        "mapCard1Text": "ראו את מיקום הנכס המדויק מעל הכפר.",
-        "mapCard2Title": "מרכז הכפר",
-        "mapCard2Text": "ראו את מסלול ההליכה מנקודת ההגעה בכפר.",
-        "mapCard3Title": "תכנון הגעה",
-        "mapCard3Text": "ראו את המסלול המעשי להגעה מתואמת.",
-        "mapCard4Title": "תוכניות ערב",
-        "mapCard4Text": "ראו את אזור הכפר לתכנון ארוחת ערב ומוניות בערב.",
-        "areaKicker": "חוויות סביב סאס-פה",
-        "areaTitle": "בסיס פרטי לחורף, קיץ וימים אלפיניים רגועים.",
-        "areaLead": "סאס-פה נותנת לקבוצות סיבה להגיע בכל עונה: סקי, גישה לקרחון, שבילי קיץ, מרמיטות ב-Spielboden, Aqua Allalin, Mattmark, Feeblitz, פארק חבלים, Hannig ונופי הרים גבוהים.",
-        "winterKicker": "חורף",
-        "winterTitle": "ימי סקי, אוויר קרחונים וערבים שקטים.",
-        "winterText": "סקי בגובה, מזחלות לילה ב-Hannig, ביקור ב-Ice Pavilion, Aqua Allalin וחזרה חמימה לבקתה הפרטית שלכם.",
-        "summerKicker": "אביב / קיץ",
-        "summerTitle": "שבילים, מרמיטות, מים ומסלולי הרים.",
-        "summerText": "מרמיטות ב-Spielboden, Feeblitz, פארק חבלים, סכר Mattmark, קורקינטים Trotti ומסלולי הליכה ברמות אנרגיה שונות.",
-        "softKicker": "ימים רכים",
-        "softTitle": "וולנס, זמן בכפר ובקרים איטיים.",
-        "softText": "שקט, נופים, פנים חמימים, סאונה לפי בקשה והתחושה של שהייה מעל ההמולה.",
-        "historyKicker": "היסטוריה",
-        "historyTitle": "נכס הררי עם מאה שנה מאחוריו.",
-        "historyLead": "הסיפור שמאחורי הנכס נותן לשהייה את האופי שלה.",
-        "h1906Title": "תחילת אירוח הררי.",
-        "h1906Text": "משפחה בונה פונדקי הרים בסאס-פה עבור המטיילים הראשונים שהגיעו לכפר.",
-        "h1970Title": "הנכס מתפתח.",
-        "h1970Text": "משפחת Dütsch מפתחת את פלטשהורן לנכס אלפיני מוערך.",
-        "h1994Title": "היסטוריה קולינרית שווייצרית.",
-        "h1994Text": "אירמה דיטש הופכת לאישה השווייצרית הראשונה שקיבלה כוכב מישלן.",
-        "hNowTitle": "בקתה פרטית מחודשת.",
-        "hNowText": "הסיפור ממשיך כבסיס אלפיני פרטי לקבוצות, אירועים ושהיות בנכס שלם.",
-        "contactKicker": "יצירת קשר והזמנה",
-        "contactTitle": "הפכו את המקום הזה לשלכם.",
-        "contactText": "התחילו עם שם, אימייל ותאריכים מועדפים. עמוד ההזמנה יאפשר לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
-        "addressLabel": "כתובת",
-        "phoneLabel": "טלפון",
-        "directLabel": "הערה ישירה",
-        "directText": "המחירים הטובים ביותר זמינים בהזמנה ישירה.",
-        "socialKicker": "נוכחות ברשת",
-        "socialTitle": "הקצב של פלטשהורן",
-        "socialLead": "עקבו אחרי אווירת ההרים, רגעים עונתיים והקצב היומיומי של פלטשהורן בסאס-פה.",
-        "instagramFallback": "אם תצוגת אינסטגרם לא נטענת בדפדפן שלכם, פתחו את הפרופיל הרשמי ישירות.",
-        "openInstagram": "פתחו אינסטגרם",
-        "findUsKicker": "מצאו אותנו ב",
-        "findUsTitle": "עקבו, התחברו וקראו התרשמויות אורחים.",
-        "findUsText": "השתמשו בפרופילים הרשמיים וברשימות הביקורות לעדכונים, נוכחות מקומית ומשוב אורחים עצמאי.",
-        "facebookText": "עדכונים וחדשות על הנכס.",
-        "linkedinText": "פרופיל מקצועי ונוכחות החברה.",
-        "tripadvisorText": "ביקורות אורחים עצמאיות ותמונת דירוג מ-Tripadvisor.",
-        "openReviews": "פתחו ביקורות",
-        "missingFirstName": "נא להזין שם פרטי.",
-        "missingLastName": "נא להזין שם משפחה.",
-        "missingEmail": "נא להזין אימייל.",
-        "invalidEmail": "נא להזין כתובת אימייל תקינה.",
-        "missingDates": "נא לבחור תאריכי הגעה ועזיבה.",
-        "badDates": "תאריך העזיבה חייב להיות אחרי תאריך ההגעה.",
-        "redirecting": "פותחים הזמנה…"
-};
 
 
       const EXTRA_TRANSLATIONS = {
@@ -3646,6 +3693,7 @@
           contactText:"Commencez avec votre nom, votre email et vos dates souhaitées. La page de réservation vous permettra de vérifier la disponibilité, le prix et d’envoyer la demande finale.",
           addressLabel:"Adresse",
           phoneLabel:"Téléphone",
+          emailLabel:"Email",
           directLabel:"Note directe",
           directText:"Les meilleurs tarifs sont disponibles en réservant directement."
         },
@@ -3742,6 +3790,7 @@
           contactText:"Beginnen Sie mit Name, E-Mail und gewünschten Daten. Auf der Buchungsseite können Sie Verfügbarkeit, Preis und finale Anfrage prüfen.",
           addressLabel:"Adresse",
           phoneLabel:"Telefon",
+          emailLabel:"E-Mail",
           directLabel:"Direkter Hinweis",
           directText:"Die besten Preise erhalten Sie bei direkter Buchung."
         },
@@ -3838,6 +3887,7 @@
           contactText:"Начните с имени, email и желаемых дат. На странице бронирования можно проверить доступность, цену и отправить финальный запрос.",
           addressLabel:"Адрес",
           phoneLabel:"Телефон",
+          emailLabel:"Email",
           directLabel:"Прямая заметка",
           directText:"Лучшие тарифы доступны при прямом бронировании."
         }
@@ -3868,6 +3918,16 @@
 
       function t(key){
         return (T[state.lang] && T[state.lang][key]) || T.en[key] || "";
+      }
+
+      function localeForLang(lang){
+        return {
+          en:"en-US",
+          fr:"fr-FR",
+          de:"de-DE",
+          ru:"ru-RU",
+          he:"he-IL"
+        }[lang || state.lang] || "en-US";
       }
 
       function updateWeekdayLabels(){
@@ -3911,16 +3971,9 @@
         });
 
         root.setAttribute("data-current-lang", state.lang);
+        root.setAttribute("dir", state.lang === "he" ? "rtl" : "ltr");
         document.documentElement.setAttribute("lang", state.lang);
-
-        const dir = state.lang === "he" ? "rtl" : "ltr";
-        root.setAttribute("dir", dir);
-        document.documentElement.setAttribute("dir", dir);
-        document.body.setAttribute("dir", dir);
-
-        if (t("metaTitle")) document.title = t("metaTitle");
-        const metaDescription = document.querySelector('meta[name="description"]');
-        if (metaDescription && t("metaDescription")) metaDescription.setAttribute("content", t("metaDescription"));
+        document.documentElement.setAttribute("dir", state.lang === "he" ? "rtl" : "ltr");
 
         try {
           localStorage.setItem("fh_lang", state.lang);
@@ -3989,7 +4042,7 @@
         if (amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "";
 
         try {
-          return new Intl.NumberFormat(state.lang === "en" ? "en-US" : state.lang, {
+          return new Intl.NumberFormat(localeForLang(state.lang), {
             style: "currency",
             currency: currency || CFG.currency,
             maximumFractionDigits: 0
@@ -3997,6 +4050,41 @@
         } catch(error) {
           return Math.round(Number(amount)).toLocaleString() + " " + (currency || CFG.currency);
         }
+      }
+
+      function toolbarTotalForRange(){
+        const arrival = $("#fhArrival") ? $("#fhArrival").value : "";
+        const departure = $("#fhDeparture") ? $("#fhDeparture").value : "";
+
+        if (!arrival || !departure) return null;
+
+        const start = new Date(arrival + "T00:00:00");
+        const end = new Date(departure + "T00:00:00");
+
+        if (isNaN(start.getTime()) || isNaN(end.getTime()) || end <= start) return null;
+
+        let total = 0;
+        let counted = 0;
+        let missing = 0;
+        let currency = CFG.currency;
+
+        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)){
+          const iso = toDateString(d);
+          const info = toolbarCalendar.dayMap[iso];
+
+          if (!info || info.price === null || info.price === undefined || info.price === "" || isNaN(Number(info.price))){
+            missing++;
+            continue;
+          }
+
+          total += Number(info.price);
+          counted++;
+          currency = info.currency || currency;
+        }
+
+        if (!counted || missing) return null;
+
+        return { total: total, currency: currency, nights: counted };
       }
 
       function updateToolbarDateText(){
@@ -4007,7 +4095,10 @@
         if (!text) return;
 
         if (arrival && departure){
-          text.textContent = arrival + " → " + departure;
+          const estimated = toolbarTotalForRange();
+          text.textContent = estimated
+            ? arrival + " → " + departure + " · " + (t("estimatedTotal") || "Estimated total") + " " + formatToolbarMoney(estimated.total, estimated.currency)
+            : arrival + " → " + departure;
         } else if (arrival){
           text.textContent = arrival + " → " + (t("selectDeparture") || "Select departure");
         } else {
@@ -4172,6 +4263,7 @@
       async function loadToolbarCalendarMonth(){
         const range = monthRange(toolbarCalendar.currentMonth);
         toolbarCalendar.loading = true;
+        renderToolbarCalendar();
 
         try {
           const data = await workerGetOrPost(ENDPOINTS.calendarMonthPrices, {
@@ -4185,18 +4277,39 @@
             source: "homepage-toolbar-calendar"
           });
 
-          const days = collectCalendarDays(data);
+          let days = [];
+
+          if (data && Array.isArray(data.days)){
+            days = data.days.map(normalizeCalendarDay).filter(Boolean);
+          } else if (data && data.data && Array.isArray(data.data.days)){
+            days = data.data.days.map(normalizeCalendarDay).filter(Boolean);
+          } else {
+            days = collectCalendarDays(data);
+          }
+
           toolbarCalendar.dayMap = {};
 
           days.forEach(function(day){
-            toolbarCalendar.dayMap[day.date] = day;
+            if (day && day.date){
+              toolbarCalendar.dayMap[day.date] = day;
+            }
           });
+
+          console.log(
+            "Fletschhorn calendar prices loaded:",
+            range.from,
+            "to",
+            range.to,
+            Object.keys(toolbarCalendar.dayMap).length,
+            "days"
+          );
         } catch(error) {
           console.warn("Could not load calendar month prices.", error);
           toolbarCalendar.dayMap = {};
         } finally {
           toolbarCalendar.loading = false;
           renderToolbarCalendar();
+          updateToolbarDateText();
         }
       }
 
@@ -4239,7 +4352,7 @@
         const month = toolbarCalendar.currentMonth.getMonth();
 
         title.textContent = toolbarCalendar.currentMonth.toLocaleDateString(
-          state.lang === "en" ? "en-US" : state.lang,
+          localeForLang(state.lang),
           { month:"long", year:"numeric" }
         );
 
@@ -4259,6 +4372,8 @@
           empty.tabIndex = -1;
           grid.appendChild(empty);
         }
+
+        let renderedPrices = 0;
 
         for (let dayNum = 1; dayNum <= last.getDate(); dayNum++){
           const date = new Date(year, month, dayNum);
@@ -4283,12 +4398,21 @@
             btn.classList.add("range");
           }
 
+          const hasPrice = info.price !== null && info.price !== undefined && info.price !== "" && !isNaN(Number(info.price));
+          const formattedPrice = hasPrice ? formatToolbarMoney(info.price, info.currency || CFG.currency) : "";
+
+          if (hasPrice && formattedPrice) renderedPrices++;
+
+          btn.dataset.price = hasPrice ? String(info.price) : "";
+          btn.dataset.currency = info.currency || CFG.currency;
+          btn.title = hasPrice ? iso + " · " + formattedPrice : iso;
+
           btn.innerHTML =
             '<span class="fh-day-number">' + dayNum + '</span>' +
             (
-              info.price
-                ? '<span class="fh-day-price">' + formatToolbarMoney(info.price, info.currency || CFG.currency) + '</span>'
-                : ''
+              formattedPrice
+                ? '<span class="fh-day-price" aria-label="Nightly price">' + formattedPrice + '</span>'
+                : '<span class="fh-day-price missing" aria-hidden="true"></span>'
             ) +
             (
               unavailable
@@ -4305,6 +4429,11 @@
           }
 
           grid.appendChild(btn);
+        }
+
+        grid.dataset.priceCount = String(renderedPrices);
+        if (Object.keys(toolbarCalendar.dayMap || {}).length && !renderedPrices){
+          console.warn("Fletschhorn calendar loaded days, but no visible prices were rendered.", toolbarCalendar.dayMap);
         }
       }
 
@@ -4451,51 +4580,333 @@
         window.location.href = CFG.bookingPageUrl + "?" + params.toString();
       }
 
+      function looksLikeImageUrl(value){
+        if (typeof value !== "string") return false;
+        const clean = value.trim();
+        if (!clean) return false;
+        return (
+          clean.indexOf("http://") === 0 ||
+          clean.indexOf("https://") === 0 ||
+          clean.indexOf("//") === 0 ||
+          clean.indexOf("data:image") === 0 ||
+          /\.(avif|webp|jpe?g|png|gif|svg)(\?|#|$)/i.test(clean)
+        );
+      }
+
+      function extractImageUrl(value, depth){
+        depth = depth || 0;
+        if (!value || depth > 5) return "";
+
+        if (typeof value === "string"){
+          const clean = value.trim();
+          return looksLikeImageUrl(clean) ? clean : "";
+        }
+
+        if (Array.isArray(value)){
+          for (let i = 0; i < value.length; i++){
+            const found = extractImageUrl(value[i], depth + 1);
+            if (found) return found;
+          }
+          return "";
+        }
+
+        if (typeof value !== "object") return "";
+
+        const priorityKeys = [
+          "url",
+          "original",
+          "large",
+          "regular",
+          "src",
+          "href",
+          "imageUrl",
+          "image_url",
+          "secure_url",
+          "thumbnail",
+          "thumb",
+          "medium",
+          "small",
+          "file",
+          "image",
+          "picture",
+          "photo"
+        ];
+
+        for (let i = 0; i < priorityKeys.length; i++){
+          const key = priorityKeys[i];
+          if (Object.prototype.hasOwnProperty.call(value, key)){
+            const found = extractImageUrl(value[key], depth + 1);
+            if (found) return found;
+          }
+        }
+
+        const keys = Object.keys(value);
+        for (let i = 0; i < keys.length; i++){
+          const found = extractImageUrl(value[keys[i]], depth + 1);
+          if (found) return found;
+        }
+
+        return "";
+      }
+
+      function normalizeWorkerImageItem(item, index){
+        const url = extractImageUrl(item, 0);
+        if (!url) return null;
+
+        const alt = item && typeof item === "object"
+          ? (item.alt || item.caption || item.title || item.description || item.name || ("Fletschhorn image " + (index + 1)))
+          : ("Fletschhorn image " + (index + 1));
+
+        return imageRecord(url, alt);
+      }
+
+      function normalizeWorkerImages(data){
+        const out = [];
+        const seen = new Set();
+
+        function push(item){
+          const record = normalizeWorkerImageItem(item, out.length);
+          if (!record || !record.url || seen.has(record.url)) return;
+          seen.add(record.url);
+          out.push(record);
+        }
+
+        if (data && Array.isArray(data.images)){
+          data.images.forEach(push);
+        }
+
+        if (data && data.listing && Array.isArray(data.listing.images)){
+          data.listing.images.forEach(push);
+        }
+
+        if (data && data.data && Array.isArray(data.data.images)){
+          data.data.images.forEach(push);
+        }
+
+        if (!out.length){
+          (function walk(value){
+            if (!value || typeof value !== "object") return;
+
+            if (Array.isArray(value)){
+              value.forEach(walk);
+              return;
+            }
+
+            const record = normalizeWorkerImageItem(value, out.length);
+            if (record) push(record);
+
+            Object.keys(value).forEach(function(key){
+              walk(value[key]);
+            });
+          })(data);
+        }
+
+        return out;
+      }
+
+      function pickWorkerImages(pool, count, offset){
+        const images = pool && pool.length ? pool : placeholderSet();
+        const result = [];
+
+        for (let i = 0; i < count; i++){
+          result.push(images[(offset + i) % images.length]);
+        }
+
+        return result.length ? result : placeholderSet();
+      }
+
+      function applyWorkerImages(workerImages){
+        const pool = workerImages && workerImages.length ? workerImages : placeholderSet();
+
+        IMAGES = {
+          hero: pickWorkerImages(pool, 8, 0),
+          overview: pickWorkerImages(pool, 3, 1),
+          inside: pickWorkerImages(pool, Math.min(12, Math.max(1, pool.length)), 0),
+          kitchen: pickWorkerImages(pool, Math.min(10, Math.max(1, pool.length)), 4),
+          cards: {
+            family: pickWorkerImages(pool, 1, 2)[0],
+            retreat: pickWorkerImages(pool, 1, 5)[0],
+            event: pickWorkerImages(pool, 1, 8)[0],
+            ski: pickWorkerImages(pool, 1, 11)[0],
+            winter: pickWorkerImages(pool, 1, 13)[0],
+            summer: pickWorkerImages(pool, 1, 15)[0],
+            soft: pickWorkerImages(pool, 1, 17)[0]
+          }
+        };
+      }
+
+      function forceApplyWorkerImagesToVisibleSlots(workerImages){
+        const pool = workerImages && workerImages.length ? workerImages : placeholderSet();
+        const clean = pool.map(function(item, index){ return normalizeWorkerImageItem(item, index); }).filter(Boolean);
+        if (!clean.length) return;
+
+        // Hero: force one visible background immediately, then rebuild the slideshow.
+        const hero = $("#fhHeroMedia");
+        if (hero){
+          hero.style.backgroundImage = 'url("' + String(clean[0].url).replace(/"/g, "%22") + '")';
+          hero.style.backgroundSize = "cover";
+          hero.style.backgroundPosition = "center";
+        }
+
+        // Any direct image slot that is still empty, broken, or placeholder gets a Worker image.
+        const imgs = Array.from(root.querySelectorAll("img"));
+        imgs.forEach(function(img, index){
+          const current = img.getAttribute("src") || "";
+          const shouldReplace =
+            img.hasAttribute("data-img") ||
+            !current ||
+            current.indexOf("data:image/svg+xml") === 0 ||
+            current.indexOf("assets/Saas-Fee-Logo.jpeg") !== -1 ||
+            current === "[object Object]";
+
+          if (!shouldReplace) return;
+
+          const item = clean[index % clean.length];
+          img.loading = "lazy";
+          img.decoding = "async";
+          img.src = item.url;
+          if (!img.alt) img.alt = item.alt || "Fletschhorn image";
+          img.dataset.workerImageApplied = "true";
+        });
+
+        console.log("Fletschhorn Worker images applied:", clean.length, "images loaded.");
+      }
+
+      async function loadWorkerImages(){
+        try {
+          const url = new URL(endpoint(ENDPOINTS.images));
+          url.searchParams.set("listingId", CFG.listingId);
+          url.searchParams.set("lang", state.lang);
+          url.searchParams.set("source", "homepage");
+
+          const response = await fetch(url.toString(), {
+            method: "GET",
+            headers: { "Accept":"application/json" },
+            cache: "no-cache"
+          });
+
+          const text = await response.text();
+          let data;
+
+          try {
+            data = JSON.parse(text);
+          } catch(error) {
+            data = { rawText:text };
+          }
+
+          if (!response.ok || data.ok === false || data.error){
+            throw new Error(data.error || data.message || "Images request failed.");
+          }
+
+          const images = normalizeWorkerImages(data);
+
+          if (!images.length) throw new Error("Worker returned no images.");
+
+          applyWorkerImages(images);
+          return images;
+        } catch(error) {
+          console.warn("Could not load images from Fletschhorn Worker. Using neutral placeholder.", error);
+          applyWorkerImages(placeholderSet());
+          return [];
+        }
+      }
+
       function safeImage(el, urls, index){
-        if (!el || !urls || !urls.length) return;
+        if (!el) return;
 
         let i = index || 0;
-        const all = urls.concat(FALLBACK);
+        const all = (urls && urls.length ? urls : placeholderSet())
+          .map(function(item, idx){ return normalizeWorkerImageItem(item, idx); })
+          .filter(Boolean);
+
+        if (!all.length) all.push(imageRecord(PLACEHOLDER_IMAGE, "Fletschhorn image"));
 
         if (el.tagName && el.tagName.toLowerCase() === "img"){
           el.loading = "lazy";
           el.decoding = "async";
+          if (all[i % all.length].alt) el.alt = all[i % all.length].alt;
         }
 
-        el.src = all[i % all.length];
+        function setCurrent(){
+          const current = all[i % all.length] || imageRecord(PLACEHOLDER_IMAGE, "Fletschhorn image");
+          el.src = current.url || PLACEHOLDER_IMAGE;
+          if (el.tagName && el.tagName.toLowerCase() === "img" && current.alt){
+            el.alt = current.alt;
+          }
+        }
+
+        setCurrent();
 
         el.onerror = function(){
           i++;
           if (i < all.length){
-            el.src = all[i % all.length];
+            setCurrent();
           } else {
             el.onerror = null;
+            el.src = PLACEHOLDER_IMAGE;
           }
         };
+      }
+
+      function startSlideshow(){
+        const hero = $("#fhHeroMedia");
+        if (!hero) return;
+
+        const slides = Array.from(hero.querySelectorAll(".fh-hero-slide"));
+
+        if (state.heroTimer){
+          window.clearInterval(state.heroTimer);
+          state.heroTimer = null;
+        }
+
+        if (!slides.length) return;
+
+        slides.forEach(function(slide, index){
+          slide.classList.toggle("active", index === 0);
+        });
+
+        if (slides.length < 2) return;
+
+        let index = 0;
+        state.heroTimer = window.setInterval(function(){
+          if (!document.body.contains(hero)){
+            window.clearInterval(state.heroTimer);
+            state.heroTimer = null;
+            return;
+          }
+
+          slides[index].classList.remove("active");
+          index = (index + 1) % slides.length;
+          slides[index].classList.add("active");
+        }, 5200);
       }
 
       function setHeroSlides(urls){
         const hero = $("#fhHeroMedia");
         if (!hero) return;
 
+        const slides = (urls && urls.length ? urls : placeholderSet())
+          .map(function(item, idx){ return normalizeWorkerImageItem(item, idx); })
+          .filter(Boolean);
+
         hero.innerHTML = "";
 
-        urls.slice(0,8).forEach(function(src,i){
+        slides.slice(0,8).forEach(function(item,i){
           const slide = document.createElement("div");
           slide.className = "fh-hero-slide" + (i === 0 ? " active" : "");
-          slide.style.backgroundImage = "url('" + src.replace(/'/g,"%27") + "')";
+          slide.style.backgroundImage = 'url("' + String(item.url || PLACEHOLDER_IMAGE).replace(/"/g, "%22") + '")';
           hero.appendChild(slide);
         });
       }
 
       function setStaticImages(){
-        safeImage($('[data-img="overviewMain"]'), [IMAGES.overview[0]].concat(FALLBACK));
-        safeImage($('[data-img="overviewFloat1"]'), [IMAGES.overview[1]].concat(FALLBACK));
-        safeImage($('[data-img="overviewFloat2"]'), [IMAGES.overview[2]].concat(FALLBACK));
+        safeImage($('[data-img="overviewMain"]'), IMAGES.overview, 0);
+        safeImage($('[data-img="overviewFloat1"]'), IMAGES.overview, 1);
+        safeImage($('[data-img="overviewFloat2"]'), IMAGES.overview, 2);
 
         Object.keys(IMAGES.cards).forEach(function(key){
           const el = $('[data-img="' + key + '"]');
-          if (el) safeImage(el, [IMAGES.cards[key]].concat(FALLBACK));
+          if (el) safeImage(el, [IMAGES.cards[key]], 0);
         });
       }
 
@@ -4506,21 +4917,25 @@
         const track = box.querySelector(".fh-carousel-track");
         if (!track) return;
 
+        const slides = (urls && urls.length ? urls : placeholderSet())
+          .map(function(item, idx){ return normalizeWorkerImageItem(item, idx); })
+          .filter(Boolean);
+
         track.innerHTML = "";
 
-        urls.slice(0,10).forEach(function(src,i){
+        slides.slice(0,10).forEach(function(item,i){
           const slide = document.createElement("div");
           slide.className = "fh-carousel-slide";
 
           const image = document.createElement("img");
-          image.alt = name + " image " + (i + 1);
-          safeImage(image, urls, i);
+          image.alt = item.alt || (name + " image " + (i + 1));
+          safeImage(image, slides, i);
 
           slide.appendChild(image);
           track.appendChild(slide);
         });
 
-        const data = { idx:0, total:track.children.length, track:track };
+        const data = { idx:0, total:track.children.length || 1, track:track };
         state.carousels[name] = data;
 
         function move(dir){
@@ -4531,23 +4946,27 @@
         const prev = box.querySelector("[data-prev]");
         const next = box.querySelector("[data-next]");
 
-        if (prev) prev.addEventListener("click", function(){ move(-1); });
-        if (next) next.addEventListener("click", function(){ move(1); });
+        if (prev) prev.onclick = function(){ move(-1); };
+        if (next) next.onclick = function(){ move(1); };
       }
 
-      function startSlideshow(){
-        if (state.heroTimer) clearInterval(state.heroTimer);
+      async function initWorkerDrivenMedia(){
+        // First render a safe placeholder so the layout is never empty.
+        setHeroSlides(IMAGES.hero);
+        setStaticImages();
+        initCarousel("inside", IMAGES.inside);
+        initCarousel("kitchen", IMAGES.kitchen);
+        startSlideshow();
 
-        let idx = 0;
+        // Then replace every media slot with images coming from the Worker.
+        const workerImages = await loadWorkerImages();
 
-        state.heroTimer = window.setInterval(function(){
-          const slides = $$(".fh-hero-slide");
-          if (!slides.length) return;
-
-          slides[idx] && slides[idx].classList.remove("active");
-          idx = (idx + 1) % slides.length;
-          slides[idx] && slides[idx].classList.add("active");
-        }, 7200);
+        setHeroSlides(IMAGES.hero);
+        setStaticImages();
+        initCarousel("inside", IMAGES.inside);
+        initCarousel("kitchen", IMAGES.kitchen);
+        forceApplyWorkerImagesToVisibleSlots(workerImages && workerImages.length ? workerImages : IMAGES.hero);
+        startSlideshow();
       }
 
       function initDates(){
@@ -4704,16 +5123,6 @@
         }
       });
 
-      window.addEventListener("fh:set-language", function(event){
-        const lang = String((event.detail && event.detail.lang) || "").slice(0,2).toLowerCase();
-        if (T[lang]) applyLanguage(lang);
-      });
-
-      window.addEventListener("fh-language-change", function(event){
-        const lang = String((event.detail && event.detail.lang) || "").slice(0,2).toLowerCase();
-        if (T[lang]) applyLanguage(lang);
-      });
-
       document.addEventListener("click", function(event){
         const link = event.target.closest("a[href]");
         if (!link) return;
@@ -4765,16 +5174,12 @@
         "en"
       ).slice(0,2).toLowerCase();
 
-      setHeroSlides(IMAGES.hero);
-      setStaticImages();
-      initCarousel("inside", IMAGES.inside);
-      initCarousel("kitchen", IMAGES.kitchen);
-      startSlideshow();
       initDates();
       initMap();
       initReveal();
       prefillExisting();
       applyLanguage(T[state.lang] ? state.lang : (T[startLang] ? startLang : "en"));
+      initWorkerDrivenMedia();
 
       function processInstagramEmbed(){
         if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function"){
@@ -4792,5 +5197,407 @@
       console.log("Booking handoff URL:", CFG.bookingPageUrl);
     })();
   </script>
+
+
+<!-- FH WORKER MEDIA + PRICE EMERGENCY PATCH v2026-06-11-2
+     This patch is intentionally independent from the page's older slideshow/calendar code. -->
+<style id="fh-worker-media-price-patch-css">
+  #fh-home .fh-lang-switch{display:none!important;visibility:hidden!important;pointer-events:none!important;}
+  #fh-home .fh-day-price{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    min-height:10px!important;
+    margin-top:5px!important;
+    font-size:9px!important;
+    line-height:1.05!important;
+    font-weight:850!important;
+    color:rgba(28,24,20,.68)!important;
+    white-space:nowrap!important;
+  }
+  #fh-home .fh-day-price.missing{display:none!important;}
+  #fh-home .fh-day.start .fh-day-price,
+  #fh-home .fh-day.end .fh-day-price{color:rgba(255,250,242,.88)!important;}
+  #fh-home img[data-fh-worker-image="true"]{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    object-fit:cover!important;
+  }
+</style>
+<script id="fh-worker-media-price-patch-js">
+(function(){
+  "use strict";
+
+  window.__FH_WORKER_PATCH_VERSION = "worker-media-prices-v2026-06-11-2";
+
+  var WORKER = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  var LISTING_ID = "6968339ab7d735001ca015ba";
+  var DEFAULT_CURRENCY = "CHF";
+  var imageUrls = [];
+  var priceMap = Object.create(null);
+  var fetchedRanges = Object.create(null);
+  var heroTimer = null;
+
+  function root(){ return document.getElementById("fh-home") || document; }
+
+  function log(){
+    try { console.log.apply(console, arguments); } catch(e) {}
+  }
+
+  function warn(){
+    try { console.warn.apply(console, arguments); } catch(e) {}
+  }
+
+  function isUrl(value){
+    return typeof value === "string" && /^https?:\/\//i.test(value.trim());
+  }
+
+  function looksLikeImageUrl(value){
+    if (!isUrl(value)) return false;
+    var clean = value.trim();
+    return /\.(avif|webp|jpe?g|png|gif|svg)(\?|#|$)/i.test(clean) ||
+      /cloudinary|guesty|image|images|upload|media|assets/i.test(clean);
+  }
+
+  function extractUrls(value, out, seen, depth){
+    if (!value || depth > 7) return;
+
+    if (typeof value === "string"){
+      var clean = value.trim();
+      if (looksLikeImageUrl(clean) && !seen[clean]){
+        seen[clean] = true;
+        out.push(clean);
+      }
+      return;
+    }
+
+    if (Array.isArray(value)){
+      value.forEach(function(item){ extractUrls(item, out, seen, depth + 1); });
+      return;
+    }
+
+    if (typeof value !== "object") return;
+
+    [
+      "url", "original", "large", "regular", "src", "href", "secure_url",
+      "imageUrl", "image_url", "thumbnail", "thumb", "medium", "small",
+      "file", "image", "picture", "photo"
+    ].forEach(function(key){
+      if (Object.prototype.hasOwnProperty.call(value, key)){
+        extractUrls(value[key], out, seen, depth + 1);
+      }
+    });
+
+    Object.keys(value).forEach(function(key){
+      extractUrls(value[key], out, seen, depth + 1);
+    });
+  }
+
+  function normalizeImageUrls(data){
+    var out = [];
+    var seen = Object.create(null);
+
+    if (data && Array.isArray(data.images)) extractUrls(data.images, out, seen, 0);
+    if (!out.length && data && data.listing) extractUrls(data.listing, out, seen, 0);
+    if (!out.length && data && data.data) extractUrls(data.data, out, seen, 0);
+    if (!out.length) extractUrls(data, out, seen, 0);
+
+    return out.filter(function(url){ return /^https?:\/\//i.test(url); });
+  }
+
+  function setImg(img, url, alt){
+    if (!img || !url) return;
+    img.loading = img.loading || "lazy";
+    img.decoding = "async";
+    img.src = url;
+    img.setAttribute("data-fh-worker-image", "true");
+    if (!img.alt) img.alt = alt || "Fletschhorn image";
+  }
+
+  function applyHeroImages(urls){
+    var hero = document.getElementById("fhHeroMedia") || root().querySelector(".fh-hero-media");
+    if (!hero || !urls.length) return;
+
+    if (heroTimer){
+      clearInterval(heroTimer);
+      heroTimer = null;
+    }
+
+    hero.innerHTML = "";
+    hero.style.backgroundImage = "url('" + urls[0].replace(/'/g, "%27") + "')";
+    hero.style.backgroundSize = "cover";
+    hero.style.backgroundPosition = "center";
+
+    urls.slice(0, 8).forEach(function(url, index){
+      var slide = document.createElement("div");
+      slide.className = "fh-hero-slide" + (index === 0 ? " active" : "");
+      slide.style.backgroundImage = "url('" + url.replace(/'/g, "%27") + "')";
+      slide.style.backgroundSize = "cover";
+      slide.style.backgroundPosition = "center";
+      hero.appendChild(slide);
+    });
+
+    var slides = Array.prototype.slice.call(hero.querySelectorAll(".fh-hero-slide"));
+    if (slides.length > 1){
+      var active = 0;
+      heroTimer = setInterval(function(){
+        if (!document.body.contains(hero)){
+          clearInterval(heroTimer);
+          heroTimer = null;
+          return;
+        }
+        slides[active].classList.remove("active");
+        active = (active + 1) % slides.length;
+        slides[active].classList.add("active");
+      }, 5200);
+    }
+  }
+
+  function applyInlineImages(urls){
+    if (!urls.length) return;
+
+    var r = root();
+    var selectors = [
+      "img[data-img]",
+      ".fh-season img",
+      ".fh-use-card img",
+      ".fh-carousel-slide img",
+      ".fh-overview img",
+      ".fh-image-card img",
+      ".fh-card img",
+      "img[src='']",
+      "img:not([src])"
+    ];
+
+    var imgs = Array.prototype.slice.call(r.querySelectorAll(selectors.join(",")));
+    var seen = [];
+    imgs = imgs.filter(function(img){
+      if (seen.indexOf(img) >= 0) return false;
+      seen.push(img);
+      return true;
+    });
+
+    imgs.forEach(function(img, index){
+      setImg(img, urls[index % urls.length], "Fletschhorn image " + (index + 1));
+    });
+
+    Array.prototype.slice.call(r.querySelectorAll(".fh-carousel-track")).forEach(function(track, trackIndex){
+      var existingSlides = Array.prototype.slice.call(track.querySelectorAll(".fh-carousel-slide"));
+
+      if (!existingSlides.length){
+        urls.slice(trackIndex * 5, trackIndex * 5 + 8).forEach(function(url, i){
+          var slide = document.createElement("div");
+          slide.className = "fh-carousel-slide";
+          var img = document.createElement("img");
+          setImg(img, url, "Fletschhorn carousel image " + (i + 1));
+          slide.appendChild(img);
+          track.appendChild(slide);
+        });
+      } else {
+        existingSlides.forEach(function(slide, i){
+          var img = slide.querySelector("img") || document.createElement("img");
+          if (!img.parentNode) slide.appendChild(img);
+          setImg(img, urls[(trackIndex * 8 + i) % urls.length], "Fletschhorn carousel image " + (i + 1));
+        });
+      }
+    });
+
+    log("FH PATCH images applied:", urls.length, "worker urls;", imgs.length, "img tags updated.");
+  }
+
+  async function loadImages(){
+    try {
+      var url = WORKER + "/images?listingId=" + encodeURIComponent(LISTING_ID) + "&t=" + Date.now();
+      var res = await fetch(url, { cache:"no-store", headers:{ "accept":"application/json" } });
+      var data = await res.json();
+
+      if (!res.ok || data.ok === false) throw new Error(data.error || data.message || "Images request failed");
+
+      imageUrls = normalizeImageUrls(data);
+      if (!imageUrls.length) throw new Error("Worker returned images but no usable URL was found");
+
+      applyHeroImages(imageUrls);
+      applyInlineImages(imageUrls);
+    } catch(error){
+      warn("FH PATCH image loading failed:", error);
+    }
+  }
+
+  function ymd(date){
+    var y = date.getFullYear();
+    var m = String(date.getMonth() + 1).padStart(2, "0");
+    var d = String(date.getDate()).padStart(2, "0");
+    return y + "-" + m + "-" + d;
+  }
+
+  function padDate(iso, days){
+    var d = new Date(iso + "T00:00:00");
+    d.setDate(d.getDate() + days);
+    return ymd(d);
+  }
+
+  function formatMoney(amount, currency){
+    var n = Number(amount);
+    if (!Number.isFinite(n)) return "";
+    try {
+      return new Intl.NumberFormat("en-US", {
+        style:"currency",
+        currency: currency || DEFAULT_CURRENCY,
+        maximumFractionDigits:0
+      }).format(n);
+    } catch(e){
+      return (currency || DEFAULT_CURRENCY) + " " + Math.round(n);
+    }
+  }
+
+  function normalizeDay(day){
+    if (!day || typeof day !== "object") return null;
+    var date = day.date || day.day || day.localDate || day.dateLocalized || day.startDate || day.from;
+    if (!date) return null;
+    date = String(date).slice(0,10);
+    var price = day.price;
+    if (price && typeof price === "object") price = price.amount || price.value || price.price || price.total;
+    if (price === undefined || price === null) price = day.rate || day.amount || day.nightlyPrice || day.basePrice;
+    if (price === undefined || price === null) return null;
+    return {
+      date: date,
+      price: Number(price),
+      currency: day.currency || (day.price && day.price.currency) || DEFAULT_CURRENCY,
+      available: day.available !== false && day.isAvailable !== false && day.status !== "unavailable"
+    };
+  }
+
+  function saveDays(data){
+    var days = [];
+    if (data && Array.isArray(data.days)) days = data.days;
+    else if (data && data.data && Array.isArray(data.data.days)) days = data.data.days;
+    else {
+      (function walk(value){
+        if (!value || typeof value !== "object") return;
+        if (Array.isArray(value)) return value.forEach(walk);
+        var d = normalizeDay(value);
+        if (d) days.push(value);
+        Object.keys(value).forEach(function(key){ walk(value[key]); });
+      })(data);
+    }
+
+    days.map(normalizeDay).filter(Boolean).forEach(function(day){
+      priceMap[day.date] = day;
+    });
+  }
+
+  function calendarGrid(){
+    return document.getElementById("fhToolbarCalendarGrid") || root().querySelector(".fh-calendar-grid, .fh-toolbar-calendar-grid");
+  }
+
+  function visibleCalendarDates(grid){
+    return Array.prototype.slice.call((grid || calendarGrid() || document).querySelectorAll(".fh-day[data-date], [data-date]")).map(function(btn){
+      return btn.getAttribute("data-date");
+    }).filter(function(date){ return /^\d{4}-\d{2}-\d{2}$/.test(date); });
+  }
+
+  async function ensurePricesForDates(dates){
+    if (!dates.length) return;
+    var sorted = dates.slice().sort();
+    var from = padDate(sorted[0], -1);
+    var to = padDate(sorted[sorted.length - 1], 1);
+    var key = from + "_" + to;
+    if (fetchedRanges[key]) return;
+    fetchedRanges[key] = true;
+
+    try {
+      var url = WORKER + "/calendar?from=" + encodeURIComponent(from) + "&to=" + encodeURIComponent(to) + "&listingId=" + encodeURIComponent(LISTING_ID) + "&t=" + Date.now();
+      var res = await fetch(url, { cache:"no-store", headers:{ "accept":"application/json" } });
+      var data = await res.json();
+      if (!res.ok || data.ok === false) throw new Error(data.error || data.message || "Calendar request failed");
+      saveDays(data);
+      injectPrices();
+      log("FH PATCH calendar prices loaded:", from, "to", to, Object.keys(priceMap).length, "priced days.");
+    } catch(error){
+      warn("FH PATCH calendar price loading failed:", error);
+    }
+  }
+
+  function injectPrices(){
+    var grid = calendarGrid();
+    if (!grid) return;
+
+    var count = 0;
+    Array.prototype.slice.call(grid.querySelectorAll(".fh-day[data-date], [data-date]")).forEach(function(btn){
+      var date = btn.getAttribute("data-date");
+      var info = priceMap[date];
+      if (!info || !Number.isFinite(Number(info.price))) return;
+
+      var label = formatMoney(info.price, info.currency || DEFAULT_CURRENCY);
+      var priceEl = btn.querySelector(".fh-day-price");
+      if (!priceEl){
+        priceEl = document.createElement("span");
+        priceEl.className = "fh-day-price";
+        btn.appendChild(priceEl);
+      }
+      priceEl.classList.remove("missing");
+      priceEl.textContent = label;
+      priceEl.style.display = "block";
+      priceEl.style.visibility = "visible";
+      priceEl.style.opacity = "1";
+      btn.setAttribute("data-price", String(info.price));
+      count++;
+    });
+
+    if (count) grid.setAttribute("data-fh-patch-prices", String(count));
+  }
+
+  function watchCalendar(){
+    var bodyObserver = new MutationObserver(function(){
+      var grid = calendarGrid();
+      if (!grid || grid.__fhPatchWatched) return;
+      grid.__fhPatchWatched = true;
+
+      var gridObserver = new MutationObserver(function(){
+        var dates = visibleCalendarDates(grid);
+        injectPrices();
+        ensurePricesForDates(dates);
+      });
+      gridObserver.observe(grid, { childList:true, subtree:true });
+
+      var dates = visibleCalendarDates(grid);
+      injectPrices();
+      ensurePricesForDates(dates);
+    });
+
+    bodyObserver.observe(document.body, { childList:true, subtree:true });
+
+    document.addEventListener("click", function(event){
+      if (event.target.closest("#fhOpenToolbarCalendar, [data-calendar-open], .fh-date-trigger")){
+        setTimeout(function(){
+          var dates = visibleCalendarDates(calendarGrid());
+          injectPrices();
+          ensurePricesForDates(dates);
+        }, 250);
+      }
+    });
+
+    var tries = 0;
+    var timer = setInterval(function(){
+      tries++;
+      var dates = visibleCalendarDates(calendarGrid());
+      injectPrices();
+      ensurePricesForDates(dates);
+      if (tries > 30) clearInterval(timer);
+    }, 1000);
+  }
+
+  function init(){
+    log("FH PATCH active:", window.__FH_WORKER_PATCH_VERSION);
+    loadImages();
+    watchCalendar();
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+
 </body>
 </html>
