@@ -52,9 +52,9 @@
 #fh-property .fh-hero{position:relative;z-index:1;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#1b1915;color:var(--white)}
 #fh-property .fh-hero-media,#fh-property .fh-hero-media:before,#fh-property .fh-hero-media:after{position:absolute;inset:0}
 #fh-property .fh-hero-media{z-index:0}
-#fh-property .fh-hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.045);transition:opacity 5.2s ease,transform 38s ease}
+#fh-property .fh-hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.045);transition:opacity 3.4s ease,transform 42s ease}
 #fh-property .fh-hero-slide.is-active{opacity:1;transform:scale(1)}
-#fh-property .fh-hero-media{opacity:0;transition:opacity 2.2s ease}
+#fh-property .fh-hero-media{opacity:0;transition:opacity 1.4s ease}
 #fh-property .fh-hero-media.is-ready{opacity:1}
 #fh-property .fh-hero-media:before{content:"";z-index:1;background:linear-gradient(180deg,rgba(18,16,13,.58) 0%,rgba(18,16,13,.28) 42%,rgba(18,16,13,.70) 100%),radial-gradient(circle at 50% 12%,rgba(255,255,255,.14),transparent 0 26%)}
 #fh-property .fh-hero-media:after{content:"";z-index:1;background:linear-gradient(180deg,transparent 72%,#fffaf3 100%)}
@@ -877,20 +877,13 @@
   #fh-property .fh-hero-contact strong{font-size:12.5px}
 }
 
-/* ===== HERO SLOWDOWN FIX =====
-   The hero had two independent slide timers: the main property hero timer
-   and the final Worker-image safety-layer timer. The final Worker hero now
-   owns the slides and clears the first timer, so the hero no longer advances
-   twice as fast.
-*/
+
+/* ===== FINAL HERO STABILITY + SLOW PREMIUM MOTION ===== */
 #fh-property .fh-hero-slide{
-  transition:opacity 5.2s ease,transform 38s ease!important;
-}
-#fh-property .fh-hero-media{
-  transition:opacity 2.2s ease!important;
+  transition:opacity 3.4s ease, transform 42s ease!important;
 }
 #fh-property .fh-progress span{
-  animation-duration:32s!important;
+  animation:fhHeroProgress 32s linear infinite!important;
 }
 
 </style>
@@ -1123,8 +1116,6 @@
     const mountain=mountainUrls.length?mountainUrls:exterior;
     return rotateList([imgAt(exterior,0),imgAt(inside,1),imgAt(sauna,2),imgAt(mountain,3),imgAt(prop,4),imgAt(inside,5)],1);
   }
-  const FH_HERO_INTERVAL_MS=32000;
-  const FH_HERO_PROGRESS_SECONDS=32;
   let lang="en", heroIndex=0, heroTimer=null;
   let propertyUrls=[], shuttleUrls=[], kitchenUrls=imagekitKitchenUrls.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
   const WORKER_IMAGE_BASE="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
@@ -1346,14 +1337,9 @@
   function showHero(i){
     const slides=qsa(".fh-hero-slide"); if(!slides.length) return;
     slides[heroIndex]?.classList.remove("is-active"); heroIndex=(i+slides.length)%slides.length; slides[heroIndex]?.classList.add("is-active");
-    const progress=qs("#propertySlideProgress"); if(progress){progress.style.animation="none"; void progress.offsetHeight; progress.style.animation="fhHeroProgress "+FH_HERO_PROGRESS_SECONDS+"s linear infinite";}
+    const progress=qs("#propertySlideProgress"); if(progress){progress.style.animation="none"; void progress.offsetHeight; progress.style.animation="fhHeroProgress 32s linear infinite";}
   }
-  function startHero(){
-    if(heroTimer) clearInterval(heroTimer);
-    if(window.__FH_PROPERTY_FINAL_HERO_OWNS_SLIDES === true) return;
-    heroTimer=setInterval(()=>showHero(heroIndex+1),FH_HERO_INTERVAL_MS);
-    window.__FH_PROPERTY_MAIN_HERO_TIMER__=heroTimer;
-  }
+  function startHero(){if(heroTimer) clearInterval(heroTimer);heroTimer=setInterval(()=>showHero(heroIndex+1),32000);}
   function setImg(el,url){
     if(!el||!url)return;
     el.loading=el.loading||"lazy";
@@ -1711,108 +1697,10 @@
 
 
 
-<!-- Final image safety layer: random images from Worker only. Keeps every visual slot from collapsing to one image. -->
-<script>
-(function(){
-  "use strict";
-  const root=document.querySelector("#fh-property");
-  if(!root) return;
-  const WORKER="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
-  const LISTING="6968339ab7d735001ca015ba";
-  const BLANK="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-  const HERO_INTERVAL_MS=32000;
-  let urls=[],cursor=0,heroTimer=null,applying=false;
-  function clean(v){v=String(v||"").trim().replace(/^ttps:\/\//i,"https://").replace(/^\/\//,"https://").replace(/[\s'\")<>]+$/g,""); if(/^https?:\/\//i.test(v))return v; if(v.charAt(0)==="/")return WORKER.replace(/\/$/,"")+v; return "";}
-  function isImg(u){return /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(u)||/assets\.guesty\.com\/image\/upload/i.test(u)||/cloudinary/i.test(u);}
-  function add(out,v){const u=clean(v); if(u&&isImg(u))out.push(u);}
-  function textUrls(out,t){String(t||"").replace(/ttps:\/\//gi,"https://").replace(/https?:\/\/[^\s"'<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^\s"'<>]*)?/gi,function(m){add(out,m);return m;});}
-  function walk(out,v){
-    if(v===null||v===undefined)return;
-    if(typeof v==="string"||typeof v==="number"){textUrls(out,v);add(out,v);return;}
-    if(Array.isArray(v)){v.forEach(x=>walk(out,x));return;}
-    if(typeof v==="object")Object.keys(v).forEach(k=>walk(out,v[k]));
-  }
-  function shuffle(a){a=Array.from(new Set(a.filter(Boolean))); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a;}
-  async function fetchUrls(){
-    const base=WORKER.replace(/\/$/,"")+"/images";
-    const stamp=Date.now();
-    const tries=[
-      base+"?listingId="+encodeURIComponent(LISTING)+"&random=1&limit=160&page=property&t="+stamp,
-      base+"?listingId="+encodeURIComponent(LISTING)+"&random=1&limit=160&t="+stamp,
-      base+"?random=1&limit=160&t="+stamp,
-      base+"?t="+stamp
-    ];
-    for(const url of tries){
-      try{
-        const r=await fetch(url,{cache:"no-store",headers:{Accept:"application/json,text/plain,*/*"}});
-        const txt=await r.text();
-        if(!r.ok) continue;
-        const out=[]; textUrls(out,txt);
-        try{walk(out,JSON.parse(txt));}catch(e){}
-        const got=shuffle(out);
-        if(got.length){urls=got; cursor=Math.floor(Math.random()*urls.length); return got;}
-      }catch(e){}
-    }
-    return [];
-  }
-  function next(){if(!urls.length)return BLANK; const u=urls[cursor%urls.length]; cursor++; return u;}
-  function safeUrl(u){return String(u||BLANK).replace(/"/g,"%22");}
-  function setImg(img){
-    if(!img||img.dataset.fhRandomWorkerFinal==="1")return;
-    img.dataset.fhRandomWorkerFinal="1";
-    img.loading=img.loading||"lazy"; img.decoding="async"; img.src=next();
-    img.onerror=function(){ const tries=Number(img.dataset.fhWorkerError||"0"); img.dataset.fhWorkerError=String(tries+1); if(tries<Math.min(8,urls.length)){img.src=next();}else{img.src=BLANK;} };
-    const wrap=img.closest(".fh-img-loading"); if(wrap)wrap.classList.remove("fh-img-loading");
-  }
-  function buildHero(){
-    window.__FH_PROPERTY_FINAL_HERO_OWNS_SLIDES=true;
-    if(window.__FH_PROPERTY_MAIN_HERO_TIMER__){
-      clearInterval(window.__FH_PROPERTY_MAIN_HERO_TIMER__);
-      window.__FH_PROPERTY_MAIN_HERO_TIMER__=null;
-    }
-    const media=root.querySelector("#propertyHeroMedia"); if(!media||!urls.length)return;
-    media.classList.remove("is-ready");
-    media.innerHTML="";
-    const count=Math.min(10,Math.max(3,urls.length));
-    for(let i=0;i<count;i++){
-      const slide=document.createElement("div");
-      slide.className="fh-hero-slide"+(i===0?" is-active":"");
-      slide.style.backgroundImage="url(\""+safeUrl(next())+"\")";
-      media.appendChild(slide);
-    }
-    requestAnimationFrame(function(){media.classList.add('is-ready');});
-    if(heroTimer)clearInterval(heroTimer);
-    let active=0;
-    heroTimer=setInterval(function(){const slides=Array.from(media.children); if(slides.length<2)return; slides[active].classList.remove("is-active"); active=(active+1)%slides.length; slides[active].classList.add("is-active");},HERO_INTERVAL_MS);
-  }
-  function buildEmptyRail(id,count){
-    const rail=root.querySelector("#"+id); if(!rail||rail.querySelector("img"))return;
-    const caps=["Fletschhorn","Private alpine stay","Saas-Fee","Mountain house","Group stay","Interior","Terrace","Wellness"];
-    let html="";
-    for(let i=0;i<count;i++)html+='<article class="fh-gallery-card'+(i%3===1?' small':'')+'"><img src="'+safeUrl(next())+'" data-fh-random-worker-final="1" alt="Fletschhorn" loading="lazy"><div class="fh-gallery-caption"><small>'+caps[i%caps.length]+'</small><strong>'+caps[(i+1)%caps.length]+'</strong></div></article>';
-    rail.innerHTML=html;
-  }
-  function apply(){
-    if(applying||!urls.length)return; applying=true;
-    buildHero();
-    ["propertyGalleryRail","propertyKitchenRail","propertySpaRail","propertyShuttleRail"].forEach(id=>buildEmptyRail(id,8));
-    root.querySelectorAll("img").forEach(setImg);
-    const cta=root.querySelector(".fh-cta"); if(cta)cta.style.setProperty("--cta-bg",'url("'+safeUrl(next())+'")');
-    root.querySelectorAll(".fh-gallery-card,.fh-room-card,.fh-concept,.fh-kitchen-card,.fh-media-tile,.fh-photo,.fh-image-panel").forEach(el=>el.classList.remove("fh-img-loading"));
-    applying=false;
-  }
-  fetchUrls().then(function(got){
-    if(!got.length){console.warn("Worker /images returned no random images for this page.");return;}
-    apply();
-    const mo=new MutationObserver(function(muts){
-      if(muts.some(m=>m.addedNodes&&m.addedNodes.length)) setTimeout(apply,40);
-    });
-    mo.observe(root,{childList:true,subtree:true});
-    document.addEventListener("fh:language",function(){setTimeout(apply,80);});
-    document.addEventListener("fletschhorn:languageChanged",function(){setTimeout(apply,80);});
-    window.addEventListener("storage",function(e){if(e.key&&/^fh_?lang/i.test(e.key))setTimeout(apply,80);});
-  });
-})();
-</script>
+<!-- FH HERO STABILITY PATCH
+     The previous final image safety layer was removed because it rebuilt #propertyHeroMedia
+     after every DOM mutation, which caused the hero to flash/restart and made the page feel broken.
+     The main property script already loads Worker images and builds the hero/gallery once, then refreshes after Worker images arrive.
+-->
 </body>
 </html>
