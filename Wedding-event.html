@@ -3951,6 +3951,260 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
   if(document.readyState!=="loading") init();
 })();
 </script>
+<!-- FORCE FIX: different Worker images for Weddings & Events page
+     Paste this block at the VERY END of the page, after the existing scripts.
+     It overrides the previous gallery rendering and forces each hero/card/carousel slot to get a different image. -->
+
+<style>
+  #fh-events .fh-force-img-ready{opacity:1!important;visibility:visible!important;}
+  #fh-events .fh-simple-carousel{position:absolute!important;inset:0!important;overflow:hidden!important;background:#d5c8bb!important;}
+  #fh-events .fh-simple-carousel .fh-carousel-slide,
+  #fh-events .fh-hero-slides .fh-slide{
+    position:absolute!important;
+    inset:0!important;
+    background-size:cover!important;
+    background-position:center!important;
+    opacity:0!important;
+    transition:opacity 1000ms ease, transform 7000ms ease!important;
+    transform:scale(1.025);
+  }
+  #fh-events .fh-simple-carousel .fh-carousel-slide.fh-active,
+  #fh-events .fh-hero-slides .fh-slide.fh-active{
+    opacity:1!important;
+    transform:scale(1)!important;
+  }
+  #fh-events img[data-fh-worker-image]{opacity:1!important;visibility:visible!important;object-fit:cover!important;width:100%!important;height:100%!important;}
+</style>
+
+<script>
+(function(){
+  const root = document.querySelector('#fh-events');
+  if(!root) return;
+
+  const WORKER_URL = 'https://fletschhorn-guesty-api.bookings-e2d.workers.dev';
+  const IMAGE_ENDPOINT = WORKER_URL.replace(/\/$/, '') + '/images';
+  const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+
+  const PHOTOS = {
+    hero: [
+      ['sgnvt8esvocag0t0zt4k', 'https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/sgnvt8esvocag0t0zt4k.jpg']
+    ],
+    wedding: [
+      ['ynowbkmnknjm38unkn13', 'https://assets.guesty.com/image/upload/v1781188727/production/686c48ada4bbacd7a82a4f83/ynowbkmnknjm38unkn13.jpg'],
+      ['m4dmbmdielanubvzdgvf', 'https://assets.guesty.com/image/upload/v1781188703/production/686c48ada4bbacd7a82a4f83/m4dmbmdielanubvzdgvf.jpg'],
+      ['bwarbedrbihgqu6fyctt', 'https://assets.guesty.com/image/upload/v1781188729/production/686c48ada4bbacd7a82a4f83/bwarbedrbihgqu6fyctt.jpg'],
+      ['ckbf70ughwsig7rug262', 'https://assets.guesty.com/image/upload/v1781188728/production/686c48ada4bbacd7a82a4f83/ckbf70ughwsig7rug262.jpg'],
+      ['z2jwcdtswmr2ihr14gqm', 'https://assets.guesty.com/image/upload/v1781188708/production/686c48ada4bbacd7a82a4f83/z2jwcdtswmr2ihr14gqm.jpg'],
+      ['lkmprvbufk4kvqaiupxe', 'https://assets.guesty.com/image/upload/v1781188709/production/686c48ada4bbacd7a82a4f83/lkmprvbufk4kvqaiupxe.jpg'],
+      ['o5amfaz3mnbsvvmz8owc', 'https://assets.guesty.com/image/upload/v1781188730/production/686c48ada4bbacd7a82a4f83/o5amfaz3mnbsvvmz8owc.jpg']
+    ],
+    event: [
+      ['nhbliowk99qiv0jgf77b', 'https://assets.guesty.com/image/upload/v1781188578/production/686c48ada4bbacd7a82a4f83/nhbliowk99qiv0jgf77b.jpg'],
+      ['gs7vewokpklgmw32z6tb', 'https://assets.guesty.com/image/upload/v1781188711/production/686c48ada4bbacd7a82a4f83/gs7vewokpklgmw32z6tb.jpg'],
+      ['uyb97nsacpy6ipo49rpy', 'https://assets.guesty.com/image/upload/v1781188597/production/686c48ada4bbacd7a82a4f83/uyb97nsacpy6ipo49rpy.jpg'],
+      ['zpwembp1gflcyocsnvnd', 'https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/zpwembp1gflcyocsnvnd.jpg'],
+      ['e8imjtm3b6zscb4exc1i', 'https://assets.guesty.com/image/upload/v1781188784/production/686c48ada4bbacd7a82a4f83/e8imjtm3b6zscb4exc1i.jpg']
+    ]
+  };
+
+  const ALL = [...PHOTOS.hero, ...PHOTOS.wedding, ...PHOTOS.event];
+
+  function cleanUrl(v){
+    return String(v || '').trim().replace(/^ttps:\/\//i, 'https://');
+  }
+
+  function stem(v){
+    const raw = cleanUrl(v).split('?')[0].split('#')[0];
+    const file = raw.split('/').pop() || raw;
+    return file.replace(/\.(jpg|jpeg|png|webp)$/i, '').toLowerCase();
+  }
+
+  function absoluteUrl(v){
+    const raw = cleanUrl(v);
+    if(!raw) return '';
+    if(/^https?:\/\//i.test(raw)) return raw;
+    if(raw.startsWith('/')) return WORKER_URL.replace(/\/$/, '') + raw;
+    return '';
+  }
+
+  function flattenStrings(value, out = []){
+    if(value === null || value === undefined) return out;
+    if(typeof value === 'string' || typeof value === 'number'){
+      out.push(String(value));
+      return out;
+    }
+    if(Array.isArray(value)){
+      value.forEach(item => flattenStrings(item, out));
+      return out;
+    }
+    if(typeof value === 'object'){
+      Object.keys(value).forEach(key => flattenStrings(value[key], out));
+    }
+    return out;
+  }
+
+  function extractWorkerUrls(data){
+    const found = [];
+    function walk(value){
+      if(!value) return;
+      if(typeof value === 'string'){
+        const url = absoluteUrl(value);
+        if(url && /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url)) found.push(url);
+        return;
+      }
+      if(Array.isArray(value)){
+        value.forEach(walk);
+        return;
+      }
+      if(typeof value === 'object'){
+        const preferred = ['workerUrl','worker_url','src','url','imageUrl','image_url','secure_url','original','originalUrl','original_url','large','full','href','path'];
+        preferred.forEach(key => {
+          if(typeof value[key] === 'string'){
+            const url = absoluteUrl(value[key]);
+            if(url && /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url)) found.push(url);
+          }
+        });
+        flattenStrings(value).forEach(s => {
+          const url = absoluteUrl(s);
+          if(url && /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url)) found.push(url);
+        });
+        Object.keys(value).forEach(key => walk(value[key]));
+      }
+    }
+    walk(data);
+    return Array.from(new Set(found));
+  }
+
+  async function getWorkerMap(){
+    try{
+      const response = await fetch(IMAGE_ENDPOINT + '?page=weddings-events&force=' + Date.now(), {
+        headers:{Accept:'application/json'},
+        cache:'no-store'
+      });
+      if(!response.ok) throw new Error('Worker /images returned ' + response.status);
+      const data = await response.json();
+      const urls = extractWorkerUrls(data);
+      const map = new Map();
+      urls.forEach(url => map.set(stem(url), url));
+      return {map, urls};
+    }catch(error){
+      console.warn('Worker image list unavailable. Direct Guesty URLs are used only as fallback.', error);
+      return {map:new Map(), urls:[]};
+    }
+  }
+
+  function buildResolver(worker){
+    let orderedIndex = 0;
+    return function resolve(photo){
+      const wantedStem = stem(photo[0]);
+      if(worker.map.has(wantedStem)) return worker.map.get(wantedStem);
+
+      // Extra protection: sometimes Worker stores the Cloudinary public id without .jpg.
+      const exact = worker.urls.find(url => stem(url).includes(wantedStem) || wantedStem.includes(stem(url)));
+      if(exact) return exact;
+
+      // Last Worker-based fallback: use the next distinct Worker image, so the page does not repeat one photo.
+      if(worker.urls.length){
+        const url = worker.urls[orderedIndex % worker.urls.length];
+        orderedIndex += 1;
+        return url;
+      }
+
+      // Safety fallback only if Worker cannot provide the image.
+      return photo[1];
+    };
+  }
+
+  function setImg(img, url){
+    if(!img) return;
+    img.src = url || BLANK;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.classList.add('fh-force-img-ready');
+  }
+
+  function setBg(el, url, overlay){
+    if(!el || !url) return;
+    el.style.backgroundImage = overlay ? overlay + ', url("' + url + '")' : 'url("' + url + '")';
+    el.classList.add('fh-force-img-ready');
+  }
+
+  function buildCarousel(host, photos, resolve, delay, overlay){
+    if(!host || !photos.length) return;
+    const offset = Number(host.getAttribute('data-fh-carousel-offset') || 0) % photos.length;
+    const ordered = photos.slice(offset).concat(photos.slice(0, offset));
+    host.innerHTML = '';
+    ordered.forEach((photo, index) => {
+      const slide = document.createElement('div');
+      slide.className = 'fh-carousel-slide' + (index === 0 ? ' fh-active' : '');
+      setBg(slide, resolve(photo), overlay || '');
+      host.appendChild(slide);
+    });
+
+    const slides = Array.from(host.children);
+    if(slides.length > 1){
+      let active = 0;
+      setInterval(() => {
+        slides[active].classList.remove('fh-active');
+        active = (active + 1) % slides.length;
+        slides[active].classList.add('fh-active');
+      }, delay || 5200);
+    }
+  }
+
+  function applyForcedImages(resolve){
+    // Hero: force several different slides, not one repeated background.
+    const heroHost = root.querySelector('[data-fh-event-slides]');
+    if(heroHost){
+      heroHost.innerHTML = '';
+      const heroPhotos = [PHOTOS.hero[0], PHOTOS.wedding[0], PHOTOS.wedding[3], PHOTOS.event[0], PHOTOS.event[3]];
+      heroPhotos.forEach((photo, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'fh-slide' + (index === 0 ? ' fh-active' : '');
+        setBg(slide, resolve(photo), 'linear-gradient(180deg,rgba(23,19,16,.62),rgba(23,19,16,.34) 42%,rgba(23,19,16,.70))');
+        heroHost.appendChild(slide);
+      });
+      const slides = Array.from(heroHost.children);
+      let active = 0;
+      setInterval(() => {
+        slides[active].classList.remove('fh-active');
+        active = (active + 1) % slides.length;
+        slides[active].classList.add('fh-active');
+      }, 6500);
+    }
+
+    // Main visual carousels.
+    root.querySelectorAll('[data-fh-carousel="love"]').forEach(host => buildCarousel(host, PHOTOS.wedding, resolve, 5000));
+    root.querySelectorAll('[data-fh-carousel="events"]').forEach(host => buildCarousel(host, PHOTOS.event, resolve, 5000));
+
+    // Static gallery cards: force each exact card to a different exact image.
+    const imageSlots = Array.from(root.querySelectorAll('img[data-fh-worker-image]'));
+    const byStem = new Map(ALL.map(photo => [stem(photo[0]), photo]));
+    const mixedQueue = [...PHOTOS.wedding, ...PHOTOS.event, ...PHOTOS.hero];
+
+    imageSlots.forEach((img, index) => {
+      const wanted = stem(img.getAttribute('data-fh-worker-image'));
+      const photo = byStem.get(wanted) || mixedQueue[index % mixedQueue.length];
+      setImg(img, resolve(photo));
+    });
+
+    // Background slots, if the page has any.
+    root.querySelectorAll('[data-fh-worker-bg]').forEach((el, index) => {
+      const wanted = stem(el.getAttribute('data-fh-worker-bg'));
+      const photo = byStem.get(wanted) || mixedQueue[index % mixedQueue.length];
+      setBg(el, resolve(photo));
+    });
+  }
+
+  getWorkerMap().then(worker => {
+    const resolve = buildResolver(worker);
+    applyForcedImages(resolve);
+    root.dataset.forceImagesApplied = 'true';
+    console.info('Fletschhorn forced image patch applied. Worker images found:', worker.urls.length);
+  });
+})();
+</script>
 
 </body>
 </html>
+
