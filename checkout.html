@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="assets/fh-global.css">
 
   <style>
-
     :root{
       --fh-cream:#f7f1e8;
       --fh-paper:#fffaf3;
@@ -47,27 +46,17 @@
     #fh-header-slot,#fh-footer-slot{position:relative;z-index:80}
 
     #fh-checkout-page{
-      position:relative;
-      left:50%;right:50%;width:100vw;max-width:100vw;
-      margin-left:-50vw;margin-right:-50vw;
-      overflow:hidden;
-      color:var(--fh-ink);
-      font-family:var(--fh-sans);
+      position:relative;left:50%;right:50%;width:100vw;max-width:100vw;
+      margin-left:-50vw;margin-right:-50vw;overflow:hidden;color:var(--fh-ink);font-family:var(--fh-sans);
       background:
         radial-gradient(circle at 12% 0%,rgba(255,255,255,.68),transparent 0 23%),
         radial-gradient(circle at 86% 8%,rgba(185,159,134,.19),transparent 0 21%),
         linear-gradient(180deg,#efe5d9 0%,#fffaf3 24%,#f3eadf 60%,#fbf6ef 100%);
     }
-
     #fh-checkout-page:before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      opacity:.08;
+      content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='860' viewBox='0 0 1400 860'%3E%3Cg fill='none' stroke='%238a7b69' stroke-opacity='.65' stroke-width='1.1'%3E%3Cpath d='M-60 120c196 51 355 52 480 11 116-37 241-34 370 14 141 52 285 53 459-9 72-25 136-29 200-17'/%3E%3Cpath d='M-60 270c207 36 379 29 513-17 117-39 236-34 363 11 151 54 300 49 463-10 75-27 140-29 199-18'/%3E%3Cpath d='M-60 418c223 24 402 16 544-22 114-30 230-28 361 3 148 35 290 34 443-9 84-23 146-24 207-14'/%3E%3Cpath d='M-60 568c232 17 419 7 569-26 113-25 229-23 354-3 139 22 273 22 407-7 81-17 145-16 202-9'/%3E%3Cpath d='M-60 718c257 7 453-8 608-34 112-19 226-18 342-5 136 15 263 15 393-8 81-13 140-12 199-7'/%3E%3C/g%3E%3C/svg%3E");
-      background-size:cover;
-      background-position:center top;
+      background-size:cover;background-position:center top;
     }
 
     #fh-checkout-page .fh-container{width:var(--fh-container);margin-inline:auto;position:relative;z-index:1}
@@ -80,142 +69,65 @@
     #fh-checkout-page h3{font-size:clamp(25px,6vw,37px);line-height:.98;margin:0 0 12px}
     #fh-checkout-page p{font-size:15px;line-height:1.64;color:var(--fh-muted);margin-bottom:14px}
 
-    /* MAIN PHOTO HERO */
-    .fh-photo-hero{
-      position:relative;
-      min-height:360px;
-      background:#342e27;
-      color:var(--fh-white);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      padding:104px var(--fh-edge) 38px;
-    }
+    .fh-photo-hero{position:relative;min-height:360px;background:#342e27;color:var(--fh-white);overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:104px var(--fh-edge) 38px}
     .fh-hero-bg{position:absolute;inset:0;z-index:0;background:#4c4339;overflow:hidden}
     .fh-hero-bg img{width:100%;height:100%;object-fit:cover;filter:saturate(.94) contrast(1.02);transform:scale(1.01);transition:opacity .45s ease,transform 1.4s cubic-bezier(.2,.8,.2,1)}
-    .fh-hero-bg:after{
-      content:"";
-      position:absolute;inset:0;
-      background:
-        linear-gradient(180deg,rgba(26,23,20,.62) 0%,rgba(26,23,20,.26) 42%,rgba(26,23,20,.78) 100%),
-        radial-gradient(circle at 50% 20%,rgba(255,255,255,.08),transparent 0 34%);
-      pointer-events:none;
-    }
+    .fh-hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,23,20,.62) 0%,rgba(26,23,20,.26) 42%,rgba(26,23,20,.78) 100%),radial-gradient(circle at 50% 20%,rgba(255,255,255,.08),transparent 0 34%);pointer-events:none}
     .fh-hero-copy{position:relative;z-index:2;text-align:center;width:min(940px,100%);margin:0 auto}
     .fh-hero-copy .fh-kicker{color:rgba(255,250,243,.78);letter-spacing:.24em;margin-bottom:13px}
     .fh-hero-copy p{color:rgba(255,250,243,.82);font-size:clamp(14.5px,2.4vw,17px);line-height:1.48;max-width:620px;margin:0 auto 14px;text-wrap:balance}
     .fh-hero-contact{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:0 auto;width:min(640px,100%)}
-    .fh-hero-contact a,.fh-hero-contact span.fh-pill{
-      display:inline-flex;align-items:center;justify-content:space-between;gap:12px;
-      min-height:38px;padding:8px 11px;border:1px solid rgba(255,250,243,.24);
-      background:rgba(255,250,243,.11);color:var(--fh-white);font-size:12px;line-height:1;
-      backdrop-filter:blur(12px);min-width:min(310px,100%);
-    }
+    .fh-hero-contact span.fh-pill{display:inline-flex;align-items:center;justify-content:space-between;gap:12px;min-height:38px;padding:8px 11px;border:1px solid rgba(255,250,243,.24);background:rgba(255,250,243,.11);color:var(--fh-white);font-size:12px;line-height:1;backdrop-filter:blur(12px);min-width:min(310px,100%)}
     .fh-hero-contact em{font-style:normal;color:rgba(255,250,243,.62);font-size:9px;text-transform:uppercase;letter-spacing:.13em;font-weight:900}
     .fh-hero-contact strong{font-weight:650;overflow-wrap:anywhere;text-align:right}
 
-    .fh-hero-carousel-shell{display:none}
-    .fh-hero-rail{display:flex;gap:9px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 0 7px}
-    .fh-hero-rail::-webkit-scrollbar{display:none}
-    .fh-hero-thumb{flex:0 0 118px;height:74px;border:1px solid rgba(255,250,243,.34);background:rgba(255,250,243,.12);padding:0;overflow:hidden;scroll-snap-align:start;opacity:.76;transition:opacity .18s,border-color .18s,transform .18s;border-radius:0}
-    .fh-hero-thumb.is-active{opacity:1;border-color:rgba(255,250,243,.92);transform:translateY(-1px)}
-    .fh-hero-thumb img{width:100%;height:100%;object-fit:cover}
-    .fh-hero-arrow{min-height:44px;border:1px solid rgba(255,250,243,.34);background:rgba(255,250,243,.12);color:#fff;font-size:25px;line-height:1;backdrop-filter:blur(10px);border-radius:0}
-
-    /* CHECKOUT STRUCTURE */
     .fh-checkout-layout{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
-    .fh-panel,.fh-booking-card{
-      background:rgba(255,250,243,.90);
-      border:1px solid var(--fh-line);
-      box-shadow:var(--fh-soft-shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .fh-panel:before,.fh-booking-card:before{
-      content:"";position:absolute;inset:0;pointer-events:none;
-      background:radial-gradient(circle at 10% 0%,rgba(255,255,255,.62),transparent 0 25%),linear-gradient(135deg,rgba(255,255,255,.28),transparent 60%);
-    }
+    .fh-panel,.fh-booking-card{background:rgba(255,250,243,.90);border:1px solid var(--fh-line);box-shadow:var(--fh-soft-shadow);position:relative;overflow:hidden}
+    .fh-panel:before,.fh-booking-card:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 10% 0%,rgba(255,255,255,.62),transparent 0 25%),linear-gradient(135deg,rgba(255,255,255,.28),transparent 60%)}
     .fh-panel>* , .fh-booking-card>*{position:relative}
     .fh-panel{padding:22px}
     .fh-booking-card{padding:18px;background:rgba(255,250,243,.94)}
-
     .fh-intro-note{font-size:13.5px;line-height:1.55;color:var(--fh-muted);margin:0 0 17px}
     .fh-secure-box{padding:14px 15px;margin-bottom:16px;border:1px solid rgba(63,111,80,.20);background:rgba(63,111,80,.075);color:var(--fh-good);font-size:13px;line-height:1.48;font-weight:650}
     .fh-warning-box{padding:13px 14px;margin-top:12px;border:1px solid rgba(150,101,35,.22);background:rgba(150,101,35,.08);color:var(--fh-warning);font-size:12.5px;line-height:1.45;font-weight:700}
-
     .fh-section-label{margin:18px 0 11px;font-size:11px;text-transform:uppercase;letter-spacing:.16em;font-weight:900;color:var(--fh-clay2)}
     .fh-form-grid{display:grid;grid-template-columns:1fr;gap:10px}
     .fh-field{display:grid;gap:6px;min-width:0}
     .fh-field label{font-size:10px;text-transform:uppercase;letter-spacing:.13em;font-weight:900;color:var(--fh-soft)}
-    .fh-field input,.fh-field select{
-      width:100%;min-height:46px;border:1px solid var(--fh-line);background:var(--fh-paper);color:var(--fh-ink);
-      padding:0 12px;outline:none;border-radius:0;
-    }
-    .fh-field input:focus,.fh-field select:focus{border-color:var(--fh-clay2);box-shadow:0 0 0 3px rgba(185,159,134,.16);background:#fff}
-    .fh-field.is-error input,.fh-field.is-error select{border-color:var(--fh-bad);background:rgba(139,46,37,.06);box-shadow:0 0 0 3px rgba(139,46,37,.10)}
-    .fh-field-hint{margin:5px 0 0;font-size:11.5px;line-height:1.4;color:var(--fh-soft)}
-
+    .fh-field input{width:100%;min-height:46px;border:1px solid var(--fh-line);background:var(--fh-paper);color:var(--fh-ink);padding:0 12px;outline:none;border-radius:0}
+    .fh-field input:focus{border-color:var(--fh-clay2);box-shadow:0 0 0 3px rgba(185,159,134,.16);background:#fff}
+    .fh-field.is-error input{border-color:var(--fh-bad);background:rgba(139,46,37,.06);box-shadow:0 0 0 3px rgba(139,46,37,.10)}
     .fh-selected-dates{display:grid;grid-template-columns:1fr;gap:9px;margin-bottom:13px}
     .fh-summary-item{border:1px solid var(--fh-line-soft);background:rgba(255,255,255,.50);padding:12px}
     .fh-summary-item span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.14em;font-weight:900;color:var(--fh-soft);margin-bottom:6px}
     .fh-summary-item b{display:block;font-size:14px;color:var(--fh-ink);font-weight:750;overflow-wrap:anywhere}
-
     .fh-live-quote{margin:12px 0;border:1px solid rgba(185,159,134,.24);background:rgba(185,159,134,.09);padding:13px;color:var(--fh-muted);font-size:13px;line-height:1.45}
     .fh-live-quote strong{display:block;color:var(--fh-clay2);font-family:var(--fh-serif);font-size:clamp(34px,9vw,50px);line-height:.95;letter-spacing:-.045em;margin-top:7px;font-weight:400}
     .fh-line-items{display:grid;gap:0;margin-top:12px;border-top:1px solid rgba(25,23,20,.08)}
     .fh-line-item{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(25,23,20,.07);font-size:13px;line-height:1.35;color:var(--fh-muted)}
-    .fh-line-item strong{color:var(--fh-ink);white-space:nowrap}
-
+    .fh-line-item strong{color:var(--fh-ink);white-space:nowrap;text-align:right}
+    .fh-line-item.total{font-weight:900;color:var(--fh-ink);border-bottom:0;padding-top:12px}
+    .fh-line-item.total strong{color:var(--fh-clay2);font-size:16px}
     .fh-actions{display:grid;gap:9px;margin-top:16px}
     .fh-primary-btn{min-height:50px;border:0;background:var(--fh-clay);color:var(--fh-white);text-transform:uppercase;letter-spacing:.13em;font-size:11px;font-weight:900;padding:0 17px;transition:background .18s,opacity .18s,transform .18s;border-radius:0;text-align:center;display:inline-flex;align-items:center;justify-content:center}
     .fh-primary-btn:hover{background:var(--fh-clay2);transform:translateY(-1px)}
     .fh-primary-btn:disabled{opacity:.62;cursor:wait;transform:none}
     .fh-ghost-btn{min-height:46px;border:1px solid var(--fh-line);background:rgba(255,255,255,.48);color:var(--fh-ink);text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:900;padding:0 14px;border-radius:0;text-align:center;display:inline-flex;align-items:center;justify-content:center}
     .fh-ghost-btn:hover{background:#fff}
-
     .fh-checkbox{display:flex;gap:10px;align-items:flex-start;margin-top:15px;color:var(--fh-muted);font-size:13px;line-height:1.5}
     .fh-checkbox input{width:auto;min-height:auto;margin-top:3px;accent-color:var(--fh-clay2)}
-
     .fh-message{display:none;border:1px solid var(--fh-line);padding:12px 13px;font-size:13px;line-height:1.45;color:var(--fh-muted);background:rgba(255,255,255,.52);margin-top:10px;white-space:pre-wrap}
     .fh-message.show{display:block}
     .fh-message.error{border-color:rgba(139,46,37,.22);background:rgba(139,46,37,.08);color:var(--fh-bad);font-weight:700}
     .fh-message.success{border-color:rgba(63,111,80,.22);background:rgba(63,111,80,.08);color:var(--fh-good);font-weight:700}
     .fh-message.warn{border-color:rgba(150,101,35,.22);background:rgba(150,101,35,.08);color:var(--fh-warning);font-weight:700}
-
     #fh-checkout-page[dir="rtl"]{direction:rtl}
     #fh-checkout-page[dir="rtl"] .fh-panel,#fh-checkout-page[dir="rtl"] .fh-booking-card,#fh-checkout-page[dir="rtl"] .fh-summary-item{text-align:right}
     #fh-checkout-page[dir="rtl"] input[type="email"],#fh-checkout-page[dir="rtl"] input[type="tel"],#fh-checkout-page[dir="rtl"] input[inputmode="numeric"]{direction:ltr;text-align:left;unicode-bidi:plaintext}
-
-    @media (min-width:640px){
-      :root{--fh-edge:22px}
-      .fh-photo-hero{min-height:380px;padding-bottom:40px}
-      .fh-hero-thumb{flex-basis:138px;height:86px}
-      .fh-selected-dates{grid-template-columns:1fr 1fr}
-      .fh-form-grid{grid-template-columns:repeat(2,1fr)}
-      .fh-field.full{grid-column:1 / -1}
-      .fh-actions{grid-template-columns:1fr auto}
-    }
-
-    @media (min-width:960px){
-      :root{--fh-edge:34px}
-      #fh-checkout-page .fh-section{padding-top:64px;padding-bottom:64px}
-      .fh-photo-hero{min-height:420px;padding-top:118px;padding-bottom:46px}
-      .fh-checkout-layout{grid-template-columns:minmax(0,1fr) minmax(360px,.48fr);gap:24px}
-      .fh-panel{padding:30px}
-      .fh-booking-card{position:sticky;top:92px;padding:22px}
-    }
-
-    @media (max-width:430px){
-      #fh-checkout-page h1{font-size:clamp(32px,10.5vw,46px)}
-      .fh-hero-contact a,.fh-hero-contact span.fh-pill{width:100%}
-      .fh-hero-carousel-shell{grid-template-columns:38px 1fr 38px}
-      .fh-hero-thumb{flex-basis:106px;height:66px}
-    }
-
-    @media (prefers-reduced-motion:reduce){
-      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-    }
+    @media (min-width:640px){:root{--fh-edge:22px}.fh-photo-hero{min-height:380px;padding-bottom:40px}.fh-selected-dates{grid-template-columns:1fr 1fr}.fh-form-grid{grid-template-columns:repeat(2,1fr)}.fh-field.full{grid-column:1 / -1}.fh-actions{grid-template-columns:1fr auto}}
+    @media (min-width:960px){:root{--fh-edge:34px}#fh-checkout-page .fh-section{padding-top:64px;padding-bottom:64px}.fh-photo-hero{min-height:420px;padding-top:118px;padding-bottom:46px}.fh-checkout-layout{grid-template-columns:minmax(0,1fr) minmax(360px,.48fr);gap:24px}.fh-panel{padding:30px}.fh-booking-card{position:sticky;top:92px;padding:22px}}
+    @media (max-width:430px){#fh-checkout-page h1{font-size:clamp(32px,10.5vw,46px)}.fh-hero-contact span.fh-pill{width:100%}}
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
 <body>
@@ -231,8 +143,8 @@
         <h1 id="fhHeroTitle">Confirm your stay</h1>
         <p id="fhHeroLead">Review your stay details and complete your payment for your private Fletschhorn stay.</p>
         <div class="fh-hero-contact" aria-label="Checkout reassurance">
-          <span class="fh-pill"><em>Stay</em><strong>Private booking</strong></span>
-          <span class="fh-pill"><em>Payment</em><strong>Secure checkout</strong></span>
+          <span class="fh-pill"><em>Stay</em><strong id="fhPrivatePill">Private booking</strong></span>
+          <span class="fh-pill"><em>Payment</em><strong id="fhPaymentPill">Secure checkout</strong></span>
         </div>
       </div>
     </section>
@@ -248,62 +160,23 @@
           <form id="fhPaymentForm" novalidate>
             <div class="fh-section-label" id="fhGuestSectionLabel">Guest details</div>
             <div class="fh-form-grid">
-              <div class="fh-field">
-                <label for="fhFirstName" id="fhFirstNameLabel">First name</label>
-                <input id="fhFirstName" name="firstName" type="text" autocomplete="given-name" required>
-              </div>
-              <div class="fh-field">
-                <label for="fhLastName" id="fhLastNameLabel">Last name</label>
-                <input id="fhLastName" name="lastName" type="text" autocomplete="family-name" required>
-              </div>
-              <div class="fh-field">
-                <label for="fhEmail" id="fhEmailLabel">Email</label>
-                <input id="fhEmail" name="email" type="email" autocomplete="email" required>
-              </div>
-              <div class="fh-field">
-                <label for="fhPhone" id="fhPhoneLabel">Phone / WhatsApp</label>
-                <input id="fhPhone" name="phone" type="tel" autocomplete="tel" required>
-              </div>
+              <div class="fh-field"><label for="fhFirstName" id="fhFirstNameLabel">First name</label><input id="fhFirstName" name="firstName" type="text" autocomplete="given-name" required></div>
+              <div class="fh-field"><label for="fhLastName" id="fhLastNameLabel">Last name</label><input id="fhLastName" name="lastName" type="text" autocomplete="family-name" required></div>
+              <div class="fh-field"><label for="fhEmail" id="fhEmailLabel">Email</label><input id="fhEmail" name="email" type="email" autocomplete="email" required></div>
+              <div class="fh-field"><label for="fhPhone" id="fhPhoneLabel">Phone / WhatsApp</label><input id="fhPhone" name="phone" type="tel" autocomplete="tel" required></div>
             </div>
 
             <div class="fh-section-label" id="fhPaymentSectionLabel">Payment details</div>
             <div class="fh-form-grid">
-              <div class="fh-field full">
-                <label for="fhCardName" id="fhCardNameLabel">Name on card</label>
-                <input id="fhCardName" name="cardName" autocomplete="cc-name" required>
-              </div>
-              <div class="fh-field full">
-                <label for="fhCardNumber" id="fhCardNumberLabel">Card number</label>
-                <input id="fhCardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
-              </div>
-              <div class="fh-field">
-                <label for="fhExpMonth" id="fhExpMonthLabel">Exp. month</label>
-                <input id="fhExpMonth" name="expMonth" inputmode="numeric" autocomplete="cc-exp-month" placeholder="MM" maxlength="2" required>
-              </div>
-              <div class="fh-field">
-                <label for="fhExpYear" id="fhExpYearLabel">Exp. year</label>
-                <input id="fhExpYear" name="expYear" inputmode="numeric" autocomplete="cc-exp-year" placeholder="YYYY" maxlength="4" required>
-              </div>
-              <div class="fh-field">
-                <label for="fhCvc" id="fhCvcLabel">CVC</label>
-                <input id="fhCvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" required>
-              </div>
-              <div class="fh-field">
-                <label for="fhCountry" id="fhCountryLabel">Billing country</label>
-                <input id="fhCountry" name="country" autocomplete="country" placeholder="CH" maxlength="2" required>
-              </div>
-              <div class="fh-field full">
-                <label for="fhAddress" id="fhAddressLabel">Billing address</label>
-                <input id="fhAddress" name="address" autocomplete="billing address-line1" required>
-              </div>
-              <div class="fh-field">
-                <label for="fhCity" id="fhCityLabel">City</label>
-                <input id="fhCity" name="city" autocomplete="billing address-level2" required>
-              </div>
-              <div class="fh-field">
-                <label for="fhPostal" id="fhPostalLabel">Postal code</label>
-                <input id="fhPostal" name="postal" autocomplete="billing postal-code" required>
-              </div>
+              <div class="fh-field full"><label for="fhCardName" id="fhCardNameLabel">Name on card</label><input id="fhCardName" name="cardName" autocomplete="cc-name" required></div>
+              <div class="fh-field full"><label for="fhCardNumber" id="fhCardNumberLabel">Card number</label><input id="fhCardNumber" name="cardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required></div>
+              <div class="fh-field"><label for="fhExpMonth" id="fhExpMonthLabel">Exp. month</label><input id="fhExpMonth" name="expMonth" inputmode="numeric" autocomplete="cc-exp-month" placeholder="MM" maxlength="2" required></div>
+              <div class="fh-field"><label for="fhExpYear" id="fhExpYearLabel">Exp. year</label><input id="fhExpYear" name="expYear" inputmode="numeric" autocomplete="cc-exp-year" placeholder="YYYY" maxlength="4" required></div>
+              <div class="fh-field"><label for="fhCvc" id="fhCvcLabel">CVC</label><input id="fhCvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" required></div>
+              <div class="fh-field"><label for="fhCountry" id="fhCountryLabel">Billing country</label><input id="fhCountry" name="country" autocomplete="country" placeholder="CH" maxlength="2" required></div>
+              <div class="fh-field full"><label for="fhAddress" id="fhAddressLabel">Billing address</label><input id="fhAddress" name="address" autocomplete="billing address-line1" required></div>
+              <div class="fh-field"><label for="fhCity" id="fhCityLabel">City</label><input id="fhCity" name="city" autocomplete="billing address-level2" required></div>
+              <div class="fh-field"><label for="fhPostal" id="fhPostalLabel">Postal code</label><input id="fhPostal" name="postal" autocomplete="billing postal-code" required></div>
             </div>
 
             <label class="fh-checkbox">
@@ -321,8 +194,8 @@
 
         <aside class="fh-booking-card" aria-label="Stay summary">
           <p class="fh-kicker" id="fhSummaryKicker">Your stay</p>
-          <h3 id="fhSummaryTitle">Quote summary</h3>
-          <p class="fh-intro-note" id="fhSummaryIntro">Review the stay total for your selected dates.</p>
+          <h3 id="fhSummaryTitle">Stay summary</h3>
+          <p class="fh-intro-note" id="fhSummaryIntro">This is the fixed total that will be charged for your selected stay.</p>
 
           <div class="fh-selected-dates">
             <div class="fh-summary-item"><span id="fhArrivalLabel">Arrival</span><b id="fhSumArrival">—</b></div>
@@ -333,12 +206,8 @@
             <div class="fh-summary-item"><span id="fhEmailSummaryLabel">Email</span><b id="fhSumEmail">—</b></div>
           </div>
 
-          <div class="fh-live-quote" id="fhLiveQuote">
-            Preparing your stay total...
-          </div>
+          <div class="fh-live-quote" id="fhLiveQuote">Preparing your stay total...</div>
           <div class="fh-line-items" id="fhQuoteLines"></div>
-
-          
         </aside>
       </div>
     </section>
@@ -396,21 +265,19 @@
       images: [],
       selectedImageIndex: 0,
       draft: {},
-      quoteData: null,
       paymentProviderId: "",
-      quoteTotalText: "",
-      quoteTotalNumber: null,
-      quoteCurrency: CFG.currency,
-      quoteId: "",
-      ratePlanId: ""
+      finalTotal: null,
+      finalCurrency: CFG.currency,
+      finalPriceText: "",
+      quoteBreakdown: []
     };
 
     var TEXT = {
-      en:{"heroKicker":"Secure checkout","heroTitle":"Confirm your stay","heroLead":"Review your stay details and complete your payment for your private Fletschhorn stay.","quotePill":"Private booking","paymentPill":"Secure checkout","checkoutKicker":"Step 2","checkoutTitle":"Confirm and pay.","checkoutIntro":"Review your stay, add your contact and billing details, and confirm your reservation.","secureText":"Your payment is handled securely. After confirmation, you will receive your reservation details by email.","guestDetails":"Guest details","paymentDetails":"Payment details","firstName":"First name","lastName":"Last name","email":"Email","phone":"Phone / WhatsApp","cardName":"Name on card","cardNumber":"Card number","expMonth":"Exp. month","expYear":"Exp. year","cvc":"CVC","country":"Billing country","address":"Billing address","city":"City","postal":"Postal code","accept":"I accept the rental agreement, cancellation policy, house rules, payment terms, and private-stay conditions for Fletschhorn.","pay":"Pay and confirm booking","processing":"Processing...","editStay":"Edit stay","summaryKicker":"Your stay","summaryTitle":"Stay summary","summaryIntro":"This is the total that will be charged for your selected stay.","arrival":"Arrival","departure":"Departure","nights":"Nights","night":"night","guests":"Guests","guest":"Guest","liveQuotePreparing":"Preparing your stay total...","liveQuoteFailed":"The stay total could not be loaded. Please refresh the page or contact us to complete your booking.","missingDates":"Missing dates. Please return to the booking page and choose your stay first.","missingFields":"Please complete the highlighted fields.","badEmail":"Please enter a valid email address.","acceptError":"Please accept the rental agreement before continuing.","providerMissing":"Online payment is not available yet. Please contact us to complete your booking.","tokenizing":"Preparing secure payment...","threeDS":"Additional card verification is required. Redirecting...","creating":"Confirming your reservation...","failed":"We could not complete the checkout. Please try again or contact us.","launchWarning":""},
-      fr:{"heroKicker":"Checkout sécurisé","heroTitle":"Confirmez votre séjour","heroLead":"Vérifiez les détails de votre séjour et complétez le paiement de votre séjour privé au Fletschhorn.","quotePill":"Réservation privée","paymentPill":"Paiement sécurisé","checkoutKicker":"Étape 2","checkoutTitle":"Confirmer et payer.","checkoutIntro":"Vérifiez votre séjour, ajoutez vos coordonnées et informations de facturation, puis confirmez la réservation.","secureText":"Votre paiement est traité de manière sécurisée. Après confirmation, vous recevrez les détails de votre réservation par email.","guestDetails":"Détails client","paymentDetails":"Paiement","firstName":"Prénom","lastName":"Nom","email":"Email","phone":"Téléphone / WhatsApp","cardName":"Nom sur la carte","cardNumber":"Numéro de carte","expMonth":"Mois exp.","expYear":"Année exp.","cvc":"CVC","country":"Pays de facturation","address":"Adresse de facturation","city":"Ville","postal":"Code postal","accept":"J’accepte le contrat de location, la politique d’annulation, le règlement, les conditions de paiement et les conditions du séjour privé Fletschhorn.","pay":"Payer et confirmer","processing":"Traitement...","editStay":"Modifier le séjour","summaryKicker":"Votre séjour","summaryTitle":"Résumé du séjour","summaryIntro":"Voici le total qui sera facturé pour votre séjour sélectionné.","arrival":"Arrivée","departure":"Départ","nights":"Nuits","night":"nuit","guests":"Invités","guest":"Client","liveQuotePreparing":"Préparation du total du séjour...","liveQuoteFailed":"Le total du séjour n’a pas pu être chargé. Veuillez actualiser la page ou nous contacter pour finaliser votre réservation.","missingDates":"Dates manquantes. Veuillez revenir à la page de réservation et choisir votre séjour.","missingFields":"Veuillez compléter les champs surlignés.","badEmail":"Veuillez entrer un email valide.","acceptError":"Veuillez accepter le contrat de location avant de continuer.","providerMissing":"Le paiement en ligne n’est pas disponible pour le moment. Veuillez nous contacter pour finaliser votre réservation.","tokenizing":"Préparation du paiement sécurisé...","threeDS":"Une vérification supplémentaire de la carte est requise. Redirection...","creating":"Confirmation de votre réservation...","failed":"Nous n’avons pas pu finaliser le checkout. Veuillez réessayer ou nous contacter.","launchWarning":""},
-      de:{"heroKicker":"Sicherer Checkout","heroTitle":"Aufenthalt bestätigen","heroLead":"Prüfen Sie Ihre Aufenthaltsdetails und schließen Sie die Zahlung für Ihren privaten Fletschhorn-Aufenthalt ab.","quotePill":"Private Buchung","paymentPill":"Sicherer Checkout","checkoutKicker":"Schritt 2","checkoutTitle":"Bestätigen und bezahlen.","checkoutIntro":"Prüfen Sie Ihren Aufenthalt, ergänzen Sie Kontakt- und Rechnungsdaten und bestätigen Sie die Reservierung.","secureText":"Ihre Zahlung wird sicher verarbeitet. Nach der Bestätigung erhalten Sie Ihre Reservierungsdetails per E-Mail.","guestDetails":"Gästedaten","paymentDetails":"Zahlungsdetails","firstName":"Vorname","lastName":"Nachname","email":"E-Mail","phone":"Telefon / WhatsApp","cardName":"Name auf der Karte","cardNumber":"Kartennummer","expMonth":"Ablaufmonat","expYear":"Ablaufjahr","cvc":"CVC","country":"Rechnungsland","address":"Rechnungsadresse","city":"Stadt","postal":"Postleitzahl","accept":"Ich akzeptiere Mietvertrag, Stornierungsbedingungen, Hausregeln, Zahlungsbedingungen und private Aufenthaltsbedingungen für Fletschhorn.","pay":"Bezahlen und bestätigen","processing":"Verarbeitung...","editStay":"Aufenthalt bearbeiten","summaryKicker":"Ihr Aufenthalt","summaryTitle":"Aufenthaltsübersicht","summaryIntro":"Dies ist die Gesamtsumme, die für Ihren ausgewählten Aufenthalt berechnet wird.","arrival":"Anreise","departure":"Abreise","nights":"Nächte","night":"Nacht","guests":"Gäste","guest":"Gast","liveQuotePreparing":"Aufenthaltssumme wird vorbereitet...","liveQuoteFailed":"Die Aufenthaltssumme konnte nicht geladen werden. Bitte aktualisieren Sie die Seite oder kontaktieren Sie uns.","missingDates":"Daten fehlen. Bitte kehren Sie zur Buchungsseite zurück und wählen Sie Ihren Aufenthalt.","missingFields":"Bitte füllen Sie die markierten Felder aus.","badEmail":"Bitte geben Sie eine gültige E-Mail-Adresse ein.","acceptError":"Bitte akzeptieren Sie den Mietvertrag, bevor Sie fortfahren.","providerMissing":"Online-Zahlung ist derzeit nicht verfügbar. Bitte kontaktieren Sie uns, um Ihre Buchung abzuschließen.","tokenizing":"Sichere Zahlung wird vorbereitet...","threeDS":"Eine zusätzliche Kartenprüfung ist erforderlich. Weiterleitung...","creating":"Reservierung wird bestätigt...","failed":"Der Checkout konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns.","launchWarning":""},
-      ru:{"heroKicker":"Безопасная оплата","heroTitle":"Подтвердите пребывание","heroLead":"Проверьте детали пребывания и завершите оплату частного пребывания в Fletschhorn.","quotePill":"Частное бронирование","paymentPill":"Безопасная оплата","checkoutKicker":"Шаг 2","checkoutTitle":"Подтвердить и оплатить.","checkoutIntro":"Проверьте пребывание, добавьте контактные и платежные данные, затем подтвердите резервацию.","secureText":"Платеж обрабатывается безопасно. После подтверждения вы получите детали резервации по email.","guestDetails":"Данные гостя","paymentDetails":"Платежные данные","firstName":"Имя","lastName":"Фамилия","email":"Email","phone":"Телефон / WhatsApp","cardName":"Имя на карте","cardNumber":"Номер карты","expMonth":"Месяц","expYear":"Год","cvc":"CVC","country":"Страна биллинга","address":"Адрес биллинга","city":"Город","postal":"Почтовый код","accept":"Я принимаю договор аренды, условия отмены, правила дома, условия оплаты и условия частного пребывания Fletschhorn.","pay":"Оплатить и подтвердить","processing":"Обработка...","editStay":"Изменить","summaryKicker":"Ваше пребывание","summaryTitle":"Итог пребывания","summaryIntro":"Это итоговая сумма, которая будет списана за выбранное пребывание.","arrival":"Заезд","departure":"Выезд","nights":"Ночи","night":"ночь","guests":"Гости","guest":"Гость","liveQuotePreparing":"Подготовка итоговой суммы...","liveQuoteFailed":"Итоговая сумма не загрузилась. Обновите страницу или свяжитесь с нами для завершения бронирования.","missingDates":"Нет дат. Вернитесь на страницу бронирования и выберите пребывание.","missingFields":"Заполните выделенные поля.","badEmail":"Введите корректный email.","acceptError":"Примите договор аренды перед продолжением.","providerMissing":"Онлайн-оплата сейчас недоступна. Свяжитесь с нами, чтобы завершить бронирование.","tokenizing":"Подготовка безопасного платежа...","threeDS":"Требуется дополнительная проверка карты. Перенаправление...","creating":"Подтверждение резервации...","failed":"Не удалось завершить checkout. Попробуйте снова или свяжитесь с нами.","launchWarning":""},
-      he:{"heroKicker":"תשלום מאובטח","heroTitle":"אישור השהייה","heroLead":"בדקו את פרטי השהייה והשלימו את התשלום עבור שהייה פרטית ב-Fletschhorn.","quotePill":"הזמנה פרטית","paymentPill":"תשלום מאובטח","checkoutKicker":"שלב 2","checkoutTitle":"אישור ותשלום.","checkoutIntro":"בדקו את השהייה, הוסיפו פרטי קשר וחיוב, ואז אשרו את ההזמנה.","secureText":"התשלום מעובד בצורה מאובטחת. לאחר האישור תקבלו את פרטי ההזמנה באימייל.","guestDetails":"פרטי אורח","paymentDetails":"פרטי תשלום","firstName":"שם פרטי","lastName":"שם משפחה","email":"אימייל","phone":"טלפון / WhatsApp","cardName":"שם על הכרטיס","cardNumber":"מספר כרטיס","expMonth":"חודש תפוגה","expYear":"שנת תפוגה","cvc":"CVC","country":"מדינת חיוב","address":"כתובת חיוב","city":"עיר","postal":"מיקוד","accept":"אני מאשר/ת את הסכם השכירות, מדיניות הביטול, כללי הבית, תנאי התשלום ותנאי השהייה הפרטית של Fletschhorn.","pay":"שלם ואשר הזמנה","processing":"מעבד...","editStay":"עריכת שהייה","summaryKicker":"השהייה שלכם","summaryTitle":"סיכום השהייה","summaryIntro":"בדקו את סכום השהייה עבור התאריכים שנבחרו.","arrival":"הגעה","departure":"עזיבה","nights":"לילות","night":"לילה","guests":"אורחים","guest":"אורח","liveQuotePreparing":"מכין את סכום השהייה...","liveQuoteFailed":"סכום השהייה לא נטען. רעננו את הדף או צרו קשר להשלמת ההזמנה.","missingDates":"חסרים תאריכים. חזרו לעמוד ההזמנה ובחרו שהייה.","missingFields":"נא להשלים את השדות המסומנים.","badEmail":"נא להזין אימייל תקין.","acceptError":"נא לאשר את הסכם השכירות לפני המשך.","providerMissing":"תשלום אונליין אינו זמין כרגע. צרו קשר להשלמת ההזמנה.","tokenizing":"מכין תשלום מאובטח...","threeDS":"נדרש אימות נוסף לכרטיס. מפנה...","creating":"מאשר את ההזמנה...","failed":"לא הצלחנו להשלים את התשלום. נסו שוב או צרו קשר.","launchWarning":""}
+      en:{heroKicker:"Secure checkout",heroTitle:"Confirm your stay",heroLead:"Review your stay details and complete your payment for your private Fletschhorn stay.",quotePill:"Private booking",paymentPill:"Secure checkout",checkoutKicker:"Step 2",checkoutTitle:"Confirm and pay.",checkoutIntro:"Review your stay, add your contact and billing details, and confirm your reservation.",secureText:"Your payment is handled securely. After confirmation, you will receive your reservation details by email.",guestDetails:"Guest details",paymentDetails:"Payment details",firstName:"First name",lastName:"Last name",email:"Email",phone:"Phone / WhatsApp",cardName:"Name on card",cardNumber:"Card number",expMonth:"Exp. month",expYear:"Exp. year",cvc:"CVC",country:"Billing country",address:"Billing address",city:"City",postal:"Postal code",accept:"I accept the rental agreement, cancellation policy, house rules, payment terms, and private-stay conditions for Fletschhorn.",pay:"Pay and confirm booking",processing:"Processing...",editStay:"Edit stay",summaryKicker:"Your stay",summaryTitle:"Stay summary",summaryIntro:"This is the fixed total that will be charged for your selected stay.",arrival:"Arrival",departure:"Departure",nights:"Nights",night:"night",guests:"Guests",guest:"Guest",fixedTotal:"Fixed calendar total",selectedNights:"Selected nights",finalPrice:"Final price",missingPrice:"The fixed price was not passed from the booking page. Please return to the booking page and choose your dates again.",missingDates:"Missing dates. Please return to the booking page and choose your stay first.",missingFields:"Please complete the highlighted fields.",badEmail:"Please enter a valid email address.",acceptError:"Please accept the rental agreement before continuing.",providerMissing:"Online payment is not available yet. Please contact us to complete your booking.",tokenizing:"Preparing secure payment...",threeDS:"Additional card verification is required. Redirecting...",creating:"Confirming your reservation...",failed:"We could not complete the checkout. Please try again or contact us."},
+      fr:{heroKicker:"Checkout sécurisé",heroTitle:"Confirmez votre séjour",heroLead:"Vérifiez les détails de votre séjour et complétez le paiement de votre séjour privé au Fletschhorn.",quotePill:"Réservation privée",paymentPill:"Paiement sécurisé",checkoutKicker:"Étape 2",checkoutTitle:"Confirmer et payer.",checkoutIntro:"Vérifiez votre séjour, ajoutez vos coordonnées et informations de facturation, puis confirmez la réservation.",secureText:"Votre paiement est traité de manière sécurisée. Après confirmation, vous recevrez les détails de votre réservation par email.",guestDetails:"Détails client",paymentDetails:"Paiement",firstName:"Prénom",lastName:"Nom",email:"Email",phone:"Téléphone / WhatsApp",cardName:"Nom sur la carte",cardNumber:"Numéro de carte",expMonth:"Mois exp.",expYear:"Année exp.",cvc:"CVC",country:"Pays de facturation",address:"Adresse de facturation",city:"Ville",postal:"Code postal",accept:"J’accepte le contrat de location, la politique d’annulation, le règlement, les conditions de paiement et les conditions du séjour privé Fletschhorn.",pay:"Payer et confirmer",processing:"Traitement...",editStay:"Modifier le séjour",summaryKicker:"Votre séjour",summaryTitle:"Résumé du séjour",summaryIntro:"Voici le total fixe qui sera facturé pour votre séjour sélectionné.",arrival:"Arrivée",departure:"Départ",nights:"Nuits",night:"nuit",guests:"Invités",guest:"Client",fixedTotal:"Total calendrier fixe",selectedNights:"Nuits sélectionnées",finalPrice:"Prix final",missingPrice:"Le prix fixe n’a pas été transmis depuis la page de réservation. Revenez à la page de réservation et choisissez à nouveau vos dates.",missingDates:"Dates manquantes. Veuillez revenir à la page de réservation et choisir votre séjour.",missingFields:"Veuillez compléter les champs surlignés.",badEmail:"Veuillez entrer un email valide.",acceptError:"Veuillez accepter le contrat de location avant de continuer.",providerMissing:"Le paiement en ligne n’est pas disponible pour le moment. Veuillez nous contacter pour finaliser votre réservation.",tokenizing:"Préparation du paiement sécurisé...",threeDS:"Une vérification supplémentaire de la carte est requise. Redirection...",creating:"Confirmation de votre réservation...",failed:"Nous n’avons pas pu finaliser le checkout. Veuillez réessayer ou nous contacter."},
+      de:{heroKicker:"Sicherer Checkout",heroTitle:"Aufenthalt bestätigen",heroLead:"Prüfen Sie Ihre Aufenthaltsdetails und schließen Sie die Zahlung für Ihren privaten Fletschhorn-Aufenthalt ab.",quotePill:"Private Buchung",paymentPill:"Sicherer Checkout",checkoutKicker:"Schritt 2",checkoutTitle:"Bestätigen und bezahlen.",checkoutIntro:"Prüfen Sie Ihren Aufenthalt, ergänzen Sie Kontakt- und Rechnungsdaten und bestätigen Sie die Reservierung.",secureText:"Ihre Zahlung wird sicher verarbeitet. Nach der Bestätigung erhalten Sie Ihre Reservierungsdetails per E-Mail.",guestDetails:"Gästedaten",paymentDetails:"Zahlungsdetails",firstName:"Vorname",lastName:"Nachname",email:"E-Mail",phone:"Telefon / WhatsApp",cardName:"Name auf der Karte",cardNumber:"Kartennummer",expMonth:"Ablaufmonat",expYear:"Ablaufjahr",cvc:"CVC",country:"Rechnungsland",address:"Rechnungsadresse",city:"Stadt",postal:"Postleitzahl",accept:"Ich akzeptiere Mietvertrag, Stornierungsbedingungen, Hausregeln, Zahlungsbedingungen und private Aufenthaltsbedingungen für Fletschhorn.",pay:"Bezahlen und bestätigen",processing:"Verarbeitung...",editStay:"Aufenthalt bearbeiten",summaryKicker:"Ihr Aufenthalt",summaryTitle:"Aufenthaltsübersicht",summaryIntro:"Dies ist der feste Gesamtbetrag, der für den ausgewählten Aufenthalt berechnet wird.",arrival:"Anreise",departure:"Abreise",nights:"Nächte",night:"Nacht",guests:"Gäste",guest:"Gast",fixedTotal:"Fester Kalenderbetrag",selectedNights:"Ausgewählte Nächte",finalPrice:"Endpreis",missingPrice:"Der feste Preis wurde nicht von der Buchungsseite übernommen. Bitte kehren Sie zur Buchungsseite zurück und wählen Sie Ihre Daten erneut.",missingDates:"Daten fehlen. Bitte kehren Sie zur Buchungsseite zurück und wählen Sie Ihren Aufenthalt.",missingFields:"Bitte füllen Sie die markierten Felder aus.",badEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",acceptError:"Bitte akzeptieren Sie den Mietvertrag, bevor Sie fortfahren.",providerMissing:"Online-Zahlung ist derzeit nicht verfügbar. Bitte kontaktieren Sie uns, um Ihre Buchung abzuschließen.",tokenizing:"Sichere Zahlung wird vorbereitet...",threeDS:"Eine zusätzliche Kartenprüfung ist erforderlich. Weiterleitung...",creating:"Reservierung wird bestätigt...",failed:"Der Checkout konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns."},
+      ru:{heroKicker:"Безопасная оплата",heroTitle:"Подтвердите пребывание",heroLead:"Проверьте детали пребывания и завершите оплату частного пребывания в Fletschhorn.",quotePill:"Частное бронирование",paymentPill:"Безопасная оплата",checkoutKicker:"Шаг 2",checkoutTitle:"Подтвердить и оплатить.",checkoutIntro:"Проверьте пребывание, добавьте контактные и платежные данные, затем подтвердите резервацию.",secureText:"Платеж обрабатывается безопасно. После подтверждения вы получите детали резервации по email.",guestDetails:"Данные гостя",paymentDetails:"Платежные данные",firstName:"Имя",lastName:"Фамилия",email:"Email",phone:"Телефон / WhatsApp",cardName:"Имя на карте",cardNumber:"Номер карты",expMonth:"Месяц",expYear:"Год",cvc:"CVC",country:"Страна биллинга",address:"Адрес биллинга",city:"Город",postal:"Почтовый код",accept:"Я принимаю договор аренды, условия отмены, правила дома, условия оплаты и условия частного пребывания Fletschhorn.",pay:"Оплатить и подтвердить",processing:"Обработка...",editStay:"Изменить",summaryKicker:"Ваше пребывание",summaryTitle:"Итог пребывания",summaryIntro:"Это фиксированная сумма, которая будет списана за выбранное пребывание.",arrival:"Заезд",departure:"Выезд",nights:"Ночи",night:"ночь",guests:"Гости",guest:"Гость",fixedTotal:"Фиксированная сумма календаря",selectedNights:"Выбранные ночи",finalPrice:"Итоговая цена",missingPrice:"Фиксированная цена не была передана со страницы бронирования. Вернитесь на страницу бронирования и выберите даты заново.",missingDates:"Нет дат. Вернитесь на страницу бронирования и выберите пребывание.",missingFields:"Заполните выделенные поля.",badEmail:"Введите корректный email.",acceptError:"Примите договор аренды перед продолжением.",providerMissing:"Онлайн-оплата сейчас недоступна. Свяжитесь с нами, чтобы завершить бронирование.",tokenizing:"Подготовка безопасного платежа...",threeDS:"Требуется дополнительная проверка карты. Перенаправление...",creating:"Подтверждение резервации...",failed:"Не удалось завершить checkout. Попробуйте снова или свяжитесь с нами."},
+      he:{heroKicker:"תשלום מאובטח",heroTitle:"אישור השהייה",heroLead:"בדקו את פרטי השהייה והשלימו את התשלום עבור שהייה פרטית ב-Fletschhorn.",quotePill:"הזמנה פרטית",paymentPill:"תשלום מאובטח",checkoutKicker:"שלב 2",checkoutTitle:"אישור ותשלום.",checkoutIntro:"בדקו את השהייה, הוסיפו פרטי קשר וחיוב, ואז אשרו את ההזמנה.",secureText:"התשלום מעובד בצורה מאובטחת. לאחר האישור תקבלו את פרטי ההזמנה באימייל.",guestDetails:"פרטי אורח",paymentDetails:"פרטי תשלום",firstName:"שם פרטי",lastName:"שם משפחה",email:"אימייל",phone:"טלפון / WhatsApp",cardName:"שם על הכרטיס",cardNumber:"מספר כרטיס",expMonth:"חודש תפוגה",expYear:"שנת תפוגה",cvc:"CVC",country:"מדינת חיוב",address:"כתובת חיוב",city:"עיר",postal:"מיקוד",accept:"אני מאשר/ת את הסכם השכירות, מדיניות הביטול, כללי הבית, תנאי התשלום ותנאי השהייה הפרטית של Fletschhorn.",pay:"שלם ואשר הזמנה",processing:"מעבד...",editStay:"עריכת שהייה",summaryKicker:"השהייה שלכם",summaryTitle:"סיכום השהייה",summaryIntro:"זהו הסכום הקבוע שייגבה עבור השהייה שנבחרה.",arrival:"הגעה",departure:"עזיבה",nights:"לילות",night:"לילה",guests:"אורחים",guest:"אורח",fixedTotal:"סכום קבוע מהלוח",selectedNights:"לילות שנבחרו",finalPrice:"מחיר סופי",missingPrice:"המחיר הקבוע לא הועבר מעמוד ההזמנה. חזרו לעמוד ההזמנה ובחרו שוב תאריכים.",missingDates:"חסרים תאריכים. חזרו לעמוד ההזמנה ובחרו שהייה.",missingFields:"נא להשלים את השדות המסומנים.",badEmail:"נא להזין אימייל תקין.",acceptError:"נא לאשר את הסכם השכירות לפני המשך.",providerMissing:"תשלום אונליין אינו זמין כרגע. צרו קשר להשלמת ההזמנה.",tokenizing:"מכין תשלום מאובטח...",threeDS:"נדרש אימות נוסף לכרטיס. מפנה...",creating:"מאשר את ההזמנה...",failed:"לא הצלחנו להשלים את התשלום. נסו שוב או צרו קשר."}
     };
 
     function $(id){ return document.getElementById(id); }
@@ -419,117 +286,50 @@
     function endpoint(path){ return CFG.workerBase.replace(/\/$/, "") + path; }
     function txt(key){ var bundle = TEXT[state.lang] || TEXT.en; return bundle[key] || TEXT.en[key] || ""; }
     function setText(id, value){ var el = $(id); if (el) el.textContent = value || ""; }
-    function pad(n){ return String(n).padStart(2,"0"); }
+    function getValue(id){ var el = $(id); return el ? el.value.trim() : ""; }
+    function setValue(id, value){ var el = $(id); if (el && value !== undefined && value !== null && value !== "") el.value = value; }
     function daysBetween(startIso, endIso){ if(!startIso || !endIso) return 0; return Math.round((new Date(endIso+"T00:00:00") - new Date(startIso+"T00:00:00"))/86400000); }
     function emailValid(email){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
 
     function getInitialLang(){
       var raw = "en";
       try { raw = new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("fh_lang") || localStorage.getItem("fh_language") || localStorage.getItem("fhLang") || document.documentElement.getAttribute("lang") || "en"; } catch(error) {}
-      raw = safe(raw).toLowerCase();
+      return getLangFromRaw(raw);
+    }
+    function getLangFromRaw(raw){
+      raw = safe(raw || "en").toLowerCase();
       if (raw.indexOf("fr") === 0) return "fr";
       if (raw.indexOf("de") === 0 || raw.indexOf("ger") === 0) return "de";
       if (raw.indexOf("ru") === 0) return "ru";
       if (raw.indexOf("he") === 0 || raw.indexOf("iw") === 0) return "he";
       return "en";
     }
-
-    function walk(value, callback, path){
-      path = path || [];
-      if (value === null || value === undefined) return null;
-      var result = callback(value, path);
-      if (result !== undefined && result !== null) return result;
-      if (Array.isArray(value)) {
-        for (var i = 0; i < value.length; i++) {
-          var arrResult = walk(value[i], callback, path.concat(String(i)));
-          if (arrResult !== undefined && arrResult !== null) return arrResult;
-        }
-        return null;
-      }
-      if (typeof value === "object") {
-        var keys = Object.keys(value);
-        for (var k = 0; k < keys.length; k++) {
-          var key = keys[k];
-          var objResult = walk(value[key], callback, path.concat(key));
-          if (objResult !== undefined && objResult !== null) return objResult;
-        }
-      }
-      return null;
-    }
-
     function numberFromAny(value){
-      if(value === null || value === undefined || value === "") return null;
-      if(typeof value === "number") return Number.isFinite(value) ? value : null;
-      if(typeof value === "string"){
-        var n = Number(value.replace(/[^\d.-]/g,""));
-        return Number.isFinite(n) ? n : null;
-      }
-      if(typeof value === "object") return numberFromAny(value.amount || value.value || value.total || value.price);
-      return null;
+      if (value === null || value === undefined || value === "") return null;
+      if (typeof value === "number") return Number.isFinite(value) ? value : null;
+      if (typeof value === "object") return numberFromAny(value.amount || value.value || value.total || value.price);
+      var n = Number(String(value).replace(/[^0-9.,-]/g, "").replace(/,/g, ""));
+      return Number.isFinite(n) ? n : null;
     }
-
-    function findFirstNumber(data, keys){
-      var keySet = keys.map(function(k){ return k.toLowerCase(); });
-      return walk(data, function(value, path){
-        if (value === null || value === undefined || value === "") return null;
-        var last = path.length ? path[path.length - 1].toLowerCase() : "";
-        if (keySet.indexOf(last) >= 0) {
-          var n = numberFromAny(value);
-          if (n !== null) return n;
-        }
-        return null;
-      });
-    }
-
-    function findFirstString(data, keys){
-      var keySet = keys.map(function(k){ return k.toLowerCase(); });
-      return walk(data, function(value, path){
-        if (typeof value !== "string" || !value.trim()) return null;
-        var last = path.length ? path[path.length - 1].toLowerCase() : "";
-        if (keySet.indexOf(last) >= 0) return value.trim();
-        return null;
-      }) || "";
-    }
-
-    function findTotal(obj){ return findFirstNumber(obj, ["paymentDueNow","balanceDue","grandTotal","totalPrice","quoteTotal","total","amount","price"]); }
-    function findCurrency(obj){ return findFirstString(obj, ["currency","priceCurrency"]) || CFG.currency; }
-    function findQuoteId(obj){ return findFirstString(obj, ["quoteId","quote_id"]) || walk(obj, function(x){ if (x && typeof x === "object" && typeof x._id === "string" && (x.ratePlans || x.rates || x.breakdown || x.total || x.totalPrice)) return x._id; return null; }) || ""; }
-    function findRatePlanId(obj){ return findFirstString(obj, ["ratePlanId","rateplanId","rateId"]) || walk(obj, function(x){
-      if (!x || typeof x !== "object") return null;
-      var plans = Array.isArray(x.ratePlans) ? x.ratePlans : (Array.isArray(x.rates) ? x.rates : null);
-      if (plans && plans[0]) return plans[0].id || plans[0]._id || plans[0].ratePlanId || plans[0].rateId || null;
-      return null;
-    }) || ""; }
-    function findBreakdown(obj){ return walk(obj, function(x){ if (x && typeof x === "object") return Array.isArray(x.breakdown) ? x.breakdown : (Array.isArray(x.invoiceItems) ? x.invoiceItems : (Array.isArray(x.lineItems) ? x.lineItems : null)); return null; }) || []; }
-
     function formatMoney(amount, currency){
       var n = Number(amount);
       if (!Number.isFinite(n) || n <= 0) return "—";
       try { return new Intl.NumberFormat(state.lang === "en" ? "en-US" : state.lang, { style:"currency", currency:currency || CFG.currency, maximumFractionDigits:0 }).format(n); }
       catch(error) { return Math.round(n).toLocaleString() + " " + (currency || CFG.currency); }
     }
-
+    function readJsonStorage(key){ try { return JSON.parse(localStorage.getItem(key) || "{}"); } catch(error) { return {}; } }
     async function readApi(response){
       var text = await response.text();
       var data = {};
       try { data = text ? JSON.parse(text) : {}; } catch(error) { data = { rawText:text }; }
-      if (!response.ok || data.ok === false || data.error) {
-        var err = new Error(data.message || data.error || ("Worker request failed: " + response.status));
-        err.data = data;
-        err.status = response.status;
-        throw err;
-      }
+      if (!response.ok || data.ok === false || data.error) throw new Error(data.message || data.error || ("Worker request failed: " + response.status));
       return data;
     }
-
     function apiGet(path, params){
       var url = new URL(endpoint(path));
-      Object.keys(params || {}).forEach(function(key){
-        if(params[key] !== undefined && params[key] !== null && params[key] !== "") url.searchParams.set(key, params[key]);
-      });
+      Object.keys(params || {}).forEach(function(key){ if(params[key] !== undefined && params[key] !== null && params[key] !== "") url.searchParams.set(key, params[key]); });
       return fetch(url.toString(), { headers:{"Accept":"application/json,text/plain,*/*"}, cache:"default" }).then(readApi);
     }
-
     function apiPost(path, body){
       return fetch(endpoint(path), { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify(body || {}) }).then(readApi);
     }
@@ -543,9 +343,8 @@
       setText("fhHeroKicker", txt("heroKicker"));
       setText("fhHeroTitle", txt("heroTitle"));
       setText("fhHeroLead", txt("heroLead"));
-      var pills = document.querySelectorAll(".fh-hero-contact .fh-pill strong");
-      if (pills[0]) pills[0].textContent = txt("quotePill");
-      if (pills[1]) pills[1].textContent = txt("paymentPill");
+      setText("fhPrivatePill", txt("quotePill"));
+      setText("fhPaymentPill", txt("paymentPill"));
       setText("fhCheckoutKicker", txt("checkoutKicker"));
       setText("fhCheckoutTitle", txt("checkoutTitle"));
       setText("fhCheckoutIntro", txt("checkoutIntro"));
@@ -577,7 +376,8 @@
       setText("fhGuestsLabel", txt("guests"));
       setText("fhGuestLabel", txt("guest"));
       setText("fhEmailSummaryLabel", txt("email"));
-      updateSummary();
+      renderSummary();
+      renderFixedPrice();
     }
 
     function cleanUrl(raw){
@@ -587,6 +387,15 @@
       return "";
     }
     function isImageUrl(url){ return /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url) || /assets\.guesty\.com\/image\/upload/i.test(url) || /cloudinary/i.test(url); }
+    function walk(value, callback, path){
+      path = path || [];
+      if (value === null || value === undefined) return null;
+      var result = callback(value, path);
+      if (result !== undefined && result !== null) return result;
+      if (Array.isArray(value)) { for (var i=0;i<value.length;i++){ var r=walk(value[i], callback, path.concat(String(i))); if (r !== undefined && r !== null) return r; } return null; }
+      if (typeof value === "object") { var keys=Object.keys(value); for (var k=0;k<keys.length;k++){ var r2=walk(value[keys[k]], callback, path.concat(keys[k])); if (r2 !== undefined && r2 !== null) return r2; } }
+      return null;
+    }
     function collectImageUrls(data){
       var out = [];
       function add(v){ var u = cleanUrl(v); if (u && isImageUrl(u)) out.push(u); }
@@ -605,17 +414,16 @@
       for (var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp; }
       return arr;
     }
-
     async function loadImages(){
       var attempts = [
-        "/images?listingId=" + encodeURIComponent(CFG.listingId) + "&random=1&limit=160&page=checkout",
-        "/images?listingId=" + encodeURIComponent(CFG.listingId) + "&random=1&limit=160",
-        "/images?random=1&limit=160",
-        "/images"
+        ["/images", { listingId:CFG.listingId, random:"1", limit:"160", page:"checkout" }],
+        ["/images", { listingId:CFG.listingId, random:"1", limit:"160" }],
+        ["/images", { random:"1", limit:"160" }],
+        ["/images", {}]
       ];
       for (var i=0;i<attempts.length;i++){
         try {
-          var data = await apiGet(attempts[i].split("?")[0], Object.fromEntries(new URLSearchParams(attempts[i].split("?")[1] || "")));
+          var data = await apiGet(attempts[i][0], attempts[i][1]);
           var urls = shuffle(collectImageUrls(data));
           if (urls.length) { state.images = urls; renderImages(); return; }
         } catch(error) {
@@ -624,33 +432,11 @@
       }
       renderImages();
     }
-
     function renderImages(){
       var urls = state.images.length ? state.images : [BLANK];
       if (state.selectedImageIndex >= urls.length) state.selectedImageIndex = 0;
       var hero = $("fhHeroImage");
-      if (hero) {
-        hero.onerror = function(){ if (this.src !== BLANK) this.src = BLANK; };
-        hero.src = urls[state.selectedImageIndex] || BLANK;
-      }
-      var rail = $("fhPhotoRail");
-      if (!rail) return;
-      rail.innerHTML = urls.slice(0,36).map(function(url,index){
-        return '<button type="button" class="fh-hero-thumb'+(index===state.selectedImageIndex?' is-active':'')+'" data-photo-index="'+index+'" aria-label="Photo '+(index+1)+'"><img src="'+escapeHTML(url)+'" alt="Fletschhorn photo '+(index+1)+'" loading="lazy" decoding="async"></button>';
-      }).join("");
-    }
-
-    function selectImage(index){
-      if (!state.images.length) return;
-      state.selectedImageIndex = ((index % state.images.length) + state.images.length) % state.images.length;
-      renderImages();
-      var rail = $("fhPhotoRail");
-      var active = rail ? rail.querySelector('[data-photo-index="'+state.selectedImageIndex+'"]') : null;
-      if (active) active.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
-    }
-
-    function readJsonStorage(key){
-      try { return JSON.parse(localStorage.getItem(key) || "{}"); } catch(error) { return {}; }
+      if (hero) { hero.onerror = function(){ if (this.src !== BLANK) this.src = BLANK; }; hero.src = urls[state.selectedImageIndex] || BLANK; }
     }
 
     function readDraft(){
@@ -660,8 +446,8 @@
       var draft = Object.assign({}, oldDraft, start);
       draft.checkIn = params.get("checkIn") || params.get("arrivalDate") || draft.checkIn || draft.arrivalDate || "";
       draft.checkOut = params.get("checkOut") || params.get("departureDate") || draft.checkOut || draft.departureDate || "";
-      draft.adults = Number(params.get("adults") || draft.adults || draft.numberOfGuests?.numberOfAdults || 2) || 1;
-      draft.children = Number(params.get("children") || draft.children || draft.numberOfGuests?.numberOfChildren || 0) || 0;
+      draft.adults = Number(params.get("adults") || draft.adults || (draft.numberOfGuests && draft.numberOfGuests.numberOfAdults) || 2) || 1;
+      draft.children = Number(params.get("children") || draft.children || (draft.numberOfGuests && draft.numberOfGuests.numberOfChildren) || 0) || 0;
       draft.guests = Number(params.get("guests") || draft.guests || (draft.adults + draft.children) || 1) || 1;
       draft.firstName = params.get("firstName") || draft.firstName || "";
       draft.lastName = params.get("lastName") || draft.lastName || "";
@@ -672,19 +458,30 @@
       draft.numberOfGuests = {
         numberOfAdults: Math.max(1, Number(draft.adults || 1)),
         numberOfChildren: Math.max(0, Number(draft.children || 0)),
-        numberOfInfants: Number(draft.numberOfGuests?.numberOfInfants || 0),
-        numberOfPets: Number(draft.numberOfGuests?.numberOfPets || 0)
+        numberOfInfants: Number((draft.numberOfGuests && draft.numberOfGuests.numberOfInfants) || 0),
+        numberOfPets: Number((draft.numberOfGuests && draft.numberOfGuests.numberOfPets) || 0)
       };
+
+      var urlTotal = params.get("finalTotal") || params.get("quoteTotal") || params.get("quoteTotalNumber");
+      var storedTotal = draft.finalTotal || draft.quoteTotalNumber || draft.quoteTotal || (draft.quoteData && (draft.quoteData.total || draft.quoteData.paymentDueNow));
+      var total = numberFromAny(urlTotal || storedTotal);
+      var currency = params.get("finalCurrency") || params.get("currency") || draft.finalCurrency || draft.currency || draft.quoteCurrency || (draft.quoteData && draft.quoteData.currency) || CFG.currency;
+      var priceText = params.get("finalPriceText") || draft.finalPriceText || draft.quoteTotalText || (total ? formatMoney(total, currency) : "");
+      var breakdown = Array.isArray(draft.quoteBreakdown) ? draft.quoteBreakdown : [];
+
       state.lang = getLangFromRaw(draft.lang);
       state.draft = draft;
       CFG.listingId = draft.listingId || CFG.listingId;
+      state.finalTotal = total;
+      state.finalCurrency = currency || CFG.currency;
+      state.finalPriceText = priceText || (total ? formatMoney(total, currency) : "");
+      state.quoteBreakdown = breakdown;
 
-      state.quoteData = draft.quoteData || draft.quote || null;
-      state.quoteId = draft.quoteId || findQuoteId(state.quoteData) || "";
-      state.ratePlanId = draft.ratePlanId || findRatePlanId(state.quoteData) || "";
-      state.quoteTotalNumber = Number(draft.quoteTotalNumber || draft.quoteTotal || findTotal(state.quoteData) || 0) || null;
-      state.quoteCurrency = draft.currency || draft.quoteCurrency || findCurrency(state.quoteData) || CFG.currency;
-      state.quoteTotalText = draft.quoteTotalText || (state.quoteTotalNumber ? formatMoney(state.quoteTotalNumber, state.quoteCurrency) : "");
+      state.draft.finalTotal = state.finalTotal;
+      state.draft.finalCurrency = state.finalCurrency;
+      state.draft.finalPriceText = state.finalPriceText;
+      state.draft.priceLockedAtCheckout = true;
+      state.draft.pricingSource = state.draft.pricingSource || state.draft.source || "calendar-nights-total-from-booking-page";
 
       setValue("fhFirstName", draft.firstName);
       setValue("fhLastName", draft.lastName);
@@ -693,38 +490,22 @@
       setValue("fhCardName", [draft.firstName, draft.lastName].filter(Boolean).join(" "));
       setValue("fhCountry", "CH");
 
-      if (!draft.checkIn || !draft.checkOut) showMessage(txt("missingDates"), "error");
-      saveDraft();
+      try { localStorage.setItem("fhBookingDraft", JSON.stringify(state.draft)); } catch(error) {}
     }
-
-    function getLangFromRaw(raw){
-      raw = safe(raw || "en").toLowerCase();
-      if (raw.indexOf("fr") === 0) return "fr";
-      if (raw.indexOf("de") === 0 || raw.indexOf("ger") === 0) return "de";
-      if (raw.indexOf("ru") === 0) return "ru";
-      if (raw.indexOf("he") === 0 || raw.indexOf("iw") === 0) return "he";
-      return "en";
-    }
-
-    function setValue(id, value){ var el = $(id); if (el && value !== undefined && value !== null && value !== "") el.value = value; }
-    function getValue(id){ var el = $(id); return el ? el.value.trim() : ""; }
 
     function syncDraftFromForm(){
       state.draft.firstName = getValue("fhFirstName");
       state.draft.lastName = getValue("fhLastName");
       state.draft.email = getValue("fhEmail");
       state.draft.phone = getValue("fhPhone");
-      state.draft.guests = Number(state.draft.adults || 0) + Number(state.draft.children || 0);
-      state.draft.numberOfGuests = state.draft.numberOfGuests || {numberOfAdults:1,numberOfChildren:0,numberOfInfants:0,numberOfPets:0};
-      saveDraft();
-      updateSummary();
-    }
-
-    function saveDraft(){
+      state.draft.finalTotal = state.finalTotal;
+      state.draft.finalCurrency = state.finalCurrency;
+      state.draft.finalPriceText = state.finalPriceText;
       try { localStorage.setItem("fhBookingDraft", JSON.stringify(state.draft)); } catch(error) {}
+      renderSummary();
     }
 
-    function updateSummary(){
+    function renderSummary(){
       var draft = state.draft || {};
       var nights = daysBetween(draft.checkIn, draft.checkOut);
       var guestCount = Number(draft.guests || 0) || (Number(draft.adults || 0) + Number(draft.children || 0));
@@ -736,47 +517,28 @@
       setText("fhSumEmail", getValue("fhEmail") || draft.email || "—");
     }
 
-    function renderQuoteBox(){
-      var draft = state.draft || {};
+    function renderFixedPrice(){
       var quoteBox = $("fhLiveQuote");
-      if (!quoteBox) return;
+      var lines = $("fhQuoteLines");
+      var draft = state.draft || {};
       var nights = daysBetween(draft.checkIn, draft.checkOut);
       var guestCount = Number(draft.guests || 0) || (Number(draft.adults || 0) + Number(draft.children || 0)) || 1;
-      var line = (nights > 0 ? nights + " " + txt("nights") : txt("summaryTitle")) + " · " + guestCount + " " + txt("guests").toLowerCase();
-      quoteBox.innerHTML = escapeHTML(line) + "<strong>" + escapeHTML(state.quoteTotalText || formatMoney(state.quoteTotalNumber, state.quoteCurrency)) + "</strong>";
-    }
-
-    function applyLockedQuoteFromBooking(){
-      var draft = state.draft || {};
-      var quoteData = draft.quoteData || draft.quote || state.quoteData || null;
-      var total = Number(draft.quoteTotalNumber || draft.quoteTotal || state.quoteTotalNumber || findTotal(quoteData) || 0) || null;
-      var currency = draft.currency || draft.quoteCurrency || state.quoteCurrency || findCurrency(quoteData) || CFG.currency;
-      var quoteId = draft.quoteId || state.quoteId || findQuoteId(quoteData) || "";
-      var ratePlanId = draft.ratePlanId || state.ratePlanId || findRatePlanId(quoteData) || "";
-
-      if (!quoteData || !total || !quoteId || !ratePlanId) return false;
-
-      state.quoteData = quoteData;
-      state.quoteTotalNumber = Number(total);
-      state.quoteCurrency = currency;
-      state.quoteId = quoteId;
-      state.ratePlanId = ratePlanId;
-      state.quoteTotalText = draft.quoteTotalText || formatMoney(total, currency);
-
-      state.draft.quoteData = quoteData;
-      state.draft.quote = quoteData;
-      state.draft.quoteId = quoteId;
-      state.draft.ratePlanId = ratePlanId;
-      state.draft.quoteTotal = Number(total);
-      state.draft.quoteTotalNumber = Number(total);
-      state.draft.quoteTotalText = state.quoteTotalText;
-      state.draft.currency = currency;
-      state.draft.quoteLockedAt = state.draft.quoteLockedAt || new Date().toISOString();
-      saveDraft();
-
-      renderQuoteBox();
-      renderBreakdown(quoteData);
-      return true;
+      if (!quoteBox || !lines) return;
+      if (!state.finalTotal || state.finalTotal <= 0) {
+        quoteBox.textContent = txt("missingPrice");
+        lines.innerHTML = "";
+        return;
+      }
+      quoteBox.innerHTML = escapeHTML((nights > 0 ? nights + " " + txt("nights") : txt("fixedTotal")) + " · " + guestCount + " " + txt("guests").toLowerCase()) + "<strong>" + escapeHTML(state.finalPriceText || formatMoney(state.finalTotal, state.finalCurrency)) + "</strong>";
+      var rows = Array.isArray(state.quoteBreakdown) ? state.quoteBreakdown.filter(function(row){ return row && numberFromAny(row.amount) !== null; }) : [];
+      if (!rows.length) rows = [{ label:txt("selectedNights"), amount:state.finalTotal, currency:state.finalCurrency }];
+      var html = rows.slice(0,14).map(function(row){
+        var label = row.label || row.title || row.name || row.type || txt("selectedNights");
+        var amount = numberFromAny(row.amount || row.total || row.value || row.price);
+        return '<div class="fh-line-item"><span>'+escapeHTML(label)+'</span><strong>'+escapeHTML(formatMoney(amount, row.currency || state.finalCurrency))+'</strong></div>';
+      }).join("");
+      html += '<div class="fh-line-item total"><span>'+escapeHTML(txt("finalPrice"))+'</span><strong>'+escapeHTML(state.finalPriceText || formatMoney(state.finalTotal, state.finalCurrency))+'</strong></div>';
+      lines.innerHTML = html;
     }
 
     function showMessage(message, type){
@@ -786,12 +548,14 @@
       box.className = "fh-message" + (message ? " show" : "") + (type ? " " + type : "");
     }
     function clearMessage(){ showMessage("", ""); }
+    function clearErrors(){ Array.prototype.slice.call(root.querySelectorAll(".fh-field.is-error")).forEach(function(field){ field.classList.remove("is-error"); }); clearMessage(); }
+    function markError(id){ var el = $(id); if (el && el.closest(".fh-field")) el.closest(".fh-field").classList.add("is-error"); }
 
     async function loadConfig(){
       try {
         var cfg = await apiGet("/config", {});
         if (cfg.listingId) CFG.listingId = cfg.listingId;
-        if (cfg.currency) CFG.currency = cfg.currency;
+        if (cfg.currency && !state.finalCurrency) state.finalCurrency = cfg.currency;
         if (cfg.paymentProviderId) state.paymentProviderId = cfg.paymentProviderId;
       } catch(error) {}
       try {
@@ -802,82 +566,12 @@
       }
     }
 
-    async function refreshQuote(){
-      var draft = state.draft;
-      if (!draft.checkIn || !draft.checkOut) {
-        $("fhLiveQuote").textContent = txt("missingDates");
-        return null;
-      }
-      $("fhLiveQuote").textContent = txt("liveQuotePreparing");
-      $("fhQuoteLines").innerHTML = "";
-      var payload = {
-        listingId: CFG.listingId,
-        guestyListingId: CFG.listingId,
-        checkIn: draft.checkIn,
-        checkOut: draft.checkOut,
-        checkInDateLocalized: draft.checkIn,
-        checkOutDateLocalized: draft.checkOut,
-        startDate: draft.checkIn,
-        endDate: draft.checkOut,
-        guests: Number(draft.guests || draft.adults + draft.children || 1),
-        guestsCount: Number(draft.guests || draft.adults + draft.children || 1),
-        numberOfGuests: draft.numberOfGuests || {
-          numberOfAdults: Math.max(1, Number(draft.adults || 1)),
-          numberOfChildren: Math.max(0, Number(draft.children || 0)),
-          numberOfInfants: 0,
-          numberOfPets: 0
-        },
-        lang: state.lang,
-        language: state.lang,
-        source: "checkout-page"
-      };
-
-      try {
-        var data = await apiPost("/quote", payload);
-        state.quoteData = data;
-        state.quoteTotalNumber = findTotal(data);
-        state.quoteCurrency = findCurrency(data);
-        state.quoteId = findQuoteId(data);
-        state.ratePlanId = findRatePlanId(data);
-        state.quoteTotalText = state.quoteTotalNumber ? formatMoney(state.quoteTotalNumber, state.quoteCurrency) : "—";
-        renderQuoteBox();
-        renderBreakdown(data);
-        state.draft.quoteData = data;
-        state.draft.quote = data;
-        state.draft.quoteId = state.quoteId;
-        state.draft.ratePlanId = state.ratePlanId;
-        state.draft.quoteTotal = state.quoteTotalNumber;
-        state.draft.quoteTotalNumber = state.quoteTotalNumber;
-        state.draft.quoteTotalText = state.quoteTotalText;
-        state.draft.currency = state.quoteCurrency;
-        state.draft.quoteLockedAt = state.draft.quoteLockedAt || new Date().toISOString();
-        saveDraft();
-        return data;
-      } catch(error) {
-        console.warn("Quote did not load", error);
-        $("fhLiveQuote").textContent = error.message || txt("liveQuoteFailed");
-        showMessage(txt("liveQuoteFailed"), "error");
-        return null;
-      }
+    function ensureFixedPrice(){
+      if (state.finalTotal && Number(state.finalTotal) > 0) return true;
+      showMessage(txt("missingPrice"), "error");
+      renderFixedPrice();
+      return false;
     }
-
-    function renderBreakdown(data){
-      var items = findBreakdown(data);
-      var host = $("fhQuoteLines");
-      if (!host) return;
-      if (!items.length) { host.innerHTML = ""; return; }
-      host.innerHTML = items.slice(0,10).map(function(item){
-        var label = item.label || item.title || item.name || item.type || item.description || "Item";
-        var amount = numberFromAny(item.amount || item.total || item.value || item.price);
-        return '<div class="fh-line-item"><span>'+escapeHTML(label)+'</span><strong>'+(amount ? escapeHTML(formatMoney(amount, state.quoteCurrency)) : 'Included')+'</strong></div>';
-      }).join("");
-    }
-
-    function clearErrors(){
-      Array.prototype.slice.call(root.querySelectorAll(".fh-field.is-error")).forEach(function(field){ field.classList.remove("is-error"); });
-      clearMessage();
-    }
-    function markError(id){ var el = $(id); if (el && el.closest(".fh-field")) el.closest(".fh-field").classList.add("is-error"); }
 
     function validateCheckout(){
       clearErrors();
@@ -887,6 +581,7 @@
       required.forEach(function(id){ if (!getValue(id)) { markError(id); ok = false; } });
       if (getValue("fhEmail") && !emailValid(getValue("fhEmail"))) { markError("fhEmail"); showMessage(txt("badEmail"), "error"); ok = false; }
       if (!state.draft.checkIn || !state.draft.checkOut) { showMessage(txt("missingDates"), "error"); ok = false; }
+      if (!ensureFixedPrice()) ok = false;
       if (!$("fhAccept").checked) { showMessage(txt("acceptError"), "error"); ok = false; }
       if (!ok && !$("fhCheckoutStatus").textContent) showMessage(txt("missingFields"), "error");
       var firstError = root.querySelector(".fh-field.is-error input");
@@ -896,10 +591,9 @@
 
     async function tokenizeCard(){
       if (!state.paymentProviderId) throw new Error(txt("providerMissing"));
-      if (!applyLockedQuoteFromBooking() && !state.quoteData) await refreshQuote();
-      var amount = Math.round(Number(state.quoteTotalNumber || findTotal(state.quoteData) || 0));
-      if (!amount || amount <= 0) throw new Error(txt("liveQuoteFailed"));
-      var currency = state.quoteCurrency || findCurrency(state.quoteData) || CFG.currency;
+      if (!ensureFixedPrice()) throw new Error(txt("missingPrice"));
+      var amount = Math.round(Number(state.finalTotal));
+      var currency = state.finalCurrency || CFG.currency;
       var successURL = new URL(window.location.href);
       successURL.searchParams.set("threeDS", "success");
       var failureURL = new URL(window.location.href);
@@ -947,7 +641,16 @@
       if (!response.ok || data.error) throw new Error(data.message || data.error || "GuestyPay tokenization failed");
       var token = data._id || data.id || data.ccToken || data.token;
       if (!token) throw new Error("GuestyPay did not return a token.");
-      sessionStorage.setItem("fhPendingGuestyBook", JSON.stringify({ draft:state.draft, quoteData:state.quoteData, quoteTotalNumber:state.quoteTotalNumber, quoteCurrency:state.quoteCurrency, quoteId:state.quoteId, ratePlanId:state.ratePlanId, ccToken:token, paymentProviderId:state.paymentProviderId, createdAt:new Date().toISOString() }));
+      sessionStorage.setItem("fhPendingGuestyBook", JSON.stringify({
+        draft:state.draft,
+        finalTotal:state.finalTotal,
+        finalCurrency:state.finalCurrency,
+        finalPriceText:state.finalPriceText,
+        quoteBreakdown:state.quoteBreakdown,
+        ccToken:token,
+        paymentProviderId:state.paymentProviderId,
+        createdAt:new Date().toISOString()
+      }));
       if (data.threeDS && data.threeDS.authURL) {
         showMessage(txt("threeDS"), "warn");
         window.location.href = data.threeDS.authURL;
@@ -957,40 +660,66 @@
     }
 
     async function bookWithToken(token){
-      if (!state.quoteData) await refreshQuote();
-      var quoteId = state.quoteId || state.draft.quoteId || findQuoteId(state.quoteData);
-      var ratePlanId = state.ratePlanId || state.draft.ratePlanId || findRatePlanId(state.quoteData);
-      if (!quoteId) throw new Error("Missing quoteId from Guesty quote.");
-      if (!ratePlanId) throw new Error("Missing ratePlanId from Guesty quote.");
-
+      if (!ensureFixedPrice()) throw new Error(txt("missingPrice"));
+      var draft = state.draft || {};
       var bookPayload = {
-        quoteId: quoteId,
-        ratePlanId: ratePlanId,
+        listingId: CFG.listingId,
+        guestyListingId: CFG.listingId,
+        checkIn: draft.checkIn,
+        checkOut: draft.checkOut,
+        checkInDateLocalized: draft.checkIn,
+        checkOutDateLocalized: draft.checkOut,
+        startDate: draft.checkIn,
+        endDate: draft.checkOut,
+        numberOfGuests: draft.numberOfGuests,
+        guests: Number(draft.guests || draft.adults + draft.children || 1),
+        guestsCount: Number(draft.guests || draft.adults + draft.children || 1),
         ccToken: token,
         paymentProviderId: state.paymentProviderId,
         acceptAgreement: true,
         acceptRentalAgreement: true,
         guest: {
-          firstName: state.draft.firstName,
-          lastName: state.draft.lastName,
-          email: state.draft.email,
-          phone: state.draft.phone,
-          note: state.draft.message || "Direct booking checkout"
+          firstName: draft.firstName,
+          lastName: draft.lastName,
+          email: draft.email,
+          phone: draft.phone,
+          note: draft.message || "Direct booking checkout"
         },
         policy: { privacy:true, terms:true, rentalAgreement:true },
-        expectedTotal: state.quoteTotalNumber,
-        expectedCurrency: state.quoteCurrency,
-        source: "checkout-page"
+        expectedTotal: Number(state.finalTotal),
+        expectedCurrency: state.finalCurrency,
+        finalTotal: Number(state.finalTotal),
+        finalCurrency: state.finalCurrency,
+        finalPriceText: state.finalPriceText || formatMoney(state.finalTotal, state.finalCurrency),
+        quoteBreakdown: state.quoteBreakdown || [],
+        pricingSource: "calendar-nights-total-from-booking-page",
+        source: "checkout-page-fixed-calendar-total"
       };
+      if (draft.quoteId) bookPayload.quoteId = draft.quoteId;
+      if (draft.ratePlanId) bookPayload.ratePlanId = draft.ratePlanId;
 
       var result = await apiPost("/book", bookPayload);
       var reservation = result.reservation || result.data || result;
       var reservationId = reservation.id || reservation._id || result.reservationId || result.id || "";
       var confirmationCode = reservation.confirmationCode || reservation.confirmation_code || result.confirmationCode || "";
-      var complete = Object.assign({}, state.draft, { bookingResponse:result, reservationId:reservationId, confirmationCode:confirmationCode, completedAt:new Date().toISOString() });
+      var complete = Object.assign({}, draft, {
+        bookingResponse:result,
+        reservationId:reservationId,
+        confirmationCode:confirmationCode,
+        finalTotal:Number(state.finalTotal),
+        finalCurrency:state.finalCurrency,
+        finalPriceText:state.finalPriceText || formatMoney(state.finalTotal, state.finalCurrency),
+        completedAt:new Date().toISOString()
+      });
       localStorage.setItem("fhBookingComplete", JSON.stringify(complete));
       sessionStorage.removeItem("fhPendingGuestyBook");
-      var params = new URLSearchParams({ reservationId:reservationId || "", confirmationCode:confirmationCode || "", lang:state.lang });
+      var params = new URLSearchParams({
+        reservationId:reservationId || "",
+        confirmationCode:confirmationCode || "",
+        lang:state.lang,
+        finalTotal:String(state.finalTotal || ""),
+        finalCurrency:state.finalCurrency || CFG.currency
+      });
       window.location.href = CFG.confirmationPage + "?" + params.toString();
     }
 
@@ -1001,7 +730,6 @@
       button.disabled = true;
       button.textContent = txt("processing");
       try {
-        if (!applyLockedQuoteFromBooking()) await refreshQuote();
         showMessage(txt("tokenizing"), "");
         var token = await tokenizeCard();
         if (token) {
@@ -1010,7 +738,7 @@
         }
       } catch(error) {
         console.error("Checkout error", error);
-        showMessage(txt("failed"), "error");
+        showMessage(error && error.message ? error.message : txt("failed"), "error");
         button.disabled = false;
         button.textContent = txt("pay");
       }
@@ -1024,54 +752,31 @@
       try { pending = JSON.parse(sessionStorage.getItem("fhPendingGuestyBook") || "{}"); } catch(error) {}
       if (!pending.ccToken) return;
       state.draft = pending.draft || state.draft;
-      state.quoteData = pending.quoteData || state.quoteData;
-      state.quoteTotalNumber = pending.quoteTotalNumber || state.quoteTotalNumber;
-      state.quoteCurrency = pending.quoteCurrency || state.quoteCurrency;
-      state.quoteId = pending.quoteId || state.quoteId;
-      state.ratePlanId = pending.ratePlanId || state.ratePlanId;
+      state.finalTotal = numberFromAny(pending.finalTotal || state.finalTotal);
+      state.finalCurrency = pending.finalCurrency || state.finalCurrency;
+      state.finalPriceText = pending.finalPriceText || state.finalPriceText;
+      state.quoteBreakdown = pending.quoteBreakdown || state.quoteBreakdown;
       state.paymentProviderId = pending.paymentProviderId || state.paymentProviderId;
-      applyLockedQuoteFromBooking();
+      renderSummary();
+      renderFixedPrice();
       showMessage(txt("creating"), "");
       await bookWithToken(pending.ccToken);
     }
 
     function bind(){
-      var rail = $("fhPhotoRail");
-      if (rail) rail.addEventListener("click", function(event){
-        var btn = event.target.closest("[data-photo-index]");
-        if (btn) selectImage(Number(btn.dataset.photoIndex) || 0);
-      });
-      var prev = $("fhPhotoPrev");
-      var next = $("fhPhotoNext");
-      if (prev) prev.addEventListener("click", function(){ selectImage(state.selectedImageIndex - 1); });
-      if (next) next.addEventListener("click", function(){ selectImage(state.selectedImageIndex + 1); });
-
-      ["fhFirstName","fhLastName","fhEmail","fhPhone"].forEach(function(id){
-        var el = $(id);
-        if (el) el.addEventListener("input", function(){ clearMessage(); syncDraftFromForm(); });
-      });
       var form = $("fhPaymentForm");
       if (form) form.addEventListener("submit", handlePayment);
-
-      document.addEventListener("click", function(event){
-        var trigger = event.target.closest("[data-fh-lang],[data-lang],[data-language]");
-        if (!trigger || root.contains(trigger)) return;
-        var raw = trigger.getAttribute("data-fh-lang") || trigger.getAttribute("data-lang") || trigger.getAttribute("data-language") || "";
-        setLanguage(raw);
+      ["fhFirstName","fhLastName","fhEmail","fhPhone"].forEach(function(id){ var el=$(id); if (el) el.addEventListener("input", syncDraftFromForm); });
+      var cardNumber = $("fhCardNumber");
+      if (cardNumber) cardNumber.addEventListener("input", function(){ this.value = this.value.replace(/[^0-9]/g, "").replace(/(.{4})/g, "$1 ").trim().slice(0, 23); });
+      ["fhExpMonth","fhExpYear","fhCvc"].forEach(function(id){ var el=$(id); if (el) el.addEventListener("input", function(){ this.value = this.value.replace(/[^0-9]/g, ""); }); });
+      window.addEventListener("storage", function(event){
+        if (["fh_lang","fh_language","fhLang"].indexOf(event.key) >= 0) { state.lang = getLangFromRaw(event.newValue); applyLanguage(); }
       });
-      window.addEventListener("fh:languagechange", function(event){ setLanguage(event.detail && (event.detail.lang || event.detail.language)); });
-      document.addEventListener("fh:language-change", function(event){ setLanguage(event.detail && (event.detail.lang || event.detail.language)); });
-      window.addEventListener("storage", function(event){ if (event.key === "fh_lang" || event.key === "fh_language" || event.key === "fhLang") setLanguage(event.newValue); });
-    }
-
-    function setLanguage(raw){
-      var next = getLangFromRaw(raw);
-      if (next === state.lang) return;
-      state.lang = next;
-      state.draft.lang = next;
-      applyLanguage();
-      saveDraft();
-      if (state.draft.checkIn && state.draft.checkOut) refreshQuote();
+      window.addEventListener("fh-language-change", function(event){
+        var next = getLangFromRaw((event.detail && (event.detail.lang || event.detail.language)) || "");
+        if (next && next !== state.lang) { state.lang = next; applyLanguage(); }
+      });
     }
 
     async function boot(){
@@ -1079,17 +784,13 @@
       applyLanguage();
       bind();
       renderImages();
-      updateSummary();
-      loadImages();
-      await loadConfig();
-      if (!applyLockedQuoteFromBooking()) await refreshQuote();
-      await resumeAfterThreeDS().catch(function(error){ showMessage(txt("failed"), "error"); });
+      renderSummary();
+      renderFixedPrice();
+      await Promise.allSettled([loadImages(), loadConfig()]);
+      await resumeAfterThreeDS();
+      if (!state.finalTotal) showMessage(txt("missingPrice"), "error");
     }
-
-    boot().catch(function(error){
-      console.error("Fletschhorn checkout boot error:", error);
-      showMessage(txt("failed"), "error");
-    });
+    boot().catch(function(error){ console.error("Fletschhorn checkout boot error:", error); showMessage(txt("failed"), "error"); });
   })();
   </script>
 </body>
