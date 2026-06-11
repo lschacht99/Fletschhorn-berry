@@ -3075,25 +3075,50 @@
       loadHtml("fh-header-slot", "Header.html");
       loadHtml("fh-footer-slot", "footer.html");
 
-      if (!document.querySelector('script[src*="instagram.com/embed.js"]')){
-        const instagramScript = document.createElement("script");
-        instagramScript.async = true;
-        instagramScript.src = "https://www.instagram.com/embed.js";
-        instagramScript.onload = function(){
-          if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function"){
-            window.instgrm.Embeds.process();
-          }
-        };
-        document.body.appendChild(instagramScript);
+      /*
+        Heavy third-party embeds are delayed until the social section is near the viewport.
+        This prevents Chrome RESULT_CODE_HUNG on first paint while the hero background is loading.
+      */
+      function loadSocialEmbeds(){
+        if (!document.querySelector('script[src*="instagram.com/embed.js"]')){
+          const instagramScript = document.createElement("script");
+          instagramScript.async = true;
+          instagramScript.defer = true;
+          instagramScript.src = "https://www.instagram.com/embed.js";
+          instagramScript.onload = function(){
+            if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function"){
+              window.instgrm.Embeds.process();
+            }
+          };
+          document.body.appendChild(instagramScript);
+        } else if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === "function"){
+          window.instgrm.Embeds.process();
+        }
+
+        if (!document.querySelector('script[src*="jscache.com/wejs"]')){
+          const tripAdvisorScript = document.createElement("script");
+          tripAdvisorScript.async = true;
+          tripAdvisorScript.defer = true;
+          tripAdvisorScript.src = "https://www.jscache.com/wejs?wtype=cdsratingsonlynarrow&uniq=805&locationId=236309&lang=en_US&border=true&backgroundColor=white&display_version=2";
+          tripAdvisorScript.setAttribute("data-loadtrk", "");
+          tripAdvisorScript.onload = function(){ this.loadtrk = true; };
+          document.body.appendChild(tripAdvisorScript);
+        }
       }
 
-      if (!document.querySelector('script[src*="jscache.com/wejs"]')){
-        const tripAdvisorScript = document.createElement("script");
-        tripAdvisorScript.async = true;
-        tripAdvisorScript.src = "https://www.jscache.com/wejs?wtype=cdsratingsonlynarrow&uniq=805&locationId=236309&lang=en_US&border=true&backgroundColor=white&display_version=2";
-        tripAdvisorScript.setAttribute("data-loadtrk", "");
-        tripAdvisorScript.onload = function(){ this.loadtrk = true; };
-        document.body.appendChild(tripAdvisorScript);
+      const socialSection = document.getElementById("social");
+      if (socialSection && "IntersectionObserver" in window){
+        const embedObserver = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if (entry.isIntersecting){
+              embedObserver.disconnect();
+              loadSocialEmbeds();
+            }
+          });
+        }, { rootMargin:"900px 0px" });
+        embedObserver.observe(socialSection);
+      } else {
+        window.setTimeout(loadSocialEmbeds, 2500);
       }
     })();
   </script>
@@ -4661,45 +4686,42 @@
       }
 
       function normalizeWorkerImages(data){
+        /*
+          Keep this intentionally shallow and capped.
+          The Worker can return a large Guesty/listing object; recursively scanning the whole object
+          can lock the browser and cause RESULT_CODE_HUNG. Only known image arrays are scanned.
+        */
         const out = [];
         const seen = new Set();
+        const MAX_IMAGES = 18;
 
         function push(item){
+          if (out.length >= MAX_IMAGES) return;
           const record = normalizeWorkerImageItem(item, out.length);
           if (!record || !record.url || seen.has(record.url)) return;
           seen.add(record.url);
           out.push(record);
         }
 
-        if (data && Array.isArray(data.images)){
-          data.images.forEach(push);
+        function pushArray(value){
+          if (!Array.isArray(value)) return;
+          for (let i = 0; i < value.length && out.length < MAX_IMAGES; i++){
+            push(value[i]);
+          }
         }
 
-        if (data && data.listing && Array.isArray(data.listing.images)){
-          data.listing.images.forEach(push);
-        }
+        pushArray(data && data.images);
+        pushArray(data && data.imageUrls);
+        pushArray(data && data.urls);
+        pushArray(data && data.photos);
+        pushArray(data && data.pictures);
+        pushArray(data && data.gallery);
 
-        if (data && data.data && Array.isArray(data.data.images)){
-          data.data.images.forEach(push);
-        }
-
-        if (!out.length){
-          (function walk(value){
-            if (!value || typeof value !== "object") return;
-
-            if (Array.isArray(value)){
-              value.forEach(walk);
-              return;
-            }
-
-            const record = normalizeWorkerImageItem(value, out.length);
-            if (record) push(record);
-
-            Object.keys(value).forEach(function(key){
-              walk(value[key]);
-            });
-          })(data);
-        }
+        pushArray(data && data.listing && data.listing.images);
+        pushArray(data && data.listing && data.listing.photos);
+        pushArray(data && data.data && data.data.images);
+        pushArray(data && data.data && data.data.photos);
+        pushArray(data && data.data && data.data.listing && data.data.listing.images);
 
         return out;
       }
@@ -4719,10 +4741,10 @@
         const pool = workerImages && workerImages.length ? workerImages : placeholderSet();
 
         IMAGES = {
-          hero: pickWorkerImages(pool, 8, 0),
+          hero: pickWorkerImages(pool, Math.min(3, Math.max(1, pool.length)), 0),
           overview: pickWorkerImages(pool, 3, 1),
-          inside: pickWorkerImages(pool, Math.min(12, Math.max(1, pool.length)), 0),
-          kitchen: pickWorkerImages(pool, Math.min(10, Math.max(1, pool.length)), 4),
+          inside: pickWorkerImages(pool, Math.min(6, Math.max(1, pool.length)), 0),
+          kitchen: pickWorkerImages(pool, Math.min(5, Math.max(1, pool.length)), 4),
           cards: {
             family: pickWorkerImages(pool, 1, 2)[0],
             retreat: pickWorkerImages(pool, 1, 5)[0],
@@ -4782,7 +4804,7 @@
           const response = await fetch(url.toString(), {
             method: "GET",
             headers: { "Accept":"application/json" },
-            cache: "no-cache"
+            cache: "default"
           });
 
           const text = await response.text();
@@ -4848,6 +4870,14 @@
         };
       }
 
+      function ensureSlideBackground(slide){
+        if (!slide || slide.dataset.bgApplied === "true") return;
+        const url = slide.getAttribute("data-bg");
+        if (!url) return;
+        slide.style.backgroundImage = 'url("' + String(url).replace(/"/g, "%22") + '")';
+        slide.dataset.bgApplied = "true";
+      }
+
       function startSlideshow(){
         const hero = $("#fhHeroMedia");
         if (!hero) return;
@@ -4861,6 +4891,8 @@
 
         if (!slides.length) return;
 
+        ensureSlideBackground(slides[0]);
+
         slides.forEach(function(slide, index){
           slide.classList.toggle("active", index === 0);
         });
@@ -4869,16 +4901,15 @@
 
         let index = 0;
         state.heroTimer = window.setInterval(function(){
-          if (!document.body.contains(hero)){
-            window.clearInterval(state.heroTimer);
-            state.heroTimer = null;
+          if (!document.body.contains(hero) || document.hidden){
             return;
           }
 
           slides[index].classList.remove("active");
           index = (index + 1) % slides.length;
+          ensureSlideBackground(slides[index]);
           slides[index].classList.add("active");
-        }, 5200);
+        }, 6500);
       }
 
       function setHeroSlides(urls){
@@ -4887,14 +4918,23 @@
 
         const slides = (urls && urls.length ? urls : placeholderSet())
           .map(function(item, idx){ return normalizeWorkerImageItem(item, idx); })
-          .filter(Boolean);
+          .filter(Boolean)
+          .slice(0,3);
 
         hero.innerHTML = "";
 
-        slides.slice(0,8).forEach(function(item,i){
+        slides.forEach(function(item,i){
           const slide = document.createElement("div");
           slide.className = "fh-hero-slide" + (i === 0 ? " active" : "");
-          slide.style.backgroundImage = 'url("' + String(item.url || PLACEHOLDER_IMAGE).replace(/"/g, "%22") + '")';
+          slide.setAttribute("data-bg", item.url || PLACEHOLDER_IMAGE);
+          slide.style.backgroundSize = "cover";
+          slide.style.backgroundPosition = "center";
+
+          if (i === 0){
+            slide.style.backgroundImage = 'url("' + String(item.url || PLACEHOLDER_IMAGE).replace(/"/g, "%22") + '")';
+            slide.dataset.bgApplied = "true";
+          }
+
           hero.appendChild(slide);
         });
       }
@@ -4951,14 +4991,14 @@
       }
 
       async function initWorkerDrivenMedia(){
-        // First render a safe placeholder so the layout is never empty.
+        // Render a safe lightweight placeholder first so the hero is never blank.
         setHeroSlides(IMAGES.hero);
         setStaticImages();
         initCarousel("inside", IMAGES.inside);
         initCarousel("kitchen", IMAGES.kitchen);
         startSlideshow();
 
-        // Then replace every media slot with images coming from the Worker.
+        // Replace with Worker images once. Do not run a second independent image patch.
         const workerImages = await loadWorkerImages();
 
         setHeroSlides(IMAGES.hero);
@@ -5197,407 +5237,6 @@
       console.log("Booking handoff URL:", CFG.bookingPageUrl);
     })();
   </script>
-
-
-<!-- FH WORKER MEDIA + PRICE EMERGENCY PATCH v2026-06-11-2
-     This patch is intentionally independent from the page's older slideshow/calendar code. -->
-<style id="fh-worker-media-price-patch-css">
-  #fh-home .fh-lang-switch{display:none!important;visibility:hidden!important;pointer-events:none!important;}
-  #fh-home .fh-day-price{
-    display:block!important;
-    visibility:visible!important;
-    opacity:1!important;
-    min-height:10px!important;
-    margin-top:5px!important;
-    font-size:9px!important;
-    line-height:1.05!important;
-    font-weight:850!important;
-    color:rgba(28,24,20,.68)!important;
-    white-space:nowrap!important;
-  }
-  #fh-home .fh-day-price.missing{display:none!important;}
-  #fh-home .fh-day.start .fh-day-price,
-  #fh-home .fh-day.end .fh-day-price{color:rgba(255,250,242,.88)!important;}
-  #fh-home img[data-fh-worker-image="true"]{
-    display:block!important;
-    visibility:visible!important;
-    opacity:1!important;
-    object-fit:cover!important;
-  }
-</style>
-<script id="fh-worker-media-price-patch-js">
-(function(){
-  "use strict";
-
-  window.__FH_WORKER_PATCH_VERSION = "worker-media-prices-v2026-06-11-2";
-
-  var WORKER = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
-  var LISTING_ID = "6968339ab7d735001ca015ba";
-  var DEFAULT_CURRENCY = "CHF";
-  var imageUrls = [];
-  var priceMap = Object.create(null);
-  var fetchedRanges = Object.create(null);
-  var heroTimer = null;
-
-  function root(){ return document.getElementById("fh-home") || document; }
-
-  function log(){
-    try { console.log.apply(console, arguments); } catch(e) {}
-  }
-
-  function warn(){
-    try { console.warn.apply(console, arguments); } catch(e) {}
-  }
-
-  function isUrl(value){
-    return typeof value === "string" && /^https?:\/\//i.test(value.trim());
-  }
-
-  function looksLikeImageUrl(value){
-    if (!isUrl(value)) return false;
-    var clean = value.trim();
-    return /\.(avif|webp|jpe?g|png|gif|svg)(\?|#|$)/i.test(clean) ||
-      /cloudinary|guesty|image|images|upload|media|assets/i.test(clean);
-  }
-
-  function extractUrls(value, out, seen, depth){
-    if (!value || depth > 7) return;
-
-    if (typeof value === "string"){
-      var clean = value.trim();
-      if (looksLikeImageUrl(clean) && !seen[clean]){
-        seen[clean] = true;
-        out.push(clean);
-      }
-      return;
-    }
-
-    if (Array.isArray(value)){
-      value.forEach(function(item){ extractUrls(item, out, seen, depth + 1); });
-      return;
-    }
-
-    if (typeof value !== "object") return;
-
-    [
-      "url", "original", "large", "regular", "src", "href", "secure_url",
-      "imageUrl", "image_url", "thumbnail", "thumb", "medium", "small",
-      "file", "image", "picture", "photo"
-    ].forEach(function(key){
-      if (Object.prototype.hasOwnProperty.call(value, key)){
-        extractUrls(value[key], out, seen, depth + 1);
-      }
-    });
-
-    Object.keys(value).forEach(function(key){
-      extractUrls(value[key], out, seen, depth + 1);
-    });
-  }
-
-  function normalizeImageUrls(data){
-    var out = [];
-    var seen = Object.create(null);
-
-    if (data && Array.isArray(data.images)) extractUrls(data.images, out, seen, 0);
-    if (!out.length && data && data.listing) extractUrls(data.listing, out, seen, 0);
-    if (!out.length && data && data.data) extractUrls(data.data, out, seen, 0);
-    if (!out.length) extractUrls(data, out, seen, 0);
-
-    return out.filter(function(url){ return /^https?:\/\//i.test(url); });
-  }
-
-  function setImg(img, url, alt){
-    if (!img || !url) return;
-    img.loading = img.loading || "lazy";
-    img.decoding = "async";
-    img.src = url;
-    img.setAttribute("data-fh-worker-image", "true");
-    if (!img.alt) img.alt = alt || "Fletschhorn image";
-  }
-
-  function applyHeroImages(urls){
-    var hero = document.getElementById("fhHeroMedia") || root().querySelector(".fh-hero-media");
-    if (!hero || !urls.length) return;
-
-    if (heroTimer){
-      clearInterval(heroTimer);
-      heroTimer = null;
-    }
-
-    hero.innerHTML = "";
-    hero.style.backgroundImage = "url('" + urls[0].replace(/'/g, "%27") + "')";
-    hero.style.backgroundSize = "cover";
-    hero.style.backgroundPosition = "center";
-
-    urls.slice(0, 8).forEach(function(url, index){
-      var slide = document.createElement("div");
-      slide.className = "fh-hero-slide" + (index === 0 ? " active" : "");
-      slide.style.backgroundImage = "url('" + url.replace(/'/g, "%27") + "')";
-      slide.style.backgroundSize = "cover";
-      slide.style.backgroundPosition = "center";
-      hero.appendChild(slide);
-    });
-
-    var slides = Array.prototype.slice.call(hero.querySelectorAll(".fh-hero-slide"));
-    if (slides.length > 1){
-      var active = 0;
-      heroTimer = setInterval(function(){
-        if (!document.body.contains(hero)){
-          clearInterval(heroTimer);
-          heroTimer = null;
-          return;
-        }
-        slides[active].classList.remove("active");
-        active = (active + 1) % slides.length;
-        slides[active].classList.add("active");
-      }, 5200);
-    }
-  }
-
-  function applyInlineImages(urls){
-    if (!urls.length) return;
-
-    var r = root();
-    var selectors = [
-      "img[data-img]",
-      ".fh-season img",
-      ".fh-use-card img",
-      ".fh-carousel-slide img",
-      ".fh-overview img",
-      ".fh-image-card img",
-      ".fh-card img",
-      "img[src='']",
-      "img:not([src])"
-    ];
-
-    var imgs = Array.prototype.slice.call(r.querySelectorAll(selectors.join(",")));
-    var seen = [];
-    imgs = imgs.filter(function(img){
-      if (seen.indexOf(img) >= 0) return false;
-      seen.push(img);
-      return true;
-    });
-
-    imgs.forEach(function(img, index){
-      setImg(img, urls[index % urls.length], "Fletschhorn image " + (index + 1));
-    });
-
-    Array.prototype.slice.call(r.querySelectorAll(".fh-carousel-track")).forEach(function(track, trackIndex){
-      var existingSlides = Array.prototype.slice.call(track.querySelectorAll(".fh-carousel-slide"));
-
-      if (!existingSlides.length){
-        urls.slice(trackIndex * 5, trackIndex * 5 + 8).forEach(function(url, i){
-          var slide = document.createElement("div");
-          slide.className = "fh-carousel-slide";
-          var img = document.createElement("img");
-          setImg(img, url, "Fletschhorn carousel image " + (i + 1));
-          slide.appendChild(img);
-          track.appendChild(slide);
-        });
-      } else {
-        existingSlides.forEach(function(slide, i){
-          var img = slide.querySelector("img") || document.createElement("img");
-          if (!img.parentNode) slide.appendChild(img);
-          setImg(img, urls[(trackIndex * 8 + i) % urls.length], "Fletschhorn carousel image " + (i + 1));
-        });
-      }
-    });
-
-    log("FH PATCH images applied:", urls.length, "worker urls;", imgs.length, "img tags updated.");
-  }
-
-  async function loadImages(){
-    try {
-      var url = WORKER + "/images?listingId=" + encodeURIComponent(LISTING_ID) + "&t=" + Date.now();
-      var res = await fetch(url, { cache:"no-store", headers:{ "accept":"application/json" } });
-      var data = await res.json();
-
-      if (!res.ok || data.ok === false) throw new Error(data.error || data.message || "Images request failed");
-
-      imageUrls = normalizeImageUrls(data);
-      if (!imageUrls.length) throw new Error("Worker returned images but no usable URL was found");
-
-      applyHeroImages(imageUrls);
-      applyInlineImages(imageUrls);
-    } catch(error){
-      warn("FH PATCH image loading failed:", error);
-    }
-  }
-
-  function ymd(date){
-    var y = date.getFullYear();
-    var m = String(date.getMonth() + 1).padStart(2, "0");
-    var d = String(date.getDate()).padStart(2, "0");
-    return y + "-" + m + "-" + d;
-  }
-
-  function padDate(iso, days){
-    var d = new Date(iso + "T00:00:00");
-    d.setDate(d.getDate() + days);
-    return ymd(d);
-  }
-
-  function formatMoney(amount, currency){
-    var n = Number(amount);
-    if (!Number.isFinite(n)) return "";
-    try {
-      return new Intl.NumberFormat("en-US", {
-        style:"currency",
-        currency: currency || DEFAULT_CURRENCY,
-        maximumFractionDigits:0
-      }).format(n);
-    } catch(e){
-      return (currency || DEFAULT_CURRENCY) + " " + Math.round(n);
-    }
-  }
-
-  function normalizeDay(day){
-    if (!day || typeof day !== "object") return null;
-    var date = day.date || day.day || day.localDate || day.dateLocalized || day.startDate || day.from;
-    if (!date) return null;
-    date = String(date).slice(0,10);
-    var price = day.price;
-    if (price && typeof price === "object") price = price.amount || price.value || price.price || price.total;
-    if (price === undefined || price === null) price = day.rate || day.amount || day.nightlyPrice || day.basePrice;
-    if (price === undefined || price === null) return null;
-    return {
-      date: date,
-      price: Number(price),
-      currency: day.currency || (day.price && day.price.currency) || DEFAULT_CURRENCY,
-      available: day.available !== false && day.isAvailable !== false && day.status !== "unavailable"
-    };
-  }
-
-  function saveDays(data){
-    var days = [];
-    if (data && Array.isArray(data.days)) days = data.days;
-    else if (data && data.data && Array.isArray(data.data.days)) days = data.data.days;
-    else {
-      (function walk(value){
-        if (!value || typeof value !== "object") return;
-        if (Array.isArray(value)) return value.forEach(walk);
-        var d = normalizeDay(value);
-        if (d) days.push(value);
-        Object.keys(value).forEach(function(key){ walk(value[key]); });
-      })(data);
-    }
-
-    days.map(normalizeDay).filter(Boolean).forEach(function(day){
-      priceMap[day.date] = day;
-    });
-  }
-
-  function calendarGrid(){
-    return document.getElementById("fhToolbarCalendarGrid") || root().querySelector(".fh-calendar-grid, .fh-toolbar-calendar-grid");
-  }
-
-  function visibleCalendarDates(grid){
-    return Array.prototype.slice.call((grid || calendarGrid() || document).querySelectorAll(".fh-day[data-date], [data-date]")).map(function(btn){
-      return btn.getAttribute("data-date");
-    }).filter(function(date){ return /^\d{4}-\d{2}-\d{2}$/.test(date); });
-  }
-
-  async function ensurePricesForDates(dates){
-    if (!dates.length) return;
-    var sorted = dates.slice().sort();
-    var from = padDate(sorted[0], -1);
-    var to = padDate(sorted[sorted.length - 1], 1);
-    var key = from + "_" + to;
-    if (fetchedRanges[key]) return;
-    fetchedRanges[key] = true;
-
-    try {
-      var url = WORKER + "/calendar?from=" + encodeURIComponent(from) + "&to=" + encodeURIComponent(to) + "&listingId=" + encodeURIComponent(LISTING_ID) + "&t=" + Date.now();
-      var res = await fetch(url, { cache:"no-store", headers:{ "accept":"application/json" } });
-      var data = await res.json();
-      if (!res.ok || data.ok === false) throw new Error(data.error || data.message || "Calendar request failed");
-      saveDays(data);
-      injectPrices();
-      log("FH PATCH calendar prices loaded:", from, "to", to, Object.keys(priceMap).length, "priced days.");
-    } catch(error){
-      warn("FH PATCH calendar price loading failed:", error);
-    }
-  }
-
-  function injectPrices(){
-    var grid = calendarGrid();
-    if (!grid) return;
-
-    var count = 0;
-    Array.prototype.slice.call(grid.querySelectorAll(".fh-day[data-date], [data-date]")).forEach(function(btn){
-      var date = btn.getAttribute("data-date");
-      var info = priceMap[date];
-      if (!info || !Number.isFinite(Number(info.price))) return;
-
-      var label = formatMoney(info.price, info.currency || DEFAULT_CURRENCY);
-      var priceEl = btn.querySelector(".fh-day-price");
-      if (!priceEl){
-        priceEl = document.createElement("span");
-        priceEl.className = "fh-day-price";
-        btn.appendChild(priceEl);
-      }
-      priceEl.classList.remove("missing");
-      priceEl.textContent = label;
-      priceEl.style.display = "block";
-      priceEl.style.visibility = "visible";
-      priceEl.style.opacity = "1";
-      btn.setAttribute("data-price", String(info.price));
-      count++;
-    });
-
-    if (count) grid.setAttribute("data-fh-patch-prices", String(count));
-  }
-
-  function watchCalendar(){
-    var bodyObserver = new MutationObserver(function(){
-      var grid = calendarGrid();
-      if (!grid || grid.__fhPatchWatched) return;
-      grid.__fhPatchWatched = true;
-
-      var gridObserver = new MutationObserver(function(){
-        var dates = visibleCalendarDates(grid);
-        injectPrices();
-        ensurePricesForDates(dates);
-      });
-      gridObserver.observe(grid, { childList:true, subtree:true });
-
-      var dates = visibleCalendarDates(grid);
-      injectPrices();
-      ensurePricesForDates(dates);
-    });
-
-    bodyObserver.observe(document.body, { childList:true, subtree:true });
-
-    document.addEventListener("click", function(event){
-      if (event.target.closest("#fhOpenToolbarCalendar, [data-calendar-open], .fh-date-trigger")){
-        setTimeout(function(){
-          var dates = visibleCalendarDates(calendarGrid());
-          injectPrices();
-          ensurePricesForDates(dates);
-        }, 250);
-      }
-    });
-
-    var tries = 0;
-    var timer = setInterval(function(){
-      tries++;
-      var dates = visibleCalendarDates(calendarGrid());
-      injectPrices();
-      ensurePricesForDates(dates);
-      if (tries > 30) clearInterval(timer);
-    }, 1000);
-  }
-
-  function init(){
-    log("FH PATCH active:", window.__FH_WORKER_PATCH_VERSION);
-    loadImages();
-    watchCalendar();
-  }
-
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
-})();
-</script>
 
 </body>
 </html>
