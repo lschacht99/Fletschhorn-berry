@@ -338,6 +338,93 @@
   #fh-location-clean .fh-day-price{display:none}
 }
 
+
+/* Worker flow + shared-header language patch */
+#fh-location-clean .fh-langbar{
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+  opacity:0!important;
+}
+#fh-location-clean .fh-hero-contact{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+  max-width:940px;
+}
+#fh-location-clean .fh-hero-contact a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  min-height:44px;
+  padding:11px 13px;
+  border:1px solid rgba(255,250,242,.22);
+  background:rgba(255,250,242,.10);
+  color:var(--white);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+}
+#fh-location-clean .fh-hero-contact span{
+  font-size:9px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:850;
+  color:rgba(255,250,242,.62);
+}
+#fh-location-clean .fh-hero-contact strong{
+  color:var(--white);
+  font-size:13px;
+  font-weight:700;
+  overflow-wrap:anywhere;
+}
+#fh-location-clean .fh-day-price{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  min-height:10px!important;
+  margin-top:5px!important;
+  font-size:9px!important;
+  line-height:1.05!important;
+  font-weight:850!important;
+  color:rgba(28,24,20,.68)!important;
+  white-space:nowrap!important;
+}
+#fh-location-clean .fh-day-price.missing{display:none!important}
+#fh-location-clean .fh-day.start .fh-day-price,
+#fh-location-clean .fh-day.end .fh-day-price{color:rgba(255,250,242,.86)!important}
+#fh-location-clean img[data-worker-image-applied="true"],
+#fh-location-clean img[data-fh-image-key]{display:block!important;opacity:1!important;visibility:visible!important}
+#fh-location-clean[dir="rtl"]{direction:rtl}
+#fh-location-clean[dir="rtl"] .fh-hero-inner,
+#fh-location-clean[dir="rtl"] .fh-index-booking,
+#fh-location-clean[dir="rtl"] .fh-calendar-card,
+#fh-location-clean[dir="rtl"] .fh-panel,
+#fh-location-clean[dir="rtl"] .fh-form,
+#fh-location-clean[dir="rtl"] .fh-slide-copy,
+#fh-location-clean[dir="rtl"] .fh-map-side,
+#fh-location-clean[dir="rtl"] .fh-contact-line{text-align:right}
+#fh-location-clean[dir="rtl"] .fh-index-field{border-right:0;border-left:1px solid var(--line)}
+#fh-location-clean[dir="rtl"] input[type="email"],
+#fh-location-clean[dir="rtl"] input[type="tel"],
+#fh-location-clean[dir="rtl"] .fh-date-button span,
+#fh-location-clean[dir="rtl"] .fh-day-price,
+#fh-location-clean[dir="rtl"] .fh-hero-contact strong,
+#fh-location-clean[dir="rtl"] .fh-note,
+#fh-location-clean[dir="rtl"] .fh-list span{
+  direction:ltr;
+  text-align:left;
+  unicode-bidi:plaintext;
+}
+@media(max-width:680px){
+  #fh-location-clean .fh-hero-contact{display:grid;grid-template-columns:1fr;gap:8px;margin-top:14px}
+  #fh-location-clean .fh-hero-contact a{width:100%;padding:10px 11px}
+  #fh-location-clean .fh-hero-contact span{font-size:8px}
+  #fh-location-clean .fh-hero-contact strong{font-size:12.5px}
+}
+
 </style>
 
 <div id="fh-location-clean" data-fh-page="location">
@@ -348,11 +435,12 @@
       <button type="button" data-fh-lang="fr">FR</button>
       <button type="button" data-fh-lang="de">DE</button>
       <button type="button" data-fh-lang="ru">RU</button>
+      <button type="button" data-fh-lang="he">HE</button>
     </div>
 
     <section class="fh-hero" id="location-top">
       <div class="fh-hero-media" aria-hidden="true">
-        <img src="https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg" alt="">
+        <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="gluqecbjjcviqfujt52m.jpg" data-fh-image-index="0" alt="" loading="lazy" decoding="async">
       </div>
       <div class="fh-hero-inner">
         <div class="fh-container pre">
@@ -368,6 +456,10 @@
             <span data-i18n="factWalk">15-minute forest walk</span>
             <span data-i18n="factPickup">Pickup from Saas-Fee arrival area</span>
             <span data-i18n="factNature">Quiet mountain setting</span>
+          </div>
+          <div class="fh-hero-contact" aria-label="Direct contact">
+            <a href="tel:+41279572131"><span data-i18n="contactPhoneLabel">Call</span><strong>+41 27 957 2131</strong></a>
+            <a href="mailto:welcome@fletschhorn.ch"><span data-i18n="contactEmailLabel">Email</span><strong>welcome@fletschhorn.ch</strong></a>
           </div>
 
           <div class="fh-index-booking fh-reveal pre" id="booking">
@@ -450,7 +542,7 @@
           </div>
         </div>
         <div class="fh-photo pre">
-          <img src="https://assets.guesty.com/image/upload/v1769381686/production/686c48ada4bbacd7a82a4f83/cb3u14rwk6z4qlantocj.jpg" alt="Fletschhorn in its alpine setting">
+          <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="cb3u14rwk6z4qlantocj.jpg" data-fh-image-index="1" alt="Fletschhorn in its alpine setting" loading="lazy" decoding="async">
           <div class="fh-photo-caption">
             <p class="fh-kicker" data-i18n="wherePhotoKicker">Look around</p>
             <p data-i18n="wherePhotoText">Forest, mountain air, and Saas-Fee close by — without the feeling of being in the middle of the village.</p>
@@ -489,23 +581,23 @@
         <div class="fh-carousel-viewport">
           <div class="fh-carousel-track">
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Shuttle%20(1).jpg" alt="Fletschhorn arrival shuttle"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Shuttle (1).jpg" data-fh-image-index="2" alt="Fletschhorn arrival shuttle" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="shuttleSlide1Title">From Saas-Fee arrival point</h4><p data-i18n="shuttleSlide1Text">Guests arriving by bus can coordinate pickup from the Saas-Fee arrival area so the last part of the journey is easy with luggage.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Shuttle%20(2).jpg" alt="Fletschhorn shuttle in Saas-Fee"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Shuttle (2).jpg" data-fh-image-index="3" alt="Fletschhorn shuttle in Saas-Fee" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="shuttleSlide2Title">Useful with luggage</h4><p data-i18n="shuttleSlide2Text">For suitcases, children, older guests, equipment, or group arrivals, the pickup should be arranged in advance.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Shuttle%20(3).jpg" alt="Fletschhorn shuttle service"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Shuttle (3).jpg" data-fh-image-index="4" alt="Fletschhorn shuttle service" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="shuttleSlide3Title">Share your timing</h4><p data-i18n="shuttleSlide3Text">Send your arrival time before the stay. Direct airport transfers can also be discussed separately if needed.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Shuttle%20(4).jpg" alt="Fletschhorn shuttle vehicle"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Shuttle (4).jpg" data-fh-image-index="5" alt="Fletschhorn shuttle vehicle" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="shuttleSlide4Title">Prepared for the final access</h4><p data-i18n="shuttleSlide4Text">The shuttle keeps arrival practical in a car-free alpine village, especially when the group is traveling together.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Shuttle%20(5).jpg" alt="Fletschhorn guest pickup"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Shuttle (5).jpg" data-fh-image-index="6" alt="Fletschhorn guest pickup" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="shuttleSlide5Title">Simple for guests</h4><p data-i18n="shuttleSlide5Text">Once the timing is agreed, guests can arrive with less stress and understand exactly how to reach the property.</p></div>
             </article>
           </div>
@@ -536,35 +628,35 @@
         <div class="fh-carousel-viewport">
           <div class="fh-carousel-track">
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Nature%20(1).jpg" alt="Nature around Fletschhorn"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Nature (1).jpg" data-fh-image-index="7" alt="Nature around Fletschhorn" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="walkSlide1Title">Summer outside</h4><p data-i18n="walkSlide1Text">Fresh air, open views, long days outside, and the kind of alpine setting that makes a stay feel private and restorative.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Nature%20(2).jpg" alt="Summer landscape near Fletschhorn"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Nature (2).jpg" data-fh-image-index="8" alt="Summer landscape near Fletschhorn" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="walkSlide2Title">Trails and movement</h4><p data-i18n="walkSlide2Text">The surrounding area supports hiking, walking, sport, and time in nature without losing access to the village.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Nature%20(3).jpg" alt="Alpine trail near Fletschhorn"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Nature (3).jpg" data-fh-image-index="9" alt="Alpine trail near Fletschhorn" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="walkSlide3Title">A mountain base</h4><p data-i18n="walkSlide3Text">Use the property as a calm base for active days, quiet mornings, and group moments that feel away from the ordinary.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Nature%20(4).jpg" alt="Winter setting near Fletschhorn"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Nature (4).jpg" data-fh-image-index="10" alt="Winter setting near Fletschhorn" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="walkSlide4Title">Winter and ski stays</h4><p data-i18n="walkSlide4Text">In winter, the same location becomes a snow-filled base for skiing, mountain air, and warm evenings together.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Nature%20(5).jpg" alt="Fletschhorn nature for retreats"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Nature (5).jpg" data-fh-image-index="11" alt="Fletschhorn nature for retreats" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="walkSlide5Title">Retreats and workshops</h4><p data-i18n="walkSlide5Text">The setting works for groups that need space to think, connect, reset, and spend real time together.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Nature%20(6).jpg" alt="Fletschhorn nature for events"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Nature (6).jpg" data-fh-image-index="12" alt="Fletschhorn nature for events" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="walkSlide6Title">Events with atmosphere</h4><p data-i18n="walkSlide6Text">For birthdays, milestones, company gatherings, and private celebrations, the landscape gives the event a stronger sense of place.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Nature%20(7).jpg" alt="Fletschhorn wedding nature setting"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Nature (7).jpg" data-fh-image-index="13" alt="Fletschhorn wedding nature setting" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="walkSlide7Title">Your wedding here</h4><p data-i18n="walkSlide7Text">A wedding can feel intimate, alpine, and fully connected to the place — with nature becoming part of the memory.</p></div>
             </article>
             <article class="fh-slide">
-              <div class="fh-slide-img"><img src="https://ik.imagekit.io/Redberry/Nature%20(8).jpg" alt="Alpine nature around Fletschhorn"></div>
+              <div class="fh-slide-img"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 8%22%3E%3C/svg%3E" data-fh-image-key="Nature (8).jpg" data-fh-image-index="14" alt="Alpine nature around Fletschhorn" loading="lazy" decoding="async"></div>
               <div class="fh-slide-copy"><h4 data-i18n="walkSlide8Title">Adapted to each occasion</h4><p data-i18n="walkSlide8Text">Sport, ski, trek, rest, celebration, or gathering — the location gives each stay its own rhythm.</p></div>
             </article>
           </div>
@@ -662,7 +754,7 @@
   if(!root||root.dataset.ready==='1') return;
   root.dataset.ready='1';
 
-  const WORKER_URL='https://saas-fee.moshe-cohen-h1.workers.dev';
+  const WORKER_URL='https://fletschhorn-guesty-api.bookings-e2d.workers.dev';
 
   const dict={
     en:{heroKicker:'Location · Saas-Fee',heroTitle:'Where the village gives way to forest and mountain air.',heroText:'Fletschhorn sits above Saas-Fee in a calm alpine setting: close to the village, but removed enough to feel quiet, private, and surrounded by nature.',heroMap:'View map',heroContact:'Plan arrival',heroBook:'Book my stay now',bookingKicker:'Quick booking',bookingTitle:'Tell us what you want to plan.',bookingText:'Send dates, group size, and the occasion. The team can follow up with availability, practical access details, and the best next step.',bookingType:'Occasion',bookingStart:'Start date',bookingEnd:'End date',bookingSend:'Send quick inquiry',bookingPage:'Go to booking page',bookingSmall:'This is a quick inquiry, not an automatic confirmation.',factWalk:'15-minute forest walk',factPickup:'Pickup from Saas-Fee arrival area',factNature:'Quiet mountain setting',whereKicker:'Where it is',whereTitle:'Above Saas-Fee, in the Valais Alps.',whereText:'The property is positioned above the village in a pine-forest setting, with mountain views, fresh air, and a softer rhythm than the center of town. It is close enough for village access, but the feeling is calmer and more natural.',wherePoint1Title:'In the Swiss Alps',wherePoint1Text:'A high-mountain destination in Valais, surrounded by peaks, trails, snow, forest, and open views.',wherePoint2Title:'Near the village',wherePoint2Text:'Saas-Fee’s shops, lifts, restaurants, activities, and arrival points stay reachable without making the house feel central or noisy.',wherePoint3Title:'Set apart',wherePoint3Text:'The approach through the trees is part of the atmosphere: quieter, greener, and more private than a village-street location.',wherePhotoKicker:'Look around',wherePhotoText:'Forest, mountain air, and Saas-Fee close by — without the feeling of being in the middle of the village.',aroundKicker:'What is around',aroundTitle:'Nature first, with the village still within reach.',aroundIntro:'This page should help guests understand the feeling of the place: peaceful, alpine, surrounded by nature, but still practical for activities and arrivals.',around1Title:'Forest paths',around1Text:'The walk to the property moves through a quiet pine-forest setting, so arrival feels like entering a calmer mountain world.',around2Title:'Mountain views',around2Text:'The house sits in a natural alpine landscape with views, fresh air, and the feeling of space around the group.',around3Title:'Saas-Fee activities',around3Text:'Lifts, trails, skiing, summer walks, family activities, cafés, and village services are part of the surrounding area.',shuttleKicker:'Arrival support',shuttleTitle:'A simple final transfer when guests arrive.',shuttleSlide1Title:'From Saas-Fee arrival point',shuttleSlide1Text:'Guests arriving by bus can coordinate pickup from the Saas-Fee arrival area so the last part of the journey is easy with luggage.',shuttleSlide2Title:'Useful with luggage',shuttleSlide2Text:'For suitcases, children, older guests, equipment, or group arrivals, the pickup should be arranged in advance.',shuttleSlide3Title:'Share your timing',shuttleSlide3Text:'Send your arrival time before the stay. Direct airport transfers can also be discussed separately if needed.',shuttleSlide4Title:'Prepared for the final access',shuttleSlide4Text:'The shuttle keeps arrival practical in a car-free alpine village, especially when the group is traveling together.',shuttleSlide5Title:'Simple for guests',shuttleSlide5Text:'Once the timing is agreed, guests can arrive with less stress and understand exactly how to reach the property.',walkKicker:'Surrounded by nature',walkTitle:'This can be your own place in the Alps.',walkIntro:'From summer sports and mountain trails to skiing, private events, retreats, or your wedding, Fletschhorn is a location that can adapt to each occasion.',walkCarouselKicker:'Nature around Fletschhorn',walkCarouselTitle:'A place for every season and every gathering.',walkSlide1Title:'Summer outside',walkSlide1Text:'Fresh air, open views, long days outside, and the kind of alpine setting that makes a stay feel private and restorative.',walkSlide2Title:'Trails and movement',walkSlide2Text:'The surrounding area supports hiking, walking, sport, and time in nature without losing access to the village.',walkSlide3Title:'A mountain base',walkSlide3Text:'Use the property as a calm base for active days, quiet mornings, and group moments that feel away from the ordinary.',walkSlide4Title:'Winter and ski stays',walkSlide4Text:'In winter, the same location becomes a snow-filled base for skiing, mountain air, and warm evenings together.',walkSlide5Title:'Retreats and workshops',walkSlide5Text:'The setting works for groups that need space to think, connect, reset, and spend real time together.',walkSlide6Title:'Events with atmosphere',walkSlide6Text:'For birthdays, milestones, company gatherings, and private celebrations, the landscape gives the event a stronger sense of place.',walkSlide7Title:'Your wedding here',walkSlide7Text:'A wedding can feel intimate, alpine, and fully connected to the place — with nature becoming part of the memory.',walkSlide8Title:'Adapted to each occasion',walkSlide8Text:'Sport, ski, trek, rest, celebration, or gathering — the location gives each stay its own rhythm.',mapKicker:'Map',mapTitle:'See where Fletschhorn sits above Saas-Fee.',mapIntro:'The embedded map is kept compact so the page stays easy to scroll on mobile. Tap the map area only when you want to interact with it.',mapTouch:'Tap to use map',mapSideKicker:'Address',mapSideTitle:'Waldhotel Fletschhorn',mapAddressTitle:'Official address',mapVillageTitle:'Village access',mapVillageText:'The final approach connects through Saas-Fee’s car-free village environment.',mapButton:'Open in Google Maps',contactKicker:'Contact',contactTitle:'Plan the arrival clearly.',contactText:'Send your arrival time, group size, and travel method so the final access can be prepared properly.',formName:'Name',formContact:'Email or phone',formGuests:'Group size',formMethod:'Arrival method',formDate:'Arrival date',formTime:'Arrival time',formNotes:'Notes',formSmall:'This sends an arrival inquiry.',formSubmit:'Send inquiry',sending:'Sending your inquiry…',success:'Thank you. Your inquiry was sent.',error:'The inquiry could not be sent. Please try again or contact the property directly.'},
@@ -670,16 +762,24 @@
     de:{heroKicker:'Lage · Saas-Fee',heroTitle:'Wo das Dorf in Wald und Bergluft übergeht.',heroText:'Fletschhorn liegt oberhalb von Saas-Fee in einer ruhigen alpinen Umgebung: nah am Dorf, aber zurückgezogen genug, um ruhig, privat und naturnah zu wirken.',heroMap:'Karte ansehen',heroContact:'Anreise planen',heroBook:'Aufenthalt buchen',bookingKicker:'Schnelle Buchung',bookingTitle:'Sagen Sie uns, was Sie planen möchten.',bookingText:'Senden Sie Daten, Gruppengröße und Anlass. Das Team kann mit Verfügbarkeit, Zugangsinformationen und dem nächsten Schritt antworten.',bookingType:'Anlass',bookingStart:'Startdatum',bookingEnd:'Enddatum',bookingSend:'Schnelle Anfrage senden',bookingPage:'Zur Buchungsseite',bookingSmall:'Dies ist eine schnelle Anfrage, keine automatische Bestätigung.',factWalk:'15 Minuten Waldweg',factPickup:'Abholung im Ankunftsbereich Saas-Fee',factNature:'Ruhige Berglage',whereKicker:'Wo es liegt',whereTitle:'Oberhalb von Saas-Fee, in den Walliser Alpen.',whereText:'Die Unterkunft liegt oberhalb des Dorfes in einer Kiefernwald-Umgebung, mit Bergblick, frischer Luft und einem ruhigeren Rhythmus als im Zentrum. Sie bleibt nah am Dorf, fühlt sich aber natürlicher und ruhiger an.',wherePoint1Title:'In den Schweizer Alpen',wherePoint1Text:'Ein Hochgebirgsziel im Wallis, umgeben von Gipfeln, Wegen, Schnee, Wald und offenen Ausblicken.',wherePoint2Title:'Nah am Dorf',wherePoint2Text:'Geschäfte, Lifte, Restaurants, Aktivitäten und Ankunftspunkte von Saas-Fee bleiben erreichbar, ohne dass sich das Haus zentral oder laut anfühlt.',wherePoint3Title:'Abseits gelegen',wherePoint3Text:'Der Weg durch die Bäume gehört zur Atmosphäre: ruhiger, grüner und privater als eine Lage mitten im Dorf.',wherePhotoKicker:'Umgebung',wherePhotoText:'Wald, Bergluft und Saas-Fee in der Nähe — ohne das Gefühl, mitten im Dorf zu sein.',aroundKicker:'Was in der Nähe ist',aroundTitle:'Zuerst Natur, mit dem Dorf weiterhin erreichbar.',aroundIntro:'Diese Seite soll Gästen das Gefühl des Ortes vermitteln: friedlich, alpin, naturnah, aber praktisch für Aktivitäten und Anreise.',around1Title:'Waldwege',around1Text:'Der Weg zur Unterkunft führt durch eine ruhige Kiefernwald-Umgebung und fühlt sich wie der Eintritt in eine ruhigere Bergwelt an.',around2Title:'Bergblicke',around2Text:'Das Haus liegt in einer natürlichen Alpenlandschaft mit Aussicht, frischer Luft und Raumgefühl rund um die Gruppe.',around3Title:'Aktivitäten in Saas-Fee',around3Text:'Lifte, Wege, Skifahren, Sommerwanderungen, Familienaktivitäten, Cafés und Dorfservices gehören zur Umgebung.',shuttleKicker:'Anreisehilfe',shuttleTitle:'Ein einfacher letzter Transfer bei der Ankunft.',shuttleSlide1Title:'Vom Ankunftspunkt Saas-Fee',shuttleSlide1Text:'Gäste, die mit dem Bus ankommen, können eine Abholung im Ankunftsbereich von Saas-Fee koordinieren, damit der letzte Teil mit Gepäck einfacher ist.',shuttleSlide2Title:'Praktisch mit Gepäck',shuttleSlide2Text:'Für Koffer, Kinder, ältere Gäste, Ausrüstung oder Gruppenankünfte sollte die Abholung im Voraus organisiert werden.',shuttleSlide3Title:'Teilen Sie Ihre Zeit mit',shuttleSlide3Text:'Senden Sie Ihre Ankunftszeit vor dem Aufenthalt. Direkte Flughafentransfers können bei Bedarf separat besprochen werden.',shuttleSlide4Title:'Für den letzten Zugang vorbereitet',shuttleSlide4Text:'Der Shuttle macht die Ankunft in einem autofreien Alpendorf praktischer, besonders wenn die Gruppe gemeinsam reist.',shuttleSlide5Title:'Einfach für Gäste',shuttleSlide5Text:'Sobald die Zeit abgestimmt ist, können Gäste entspannter ankommen und wissen genau, wie sie die Unterkunft erreichen.',walkKicker:'Von Natur umgeben',walkTitle:'Dies kann Ihr eigener Ort in den Alpen sein.',walkIntro:'Von Sommersport und Bergwegen bis zu Skitagen, privaten Events, Retreats oder Ihrer Hochzeit: Fletschhorn ist ein Ort, der sich jedem Anlass anpasst.',walkCarouselKicker:'Natur rund um Fletschhorn',walkCarouselTitle:'Ein Ort für jede Saison und jede Zusammenkunft.',walkSlide1Title:'Sommer draußen',walkSlide1Text:'Frische Luft, offene Ausblicke, lange Tage draußen und eine alpine Umgebung, die privat und erholsam wirkt.',walkSlide2Title:'Wege und Bewegung',walkSlide2Text:'Die Umgebung bietet Wandern, Spazieren, Sport und Zeit in der Natur, ohne den Zugang zum Dorf zu verlieren.',walkSlide3Title:'Eine Bergbasis',walkSlide3Text:'Nutzen Sie die Unterkunft als ruhige Basis für aktive Tage, stille Morgen und besondere Gruppenmomente.',walkSlide4Title:'Winter und Ski-Aufenthalte',walkSlide4Text:'Im Winter wird derselbe Ort zu einer schneereichen Basis für Skifahren, Bergluft und warme Abende zusammen.',walkSlide5Title:'Retreats und Workshops',walkSlide5Text:'Die Umgebung eignet sich für Gruppen, die Raum zum Denken, Verbinden, Zurücksetzen und gemeinsamen Verweilen brauchen.',walkSlide6Title:'Events mit Atmosphäre',walkSlide6Text:'Für Geburtstage, Meilensteine, Firmenzusammenkünfte und private Feiern gibt die Landschaft dem Anlass einen stärkeren Ortssinn.',walkSlide7Title:'Ihre Hochzeit hier',walkSlide7Text:'Eine Hochzeit kann intim, alpin und ganz mit dem Ort verbunden wirken — die Natur wird Teil der Erinnerung.',walkSlide8Title:'An jeden Anlass angepasst',walkSlide8Text:'Sport, Ski, Trek, Ruhe, Feier oder Zusammenkunft — der Ort gibt jedem Aufenthalt seinen eigenen Rhythmus.',mapKicker:'Karte',mapTitle:'Sehen Sie, wo Fletschhorn oberhalb von Saas-Fee liegt.',mapIntro:'Die eingebettete Karte bleibt kompakt, damit die Seite auf Mobilgeräten leicht zu scrollen ist. Tippen Sie nur auf die Karte, wenn Sie sie verwenden möchten.',mapTouch:'Zum Verwenden tippen',mapSideKicker:'Adresse',mapSideTitle:'Waldhotel Fletschhorn',mapAddressTitle:'Offizielle Adresse',mapVillageTitle:'Dorfzugang',mapVillageText:'Der letzte Zugang verbindet sich mit der autofreien Umgebung von Saas-Fee.',mapButton:'In Google Maps öffnen',contactKicker:'Kontakt',contactTitle:'Die Anreise klar planen.',contactText:'Senden Sie Ankunftszeit, Gruppengröße und Verkehrsmittel, damit der letzte Zugang passend vorbereitet werden kann.',formName:'Name',formContact:'E-Mail oder Telefon',formGuests:'Gruppengröße',formMethod:'Anreiseart',formDate:'Ankunftsdatum',formTime:'Ankunftszeit',formNotes:'Notizen',formSmall:'Dies sendet eine Anreiseanfrage.',formSubmit:'Anfrage senden',sending:'Ihre Anfrage wird gesendet…',success:'Vielen Dank. Ihre Anfrage wurde gesendet.',error:'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie die Unterkunft direkt.'},
     ru:{heroKicker:'Локация · Саас-Фе',heroTitle:'Там, где деревня переходит в лес и горный воздух.',heroText:'Fletschhorn находится над Саас-Фе в спокойной альпийской среде: близко к деревне, но достаточно уединенно, чтобы ощущаться тихим, приватным и окруженным природой.',heroMap:'Посмотреть карту',heroContact:'Спланировать приезд',heroBook:'Забронировать',bookingKicker:'Быстрое бронирование',bookingTitle:'Расскажите, что вы хотите спланировать.',bookingText:'Отправьте даты, размер группы и повод. Команда сможет ответить по доступности, практическому доступу и следующему шагу.',bookingType:'Повод',bookingStart:'Дата начала',bookingEnd:'Дата окончания',bookingSend:'Отправить быстрый запрос',bookingPage:'Перейти на страницу бронирования',bookingSmall:'Это быстрый запрос, не автоматическое подтверждение.',factWalk:'15 минут пешком через лес',factPickup:'Встреча в зоне прибытия Саас-Фе',factNature:'Спокойная горная среда',whereKicker:'Где это находится',whereTitle:'Над Саас-Фе, в Валлийских Альпах.',whereText:'Объект расположен над деревней в окружении соснового леса, с видами на горы, свежим воздухом и более мягким ритмом, чем в центре. Деревня остается рядом, но место ощущается более спокойным и природным.',wherePoint1Title:'В Швейцарских Альпах',wherePoint1Text:'Высокогорное направление в Вале, окруженное вершинами, тропами, снегом, лесом и открытыми видами.',wherePoint2Title:'Рядом с деревней',wherePoint2Text:'Магазины, подъемники, рестораны, активности и точки прибытия Саас-Фе остаются доступными, но дом не ощущается центральным или шумным.',wherePoint3Title:'В стороне',wherePoint3Text:'Подход через деревья — часть атмосферы: тише, зеленее и приватнее, чем адрес на деревенской улице.',wherePhotoKicker:'Посмотрите вокруг',wherePhotoText:'Лес, горный воздух и Саас-Фе рядом — без ощущения, что вы в центре деревни.',aroundKicker:'Что вокруг',aroundTitle:'Сначала природа, а деревня всё еще рядом.',aroundIntro:'Эта страница должна объяснить настроение места: спокойное, альпийское, окруженное природой, но практичное для активностей и прибытия.',around1Title:'Лесные тропы',around1Text:'Путь к объекту проходит через тихий сосновый лес, поэтому прибытие ощущается как вход в более спокойный горный мир.',around2Title:'Виды на горы',around2Text:'Дом расположен в природном альпийском ландшафте с видами, свежим воздухом и ощущением пространства вокруг группы.',around3Title:'Активности Саас-Фе',around3Text:'Подъемники, тропы, лыжи, летние прогулки, семейные активности, кафе и деревенские сервисы находятся рядом.',shuttleKicker:'Поддержка прибытия',shuttleTitle:'Простой финальный трансфер при прибытии гостей.',shuttleSlide1Title:'Из зоны прибытия Саас-Фе',shuttleSlide1Text:'Гости, прибывающие на автобусе, могут заранее согласовать встречу в зоне прибытия Саас-Фе, чтобы последняя часть пути с багажом была легче.',shuttleSlide2Title:'Удобно с багажом',shuttleSlide2Text:'Для чемоданов, детей, пожилых гостей, оборудования или групповых прибытий встречу следует организовать заранее.',shuttleSlide3Title:'Сообщите время',shuttleSlide3Text:'Отправьте время прибытия до проживания. Прямой трансфер из аэропорта также можно обсудить отдельно при необходимости.',shuttleSlide4Title:'Подготовлено для финального доступа',shuttleSlide4Text:'Шаттл делает прибытие в безавтомобильную альпийскую деревню практичнее, особенно когда группа путешествует вместе.',shuttleSlide5Title:'Проще для гостей',shuttleSlide5Text:'Когда время согласовано, гости приезжают спокойнее и точно понимают, как добраться до объекта.',walkKicker:'Окружено природой',walkTitle:'Это может стать вашим собственным местом в Альпах.',walkIntro:'От летнего спорта и горных троп до лыж, частных мероприятий, ретритов или свадьбы — Fletschhorn является локацией, которая адаптируется к каждому случаю.',walkCarouselKicker:'Природа вокруг Fletschhorn',walkCarouselTitle:'Место для каждого сезона и каждого события.',walkSlide1Title:'Лето на улице',walkSlide1Text:'Свежий воздух, открытые виды, длинные дни на улице и альпийская среда, которая ощущается приватной и восстанавливающей.',walkSlide2Title:'Тропы и движение',walkSlide2Text:'Окружающая местность подходит для хайкинга, прогулок, спорта и времени на природе, оставаясь близко к деревне.',walkSlide3Title:'Горная база',walkSlide3Text:'Используйте объект как спокойную базу для активных дней, тихих утр и групповых моментов.',walkSlide4Title:'Зима и лыжи',walkSlide4Text:'Зимой это же место становится снежной базой для лыж, горного воздуха и теплых вечеров вместе.',walkSlide5Title:'Ретриты и воркшопы',walkSlide5Text:'Локация подходит группам, которым нужно пространство для размышления, общения, перезагрузки и настоящего времени вместе.',walkSlide6Title:'События с атмосферой',walkSlide6Text:'Для дней рождения, важных дат, корпоративных встреч и частных праздников пейзаж дает событию более сильное ощущение места.',walkSlide7Title:'Ваша свадьба здесь',walkSlide7Text:'Свадьба может быть интимной, альпийской и полностью связанной с местом — природа становится частью воспоминания.',walkSlide8Title:'Подходит для каждого случая',walkSlide8Text:'Спорт, лыжи, трек, отдых, праздник или встреча — локация дает каждому пребыванию свой ритм.',mapKicker:'Карта',mapTitle:'Посмотрите, где Fletschhorn расположен над Саас-Фе.',mapIntro:'Встроенная карта компактная, чтобы страницу было легко прокручивать на телефоне. Нажимайте на карту только когда хотите ей пользоваться.',mapTouch:'Нажмите, чтобы использовать карту',mapSideKicker:'Адрес',mapSideTitle:'Waldhotel Fletschhorn',mapAddressTitle:'Официальный адрес',mapVillageTitle:'Доступ через деревню',mapVillageText:'Финальный подход связан с безавтомобильной средой Саас-Фе.',mapButton:'Открыть в Google Maps',contactKicker:'Контакт',contactTitle:'Четко спланировать приезд.',contactText:'Отправьте время прибытия, размер группы и способ транспорта, чтобы финальный доступ был подготовлен правильно.',formName:'Имя',formContact:'Email или телефон',formGuests:'Размер группы',formMethod:'Способ прибытия',formDate:'Дата прибытия',formTime:'Время прибытия',formNotes:'Примечания',formSmall:'Это отправит запрос по прибытии.',formSubmit:'Отправить запрос',sending:'Отправляем ваш запрос…',success:'Спасибо. Ваш запрос отправлен.',error:'Не удалось отправить запрос. Попробуйте еще раз или свяжитесь с объектом напрямую.'}
   };
+  dict.en.contactPhoneLabel='Call'; dict.en.contactEmailLabel='Email';
+  dict.fr.contactPhoneLabel='Téléphone'; dict.fr.contactEmailLabel='Email';
+  dict.de.contactPhoneLabel='Telefon'; dict.de.contactEmailLabel='E-Mail';
+  dict.ru.contactPhoneLabel='Телефон'; dict.ru.contactEmailLabel='Email';
+  dict.he={"heroKicker": "מיקום · סאס-פה", "heroTitle": "המקום שבו הכפר נפתח אל היער ואל אוויר ההרים.", "heroText": "פלטשהורן נמצא מעל סאס-פה, בסביבה אלפינית שקטה: קרוב לכפר, אבל מספיק מבודד כדי להרגיש פרטי, רגוע ומוקף טבע.", "heroMap": "צפייה במפה", "heroContact": "תכנון הגעה", "heroBook": "להזמין את השהייה", "bookingKicker": "הזמנה מהירה", "bookingTitle": "ספרו לנו מה תרצו לתכנן.", "bookingText": "שלחו תאריכים, גודל קבוצה וסוג האירוע. הצוות יוכל לחזור אליכם עם זמינות, פרטי גישה והשלב הבא.", "bookingType": "סוג אירוע", "bookingStart": "תאריך התחלה", "bookingEnd": "תאריך סיום", "bookingSend": "שליחת בקשה מהירה", "bookingPage": "מעבר לעמוד ההזמנה", "bookingSmall": "זו בקשה מהירה, לא אישור אוטומטי.", "factWalk": "15 דקות הליכה ביער", "factPickup": "איסוף מאזור ההגעה בסאס-פה", "factNature": "סביבה הררית שקטה", "whereKicker": "איפה זה נמצא", "whereTitle": "מעל סאס-פה, באלפים של ואלה.", "whereText": "הנכס ממוקם מעל הכפר, בסביבה של יער אורנים, עם נוף הרים, אוויר צח וקצב שקט יותר ממרכז הכפר. הוא קרוב מספיק לגישה נוחה, אבל מרגיש טבעי ורגוע יותר.", "wherePoint1Title": "בלב האלפים השווייצריים", "wherePoint1Text": "יעד הררי גבוה בוואלה, מוקף פסגות, שבילים, שלג, יער ונופים פתוחים.", "wherePoint2Title": "קרוב לכפר", "wherePoint2Text": "החנויות, הרכבלים, המסעדות, הפעילויות ונקודות ההגעה של סאס-פה נשארים נגישים, בלי שהבית ירגיש מרכזי או רועש.", "wherePoint3Title": "קצת בנפרד", "wherePoint3Text": "הגישה דרך העצים היא חלק מהאווירה: שקטה יותר, ירוקה יותר ופרטית יותר ממיקום ברחוב מרכזי בכפר.", "wherePhotoKicker": "להסתכל סביב", "wherePhotoText": "יער, אוויר הרים וסאס-פה בקרבת מקום — בלי תחושה של שהייה במרכז הכפר.", "aroundKicker": "מה נמצא סביב", "aroundTitle": "קודם כל טבע, כשהכפר עדיין בהישג יד.", "aroundIntro": "העמוד הזה עוזר לאורחים להבין את התחושה של המקום: שקט, אלפיני ומוקף טבע, אבל עדיין פרקטי לפעילויות ולהגעה.", "around1Title": "שבילי יער", "around1Text": "ההליכה אל הנכס עוברת דרך יער אורנים שקט, כך שההגעה מרגישה כמו כניסה לעולם הררי רגוע יותר.", "around2Title": "נופי הרים", "around2Text": "הבית נמצא בנוף אלפיני טבעי, עם אוויר צח, מרחב ונוף סביב הקבוצה.", "around3Title": "פעילויות בסאס-פה", "around3Text": "רכבלים, שבילים, סקי, טיולי קיץ, פעילויות משפחתיות, בתי קפה ושירותי הכפר נמצאים בסביבה.", "shuttleKicker": "סיוע בהגעה", "shuttleTitle": "העברה אחרונה פשוטה כשהאורחים מגיעים.", "shuttleSlide1Title": "מאזור ההגעה בסאס-פה", "shuttleSlide1Text": "אורחים שמגיעים באוטובוס יכולים לתאם איסוף מאזור ההגעה של סאס-פה כדי להקל על החלק האחרון של הדרך עם מזוודות.", "shuttleSlide2Title": "נוח עם מזוודות", "shuttleSlide2Text": "למזוודות, ילדים, אורחים מבוגרים, ציוד או הגעה קבוצתית — כדאי לתאם את האיסוף מראש.", "shuttleSlide3Title": "שתפו את זמני ההגעה", "shuttleSlide3Text": "שלחו את שעת ההגעה לפני השהייה. ניתן גם לדון בנפרד בהעברה ישירה משדה התעופה במידת הצורך.", "shuttleSlide4Title": "מוכן לגישה האחרונה", "shuttleSlide4Text": "השאטל הופך את ההגעה לכפר אלפיני ללא מכוניות לפשוטה יותר, במיוחד כשהקבוצה נוסעת יחד.", "shuttleSlide5Title": "פשוט לאורחים", "shuttleSlide5Text": "לאחר שהתזמון נקבע, האורחים יכולים להגיע ברוגע ולדעת בדיוק איך להגיע לנכס.", "walkKicker": "מוקף טבע", "walkTitle": "זה יכול להיות המקום הפרטי שלכם באלפים.", "walkIntro": "מספורט קיץ ושבילי הרים ועד סקי, אירועים פרטיים, ריטריטים או חתונה — פלטשהורן הוא מקום שיכול להתאים לכל אירוע.", "walkCarouselKicker": "הטבע סביב פלטשהורן", "walkCarouselTitle": "מקום לכל עונה ולכל מפגש.", "walkSlide1Title": "קיץ בחוץ", "walkSlide1Text": "אוויר צח, נופים פתוחים, ימים ארוכים בחוץ וסביבה אלפינית שמעניקה תחושה פרטית ומחדשת.", "walkSlide2Title": "שבילים ותנועה", "walkSlide2Text": "האזור מתאים להליכה, טיולים, ספורט וזמן בטבע — בלי לאבד גישה לכפר.", "walkSlide3Title": "בסיס הררי", "walkSlide3Text": "השתמשו בנכס כבסיס רגוע לימים פעילים, בקרים שקטים ורגעים קבוצתיים מיוחדים.", "walkSlide4Title": "חורף ושהיות סקי", "walkSlide4Text": "בחורף, אותו מקום הופך לבסיס מושלג לסקי, אוויר הרים וערבים חמימים יחד.", "walkSlide5Title": "ריטריטים וסדנאות", "walkSlide5Text": "הסביבה מתאימה לקבוצות שצריכות מקום לחשוב, להתחבר, להתרענן ולבלות זמן אמיתי יחד.", "walkSlide6Title": "אירועים עם אווירה", "walkSlide6Text": "לימי הולדת, ציוני דרך, מפגשי חברה וחגיגות פרטיות — הנוף נותן לאירוע תחושת מקום חזקה יותר.", "walkSlide7Title": "החתונה שלכם כאן", "walkSlide7Text": "חתונה יכולה להרגיש אינטימית, אלפינית ומחוברת לגמרי למקום — כשהטבע הופך לחלק מהזיכרון.", "walkSlide8Title": "מותאם לכל אירוע", "walkSlide8Text": "ספורט, סקי, טרק, מנוחה, חגיגה או מפגש — המיקום נותן לכל שהייה קצב משלה.", "mapKicker": "מפה", "mapTitle": "ראו איפה פלטשהורן נמצא מעל סאס-פה.", "mapIntro": "המפה המוטמעת נשמרת קומפקטית כדי שהעמוד יהיה נוח לגלילה במובייל. הקישו על המפה רק כשתרצו להשתמש בה.", "mapTouch": "הקישו לשימוש במפה", "mapSideKicker": "כתובת", "mapSideTitle": "Waldhotel Fletschhorn", "mapAddressTitle": "כתובת רשמית", "mapVillageTitle": "גישה דרך הכפר", "mapVillageText": "הגישה האחרונה מתחברת לסביבת הכפר ללא מכוניות של סאס-פה.", "mapButton": "פתיחה בגוגל מפות", "contactKicker": "יצירת קשר", "contactTitle": "לתכנן את ההגעה בצורה ברורה.", "contactText": "שלחו שעת הגעה, גודל קבוצה ואמצעי הגעה כדי שנוכל להכין את הגישה האחרונה כראוי.", "contactPhoneLabel": "טלפון", "contactEmailLabel": "אימייל", "formName": "שם", "formContact": "אימייל או טלפון", "formGuests": "גודל קבוצה", "formMethod": "אופן הגעה", "formDate": "תאריך הגעה", "formTime": "שעת הגעה", "formNotes": "הערות", "formSmall": "זה שולח בקשת הגעה.", "formSubmit": "שליחת בקשה", "sending": "הבקשה נשלחת…", "success": "תודה. הבקשה נשלחה.", "error": "לא ניתן היה לשלוח את הבקשה. נסו שוב או צרו קשר ישירות עם הנכס."};
 
   let lang='en';
-  function norm(v){v=String(v||'en').toLowerCase();if(v.startsWith('fr'))return'fr';if(v.startsWith('de')||v.startsWith('ger'))return'de';if(v.startsWith('ru'))return'ru';return'en'}
+  function norm(v){v=String(v||'en').toLowerCase();if(v.startsWith('fr'))return'fr';if(v.startsWith('de')||v.startsWith('ger'))return'de';if(v.startsWith('ru'))return'ru';if(v.startsWith('he')||v.startsWith('iw'))return'he';return'en'}
   function applyLanguage(next){
     lang=norm(next);
     const d=dict[lang]||dict.en;
     root.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(d[key]) el.textContent=d[key]});
     root.querySelectorAll('[data-fh-lang]').forEach(b=>b.classList.toggle('active',norm(b.getAttribute('data-fh-lang'))===lang));
     root.setAttribute('lang',lang);
-    try{localStorage.setItem('fh_language',lang)}catch(e){}
+    root.setAttribute('dir',lang==='he'?'rtl':'ltr');
+    document.documentElement.setAttribute('lang',lang);
+    document.documentElement.setAttribute('dir',lang==='he'?'rtl':'ltr');
+    try{localStorage.setItem('fh_lang',lang);localStorage.setItem('fh_language',lang);localStorage.setItem('fhLang',lang)}catch(e){}
   }
   window.FHSetLanguage=function(next){applyLanguage(next)};
   root.querySelectorAll('[data-fh-lang]').forEach(b=>b.addEventListener('click',()=>applyLanguage(b.getAttribute('data-fh-lang'))));
@@ -741,6 +841,21 @@
   const io='IntersectionObserver' in window?new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'}):null;
   root.querySelectorAll('.pre').forEach(el=>io?io.observe(el):el.classList.add('in'));
 
+
+
+  async function submitInquiryToWorker(payload){
+    const paths=['/api/inquiry','/inquiry','/search'];
+    let lastError=null;
+    for(const path of paths){
+      try{
+        const r=await fetch(WORKER_URL+path,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+        if(r.ok) return r;
+        lastError=new Error('Worker '+r.status+' on '+path);
+      }catch(err){lastError=err;}
+    }
+    throw lastError||new Error('Inquiry endpoint failed');
+  }
+
   const form=root.querySelector('#fhLocationForm');
   const status=root.querySelector('#fhStatus');
   form&&form.addEventListener('submit',async e=>{
@@ -749,7 +864,7 @@
     const payload={source:'fletschhorn-location-clean',page:'Location',name:root.querySelector('#fhName')?.value||'',contact:root.querySelector('#fhContact')?.value||'',guests:root.querySelector('#fhGuests')?.value||'',arrivalMethod:root.querySelector('#fhMethod')?.value||'',arrivalDate:root.querySelector('#fhDate')?.value||'',arrivalTime:root.querySelector('#fhTime')?.value||'',notes:root.querySelector('#fhNotes')?.value||'',createdAt:new Date().toISOString()};
     if(status){status.classList.add('show');status.textContent=d.sending;}
     try{
-      const r=await fetch(WORKER_URL+'/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const r=await submitInquiryToWorker(payload);
       if(!r.ok) throw new Error('Worker '+r.status);
       if(status) status.textContent=d.success;
       form.reset();
@@ -764,7 +879,7 @@
     const payload={source:'fletschhorn-location-quick-booking',page:'Location quick booking',name:root.querySelector('#fhBookName')?.value||'',contact:root.querySelector('#fhBookContact')?.value||'',guests:root.querySelector('#fhBookGuests')?.value||'',occasion:root.querySelector('#fhBookType')?.value||'',startDate:root.querySelector('#fhBookStart')?.value||'',endDate:root.querySelector('#fhBookEnd')?.value||'',notes:root.querySelector('#fhBookNotes')?.value||'',createdAt:new Date().toISOString()};
     if(bookingStatus){bookingStatus.classList.add('show');bookingStatus.textContent=d.sending;}
     try{
-      const r=await fetch(WORKER_URL+'/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const r=await submitInquiryToWorker(payload);
       if(!r.ok) throw new Error('Worker '+r.status);
       if(bookingStatus) bookingStatus.textContent=d.success;
       bookingForm.reset();
@@ -772,7 +887,7 @@
   });
 
   let initial='en';
-  try{initial=localStorage.getItem('fh_language')||document.documentElement.lang||'en'}catch(e){initial=document.documentElement.lang||'en'}
+  try{initial=localStorage.getItem('fh_lang')||localStorage.getItem('fh_language')||localStorage.getItem('fhLang')||document.documentElement.lang||'en'}catch(e){initial=document.documentElement.lang||'en'}
   applyLanguage(initial);
 })();
 </script>
@@ -792,12 +907,12 @@
   const CFG = {
     bookingPageUrl:"booking.html",
     listingId:"6968339ab7d735001ca015ba",
-    workerBase:"https://guetsyapi.moshe-cohen-h1.workers.dev",
+    workerBase:"https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
     minNights:2,
     currency:"CHF"
   };
 
-  const ENDPOINTS = { calendarMonthPrices:"/guesty/calendar-month-prices" };
+  const ENDPOINTS = { calendarMonthPrices:"/calendar" };
 
   const bookingCopy={
     en:{fieldFirstName:"First name",fieldFirstNamePh:"First name",fieldLastName:"Last name",fieldLastNamePh:"Last name",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Dates",fieldDatesPh:"Select arrival and departure",openCalendar:"Open calendar",calendarKicker:"Select dates",calendarHelp:"Choose your arrival date, then your departure date.",calendarMinWarning:"Please select at least 2 nights.",selectDeparture:"Select departure",alreadyBooked:"Booked",calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",minNights:"Please select at least 2 nights.",bookNow:"Book my stay now",bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",missingFirstName:"Please enter your first name.",missingLastName:"Please enter your last name.",missingEmail:"Please enter your email.",invalidEmail:"Please enter a valid email address.",missingDates:"Please choose arrival and departure dates.",badDates:"Departure must be after arrival.",redirecting:"Opening booking…"},
@@ -805,6 +920,8 @@
     de:{fieldFirstName:"Vorname",fieldFirstNamePh:"Vorname",fieldLastName:"Nachname",fieldLastNamePh:"Nachname",fieldEmail:"E-Mail",fieldEmailPh:"email@example.com",fieldDates:"Daten",fieldDatesPh:"Anreise und Abreise auswählen",openCalendar:"Kalender öffnen",calendarKicker:"Daten auswählen",calendarHelp:"Wählen Sie zuerst die Anreise, dann die Abreise.",calendarMinWarning:"Bitte mindestens 2 Nächte auswählen.",selectDeparture:"Abreise auswählen",alreadyBooked:"Gebucht",calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.",minNights:"Bitte mindestens 2 Nächte auswählen.",bookNow:"Aufenthalt buchen",bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",missingEmail:"Bitte geben Sie Ihre E-Mail ein.",invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",missingDates:"Bitte wählen Sie Anreise- und Abreisedatum.",badDates:"Die Abreise muss nach der Anreise liegen.",redirecting:"Buchung wird geöffnet…"},
     ru:{fieldFirstName:"Имя",fieldFirstNamePh:"Имя",fieldLastName:"Фамилия",fieldLastNamePh:"Фамилия",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Даты",fieldDatesPh:"Выберите заезд и выезд",openCalendar:"Открыть календарь",calendarKicker:"Выберите даты",calendarHelp:"Сначала выберите дату заезда, затем дату выезда.",calendarMinWarning:"Выберите минимум 2 ночи.",selectDeparture:"Выбрать выезд",alreadyBooked:"Занято",calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны.",minNights:"Выберите минимум 2 ночи.",bookNow:"Забронировать",bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",missingFirstName:"Введите имя.",missingLastName:"Введите фамилию.",missingEmail:"Введите email.",invalidEmail:"Введите корректный email.",missingDates:"Выберите даты заезда и выезда.",badDates:"Дата выезда должна быть после даты заезда.",redirecting:"Открываем бронирование…"}
   };
+
+  bookingCopy.he={"fieldFirstName": "שם פרטי", "fieldFirstNamePh": "שם פרטי", "fieldLastName": "שם משפחה", "fieldLastNamePh": "שם משפחה", "fieldEmail": "אימייל", "fieldEmailPh": "email@example.com", "fieldDates": "תאריכים", "fieldDatesPh": "בחרו הגעה ועזיבה", "openCalendar": "פתיחת לוח שנה", "calendarKicker": "בחירת תאריכים", "calendarHelp": "בחרו תאריך הגעה ואז תאריך עזיבה.", "calendarMinWarning": "נא לבחור לפחות 2 לילות.", "selectDeparture": "בחרו עזיבה", "alreadyBooked": "תפוס", "calendarRangeUnavailable": "לילה אחד או יותר בטווח שבחרתם אינו זמין. אנא בחרו טווח אחר.", "minNights": "נא לבחור לפחות 2 לילות.", "bookNow": "להזמין את השהייה", "bookingNote": "התחילו כאן. הפרטים יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.", "missingFirstName": "נא להזין שם פרטי.", "missingLastName": "נא להזין שם משפחה.", "missingEmail": "נא להזין אימייל.", "invalidEmail": "נא להזין כתובת אימייל תקינה.", "missingDates": "נא לבחור תאריכי הגעה ועזיבה.", "badDates": "תאריך העזיבה חייב להיות אחרי תאריך ההגעה.", "redirecting": "פותחים את ההזמנה…"};
 
   const state={lang:"en"};
   const toolbarCalendar={currentMonth:new Date(),dayMap:{},loading:false};
@@ -835,8 +952,9 @@
   function normalizeLang(value){
     value=String(value||"en").toLowerCase();
     if(value.startsWith("fr")) return "fr";
-    if(value.startsWith("de")) return "de";
+    if(value.startsWith("de") || value.startsWith("ger")) return "de";
     if(value.startsWith("ru")) return "ru";
+    if(value.startsWith("he") || value.startsWith("iw")) return "he";
     return "en";
   }
 
@@ -851,6 +969,8 @@
   function applyToolbarLanguage(lang){
     state.lang=normalizeLang(lang);
     document.documentElement.setAttribute("lang",state.lang);
+    document.documentElement.setAttribute("dir",state.lang==="he"?"rtl":"ltr");
+    root.setAttribute("dir",state.lang==="he"?"rtl":"ltr");
     try{
       localStorage.setItem("fh_lang",state.lang);
       localStorage.setItem("fh_language",state.lang);
@@ -947,8 +1067,8 @@
       checkOut:$("#fhDeparture")?.value||"",
       language:state.lang,
       lang:state.lang,
-      source:"property",
-      pageSource:"fletschhorn-property-index-toolbar",
+      source:"location",
+      pageSource:"fletschhorn-location-toolbar",
       pageUrl:window.location.href,
       createdAt:new Date().toISOString()
     };
@@ -976,14 +1096,30 @@
     return data;
   }
 
+  function directCalendarPrice(value){
+    if(value===null||value===undefined||value==="") return null;
+    if(typeof value==="number" || typeof value==="string"){
+      const n=Number(String(value).replace(/[^0-9.\-]/g,""));
+      return Number.isFinite(n) ? n : null;
+    }
+    if(typeof value!=="object") return null;
+    const keys=["amount","price","basePrice","nightlyPrice","nightlyRate","rate","value","total","totalPrice","gross","net"];
+    for(let i=0;i<keys.length;i++){
+      const found=directCalendarPrice(value[keys[i]]);
+      if(found!==null) return found;
+    }
+    return null;
+  }
+
   function normalizeCalendarDay(item){
     if(!item||typeof item!=="object") return null;
-    const date=item.date||item.day||item.dateString||item.startDate||item._id||"";
+    const date=item.date||item.day||item.dateString||item.startDate||item.dateFrom||item._id||"";
     if(!/^\d{4}-\d{2}-\d{2}/.test(String(date))) return null;
-    const available=item.available===true||item.isAvailable===true||item.status==="available"||item.status==="AVAILABLE"||item.availability==="available";
-    const unavailable=item.available===false||item.isAvailable===false||item.status==="unavailable"||item.status==="booked"||item.status==="BLOCKED"||item.status==="UNAVAILABLE"||item.availability==="unavailable";
-    const price=item.price||item.nightlyPrice||item.basePrice||item.rate||item.amount||item.totalPrice||null;
-    return {date:String(date).slice(0,10),available:unavailable?false:available,unavailable:unavailable,price:price,currency:item.currency||CFG.currency};
+    const status=String(item.status||item.availability||item.availableStatus||"").toLowerCase();
+    const available=item.available===true||item.isAvailable===true||item.canBook===true||status==="available"||status==="open";
+    const unavailable=item.available===false||item.isAvailable===false||item.canBook===false||status==="unavailable"||status==="booked"||status==="blocked"||status==="reserved"||status==="closed";
+    const price=directCalendarPrice(item.price??item.nightlyPrice??item.nightlyRate??item.basePrice??item.rate??item.amount??item.totalPrice??item.pricing);
+    return {date:String(date).slice(0,10),available:unavailable?false:available,unavailable:unavailable,price:price,currency:item.currency||item.currencyCode||CFG.currency};
   }
 
   function collectCalendarDays(data){
@@ -1003,7 +1139,7 @@
     const range=monthRange(toolbarCalendar.currentMonth);
     toolbarCalendar.loading=true;
     try{
-      const data=await workerGetOrPost(ENDPOINTS.calendarMonthPrices,{listingId:CFG.listingId,guestyListingId:CFG.listingId,from:range.from,to:range.to,startDate:range.from,endDate:range.to,language:state.lang,source:"property-toolbar-calendar"});
+      const data=await workerGetOrPost(ENDPOINTS.calendarMonthPrices,{listingId:CFG.listingId,guestyListingId:CFG.listingId,from:range.from,to:range.to,startDate:range.from,endDate:range.to,language:state.lang,source:"location-toolbar-calendar"});
       const days=collectCalendarDays(data);
       toolbarCalendar.dayMap={};
       days.forEach(function(day){ toolbarCalendar.dayMap[day.date]=day; });
@@ -1139,7 +1275,7 @@
     params.set("checkIn",payload.checkIn);
     params.set("checkOut",payload.checkOut);
     params.set("lang",payload.language);
-    params.set("source","property");
+    params.set("source","location");
     setStatus(t("redirecting"),"success");
     const btn=$("#fhBookNowBtn");
     if(btn){ btn.disabled=true; btn.dataset.oldText=btn.textContent; btn.textContent=t("redirecting"); }
@@ -1203,6 +1339,103 @@
 
   document.addEventListener("DOMContentLoaded",init);
   if(document.readyState!=="loading") init();
+})();
+</script>
+
+
+<!-- FH LOCATION WORKER FLOW + HIDDEN LANGUAGE TOOLBAR + HERO CONTACT PATCH -->
+<script id="fh-location-worker-flow-image-contact-patch">
+(function(){
+  "use strict";
+  var WORKER="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  var LISTING_ID="6968339ab7d735001ca015ba";
+  var CONTACT={phone:"+41 27 957 2131",phoneHref:"tel:+41279572131",email:"welcome@fletschhorn.ch",emailHref:"mailto:welcome@fletschhorn.ch"};
+  function root(){return document.getElementById("fh-location-clean");}
+  function cleanName(value){
+    try{value=decodeURIComponent(String(value||"").split("?")[0].split("#")[0]);}catch(e){value=String(value||"");}
+    value=value.split("/").pop();
+    return value.toLowerCase().replace(/\.[a-z0-9]+$/i,"").replace(/[^a-z0-9א-תа-я]+/gi,"");
+  }
+  function getLang(){
+    var raw="en";
+    try{raw=localStorage.getItem("fh_lang")||localStorage.getItem("fh_language")||localStorage.getItem("fhLang")||document.documentElement.lang||"en";}catch(e){raw=document.documentElement.lang||"en";}
+    raw=String(raw||"en").toLowerCase();
+    if(raw.indexOf("fr")===0)return"fr"; if(raw.indexOf("de")===0||raw.indexOf("ger")===0)return"de"; if(raw.indexOf("ru")===0)return"ru"; if(raw.indexOf("he")===0||raw.indexOf("iw")===0)return"he"; return"en";
+  }
+  function setDir(){var r=root(); if(!r)return; var l=getLang(); r.setAttribute("dir",l==="he"?"rtl":"ltr"); document.documentElement.setAttribute("lang",l); document.documentElement.setAttribute("dir",l==="he"?"rtl":"ltr");}
+  function directUrl(v){
+    if(!v)return"";
+    if(typeof v==="string") return /^https?:\/\//i.test(v)?v:"";
+    if(typeof v!=="object")return"";
+    var keys=["url","src","original","large","regular","medium","thumbnail","pictureUrl","imageUrl","downloadUrl","secure_url"];
+    for(var i=0;i<keys.length;i++){var u=directUrl(v[keys[i]]); if(u)return u;}
+    return"";
+  }
+  function collectRecords(payload){
+    var records=[];
+    function push(url,names){
+      if(!url||!/^https?:\/\//i.test(url))return;
+      names=names||[];
+      names.push(url.split("?")[0].split("#")[0].split("/").pop());
+      records.push({url:url,names:names.filter(Boolean).map(String),norms:names.filter(Boolean).map(cleanName)});
+    }
+    function walk(value,keyName){
+      if(!value)return;
+      if(typeof value==="string"){if(/^https?:\/\//i.test(value))push(value,[keyName]); return;}
+      if(Array.isArray(value)){value.forEach(function(v,i){walk(v,keyName)}); return;}
+      if(typeof value!=="object")return;
+      var names=[keyName,value.name,value.filename,value.fileName,value.originalName,value.title,value.alt,value.key,value.path,value.public_id,value.publicId].filter(Boolean);
+      var u=directUrl(value);
+      if(u)push(u,names);
+      Object.keys(value).forEach(function(k){walk(value[k],k);});
+    }
+    walk(payload,"");
+    var seen={};
+    return records.filter(function(r){if(seen[r.url])return false; seen[r.url]=true; return true;});
+  }
+  function findRecord(records,img){
+    var key=img.getAttribute("data-fh-image-key")||"";
+    var alt=img.getAttribute("alt")||"";
+    var targets=[key,alt].map(cleanName).filter(Boolean);
+    for(var t=0;t<targets.length;t++){
+      for(var i=0;i<records.length;i++){
+        if(records[i].norms.some(function(n){return n===targets[t]||n.indexOf(targets[t])>=0||targets[t].indexOf(n)>=0;})) return records[i];
+      }
+    }
+    return null;
+  }
+  function applyImages(records){
+    var r=root(); if(!r||!records||!records.length)return;
+    var imgs=Array.prototype.slice.call(r.querySelectorAll("img[data-fh-image-key]"));
+    imgs.forEach(function(img,i){
+      var rec=findRecord(records,img);
+      if(!rec){
+        var key=String(img.getAttribute("data-fh-image-key")||"").toLowerCase();
+        var category=key.indexOf("nature")>=0?"nature":(key.indexOf("shuttle")>=0?"shuttle":"");
+        if(category) rec=records.find(function(x){return x.norms.some(function(n){return n.indexOf(category)>=0;});});
+      }
+      if(!rec) rec=records[i%records.length];
+      if(rec&&rec.url){img.src=rec.url; img.dataset.workerImageApplied="true"; img.loading="lazy"; img.decoding="async";}
+    });
+  }
+  async function loadWorkerImages(){
+    var r=root(); if(!r||r.dataset.workerImagesLoaded==="1")return; r.dataset.workerImagesLoaded="1";
+    try{
+      var url=WORKER+"/images?listingId="+encodeURIComponent(LISTING_ID)+"&source=location&t="+Date.now();
+      var res=await fetch(url,{method:"GET",headers:{"Accept":"application/json"},cache:"no-cache"});
+      var text=await res.text(); var data; try{data=JSON.parse(text);}catch(e){data={rawText:text};}
+      if(!res.ok||data.ok===false||data.error) throw new Error(data.error||data.message||"Images request failed.");
+      var records=collectRecords(data);
+      if(!records.length) throw new Error("No images returned by Worker.");
+      applyImages(records); setTimeout(function(){applyImages(records);},900);
+    }catch(error){console.warn("Fletschhorn location Worker images not loaded.",error);}
+  }
+  function boot(){setDir(); loadWorkerImages();}
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot); else boot();
+  window.addEventListener("load",boot);
+  document.addEventListener("fh:language",setDir); document.addEventListener("fletschhorn:language",setDir); document.addEventListener("fletschhorn:languageChanged",setDir);
+  window.addEventListener("storage",function(e){if(e.key==="fh_lang"||e.key==="fh_language"||e.key==="fhLang")setDir();});
+  setTimeout(boot,150); setTimeout(boot,750); setTimeout(boot,1600);
 })();
 </script>
 
