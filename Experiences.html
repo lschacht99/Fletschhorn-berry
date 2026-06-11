@@ -8837,6 +8837,308 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
 })();
 </script>
 
+
+
+<style id="fh-final-worker-random-image-and-price-fix">
+/* FINAL HARD FIX: keep calendar prices visible and make every visual slot accept random Worker images. */
+#fh-experiences-desktop .fh-day-price,
+#fh-experiences-mobile .fh-day-price{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  min-height:10px!important;
+  margin-top:4px!important;
+  font-size:9px!important;
+  line-height:1.05!important;
+  font-weight:850!important;
+  white-space:nowrap!important;
+}
+#fh-experiences-desktop .fh-day.start .fh-day-price,
+#fh-experiences-desktop .fh-day.end .fh-day-price,
+#fh-experiences-mobile .fh-day.start .fh-day-price,
+#fh-experiences-mobile .fh-day.end .fh-day-price{
+  color:rgba(255,250,243,.88)!important;
+}
+#fh-experiences-desktop .fh-hero-slide,
+#fh-experiences-mobile .fh-hero-slide,
+#fh-experiences-desktop .fh-mobile-hero-media,
+#fh-experiences-mobile .fh-mobile-hero-media,
+#fh-experiences-desktop .fh-route-img,
+#fh-experiences-mobile .fh-route-img,
+#fh-experiences-desktop .fh-activity,
+#fh-experiences-mobile .fh-activity{
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+}
+#fh-experiences-desktop img[data-fh-random-worker-image="true"],
+#fh-experiences-mobile img[data-fh-random-worker-image="true"]{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  object-fit:cover!important;
+}
+</style>
+
+<script id="fh-final-random-worker-images-loader">
+(function(){
+  "use strict";
+
+  const WORKER_BASE = "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+  const LISTING_ID = "6968339ab7d735001ca015ba";
+
+  /* Only used if the Worker cannot be fetched from this page. The page still tries /images first. */
+  const EMERGENCY_GUESTY_FALLBACKS = [
+    "https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/sgnvt8esvocag0t0zt4k.jpg",
+    "https://assets.guesty.com/image/upload/v1781188727/production/686c48ada4bbacd7a82a4f83/ynowbkmnknjm38unkn13.jpg",
+    "https://assets.guesty.com/image/upload/v1781188703/production/686c48ada4bbacd7a82a4f83/m4dmbmdielanubvzdgvf.jpg",
+    "https://assets.guesty.com/image/upload/v1781188729/production/686c48ada4bbacd7a82a4f83/bwarbedrbihgqu6fyctt.jpg",
+    "https://assets.guesty.com/image/upload/v1781188728/production/686c48ada4bbacd7a82a4f83/ckbf70ughwsig7rug262.jpg",
+    "https://assets.guesty.com/image/upload/v1781188708/production/686c48ada4bbacd7a82a4f83/z2jwcdtswmr2ihr14gqm.jpg",
+    "https://assets.guesty.com/image/upload/v1781188709/production/686c48ada4bbacd7a82a4f83/lkmprvbufk4kvqaiupxe.jpg",
+    "https://assets.guesty.com/image/upload/v1781188730/production/686c48ada4bbacd7a82a4f83/o5amfaz3mnbsvvmz8owc.jpg",
+    "https://assets.guesty.com/image/upload/v1781188578/production/686c48ada4bbacd7a82a4f83/nhbliowk99qiv0jgf77b.jpg",
+    "https://assets.guesty.com/image/upload/v1781188711/production/686c48ada4bbacd7a82a4f83/gs7vewokpklgmw32z6tb.jpg",
+    "https://assets.guesty.com/image/upload/v1781188597/production/686c48ada4bbacd7a82a4f83/uyb97nsacpy6ipo49rpy.jpg",
+    "https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/zpwembp1gflcyocsnvnd.jpg",
+    "https://assets.guesty.com/image/upload/v1781188784/production/686c48ada4bbacd7a82a4f83/e8imjtm3b6zscb4exc1i.jpg"
+  ];
+
+  function cleanUrl(value){
+    let url = String(value || "").trim();
+    if(!url) return "";
+    url = url.replace(/^ttps:\/\//i, "https://");
+    url = url.replace(/&amp;/g, "&");
+    if(/^\/\//.test(url)) url = "https:" + url;
+    if(/^\/images\//i.test(url)) url = WORKER_BASE.replace(/\/$/, "") + url;
+    if(/^images\//i.test(url)) url = WORKER_BASE.replace(/\/$/, "") + "/" + url;
+    if(/^Nature\s*\(\d+\)\.jpe?g$/i.test(url)) url = WORKER_BASE.replace(/\/$/, "") + "/images/" + encodeURIComponent(url);
+    return url;
+  }
+
+  function isImageLikeUrl(url, keyHint){
+    const clean = cleanUrl(url);
+    if(!clean) return false;
+    if(/^data:image\//i.test(clean)) return true;
+    if(!/^https?:\/\//i.test(clean)) return false;
+    if(/\.(?:jpe?g|png|webp|avif|gif)(?:[?#].*)?$/i.test(clean)) return true;
+    if(/assets\.guesty\.com\/image\/upload/i.test(clean)) return true;
+    if(/res\.cloudinary\.com\/.+\/image\/upload/i.test(clean)) return true;
+    if(/\/(?:images?|photos?|pictures?)\//i.test(clean) && /(?:image|photo|picture|url|src|href|original|large|regular|thumbnail|thumb|medium|small)/i.test(keyHint || "")) return true;
+    return false;
+  }
+
+  function addUrl(out, seen, value, keyHint){
+    if(typeof value !== "string") return;
+    const raw = value.replace(/jpghttps:\/\//gi, "jpg https://").replace(/jpeghttps:\/\//gi, "jpeg https://").replace(/pnghttps:\/\//gi, "png https://").replace(/webphttps:\/\//gi, "webp https://");
+    const matches = raw.match(/https?:\/\/[^\s"'<>]+/gi) || [];
+    matches.forEach(function(match){
+      const trimmed = match.replace(/[),.;]+$/g, "");
+      if(isImageLikeUrl(trimmed, keyHint)){
+        const url = cleanUrl(trimmed);
+        if(url && !seen.has(url)){ seen.add(url); out.push(url); }
+      }
+    });
+    const clean = cleanUrl(raw);
+    if(isImageLikeUrl(clean, keyHint) && !seen.has(clean)){
+      seen.add(clean);
+      out.push(clean);
+    }
+  }
+
+  function collectImageUrls(value, out, seen, keyHint, depth){
+    depth = depth || 0;
+    if(!value || depth > 10) return;
+    if(typeof value === "string"){
+      addUrl(out, seen, value, keyHint);
+      return;
+    }
+    if(Array.isArray(value)){
+      value.forEach(function(item){ collectImageUrls(item, out, seen, keyHint, depth + 1); });
+      return;
+    }
+    if(typeof value !== "object") return;
+    Object.keys(value).forEach(function(key){
+      const nextHint = keyHint ? keyHint + " " + key : key;
+      collectImageUrls(value[key], out, seen, nextHint, depth + 1);
+    });
+  }
+
+  function extractFromText(text){
+    const out = [];
+    const seen = new Set();
+    const normalizedText = String(text || "");
+    try{
+      collectImageUrls(JSON.parse(normalizedText), out, seen, "json", 0);
+    }catch(error){
+      /* /images may also return a simple text/HTML list, so keep scanning raw text. */
+    }
+    collectImageUrls(normalizedText, out, seen, "raw worker images", 0);
+    return out;
+  }
+
+  function shuffle(list){
+    const arr = list.slice();
+    for(let i = arr.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  function unique(list){
+    const seen = new Set();
+    const out = [];
+    list.forEach(function(item){
+      const url = cleanUrl(item);
+      if(!url || seen.has(url)) return;
+      seen.add(url);
+      out.push(url);
+    });
+    return out;
+  }
+
+  function cssUrl(url){
+    return 'url("' + String(url).replace(/"/g, '%22') + '")';
+  }
+
+  function setImageElement(img, urls, startIndex){
+    if(!img || !urls.length) return;
+    let tries = 0;
+    function use(index){
+      const url = urls[index % urls.length];
+      img.removeAttribute("srcset");
+      img.removeAttribute("sizes");
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.dataset.fhRandomWorkerImage = "true";
+      img.style.display = "block";
+      img.style.visibility = "visible";
+      img.style.opacity = "1";
+      img.style.width = img.style.width || "100%";
+      img.style.height = img.style.height || "100%";
+      img.style.objectFit = "cover";
+      img.onerror = function(){
+        tries += 1;
+        if(tries < Math.min(urls.length, 12)) use(index + tries);
+      };
+      img.src = url;
+    }
+    use(startIndex || 0);
+  }
+
+  function buildHero(root, urls, seed){
+    const host = root.querySelector(".fh-hero-media");
+    if(!host || !urls.length) return;
+    const heroUrls = urls.length >= 8 ? urls.slice(0, 8) : Array.from({length:8}, function(_, i){ return urls[(seed + i) % urls.length]; });
+    host.innerHTML = "";
+    heroUrls.forEach(function(url, index){
+      const slide = document.createElement("div");
+      slide.className = "fh-hero-slide" + (index === 0 ? " is-active" : "");
+      slide.style.backgroundImage = cssUrl(url);
+      slide.dataset.fhRandomWorkerImage = "true";
+      host.appendChild(slide);
+    });
+  }
+
+  function applyRandomWorkerImages(urls, reason){
+    urls = unique(urls).filter(Boolean);
+    if(!urls.length) return;
+    const randomized = shuffle(urls);
+    window.__fhWorkerRandomImages = randomized.slice();
+    window.__fhWorkerRandomImagesReason = reason || "worker";
+
+    document.querySelectorAll("#fh-experiences-desktop, #fh-experiences-mobile").forEach(function(root, rootIndex){
+      const offset = rootIndex * 17 + Math.floor(Math.random() * randomized.length);
+
+      buildHero(root, randomized, offset);
+
+      root.querySelectorAll(".fh-mobile-hero-media").forEach(function(el, index){
+        const url = randomized[(offset + index) % randomized.length];
+        el.style.backgroundImage = "linear-gradient(180deg,rgba(18,16,14,.10),rgba(18,16,14,.42))," + cssUrl(url);
+        el.dataset.fhRandomWorkerImage = "true";
+      });
+
+      root.querySelectorAll(".fh-nature-carousel img, img[data-fh-img], .fh-photo-tile img").forEach(function(img, index){
+        setImageElement(img, randomized, offset + index);
+      });
+
+      root.querySelectorAll("[data-bg-img], .fh-route-img, .fh-place, .fh-photo-tile").forEach(function(el, index){
+        if(el.matches(".fh-photo-tile") && el.querySelector("img")) return;
+        const url = randomized[(offset + 31 + index) % randomized.length];
+        el.style.backgroundImage = cssUrl(url);
+        el.dataset.fhRandomWorkerImage = "true";
+      });
+
+      root.querySelectorAll(".fh-activity").forEach(function(el, index){
+        const url = randomized[(offset + 61 + index) % randomized.length];
+        el.style.setProperty("--activity-image", cssUrl(url));
+        el.dataset.fhRandomWorkerImage = "true";
+      });
+    });
+
+    window.dispatchEvent(new CustomEvent("fh:random-worker-images-applied", { detail:{ count: randomized.length, reason: reason || "worker" } }));
+  }
+
+  async function fetchWorkerImages(){
+    const endpoints = [
+      WORKER_BASE.replace(/\/$/, "") + "/images?listingId=" + encodeURIComponent(LISTING_ID) + "&source=experiences&random=" + Date.now(),
+      WORKER_BASE.replace(/\/$/, "") + "/images?random=" + Date.now(),
+      WORKER_BASE.replace(/\/$/, "") + "/images"
+    ];
+    let lastError = null;
+    for(const endpoint of endpoints){
+      try{
+        const response = await fetch(endpoint, {
+          method:"GET",
+          headers:{ "Accept":"application/json,text/plain,*/*" },
+          cache:"no-store"
+        });
+        const text = await response.text();
+        if(!response.ok) throw new Error("Worker /images HTTP " + response.status);
+        const urls = extractFromText(text);
+        if(urls.length) return unique(urls);
+        lastError = new Error("Worker /images returned no usable image URLs.");
+      }catch(error){
+        lastError = error;
+      }
+    }
+    throw lastError || new Error("Worker /images unavailable.");
+  }
+
+  async function runFinalImageFix(){
+    try{
+      const workerImages = await fetchWorkerImages();
+      if(workerImages.length){
+        applyRandomWorkerImages(workerImages, "worker-/images");
+        return;
+      }
+      throw new Error("No images returned from Worker.");
+    }catch(error){
+      console.warn("Fletschhorn random Worker image loader fell back because /images was not usable from the page:", error);
+      applyRandomWorkerImages(EMERGENCY_GUESTY_FALLBACKS, "emergency-guesty-fallback");
+    }
+  }
+
+  function boot(){
+    runFinalImageFix();
+    window.setTimeout(runFinalImageFix, 900);
+    window.setTimeout(runFinalImageFix, 2600);
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", boot, { once:true });
+  }else{
+    boot();
+  }
+
+  window.addEventListener("load", function(){ window.setTimeout(runFinalImageFix, 250); }, { once:true });
+  window.addEventListener("fh:worker-images-loaded", function(){ window.setTimeout(runFinalImageFix, 80); });
+})();
+</script>
+
 <div id="fh-footer-slot"></div>
 </body>
 </html>
