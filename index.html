@@ -2518,6 +2518,115 @@
     }
 
 
+
+
+    /* =========================================================
+       LANGUAGE TOOLBAR HIDDEN + HEBREW RTL SUPPORT
+       The page-level language toolbar stays in the DOM for JS
+       compatibility, but is completely invisible. Language is
+       controlled by the shared header / localStorage / URL.
+       ========================================================= */
+
+    #fh-home .fh-lang-switch{
+      display:none!important;
+      visibility:hidden!important;
+      opacity:0!important;
+      pointer-events:none!important;
+      position:absolute!important;
+      width:0!important;
+      height:0!important;
+      max-width:0!important;
+      max-height:0!important;
+      overflow:hidden!important;
+      clip-path:inset(50%)!important;
+    }
+
+    #fh-home[dir="rtl"]{
+      direction:rtl;
+    }
+
+    #fh-home[dir="rtl"] .fh-booking,
+    #fh-home[dir="rtl"] .fh-field,
+    #fh-home[dir="rtl"] .fh-date-button,
+    #fh-home[dir="rtl"] .fh-panel,
+    #fh-home[dir="rtl"] .fh-room-copy,
+    #fh-home[dir="rtl"] .fh-card .copy,
+    #fh-home[dir="rtl"] .fh-season .copy,
+    #fh-home[dir="rtl"] .fh-map-note,
+    #fh-home[dir="rtl"] .fh-map-context,
+    #fh-home[dir="rtl"] .fh-social-card,
+    #fh-home[dir="rtl"] .fh-contact-line,
+    #fh-home[dir="rtl"] .fh-status{
+      text-align:right;
+    }
+
+    #fh-home[dir="rtl"] input,
+    #fh-home[dir="rtl"] textarea,
+    #fh-home[dir="rtl"] select{
+      direction:rtl;
+      text-align:right;
+    }
+
+    #fh-home[dir="rtl"] input[type="email"]{
+      direction:ltr;
+      text-align:left;
+    }
+
+    #fh-home[dir="rtl"] .fh-field{
+      border-right:0;
+      border-left:1px solid var(--line);
+    }
+
+    #fh-home[dir="rtl"] .fh-date-button{
+      flex-direction:row-reverse;
+    }
+
+    #fh-home[dir="rtl"] .fh-carousel-nav{
+      right:auto;
+      left:18px;
+      flex-direction:row-reverse;
+    }
+
+    #fh-home[dir="rtl"] .fh-map-open{
+      right:auto;
+      left:18px;
+    }
+
+    #fh-home[dir="rtl"] .fh-map-context{
+      left:auto;
+      right:18px;
+    }
+
+    #fh-home[dir="rtl"] .fh-time-card:before{
+      left:auto;
+      right:0;
+    }
+
+    #fh-home[dir="rtl"] .fh-social-link{
+      flex-direction:row-reverse;
+    }
+
+    @media(max-width:640px){
+      #fh-home[dir="rtl"] .fh-field:nth-child(odd){
+        border-left:1px solid var(--line);
+      }
+
+      #fh-home[dir="rtl"] .fh-carousel-nav{
+        right:auto;
+        left:8px;
+      }
+
+      #fh-home[dir="rtl"] .fh-map-open{
+        right:auto;
+        left:10px;
+      }
+
+      #fh-home[dir="rtl"] .fh-map-context{
+        left:10px;
+        right:10px;
+      }
+    }
+
     @media(prefers-reduced-motion:reduce){
       #fh-home *,
       #fh-home *:before,
@@ -2536,11 +2645,12 @@
   <div id="fh-home" data-current-lang="en">
     <div class="fh-ambient" aria-hidden="true"></div>
 
-    <div class="fh-lang-switch" role="group" aria-label="Language">
+    <div class="fh-lang-switch" role="group" aria-label="Language" aria-hidden="true" hidden>
       <button type="button" data-lang="en" class="active">EN</button>
       <button type="button" data-lang="fr">FR</button>
       <button type="button" data-lang="de">DE</button>
       <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="he">HE</button>
     </div>
 
     <section class="fh-hero" id="top">
@@ -3300,6 +3410,147 @@
         }
       };
 
+      T.he = {
+        "metaTitle": "פלטשהורן · בקתה שווייצרית פרטית בסאס-פה",
+        "metaDescription": "בקתה שווייצרית פרטית מעל סאס-פה למשפחות, ריטריטים, חתונות, קבוצות סקי ושהיות אלפיניות בנכס שלם.",
+        "heroKicker": "בקתה שווייצרית פרטית · סאס-פה",
+        "heroTitle": "הבקתה השווייצרית הפרטית שלכם מעל סאס-פה",
+        "heroLead": "הזמינו את כל הבקתה עבור הקבוצה שלכם: 14 חדרים, עד 48 מקומות לינה, גישה גמישה למטבח ובסיס אלפיני פרטי מעל סאס-פה.",
+        "fieldFirstName": "שם פרטי",
+        "fieldFirstNamePh": "שם פרטי",
+        "fieldLastName": "שם משפחה",
+        "fieldLastNamePh": "שם משפחה",
+        "fieldEmail": "אימייל",
+        "fieldEmailPh": "email@example.com",
+        "fieldArrival": "הגעה",
+        "fieldDeparture": "עזיבה",
+        "fieldDates": "תאריכים",
+        "fieldDatesPh": "בחרו תאריך הגעה ועזיבה",
+        "openCalendar": "פתחו יומן",
+        "calendarKicker": "בחירת תאריכים",
+        "calendarHelp": "בחרו קודם את תאריך ההגעה, ואז את תאריך העזיבה.",
+        "calendarMinWarning": "יש לבחור לפחות 2 לילות.",
+        "selectDeparture": "בחרו עזיבה",
+        "alreadyBooked": "תפוס",
+        "calendarRangeUnavailable": "לילה אחד או יותר בטווח שבחרתם אינו זמין. בחרו טווח אחר.",
+        "minNights": "יש לבחור לפחות 2 לילות.",
+        "bookNow": "הזמינו את השהייה",
+        "bookingNote": "התחילו כאן. הפרטים שלכם יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
+        "privateKicker": "הבקתה הפרטית",
+        "privateTitle": "בית אלפיני פרטי לקבוצות שרוצות את כל המקום לעצמן.",
+        "privateLead": "פלטשהורן מציע חוויית בקתה פרטית מלאה מעל סאס-פה, עם מקום לישון, להתכנס, לבשל, לחגוג, להירגע ולגלות את ההרים.",
+        "conceptKicker": "הקונספט",
+        "conceptTitle": "בסיס אלפיני פרטי לקבוצה אחת בכל פעם.",
+        "conceptText": "משפחות, ריטריטים, חתונות, חגיגות פרטיות וקבוצות סקי יכולות לקחת את כל הנכס כבסיס אלפיני פרטי.",
+        "proofGuests": "מקומות לינה",
+        "proofHistory": "שנות היסטוריה אלפינית",
+        "proofProperty": "חוויית נכס פרטי",
+        "experienceKicker": "החוויה",
+        "experienceText": "נכס פרטי מעל הכפר סאס-פה — מרחבים נדיבים, אוויר הרים ופרטיות מלאה לקבוצה שלכם.",
+        "roomsKicker": "חדרים וסוויטות",
+        "roomsTitle": "מרחבי שינה פרטיים, תחת גג אלפיני אחד.",
+        "roomsLead": "החדרים והסוויטות נותנים לקבוצה תחושה של בית אחד משותף, ועדיין שומרים על פרטיות למשפחות, זוגות ואורחים שזקוקים למרחב משלהם.",
+        "insidePhotoKicker": "בתוך פלטשהורן",
+        "insidePhotoText": "חדרי שינה, סוויטות, חללים חמימים ופינות שקטות לאורחים שצריכים לנוח.",
+        "sleepKicker": "קצב הלינה",
+        "sleepTitle": "ביחד, אבל לא צפוף.",
+        "sleepText": "בסיס פרטי שבו הקבוצה יכולה להישאר יחד בלי להתפצל בין מלונות שונים.",
+        "roomPoint1Title": "עד 48 מקומות לינה",
+        "roomPoint1Text": "קיבולת ברורה לתכנון קבוצתי.",
+        "roomPoint2Title": "חדרים וסוויטות",
+        "roomPoint2Text": "מתאים לקבוצות מעורבות, משפחות, ריטריטים וחגיגות.",
+        "roomPoint3Title": "בסיס פרטי אחד",
+        "roomPoint3Text": "האורחים נשארים יחד בלי להרגיש שהם מפוזרים בין מלונות שונים.",
+        "staysKicker": "למה הבית מתאים",
+        "staysTitle": "נבנה למשפחות, ריטריטים, חתונות וקבוצות סקי.",
+        "staysLead": "בסיס אלפיני פרטי אחד עם מקום להתכנס, לחגוג, לנוח ולגלות את סאס-פה יחד.",
+        "familyKicker": "משפחות",
+        "familyTitle": "מקום לכולם.",
+        "familyText": "חדרי שינה, חללים משותפים, בקרים איטיים וימי הרים קלים ביחד.",
+        "retreatKicker": "ריטריטים",
+        "retreatTitle": "בסיס אלפיני ממוקד.",
+        "retreatText": "חללי מפגש, פינות שקטות ומספיק פרטיות לאיפוס אמיתי.",
+        "eventKicker": "חתונות ואירועים",
+        "eventTitle": "הרגע שלכם, כאן.",
+        "eventText": "בלב האלפים, הנכס הופך לתפאורה של חגיגה פרטית.",
+        "skiKicker": "קבוצות סקי",
+        "skiTitle": "ימי הרים וחזרה חמימה.",
+        "skiText": "בית בסיס פרטי לסקי, אוויר קרחונים וערבים יחד.",
+        "foodKicker": "מטבח ותכנון אוכל",
+        "foodTitle": "קונספט מטבח גמיש לשהיות קבוצתיות פרטיות.",
+        "foodText": "המטבח יכול לתמוך בבישול עצמאי, תיאום עם שף או קייטרינג, תכנון ארוחות בוקר, בופה וקופסאות אוכל לפי סוג הקבוצה.",
+        "foodItem1Title": "גישה למטבח",
+        "foodItem1Text": "קבוצות יכולות לארגן את הארוחות סביב המטבח וקצב השהייה שלהן.",
+        "foodItem2Title": "שף או קייטרינג בתיאום",
+        "foodItem2Text": "לחתונות, ריטריטים ואירועים מיוחדים אפשר לדון בתמיכה נפרדת.",
+        "foodItem3Title": "תכנון פשוט",
+        "foodItem3Text": "ארוחות בוקר, בופה, ארוחות ארוזות ולוגיסטיקה קבוצתית אפשר לתכנן לפני ההגעה.",
+        "foodNoteKicker": "קצב פרטי",
+        "foodNote": "תכנון האוכל עוקב אחרי הקבוצה, התאריכים וסוג השהייה.",
+        "mapKicker": "גישה ומיקום",
+        "mapTitle": "מעל סאס-פה, מספיק פרטי כדי להרגיש במקום אחר.",
+        "mapLead": "הבקתה יושבת מעל הכפר. סאס-פה היא עיירה ללא מכוניות, לכן כדאי לתכנן את ההגעה בזהירות לפי מזוודות, מזג אוויר ותזמון העברות.",
+        "mapDefault": "לחצו על הכרטיסים כדי לראות את מיקום הנכס, הדרך מהכפר, תכנון ההגעה או תנועה בערב.",
+        "openMap": "פתחו מפה",
+        "mapCard1Title": "פלטשהורן",
+        "mapCard1Text": "ראו את מיקום הנכס המדויק מעל הכפר.",
+        "mapCard2Title": "מרכז הכפר",
+        "mapCard2Text": "ראו את מסלול ההליכה מנקודת ההגעה בכפר.",
+        "mapCard3Title": "תכנון הגעה",
+        "mapCard3Text": "ראו את המסלול המעשי להגעה מתואמת.",
+        "mapCard4Title": "תוכניות ערב",
+        "mapCard4Text": "ראו את אזור הכפר לתכנון ארוחת ערב ומוניות בערב.",
+        "areaKicker": "חוויות סביב סאס-פה",
+        "areaTitle": "בסיס פרטי לחורף, קיץ וימים אלפיניים רגועים.",
+        "areaLead": "סאס-פה נותנת לקבוצות סיבה להגיע בכל עונה: סקי, גישה לקרחון, שבילי קיץ, מרמיטות ב-Spielboden, Aqua Allalin, Mattmark, Feeblitz, פארק חבלים, Hannig ונופי הרים גבוהים.",
+        "winterKicker": "חורף",
+        "winterTitle": "ימי סקי, אוויר קרחונים וערבים שקטים.",
+        "winterText": "סקי בגובה, מזחלות לילה ב-Hannig, ביקור ב-Ice Pavilion, Aqua Allalin וחזרה חמימה לבקתה הפרטית שלכם.",
+        "summerKicker": "אביב / קיץ",
+        "summerTitle": "שבילים, מרמיטות, מים ומסלולי הרים.",
+        "summerText": "מרמיטות ב-Spielboden, Feeblitz, פארק חבלים, סכר Mattmark, קורקינטים Trotti ומסלולי הליכה ברמות אנרגיה שונות.",
+        "softKicker": "ימים רכים",
+        "softTitle": "וולנס, זמן בכפר ובקרים איטיים.",
+        "softText": "שקט, נופים, פנים חמימים, סאונה לפי בקשה והתחושה של שהייה מעל ההמולה.",
+        "historyKicker": "היסטוריה",
+        "historyTitle": "נכס הררי עם מאה שנה מאחוריו.",
+        "historyLead": "הסיפור שמאחורי הנכס נותן לשהייה את האופי שלה.",
+        "h1906Title": "תחילת אירוח הררי.",
+        "h1906Text": "משפחה בונה פונדקי הרים בסאס-פה עבור המטיילים הראשונים שהגיעו לכפר.",
+        "h1970Title": "הנכס מתפתח.",
+        "h1970Text": "משפחת Dütsch מפתחת את פלטשהורן לנכס אלפיני מוערך.",
+        "h1994Title": "היסטוריה קולינרית שווייצרית.",
+        "h1994Text": "אירמה דיטש הופכת לאישה השווייצרית הראשונה שקיבלה כוכב מישלן.",
+        "hNowTitle": "בקתה פרטית מחודשת.",
+        "hNowText": "הסיפור ממשיך כבסיס אלפיני פרטי לקבוצות, אירועים ושהיות בנכס שלם.",
+        "contactKicker": "יצירת קשר והזמנה",
+        "contactTitle": "הפכו את המקום הזה לשלכם.",
+        "contactText": "התחילו עם שם, אימייל ותאריכים מועדפים. עמוד ההזמנה יאפשר לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
+        "addressLabel": "כתובת",
+        "phoneLabel": "טלפון",
+        "directLabel": "הערה ישירה",
+        "directText": "המחירים הטובים ביותר זמינים בהזמנה ישירה.",
+        "socialKicker": "נוכחות ברשת",
+        "socialTitle": "הקצב של פלטשהורן",
+        "socialLead": "עקבו אחרי אווירת ההרים, רגעים עונתיים והקצב היומיומי של פלטשהורן בסאס-פה.",
+        "instagramFallback": "אם תצוגת אינסטגרם לא נטענת בדפדפן שלכם, פתחו את הפרופיל הרשמי ישירות.",
+        "openInstagram": "פתחו אינסטגרם",
+        "findUsKicker": "מצאו אותנו ב",
+        "findUsTitle": "עקבו, התחברו וקראו התרשמויות אורחים.",
+        "findUsText": "השתמשו בפרופילים הרשמיים וברשימות הביקורות לעדכונים, נוכחות מקומית ומשוב אורחים עצמאי.",
+        "facebookText": "עדכונים וחדשות על הנכס.",
+        "linkedinText": "פרופיל מקצועי ונוכחות החברה.",
+        "tripadvisorText": "ביקורות אורחים עצמאיות ותמונת דירוג מ-Tripadvisor.",
+        "openReviews": "פתחו ביקורות",
+        "missingFirstName": "נא להזין שם פרטי.",
+        "missingLastName": "נא להזין שם משפחה.",
+        "missingEmail": "נא להזין אימייל.",
+        "invalidEmail": "נא להזין כתובת אימייל תקינה.",
+        "missingDates": "נא לבחור תאריכי הגעה ועזיבה.",
+        "badDates": "תאריך העזיבה חייב להיות אחרי תאריך ההגעה.",
+        "redirecting": "פותחים הזמנה…"
+};
+
 
       const EXTRA_TRANSLATIONS = {
         fr: {
@@ -3600,7 +3851,8 @@
         en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
         fr:["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"],
         de:["So","Mo","Di","Mi","Do","Fr","Sa"],
-        ru:["Вс","Пн","Вт","Ср","Чт","Пт","Сб"]
+        ru:["Вс","Пн","Вт","Ср","Чт","Пт","Сб"],
+        he:["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","ש׳"]
       };
 
       const MAP_CONTEXT_KEYS = [
@@ -3610,7 +3862,7 @@
         { title:"mapCard4Title", text:"mapCard4Text" }
       ];
 
-      ["fr","de","ru"].forEach(function(lang){
+      ["fr","de","ru","he"].forEach(function(lang){
         T[lang] = Object.assign({}, T.en, T[lang]);
       });
 
@@ -3660,6 +3912,15 @@
 
         root.setAttribute("data-current-lang", state.lang);
         document.documentElement.setAttribute("lang", state.lang);
+
+        const dir = state.lang === "he" ? "rtl" : "ltr";
+        root.setAttribute("dir", dir);
+        document.documentElement.setAttribute("dir", dir);
+        document.body.setAttribute("dir", dir);
+
+        if (t("metaTitle")) document.title = t("metaTitle");
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription && t("metaDescription")) metaDescription.setAttribute("content", t("metaDescription"));
 
         try {
           localStorage.setItem("fh_lang", state.lang);
@@ -4441,6 +4702,16 @@
         if (event.key === "fh_lang" && T[String(event.newValue || "").slice(0,2).toLowerCase()]){
           applyLanguage(String(event.newValue).slice(0,2).toLowerCase());
         }
+      });
+
+      window.addEventListener("fh:set-language", function(event){
+        const lang = String((event.detail && event.detail.lang) || "").slice(0,2).toLowerCase();
+        if (T[lang]) applyLanguage(lang);
+      });
+
+      window.addEventListener("fh-language-change", function(event){
+        const lang = String((event.detail && event.detail.lang) || "").slice(0,2).toLowerCase();
+        if (T[lang]) applyLanguage(lang);
       });
 
       document.addEventListener("click", function(event){
