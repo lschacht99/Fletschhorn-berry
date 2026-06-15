@@ -299,10 +299,6 @@
     #fh-booking-page button.fh-summary-item{cursor:pointer;}
     #fh-booking-page button.fh-summary-item:hover,
     #fh-booking-page button.fh-summary-item:focus{border-color:rgba(135,110,88,.38);box-shadow:0 0 0 3px rgba(185,159,134,.14);outline:0;}
-    #fh-booking-page .fh-policy-card{margin:12px 0;padding:13px;border:1px solid rgba(25,23,20,.10);background:rgba(255,255,255,.45);}
-    #fh-booking-page .fh-policy-card[hidden]{display:none!important}
-    #fh-booking-page .fh-policy-card span{display:block;margin-bottom:6px;color:var(--fh-soft);font-size:9px;text-transform:uppercase;letter-spacing:.14em;font-weight:900;}
-    #fh-booking-page .fh-policy-card p{margin:0;color:var(--fh-muted);font-size:13px;line-height:1.48;}
 
     @media (max-width:639px){
       #fh-booking-page .fh-photo-hero{min-height:auto;padding-top:184px;justify-content:flex-start;}
@@ -475,7 +471,6 @@
     #fh-booking-page .fh-photo-hero .fh-field input,
     #fh-booking-page .fh-photo-hero .fh-field select,
     #fh-booking-page .fh-photo-hero .fh-live-quote,
-    #fh-booking-page .fh-photo-hero .fh-policy-card,
     #fh-booking-page .fh-photo-hero .fh-ghost-btn{
       background:rgba(255,250,243,.58)!important;
       border-color:rgba(25,23,20,.12)!important;
@@ -530,7 +525,7 @@
 
 
 
-    /* ===== FINAL REQUEST PATCH: contact under title + lowered/larger desktop booking + Super Strict 60 policy card ===== */
+    /* ===== FINAL REQUEST PATCH: contact under title + lowered/larger desktop booking ===== */
     #fh-booking-page .fh-photo-hero{
       padding-left:var(--fh-edge)!important;
     }
@@ -591,15 +586,6 @@
     }
     #fh-booking-page #fhHeroLead{
       margin-top:0!important;
-    }
-    #fh-booking-page .fh-policy-card{
-      display:block;
-      border-color:rgba(185,159,134,.28)!important;
-      background:rgba(255,250,243,.62)!important;
-    }
-    #fh-booking-page .fh-policy-card p{
-      font-size:13.5px!important;
-      line-height:1.52!important;
     }
     @media (max-width:639px){
       #fh-booking-page .fh-photo-hero{
@@ -725,10 +711,6 @@
         <div class="fh-live-quote" id="fhLiveQuote">Select available arrival and departure dates to calculate the final price from the nightly calendar prices.</div>
         <div class="fh-pricing-breakdown" id="fhPricingBreakdown" hidden></div>
 
-        <div class="fh-policy-card" id="fhCancellationPolicy" hidden>
-          <span id="fhCancellationPolicyLabel">Cancellation policy</span>
-          <p id="fhCancellationPolicyText"></p>
-        </div>
 
         <div class="fh-actions">
           <button class="fh-primary-btn" type="button" id="fhContinueBtn">Continue to checkout</button>
@@ -956,7 +938,6 @@
       setText("fhDepartureLabel", txt("departure"));
       setText("fhNightsLabel", txt("nights"));
       setText("fhPriceLabel", txt("quote"));
-      setText("fhCancellationPolicyLabel", txt("cancellationPolicy") || "Cancellation policy");
       setText("fhAdultsLabel", txt("adults"));
       setText("fhChildrenLabel", txt("children"));
       setText("fhFirstNameLabel", txt("firstName"));
@@ -1172,18 +1153,6 @@
       return copy[kind] && copy[kind][state.lang] ? copy[kind][state.lang] : "";
     }
 
-    function superStrict60Policy(){
-      var email = "welcome@fletschhorn.ch";
-      var policies = {
-        en:"Super strict 60 cancellation policy: Guests can cancel at least 60 days before check-in for a 50% refund. Cancellations made less than 60 days before check-in are not refundable for the nightly rate; applicable taxes or fees may be handled according to the final booking and payment rules. For any question before booking, contact " + email + ".",
-        fr:"Politique d’annulation Super stricte 60 : les voyageurs peuvent annuler au moins 60 jours avant l’arrivée et recevoir un remboursement de 50 %. Les annulations effectuées moins de 60 jours avant l’arrivée ne sont pas remboursables sur le prix des nuits ; les taxes ou frais applicables peuvent être traités selon les règles finales de réservation et de paiement. Pour toute question avant de réserver, contactez " + email + ".",
-        de:"Stornierungsbedingungen Super Strict 60: Gäste können mindestens 60 Tage vor dem Check-in stornieren und erhalten eine Rückerstattung von 50 %. Stornierungen weniger als 60 Tage vor dem Check-in sind für den Übernachtungspreis nicht erstattungsfähig; anwendbare Steuern oder Gebühren können gemäß den endgültigen Buchungs- und Zahlungsregeln behandelt werden. Bei Fragen vor der Buchung kontaktieren Sie " + email + ".",
-        ru:"Политика отмены Super strict 60: гости могут отменить бронирование минимум за 60 дней до заезда и получить возврат 50%. Отмена менее чем за 60 дней до заезда не предусматривает возврат стоимости ночей; применимые налоги или сборы могут обрабатываться согласно финальным правилам бронирования и оплаты. По вопросам до бронирования напишите на " + email + ".",
-        he:"מדיניות ביטול Super strict 60: אורחים יכולים לבטל לפחות 60 יום לפני הצ׳ק-אין ולקבל החזר של 50%. ביטול פחות מ-60 יום לפני הצ׳ק-אין אינו מזכה בהחזר עבור מחיר הלילות; מיסים או עמלות רלוונטיים יטופלו לפי כללי ההזמנה והתשלום הסופיים. לשאלות לפני ההזמנה צרו קשר: " + email + "."
-      };
-      return policies[state.lang] || policies.en;
-    }
-
     function renderListing(){
       var merged = { content:state.content || {}, listing:state.listing || {} };
       var title = localizedFirstString(merged, ["title","name","nickname","listingTitle","propertyName"]) || findFirstString(state.content, ["title","name","nickname","listingTitle","propertyName"]) || (state.lang !== "en" ? guestyFallbackText("title") : "") || findFirstString(state.listing, ["title","name","nickname","listingTitle","propertyName"]) || txt("fallbackTitle");
@@ -1212,15 +1181,6 @@
       if (address) cards.push([txt("address"), address]);
       if (checkIn || checkOut) cards.push([txt("stayTiming"), [checkIn ? "Check-in: "+checkIn : "", checkOut ? "Check-out: "+checkOut : ""].filter(Boolean).join(" · ")]);
       setHTML("fhDynamicInfo", cards.map(function(c){ return '<article class="fh-info-card"><b>'+escapeHTML(c[0])+'</b><p>'+escapeHTML(c[1])+'</p></article>'; }).join(""));
-      var policy = superStrict60Policy();
-      var policyBox = $("fhCancellationPolicy");
-      var policyText = $("fhCancellationPolicyText");
-      if (policyBox && policyText && policy) {
-        policyText.innerHTML = htmlParagraphs([policy]);
-        policyBox.hidden = false;
-      } else if (policyBox) {
-        policyBox.hidden = true;
-      }
     }
 
     function normalizeCalendarDay(item){

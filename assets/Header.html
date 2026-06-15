@@ -262,6 +262,14 @@
     font-size:7.5px;
   }
 }
+
+.fh-toolbar-date-hidden{display:none!important}
+.fh-app-tabbar{position:fixed;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9997;width:min(430px,calc(100% - 18px));display:none;grid-template-columns:repeat(5,1fr);gap:4px;padding:7px;border:1px solid rgba(28,24,20,.10);border-radius:26px;background:rgba(255,250,243,.88);box-shadow:0 18px 48px rgba(20,16,12,.18);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.fh-app-tabbar a{min-height:46px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(28,24,20,.64);font-size:9px;line-height:1;text-transform:uppercase;letter-spacing:.06em;font-weight:850;text-decoration:none}
+.fh-app-tabbar a em{font-style:normal;font-size:16px;line-height:1}
+.fh-app-tabbar a.is-active{color:#fffaf3;background:#22392f}
+.fh-app-tabbar a.fh-app-book{color:#fffaf3;background:#b99f86;transform:translateY(-8px);box-shadow:0 14px 30px rgba(135,110,88,.28)}
+@media(max-width:760px){.fh-app-tabbar{display:grid}body.fh-global-shell{padding-bottom:76px!important}}
 </style>
 
 <script>
@@ -459,6 +467,14 @@
       <button type="button" data-lang="ru">RU</button>
       <button type="button" data-lang="he">HE</button>
     </div>
+
+    <nav class="fh-app-tabbar" aria-label="Mobile app navigation">
+      <a href="${page("index.html")}" class="${active === "home" ? "is-active" : ""}"><em>⌂</em><span>Home</span></a>
+      <a href="${page("Property.html")}" class="${active === "property" ? "is-active" : ""}"><em>◇</em><span>Stay</span></a>
+      <a href="${bookingHref}" class="fh-app-book" data-fh-booking-link="true"><em>＋</em><span>Book</span></a>
+      <a href="${page("Experiences.html")}" class="${active === "experiences" ? "is-active" : ""}"><em>✦</em><span>Explore</span></a>
+      <a href="${page("Location.html")}" class="${active === "location" ? "is-active" : ""}"><em>⌖</em><span>Map</span></a>
+    </nav>
   `);
 
   const header = document.getElementById("fhGlobalHeader");
@@ -629,7 +645,7 @@
   /*
     Booking safety rule:
     Any visible button/link that clearly says Book Now, Booking, Reserve, or Book your stay
-    will always go to /booking.html, not to #booking, #book, a page section, or another page anchor.
+    routes to /booking.html, not to #booking, #book, a page section, or another page anchor.
   */
   function isBookingIntent(link){
     if(!link) return false;
@@ -676,6 +692,76 @@
       window.location.href = bookingHref;
     }
   }, true);
+
+
+
+  function toolbarDates(){
+    const checkIn = document.getElementById("fhArrival") || document.getElementById("fh-exp-checkin") || document.getElementById("fh-mobile-checkin");
+    const checkOut = document.getElementById("fhDeparture") || document.getElementById("fh-exp-checkout") || document.getElementById("fh-mobile-checkout");
+    return { checkIn: checkIn && checkIn.value ? checkIn.value : "", checkOut: checkOut && checkOut.value ? checkOut.value : "" };
+  }
+
+  function quickToolbarOpeners(){
+    return Array.prototype.slice.call(document.querySelectorAll("#fhOpenToolbarCalendar, [data-mobile-open-calendar]"));
+  }
+
+  function visibleOrFirst(list){
+    return list.find(function(el){ return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); }) || list[0] || null;
+  }
+
+  function openQuickToolbarCalendar(){
+    const opener = visibleOrFirst(quickToolbarOpeners());
+    if(opener){ opener.click(); return true; }
+    const modal = document.getElementById("fhToolbarCalendarModal");
+    if(modal){ modal.classList.add("open"); modal.setAttribute("aria-hidden", "false"); return true; }
+    return false;
+  }
+
+  function prepareQuickToolbar(){
+    quickToolbarOpeners().forEach(function(opener){
+      const field = opener && opener.closest ? opener.closest(".fh-field, .fh-index-field") : null;
+      if(field) field.classList.add("fh-toolbar-date-hidden");
+    });
+  }
+
+  function continueQuickToolbarBooking(){
+    const btn = document.getElementById("fhBookNowBtn");
+    if(!btn) return;
+    const dates = toolbarDates();
+    if(!dates.checkIn || !dates.checkOut) return;
+    btn.dataset.fhCalendarComplete = "1";
+    btn.click();
+    window.setTimeout(function(){ delete btn.dataset.fhCalendarComplete; }, 1000);
+  }
+
+  document.addEventListener("click", function(event){
+    const btn = event.target.closest ? event.target.closest("#fhBookNowBtn") : null;
+    if(!btn || btn.dataset.fhCalendarComplete === "1") return;
+    if(!quickToolbarOpeners().length) return;
+    const dates = toolbarDates();
+    if(dates.checkIn && dates.checkOut) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    btn.dataset.fhAwaitingCalendar = "1";
+    openQuickToolbarCalendar();
+  }, true);
+
+  document.addEventListener("click", function(event){
+    if(!event.target.closest || !event.target.closest("#fhToolbarCalendarGrid .fh-day[data-date], #fhToolbarCalendarGrid button[data-date]")) return;
+    const btn = document.getElementById("fhBookNowBtn");
+    if(!btn || btn.dataset.fhAwaitingCalendar !== "1") return;
+    window.setTimeout(function(){
+      const dates = toolbarDates();
+      if(dates.checkIn && dates.checkOut){
+        delete btn.dataset.fhAwaitingCalendar;
+        continueQuickToolbarBooking();
+      }
+    }, 80);
+  }, true);
+
+  prepareQuickToolbar();
+  const toolbarObserver = new MutationObserver(prepareQuickToolbar);
+  toolbarObserver.observe(document.documentElement, { childList:true, subtree:true });
 
   const bookingObserver = new MutationObserver(normalizeBookingLinks);
   bookingObserver.observe(document.documentElement, {
