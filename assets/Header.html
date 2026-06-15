@@ -262,6 +262,20 @@
     font-size:7.5px;
   }
 }
+
+
+.fh-header-schedule-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(25,23,20,.52);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.fh-header-schedule-modal.is-open{display:flex}
+.fh-header-schedule-dialog{width:min(560px,calc(100vw - 28px));height:min(680px,calc(100svh - 36px));display:grid;grid-template-rows:auto 1fr auto;overflow:hidden;border:1px solid rgba(255,250,243,.68);border-radius:24px;background:#fffaf3;box-shadow:0 28px 80px rgba(0,0,0,.26)}
+.fh-header-schedule-head,.fh-header-schedule-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(25,23,20,.10);background:#fffaf3;color:#191714}
+.fh-header-schedule-actions{border-top:1px solid rgba(25,23,20,.10);border-bottom:0}
+.fh-header-schedule-head strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:24px;line-height:1;font-weight:400;letter-spacing:-.04em}
+.fh-header-schedule-head span,.fh-header-schedule-message{display:block;margin-top:4px;color:rgba(25,23,20,.58);font-size:12px;line-height:1.35}
+.fh-header-schedule-close{width:38px;min-height:38px;border:1px solid rgba(25,23,20,.14);border-radius:999px;background:rgba(255,255,255,.55);color:#191714;font-size:22px;line-height:1}
+.fh-header-schedule-frame{width:100%;height:100%;border:0;background:#fffaf3}
+.fh-header-schedule-continue{min-height:42px;border:0;border-radius:999px;background:#b99f86;color:#fffaf3;padding:0 16px;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:900}
+html.fh-header-schedule-open,html.fh-header-schedule-open body{overflow:hidden!important}
+@media(max-width:640px){.fh-header-schedule-modal{align-items:center!important;justify-content:center!important;padding:12px!important}.fh-header-schedule-dialog{width:calc(100vw - 24px);height:min(620px,calc(100svh - 24px));border-radius:20px}.fh-header-schedule-head strong{font-size:22px}}
 </style>
 
 <script>
@@ -459,6 +473,23 @@
       <button type="button" data-lang="ru">RU</button>
       <button type="button" data-lang="he">HE</button>
     </div>
+
+    <div class="fh-header-schedule-modal" id="fhHeaderScheduleModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fhHeaderScheduleTitle">
+      <div class="fh-header-schedule-dialog">
+        <div class="fh-header-schedule-head">
+          <div>
+            <strong id="fhHeaderScheduleTitle">Choose your dates</strong>
+            <span>Select an arrival and departure date.</span>
+          </div>
+          <button class="fh-header-schedule-close" type="button" id="fhHeaderScheduleClose" aria-label="Close schedule">×</button>
+        </div>
+        <iframe class="fh-header-schedule-frame" id="fhHeaderScheduleFrame" title="Fletschhorn booking schedule"></iframe>
+        <div class="fh-header-schedule-actions">
+          <span class="fh-header-schedule-message" id="fhHeaderScheduleMessage">Continue after choosing both dates.</span>
+          <button class="fh-header-schedule-continue" type="button" id="fhHeaderScheduleContinue">Continue</button>
+        </div>
+      </div>
+    </div>
   `);
 
   const header = document.getElementById("fhGlobalHeader");
@@ -629,7 +660,7 @@
   /*
     Booking safety rule:
     Any visible button/link that clearly says Book Now, Booking, Reserve, or Book your stay
-    will always go to /booking.html, not to #booking, #book, a page section, or another page anchor.
+    routes to /booking.html, not to #booking, #book, a page section, or another page anchor.
   */
   function isBookingIntent(link){
     if(!link) return false;
@@ -665,6 +696,71 @@
     });
   }
 
+  const headerScheduleModal = document.getElementById("fhHeaderScheduleModal");
+  const headerScheduleFrame = document.getElementById("fhHeaderScheduleFrame");
+  const headerScheduleClose = document.getElementById("fhHeaderScheduleClose");
+  const headerScheduleContinue = document.getElementById("fhHeaderScheduleContinue");
+  const headerScheduleMessage = document.getElementById("fhHeaderScheduleMessage");
+
+  function headerScheduleUrl(){
+    return bookingHref + "?fhSchedulePopup=1&lang=" + encodeURIComponent(getStoredFhLang());
+  }
+
+  function openHeaderSchedule(){
+    closeMenu();
+    if(!headerScheduleModal || !headerScheduleFrame){ window.location.href = bookingHref; return; }
+    const src = headerScheduleUrl();
+    if(headerScheduleFrame.getAttribute("src") !== src) headerScheduleFrame.setAttribute("src", src);
+    if(headerScheduleMessage) headerScheduleMessage.textContent = "Continue after choosing both dates.";
+    headerScheduleModal.classList.add("is-open");
+    headerScheduleModal.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("fh-header-schedule-open");
+  }
+
+  function closeHeaderSchedule(){
+    if(!headerScheduleModal) return;
+    headerScheduleModal.classList.remove("is-open");
+    headerScheduleModal.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("fh-header-schedule-open");
+  }
+
+  function readHeaderScheduleDates(){
+    try {
+      const doc = headerScheduleFrame && headerScheduleFrame.contentDocument;
+      const arrival = doc && doc.getElementById("fhArrival");
+      const departure = doc && doc.getElementById("fhDeparture");
+      return { checkIn: arrival && arrival.value || "", checkOut: departure && departure.value || "" };
+    } catch(error) { return { checkIn:"", checkOut:"" }; }
+  }
+
+  function continueHeaderSchedule(silent){
+    const dates = readHeaderScheduleDates();
+    if(!dates.checkIn || !dates.checkOut){
+      if(!silent && headerScheduleMessage) headerScheduleMessage.textContent = "Please choose arrival and departure dates first.";
+      return false;
+    }
+    const params = new URLSearchParams({ checkIn:dates.checkIn, checkOut:dates.checkOut, lang:getStoredFhLang(), source:"header-schedule" });
+    window.location.href = bookingHref + "?" + params.toString();
+    return true;
+  }
+
+  function bindHeaderScheduleFrame(){
+    try {
+      const doc = headerScheduleFrame && headerScheduleFrame.contentDocument;
+      if(!doc || doc.dataset.fhHeaderAutoBound === "1") return;
+      doc.dataset.fhHeaderAutoBound = "1";
+      doc.addEventListener("click", function(){
+        window.setTimeout(function(){ continueHeaderSchedule(true); }, 160);
+      }, true);
+    } catch(error) {}
+  }
+
+  if(headerScheduleClose) headerScheduleClose.addEventListener("click", closeHeaderSchedule);
+  if(headerScheduleContinue) headerScheduleContinue.addEventListener("click", function(){ continueHeaderSchedule(false); });
+  if(headerScheduleFrame) headerScheduleFrame.addEventListener("load", bindHeaderScheduleFrame);
+  if(headerScheduleModal) headerScheduleModal.addEventListener("click", function(event){ if(event.target === headerScheduleModal) closeHeaderSchedule(); });
+  document.addEventListener("keydown", function(event){ if(event.key === "Escape") closeHeaderSchedule(); });
+
   normalizeBookingLinks();
 
   document.addEventListener("click", function(event){
@@ -673,9 +769,11 @@
 
     if(isBookingIntent(link)){
       event.preventDefault();
-      window.location.href = bookingHref;
+      openHeaderSchedule();
     }
   }, true);
+
+
 
   const bookingObserver = new MutationObserver(normalizeBookingLinks);
   bookingObserver.observe(document.documentElement, {
