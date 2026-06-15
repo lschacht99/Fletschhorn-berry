@@ -263,35 +263,238 @@
   }
 }
 
+/* Clean toolbar calendar — this is the GOOD schedule behavior. */
+html.fh-toolbar-calendar-open,
+html.fh-toolbar-calendar-open body{
+  overflow:hidden!important;
+}
 
-.fh-header-schedule-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(25,23,20,.52);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.fh-header-schedule-modal.is-open{display:flex}
-.fh-header-schedule-dialog{width:min(560px,calc(100vw - 28px));height:min(680px,calc(100svh - 36px));display:grid;grid-template-rows:auto 1fr auto;overflow:hidden;border:1px solid rgba(255,250,243,.68);border-radius:24px;background:#fffaf3;box-shadow:0 28px 80px rgba(0,0,0,.26)}
-.fh-header-schedule-head,.fh-header-schedule-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(25,23,20,.10);background:#fffaf3;color:#191714}
-.fh-header-schedule-actions{border-top:1px solid rgba(25,23,20,.10);border-bottom:0}
-.fh-header-schedule-head strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:24px;line-height:1;font-weight:400;letter-spacing:-.04em}
-.fh-header-schedule-head span,.fh-header-schedule-message{display:block;margin-top:4px;color:rgba(25,23,20,.58);font-size:12px;line-height:1.35}
-.fh-header-schedule-close{width:38px;min-height:38px;border:1px solid rgba(25,23,20,.14);border-radius:999px;background:rgba(255,255,255,.55);color:#191714;font-size:22px;line-height:1}
-.fh-header-schedule-frame{width:100%;height:100%;border:0;background:#fffaf3}
-.fh-header-schedule-continue{min-height:42px;border:0;border-radius:999px;background:#b99f86;color:#fffaf3;padding:0 16px;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:900}
-html.fh-header-schedule-open,html.fh-header-schedule-open body{overflow:hidden!important}
-@media(max-width:640px){.fh-header-schedule-modal{align-items:center!important;justify-content:center!important;padding:12px!important}.fh-header-schedule-dialog{width:calc(100vw - 24px);height:min(620px,calc(100svh - 24px));border-radius:20px}.fh-header-schedule-head strong{font-size:22px}}
+#fhToolbarCalendarModal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(25,23,20,.52);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+}
+
+#fhToolbarCalendarModal.open{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+#fhToolbarCalendarModal .fh-calendar-card,
+#fhToolbarCalendarModal [class*="calendar-card"]{
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:auto!important;
+  width:min(610px,calc(100vw - 28px))!important;
+  max-height:calc(100svh - 28px)!important;
+  overflow:auto!important;
+  border-radius:0!important;
+  border:1px solid rgba(255,250,243,.68)!important;
+  background:#fffaf3!important;
+  color:#191714!important;
+  box-shadow:0 28px 80px rgba(0,0,0,.26)!important;
+  padding:16px!important;
+}
+
+.fh-calendar-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.fh-calendar-kicker{
+  margin:0 0 8px;
+  color:#b99f86;
+  font-size:10px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:900;
+}
+
+.fh-calendar-title{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  color:#191714;
+  font-size:29px;
+  line-height:1;
+  font-weight:400;
+  letter-spacing:-.04em;
+}
+
+.fh-calendar-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex:0 0 auto;
+}
+
+.fh-calendar-control{
+  width:40px;
+  min-height:40px;
+  border-radius:0;
+  border:1px solid rgba(25,23,20,.12);
+  background:rgba(255,255,255,.52);
+  color:#191714;
+  font-size:20px;
+  line-height:1;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.fh-calendar-help{
+  margin:0 0 16px;
+  color:rgba(25,23,20,.62);
+  font-size:14px;
+  line-height:1.45;
+}
+
+.fh-calendar-week,
+.fh-calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
+}
+
+.fh-calendar-week{
+  margin-bottom:6px;
+}
+
+.fh-calendar-week span{
+  min-height:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(25,23,20,.42);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:900;
+}
+
+.fh-day{
+  min-height:54px;
+  border:1px solid rgba(25,23,20,.08);
+  background:rgba(255,255,255,.34);
+  color:#191714;
+  padding:6px 5px;
+  text-align:left;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  gap:3px;
+  font:inherit;
+}
+
+.fh-day:hover{
+  background:rgba(31,58,47,.10);
+}
+
+.fh-day.is-empty{
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.fh-day.is-booked,
+.fh-day.is-disabled{
+  opacity:.33;
+  cursor:not-allowed;
+}
+
+.fh-day.is-selected,
+.fh-day.is-range{
+  background:#173d31!important;
+  border-color:#173d31!important;
+  color:#fffaf3!important;
+}
+
+.fh-day strong{
+  display:block;
+  font-size:13px;
+  line-height:1;
+  font-weight:900;
+}
+
+.fh-day small{
+  display:block;
+  font-size:10px;
+  line-height:1.1;
+  color:inherit;
+  opacity:.88;
+}
+
+.fh-day em{
+  display:block;
+  font-style:normal;
+  font-size:9px;
+  line-height:1.1;
+  color:rgba(25,23,20,.36);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:800;
+}
+
+.fh-day.is-selected em,
+.fh-day.is-range em{
+  color:rgba(255,250,243,.78);
+}
+
+.fh-calendar-message{
+  margin:14px 0 0;
+  color:rgba(25,23,20,.58);
+  font-size:12px;
+  line-height:1.35;
+}
+
+.fh-calendar-hidden-fields{
+  display:none!important;
+}
+
+@media(max-width:760px){
+  .fh-mobile-footbar{display:grid}
+  body.fh-global-shell{padding-bottom:72px!important}
+  #fhToolbarCalendarModal.open{align-items:center!important;justify-content:center!important;padding:14px!important}
+}
+
+@media(max-width:640px){
+  #fhToolbarCalendarModal{padding:12px!important}
+  #fhToolbarCalendarModal .fh-calendar-card,
+  #fhToolbarCalendarModal [class*="calendar-card"]{
+    width:calc(100vw - 24px)!important;
+    max-height:calc(100svh - 24px)!important;
+    padding:12px!important;
+  }
+  .fh-calendar-title{font-size:24px}
+  .fh-calendar-control{width:38px;min-height:38px}
+  .fh-calendar-week,.fh-calendar-grid{gap:4px}
+  .fh-day{min-height:52px;padding:6px 4px}
+  .fh-day strong{font-size:12px}
+  .fh-day small{font-size:9px}
+  .fh-day em{font-size:8px}
+}
 
 .fh-mobile-footbar{position:fixed;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9998;width:min(430px,calc(100% - 18px));display:none;grid-template-columns:repeat(4,1fr);gap:5px;padding:7px;border:1px solid rgba(255,255,255,.34);border-radius:24px;background:rgba(255,250,243,.54);box-shadow:0 18px 48px rgba(20,16,12,.14);-webkit-backdrop-filter:blur(24px) saturate(1.18);backdrop-filter:blur(24px) saturate(1.18)}
 .fh-mobile-footbar a,.fh-mobile-footbar button{min-height:44px;border:0;border-radius:18px;background:rgba(255,255,255,.16);color:rgba(28,24,20,.68);display:flex;align-items:center;justify-content:center;font:inherit;font-size:9px;line-height:1;text-transform:uppercase;letter-spacing:.08em;font-weight:900;text-decoration:none;cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .fh-mobile-footbar .fh-footbar-book{background:rgba(185,159,134,.82);color:#fffaf3;box-shadow:0 10px 22px rgba(135,110,88,.18)}
 .fh-mobile-footbar a.is-active{background:#22392f;color:#fffaf3}
-html.fh-header-schedule-open #fhToolbarCalendarModal,
-html.fh-header-schedule-open .fh-toolbar-calendar-modal,
-html.fh-header-schedule-open .fh-toolbar-calendar,
-html.fh-header-schedule-open [id*="ToolbarCalendar"]{
-  display:none!important;
-  visibility:hidden!important;
-  pointer-events:none!important;
-  opacity:0!important;
-}
-
-@media(max-width:760px){.fh-mobile-footbar{display:grid}body.fh-global-shell{padding-bottom:72px!important}}
+#fhToolbarCalendarModal.open{display:flex!important;align-items:center!important;justify-content:center!important;padding:14px!important}
+#fhToolbarCalendarModal.open .fh-calendar-card,#fhToolbarCalendarModal.open [class*="calendar-card"]{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;margin:auto!important;width:min(560px,calc(100vw - 28px))!important;max-height:calc(100svh - 28px)!important}
+@media(max-width:760px){.fh-mobile-footbar{display:grid}body.fh-global-shell{padding-bottom:72px!important}#fhToolbarCalendarModal.open{align-items:center!important;justify-content:center!important}}
 </style>
 
 <script>
@@ -496,23 +699,6 @@ html.fh-header-schedule-open [id*="ToolbarCalendar"]{
       <button type="button" data-fh-footbar-menu="true"><span>Menu</span></button>
       <button type="button" class="fh-footbar-book" data-fh-footbar-book="true"><span>Book</span></button>
     </nav>
-
-    <div class="fh-header-schedule-modal" id="fhHeaderScheduleModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fhHeaderScheduleTitle">
-      <div class="fh-header-schedule-dialog">
-        <div class="fh-header-schedule-head">
-          <div>
-            <strong id="fhHeaderScheduleTitle">Choose your dates</strong>
-            <span>Select an arrival and departure date.</span>
-          </div>
-          <button class="fh-header-schedule-close" type="button" id="fhHeaderScheduleClose" aria-label="Close schedule">×</button>
-        </div>
-        <iframe class="fh-header-schedule-frame" id="fhHeaderScheduleFrame" title="Fletschhorn booking schedule"></iframe>
-        <div class="fh-header-schedule-actions">
-          <span class="fh-header-schedule-message" id="fhHeaderScheduleMessage">Continue after choosing both dates.</span>
-          <button class="fh-header-schedule-continue" type="button" id="fhHeaderScheduleContinue">Continue</button>
-        </div>
-      </div>
-    </div>
   `);
 
   const header = document.getElementById("fhGlobalHeader");
@@ -719,166 +905,358 @@ html.fh-header-schedule-open [id*="ToolbarCalendar"]{
     });
   }
 
-  const headerScheduleModal = document.getElementById("fhHeaderScheduleModal");
-  const headerScheduleFrame = document.getElementById("fhHeaderScheduleFrame");
-  const headerScheduleClose = document.getElementById("fhHeaderScheduleClose");
-  const headerScheduleContinue = document.getElementById("fhHeaderScheduleContinue");
-  const headerScheduleMessage = document.getElementById("fhHeaderScheduleMessage");
+  const FH_WORKER_BASE =
+    window.FH_WORKER_BASE ||
+    window.FLETCHHORN_WORKER_URL ||
+    "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
 
-  function headerScheduleUrl(){
-    return bookingHref + "?fhSchedulePopup=1&lang=" + encodeURIComponent(getStoredFhLang());
+  const FH_LISTING_ID =
+    window.FH_LISTING_ID ||
+    document.documentElement.getAttribute("data-listing-id") ||
+    "6968339ab7d735001ca015ba";
+
+  const fhToolbarCalendarState = {
+    monthDate:new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+    checkIn:"",
+    checkOut:"",
+    days:new Map(),
+    loading:false
+  };
+
+  function padDatePart(value){
+    return String(value).padStart(2, "0");
   }
 
-  function closeLegacyToolbarSchedule(){
-    /*
-      Important fix:
-      Do NOT reuse page-level toolbar calendars here.
-      Different pages contain different versions of #fhToolbarCalendarModal.
-      That is what created the two-calendar conflict.
-      The global header must always open its own iframe schedule instead.
-    */
-    const legacySelectors = [
-      "#fhToolbarCalendarModal",
-      ".fh-toolbar-calendar-modal",
-      ".fh-toolbar-calendar",
-      "[id*='ToolbarCalendar']"
-    ];
+  function toISODate(date){
+    return date.getFullYear() + "-" + padDatePart(date.getMonth() + 1) + "-" + padDatePart(date.getDate());
+  }
 
-    legacySelectors.forEach(function(selector){
+  function monthLabel(date){
+    return date.toLocaleDateString("en-US", { month:"long", year:"numeric" });
+  }
+
+  function formatCalendarPrice(value, currency){
+    const amount = Number(value);
+    if(!Number.isFinite(amount)) return "";
+    return (currency || "CHF") + " " + amount.toLocaleString("en-US");
+  }
+
+  function pageToolbarDates(){
+    const arrival = document.getElementById("fhArrival") || document.getElementById("fh-exp-checkin") || document.getElementById("fh-mobile-checkin");
+    const departure = document.getElementById("fhDeparture") || document.getElementById("fh-exp-checkout") || document.getElementById("fh-mobile-checkout");
+    return { checkIn: arrival && arrival.value || "", checkOut: departure && departure.value || "" };
+  }
+
+  function writeToolbarDates(checkIn, checkOut){
+    const arrivalSelectors = ["#fhArrival", "#fh-exp-checkin", "#fh-mobile-checkin", "[name='checkIn']", "[name='arrival']"];
+    const departureSelectors = ["#fhDeparture", "#fh-exp-checkout", "#fh-mobile-checkout", "[name='checkOut']", "[name='departure']"];
+
+    arrivalSelectors.forEach(function(selector){
       document.querySelectorAll(selector).forEach(function(el){
-        if(el.closest("#fhHeaderScheduleModal")) return;
-        el.classList.remove("open", "is-open", "active");
-        el.setAttribute("aria-hidden", "true");
-        el.style.pointerEvents = "none";
+        if("value" in el){
+          el.value = checkIn || "";
+          el.dispatchEvent(new Event("input", { bubbles:true }));
+          el.dispatchEvent(new Event("change", { bubbles:true }));
+        }
       });
     });
 
-    delete document.documentElement.dataset.fhHeaderScheduleActive;
+    departureSelectors.forEach(function(selector){
+      document.querySelectorAll(selector).forEach(function(el){
+        if("value" in el){
+          el.value = checkOut || "";
+          el.dispatchEvent(new Event("input", { bubbles:true }));
+          el.dispatchEvent(new Event("change", { bubbles:true }));
+        }
+      });
+    });
+
+    try {
+      localStorage.setItem("fhArrival", checkIn || "");
+      localStorage.setItem("fhDeparture", checkOut || "");
+      localStorage.setItem("fletschhornArrival", checkIn || "");
+      localStorage.setItem("fletschhornDeparture", checkOut || "");
+    } catch(error) {}
+  }
+
+  function visibleOrFirst(list){
+    return list.find(function(el){ return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); }) || list[0] || null;
+  }
+
+  function toolbarCalendarOpeners(){
+    return Array.prototype.slice.call(document.querySelectorAll("#fhOpenToolbarCalendar, [data-mobile-open-calendar]"));
   }
 
   function goToBookingWithDates(dates){
     if(!dates.checkIn || !dates.checkOut) return false;
-    const params = new URLSearchParams({
-      checkIn:dates.checkIn,
-      checkOut:dates.checkOut,
-      lang:getStoredFhLang(),
-      source:"header-schedule"
-    });
+    const params = new URLSearchParams({ checkIn:dates.checkIn, checkOut:dates.checkOut, lang:getStoredFhLang(), source:"header-schedule" });
     window.location.href = bookingHref + "?" + params.toString();
     return true;
   }
 
+  function ensureToolbarCalendarModal(){
+    let modal = document.getElementById("fhToolbarCalendarModal");
+    if(modal) return modal;
+
+    modal = document.createElement("div");
+    modal.id = "fhToolbarCalendarModal";
+    modal.setAttribute("aria-hidden", "true");
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.dataset.fhGlobalCalendarInjected = "1";
+    modal.innerHTML = `
+      <div class="fh-calendar-card" role="document">
+        <div class="fh-calendar-top">
+          <div>
+            <p class="fh-calendar-kicker">Select dates</p>
+            <h2 class="fh-calendar-title" id="fhToolbarCalendarTitle">Loading</h2>
+          </div>
+          <div class="fh-calendar-controls">
+            <button type="button" class="fh-calendar-control" data-fh-calendar-prev aria-label="Previous month">‹</button>
+            <button type="button" class="fh-calendar-control" data-fh-calendar-next aria-label="Next month">›</button>
+            <button type="button" class="fh-calendar-control" data-fh-calendar-close aria-label="Close calendar">×</button>
+          </div>
+        </div>
+
+        <p class="fh-calendar-help">Choose your arrival date, then your departure date.</p>
+
+        <div class="fh-calendar-week" aria-hidden="true">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+
+        <div class="fh-calendar-grid" id="fhToolbarCalendarGrid"></div>
+        <p class="fh-calendar-message" id="fhToolbarCalendarMessage">Select your arrival date.</p>
+
+        <div class="fh-calendar-hidden-fields">
+          <input id="fhArrival" type="hidden" value="">
+          <input id="fhDeparture" type="hidden" value="">
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    modal.addEventListener("click", function(event){
+      if(event.target === modal){
+        closeToolbarCalendar();
+        return;
+      }
+
+      if(event.target.closest("[data-fh-calendar-close]")){
+        closeToolbarCalendar();
+        return;
+      }
+
+      if(event.target.closest("[data-fh-calendar-prev]")){
+        fhToolbarCalendarState.monthDate = new Date(
+          fhToolbarCalendarState.monthDate.getFullYear(),
+          fhToolbarCalendarState.monthDate.getMonth() - 1,
+          1
+        );
+        renderToolbarCalendar();
+        return;
+      }
+
+      if(event.target.closest("[data-fh-calendar-next]")){
+        fhToolbarCalendarState.monthDate = new Date(
+          fhToolbarCalendarState.monthDate.getFullYear(),
+          fhToolbarCalendarState.monthDate.getMonth() + 1,
+          1
+        );
+        renderToolbarCalendar();
+        return;
+      }
+
+      const day = event.target.closest("#fhToolbarCalendarGrid .fh-day[data-date], #fhToolbarCalendarGrid button[data-date]");
+      if(day && !day.disabled){
+        selectToolbarCalendarDate(day.getAttribute("data-date"));
+      }
+    });
+
+    return modal;
+  }
+
+  function openToolbarCalendarModal(modal){
+    if(!modal) return false;
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("fh-toolbar-calendar-open");
+
+    if(modal.dataset.fhGlobalCalendarInjected === "1"){
+      renderToolbarCalendar();
+    }
+
+    return true;
+  }
+
+  function closeToolbarCalendar(){
+    const modal = document.getElementById("fhToolbarCalendarModal");
+    if(modal){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+    document.documentElement.classList.remove("fh-toolbar-calendar-open");
+    delete document.documentElement.dataset.fhHeaderScheduleActive;
+  }
+
+  async function fetchToolbarCalendarMonth(){
+    const first = new Date(fhToolbarCalendarState.monthDate.getFullYear(), fhToolbarCalendarState.monthDate.getMonth(), 1);
+    const last = new Date(fhToolbarCalendarState.monthDate.getFullYear(), fhToolbarCalendarState.monthDate.getMonth() + 1, 0);
+    const url = FH_WORKER_BASE.replace(/\/$/, "") +
+      "/calendar?listingId=" + encodeURIComponent(FH_LISTING_ID) +
+      "&from=" + encodeURIComponent(toISODate(first)) +
+      "&to=" + encodeURIComponent(toISODate(last));
+
+    fhToolbarCalendarState.loading = true;
+
+    try {
+      const response = await fetch(url, {
+        method:"GET",
+        headers:{ "Accept":"application/json" },
+        cache:"no-store"
+      });
+      const json = await response.json();
+      const days = Array.isArray(json.days) ? json.days : [];
+      fhToolbarCalendarState.days.clear();
+      days.forEach(function(day){
+        if(day && day.date){
+          fhToolbarCalendarState.days.set(day.date, day);
+        }
+      });
+    } catch(error) {
+      console.warn("Fletschhorn clean toolbar calendar could not load:", error);
+      fhToolbarCalendarState.days.clear();
+    } finally {
+      fhToolbarCalendarState.loading = false;
+    }
+  }
+
+  async function renderToolbarCalendar(){
+    const modal = ensureToolbarCalendarModal();
+    if(modal.dataset.fhGlobalCalendarInjected !== "1") return;
+
+    const title = modal.querySelector("#fhToolbarCalendarTitle");
+    const grid = modal.querySelector("#fhToolbarCalendarGrid");
+    const message = modal.querySelector("#fhToolbarCalendarMessage");
+
+    if(title) title.textContent = monthLabel(fhToolbarCalendarState.monthDate);
+    if(grid) grid.innerHTML = `<div style="grid-column:1/-1;padding:22px;text-align:center;color:rgba(25,23,20,.55)">Loading calendar…</div>`;
+
+    await fetchToolbarCalendarMonth();
+
+    if(title) title.textContent = monthLabel(fhToolbarCalendarState.monthDate);
+    if(!grid) return;
+    grid.innerHTML = "";
+
+    const first = new Date(fhToolbarCalendarState.monthDate.getFullYear(), fhToolbarCalendarState.monthDate.getMonth(), 1);
+    const last = new Date(fhToolbarCalendarState.monthDate.getFullYear(), fhToolbarCalendarState.monthDate.getMonth() + 1, 0);
+    const firstDay = first.getDay();
+    const daysInMonth = last.getDate();
+
+    for(let i = 0; i < firstDay; i++){
+      const empty = document.createElement("button");
+      empty.type = "button";
+      empty.className = "fh-day is-empty";
+      empty.tabIndex = -1;
+      grid.appendChild(empty);
+    }
+
+    for(let d = 1; d <= daysInMonth; d++){
+      const date = new Date(fhToolbarCalendarState.monthDate.getFullYear(), fhToolbarCalendarState.monthDate.getMonth(), d);
+      const iso = toISODate(date);
+      const data = fhToolbarCalendarState.days.get(iso);
+      const available = data ? (data.available !== false && data.status !== "booked" && data.status !== "blocked") : true;
+      const price = data ? formatCalendarPrice(data.price, data.currency || "CHF") : "";
+      const isSelected = iso === fhToolbarCalendarState.checkIn || iso === fhToolbarCalendarState.checkOut;
+      const isRange = fhToolbarCalendarState.checkIn && fhToolbarCalendarState.checkOut && iso > fhToolbarCalendarState.checkIn && iso < fhToolbarCalendarState.checkOut;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = ["fh-day", available ? "" : "is-booked is-disabled", isSelected ? "is-selected" : "", isRange ? "is-range" : ""].filter(Boolean).join(" ");
+      btn.setAttribute("data-date", iso);
+      btn.disabled = !available;
+      btn.innerHTML = `
+        <strong>${d}</strong>
+        <small>${price || "CHF —"}</small>
+        <em>${available ? "" : "Booked"}</em>
+      `;
+      grid.appendChild(btn);
+    }
+
+    if(message){
+      if(fhToolbarCalendarState.checkIn && fhToolbarCalendarState.checkOut){
+        message.textContent = fhToolbarCalendarState.checkIn + " → " + fhToolbarCalendarState.checkOut;
+      } else if(fhToolbarCalendarState.checkIn){
+        message.textContent = "Arrival selected. Now choose departure.";
+      } else {
+        message.textContent = "Select your arrival date.";
+      }
+    }
+  }
+
+  function selectToolbarCalendarDate(iso){
+    if(!fhToolbarCalendarState.checkIn || fhToolbarCalendarState.checkOut || iso < fhToolbarCalendarState.checkIn){
+      fhToolbarCalendarState.checkIn = iso;
+      fhToolbarCalendarState.checkOut = "";
+    } else if(iso > fhToolbarCalendarState.checkIn){
+      fhToolbarCalendarState.checkOut = iso;
+    }
+
+    writeToolbarDates(fhToolbarCalendarState.checkIn, fhToolbarCalendarState.checkOut);
+    renderToolbarCalendar();
+
+    if(fhToolbarCalendarState.checkIn && fhToolbarCalendarState.checkOut){
+      window.setTimeout(function(){
+        goToBookingWithDates({
+          checkIn:fhToolbarCalendarState.checkIn,
+          checkOut:fhToolbarCalendarState.checkOut
+        });
+      }, 180);
+    }
+  }
+
+  function openExistingToolbarSchedule(){
+    const opener = visibleOrFirst(toolbarCalendarOpeners());
+    if(opener){
+      opener.click();
+      return true;
+    }
+
+    return openToolbarCalendarModal(ensureToolbarCalendarModal());
+  }
+
   function openHeaderSchedule(){
     closeMenu();
-    closeLegacyToolbarSchedule();
 
-    if(!headerScheduleModal || !headerScheduleFrame){
-      window.location.href = bookingHref;
+    if(openExistingToolbarSchedule()){
+      document.documentElement.dataset.fhHeaderScheduleActive = "1";
       return;
     }
 
-    const src = headerScheduleUrl();
-
-    if(headerScheduleFrame.getAttribute("src") !== src){
-      headerScheduleFrame.setAttribute("src", src);
-    }
-
-    if(headerScheduleMessage){
-      headerScheduleMessage.textContent = "Continue after choosing both dates.";
-    }
-
-    headerScheduleModal.classList.add("is-open");
-    headerScheduleModal.setAttribute("aria-hidden", "false");
-    document.documentElement.classList.add("fh-header-schedule-open");
+    window.location.href = bookingHref;
   }
 
-  function closeHeaderSchedule(){
-    if(!headerScheduleModal) return;
-    headerScheduleModal.classList.remove("is-open");
-    headerScheduleModal.setAttribute("aria-hidden", "true");
-    document.documentElement.classList.remove("fh-header-schedule-open");
-  }
+  document.addEventListener("click", function(event){
+    if(document.documentElement.dataset.fhHeaderScheduleActive !== "1") return;
+    if(!event.target.closest || !event.target.closest("#fhToolbarCalendarGrid .fh-day[data-date], #fhToolbarCalendarGrid button[data-date]")) return;
+    window.setTimeout(function(){
+      const dates = pageToolbarDates();
+      if(goToBookingWithDates(dates)) delete document.documentElement.dataset.fhHeaderScheduleActive;
+    }, 160);
+  }, true);
 
-  function readHeaderScheduleDates(){
-    try {
-      const doc = headerScheduleFrame && headerScheduleFrame.contentDocument;
-      const arrival =
-        doc && (
-          doc.getElementById("fhArrival") ||
-          doc.getElementById("fh-exp-checkin") ||
-          doc.getElementById("fh-mobile-checkin") ||
-          doc.querySelector("[name='checkIn'], [name='checkin'], [name='arrival']")
-        );
+  document.addEventListener("keydown", function(event){
+    if(event.key === "Escape") closeToolbarCalendar();
+  });
 
-      const departure =
-        doc && (
-          doc.getElementById("fhDeparture") ||
-          doc.getElementById("fh-exp-checkout") ||
-          doc.getElementById("fh-mobile-checkout") ||
-          doc.querySelector("[name='checkOut'], [name='checkout'], [name='departure']")
-        );
-
-      return {
-        checkIn: arrival && arrival.value || "",
-        checkOut: departure && departure.value || ""
-      };
-    } catch(error) {
-      return { checkIn:"", checkOut:"" };
-    }
-  }
-
-  function continueHeaderSchedule(silent){
-    const dates = readHeaderScheduleDates();
-
-    if(!dates.checkIn || !dates.checkOut){
-      if(!silent && headerScheduleMessage){
-        headerScheduleMessage.textContent = "Please choose arrival and departure dates first.";
-      }
-      return false;
-    }
-
-    return goToBookingWithDates(dates);
-  }
-
-  function bindHeaderScheduleFrame(){
-    try {
-      const doc = headerScheduleFrame && headerScheduleFrame.contentDocument;
-      if(!doc || doc.dataset.fhHeaderAutoBound === "1") return;
-
-      doc.dataset.fhHeaderAutoBound = "1";
-
-      doc.addEventListener("click", function(){
-        window.setTimeout(function(){
-          continueHeaderSchedule(true);
-        }, 180);
-      }, true);
-
-      doc.addEventListener("change", function(){
-        window.setTimeout(function(){
-          continueHeaderSchedule(true);
-        }, 180);
-      }, true);
-
-      doc.addEventListener("input", function(){
-        window.setTimeout(function(){
-          continueHeaderSchedule(true);
-        }, 180);
-      }, true);
-    } catch(error) {}
-  }
-
-
-  if(headerScheduleClose) headerScheduleClose.addEventListener("click", closeHeaderSchedule);
-  if(headerScheduleContinue) headerScheduleContinue.addEventListener("click", function(){ continueHeaderSchedule(false); });
-  if(headerScheduleFrame) headerScheduleFrame.addEventListener("load", bindHeaderScheduleFrame);
-  if(headerScheduleModal) headerScheduleModal.addEventListener("click", function(event){ if(event.target === headerScheduleModal) closeHeaderSchedule(); });
-  document.addEventListener("keydown", function(event){ if(event.key === "Escape") closeHeaderSchedule(); });
   document.addEventListener("click", function(event){
     const book = event.target.closest ? event.target.closest("[data-fh-footbar-book]") : null;
     if(book){ event.preventDefault(); event.stopImmediatePropagation(); openHeaderSchedule(); return; }
     const menuBtn = event.target.closest ? event.target.closest("[data-fh-footbar-menu]") : null;
     if(menuBtn){ event.preventDefault(); event.stopImmediatePropagation(); openMenu(); }
   });
+
   document.documentElement.dataset.fhFootbarBookBound = "1";
 
   normalizeBookingLinks();
@@ -894,6 +1272,8 @@ html.fh-header-schedule-open [id*="ToolbarCalendar"]{
     }
   }, true);
 
+  window.FHOpenCleanSchedule = openHeaderSchedule;
+  window.FHCloseCleanSchedule = closeToolbarCalendar;
 
 
   const bookingObserver = new MutationObserver(normalizeBookingLinks);
