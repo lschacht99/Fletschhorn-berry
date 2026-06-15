@@ -262,6 +262,17 @@
     font-size:7.5px;
   }
 }
+
+.fh-booking-schedule-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(25,23,20,.58);backdrop-filter:blur(12px)}
+.fh-booking-schedule-modal.is-open{display:flex}
+.fh-booking-schedule-dialog{width:min(980px,100%);height:min(820px,calc(100svh - 32px));background:#fffaf3;border:1px solid rgba(255,250,243,.72);box-shadow:0 32px 90px rgba(0,0,0,.28);display:grid;grid-template-rows:auto 1fr;overflow:hidden}
+.fh-booking-schedule-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border-bottom:1px solid rgba(25,23,20,.12);background:#fffaf3;color:#191714}
+.fh-booking-schedule-head strong{display:block;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:24px;line-height:1;letter-spacing:-.04em}
+.fh-booking-schedule-head span{display:block;margin-top:4px;color:rgba(25,23,20,.58);font-size:12px;line-height:1.35}
+.fh-booking-schedule-close{width:40px;min-height:40px;border:1px solid rgba(25,23,20,.14);background:rgba(255,255,255,.52);color:#191714;font-size:24px;line-height:1}
+.fh-booking-schedule-frame{width:100%;height:100%;border:0;background:#fffaf3}
+html.fh-booking-modal-open,html.fh-booking-modal-open body{overflow:hidden!important}
+@media(max-width:640px){.fh-booking-schedule-modal{padding:8px}.fh-booking-schedule-dialog{height:calc(100svh - 16px)}.fh-booking-schedule-head{padding:12px}.fh-booking-schedule-head strong{font-size:21px}}
 </style>
 
 <script>
@@ -284,7 +295,7 @@
       location:"Location",     locationLabel:"Location",      locationNote:"Where Fletschhorn is located.",
       events:"Events",         eventsLabel:"Wedding & Events",eventsNote:"Weddings, private events, retreats, and celebrations.",
       about:"About",           aboutLabel:"About Us",         aboutNote:"Story, history, and the private-house direction.",
-      bookNow:"Book Now",      bookNowNote:"Go directly to the booking page to complete your stay request.",
+      bookNow:"Book Now",      bookNowNote:"Open the schedule to choose dates for your stay.",
       brandNote:"Private alpine house · Saas-Fee"
     },
     fr:{
@@ -294,7 +305,7 @@
       location:"Emplacement",  locationLabel:"Emplacement",          locationNote:"L'emplacement du Fletschhorn.",
       events:"Événements",     eventsLabel:"Mariage & Événements",   eventsNote:"Mariages, événements privés, retraites et célébrations.",
       about:"À propos",        aboutLabel:"À propos",                aboutNote:"L'histoire et la direction de la maison privée.",
-      bookNow:"Réserver",      bookNowNote:"Accédez directement à la page de réservation pour finaliser votre séjour.",
+      bookNow:"Réserver",      bookNowNote:"Ouvrez le calendrier pour choisir les dates de votre séjour.",
       brandNote:"Maison alpine privée · Saas-Fee"
     },
     de:{
@@ -304,7 +315,7 @@
       location:"Lage",         locationLabel:"Lage",                 locationNote:"Der Standort des Fletschhorn.",
       events:"Events",         eventsLabel:"Hochzeit & Events",      eventsNote:"Hochzeiten, private Events, Retreats und Feiern.",
       about:"Über uns",        aboutLabel:"Über uns",                aboutNote:"Geschichte und die Ausrichtung als Privathaus.",
-      bookNow:"Buchen",        bookNowNote:"Direkt zur Buchungsseite, um den Aufenthalt abzuschließen.",
+      bookNow:"Buchen",        bookNowNote:"Öffnen Sie den Kalender, um Ihre Reisedaten zu wählen.",
       brandNote:"Privates Alpenhaus · Saas-Fee"
     },
     ru:{
@@ -314,7 +325,7 @@
       location:"Расположение", locationLabel:"Расположение",         locationNote:"Где находится Fletschhorn.",
       events:"События",        eventsLabel:"Свадьба и события",      eventsNote:"Свадьбы, частные мероприятия, ретриты и торжества.",
       about:"О нас",           aboutLabel:"О нас",                   aboutNote:"История и направление частного дома.",
-      bookNow:"Забронировать", bookNowNote:"Перейти на страницу бронирования для завершения запроса.",
+      bookNow:"Забронировать", bookNowNote:"Откройте календарь, чтобы выбрать даты пребывания.",
       brandNote:"Частный горный дом · Саас-Фе"
     },
     he:{
@@ -324,7 +335,7 @@
       location:"מיקום",        locationLabel:"מיקום",                locationNote:"איפה נמצא Fletschhorn.",
       events:"אירועים",        eventsLabel:"חתונות ואירועים",        eventsNote:"חתונות, אירועים פרטיים, ריטריטים וחגיגות.",
       about:"אודות",           aboutLabel:"אודותינו",                aboutNote:"היסטוריה וכיוון הבית הפרטי.",
-      bookNow:"הזמינו",        bookNowNote:"עברו ישירות לעמוד ההזמנה להשלמת בקשת השהייה.",
+      bookNow:"הזמינו",        bookNowNote:"פתחו את לוח הזמנים כדי לבחור תאריכים לשהייה.",
       brandNote:"בית אלפיני פרטי · סאס-פה"
     }
   };
@@ -458,6 +469,19 @@
       <button type="button" data-lang="de">DE</button>
       <button type="button" data-lang="ru">RU</button>
       <button type="button" data-lang="he">HE</button>
+    </div>
+
+    <div class="fh-booking-schedule-modal" id="fhBookingScheduleModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fhBookingScheduleTitle">
+      <div class="fh-booking-schedule-dialog">
+        <div class="fh-booking-schedule-head">
+          <div>
+            <strong id="fhBookingScheduleTitle">Choose your dates</strong>
+            <span id="fhBookingScheduleNote">Select available arrival and departure dates in the schedule.</span>
+          </div>
+          <button class="fh-booking-schedule-close" type="button" id="fhBookingScheduleClose" aria-label="Close schedule">×</button>
+        </div>
+        <iframe class="fh-booking-schedule-frame" id="fhBookingScheduleFrame" title="Fletschhorn booking schedule"></iframe>
+      </div>
     </div>
   `);
 
@@ -629,7 +653,7 @@
   /*
     Booking safety rule:
     Any visible button/link that clearly says Book Now, Booking, Reserve, or Book your stay
-    will always go to /booking.html, not to #booking, #book, a page section, or another page anchor.
+    opens the booking schedule popup instead of moving visitors directly to the booking page.
   */
   function isBookingIntent(link){
     if(!link) return false;
@@ -665,6 +689,42 @@
     });
   }
 
+  const scheduleModal = document.getElementById("fhBookingScheduleModal");
+  const scheduleFrame = document.getElementById("fhBookingScheduleFrame");
+  const scheduleClose = document.getElementById("fhBookingScheduleClose");
+
+  function openBookingSchedule(){
+    closeMenu();
+    if(!scheduleModal || !scheduleFrame){
+      window.location.href = bookingHref;
+      return;
+    }
+    const lang = getStoredFhLang();
+    const src = bookingHref + "?fhSchedulePopup=1&lang=" + encodeURIComponent(lang);
+    if(scheduleFrame.getAttribute("src") !== src) scheduleFrame.setAttribute("src", src);
+    scheduleModal.classList.add("is-open");
+    scheduleModal.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("fh-booking-modal-open");
+    if(scheduleClose) scheduleClose.focus();
+  }
+
+  function closeBookingSchedule(){
+    if(!scheduleModal) return;
+    scheduleModal.classList.remove("is-open");
+    scheduleModal.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("fh-booking-modal-open");
+  }
+
+  if(scheduleClose) scheduleClose.addEventListener("click", closeBookingSchedule);
+  if(scheduleModal){
+    scheduleModal.addEventListener("click", function(event){
+      if(event.target === scheduleModal) closeBookingSchedule();
+    });
+  }
+  document.addEventListener("keydown", function(event){
+    if(event.key === "Escape") closeBookingSchedule();
+  });
+
   normalizeBookingLinks();
 
   document.addEventListener("click", function(event){
@@ -673,7 +733,7 @@
 
     if(isBookingIntent(link)){
       event.preventDefault();
-      window.location.href = bookingHref;
+      openBookingSchedule();
     }
   }, true);
 
