@@ -276,6 +276,63 @@
 
   const bookingHref = page("booking.html");
 
+  const NAV_TEXT = {
+    en:{
+      home:"Home",             homeLabel:"Home",             homeNote:"Start with the house, setting, and inquiry.",
+      property:"Property",     propertyLabel:"The Property",  propertyNote:"The spaces, rooms, amenities, dining, and kitchen.",
+      experiences:"Experiences",experiencesLabel:"Experiences",experiencesNote:"What to do in Saas-Fee and around the property.",
+      location:"Location",     locationLabel:"Location",      locationNote:"Where Fletschhorn is located.",
+      events:"Events",         eventsLabel:"Wedding & Events",eventsNote:"Weddings, private events, retreats, and celebrations.",
+      about:"About",           aboutLabel:"About Us",         aboutNote:"Story, history, and the private-house direction.",
+      bookNow:"Book Now",      bookNowNote:"Go directly to the booking page to complete your stay request.",
+      brandNote:"Private alpine house · Saas-Fee"
+    },
+    fr:{
+      home:"Accueil",          homeLabel:"Accueil",                  homeNote:"Découvrez la maison, le cadre et la procédure de demande.",
+      property:"Propriété",    propertyLabel:"La propriété",         propertyNote:"Les espaces, chambres, équipements, restauration et cuisine.",
+      experiences:"Expériences",experiencesLabel:"Expériences",      experiencesNote:"Les activités à Saas-Fee et autour de la propriété.",
+      location:"Emplacement",  locationLabel:"Emplacement",          locationNote:"L'emplacement du Fletschhorn.",
+      events:"Événements",     eventsLabel:"Mariage & Événements",   eventsNote:"Mariages, événements privés, retraites et célébrations.",
+      about:"À propos",        aboutLabel:"À propos",                aboutNote:"L'histoire et la direction de la maison privée.",
+      bookNow:"Réserver",      bookNowNote:"Accédez directement à la page de réservation pour finaliser votre séjour.",
+      brandNote:"Maison alpine privée · Saas-Fee"
+    },
+    de:{
+      home:"Startseite",       homeLabel:"Startseite",               homeNote:"Starten Sie mit dem Haus, der Umgebung und der Anfrage.",
+      property:"Das Haus",     propertyLabel:"Das Haus",             propertyNote:"Räume, Zimmer, Ausstattung, Speisen und Küche.",
+      experiences:"Erlebnisse",experiencesLabel:"Erlebnisse",        experiencesNote:"Aktivitäten in Saas-Fee und rund um die Unterkunft.",
+      location:"Lage",         locationLabel:"Lage",                 locationNote:"Der Standort des Fletschhorn.",
+      events:"Events",         eventsLabel:"Hochzeit & Events",      eventsNote:"Hochzeiten, private Events, Retreats und Feiern.",
+      about:"Über uns",        aboutLabel:"Über uns",                aboutNote:"Geschichte und die Ausrichtung als Privathaus.",
+      bookNow:"Buchen",        bookNowNote:"Direkt zur Buchungsseite, um den Aufenthalt abzuschließen.",
+      brandNote:"Privates Alpenhaus · Saas-Fee"
+    },
+    ru:{
+      home:"Главная",          homeLabel:"Главная",                  homeNote:"Познакомьтесь с домом, атмосферой и процессом запроса.",
+      property:"Объект",       propertyLabel:"Объект",               propertyNote:"Пространства, комнаты, удобства, питание и кухня.",
+      experiences:"Впечатления",experiencesLabel:"Впечатления",      experiencesNote:"Чем заняться в Саас-Фе и вокруг объекта.",
+      location:"Расположение", locationLabel:"Расположение",         locationNote:"Где находится Fletschhorn.",
+      events:"События",        eventsLabel:"Свадьба и события",      eventsNote:"Свадьбы, частные мероприятия, ретриты и торжества.",
+      about:"О нас",           aboutLabel:"О нас",                   aboutNote:"История и направление частного дома.",
+      bookNow:"Забронировать", bookNowNote:"Перейти на страницу бронирования для завершения запроса.",
+      brandNote:"Частный горный дом · Саас-Фе"
+    },
+    he:{
+      home:"בית",              homeLabel:"בית",                      homeNote:"גלו את הבית, הסביבה ותהליך הפנייה.",
+      property:"נכס",          propertyLabel:"הנכס",                 propertyNote:"החללים, החדרים, השירותים, האוכל והמטבח.",
+      experiences:"חוויות",    experiencesLabel:"חוויות",            experiencesNote:"מה לעשות בסאס-פה ובסביבת הנכס.",
+      location:"מיקום",        locationLabel:"מיקום",                locationNote:"איפה נמצא Fletschhorn.",
+      events:"אירועים",        eventsLabel:"חתונות ואירועים",        eventsNote:"חתונות, אירועים פרטיים, ריטריטים וחגיגות.",
+      about:"אודות",           aboutLabel:"אודותינו",                aboutNote:"היסטוריה וכיוון הבית הפרטי.",
+      bookNow:"הזמינו",        bookNowNote:"עברו ישירות לעמוד ההזמנה להשלמת בקשת השהייה.",
+      brandNote:"בית אלפיני פרטי · סאס-פה"
+    }
+  };
+
+  function getNavBundle(lang){
+    return NAV_TEXT[lang] || NAV_TEXT.en;
+  }
+
   const pages = [
     {
       key:"home",
@@ -338,15 +395,15 @@
 
   const navLinks = pages.map(item => `
     <a href="${item.href}" class="${active === item.key ? "is-active" : ""}">
-      ${item.short}
+      <span data-fh-nav-short="${item.key}">${item.short}</span>
     </a>
   `).join("");
 
   const mobileLinks = pages.map(item => `
     <a href="${item.href}" class="${active === item.key ? "is-active" : ""}">
       <span>
-        <strong>${item.label}</strong>
-        <small>${item.note}</small>
+        <strong data-fh-nav-label="${item.key}">${item.label}</strong>
+        <small data-fh-nav-note="${item.key}">${item.note}</small>
       </span>
       <em>→</em>
     </a>
@@ -361,8 +418,8 @@
           ${mobileLinks}
           <a href="${bookingHref}" class="${active === "booking" ? "is-active" : ""}" data-fh-booking-link="true">
             <span>
-              <strong>Book Now</strong>
-              <small>Go directly to the booking page to complete your stay request.</small>
+              <strong data-fh-book-label>Book Now</strong>
+              <small data-fh-book-note>Go directly to the booking page to complete your stay request.</small>
             </span>
             <em>→</em>
           </a>
@@ -377,17 +434,17 @@
         </span>
         <span>
           <span class="fh-brand-name">Fletschhorn</span>
-          <span class="fh-brand-note">Private alpine house · Saas-Fee</span>
+          <span class="fh-brand-note" data-fh-brand-note>Private alpine house · Saas-Fee</span>
         </span>
       </a>
 
       <nav class="fh-global-nav" aria-label="Primary navigation">
         ${navLinks}
-        <a class="fh-global-cta fh-header-book-now" href="${bookingHref}" data-fh-booking-link="true">Book Now</a>
+        <a class="fh-global-cta fh-header-book-now" href="${bookingHref}" data-fh-booking-link="true"><span data-fh-book-btn>Book Now</span></a>
       </nav>
 
       <a class="fh-header-book-now fh-mobile-book-now" href="${bookingHref}" aria-label="Book your stay" data-fh-booking-link="true">
-        Book Now
+        <span data-fh-book-btn>Book Now</span>
       </a>
 
       <button class="fh-mobile-toggle" type="button" id="fhMobileToggle" aria-expanded="false" aria-controls="fhMobileMenu" aria-label="Open menu">
@@ -490,10 +547,48 @@
     } catch(error) {}
   }
 
+  function updateHeaderLang(lang){
+    const bundle = getNavBundle(lang);
+
+    document.querySelectorAll("[data-fh-nav-short]").forEach(function(el){
+      const key = el.getAttribute("data-fh-nav-short");
+      if(bundle[key]) el.textContent = bundle[key];
+    });
+
+    document.querySelectorAll("[data-fh-nav-label]").forEach(function(el){
+      const key = el.getAttribute("data-fh-nav-label");
+      const labelKey = key + "Label";
+      if(bundle[labelKey]) el.textContent = bundle[labelKey];
+    });
+
+    document.querySelectorAll("[data-fh-nav-note]").forEach(function(el){
+      const key = el.getAttribute("data-fh-nav-note");
+      const noteKey = key + "Note";
+      if(bundle[noteKey]) el.textContent = bundle[noteKey];
+    });
+
+    document.querySelectorAll("[data-fh-book-btn]").forEach(function(el){
+      el.textContent = bundle.bookNow;
+    });
+
+    document.querySelectorAll("[data-fh-book-label]").forEach(function(el){
+      el.textContent = bundle.bookNow;
+    });
+
+    document.querySelectorAll("[data-fh-book-note]").forEach(function(el){
+      el.textContent = bundle.bookNowNote;
+    });
+
+    document.querySelectorAll("[data-fh-brand-note]").forEach(function(el){
+      el.textContent = bundle.brandNote;
+    });
+  }
+
   function applyGlobalLanguage(lang){
     const selectedLang = cleanLang(lang);
 
     setGlobalLangActive(selectedLang);
+    updateHeaderLang(selectedLang);
 
     if(typeof window.setFletschhornLanguage === "function"){
       window.setFletschhornLanguage(selectedLang);
@@ -513,6 +608,7 @@
   if(globalLangSwitch){
     const initialLang = getStoredFhLang();
     setGlobalLangActive(initialLang);
+    updateHeaderLang(initialLang);
 
     globalLangSwitch.querySelectorAll("button[data-lang]").forEach(function(btn){
       btn.addEventListener("click", function(){
