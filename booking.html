@@ -52,6 +52,12 @@
     button{cursor:pointer}
 
     #fh-header-slot,#fh-footer-slot{position:relative;z-index:80}
+    body.fh-schedule-popup-mode #fh-header-slot,
+    body.fh-schedule-popup-mode #fh-footer-slot,
+    body.fh-schedule-popup-mode #fh-booking-page .fh-photo-hero,
+    body.fh-schedule-popup-mode #fh-booking-page .fh-section:not(#fh-visible-schedule){display:none!important}
+    body.fh-schedule-popup-mode #fh-booking-page{min-height:100svh;background:var(--fh-paper)}
+    body.fh-schedule-popup-mode #fh-booking-page .fh-section{padding:14px}
 
     #fh-booking-page{
       position:relative;
@@ -646,6 +652,11 @@
   </style>
 </head>
 <body>
+  <script>
+    if (new URLSearchParams(window.location.search).get("fhSchedulePopup") === "1") {
+      document.body.classList.add("fh-schedule-popup-mode");
+    }
+  </script>
   <div id="fh-header-slot"></div>
 
   <main id="fh-booking-page" data-current-lang="en" dir="ltr">

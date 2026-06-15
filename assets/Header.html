@@ -292,7 +292,7 @@
       location:"Location",     locationLabel:"Location",      locationNote:"Where Fletschhorn is located.",
       events:"Events",         eventsLabel:"Wedding & Events",eventsNote:"Weddings, private events, retreats, and celebrations.",
       about:"About",           aboutLabel:"About Us",         aboutNote:"Story, history, and the private-house direction.",
-      bookNow:"Book Now",      bookNowNote:"Go directly to the booking page to complete your stay request.",
+      bookNow:"Book Now",      bookNowNote:"Open the schedule to choose dates for your stay.",
       brandNote:"Private alpine house · Saas-Fee"
     },
     fr:{
@@ -302,7 +302,7 @@
       location:"Emplacement",  locationLabel:"Emplacement",          locationNote:"L'emplacement du Fletschhorn.",
       events:"Événements",     eventsLabel:"Mariage & Événements",   eventsNote:"Mariages, événements privés, retraites et célébrations.",
       about:"À propos",        aboutLabel:"À propos",                aboutNote:"L'histoire et la direction de la maison privée.",
-      bookNow:"Réserver",      bookNowNote:"Accédez directement à la page de réservation pour finaliser votre séjour.",
+      bookNow:"Réserver",      bookNowNote:"Ouvrez le calendrier pour choisir les dates de votre séjour.",
       brandNote:"Maison alpine privée · Saas-Fee"
     },
     de:{
@@ -312,7 +312,7 @@
       location:"Lage",         locationLabel:"Lage",                 locationNote:"Der Standort des Fletschhorn.",
       events:"Events",         eventsLabel:"Hochzeit & Events",      eventsNote:"Hochzeiten, private Events, Retreats und Feiern.",
       about:"Über uns",        aboutLabel:"Über uns",                aboutNote:"Geschichte und die Ausrichtung als Privathaus.",
-      bookNow:"Buchen",        bookNowNote:"Direkt zur Buchungsseite, um den Aufenthalt abzuschließen.",
+      bookNow:"Buchen",        bookNowNote:"Öffnen Sie den Kalender, um Ihre Reisedaten zu wählen.",
       brandNote:"Privates Alpenhaus · Saas-Fee"
     },
     ru:{
@@ -322,7 +322,7 @@
       location:"Расположение", locationLabel:"Расположение",         locationNote:"Где находится Fletschhorn.",
       events:"События",        eventsLabel:"Свадьба и события",      eventsNote:"Свадьбы, частные мероприятия, ретриты и торжества.",
       about:"О нас",           aboutLabel:"О нас",                   aboutNote:"История и направление частного дома.",
-      bookNow:"Забронировать", bookNowNote:"Перейти на страницу бронирования для завершения запроса.",
+      bookNow:"Забронировать", bookNowNote:"Откройте календарь, чтобы выбрать даты пребывания.",
       brandNote:"Частный горный дом · Саас-Фе"
     },
     he:{
@@ -332,7 +332,7 @@
       location:"מיקום",        locationLabel:"מיקום",                locationNote:"איפה נמצא Fletschhorn.",
       events:"אירועים",        eventsLabel:"חתונות ואירועים",        eventsNote:"חתונות, אירועים פרטיים, ריטריטים וחגיגות.",
       about:"אודות",           aboutLabel:"אודותינו",                aboutNote:"היסטוריה וכיוון הבית הפרטי.",
-      bookNow:"הזמינו",        bookNowNote:"עברו ישירות לעמוד ההזמנה להשלמת בקשת השהייה.",
+      bookNow:"הזמינו",        bookNowNote:"פתחו את לוח הזמנים כדי לבחור תאריכים לשהייה.",
       brandNote:"בית אלפיני פרטי · סאס-פה"
     }
   };
@@ -681,6 +681,42 @@
     });
   }
 
+  const scheduleModal = document.getElementById("fhBookingScheduleModal");
+  const scheduleFrame = document.getElementById("fhBookingScheduleFrame");
+  const scheduleClose = document.getElementById("fhBookingScheduleClose");
+
+  function openBookingSchedule(){
+    closeMenu();
+    if(!scheduleModal || !scheduleFrame){
+      window.location.href = bookingHref;
+      return;
+    }
+    const lang = getStoredFhLang();
+    const src = bookingHref + "?fhSchedulePopup=1&lang=" + encodeURIComponent(lang);
+    if(scheduleFrame.getAttribute("src") !== src) scheduleFrame.setAttribute("src", src);
+    scheduleModal.classList.add("is-open");
+    scheduleModal.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("fh-booking-modal-open");
+    if(scheduleClose) scheduleClose.focus();
+  }
+
+  function closeBookingSchedule(){
+    if(!scheduleModal) return;
+    scheduleModal.classList.remove("is-open");
+    scheduleModal.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("fh-booking-modal-open");
+  }
+
+  if(scheduleClose) scheduleClose.addEventListener("click", closeBookingSchedule);
+  if(scheduleModal){
+    scheduleModal.addEventListener("click", function(event){
+      if(event.target === scheduleModal) closeBookingSchedule();
+    });
+  }
+  document.addEventListener("keydown", function(event){
+    if(event.key === "Escape") closeBookingSchedule();
+  });
+
   normalizeBookingLinks();
 
   document.addEventListener("click", function(event){
@@ -689,7 +725,7 @@
 
     if(isBookingIntent(link)){
       event.preventDefault();
-      window.location.href = bookingHref;
+      openBookingSchedule();
     }
   }, true);
 
