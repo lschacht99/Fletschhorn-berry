@@ -276,6 +276,13 @@
 .fh-header-schedule-continue{min-height:42px;border:0;border-radius:999px;background:#b99f86;color:#fffaf3;padding:0 16px;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:900}
 html.fh-header-schedule-open,html.fh-header-schedule-open body{overflow:hidden!important}
 @media(max-width:640px){.fh-header-schedule-modal{align-items:center!important;justify-content:center!important;padding:12px!important}.fh-header-schedule-dialog{width:calc(100vw - 24px);height:min(620px,calc(100svh - 24px));border-radius:20px}.fh-header-schedule-head strong{font-size:22px}}
+
+.fh-mobile-footbar{position:fixed;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9998;width:min(430px,calc(100% - 18px));display:none;grid-template-columns:repeat(4,1fr);gap:5px;padding:7px;border:1px solid rgba(28,24,20,.10);border-radius:24px;background:rgba(255,250,243,.9);box-shadow:0 18px 48px rgba(20,16,12,.18);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.fh-mobile-footbar a,.fh-mobile-footbar button{min-height:44px;border:0;border-radius:18px;background:transparent;color:rgba(28,24,20,.64);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:inherit;font-size:9px;line-height:1;text-transform:uppercase;letter-spacing:.06em;font-weight:850;text-decoration:none;cursor:pointer}
+.fh-mobile-footbar em{font-style:normal;font-size:16px;line-height:1}
+.fh-mobile-footbar .fh-footbar-book{background:#b99f86;color:#fffaf3;box-shadow:0 10px 22px rgba(135,110,88,.22)}
+.fh-mobile-footbar a.is-active{background:#22392f;color:#fffaf3}
+@media(max-width:760px){.fh-mobile-footbar{display:grid}body.fh-global-shell{padding-bottom:72px!important}}
 </style>
 
 <script>
@@ -473,6 +480,13 @@ html.fh-header-schedule-open,html.fh-header-schedule-open body{overflow:hidden!i
       <button type="button" data-lang="ru">RU</button>
       <button type="button" data-lang="he">HE</button>
     </div>
+
+    <nav class="fh-mobile-footbar" id="fhMobileFootbar" aria-label="Mobile quick navigation">
+      <a href="${page("index.html")}" class="${active === "home" ? "is-active" : ""}"><em>⌂</em><span>Home</span></a>
+      <button type="button" class="fh-footbar-book" data-fh-footbar-book="true"><em>＋</em><span>Book</span></button>
+      <a href="${page("Experiences.html")}" class="${active === "experiences" ? "is-active" : ""}"><em>✦</em><span>Explore</span></a>
+      <button type="button" data-fh-footbar-menu="true"><em>☰</em><span>Menu</span></button>
+    </nav>
 
     <div class="fh-header-schedule-modal" id="fhHeaderScheduleModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fhHeaderScheduleTitle">
       <div class="fh-header-schedule-dialog">
@@ -706,8 +720,41 @@ html.fh-header-schedule-open,html.fh-header-schedule-open body{overflow:hidden!i
     return bookingHref + "?fhSchedulePopup=1&lang=" + encodeURIComponent(getStoredFhLang());
   }
 
+  function pageToolbarDates(){
+    const arrival = document.getElementById("fhArrival") || document.getElementById("fh-exp-checkin") || document.getElementById("fh-mobile-checkin");
+    const departure = document.getElementById("fhDeparture") || document.getElementById("fh-exp-checkout") || document.getElementById("fh-mobile-checkout");
+    return { checkIn: arrival && arrival.value || "", checkOut: departure && departure.value || "" };
+  }
+
+  function visibleOrFirst(list){
+    return list.find(function(el){ return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); }) || list[0] || null;
+  }
+
+  function toolbarCalendarOpeners(){
+    return Array.prototype.slice.call(document.querySelectorAll("#fhOpenToolbarCalendar, [data-mobile-open-calendar]"));
+  }
+
+  function openExistingToolbarSchedule(){
+    const opener = visibleOrFirst(toolbarCalendarOpeners());
+    if(opener){ opener.click(); return true; }
+    const modal = document.getElementById("fhToolbarCalendarModal");
+    if(modal){ modal.classList.add("open"); modal.setAttribute("aria-hidden", "false"); return true; }
+    return false;
+  }
+
+  function goToBookingWithDates(dates){
+    if(!dates.checkIn || !dates.checkOut) return false;
+    const params = new URLSearchParams({ checkIn:dates.checkIn, checkOut:dates.checkOut, lang:getStoredFhLang(), source:"header-schedule" });
+    window.location.href = bookingHref + "?" + params.toString();
+    return true;
+  }
+
   function openHeaderSchedule(){
     closeMenu();
+    if(openExistingToolbarSchedule()){
+      document.documentElement.dataset.fhHeaderScheduleActive = "1";
+      return;
+    }
     if(!headerScheduleModal || !headerScheduleFrame){ window.location.href = bookingHref; return; }
     const src = headerScheduleUrl();
     if(headerScheduleFrame.getAttribute("src") !== src) headerScheduleFrame.setAttribute("src", src);
@@ -739,9 +786,7 @@ html.fh-header-schedule-open,html.fh-header-schedule-open body{overflow:hidden!i
       if(!silent && headerScheduleMessage) headerScheduleMessage.textContent = "Please choose arrival and departure dates first.";
       return false;
     }
-    const params = new URLSearchParams({ checkIn:dates.checkIn, checkOut:dates.checkOut, lang:getStoredFhLang(), source:"header-schedule" });
-    window.location.href = bookingHref + "?" + params.toString();
-    return true;
+    return goToBookingWithDates(dates);
   }
 
   function bindHeaderScheduleFrame(){
@@ -755,11 +800,28 @@ html.fh-header-schedule-open,html.fh-header-schedule-open body{overflow:hidden!i
     } catch(error) {}
   }
 
+  document.addEventListener("click", function(event){
+    if(document.documentElement.dataset.fhHeaderScheduleActive !== "1") return;
+    if(!event.target.closest || !event.target.closest("#fhToolbarCalendarGrid .fh-day[data-date], #fhToolbarCalendarGrid button[data-date]")) return;
+    window.setTimeout(function(){
+      const dates = pageToolbarDates();
+      if(goToBookingWithDates(dates)) delete document.documentElement.dataset.fhHeaderScheduleActive;
+    }, 160);
+  }, true);
+
+
   if(headerScheduleClose) headerScheduleClose.addEventListener("click", closeHeaderSchedule);
   if(headerScheduleContinue) headerScheduleContinue.addEventListener("click", function(){ continueHeaderSchedule(false); });
   if(headerScheduleFrame) headerScheduleFrame.addEventListener("load", bindHeaderScheduleFrame);
   if(headerScheduleModal) headerScheduleModal.addEventListener("click", function(event){ if(event.target === headerScheduleModal) closeHeaderSchedule(); });
   document.addEventListener("keydown", function(event){ if(event.key === "Escape") closeHeaderSchedule(); });
+  document.addEventListener("click", function(event){
+    const book = event.target.closest ? event.target.closest("[data-fh-footbar-book]") : null;
+    if(book){ event.preventDefault(); openHeaderSchedule(); return; }
+    const menuBtn = event.target.closest ? event.target.closest("[data-fh-footbar-menu]") : null;
+    if(menuBtn){ event.preventDefault(); openMenu(); }
+  });
+  document.documentElement.dataset.fhFootbarBookBound = "1";
 
   normalizeBookingLinks();
 
