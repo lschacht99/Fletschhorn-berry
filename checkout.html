@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Fletschhorn · Checkout</title>
-  <meta name="description" content="Checkout for a private Fletschhorn stay in Saas-Fee.">
+  <title>Fletschhorn · Secure Checkout</title>
+  <meta name="description" content="Secure checkout for your private Fletschhorn stay in Saas-Fee. Complete your reservation with confidence.">
+  <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="assets/fh-global.css">
 
   <style>
@@ -112,6 +113,8 @@
     .fh-policy-note{margin:13px 0 0;padding:12px 13px;border:1px solid rgba(25,23,20,.08);background:rgba(255,255,255,.38);color:var(--fh-muted);font-size:12.5px;line-height:1.48}
     .fh-policy-note b{display:block;margin-bottom:4px;color:rgba(25,23,20,.62);font-size:9px;text-transform:uppercase;letter-spacing:.14em;font-weight:900}
     .fh-policy-note p{margin:0;color:inherit;font-size:inherit;line-height:inherit}
+    .fh-policy-inline{margin:14px 0 0;font-size:12.5px;line-height:1.5;color:var(--fh-muted)}
+    .fh-policy-link{color:var(--fh-clay2);text-decoration:underline;text-underline-offset:2px}
     .fh-actions{display:grid;gap:9px;margin-top:16px}
     .fh-primary-btn{min-height:50px;border:0;background:var(--fh-clay);color:var(--fh-white);text-transform:uppercase;letter-spacing:.13em;font-size:11px;font-weight:900;padding:0 17px;transition:background .18s,opacity .18s,transform .18s;border-radius:0;text-align:center;display:inline-flex;align-items:center;justify-content:center}
     .fh-primary-btn:hover{background:var(--fh-clay2);transform:translateY(-1px)}
@@ -183,10 +186,11 @@
               <div class="fh-field"><label for="fhPostal" id="fhPostalLabel">Postal code</label><input id="fhPostal" name="postal" autocomplete="billing postal-code" required></div>
             </div>
 
-            <div class="fh-policy-note" id="fhPolicyNote" aria-live="polite">
-              <b id="fhPolicyTitle">Cancellation note</b>
-              <p id="fhPolicyText">If plans change, cancellations made at least 60 days before arrival receive a 50% refund. Final stay terms are confirmed here at checkout.</p>
-            </div>
+            <p class="fh-policy-inline" id="fhPolicyNote" aria-live="polite">
+              By completing your booking you agree to the <a href="booking.html#policy" class="fh-policy-link" id="fhPolicyLink">cancellation policy and rental agreement</a>.
+              <span id="fhPolicyTitle" style="display:none"></span>
+              <span id="fhPolicyText" style="display:none"></span>
+            </p>
 
             <label class="fh-checkbox">
               <input id="fhAccept" type="checkbox" required>
