@@ -1,0 +1,1316 @@
+<!-- PASTE INTO: Squarespace ▸ Settings ▸ Advanced ▸ Code Injection ▸ HEADER
+     Source: assets/Header.html — site-wide nav, mobile menu, language
+     switch, footbar and booking toolbar. Edit FH_PAGES below to match
+     your page slugs. -->
+
+<!-- Performance: warm up the external hosts this site talks to.
+     Safe to keep; remove a line if you stop using that host. -->
+<link rel="preconnect" href="https://assets.guesty.com" crossorigin>
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+<link rel="preconnect" href="https://ik.imagekit.io" crossorigin>
+<link rel="preconnect" href="https://cdn.saas-fee.ch" crossorigin>
+<link rel="dns-prefetch" href="https://fletschhorn-guesty-api.bookings-e2d.workers.dev">
+
+<!-- Fletschhorn Global Header -->
+
+<style>
+.fh-header-book-now{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  padding:0 13px;
+  border-radius:999px;
+  background:rgba(31,58,47,.94);
+  color:#fffaf2 !important;
+  border:1px solid rgba(255,250,242,.45);
+  box-shadow:0 10px 26px rgba(31,58,47,.18);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none !important;
+  white-space:nowrap;
+}
+
+.fh-mobile-book-now{
+  display:none !important;
+}
+
+/* Global language toolbar — always under header */
+.fh-global-lang-switch{
+  position:fixed;
+  z-index:9996;
+  top:92px; 
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  padding:5px;
+  border-radius:999px;
+  border:1px solid rgba(28,24,20,.10);
+  background:rgba(255,250,242,.78);
+  box-shadow:0 10px 28px rgba(20,16,12,.08);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+}
+
+.fh-global-lang-switch button{
+  border:0;
+  background:transparent;
+  color:rgba(28,24,20,.58);
+  min-height:28px;
+  padding:0 9px;
+  border-radius:999px;
+  font-size:9px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.fh-global-lang-switch button.active{
+  background:rgba(31,58,47,.92);
+  color:#fffaf2;
+}
+
+@media(max-width:880px){
+  .fh-global-header{
+    top:8px !important;
+    left:8px !important;
+    right:8px !important;
+    min-height:54px !important;
+    padding:8px 9px 8px 10px !important;
+    border-radius:22px !important;
+    gap:7px !important;
+  }
+
+  .fh-global-brand{
+    gap:8px !important;
+    min-width:0 !important;
+    flex:1 1 auto !important;
+  }
+
+  .fh-global-mark{
+    width:34px !important;
+    height:34px !important;
+    flex:0 0 34px !important;
+  }
+
+  .fh-brand-name{
+    font-size:14px !important;
+    letter-spacing:.03em !important;
+    line-height:1 !important;
+  }
+
+  .fh-brand-note{
+    font-size:8.5px !important;
+    line-height:1.1 !important;
+    letter-spacing:.08em !important;
+    max-width:128px !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+
+  .fh-global-nav{
+    display:none !important;
+  }
+
+  .fh-global-nav .fh-header-book-now{
+    display:none !important;
+  }
+
+  .fh-mobile-book-now{
+    display:inline-flex !important;
+    margin-left:auto;
+    min-height:30px;
+    padding:0 10px;
+    font-size:9.5px;
+    letter-spacing:.07em;
+    flex:0 0 auto;
+  }
+
+  .fh-mobile-toggle{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:34px !important;
+    height:34px !important;
+    flex:0 0 34px !important;
+    border-radius:999px !important;
+  }
+
+  .fh-mobile-menu{
+    position:fixed !important;
+    inset:0 !important;
+    z-index:9997 !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+    background:rgba(28,24,20,.14) !important;
+    backdrop-filter:blur(4px) !important;
+    -webkit-backdrop-filter:blur(4px) !important;
+    transition:opacity .22s ease !important;
+  }
+
+  .fh-mobile-menu.is-open{
+    opacity:1 !important;
+    pointer-events:auto !important;
+  }
+
+  .fh-mobile-panel{
+    position:absolute !important;
+    top:68px !important;
+    right:10px !important;
+    left:auto !important;
+    bottom:auto !important;
+    width:min(340px,calc(100vw - 20px)) !important;
+    height:auto !important;
+    max-height:calc(100vh - 88px) !important;
+    overflow:auto !important;
+    border-radius:22px !important;
+    transform:translateY(-8px) scale(.98) !important;
+    opacity:0 !important;
+    transition:transform .22s ease, opacity .22s ease !important;
+  }
+
+  .fh-mobile-menu.is-open .fh-mobile-panel{
+    transform:translateY(0) scale(1) !important;
+    opacity:1 !important;
+  }
+
+  .fh-mobile-links{
+    padding:10px !important;
+  }
+
+  .fh-mobile-links a{
+    padding:12px 13px !important;
+    border-radius:16px !important;
+  }
+
+  .fh-mobile-links strong{
+    font-size:13px !important;
+  }
+
+  .fh-mobile-links small{
+    font-size:11px !important;
+    line-height:1.35 !important;
+  }
+
+  html.fh-nav-open,
+  html.fh-nav-open body{
+    overflow:auto !important;
+  }
+
+  .fh-global-lang-switch{
+    top:68px;
+    right:10px;
+    left:auto;
+    transform:none;
+    gap:1px;
+    padding:3px;
+    opacity:.76;
+  }
+
+  .fh-global-lang-switch:hover,
+  .fh-global-lang-switch:focus-within{
+    opacity:1;
+  }
+
+  .fh-global-lang-switch button{
+    min-height:26px;
+    padding:0 7px;
+    font-size:8px;
+    letter-spacing:.08em;
+  }
+}
+
+@media(max-width:430px){
+  .fh-global-header{
+    min-height:50px !important;
+    padding:7px 8px !important;
+    border-radius:19px !important;
+  }
+
+  .fh-global-mark{
+    width:31px !important;
+    height:31px !important;
+    flex-basis:31px !important;
+  }
+
+  .fh-brand-note{
+    display:none !important;
+  }
+
+  .fh-mobile-book-now{
+    min-height:28px;
+    padding:0 8px;
+    font-size:9px;
+  }
+
+  .fh-mobile-toggle{
+    width:31px !important;
+    height:31px !important;
+    flex-basis:31px !important;
+  }
+
+  .fh-mobile-panel{
+    top:62px !important;
+    right:8px !important;
+    width:calc(100vw - 16px) !important;
+    border-radius:20px !important;
+  }
+
+  .fh-global-lang-switch{
+    top:61px;
+    right:8px;
+  }
+
+  .fh-global-lang-switch button{
+    min-height:24px;
+    padding:0 6px;
+    font-size:7.5px;
+  }
+}
+
+/* Clean toolbar calendar — this is the GOOD schedule behavior. */
+html.fh-toolbar-calendar-open,
+html.fh-toolbar-calendar-open body{
+  overflow:hidden!important;
+}
+
+#fhToolbarCalendarModal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(25,23,20,.52);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+}
+
+#fhToolbarCalendarModal.open{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+#fhToolbarCalendarModal .fh-calendar-card,
+#fhToolbarCalendarModal [class*="calendar-card"]{
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:auto!important;
+  width:min(610px,calc(100vw - 28px))!important;
+  max-height:calc(100svh - 28px)!important;
+  overflow:auto!important;
+  border-radius:0!important;
+  border:1px solid rgba(255,250,243,.68)!important;
+  background:#fffaf3!important;
+  color:#191714!important;
+  box-shadow:0 28px 80px rgba(0,0,0,.26)!important;
+  padding:16px!important;
+}
+
+.fh-calendar-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.fh-calendar-kicker{
+  margin:0 0 8px;
+  color:#b99f86;
+  font-size:10px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:900;
+}
+
+.fh-calendar-title{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  color:#191714;
+  font-size:29px;
+  line-height:1;
+  font-weight:400;
+  letter-spacing:-.04em;
+}
+
+.fh-calendar-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex:0 0 auto;
+}
+
+.fh-calendar-control{
+  width:40px;
+  min-height:40px;
+  border-radius:0;
+  border:1px solid rgba(25,23,20,.12);
+  background:rgba(255,255,255,.52);
+  color:#191714;
+  font-size:20px;
+  line-height:1;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.fh-calendar-help{
+  margin:0 0 16px;
+  color:rgba(25,23,20,.62);
+  font-size:14px;
+  line-height:1.45;
+}
+
+.fh-calendar-week,
+.fh-calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
+}
+
+.fh-calendar-week{
+  margin-bottom:6px;
+}
+
+.fh-calendar-week span{
+  min-height:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(25,23,20,.42);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:900;
+}
+
+.fh-day{
+  min-height:54px;
+  border:1px solid rgba(25,23,20,.08);
+  background:rgba(255,255,255,.34);
+  color:#191714;
+  padding:6px 5px;
+  text-align:left;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  gap:3px;
+  font:inherit;
+}
+
+.fh-day:hover{
+  background:rgba(31,58,47,.10);
+}
+
+.fh-day.is-empty{
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.fh-day.is-booked,
+.fh-day.is-disabled{
+  opacity:.33;
+  cursor:not-allowed;
+}
+
+.fh-day.is-selected,
+.fh-day.is-range{
+  background:#173d31!important;
+  border-color:#173d31!important;
+  color:#fffaf3!important;
+}
+
+.fh-day strong{
+  display:block;
+  font-size:13px;
+  line-height:1;
+  font-weight:900;
+}
+
+.fh-day small{
+  display:block;
+  font-size:10px;
+  line-height:1.1;
+  color:inherit;
+  opacity:.88;
+}
+
+.fh-day em{
+  display:block;
+  font-style:normal;
+  font-size:9px;
+  line-height:1.1;
+  color:rgba(25,23,20,.36);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:800;
+}
+
+.fh-day.is-selected em,
+.fh-day.is-range em{
+  color:rgba(255,250,243,.78);
+}
+
+.fh-calendar-message{
+  margin:14px 0 0;
+  color:rgba(25,23,20,.58);
+  font-size:12px;
+  line-height:1.35;
+}
+
+.fh-calendar-hidden-fields{
+  display:none!important;
+}
+
+@media(max-width:760px){
+  .fh-mobile-footbar{display:grid}
+  body.fh-global-shell{padding-bottom:72px!important}
+  #fhToolbarCalendarModal.open{align-items:center!important;justify-content:center!important;padding:14px!important}
+}
+
+@media(max-width:640px){
+  #fhToolbarCalendarModal{padding:12px!important}
+  #fhToolbarCalendarModal .fh-calendar-card,
+  #fhToolbarCalendarModal [class*="calendar-card"]{
+    width:calc(100vw - 24px)!important;
+    max-height:calc(100svh - 24px)!important;
+    padding:12px!important;
+  }
+  .fh-calendar-title{font-size:24px}
+  .fh-calendar-control{width:38px;min-height:38px}
+  .fh-calendar-week,.fh-calendar-grid{gap:4px}
+  .fh-day{min-height:52px;padding:6px 4px}
+  .fh-day strong{font-size:12px}
+  .fh-day small{font-size:9px}
+  .fh-day em{font-size:8px}
+}
+
+.fh-mobile-footbar{position:fixed;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9998;width:min(430px,calc(100% - 18px));display:none;grid-template-columns:repeat(4,1fr);gap:5px;padding:7px;border:1px solid rgba(255,255,255,.34);border-radius:24px;background:rgba(255,250,243,.54);box-shadow:0 18px 48px rgba(20,16,12,.14);-webkit-backdrop-filter:blur(24px) saturate(1.18);backdrop-filter:blur(24px) saturate(1.18)}
+.fh-mobile-footbar a,.fh-mobile-footbar button{min-height:44px;border:0;border-radius:18px;background:rgba(255,255,255,.16);color:rgba(28,24,20,.68);display:flex;align-items:center;justify-content:center;font:inherit;font-size:9px;line-height:1;text-transform:uppercase;letter-spacing:.08em;font-weight:900;text-decoration:none;cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.fh-mobile-footbar .fh-footbar-book{background:rgba(185,159,134,.82);color:#fffaf3;box-shadow:0 10px 22px rgba(135,110,88,.18)}
+.fh-mobile-footbar a.is-active{background:#22392f;color:#fffaf3}
+#fhToolbarCalendarModal.open{display:flex!important;align-items:center!important;justify-content:center!important;padding:14px!important}
+#fhToolbarCalendarModal.open .fh-calendar-card,#fhToolbarCalendarModal.open [class*="calendar-card"]{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;margin:auto!important;width:min(560px,calc(100vw - 28px))!important;max-height:calc(100svh - 28px)!important}
+@media(max-width:760px){.fh-mobile-footbar{display:grid}body.fh-global-shell{padding-bottom:72px!important}#fhToolbarCalendarModal.open{align-items:center!important;justify-content:center!important}}
+</style>
+
+<script>
+(function(){
+  /* Squarespace note: Code Injection ▸ Header lands in <head>, where
+     document.body does not exist yet. Defer boot until the DOM is ready. */
+  function fhBootGlobalHeader(){
+  if(document.getElementById("fhGlobalHeader")) return;
+
+  /* ── Squarespace page URLs ─────────────────────────────────────────
+     EDIT each value to match the real URL slug of that Squarespace page.
+     Keep the leading "/". Home stays "/". ──────────────────────────── */
+  const FH_PAGES = {
+    home:        "/",
+    property:    "/property",
+    experiences: "/experiences",
+    location:    "/location",
+    events:      "/wedding-event",
+    about:       "/about-us",
+    booking:     "/booking"
+  };
+
+  function page(file){ return file; }  /* legacy shim, no longer used */
+
+  const bookingHref = FH_PAGES.booking;
+
+  const NAV_TEXT = {
+    en:{
+      home:"Home",             homeLabel:"Home",             homeNote:"Start with the house, setting, and inquiry.",
+      property:"Property",     propertyLabel:"The Property",  propertyNote:"The spaces, rooms, amenities, dining, and kitchen.",
+      experiences:"Experiences",experiencesLabel:"Experiences",experiencesNote:"What to do in Saas-Fee and around the property.",
+      location:"Location",     locationLabel:"Location",      locationNote:"Where Fletschhorn is located.",
+      events:"Events",         eventsLabel:"Wedding & Events",eventsNote:"Weddings, private events, retreats, and celebrations.",
+      about:"About",           aboutLabel:"About Us",         aboutNote:"Story, history, and the private-house direction.",
+      bookNow:"Book Now",      bookNowNote:"Open the schedule to choose dates for your stay.",
+      brandNote:"Private alpine house · Saas-Fee"
+    },
+    fr:{
+      home:"Accueil",          homeLabel:"Accueil",                  homeNote:"Découvrez la maison, le cadre et la procédure de demande.",
+      property:"Propriété",    propertyLabel:"La propriété",         propertyNote:"Les espaces, chambres, équipements, restauration et cuisine.",
+      experiences:"Expériences",experiencesLabel:"Expériences",      experiencesNote:"Les activités à Saas-Fee et autour de la propriété.",
+      location:"Emplacement",  locationLabel:"Emplacement",          locationNote:"L'emplacement du Fletschhorn.",
+      events:"Événements",     eventsLabel:"Mariage & Événements",   eventsNote:"Mariages, événements privés, retraites et célébrations.",
+      about:"À propos",        aboutLabel:"À propos",                aboutNote:"L'histoire et la direction de la maison privée.",
+      bookNow:"Réserver",      bookNowNote:"Ouvrez le calendrier pour choisir les dates de votre séjour.",
+      brandNote:"Maison alpine privée · Saas-Fee"
+    },
+    de:{
+      home:"Startseite",       homeLabel:"Startseite",               homeNote:"Starten Sie mit dem Haus, der Umgebung und der Anfrage.",
+      property:"Das Haus",     propertyLabel:"Das Haus",             propertyNote:"Räume, Zimmer, Ausstattung, Speisen und Küche.",
+      experiences:"Erlebnisse",experiencesLabel:"Erlebnisse",        experiencesNote:"Aktivitäten in Saas-Fee und rund um die Unterkunft.",
+      location:"Lage",         locationLabel:"Lage",                 locationNote:"Der Standort des Fletschhorn.",
+      events:"Events",         eventsLabel:"Hochzeit & Events",      eventsNote:"Hochzeiten, private Events, Retreats und Feiern.",
+      about:"Über uns",        aboutLabel:"Über uns",                aboutNote:"Geschichte und die Ausrichtung als Privathaus.",
+      bookNow:"Buchen",        bookNowNote:"Öffnen Sie den Kalender, um Ihre Reisedaten zu wählen.",
+      brandNote:"Privates Alpenhaus · Saas-Fee"
+    },
+    ru:{
+      home:"Главная",          homeLabel:"Главная",                  homeNote:"Познакомьтесь с домом, атмосферой и процессом запроса.",
+      property:"Объект",       propertyLabel:"Объект",               propertyNote:"Пространства, комнаты, удобства, питание и кухня.",
+      experiences:"Впечатления",experiencesLabel:"Впечатления",      experiencesNote:"Чем заняться в Саас-Фе и вокруг объекта.",
+      location:"Расположение", locationLabel:"Расположение",         locationNote:"Где находится Fletschhorn.",
+      events:"События",        eventsLabel:"Свадьба и события",      eventsNote:"Свадьбы, частные мероприятия, ретриты и торжества.",
+      about:"О нас",           aboutLabel:"О нас",                   aboutNote:"История и направление частного дома.",
+      bookNow:"Забронировать", bookNowNote:"Откройте календарь, чтобы выбрать даты пребывания.",
+      brandNote:"Частный горный дом · Саас-Фе"
+    },
+    he:{
+      home:"בית",              homeLabel:"בית",                      homeNote:"גלו את הבית, הסביבה ותהליך הפנייה.",
+      property:"נכס",          propertyLabel:"הנכס",                 propertyNote:"החללים, החדרים, השירותים, האוכל והמטבח.",
+      experiences:"חוויות",    experiencesLabel:"חוויות",            experiencesNote:"מה לעשות בסאס-פה ובסביבת הנכס.",
+      location:"מיקום",        locationLabel:"מיקום",                locationNote:"איפה נמצא Fletschhorn.",
+      events:"אירועים",        eventsLabel:"חתונות ואירועים",        eventsNote:"חתונות, אירועים פרטיים, ריטריטים וחגיגות.",
+      about:"אודות",           aboutLabel:"אודותינו",                aboutNote:"היסטוריה וכיוון הבית הפרטי.",
+      bookNow:"הזמינו",        bookNowNote:"פתחו את לוח הזמנים כדי לבחור תאריכים לשהייה.",
+      brandNote:"בית אלפיני פרטי · סאס-פה"
+    }
+  };
+
+  function getNavBundle(lang){
+    return NAV_TEXT[lang] || NAV_TEXT.en;
+  }
+
+  const pages = [
+    {
+      key:"home",
+      label:"Home",
+      short:"Home",
+      href:FH_PAGES.home,
+      note:"Start with the house, setting, and inquiry."
+    },
+    {
+      key:"property",
+      label:"The Property",
+      short:"Property",
+      href:FH_PAGES.property,
+      note:"The spaces, rooms, amenities, dining, and kitchen."
+    },
+    {
+      key:"experiences",
+      label:"Experiences",
+      short:"Experiences",
+      href:FH_PAGES.experiences,
+      note:"What to do in Saas-Fee and around the property."
+    },
+    {
+      key:"location",
+      label:"Location",
+      short:"Location",
+      href:FH_PAGES.location,
+      note:"Where Fletschhorn is located."
+    },
+    {
+      key:"events",
+      label:"Wedding & Events",
+      short:"Events",
+      href:FH_PAGES.events,
+      note:"Weddings, private events, retreats, and celebrations."
+    },
+    {
+      key:"about",
+      label:"About Us",
+      short:"About",
+      href:FH_PAGES.about,
+      note:"Story, history, and the private-house direction."
+    }
+  ];
+
+  function activeKey(){
+    const path = window.location.pathname.toLowerCase();
+
+    if(path.includes("property")) return "property";
+    if(path.includes("experiences")) return "experiences";
+    if(path.includes("location")) return "location";
+    if(path.includes("wedding")) return "events";
+    if(path.includes("about")) return "about";
+    if(path.includes("booking")) return "booking";
+
+    return "home";
+  }
+
+  const active = activeKey();
+
+  const navLinks = pages.map(item => `
+    <a href="${item.href}" class="${active === item.key ? "is-active" : ""}">
+      <span data-fh-nav-short="${item.key}">${item.short}</span>
+    </a>
+  `).join("");
+
+  const mobileLinks = pages.map(item => `
+    <a href="${item.href}" class="${active === item.key ? "is-active" : ""}">
+      <span>
+        <strong data-fh-nav-label="${item.key}">${item.label}</strong>
+        <small data-fh-nav-note="${item.key}">${item.note}</small>
+      </span>
+      <em>→</em>
+    </a>
+  `).join("");
+
+  document.body.classList.add("fh-global-shell", "fh-github-version");
+
+  document.body.insertAdjacentHTML("afterbegin", `
+    <div class="fh-mobile-menu" id="fhMobileMenu" aria-hidden="true">
+      <div class="fh-mobile-panel">
+        <div class="fh-mobile-links">
+          ${mobileLinks}
+          <a href="${bookingHref}" class="${active === "booking" ? "is-active" : ""}" data-fh-booking-link="true">
+            <span>
+              <strong data-fh-book-label>Book Now</strong>
+              <small data-fh-book-note>Go directly to the booking page to complete your stay request.</small>
+            </span>
+            <em>→</em>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <header class="fh-global-header" id="fhGlobalHeader">
+      <a class="fh-global-brand" href="${page("/")}" aria-label="Fletschhorn home">
+        <span class="fh-global-mark">
+          <img src="${page("assets/Saas-Fee-Logo.jpeg")}" alt="Fletschhorn" onerror="this.style.display='none';this.parentElement.textContent='fh';">
+        </span>
+        <span>
+          <span class="fh-brand-name">Fletschhorn</span>
+          <span class="fh-brand-note" data-fh-brand-note>Private alpine house · Saas-Fee</span>
+        </span>
+      </a>
+
+      <nav class="fh-global-nav" aria-label="Primary navigation">
+        ${navLinks}
+        <a class="fh-global-cta fh-header-book-now" href="${bookingHref}" data-fh-booking-link="true"><span data-fh-book-btn>Book Now</span></a>
+      </nav>
+
+      <a class="fh-header-book-now fh-mobile-book-now" href="${bookingHref}" aria-label="Book your stay" data-fh-booking-link="true">
+        <span data-fh-book-btn>Book Now</span>
+      </a>
+
+      <button class="fh-mobile-toggle" type="button" id="fhMobileToggle" aria-expanded="false" aria-controls="fhMobileMenu" aria-label="Open menu">
+        <span></span>
+      </button>
+    </header>
+
+    <div class="fh-global-lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="fr">FR</button>
+      <button type="button" data-lang="de">DE</button>
+      <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="he">HE</button>
+    </div>
+
+    <nav class="fh-mobile-footbar" id="fhMobileFootbar" aria-label="Mobile quick navigation">
+      <a href="${page("/")}" class="${active === "home" ? "is-active" : ""}"><span>Home</span></a>
+      <a href="${page("/experiences")}" class="${active === "experiences" ? "is-active" : ""}"><span>Explore</span></a>
+      <button type="button" data-fh-footbar-menu="true"><span>Menu</span></button>
+      <button type="button" class="fh-footbar-book" data-fh-footbar-book="true"><span>Book</span></button>
+    </nav>
+  `);
+
+  const header = document.getElementById("fhGlobalHeader");
+  const toggle = document.getElementById("fhMobileToggle");
+  const menu = document.getElementById("fhMobileMenu");
+  const panel = menu ? menu.querySelector(".fh-mobile-panel") : null;
+
+  function closeMenu(){
+    if(!toggle || !menu) return;
+    toggle.setAttribute("aria-expanded", "false");
+    menu.setAttribute("aria-hidden", "true");
+    menu.classList.remove("is-open");
+    document.documentElement.classList.remove("fh-nav-open");
+  }
+
+  function openMenu(){
+    if(!toggle || !menu) return;
+    toggle.setAttribute("aria-expanded", "true");
+    menu.setAttribute("aria-hidden", "false");
+    menu.classList.add("is-open");
+    document.documentElement.classList.add("fh-nav-open");
+  }
+
+  if(toggle && menu){
+    toggle.addEventListener("click", function(){
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    menu.querySelectorAll("a").forEach(function(link){
+      link.addEventListener("click", closeMenu);
+    });
+
+    menu.addEventListener("click", function(event){
+      if(panel && !panel.contains(event.target)){
+        closeMenu();
+      }
+    });
+
+    document.addEventListener("keydown", function(event){
+      if(event.key === "Escape") closeMenu();
+    });
+  }
+
+  function onScroll(){
+    if(!header) return;
+    header.classList.toggle("is-scrolled", window.scrollY > 20);
+  }
+
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+
+  /*
+    Global language toolbar:
+    - always appears under the header
+    - uses fh_lang localStorage
+    - calls the page-level language function when available
+    - does not create a second translation system
+  */
+  const globalLangSwitch = document.querySelector(".fh-global-lang-switch");
+
+  function cleanLang(lang){
+    return ["en","fr","de","ru","he"].includes(lang) ? lang : "en";
+  }
+
+  function getStoredFhLang(){
+    try {
+      return cleanLang(localStorage.getItem("fh_lang") || "en");
+    } catch(error) {
+      return "en";
+    }
+  }
+
+  function setGlobalLangActive(lang){
+    const selectedLang = cleanLang(lang);
+
+    document.querySelectorAll(".fh-global-lang-switch button").forEach(function(btn){
+      btn.classList.toggle("active", btn.getAttribute("data-lang") === selectedLang);
+    });
+
+    document.documentElement.setAttribute("lang", selectedLang);
+    document.documentElement.setAttribute("dir", selectedLang === "he" ? "rtl" : "ltr");
+
+    try {
+      localStorage.setItem("fh_lang", selectedLang);
+    } catch(error) {}
+  }
+
+  function updateHeaderLang(lang){
+    const bundle = getNavBundle(lang);
+
+    document.querySelectorAll("[data-fh-nav-short]").forEach(function(el){
+      const key = el.getAttribute("data-fh-nav-short");
+      if(bundle[key]) el.textContent = bundle[key];
+    });
+
+    document.querySelectorAll("[data-fh-nav-label]").forEach(function(el){
+      const key = el.getAttribute("data-fh-nav-label");
+      const labelKey = key + "Label";
+      if(bundle[labelKey]) el.textContent = bundle[labelKey];
+    });
+
+    document.querySelectorAll("[data-fh-nav-note]").forEach(function(el){
+      const key = el.getAttribute("data-fh-nav-note");
+      const noteKey = key + "Note";
+      if(bundle[noteKey]) el.textContent = bundle[noteKey];
+    });
+
+    document.querySelectorAll("[data-fh-book-btn]").forEach(function(el){
+      el.textContent = bundle.bookNow;
+    });
+
+    document.querySelectorAll("[data-fh-book-label]").forEach(function(el){
+      el.textContent = bundle.bookNow;
+    });
+
+    document.querySelectorAll("[data-fh-book-note]").forEach(function(el){
+      el.textContent = bundle.bookNowNote;
+    });
+
+    document.querySelectorAll("[data-fh-brand-note]").forEach(function(el){
+      el.textContent = bundle.brandNote;
+    });
+  }
+
+  function applyGlobalLanguage(lang){
+    const selectedLang = cleanLang(lang);
+
+    setGlobalLangActive(selectedLang);
+    updateHeaderLang(selectedLang);
+
+    if(typeof window.setFletschhornLanguage === "function"){
+      window.setFletschhornLanguage(selectedLang);
+      return;
+    }
+
+    if(typeof window.FHSetLanguage === "function"){
+      window.FHSetLanguage(selectedLang);
+      return;
+    }
+
+    window.dispatchEvent(new CustomEvent("fh-language-change", {
+      detail:{ lang:selectedLang }
+    }));
+  }
+
+  if(globalLangSwitch){
+    const initialLang = getStoredFhLang();
+    setGlobalLangActive(initialLang);
+    updateHeaderLang(initialLang);
+
+    globalLangSwitch.querySelectorAll("button[data-lang]").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        applyGlobalLanguage(btn.getAttribute("data-lang"));
+      });
+    });
+
+    /*
+      Some pages define their translation function after the header loads.
+      This delayed call makes the global toolbar apply the stored language
+      once the page script is ready.
+    */
+    window.setTimeout(function(){
+      applyGlobalLanguage(getStoredFhLang());
+    }, 120);
+  }
+
+  /*
+    Booking safety rule:
+    Any visible button/link that clearly says Book Now, Booking, Reserve, or Book your stay
+    routes to /booking, not to #booking, #book, a page section, or another page anchor.
+  */
+  function isBookingIntent(link){
+    if(!link) return false;
+
+    const text = (link.textContent || "").trim().toLowerCase();
+    const aria = (link.getAttribute("aria-label") || "").trim().toLowerCase();
+    const href = (link.getAttribute("href") || "").trim().toLowerCase();
+
+    if(link.hasAttribute("data-fh-booking-link")) return true;
+
+    return (
+      text === "book now" ||
+      text === "booking" ||
+      text.includes("book your stay") ||
+      text.includes("reserve") ||
+      aria.includes("book") ||
+      href === "#book" ||
+      href === "#booking" ||
+      href.includes("contact-booking")
+    );
+  }
+
+  function normalizeBookingLinks(){
+    document.querySelectorAll("a").forEach(function(link){
+      const href = (link.getAttribute("href") || "").trim().toLowerCase();
+
+      if(href.startsWith("mailto:") || href.startsWith("tel:")) return;
+
+      if(isBookingIntent(link)){
+        link.setAttribute("href", bookingHref);
+        link.setAttribute("data-fh-booking-link", "true");
+      }
+    });
+  }
+
+  const FH_WORKER_BASE =
+    window.FH_WORKER_BASE ||
+    window.FLETCHHORN_WORKER_URL ||
+    "https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
+
+  const FH_LISTING_ID =
+    window.FH_LISTING_ID ||
+    document.documentElement.getAttribute("data-listing-id") ||
+    "6968339ab7d735001ca015ba";
+
+  const fhToolbarCalendarState = {
+    monthDate:new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+    checkIn:"",
+    checkOut:"",
+    days:new Map(),
+    loading:false
+  };
+
+  function padDatePart(value){
+    return String(value).padStart(2, "0");
+  }
+
+  function toISODate(date){
+    return date.getFullYear() + "-" + padDatePart(date.getMonth() + 1) + "-" + padDatePart(date.getDate());
+  }
+
+  function monthLabel(date){
+    return date.toLocaleDateString("en-US", { month:"long", year:"numeric" });
+  }
+
+  function formatCalendarPrice(value, currency){
+    const amount = Number(value);
+    if(!Number.isFinite(amount)) return "";
+    return (currency || "CHF") + " " + amount.toLocaleString("en-US");
+  }
+
+  function pageToolbarDates(){
+    const arrival = document.getElementById("fhArrival") || document.getElementById("fh-exp-checkin") || document.getElementById("fh-mobile-checkin");
+    const departure = document.getElementById("fhDeparture") || document.getElementById("fh-exp-checkout") || document.getElementById("fh-mobile-checkout");
+    return { checkIn: arrival && arrival.value || "", checkOut: departure && departure.value || "" };
+  }
+
+  function writeToolbarDates(checkIn, checkOut){
+    const arrivalSelectors = ["#fhArrival", "#fh-exp-checkin", "#fh-mobile-checkin", "[name='checkIn']", "[name='arrival']"];
+    const departureSelectors = ["#fhDeparture", "#fh-exp-checkout", "#fh-mobile-checkout", "[name='checkOut']", "[name='departure']"];
+
+    arrivalSelectors.forEach(function(selector){
+      document.querySelectorAll(selector).forEach(function(el){
+        if("value" in el){
+          el.value = checkIn || "";
+          el.dispatchEvent(new Event("input", { bubbles:true }));
+          el.dispatchEvent(new Event("change", { bubbles:true }));
+        }
+      });
+    });
+
+    departureSelectors.forEach(function(selector){
+      document.querySelectorAll(selector).forEach(function(el){
+        if("value" in el){
+          el.value = checkOut || "";
+          el.dispatchEvent(new Event("input", { bubbles:true }));
+          el.dispatchEvent(new Event("change", { bubbles:true }));
+        }
+      });
+    });
+
+    try {
+      localStorage.setItem("fhArrival", checkIn || "");
+      localStorage.setItem("fhDeparture", checkOut || "");
+      localStorage.setItem("fletschhornArrival", checkIn || "");
+      localStorage.setItem("fletschhornDeparture", checkOut || "");
+    } catch(error) {}
+  }
+
+  function visibleOrFirst(list){
+    return list.find(function(el){ return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); }) || list[0] || null;
+  }
+
+  function toolbarCalendarOpeners(){
+    return Array.prototype.slice.call(document.querySelectorAll("#fhOpenToolbarCalendar, [data-mobile-open-calendar]"));
+  }
+
+  function goToBookingWithDates(dates){
+    if(!dates.checkIn || !dates.checkOut) return false;
+    const params = new URLSearchParams({ checkIn:dates.checkIn, checkOut:dates.checkOut, lang:getStoredFhLang(), source:"header-schedule" });
+    window.location.href = bookingHref + "?" + params.toString();
+    return true;
+  }
+
+  function ensureToolbarCalendarModal(){
+    let modal = document.getElementById("fhToolbarCalendarModal");
+    if(modal) return modal;
+
+    modal = document.createElement("div");
+    modal.id = "fhToolbarCalendarModal";
+    modal.setAttribute("aria-hidden", "true");
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.dataset.fhGlobalCalendarInjected = "1";
+    modal.innerHTML = `
+      <div class="fh-calendar-card" role="document">
+        <div class="fh-calendar-top">
+          <div>
+            <p class="fh-calendar-kicker">Select dates</p>
+            <h2 class="fh-calendar-title" id="fhToolbarCalendarTitle">Loading</h2>
+          </div>
+          <div class="fh-calendar-controls">
+            <button type="button" class="fh-calendar-control" data-fh-calendar-prev aria-label="Previous month">‹</button>
+            <button type="button" class="fh-calendar-control" data-fh-calendar-next aria-label="Next month">›</button>
+            <button type="button" class="fh-calendar-control" data-fh-calendar-close aria-label="Close calendar">×</button>
+          </div>
+        </div>
+
+        <p class="fh-calendar-help">Choose your arrival date, then your departure date.</p>
+
+        <div class="fh-calendar-week" aria-hidden="true">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+
+        <div class="fh-calendar-grid" id="fhToolbarCalendarGrid"></div>
+        <p class="fh-calendar-message" id="fhToolbarCalendarMessage">Select your arrival date.</p>
+
+        <div class="fh-calendar-hidden-fields">
+          <input id="fhArrival" type="hidden" value="">
+          <input id="fhDeparture" type="hidden" value="">
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    modal.addEventListener("click", function(event){
+      if(event.target === modal){
+        closeToolbarCalendar();
+        return;
+      }
+
+      if(event.target.closest("[data-fh-calendar-close]")){
+        closeToolbarCalendar();
+        return;
+      }
+
+      if(event.target.closest("[data-fh-calendar-prev]")){
+        fhToolbarCalendarState.monthDate = new Date(
+          fhToolbarCalendarState.monthDate.getFullYear(),
+          fhToolbarCalendarState.monthDate.getMonth() - 1,
+          1
+        );
+        renderToolbarCalendar();
+        return;
+      }
+
+      if(event.target.closest("[data-fh-calendar-next]")){
+        fhToolbarCalendarState.monthDate = new Date(
+          fhToolbarCalendarState.monthDate.getFullYear(),
+          fhToolbarCalendarState.monthDate.getMonth() + 1,
+          1
+        );
+        renderToolbarCalendar();
+        return;
+      }
+
+      const day = event.target.closest("#fhToolbarCalendarGrid .fh-day[data-date], #fhToolbarCalendarGrid button[data-date]");
+      if(day && !day.disabled){
+        selectToolbarCalendarDate(day.getAttribute("data-date"));
+      }
+    });
+
+    return modal;
+  }
+
+  function openToolbarCalendarModal(modal){
+    if(!modal) return false;
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("fh-toolbar-calendar-open");
+
+    if(modal.dataset.fhGlobalCalendarInjected === "1"){
+      renderToolbarCalendar();
+    }
+
+    return true;
+  }
+
+  function closeToolbarCalendar(){
+    const modal = document.getElementById("fhToolbarCalendarModal");
+    if(modal){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+    document.documentElement.classList.remove("fh-toolbar-calendar-open");
+    delete document.documentElement.dataset.fhHeaderScheduleActive;
+  }
+
+  async function fetchToolbarCalendarMonth(){
+    const first = new Date(fhToolbarCalendarState.monthDate.getFullYear(), fhToolbarCalendarState.monthDate.getMonth(), 1);
+    const last = new Date(fhToolbarCalendarState.monthDate.getFullYear(), fhToolbarCalendarState.monthDate.getMonth() + 1, 0);
+    const url = FH_WORKER_BASE.replace(/\/$/, "") +
+      "/calendar?listingId=" + encodeURIComponent(FH_LISTING_ID) +
+      "&from=" + encodeURIComponent(toISODate(first)) +
+      "&to=" + encodeURIComponent(toISODate(last));
+
+    fhToolbarCalendarState.loading = true;
+
+    try {
+      const response = await fetch(url, {
+        method:"GET",
+        headers:{ "Accept":"application/json" },
+        cache:"no-store"
+      });
+      const json = await response.json();
+      const days = Array.isArray(json.days) ? json.days : [];
+      fhToolbarCalendarState.days.clear();
+      days.forEach(function(day){
+        if(day && day.date){
+          fhToolbarCalendarState.days.set(day.date, day);
+        }
+      });
+    } catch(error) {
+      console.warn("Fletschhorn clean toolbar calendar could not load:", error);
+      fhToolbarCalendarState.days.clear();
+    } finally {
+      fhToolbarCalendarState.loading = false;
+    }
+  }
+
+  async function renderToolbarCalendar(){
+    const modal = ensureToolbarCalendarModal();
+    if(modal.dataset.fhGlobalCalendarInjected !== "1") return;
+
+    const title = modal.querySelector("#fhToolbarCalendarTitle");
+    const grid = modal.querySelector("#fhToolbarCalendarGrid");
+    const message = modal.querySelector("#fhToolbarCalendarMessage");
+
+    if(title) title.textContent = monthLabel(fhToolbarCalendarState.monthDate);
+    if(grid) grid.innerHTML = `<div style="grid-column:1/-1;padding:22px;text-align:center;color:rgba(25,23,20,.55)">Loading calendar…</div>`;
+
+    await fetchToolbarCalendarMonth();
+
+    if(title) title.textContent = monthLabel(fhToolbarCalendarState.monthDate);
+    if(!grid) return;
+    grid.innerHTML = "";
+
+    const first = new Date(fhToolbarCalendarState.monthDate.getFullYear(), fhToolbarCalendarState.monthDate.getMonth(), 1);
+    const last = new Date(fhToolbarCalendarState.monthDate.getFullYear(), fhToolbarCalendarState.monthDate.getMonth() + 1, 0);
+    const firstDay = first.getDay();
+    const daysInMonth = last.getDate();
+
+    for(let i = 0; i < firstDay; i++){
+      const empty = document.createElement("button");
+      empty.type = "button";
+      empty.className = "fh-day is-empty";
+      empty.tabIndex = -1;
+      grid.appendChild(empty);
+    }
+
+    for(let d = 1; d <= daysInMonth; d++){
+      const date = new Date(fhToolbarCalendarState.monthDate.getFullYear(), fhToolbarCalendarState.monthDate.getMonth(), d);
+      const iso = toISODate(date);
+      const data = fhToolbarCalendarState.days.get(iso);
+      const available = data ? (data.available !== false && data.status !== "booked" && data.status !== "blocked") : true;
+      const price = data ? formatCalendarPrice(data.price, data.currency || "CHF") : "";
+      const isSelected = iso === fhToolbarCalendarState.checkIn || iso === fhToolbarCalendarState.checkOut;
+      const isRange = fhToolbarCalendarState.checkIn && fhToolbarCalendarState.checkOut && iso > fhToolbarCalendarState.checkIn && iso < fhToolbarCalendarState.checkOut;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = ["fh-day", available ? "" : "is-booked is-disabled", isSelected ? "is-selected" : "", isRange ? "is-range" : ""].filter(Boolean).join(" ");
+      btn.setAttribute("data-date", iso);
+      btn.disabled = !available;
+      btn.innerHTML = `
+        <strong>${d}</strong>
+        <small>${price || "CHF —"}</small>
+        <em>${available ? "" : "Booked"}</em>
+      `;
+      grid.appendChild(btn);
+    }
+
+    if(message){
+      if(fhToolbarCalendarState.checkIn && fhToolbarCalendarState.checkOut){
+        message.textContent = fhToolbarCalendarState.checkIn + " → " + fhToolbarCalendarState.checkOut;
+      } else if(fhToolbarCalendarState.checkIn){
+        message.textContent = "Arrival selected. Now choose departure.";
+      } else {
+        message.textContent = "Select your arrival date.";
+      }
+    }
+  }
+
+  function selectToolbarCalendarDate(iso){
+    if(!fhToolbarCalendarState.checkIn || fhToolbarCalendarState.checkOut || iso < fhToolbarCalendarState.checkIn){
+      fhToolbarCalendarState.checkIn = iso;
+      fhToolbarCalendarState.checkOut = "";
+    } else if(iso > fhToolbarCalendarState.checkIn){
+      fhToolbarCalendarState.checkOut = iso;
+    }
+
+    writeToolbarDates(fhToolbarCalendarState.checkIn, fhToolbarCalendarState.checkOut);
+    renderToolbarCalendar();
+
+    if(fhToolbarCalendarState.checkIn && fhToolbarCalendarState.checkOut){
+      window.setTimeout(function(){
+        goToBookingWithDates({
+          checkIn:fhToolbarCalendarState.checkIn,
+          checkOut:fhToolbarCalendarState.checkOut
+        });
+      }, 180);
+    }
+  }
+
+  function openExistingToolbarSchedule(){
+    const opener = visibleOrFirst(toolbarCalendarOpeners());
+    if(opener){
+      opener.click();
+      return true;
+    }
+
+    return openToolbarCalendarModal(ensureToolbarCalendarModal());
+  }
+
+  function openHeaderSchedule(){
+    closeMenu();
+
+    if(openExistingToolbarSchedule()){
+      document.documentElement.dataset.fhHeaderScheduleActive = "1";
+      return;
+    }
+
+    window.location.href = bookingHref;
+  }
+
+  document.addEventListener("click", function(event){
+    if(document.documentElement.dataset.fhHeaderScheduleActive !== "1") return;
+    if(!event.target.closest || !event.target.closest("#fhToolbarCalendarGrid .fh-day[data-date], #fhToolbarCalendarGrid button[data-date]")) return;
+    window.setTimeout(function(){
+      const dates = pageToolbarDates();
+      if(goToBookingWithDates(dates)) delete document.documentElement.dataset.fhHeaderScheduleActive;
+    }, 160);
+  }, true);
+
+  document.addEventListener("keydown", function(event){
+    if(event.key === "Escape") closeToolbarCalendar();
+  });
+
+  document.addEventListener("click", function(event){
+    const book = event.target.closest ? event.target.closest("[data-fh-footbar-book]") : null;
+    if(book){ event.preventDefault(); event.stopImmediatePropagation(); openHeaderSchedule(); return; }
+    const menuBtn = event.target.closest ? event.target.closest("[data-fh-footbar-menu]") : null;
+    if(menuBtn){ event.preventDefault(); event.stopImmediatePropagation(); openMenu(); }
+  });
+
+  document.documentElement.dataset.fhFootbarBookBound = "1";
+
+  normalizeBookingLinks();
+
+  document.addEventListener("click", function(event){
+    const link = event.target.closest ? event.target.closest("a") : null;
+    if(!link) return;
+
+    if(isBookingIntent(link)){
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      openHeaderSchedule();
+    }
+  }, true);
+
+  window.FHOpenCleanSchedule = openHeaderSchedule;
+  window.FHCloseCleanSchedule = closeToolbarCalendar;
+
+
+  const bookingObserver = new MutationObserver(normalizeBookingLinks);
+  bookingObserver.observe(document.documentElement, {
+    childList:true,
+    subtree:true
+  });
+  }
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded", fhBootGlobalHeader);
+  }else{
+    fhBootGlobalHeader();
+  }
+})();
+</script>

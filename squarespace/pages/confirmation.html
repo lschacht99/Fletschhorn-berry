@@ -1,0 +1,783 @@
+<!-- ============================================================
+     FLETSCHHORN · Confirmation  —  Squarespace paste guide
+     Source: confirmation.html   (see ../README.md)
+     This page has TWO paste targets:
+     ============================================================ -->
+
+
+<!-- ▌ PASTE 1  →  Page settings ▸ Advanced ▸ Page Header Code Injection
+     SEO meta + structured data. Optional: skip it and use the
+     Squarespace SEO panel instead. -->
+<meta name="robots" content="noindex, nofollow">
+
+
+<!-- ▌ PASTE 2  →  Edit the page ▸ add a Code block ▸ paste EVERYTHING below.
+     (Header & footer come from the global Code Injection, not from here.) -->
+<script>
+(function(){
+  var meta = document.querySelector('meta[name="viewport"]');
+  if(!meta){
+    meta = document.createElement('meta');
+    meta.name = 'viewport';
+    document.head && document.head.appendChild(meta);
+  }
+  meta.setAttribute('content','width=device-width, initial-scale=1, viewport-fit=cover');
+})();
+</script>
+
+<style>
+#fh-checkout-main,
+#fh-checkout-main *{box-sizing:border-box}
+
+#fh-checkout-main{
+  --ink:#1a1714;
+  --muted:rgba(26,23,20,.66);
+  --soft:rgba(26,23,20,.48);
+  --line:rgba(26,23,20,.12);
+  --paper:#fffaf3;
+  --paper2:#f7efe5;
+  --page:#efe7dc;
+  --clay:#b99f86;
+  --clay2:#876e58;
+  --green:#6f7b64;
+  --white:#fffaf3;
+  --shadow:0 22px 58px rgba(0,0,0,.12);
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100svh;
+  color:var(--ink);
+  font-family:var(--sans);
+  background:
+    radial-gradient(circle at 8% 0%,rgba(255,255,255,.72),transparent 0 28%),
+    radial-gradient(circle at 92% 8%,rgba(185,159,134,.18),transparent 0 24%),
+    linear-gradient(180deg,#efe7dc 0%,#fbf6ef 48%,#efe7dc 100%);
+  overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
+#fh-checkout-main a{color:inherit;text-decoration:none}
+#fh-checkout-main button{font:inherit;cursor:pointer}
+#fh-checkout-main img{display:block;max-width:100%}
+#fh-checkout-main h1,
+#fh-checkout-main h2,
+#fh-checkout-main h3,
+#fh-checkout-main p{margin-top:0}
+
+#fh-checkout-main .fh-bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 14% 12%,rgba(255,255,255,.58),transparent 0 22%),
+    radial-gradient(circle at 86% 18%,rgba(185,159,134,.14),transparent 0 24%),
+    radial-gradient(circle at 74% 86%,rgba(255,255,255,.38),transparent 0 28%);
+}
+
+#fh-checkout-main .fh-bg:before{
+  content:"";
+  position:absolute;
+  inset:-10%;
+  opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cg fill='none' stroke='%23876e58' stroke-opacity='.50' stroke-width='1.1'%3E%3Cpath d='M-50 130c205 54 364 56 500 12 128-42 265-39 407 14 154 58 313 59 502-10 78-28 148-32 217-18'/%3E%3Cpath d='M-50 288c214 38 394 31 538-18 125-42 256-38 392 12 164 61 326 55 503-10 82-30 153-33 217-20'/%3E%3Cpath d='M-50 444c230 26 415 17 570-24 120-31 247-30 388 4 160 38 314 37 480-10 90-25 157-27 222-16'/%3E%3Cpath d='M-50 604c238 18 432 7 596-28 122-26 246-24 380-3 150 23 295 22 438-8 88-18 156-18 218-10'/%3E%3Cpath d='M-50 762c264 8 468-8 635-35 120-20 241-18 365-4 146 16 283 16 422-8 88-14 151-13 213-8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:cover;
+  background-position:center;
+  animation:fhTopo 34s ease-in-out infinite alternate;
+}
+
+#fh-checkout-main .fh-grain{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  pointer-events:none;
+  opacity:.035;
+  mix-blend-mode:multiply;
+  background-image:radial-gradient(rgba(0,0,0,.55) .45px,transparent .55px);
+  background-size:4px 4px;
+}
+
+@keyframes fhTopo{
+  from{transform:translate3d(0,0,0) scale(1.02)}
+  to{transform:translate3d(1vw,-1vh,0) scale(1.06)}
+}
+
+#fh-checkout-main .fh-langbar{
+  display:none!important;
+  position:fixed;
+  z-index:60;
+  top:76px;
+  right:14px;
+  display:flex;
+  gap:3px;
+  padding:4px;
+  background:rgba(26,23,20,.24);
+  border:1px solid rgba(255,250,243,.24);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 12px 26px rgba(0,0,0,.11);
+}
+
+#fh-checkout-main .fh-langbar button{
+  border:1px solid transparent;
+  background:transparent;
+  color:rgba(255,250,243,.82);
+  min-width:32px;
+  min-height:30px;
+  padding:6px 7px;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+#fh-checkout-main .fh-langbar button.is-active,
+#fh-checkout-main .fh-langbar button:hover,
+#fh-checkout-main .fh-langbar button:focus-visible{
+  background:rgba(255,250,243,.16);
+  border-color:rgba(255,250,243,.34);
+  color:#fff;
+  outline:none;
+}
+
+#fh-checkout-main .fh-page{
+  position:relative;
+  z-index:3;
+  width:min(1160px,calc(100% - 28px));
+  margin:0 auto;
+  padding:136px 0 82px;
+}
+
+#fh-checkout-main .fh-shell{
+  display:grid;
+  grid-template-columns:minmax(320px,.82fr) minmax(0,1fr);
+  gap:18px;
+  align-items:stretch;
+}
+
+#fh-checkout-main .fh-image-card,
+#fh-checkout-main .fh-confirm-card,
+#fh-checkout-main .fh-next-card{
+  background:rgba(255,250,243,.95);
+  border:1px solid rgba(26,23,20,.11);
+  box-shadow:var(--shadow);
+}
+
+#fh-checkout-main .fh-image-card{
+  min-height:620px;
+  position:relative;
+  overflow:hidden;
+  background:#d8cbbb center/cover no-repeat;
+}
+
+#fh-checkout-main .fh-image-card:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(22,19,17,.08),rgba(22,19,17,.64));
+}
+
+#fh-checkout-main .fh-image-caption{
+  position:absolute;
+  left:24px;
+  right:24px;
+  bottom:24px;
+  color:#fffaf3;
+}
+
+#fh-checkout-main .fh-image-caption span,
+#fh-checkout-main .fh-kicker,
+#fh-checkout-main .fh-label{
+  display:block;
+  margin:0 0 8px;
+  font-size:10px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:850;
+  color:rgba(26,23,20,.48);
+}
+
+#fh-checkout-main .fh-image-caption span{color:rgba(255,250,243,.72)}
+
+#fh-checkout-main .fh-image-caption strong{
+  display:block;
+  max-width:360px;
+  font-family:var(--serif);
+  font-size:38px;
+  font-weight:400;
+  line-height:.94;
+  letter-spacing:-.04em;
+}
+
+#fh-checkout-main .fh-right{
+  display:grid;
+  gap:14px;
+}
+
+#fh-checkout-main .fh-confirm-card{
+  padding:36px;
+}
+
+#fh-checkout-main .fh-status{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:18px;
+  padding:9px 11px;
+  background:#f3eadf;
+  border:1px solid rgba(26,23,20,.09);
+  color:rgba(26,23,20,.68);
+  font-size:10px;
+  font-weight:850;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+#fh-checkout-main .fh-status:before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:var(--green);
+}
+
+#fh-checkout-main h1{
+  margin:0 0 14px;
+  max-width:720px;
+  font-family:var(--serif);
+  font-size:clamp(48px,6vw,82px);
+  line-height:.91;
+  letter-spacing:-.062em;
+  font-weight:400;
+  text-wrap:balance;
+}
+
+#fh-checkout-main .fh-lead{
+  margin:0;
+  max-width:660px;
+  color:var(--muted);
+  line-height:1.62;
+  font-size:16px;
+}
+
+#fh-checkout-main .fh-summary{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:24px;
+}
+
+#fh-checkout-main .fh-summary-item{
+  min-width:0;
+  padding:15px;
+  background:#f5eee5;
+  border:1px solid #e3d5c6;
+}
+
+#fh-checkout-main .fh-summary-item.wide{grid-column:1/-1}
+
+#fh-checkout-main .fh-summary-item strong{
+  display:block;
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.38;
+  overflow-wrap:anywhere;
+}
+
+#fh-checkout-main .fh-next-card{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:18px;
+  align-items:center;
+  padding:22px 24px;
+}
+
+#fh-checkout-main .fh-next-card p{
+  margin:0;
+  color:rgba(26,23,20,.62);
+  font-size:14px;
+  line-height:1.55;
+}
+
+#fh-checkout-main .fh-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:flex-end;
+}
+
+#fh-checkout-main .fh-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:50px;
+  padding:14px 18px;
+  border:0;
+  background:#1d1a17;
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:10px;
+  font-weight:850;
+  text-align:center;
+  touch-action:manipulation;
+}
+
+#fh-checkout-main .fh-btn.light{
+  background:#fffaf3;
+  color:var(--ink);
+  border:1px solid rgba(26,23,20,.14);
+}
+
+#fh-checkout-main .fh-btn:focus-visible{
+  outline:3px solid rgba(135,110,88,.34);
+  outline-offset:3px;
+}
+
+#fh-checkout-main .fh-mobile-top-image{display:none}
+
+/* Real mobile page: no hero, no horizontal info carousel, no compressed desktop. */
+@media(max-width:760px){
+  html,body{margin:0;max-width:100%;overflow-x:hidden;background:#efe7dc}
+
+  #fh-checkout-main .fh-bg:before{opacity:.045}
+  #fh-checkout-main .fh-grain{opacity:.028}
+
+  #fh-checkout-main .fh-langbar{
+    top:66px;
+    right:9px;
+    gap:2px;
+    padding:4px;
+    background:rgba(26,23,20,.22);
+  }
+
+  #fh-checkout-main .fh-langbar button{
+    min-width:29px;
+    min-height:28px;
+    padding:5px 6px;
+    font-size:8.5px;
+    letter-spacing:.07em;
+  }
+
+  #fh-checkout-main .fh-page{
+    width:100%;
+    padding:104px 0 calc(86px + env(safe-area-inset-bottom));
+  }
+
+  #fh-checkout-main .fh-shell{
+    display:block;
+  }
+
+  #fh-checkout-main .fh-image-card{
+    display:none;
+  }
+
+  #fh-checkout-main .fh-right{
+    display:block;
+  }
+
+  #fh-checkout-main .fh-mobile-top-image{
+    display:block;
+    position:relative;
+    width:calc(100% - 14px);
+    height:154px;
+    margin:0 auto;
+    background:#d8cbbb center/cover no-repeat;
+    overflow:hidden;
+    border:1px solid rgba(255,250,243,.42);
+    box-shadow:0 14px 36px rgba(0,0,0,.12);
+  }
+
+  #fh-checkout-main .fh-mobile-top-image:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(26,23,20,.02),rgba(26,23,20,.36));
+  }
+
+  #fh-checkout-main .fh-mobile-top-image span{
+    position:absolute;
+    left:13px;
+    bottom:12px;
+    max-width:260px;
+    color:#fffaf3;
+    font-size:9px;
+    line-height:1.18;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-weight:850;
+  }
+
+  #fh-checkout-main .fh-confirm-card{
+    width:calc(100% - 14px);
+    margin:8px auto 0;
+    padding:18px 15px 16px;
+    border-radius:0;
+    box-shadow:0 16px 42px rgba(0,0,0,.10);
+  }
+
+  #fh-checkout-main .fh-status{
+    margin-bottom:12px;
+    padding:8px 9px;
+    font-size:8.5px;
+    letter-spacing:.10em;
+  }
+
+  #fh-checkout-main h1{
+    margin-bottom:9px;
+    font-size:clamp(34px,10.4vw,46px);
+    line-height:.94;
+    letter-spacing:-.055em;
+  }
+
+  #fh-checkout-main .fh-lead{
+    font-size:13.5px;
+    line-height:1.48;
+  }
+
+  #fh-checkout-main .fh-summary{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:15px;
+  }
+
+  #fh-checkout-main .fh-summary-item{
+    padding:11px;
+  }
+
+  #fh-checkout-main .fh-label{
+    margin-bottom:5px;
+    font-size:8.2px;
+    letter-spacing:.09em;
+  }
+
+  #fh-checkout-main .fh-summary-item strong{
+    font-size:12.8px;
+    line-height:1.3;
+  }
+
+  #fh-checkout-main .fh-next-card{
+    width:calc(100% - 14px);
+    display:block;
+    margin:8px auto 0;
+    padding:13px;
+    border-radius:0;
+    box-shadow:none;
+    background:rgba(255,250,243,.66);
+  }
+
+  #fh-checkout-main .fh-next-card p{
+    font-size:12.6px;
+    line-height:1.44;
+  }
+
+  #fh-checkout-main .fh-actions{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:70;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    padding:10px 10px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(239,231,220,.9);
+    border-top:1px solid rgba(26,23,20,.10);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+  }
+
+  #fh-checkout-main .fh-btn{
+    width:100%;
+    min-height:48px;
+    padding:12px 10px;
+    font-size:9px;
+    letter-spacing:.09em;
+  }
+}
+
+@media(max-width:380px){
+  #fh-checkout-main .fh-page{padding-top:96px}
+  #fh-checkout-main .fh-mobile-top-image{width:calc(100% - 12px);height:136px}
+  #fh-checkout-main .fh-confirm-card,
+  #fh-checkout-main .fh-next-card{width:calc(100% - 12px)}
+  #fh-checkout-main .fh-summary{grid-template-columns:1fr}
+}
+
+@media(min-width:761px) and (max-width:980px){
+  #fh-checkout-main .fh-shell{grid-template-columns:1fr}
+  #fh-checkout-main .fh-image-card{min-height:320px}
+  #fh-checkout-main .fh-next-card{grid-template-columns:1fr}
+  #fh-checkout-main .fh-actions{justify-content:flex-start}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #fh-checkout-main .fh-bg:before{animation:none}
+  #fh-checkout-main *,
+  #fh-checkout-main *:before,
+  #fh-checkout-main *:after{scroll-behavior:auto !important;transition:none !important}
+}
+</style>
+
+<div id="fh-checkout-main" data-page="checkout" data-lang="en">
+  <div class="fh-bg" aria-hidden="true"></div>
+  <div class="fh-grain" aria-hidden="true"></div>
+
+  <div class="fh-langbar" role="group" aria-label="Choose language" hidden>
+    <button type="button" data-fh-lang="en">EN</button>
+    <button type="button" data-fh-lang="fr">FR</button>
+    <button type="button" data-fh-lang="de">DE</button>
+    <button type="button" data-fh-lang="ru">RU</button>
+    <button type="button" data-fh-lang="he">HE</button>
+  </div>
+
+  <main class="fh-page">
+    <div class="fh-shell">
+      <aside class="fh-image-card" id="fhCheckoutSideImage" aria-hidden="true">
+        <div class="fh-image-caption">
+          <span data-i18n="imageKicker">Private alpine stay</span>
+          <strong data-i18n="imageTitle">Your Fletschhorn booking is now confirmed.</strong>
+        </div>
+      </aside>
+
+      <section class="fh-right" aria-label="Booking confirmation">
+        <div class="fh-mobile-top-image" id="fhCheckoutMobileImage" aria-hidden="true">
+          <span data-i18n="mobileImageLabel">Fletschhorn · Saas-Fee</span>
+        </div>
+
+        <article class="fh-confirm-card">
+          <div class="fh-status" data-i18n="status">Booking confirmed</div>
+          <h1 data-i18n="title">Your stay is confirmed.</h1>
+          <p class="fh-lead" data-i18n="lead">Your booking has been received with the fixed calendar total from checkout. Reservation details and next steps will be sent by email.</p>
+
+          <div class="fh-summary">
+            <div class="fh-summary-item">
+              <span class="fh-label" data-i18n="guestLabel">Guest</span>
+              <strong id="fhGuest">—</strong>
+            </div>
+            <div class="fh-summary-item">
+              <span class="fh-label" data-i18n="emailLabel">Email</span>
+              <strong id="fhEmail">—</strong>
+            </div>
+            <div class="fh-summary-item">
+              <span class="fh-label" data-i18n="datesLabel">Dates</span>
+              <strong id="fhDates">—</strong>
+            </div>
+            <div class="fh-summary-item">
+              <span class="fh-label" data-i18n="guestsLabel">Guests</span>
+              <strong id="fhGuests">—</strong>
+            </div>
+            <div class="fh-summary-item">
+              <span class="fh-label" data-i18n="totalLabel">Total charged</span>
+              <strong id="fhTotal">—</strong>
+            </div>
+            <div class="fh-summary-item wide">
+              <span class="fh-label" data-i18n="requestLabel">Request reference</span>
+              <strong id="fhReference">Sent by email</strong>
+            </div>
+          </div>
+        </article>
+
+        <aside class="fh-next-card">
+          <p data-i18n="note">Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.</p>
+          <div class="fh-actions">
+            <a class="fh-btn" href="/" data-i18n="homeBtn">Return home</a>
+            <a class="fh-btn light" href="/booking" data-i18n="newBtn">Start another request</a>
+          </div>
+        </aside>
+      </section>
+    </div>
+  </main>
+</div>
+
+
+<script>
+(function(){
+  document.body.classList.add("fh-github-version");
+  const ASSET_BASE = new URL("assets/", document.baseURI).href;
+
+  async function loadHtml(slotId, fileName){
+    const slot = document.getElementById(slotId);
+    if(!slot) return;
+    try{
+      const response = await fetch(ASSET_BASE + fileName, {cache:"no-cache"});
+      if(!response.ok) throw new Error(fileName + " failed: " + response.status);
+      const html = await response.text();
+      slot.innerHTML = html;
+      slot.querySelectorAll("script").forEach(function(oldScript){
+        const newScript = document.createElement("script");
+        Array.from(oldScript.attributes).forEach(function(attr){newScript.setAttribute(attr.name, attr.value)});
+        newScript.textContent = oldScript.textContent;
+        oldScript.replaceWith(newScript);
+      });
+    }catch(error){console.error("Fletschhorn header/footer load error:", error)}
+  }
+
+  loadHtml("fh-header-slot", "Header.html");
+  loadHtml("fh-footer-slot", "footer.html");
+})();
+</script>
+
+<script>
+(function(){
+  const root = document.getElementById("fh-checkout-main");
+  if(!root || root.dataset.ready === "1") return;
+  root.dataset.ready = "1";
+
+  const IK_BASE = "https://ik.imagekit.io/Redberry/";
+
+  function cleanImageUrl(src){
+    let value = String(src || "").trim();
+    if(!value) return "";
+    const duplicated = IK_BASE + IK_BASE;
+    while(value.startsWith(duplicated)) value = IK_BASE + value.slice(duplicated.length);
+    if(value.startsWith(IK_BASE)){
+      const rest = value.slice(IK_BASE.length).replace(/^\/+/, "");
+      return IK_BASE + rest.replace(/ /g, "%20");
+    }
+    return value.replace(/ /g, "%20");
+  }
+
+  function ik(path){
+    return cleanImageUrl(IK_BASE + String(path || "").replace(/^\/+/, ""));
+  }
+
+  const LOCATION_IMAGES = Array.from({length:10}, function(_,i){
+    return ik("Location (" + (i + 1) + ").jpg");
+  });
+
+  const FALLBACK_IMAGES = LOCATION_IMAGES.concat([
+    "https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
+    "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg"
+  ].map(cleanImageUrl));
+
+  const LANGS = ["en","fr","de","ru","he"];
+  const I18N = {
+    en:{status:"Booking confirmed",title:"Your stay is confirmed.",lead:"Your booking has been received with the fixed calendar total from checkout. Reservation details and next steps will be sent by email.",imageKicker:"Private alpine stay",imageTitle:"Your Fletschhorn booking is now confirmed.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Guest",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Guests",totalLabel:"Total charged",requestLabel:"Reservation reference",note:"Please check your inbox. If anything needs to be adjusted, reply directly to the confirmation email.",homeBtn:"Return home",newBtn:"Start another request",sentByEmail:"Sent by email",night:"night",nights:"nights",guestWord:"guests"},
+    fr:{status:"Réservation confirmée",title:"Votre séjour est confirmé.",lead:"Votre réservation a été reçue avec le total fixe du calendrier validé au checkout. Les détails de réservation et les prochaines étapes seront envoyés par email.",imageKicker:"Séjour alpin privé",imageTitle:"Votre réservation Fletschhorn est maintenant confirmée.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Client",emailLabel:"Email",datesLabel:"Dates",guestsLabel:"Invités",totalLabel:"Total facturé",requestLabel:"Référence de réservation",note:"Veuillez vérifier votre boîte mail. Si quelque chose doit être ajusté, répondez directement à l’email de confirmation.",homeBtn:"Retour à l’accueil",newBtn:"Nouvelle demande",sentByEmail:"Envoyé par email",night:"nuit",nights:"nuits",guestWord:"invités"},
+    de:{status:"Buchung bestätigt",title:"Ihr Aufenthalt ist bestätigt.",lead:"Ihre Buchung wurde mit der festen Kalendersumme aus dem Checkout empfangen. Reservierungsdetails und nächste Schritte werden per E-Mail gesendet.",imageKicker:"Privater alpiner Aufenthalt",imageTitle:"Ihre Fletschhorn-Buchung ist jetzt bestätigt.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Gast",emailLabel:"E-Mail",datesLabel:"Daten",guestsLabel:"Gäste",totalLabel:"Berechneter Gesamtbetrag",requestLabel:"Reservierungsreferenz",note:"Bitte prüfen Sie Ihren Posteingang. Wenn etwas angepasst werden muss, antworten Sie direkt auf die Bestätigungs-E-Mail.",homeBtn:"Zur Startseite",newBtn:"Neue Anfrage",sentByEmail:"Per E-Mail gesendet",night:"Nacht",nights:"Nächte",guestWord:"Gäste"},
+    ru:{status:"Бронирование подтверждено",title:"Ваше пребывание подтверждено.",lead:"Ваше бронирование подтверждено с фиксированной суммой, оформленной при оплате. Детали резервации и следующие шаги будут отправлены на почту.",imageKicker:"Частное альпийское пребывание",imageTitle:"Ваше бронирование Fletschhorn подтверждено.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"Гость",emailLabel:"Email",datesLabel:"Даты",guestsLabel:"Гости",totalLabel:"Списанная сумма",requestLabel:"Номер резервации",note:"Проверьте вашу почту. Если нужно что-то изменить, ответьте прямо на письмо с подтверждением.",homeBtn:"На главную",newBtn:"Новый запрос",sentByEmail:"Отправлено по email",night:"ночь",nights:"ночей",guestWord:"гостей"},
+    he:{status:"ההזמנה אושרה",title:"השהייה שלכם אושרה.",lead:"ההזמנה התקבלה עם הסכום הקבוע שאושר בשלב התשלום. פרטי ההזמנה והשלבים הבאים יישלחו באימייל.",imageKicker:"שהייה אלפינית פרטית",imageTitle:"הזמנת Fletschhorn שלכם אושרה.",mobileImageLabel:"Fletschhorn · Saas-Fee",guestLabel:"אורח",emailLabel:"אימייל",datesLabel:"תאריכים",guestsLabel:"אורחים",totalLabel:"סה״כ שחויב",requestLabel:"מספר הזמנה",note:"בדקו את תיבת המייל. אם צריך לשנות משהו, השיבו ישירות לאימייל האישור.",homeBtn:"חזרה לבית",newBtn:"הזמנה חדשה",sentByEmail:"נשלח באימייל",night:"לילה",nights:"לילות",guestWord:"אורחים"}
+  };
+
+  function normalizeLang(lang){
+    const value = String(lang || "en").toLowerCase().slice(0,2);
+    return LANGS.includes(value) ? value : "en";
+  }
+
+  function getStored(){
+    try{return JSON.parse(localStorage.getItem("fhBookingComplete") || localStorage.getItem("fhBookingStart") || "{}") || {}}catch(e){return {}}
+  }
+
+  function setText(id,value){
+    const el = document.getElementById(id);
+    if(el) el.textContent = value || "—";
+  }
+
+  function nightsBetween(checkIn,checkOut){
+    if(!checkIn || !checkOut) return 0;
+    const start = new Date(checkIn + "T00:00:00");
+    const end = new Date(checkOut + "T00:00:00");
+    const n = Math.round((end - start) / 86400000);
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  function readData(){
+    const params = new URLSearchParams(window.location.search);
+    const stored = getStored();
+    return {
+      firstName:params.get("firstName") || stored.firstName || "",
+      lastName:params.get("lastName") || stored.lastName || "",
+      email:params.get("email") || stored.email || "",
+      phone:params.get("phone") || stored.phone || "",
+      checkIn:params.get("checkIn") || stored.checkIn || "",
+      checkOut:params.get("checkOut") || stored.checkOut || "",
+      guests:params.get("guests") || stored.guests || "",
+      lang:params.get("lang") || stored.lang || stored.language || localStorage.getItem("fh_lang") || "en",
+      reservationId:params.get("reservationId") || stored.reservationId || "",
+      confirmationCode:params.get("confirmationCode") || stored.confirmationCode || "",
+      finalTotal:params.get("finalTotal") || stored.finalTotal || "",
+      finalCurrency:params.get("finalCurrency") || stored.finalCurrency || stored.currency || "CHF",
+      finalPriceText:params.get("finalPriceText") || stored.finalPriceText || ""
+    };
+  }
+
+  let data = readData();
+  let currentLang = normalizeLang(data.lang);
+
+  function t(key){
+    return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
+  }
+
+  function setLang(lang){
+    currentLang = normalizeLang(lang);
+    try{localStorage.setItem("fh_lang", currentLang)}catch(e){}
+    root.dataset.lang = currentLang;
+    document.documentElement.setAttribute("lang", currentLang);
+    document.documentElement.setAttribute("dir", currentLang === "he" ? "rtl" : "ltr");
+    root.setAttribute("dir", currentLang === "he" ? "rtl" : "ltr");
+    root.querySelectorAll("[data-i18n]").forEach(function(el){
+      const key = el.getAttribute("data-i18n");
+      if(t(key)) el.textContent = t(key);
+    });
+    root.querySelectorAll("[data-fh-lang]").forEach(function(btn){
+      const active = normalizeLang(btn.getAttribute("data-fh-lang")) === currentLang;
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+    renderData();
+    return currentLang;
+  }
+
+  window.setFletschhornLanguage = setLang;
+  window.FHSetLanguage = setLang;
+
+  document.addEventListener("click", function(event){
+    const trigger = event.target.closest("[data-fh-lang], [data-lang], [data-language]");
+    if(!trigger) return;
+    const lang = trigger.getAttribute("data-fh-lang") || trigger.getAttribute("data-lang") || trigger.getAttribute("data-language");
+    if(LANGS.includes(normalizeLang(lang))) setLang(lang);
+  });
+
+  function formatMoney(amount,currency){
+    const n = Number(amount);
+    if(!Number.isFinite(n) || n <= 0) return "";
+    try{return new Intl.NumberFormat(currentLang === "en" ? "en-US" : currentLang, {style:"currency", currency:currency || "CHF", maximumFractionDigits:0}).format(n)}
+    catch(e){return Math.round(n).toLocaleString() + " " + (currency || "CHF")}
+  }
+
+  function renderData(){
+    const nights = nightsBetween(data.checkIn, data.checkOut);
+    const guest = [data.firstName,data.lastName].filter(Boolean).join(" ");
+    const dates = data.checkIn && data.checkOut
+      ? `${data.checkIn} → ${data.checkOut}${nights ? " · " + nights + " " + (nights === 1 ? t("night") : t("nights")) : ""}`
+      : "—";
+    const reference = data.confirmationCode
+      ? `${t("sentByEmail")} · Confirmation ${data.confirmationCode}`
+      : data.reservationId
+        ? `${t("sentByEmail")} · Request ${data.reservationId}`
+        : t("sentByEmail");
+
+    setText("fhGuest", guest);
+    setText("fhEmail", data.email);
+    setText("fhDates", dates);
+    const totalText = data.finalPriceText || formatMoney(data.finalTotal, data.finalCurrency) || "—";
+    setText("fhGuests", data.guests ? `${data.guests} ${t("guestWord")}` : "—");
+    setText("fhTotal", totalText);
+    setText("fhReference", reference);
+  }
+
+  const sideImage = document.getElementById("fhCheckoutSideImage");
+  const mobileImage = document.getElementById("fhCheckoutMobileImage");
+
+  /* Deliberately not image 4: this confirmation page now uses Location (6).jpg. */
+  const mainImage = FALLBACK_IMAGES[5] || FALLBACK_IMAGES[0];
+  const mobileAltImage = FALLBACK_IMAGES[6] || mainImage;
+
+  if(sideImage) sideImage.style.backgroundImage = `url("${mainImage}")`;
+  if(mobileImage) mobileImage.style.backgroundImage = `url("${mainImage}")`;
+
+  setLang(currentLang);
+})();
+</script>
