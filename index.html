@@ -3,9 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fletschhorn · Private Swiss Chalet in Saas-Fee</title>
-  <meta name="description" content="A private Swiss chalet above Saas-Fee for families, retreats, weddings, ski groups, and whole-property alpine stays.">
+  <title>Fletschhorn · Private Swiss Chalet in Saas-Fee | Whole-Property Alpine Stays</title>
+  <meta name="description" content="Private Swiss chalet in Saas-Fee for exclusive whole-property stays. Sleeps up to 48 · 6 room types · Private sauna · Professional kitchen · Book direct and save.">
+  <link rel="canonical" href="https://www.fletschhorn.ch/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fletschhorn.ch/">
+  <meta property="og:title" content="Fletschhorn · Private Swiss Chalet in Saas-Fee">
+  <meta property="og:description" content="Exclusive whole-property stays above Saas-Fee. Up to 48 guests, private sauna, professional kitchen, and mountain terraces. Book direct — no platform fees.">
+  <meta property="og:image" content="https://www.fletschhorn.ch/assets/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fletschhorn · Private Swiss Chalet in Saas-Fee">
+  <meta name="twitter:description" content="Exclusive whole-property stays above Saas-Fee. Up to 48 guests, private sauna, professional kitchen. Book direct — no platform fees.">
   <link rel="stylesheet" href="assets/fh-global.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": "Fletschhorn",
+    "alternateName": "Waldhotel Fletschhorn",
+    "description": "A private Swiss chalet in Saas-Fee for exclusive whole-property stays. Sleeps up to 48 guests across 6 room types.",
+    "url": "https://www.fletschhorn.ch",
+    "email": "welcome@fletschhorn.ch",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Wildistrasse",
+      "addressLocality": "Saas-Fee",
+      "addressRegion": "Valais",
+      "postalCode": "3906",
+      "addressCountry": "CH"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 46.1032,
+      "longitude": 7.9254
+    },
+    "amenityFeature": [
+      {"@type": "LocationFeatureSpecification", "name": "Private Sauna", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Professional Kitchen", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Mountain Terraces", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Exclusive Whole-Property Use", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Shuttle Service", "value": true}
+    ],
+    "numberOfRooms": 6,
+    "checkinTime": "15:00",
+    "checkoutTime": "11:00",
+    "priceRange": "$$$$",
+    "currenciesAccepted": "CHF",
+    "starRating": {"@type": "Rating", "ratingValue": "5"},
+    "sameAs": [
+      "https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html"
+    ]
+  }
+  </script>
 
   <style>
     #fh-home{
@@ -2689,6 +2738,80 @@
       }
     }
 
+    #fh-home .fh-why-direct-section{
+      background:var(--forest);
+      color:var(--white);
+    }
+
+    #fh-home .fh-why-direct-head{
+      text-align:center;
+      max-width:640px;
+      margin:0 auto clamp(32px,4vw,48px);
+    }
+
+    #fh-home .fh-why-direct-head .fh-kicker{
+      color:var(--clay);
+      opacity:.88;
+    }
+
+    #fh-home .fh-why-direct-head h2{
+      font-family:var(--serif);
+      font-size:clamp(26px,3.5vw,40px);
+      font-weight:400;
+      letter-spacing:-.01em;
+      line-height:1.15;
+      margin:10px 0 16px;
+      color:var(--white);
+    }
+
+    #fh-home .fh-why-direct-head p{
+      font-size:clamp(14px,1.5vw,16px);
+      line-height:1.6;
+      color:rgba(255,250,242,.72);
+      margin:0;
+    }
+
+    #fh-home .fh-why-direct-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1px;
+      background:rgba(255,250,242,.12);
+    }
+
+    #fh-home .fh-why-card{
+      background:var(--forest);
+      padding:clamp(20px,3vw,32px);
+    }
+
+    #fh-home .fh-why-card strong{
+      display:block;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.13em;
+      font-weight:900;
+      color:var(--clay);
+      margin-bottom:12px;
+    }
+
+    #fh-home .fh-why-card p{
+      margin:0;
+      font-size:clamp(13px,1.3vw,15px);
+      line-height:1.6;
+      color:rgba(255,250,242,.72);
+    }
+
+    @media(max-width:900px){
+      #fh-home .fh-why-direct-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:560px){
+      #fh-home .fh-why-direct-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
   </style>
 </head>
 
@@ -2811,7 +2934,7 @@
 
       <div class="fh-container fh-card-grid" style="margin-top:34px">
         <article class="fh-card fh-reveal">
-          <img data-img="family" alt="Family stay">
+          <img data-img="family" alt="Family group gathered for a private stay at Fletschhorn chalet, Saas-Fee">
           <div class="copy">
             <p class="fh-kicker" data-i18n="familyKicker">Families</p>
             <h3 data-i18n="familyTitle">Space for everyone.</h3>
@@ -2820,7 +2943,7 @@
         </article>
 
         <article class="fh-card fh-reveal">
-          <img data-img="retreat" alt="Retreat stay">
+          <img data-img="retreat" alt="Private retreat group at Fletschhorn alpine chalet above Saas-Fee">
           <div class="copy">
             <p class="fh-kicker" data-i18n="retreatKicker">Retreats</p>
             <h3 data-i18n="retreatTitle">A focused alpine base.</h3>
@@ -2829,7 +2952,7 @@
         </article>
 
         <article class="fh-card fh-reveal">
-          <img data-img="event" alt="Wedding or event">
+          <img data-img="event" alt="Alpine wedding and private event at Fletschhorn chalet, Saas-Fee Switzerland">
           <div class="copy">
             <p class="fh-kicker" data-i18n="eventKicker">Weddings & events</p>
             <h3 data-i18n="eventTitle">Your moment, here.</h3>
@@ -2838,7 +2961,7 @@
         </article>
 
         <article class="fh-card fh-reveal">
-          <img data-img="ski" alt="Ski group">
+          <img data-img="ski" alt="Ski group holiday based at Fletschhorn private chalet, Saas-Fee glacier">
           <div class="copy">
             <p class="fh-kicker" data-i18n="skiKicker">Ski groups</p>
             <h3 data-i18n="skiTitle">Mountain days, warm returns.</h3>
@@ -2911,9 +3034,9 @@
       </div>
 
       <div class="fh-container fh-season-grid">
-        <article class="fh-season fh-reveal"><img data-img="winter" alt="Winter around Fletschhorn"><div class="copy"><p class="fh-kicker" data-i18n="winterKicker">Winter</p><h3 data-i18n="winterTitle">Ski days, glacier air, and quiet evenings.</h3><p data-i18n="winterText">High-altitude skiing, night sledging at Hannig, Ice Pavilion visits, Aqua Allalin, and warm returns to your private chalet.</p></div></article>
-        <article class="fh-season fh-reveal"><img data-img="summer" alt="Summer around Fletschhorn"><div class="copy"><p class="fh-kicker" data-i18n="summerKicker">Spring / Summer</p><h3 data-i18n="summerTitle">Trails, marmots, water, and mountain routes.</h3><p data-i18n="summerText">Spielboden marmots, Feeblitz, rope park, Mattmark Dam, Trotti scooters, and hikes for different energy levels.</p></div></article>
-        <article class="fh-season fh-reveal"><img data-img="soft" alt="Soft alpine day at Fletschhorn"><div class="copy"><p class="fh-kicker" data-i18n="softKicker">Soft days</p><h3 data-i18n="softTitle">Wellness, village time, and slow mornings.</h3><p data-i18n="softText">Stillness, views, warm interiors, sauna by request, and the feeling of staying above the rush.</p></div></article>
+        <article class="fh-season fh-reveal"><img data-img="winter" alt="Glacier skiing and high-altitude winter landscape around Fletschhorn chalet, Saas-Fee"><div class="copy"><p class="fh-kicker" data-i18n="winterKicker">Winter</p><h3 data-i18n="winterTitle">Ski days, glacier air, and quiet evenings.</h3><p data-i18n="winterText">High-altitude skiing, night sledging at Hannig, Ice Pavilion visits, Aqua Allalin, and warm returns to your private chalet.</p></div></article>
+        <article class="fh-season fh-reveal"><img data-img="summer" alt="Alpine summer hiking and marmot spotting near Fletschhorn chalet, Saas-Fee"><div class="copy"><p class="fh-kicker" data-i18n="summerKicker">Spring / Summer</p><h3 data-i18n="summerTitle">Trails, marmots, water, and mountain routes.</h3><p data-i18n="summerText">Spielboden marmots, Feeblitz, rope park, Mattmark Dam, Trotti scooters, and hikes for different energy levels.</p></div></article>
+        <article class="fh-season fh-reveal"><img data-img="soft" alt="Quiet morning terrace and mountain valley views at Fletschhorn private alpine chalet"><div class="copy"><p class="fh-kicker" data-i18n="softKicker">Soft days</p><h3 data-i18n="softTitle">Wellness, village time, and slow mornings.</h3><p data-i18n="softText">Stillness, views, warm interiors, sauna by request, and the feeling of staying above the rush.</p></div></article>
       </div>
     </section>
 
@@ -2985,6 +3108,34 @@
       </div>
     </section>
 
+    <section class="fh-section fh-why-direct-section" id="why-book-direct" aria-label="Why book direct">
+      <div class="fh-container">
+        <div class="fh-why-direct-head fh-reveal">
+          <p class="fh-kicker" data-i18n="whyDirectKicker">Why book direct</p>
+          <h2 data-i18n="whyDirectTitle">Better rates. No platform fees.</h2>
+          <p data-i18n="whyDirectLead">Booking directly with Fletschhorn means you get the best available rate and a direct line to the property team — none of which a platform can offer.</p>
+        </div>
+        <div class="fh-why-direct-grid">
+          <div class="fh-why-card fh-reveal">
+            <strong data-i18n="whyDirect1H">Best price guaranteed</strong>
+            <p data-i18n="whyDirect1P">Direct rates are never higher than any third-party platform. No markup, no inflated base price.</p>
+          </div>
+          <div class="fh-why-card fh-reveal" style="--d:.06s">
+            <strong data-i18n="whyDirect2H">No service fees</strong>
+            <p data-i18n="whyDirect2P">Platforms add 12–18% in service fees on top of the property rate. Booking direct means every franc goes toward your stay.</p>
+          </div>
+          <div class="fh-why-card fh-reveal" style="--d:.12s">
+            <strong data-i18n="whyDirect3H">Direct contact</strong>
+            <p data-i18n="whyDirect3P">Speak with the property team directly about arrivals, catering, sauna access, group needs, and anything else your stay requires.</p>
+          </div>
+          <div class="fh-why-card fh-reveal" style="--d:.18s">
+            <strong data-i18n="whyDirect4H">More flexibility</strong>
+            <p data-i18n="whyDirect4P">Shuttle, kitchen concept, sauna timing, and group arrangements are handled directly — not through a platform inbox.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="fh-section" id="contact">
       <div class="fh-container fh-contact-grid">
         <div class="fh-panel fh-reveal">
@@ -3018,7 +3169,7 @@
         </div>
 
         <p class="fh-calendar-help" data-i18n="calendarHelp">Choose your arrival date, then your departure date.</p>
-        <div class="fh-calendar-warning" id="fhToolbarCalendarWarning" data-i18n="calendarMinWarning">Please select at least 2 nights.</div>
+        <div class="fh-calendar-warning" id="fhToolbarCalendarWarning" data-i18n="calendarMinWarning">A minimum stay of 2 nights is required. Please extend your selection to continue.</div>
 
         <div class="fh-weekdays">
           <div class="fh-weekday">Sun</div>
@@ -3215,11 +3366,11 @@
           openCalendar:"Open calendar",
           calendarKicker:"Select dates",
           calendarHelp:"Choose your arrival date, then your departure date.",
-          calendarMinWarning:"Please select at least 2 nights.",
+          calendarMinWarning:"A minimum stay of 2 nights is required. Please extend your selection to continue.",
           selectDeparture:"Select departure",
           alreadyBooked:"Booked",
           calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",
-          minNights:"Please select at least 2 nights.",
+          minNights:"A minimum stay of 2 nights is required. Please extend your selection to continue.",
           estimatedTotal:"Estimated total",
           bookNow:"Book my stay now",
           bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
@@ -3310,6 +3461,17 @@
           h1994Text:"Irma Dütsch becomes the first Swiss woman to be awarded a Michelin star.",
           hNowTitle:"A renewed private chalet.",
           hNowText:"The story continues as a private alpine base for groups, events, and whole-property stays.",
+          whyDirectKicker:"Why book direct",
+          whyDirectTitle:"Better rates. No platform fees.",
+          whyDirectLead:"Booking directly with Fletschhorn means you get the best available rate and a direct line to the property team.",
+          whyDirect1H:"Best price guaranteed",
+          whyDirect1P:"Direct rates are never higher than any third-party platform. No markup, no inflated base price.",
+          whyDirect2H:"No service fees",
+          whyDirect2P:"Platforms add 12–18% in service fees on top of the property rate. Booking direct means every franc goes toward your stay.",
+          whyDirect3H:"Direct contact",
+          whyDirect3P:"Speak with the property team directly about arrivals, catering, sauna, group needs, and anything your stay requires.",
+          whyDirect4H:"More flexibility",
+          whyDirect4P:"Shuttle, kitchen concept, sauna timing, and group arrangements are handled directly — not through a platform inbox.",
           contactKicker:"Contact & booking",
           contactTitle:"Make this place yours.",
           contactText:"Start with your name, email, and preferred dates. The booking page will let you review availability, price, and send the final inquiry.",
@@ -3357,11 +3519,11 @@
           openCalendar:"Ouvrir le calendrier",
           calendarKicker:"Sélectionner les dates",
           calendarHelp:"Choisissez votre arrivée, puis votre départ.",
-          calendarMinWarning:"Veuillez sélectionner au moins 2 nuits.",
+          calendarMinWarning:"Un séjour minimum de 2 nuits est requis. Veuillez prolonger votre sélection pour continuer.",
           selectDeparture:"Choisir le départ",
           alreadyBooked:"Réservé",
           calendarRangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles.",
-          minNights:"Veuillez sélectionner au moins 2 nuits.",
+          minNights:"Un séjour minimum de 2 nuits est requis. Veuillez prolonger votre sélection pour continuer.",
           estimatedTotal:"Total estimé",
           bookNow:"Réserver mon séjour",
           bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
@@ -3404,11 +3566,11 @@
           openCalendar:"Kalender öffnen",
           calendarKicker:"Daten auswählen",
           calendarHelp:"Wählen Sie zuerst die Anreise, dann die Abreise.",
-          calendarMinWarning:"Bitte mindestens 2 Nächte auswählen.",
+          calendarMinWarning:"Mindestaufenthalt von 2 Nächten erforderlich. Bitte verlängern Sie Ihre Auswahl, um fortzufahren.",
           selectDeparture:"Abreise auswählen",
           alreadyBooked:"Gebucht",
           calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.",
-          minNights:"Bitte mindestens 2 Nächte auswählen.",
+          minNights:"Mindestaufenthalt von 2 Nächten erforderlich. Bitte verlängern Sie Ihre Auswahl, um fortzufahren.",
           estimatedTotal:"Geschätzter Gesamtpreis",
           bookNow:"Aufenthalt buchen",
           bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
@@ -3451,11 +3613,11 @@
           openCalendar:"Открыть календарь",
           calendarKicker:"Выберите даты",
           calendarHelp:"Сначала выберите дату заезда, затем дату выезда.",
-          calendarMinWarning:"Выберите минимум 2 ночи.",
+          calendarMinWarning:"Требуется минимальный срок пребывания 2 ночи. Пожалуйста, расширьте выбор, чтобы продолжить.",
           selectDeparture:"Выбрать выезд",
           alreadyBooked:"Занято",
           calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны.",
-          minNights:"Выберите минимум 2 ночи.",
+          minNights:"Требуется минимальный срок пребывания 2 ночи. Пожалуйста, расширьте выбор, чтобы продолжить.",
           estimatedTotal:"Ориентировочная сумма",
           bookNow:"Забронировать",
           bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
@@ -3498,11 +3660,11 @@
           openCalendar:"פתחו יומן",
           calendarKicker:"בחירת תאריכים",
           calendarHelp:"בחרו את תאריך ההגעה ואז את תאריך העזיבה.",
-          calendarMinWarning:"יש לבחור לפחות 2 לילות.",
+          calendarMinWarning:"נדרשת שהייה מינימלית של 2 לילות. אנא הרחיבו את הבחירה כדי להמשיך.",
           selectDeparture:"בחרו עזיבה",
           alreadyBooked:"תפוס",
           calendarRangeUnavailable:"לילה אחד או יותר בטווח שבחרתם אינו זמין. בחרו טווח אחר.",
-          minNights:"יש לבחור לפחות 2 לילות.",
+          minNights:"נדרשת שהייה מינימלית של 2 לילות. אנא הרחיבו את הבחירה כדי להמשיך.",
           estimatedTotal:"מחיר משוער",
           bookNow:"להזמין את השהייה",
           bookingNote:"התחילו כאן. הפרטים יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
@@ -3593,6 +3755,7 @@
           h1994Text:"Irma Dütsch הופכת לאישה השווייצרית הראשונה שזכתה בכוכב מישלן.",
           hNowTitle:"שאלה פרטי מחודש.",
           hNowText:"הסיפור ממשיך כבסיס אלפיני פרטי לקבוצות, אירועים ושהיות בנכס כולו.",
+          whyDirectKicker:"למה להזמין ישירות",whyDirectTitle:"מחיר טוב יותר. ללא עמלות פלטפורמה.",whyDirectLead:"הזמנה ישירה מבטיחה את המחיר הטוב ביותר וקשר ישיר עם הנכס.",whyDirect1H:"מחיר מובטח",whyDirect1P:"ללא מחיר גבוה יותר מאשר בפלטפורמות.",whyDirect2H:"ללא עמלות",whyDirect2P:"פלטפורמות גובות 12–18% נוסף.",whyDirect3H:"קשר ישיר",whyDirect3P:"דברו ישירות עם צוות הנכס.",whyDirect4H:"גמישות",whyDirect4P:"כל ההסדרים מטופלים ישירות.",
           contactKicker:"יצירת קשר והזמנה",
           contactTitle:"הפכו את המקום הזה לשלכם.",
           contactText:"התחילו עם שם, אימייל ותאריכים מועדפים. עמוד ההזמנה יאפשר לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
@@ -3713,6 +3876,7 @@
           h1994Text:"Irma Dütsch devient la première femme suisse à recevoir une étoile Michelin.",
           hNowTitle:"Un chalet privé renouvelé.",
           hNowText:"L’histoire continue comme base alpine privée pour groupes, événements et séjours en propriété exclusive.",
+          whyDirectKicker:"Pourquoi réserver en direct",whyDirectTitle:"Meilleur tarif. Sans frais de plateforme.",whyDirectLead:"Réserver directement avec Fletschhorn garantit le meilleur tarif disponible et un accès direct à l’équipe.",whyDirect1H:"Prix garanti",whyDirect1P:"Les tarifs directs ne sont jamais supérieurs à ceux des plateformes.",whyDirect2H:"Sans frais de service",whyDirect2P:"Les plateformes ajoutent 12–18 % de frais. En direct, chaque franc va à votre séjour.",whyDirect3H:"Contact direct",whyDirect3P:"Parlez directement à l’équipe pour les arrivées, la cuisine, le sauna et les besoins du groupe.",whyDirect4H:"Plus de flexibilité",whyDirect4P:"Navette, concept cuisine et sauna gérés directement — pas via une messagerie de plateforme.",
           contactKicker:"Contact & réservation",
           contactTitle:"Faites de ce lieu le vôtre.",
           contactText:"Commencez avec votre nom, votre email et vos dates souhaitées. La page de réservation vous permettra de vérifier la disponibilité, le prix et d’envoyer la demande finale.",
@@ -3810,6 +3974,7 @@
           h1994Text:"Irma Dütsch wird die erste Schweizer Frau, die mit einem Michelin-Stern ausgezeichnet wird.",
           hNowTitle:"Ein erneuertes privates Chalet.",
           hNowText:"Die Geschichte geht weiter als private alpine Basis für Gruppen, Events und Aufenthalte im gesamten Anwesen.",
+          whyDirectKicker:"Warum direkt buchen",whyDirectTitle:"Bessere Preise. Keine Plattformgebühren.",whyDirectLead:"Direktbuchung bei Fletschhorn sichert den besten verfügbaren Preis und direkten Kontakt zum Team.",whyDirect1H:"Bester Preis garantiert",whyDirect1P:"Direktpreise sind nie höher als auf Drittplattformen.",whyDirect2H:"Keine Servicegebühren",whyDirect2P:"Plattformen erheben 12–18 % zusätzlich. Direkt gebucht geht jeder Franc in Ihren Aufenthalt.",whyDirect3H:"Direkter Kontakt",whyDirect3P:"Sprechen Sie direkt mit dem Team über Anreise, Verpflegung, Sauna und Gruppenanforderungen.",whyDirect4H:"Mehr Flexibilität",whyDirect4P:"Shuttle, Küchenkonzept und Sauna werden direkt geregelt — nicht über eine Plattformnachricht.",
           contactKicker:"Kontakt & Buchung",
           contactTitle:"Machen Sie diesen Ort zu Ihrem.",
           contactText:"Beginnen Sie mit Name, E-Mail und gewünschten Daten. Auf der Buchungsseite können Sie Verfügbarkeit, Preis und finale Anfrage prüfen.",
@@ -3907,6 +4072,7 @@
           h1994Text:"Ирма Дюч становится первой швейцарской женщиной, получившей звезду Michelin.",
           hNowTitle:"Обновлённое частное шале.",
           hNowText:"История продолжается как частная альпийская база для групп, событий и проживания во всём объекте.",
+          whyDirectKicker:"Почему бронировать напрямую",whyDirectTitle:"Лучшие цены. Без сборов платформы.",whyDirectLead:"Прямое бронирование гарантирует лучшую доступную цену и прямой контакт с командой объекта.",whyDirect1H:"Гарантия лучшей цены",whyDirect1P:"Прямые цены никогда не выше, чем на сторонних платформах.",whyDirect2H:"Без сервисных сборов",whyDirect2P:"Платформы добавляют 12–18 %. При прямом бронировании каждый франк идёт на ваше пребывание.",whyDirect3H:"Прямой контакт",whyDirect3P:"Общайтесь с командой напрямую по вопросам прибытия, питания, сауны и нужд группы.",whyDirect4H:"Больше гибкости",whyDirect4P:"Трансфер, концепция кухни и саuna организуются напрямую.",
           contactKicker:"Контакт и бронирование",
           contactTitle:"Сделайте это место своим.",
           contactText:"Начните с имени, email и желаемых дат. На странице бронирования можно проверить доступность, цену и отправить финальный запрос.",
@@ -4004,6 +4170,7 @@
           h1994Text:"Irma Dütsch הופכת לאישה השווייצרית הראשונה שזכתה בכוכב מישלן.",
           hNowTitle:"שאלה פרטי מחודש.",
           hNowText:"הסיפור ממשיך כבסיס אלפיני פרטי לקבוצות, אירועים ושהיות בנכס כולו.",
+          whyDirectKicker:"למה להזמין ישירות",whyDirectTitle:"מחיר טוב יותר. ללא עמלות פלטפורמה.",whyDirectLead:"הזמנה ישירה מבטיחה את המחיר הטוב ביותר וקשר ישיר עם הנכס.",whyDirect1H:"מחיר מובטח",whyDirect1P:"ללא מחיר גבוה יותר מאשר בפלטפורמות.",whyDirect2H:"ללא עמלות",whyDirect2P:"פלטפורמות גובות 12–18% נוסף.",whyDirect3H:"קשר ישיר",whyDirect3P:"דברו ישירות עם צוות הנכס.",whyDirect4H:"גמישות",whyDirect4P:"כל ההסדרים מטופלים ישירות.",
           contactKicker:"יצירת קשר והזמנה",
           contactTitle:"הפכו את המקום הזה לשלכם.",
           contactText:"התחילו עם שם, אימייל ותאריכים מועדפים. עמוד ההזמנה יאפשר לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",

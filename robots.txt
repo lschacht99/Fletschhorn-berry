@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /checkout.html
+Disallow: /confirmation.html
+Disallow: /Test.html
+
+Sitemap: https://www.fletschhorn.ch/sitemap.xml
