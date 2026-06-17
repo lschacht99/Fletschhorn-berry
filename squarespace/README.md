@@ -113,9 +113,20 @@ Each file is clearly split with `▌ PASTE 1` / `▌ PASTE 2` comment markers.
 - **Social image.** `og:image` points to
   `https://www.fletschhorn.ch/assets/og-image.jpg`. Make sure that file exists on
   the live domain (or set the Social image in Squarespace’s SEO panel).
-- **Booking backend.** Live availability/booking calls the Guesty Cloudflare
-  Worker (`fletschhorn-guesty-api.bookings-e2d.workers.dev`). That keeps working
-  unchanged; no action needed.
+- **Booking backend (action required).** Live availability/booking calls the
+  Guesty Cloudflare Worker (`fletschhorn-guesty-api.bookings-e2d.workers.dev`).
+  The Worker enforces an **origin/host allow-list** and returns
+  `403 x-deny-reason: host_not_allowed` to any site that isn't on it. It allows
+  the GitHub Pages preview but **not** Squarespace, so on Squarespace the
+  schedule, prices and checkout silently fail. Fix it **in the Worker** (not in
+  these files): add your Squarespace origins to the allow-list and answer CORS
+  preflight (`OPTIONS`) requests. Allow:
+  `https://www.fletschhorn.ch`, `https://fletschhorn.ch`,
+  your `*.squarespace.com` preview, and keep `https://lschacht99.github.io`.
+  Verify with:
+  `curl -sI -H "Origin: https://www.fletschhorn.ch" \`
+  `https://fletschhorn-guesty-api.bookings-e2d.workers.dev/listing`
+  → expect `200` and an `access-control-allow-origin` header.
 - **Canonicals** use `https://www.fletschhorn.ch/…`. If your Squarespace site is
   on a different/staging domain, Squarespace generates its own canonicals — the
   PASTE 1 canonicals are only correct once you’re on the production domain.
