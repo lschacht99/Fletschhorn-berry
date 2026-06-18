@@ -137,6 +137,61 @@ Each file is clearly split with `▌ PASTE 1` / `▌ PASTE 2` comment markers.
 
 ---
 
+## Property page — floor plans & bedroom images
+
+The Property page (`pages/property.html`) now has a **Floor plans & room layout**
+section (`#property-floorplans`), built from the WHF sales document: the Ground,
+First and Second floor plans plus the Miralux Suite detail. Each plan is embedded
+in the page (so it shows the moment you paste — no upload needed) and you can
+click a plan to enlarge it.
+
+Bed counts, capacities and room specs were **left unchanged** on purpose — only
+the layouts were added.
+
+### Swap the floor-plan images for your own (optional)
+The optimised source images are in `assets/floorplans/`
+(`ground-floor.jpg`, `first-floor.jpg`, `second-floor.jpg`, `miralux-suite.jpg`).
+To host them on Squarespace instead of inline:
+
+1. Upload each image in Squarespace (e.g. a hidden page / asset library) and copy
+   its URL (`https://images.squarespace-cdn.com/...`).
+2. Near the top of the Floor-plans `<script>` in the page, fill in the URLs:
+   ```js
+   window.FH_FLOORPLANS = {
+     ground:  "https://images.squarespace-cdn.com/.../ground-floor.jpg",
+     first:   "https://images.squarespace-cdn.com/.../first-floor.jpg",
+     second:  "https://images.squarespace-cdn.com/.../second-floor.jpg",
+     miralux: "https://images.squarespace-cdn.com/.../miralux-suite.jpg"
+   };
+   ```
+   Any value you set overrides the built-in image (leave `""` to keep it). Doing
+   this for all four lets you then delete the long inline `data:image/...` strings
+   to slim the page down.
+
+### Real bedroom photos
+Bedroom **photos** still load automatically from **Guesty** (unchanged). Two ways
+to show real photos:
+
+- **Recommended:** upload the real bedroom photos to the **Guesty listing** —
+  they flow into the site automatically, no code change.
+- **Or override on the page:** add real images uploaded to Squarespace by setting
+  this once, anywhere above the page’s main script (e.g. Page Header Code
+  Injection):
+  ```html
+  <script>
+  window.FH_PROPERTY_IMAGES = [
+    "https://images.squarespace-cdn.com/.../bedroom-1.jpg",
+    "https://images.squarespace-cdn.com/.../bedroom-2.jpg"
+  ];
+  </script>
+  ```
+  If set, these are used for the property gallery/room images instead of Guesty.
+
+> The real bedroom photos in the sales PDF (pages 13–18) are the ones to upload to
+> Guesty or Squarespace using either method above.
+
+---
+
 ## Rebuilding
 
 If you edit an original in the repo root, regenerate this folder:
@@ -148,3 +203,7 @@ python3 squarespace/_build/build_squarespace.py
 The script never touches the originals; it only rewrites `squarespace/global/`
 and `squarespace/pages/`. Page slugs live in the `SLUGS` map at the top of the
 script if you want different defaults.
+
+The Property floor plans were injected into `Property.html` by
+`squarespace/_build/add_floorplans.py` (renders + embeds the plans from the sales
+PDF). It is idempotent — re-run it, then re-run the build above, to refresh them.
