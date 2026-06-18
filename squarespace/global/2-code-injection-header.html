@@ -11,6 +11,23 @@
 <link rel="preconnect" href="https://cdn.saas-fee.ch" crossorigin>
 <link rel="dns-prefetch" href="https://fletschhorn-guesty-api.bookings-e2d.workers.dev">
 
+<!-- Google Analytics 4 (GA4) — set FH_GA4_ID to activate. -->
+<script>
+  window.FH_GA4_ID = window.FH_GA4_ID || "G-XXXXXXXXXX";   /* <-- replace with your GA4 Measurement ID */
+  window.fhTrack = function(name, params){ try { if (window.gtag) window.gtag("event", name, params || {}); } catch (e) {} };
+  (function(){
+    var id = window.FH_GA4_ID;
+    if (!id || id.indexOf("G-") !== 0 || id === "G-XXXXXXXXXX") return;  /* not configured yet — do nothing */
+    var s = document.createElement("script");
+    s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", id);
+  })();
+</script>
+
 <!-- Fletschhorn Global Header -->
 
 <style>

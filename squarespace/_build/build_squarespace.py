@@ -59,6 +59,30 @@ PRECONNECTS = """<!-- Performance: warm up the external hosts this site talks to
 <link rel="dns-prefetch" href="https://fletschhorn-guesty-api.bookings-e2d.workers.dev">
 """
 
+# Google Analytics 4 (audit Issue 28). Loads gtag.js site-wide via the header
+# injection, but stays DORMANT until a real Measurement ID is set — so it never
+# tracks or errors before you're ready. Set the ID in one place:
+#   window.FH_GA4_ID = "G-XXXXXXXXXX"   (or replace the placeholder below)
+# fhTrack(name, params) is the funnel helper the booking flow calls:
+#   availability_checked · quote_viewed · checkout_started · booking_completed
+GA4 = """<!-- Google Analytics 4 (GA4) — set FH_GA4_ID to activate. -->
+<script>
+  window.FH_GA4_ID = window.FH_GA4_ID || "G-XXXXXXXXXX";   /* <-- replace with your GA4 Measurement ID */
+  window.fhTrack = function(name, params){ try { if (window.gtag) window.gtag("event", name, params || {}); } catch (e) {} };
+  (function(){
+    var id = window.FH_GA4_ID;
+    if (!id || id.indexOf("G-") !== 0 || id === "G-XXXXXXXXXX") return;  /* not configured yet — do nothing */
+    var s = document.createElement("script");
+    s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", id);
+  })();
+</script>
+"""
+
 
 def read(path):
     with open(path, "r", encoding="utf-8") as fh:
@@ -172,7 +196,7 @@ def build_header():
               "     Source: assets/Header.html — site-wide nav, mobile menu, language\n"
               "     switch, footbar and booking toolbar. Edit FH_PAGES below to match\n"
               "     your page slugs. -->\n\n")
-    out = banner + PRECONNECTS + "\n" + h
+    out = banner + PRECONNECTS + "\n" + GA4 + "\n" + h
     n = write(os.path.join(GLOBAL_DIR, "2-code-injection-header.html"), out)
     print("  global/2-code-injection-header.html %7d bytes" % n)
 
