@@ -702,16 +702,8 @@
 
         <div class="fh-form-grid" style="margin-top:12px">
           <div class="fh-field">
-            <label for="fhAdults" id="fhAdultsLabel">Adults</label>
-            <select id="fhAdults">
-              <option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="12">12</option><option value="16">16</option><option value="20">20</option><option value="24">24</option><option value="32">32</option><option value="40">40</option><option value="48">48</option>
-            </select>
-          </div>
-          <div class="fh-field">
-            <label for="fhChildren" id="fhChildrenLabel">Children</label>
-            <select id="fhChildren">
-              <option value="0" selected>0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="8">8</option><option value="10">10</option><option value="12">12</option>
-            </select>
+            <label for="fhGuests" id="fhGuestsLabel">How many people</label>
+            <input id="fhGuests" type="number" inputmode="numeric" min="1" max="48" step="1" value="2" placeholder="2" autocomplete="off">
           </div>
           <div class="fh-field">
             <label for="fhFirstName" id="fhFirstNameLabel">First name</label>
@@ -894,6 +886,9 @@
     function escapeHTML(value){ return safe(value).replace(/[&<>'"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]; }); }
     function endpoint(path){ return CFG.workerBase.replace(/\/$/, "") + path; }
     function txt(key){ var bundle = TEXT[state.lang] || TEXT.en; return bundle[key] || TEXT.en[key] || ""; }
+    /* Single "how many people" field labels (self-contained; replaces adults/children). */
+    var FH_PEOPLE_LABEL = { en:"How many people", fr:"Combien de personnes", de:"Wie viele Personen", ru:"Сколько человек", he:"כמה אנשים" };
+    var FH_GUESTS_WORD  = { en:"Guests", fr:"Personnes", de:"Personen", ru:"Гости", he:"אורחים" };
     function setText(id, value){ var el = $(id); if (el) el.textContent = value || ""; }
     function setHTML(id, value){ var el = $(id); if (el) el.innerHTML = value || ""; }
     function pad(n){ return String(n).padStart(2,"0"); }
@@ -957,8 +952,7 @@
       setText("fhDepartureLabel", txt("departure"));
       setText("fhNightsLabel", txt("nights"));
       setText("fhPriceLabel", txt("quote"));
-      setText("fhAdultsLabel", txt("adults"));
-      setText("fhChildrenLabel", txt("children"));
+      setText("fhGuestsLabel", FH_PEOPLE_LABEL[state.lang] || FH_PEOPLE_LABEL.en);
       setText("fhFirstNameLabel", txt("firstName"));
       setText("fhLastNameLabel", txt("lastName"));
       setText("fhEmailLabel", txt("email"));
@@ -1439,8 +1433,8 @@
         if (showErrors) showMessage(priceMissingMessage(), "error");
         return false;
       }
-      var adults = Number($("fhAdults") ? $("fhAdults").value : 2) || 1;
-      var children = Number($("fhChildren") ? $("fhChildren").value : 0) || 0;
+      var adults = Number($("fhGuests") ? $("fhGuests").value : 2) || 1;
+      var children = 0;
       var nights = daysBetween(state.arrival, state.departure);
       state.quoteData = {
         quoteId: "",
@@ -1457,7 +1451,7 @@
       state.quoteLastKey = [CFG.listingId, state.arrival || "", state.departure || "", state.lang].join("|");
       updateSummary();
       if (quote) {
-        var line = txt("nights") + ": " + nights + " · " + txt("adults") + ": " + adults + (children ? " · " + txt("children") + ": " + children : "");
+        var line = txt("nights") + ": " + nights + " · " + (FH_GUESTS_WORD[state.lang] || FH_GUESTS_WORD.en) + ": " + adults;
         quote.innerHTML = escapeHTML(line) + "<strong>" + escapeHTML(state.quoteTotalText) + "</strong>";
       }
       saveStart(false);
@@ -1474,8 +1468,8 @@
         checkOut: state.departure,
         arrivalDate: state.arrival,
         departureDate: state.departure,
-        adults: Number($("fhAdults") ? $("fhAdults").value : 2) || 1,
-        children: Number($("fhChildren") ? $("fhChildren").value : 0) || 0,
+        adults: Number($("fhGuests") ? $("fhGuests").value : 2) || 1,
+        children: 0,
         firstName: $("fhFirstName") ? $("fhFirstName").value.trim() : "",
         lastName: $("fhLastName") ? $("fhLastName").value.trim() : "",
         email: $("fhEmail") ? $("fhEmail").value.trim() : "",
@@ -1538,8 +1532,7 @@
         ["fhFirstName", params.get("firstName") || data.firstName],
         ["fhLastName", params.get("lastName") || data.lastName],
         ["fhEmail", params.get("email") || data.email],
-        ["fhAdults", params.get("adults") || data.adults],
-        ["fhChildren", params.get("children") || data.children]
+        ["fhGuests", params.get("adults") || params.get("guests") || data.adults || data.guests]
       ];
       fields.forEach(function(pair){ var el = $(pair[0]); if (el && pair[1] !== undefined && pair[1] !== null && pair[1] !== "") el.value = pair[1]; });
     }
@@ -1599,7 +1592,7 @@
       if (continueBtn) continueBtn.addEventListener("click", continueCheckout);
       var clearBtn = $("fhClearDatesBtn");
       if (clearBtn) clearBtn.addEventListener("click", clearDates);
-      ["fhAdults","fhChildren"].forEach(function(id){
+      ["fhGuests"].forEach(function(id){
         var el = $(id);
         if (el) el.addEventListener("change", function(){
           saveStart(false);
