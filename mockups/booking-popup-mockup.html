@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fletschhorn — booking pop-up mockup</title>
+<style>
+  :root{
+    --fh-cream:#f7f1e8; --fh-paper:#fffaf3; --fh-paper2:#fbf6ef; --fh-stone:#d8cfc2;
+    --fh-line:rgba(25,23,20,.13); --fh-line-soft:rgba(25,23,20,.08);
+    --fh-ink:#191714; --fh-muted:rgba(25,23,20,.66); --fh-soft:rgba(25,23,20,.46);
+    --fh-forest:#22392f; --fh-clay:#b99f86; --fh-clay2:#876e58; --fh-clay3:#c6ad93; --fh-white:#fffaf3;
+    --fh-shadow:0 26px 78px rgba(22,19,16,.14); --fh-soft-shadow:0 14px 42px rgba(22,19,16,.08);
+    --fh-serif:Georgia,"Times New Roman",serif;
+    --fh-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --ok:#2f7d51;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--fh-cream);color:var(--fh-ink);font-family:var(--fh-sans);-webkit-text-size-adjust:100%;min-height:100svh}
+  h1,h2,h3{font-family:var(--fh-serif);font-weight:400;letter-spacing:-.045em;margin:0}
+
+  /* ---- mockup-only banner + controls ---- */
+  .mk-note{background:var(--fh-forest);color:#f0ece4;padding:10px 14px;font-size:12.5px;line-height:1.5;text-align:center}
+  .mk-note b{color:#fff}
+  .mk-bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;
+    padding:10px 14px;background:rgba(255,250,243,.92);border-bottom:1px solid var(--fh-line);backdrop-filter:blur(8px)}
+  .mk-bar span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fh-clay2);font-weight:900}
+  .mk-bar button{cursor:pointer}
+
+  /* ---- faux page / toolbar trigger ---- */
+  .stage{max-width:880px;margin:0 auto;padding:34px 16px 80px;text-align:center}
+  .stage .kick{color:var(--fh-clay2);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;margin-bottom:10px}
+  .stage h1{font-size:clamp(34px,8vw,54px);line-height:.92;margin-bottom:12px}
+  .stage p{color:var(--fh-muted);font-size:15px;line-height:1.6;max-width:48ch;margin:0 auto 22px}
+  .toolbar{display:inline-flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;
+    background:var(--fh-paper);border:1px solid var(--fh-line);box-shadow:var(--fh-soft-shadow);padding:12px}
+  .toolbar .chip{display:flex;flex-direction:column;align-items:flex-start;padding:6px 12px;border:1px solid var(--fh-line-soft);background:rgba(255,255,255,.5);min-width:120px}
+  .toolbar .chip small{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--fh-soft);font-weight:900}
+  .toolbar .chip b{font-size:14px;font-weight:800;color:var(--fh-ink)}
+
+  /* ---- buttons (match site) ---- */
+  .fh-primary-btn{min-height:50px;border:0;background:var(--fh-clay);color:var(--fh-white);text-transform:uppercase;letter-spacing:.13em;font-size:11px;font-weight:900;padding:0 18px;transition:background .18s,transform .18s;border-radius:0;cursor:pointer}
+  .fh-primary-btn:hover{background:var(--fh-clay2);transform:translateY(-1px)}
+  .fh-ghost-btn{min-height:46px;border:1px solid var(--fh-line);background:rgba(255,255,255,.55);color:var(--fh-ink);text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:900;padding:0 14px;border-radius:0;cursor:pointer}
+  .fh-ghost-btn:hover{background:#fff}
+
+  /* ---- pop-up shell ---- */
+  .pop{position:fixed;inset:0;z-index:200;display:none}
+  .pop.open{display:block}
+  .pop .scrim{position:absolute;inset:0;background:rgba(26,23,20,.50);backdrop-filter:blur(10px)}
+  .sheet{position:absolute;background:var(--fh-paper);border:1px solid rgba(255,250,243,.72);box-shadow:0 30px 90px rgba(0,0,0,.28);display:flex;flex-direction:column;overflow:hidden}
+
+  /* desktop = centered modal */
+  .sheet.modal{top:50%;left:50%;transform:translate(-50%,-50%);width:min(460px,calc(100% - 28px));max-height:calc(100svh - 40px)}
+  /* mobile = bottom drawer */
+  .sheet.drawer{left:0;right:0;bottom:0;width:100%;max-height:92svh;border-bottom:0;border-radius:18px 18px 0 0;animation:rise .26s ease}
+  @keyframes rise{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .grip{display:none}
+  .sheet.drawer .grip{display:block;width:42px;height:5px;border-radius:99px;background:var(--fh-stone);margin:9px auto 2px}
+
+  .pop-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 16px 12px;border-bottom:1px solid var(--fh-line)}
+  .pop-head .k{color:var(--fh-clay2);font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;margin-bottom:4px}
+  .pop-head h3{font-size:24px}
+  .x{flex:0 0 auto;width:46px;height:46px;border:1px solid var(--fh-line);background:#fffaf3;color:var(--fh-ink);font-size:20px;font-weight:900;border-radius:0;cursor:pointer;line-height:1}
+  .x:hover{background:#fff}
+
+  .pop-body{padding:14px 16px;overflow:auto}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-top:1px solid var(--fh-line-soft)}
+  .row:first-child{border-top:0}
+  .row .lab{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fh-soft);font-weight:900;margin-bottom:3px}
+  .row .val{font-size:15px;font-weight:800;color:var(--fh-ink)}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:900;letter-spacing:.06em;color:var(--ok)}
+  .badge::before{content:"";width:8px;height:8px;border-radius:99px;background:var(--ok)}
+
+  .stepper{display:inline-flex;align-items:center;border:1px solid var(--fh-line)}
+  .stepper button{width:42px;height:42px;border:0;background:#fffaf3;font-size:18px;font-weight:900;cursor:pointer}
+  .stepper button:hover{background:#f2ebe0}
+  .stepper input{width:54px;height:42px;border:0;border-left:1px solid var(--fh-line);border-right:1px solid var(--fh-line);text-align:center;font-size:16px;font-weight:800;font-family:var(--fh-sans);background:#fff;-moz-appearance:textfield}
+  .stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+  .editpane{display:none;margin:10px 0 2px;border:1px dashed var(--fh-clay);background:rgba(185,159,134,.08);padding:12px}
+  .editpane.open{display:block}
+  .editpane .cap{font-size:11px;color:var(--fh-clay2);font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+  .minical{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .minical b{font-size:9px;color:var(--fh-soft);text-align:center;padding:2px 0;text-transform:uppercase;letter-spacing:.06em}
+  .minical span{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:12px;border:1px solid var(--fh-line-soft);background:#fff;color:var(--fh-ink)}
+  .minical span.sel{background:var(--fh-clay);color:#fff;border-color:var(--fh-clay)}
+  .minical span.mut{color:var(--fh-soft);background:var(--fh-paper2)}
+
+  .quote{margin-top:6px;border-top:1px solid var(--fh-line);padding-top:12px}
+  .qrow{display:flex;justify-content:space-between;font-size:13.5px;color:var(--fh-muted);padding:5px 0}
+  .qrow.total{border-top:1px solid rgba(25,23,20,.18);margin-top:6px;padding-top:11px;color:var(--fh-ink);font-size:14px}
+  .qrow.total b{color:var(--fh-clay2);font-size:18px;font-weight:850}
+
+  .policy{margin:12px 0 2px;color:var(--fh-soft);font-size:12px;line-height:1.5}
+  .policy a{color:var(--fh-clay2);text-decoration:underline;cursor:pointer}
+
+  .pop-foot{padding:14px 16px;border-top:1px solid var(--fh-line);background:rgba(255,250,243,.92);display:grid;gap:9px}
+  .pop-foot .fh-primary-btn{width:100%}
+  .toast{display:none;margin-top:2px;background:var(--fh-forest);color:#eef0ec;font-size:12.5px;padding:10px 12px;line-height:1.45}
+  .toast.show{display:block}
+  small.tiny{display:block;color:var(--fh-soft);font-size:11px;text-align:center;margin-top:2px}
+</style>
+</head>
+<body>
+  <div class="mk-note">This is a <b>visual mockup</b> of the booking pop-up — nothing is wired yet. Tap <b>Check availability</b>. Close with the <b>✕</b>, by tapping outside, or with <b>Esc</b>.</div>
+  <div class="mk-bar">
+    <span>Preview as:</span>
+    <button class="fh-ghost-btn" onclick="openPop('drawer')">📱 Mobile drawer</button>
+    <button class="fh-ghost-btn" onclick="openPop('modal')">🖥 Desktop modal</button>
+    <button class="fh-ghost-btn" onclick="openPop('auto')">↺ Auto (this screen)</button>
+  </div>
+
+  <!-- faux page + toolbar (the schedule stays here; pop-up only carries the result) -->
+  <div class="stage">
+    <div class="kick">Direct booking</div>
+    <h1>Book your stay</h1>
+    <p>You pick dates on the schedule that already lives on the toolbar. The button then opens a pop-up that carries your choice — no name or email yet.</p>
+    <div class="toolbar">
+      <div class="chip"><small>Arrival</small><b>Sat 11 Jul</b></div>
+      <div class="chip"><small>Departure</small><b>Sat 18 Jul</b></div>
+      <div class="chip"><small>People</small><b>2</b></div>
+      <button class="fh-primary-btn" onclick="openPop('auto')">Check availability →</button>
+    </div>
+  </div>
+
+  <!-- ===== POP-UP ===== -->
+  <div class="pop" id="pop" aria-hidden="true">
+    <div class="scrim" data-close></div>
+    <div class="sheet modal" role="dialog" aria-modal="true" aria-labelledby="popTitle">
+      <div class="grip" aria-hidden="true"></div>
+      <div class="pop-head">
+        <div>
+          <div class="k">Your stay</div>
+          <h3 id="popTitle">Fletschhorn — Saas-Fee</h3>
+        </div>
+        <button class="x" data-close aria-label="Close">✕</button>
+      </div>
+
+      <div class="pop-body">
+        <div class="row">
+          <div>
+            <div class="lab">Dates</div>
+            <div class="val" id="datesVal">Sat 11 Jul → Sat 18 Jul 2026 · 7 nights</div>
+          </div>
+          <button class="fh-ghost-btn" id="editBtn" onclick="toggleEdit()">Change dates</button>
+        </div>
+
+        <!-- "Change dates" re-opens the existing schedule (shown here as a mini preview) -->
+        <div class="editpane" id="editPane">
+          <div class="cap">↩ Re-opens the toolbar schedule — pick a new arrival &amp; departure</div>
+          <div class="minical">
+            <b>M</b><b>T</b><b>W</b><b>T</b><b>F</b><b>S</b><b>S</b>
+            <span class="mut">30</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+            <span>7</span><span>8</span><span>9</span><span>10</span><span class="sel">11</span><span>12</span><span>13</span>
+            <span>14</span><span>15</span><span>16</span><span>17</span><span class="sel">18</span><span>19</span><span>20</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <div class="lab">How many people</div>
+            <div class="val">Free number, no pre-set list</div>
+          </div>
+          <div class="stepper">
+            <button onclick="bump(-1)" aria-label="Fewer">−</button>
+            <input id="ppl" type="number" inputmode="numeric" min="1" max="48" value="2">
+            <button onclick="bump(1)" aria-label="More">+</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <div class="lab">Availability</div>
+            <div class="val"><span class="badge">Available</span></div>
+          </div>
+        </div>
+
+        <div class="quote">
+          <div class="qrow"><span>CHF 990 × 7 nights</span><span>CHF 6,930</span></div>
+          <div class="qrow"><span>Cleaning</span><span>CHF 280</span></div>
+          <div class="qrow total"><span>Total</span><b>CHF 7,210</b></div>
+        </div>
+
+        <p class="policy">Free cancellation up to 30 days before arrival. Full terms are shown after booking — <a onclick="alert('(Mockup) Opens a gentle summary — not the full legal wall.')">view summary</a>.</p>
+      </div>
+
+      <div class="pop-foot">
+        <button class="fh-primary-btn" onclick="reserve()">Reserve →</button>
+        <small class="tiny">Next step: the checkout page (name, email, payment).</small>
+        <div class="toast" id="toast">→ In the real flow this opens the <b>checkout page</b>. Name &amp; email are collected there, not here.</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  var pop = document.getElementById('pop');
+  var sheet = pop.querySelector('.sheet');
+  function openPop(mode){
+    if(mode==='auto') mode = window.innerWidth < 720 ? 'drawer' : 'modal';
+    sheet.classList.remove('modal','drawer');
+    sheet.classList.add(mode);
+    pop.classList.add('open'); pop.setAttribute('aria-hidden','false');
+    document.getElementById('toast').classList.remove('show');
+  }
+  function closePop(){ pop.classList.remove('open'); pop.setAttribute('aria-hidden','true'); document.getElementById('editPane').classList.remove('open'); }
+  pop.addEventListener('click', function(e){ if(e.target.hasAttribute('data-close')) closePop(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePop(); });
+  function toggleEdit(){ document.getElementById('editPane').classList.toggle('open'); }
+  function bump(d){ var i=document.getElementById('ppl'); var v=Math.min(48,Math.max(1,(parseInt(i.value,10)||1)+d)); i.value=v; }
+  function reserve(){ document.getElementById('toast').classList.add('show'); }
+</script>
+</body>
+</html>
