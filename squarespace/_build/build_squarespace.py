@@ -138,6 +138,7 @@ def build_header():
         '  }\n'
         '\n'
         '  const bookingHref = page("booking.html");\n'
+        '  const checkoutHref = page("checkout.html");\n'
     )
     new_base = (
         '  /* ── Squarespace page URLs ─────────────────────────────────────────\n'
@@ -150,12 +151,14 @@ def build_header():
         '    location:    "/location",\n'
         '    events:      "/wedding-event",\n'
         '    about:       "/about-us",\n'
-        '    booking:     "/booking"\n'
+        '    booking:     "/booking",\n'
+        '    checkout:    "/checkout"\n'
         '  };\n'
         '\n'
         '  function page(file){ return file; }  /* legacy shim, no longer used */\n'
         '\n'
         '  const bookingHref = FH_PAGES.booking;\n'
+        '  const checkoutHref = FH_PAGES.checkout;\n'
     )
     h = must_replace(h, old_base, new_base, "header FH_SITE_BASE block")
 
