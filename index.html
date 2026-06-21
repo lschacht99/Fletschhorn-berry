@@ -265,7 +265,7 @@
 
     #fh-home .fh-booking-form{
       display:grid;
-      grid-template-columns:.88fr .88fr 1.15fr 1.72fr 185px;
+      grid-template-columns:minmax(180px,1fr) minmax(260px,1.45fr) 185px;
       background:var(--paper);
     }
 
@@ -371,6 +371,108 @@
 
     #fh-home .fh-status.show{
       display:block;
+    }
+
+
+
+    #fh-home .fh-trust-band{
+      position:relative;
+      z-index:4;
+      width:var(--container);
+      margin:clamp(-28px,-3vw,-16px) auto clamp(28px,4vw,48px);
+      display:grid;
+      grid-template-columns:minmax(240px,.72fr) 1fr;
+      gap:1px;
+      background:rgba(135,110,88,.20);
+      border:1px solid rgba(135,110,88,.18);
+      box-shadow:var(--soft-shadow);
+    }
+
+    #fh-home .fh-trust-proof,
+    #fh-home .fh-trust-benefits{
+      background:rgba(255,250,242,.94);
+      padding:clamp(16px,2.4vw,24px);
+    }
+
+    #fh-home .fh-trust-stars{
+      color:var(--clay);
+      font-size:18px;
+      letter-spacing:.08em;
+      line-height:1;
+      margin-bottom:10px;
+    }
+
+    #fh-home .fh-trust-proof strong{
+      display:block;
+      color:var(--ink);
+      font-family:var(--serif);
+      font-size:clamp(22px,2.6vw,32px);
+      font-weight:400;
+      letter-spacing:-.04em;
+      line-height:1.05;
+      margin-bottom:8px;
+    }
+
+    #fh-home .fh-trust-proof span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    #fh-home .fh-trust-source-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      margin-top:13px;
+    }
+
+    #fh-home .fh-trust-source-list a{
+      display:inline-flex;
+      align-items:center;
+      min-height:30px;
+      padding:8px 10px;
+      border:1px solid rgba(135,110,88,.18);
+      background:rgba(255,255,255,.48);
+      color:var(--forest);
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.11em;
+      line-height:1;
+      text-transform:uppercase;
+    }
+
+    #fh-home .fh-trust-benefits{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1px;
+      padding:0;
+    }
+
+    #fh-home .fh-trust-benefit{
+      min-height:138px;
+      padding:clamp(15px,2vw,20px);
+      background:rgba(255,250,242,.76);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    #fh-home .fh-trust-benefit strong{
+      display:block;
+      margin-bottom:8px;
+      color:var(--forest);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.13em;
+      line-height:1.25;
+      text-transform:uppercase;
+    }
+
+    #fh-home .fh-trust-benefit span{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.46;
     }
 
     #fh-home .fh-status.error{
@@ -2801,14 +2903,28 @@
     }
 
     @media(max-width:900px){
+      #fh-home .fh-trust-band{
+        grid-template-columns:1fr;
+        margin-top:0;
+      }
+
+      #fh-home .fh-trust-benefits{
+        grid-template-columns:repeat(2,1fr);
+      }
+
       #fh-home .fh-why-direct-grid{
         grid-template-columns:repeat(2,1fr);
       }
     }
 
     @media(max-width:560px){
+      #fh-home .fh-trust-benefits,
       #fh-home .fh-why-direct-grid{
         grid-template-columns:1fr;
+      }
+
+      #fh-home .fh-trust-benefit{
+        min-height:0;
       }
     }
 
@@ -2851,18 +2967,8 @@
         <div class="fh-booking fh-reveal" id="booking">
           <div class="fh-booking-form" id="fhBookingFields">
             <div class="fh-field">
-              <label for="fhFirstName" data-i18n="fieldFirstName">First name</label>
-              <input id="fhFirstName" name="firstName" type="text" data-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name">
-            </div>
-
-            <div class="fh-field">
-              <label for="fhLastName" data-i18n="fieldLastName">Last name</label>
-              <input id="fhLastName" name="lastName" type="text" data-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name">
-            </div>
-
-            <div class="fh-field">
-              <label for="fhEmail" data-i18n="fieldEmail">Email</label>
-              <input id="fhEmail" name="email" type="email" data-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email">
+              <label for="fhGuests" data-i18n="fieldGuests">Guests</label>
+              <input id="fhGuests" name="guests" type="number" min="1" inputmode="numeric" data-i18n-placeholder="fieldGuestsPh" placeholder="How many guests?" autocomplete="off">
             </div>
 
             <div class="fh-field fh-date-field">
@@ -2886,6 +2992,27 @@
         </div>
       </div>
     </section>
+
+    <section class="fh-trust-band fh-reveal" aria-label="Guest trust and direct booking benefits">
+      <div class="fh-trust-proof">
+        <div class="fh-trust-stars" aria-hidden="true">★★★★★</div>
+        <strong data-i18n="trustBandTitle">Guest-rated alpine stays</strong>
+        <span data-i18n="trustBandText">Read independent guest impressions on the official review profiles, then book direct with the property team.</span>
+        <div class="fh-trust-source-list" aria-label="Review sources">
+          <a href="https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html" target="_blank" rel="noopener">Tripadvisor</a>
+          <a href="https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html" target="_blank" rel="noopener">Booking.com</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland" target="_blank" rel="noopener">Google</a>
+          <a href="https://www.airbnb.com/rooms/1583676843313625450" target="_blank" rel="noopener">Airbnb</a>
+        </div>
+      </div>
+      <div class="fh-trust-benefits">
+        <div class="fh-trust-benefit"><strong data-i18n="whyDirect1H">Best price guaranteed</strong><span data-i18n="whyDirect1P">Direct rates are never higher than any third-party platform. No markup, no inflated base price.</span></div>
+        <div class="fh-trust-benefit"><strong data-i18n="whyDirect2H">No service fees</strong><span data-i18n="whyDirect2P">Platforms add 12–18% in service fees on top of the property rate. Booking direct means every franc goes toward your stay.</span></div>
+        <div class="fh-trust-benefit"><strong data-i18n="whyDirect3H">Direct contact</strong><span data-i18n="whyDirect3P">Speak with the property team directly about arrivals, catering, sauna access, group needs, and anything else your stay requires.</span></div>
+        <div class="fh-trust-benefit"><strong data-i18n="whyDirect4H">More flexibility</strong><span data-i18n="whyDirect4P">Shuttle, kitchen concept, sauna timing, and group arrangements are handled directly — not through a platform inbox.</span></div>
+      </div>
+    </section>
+
 
     <section class="fh-section" id="rooms">
       <div class="fh-container fh-section-head">
@@ -3353,6 +3480,8 @@
           heroLead:"Reserve the whole chalet for your group: 14 rooms, up to 48 sleeping places, flexible kitchen access, and a private alpine base above Saas-Fee.",
           heroContactPhone:"Call direct",
           heroContactEmail:"Email",
+          fieldGuests:"Guests",
+          fieldGuestsPh:"How many guests?",
           fieldFirstName:"First name",
           fieldFirstNamePh:"First name",
           fieldLastName:"Last name",
@@ -3372,8 +3501,10 @@
           calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",
           minNights:"A minimum stay of 2 nights is required. Please extend your selection to continue.",
           estimatedTotal:"Estimated total",
-          bookNow:"Book my stay now",
+          bookNow:"Book direct",
           bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
+          trustBandTitle:"Guest-rated alpine stays",
+          trustBandText:"Read independent guest impressions on the official review profiles, then book direct with the property team.",
           privateKicker:"The private chalet",
           privateTitle:"A private alpine house for groups who want the whole place to themselves.",
           privateLead:"Fletschhorn is a complete private chalet experience above Saas-Fee, with space to sleep, gather, cook, celebrate, reset, and explore the mountains.",
@@ -3506,6 +3637,8 @@
           heroLead:"Réservez tout le chalet pour votre groupe : 14 chambres, jusqu’à 48 couchages, un accès flexible à la cuisine et une base alpine privée au-dessus de Saas-Fee.",
           heroContactPhone:"Appeler direct",
           heroContactEmail:"Email",
+          fieldGuests:"Invités",
+          fieldGuestsPh:"Combien d’invités ?",
           fieldFirstName:"Prénom",
           fieldFirstNamePh:"Prénom",
           fieldLastName:"Nom",
@@ -3525,8 +3658,10 @@
           calendarRangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles.",
           minNights:"Un séjour minimum de 2 nuits est requis. Veuillez prolonger votre sélection pour continuer.",
           estimatedTotal:"Total estimé",
-          bookNow:"Réserver mon séjour",
+          bookNow:"Réserver en direct",
           bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
+          trustBandTitle:"Séjours alpins appréciés par les hôtes",
+          trustBandText:"Lisez les avis indépendants sur les profils officiels, puis réservez directement avec l’équipe.",
           socialKicker:"Présence sociale",
           socialTitle:"Le rythme du Fletschhorn",
           socialLead:"Suivez l’atmosphère de la montagne, les moments de saison et le rythme quotidien du Fletschhorn à Saas-Fee.",
@@ -3553,6 +3688,8 @@
           heroLead:"Reservieren Sie das ganze Chalet für Ihre Gruppe: 14 Zimmer, bis zu 48 Schlafplätze, flexibler Küchenzugang und eine private alpine Basis oberhalb von Saas-Fee.",
           heroContactPhone:"Direkt anrufen",
           heroContactEmail:"E-Mail",
+          fieldGuests:"Gäste",
+          fieldGuestsPh:"Wie viele Gäste?",
           fieldFirstName:"Vorname",
           fieldFirstNamePh:"Vorname",
           fieldLastName:"Nachname",
@@ -3572,8 +3709,10 @@
           calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.",
           minNights:"Mindestaufenthalt von 2 Nächten erforderlich. Bitte verlängern Sie Ihre Auswahl, um fortzufahren.",
           estimatedTotal:"Geschätzter Gesamtpreis",
-          bookNow:"Aufenthalt buchen",
+          bookNow:"Direkt buchen",
           bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
+          trustBandTitle:"Von Gästen bewertete alpine Aufenthalte",
+          trustBandText:"Lesen Sie unabhängige Gästestimmen auf den offiziellen Bewertungsprofilen und buchen Sie dann direkt beim Team.",
           socialKicker:"Soziale Präsenz",
           socialTitle:"Der Fletschhorn-Rhythmus",
           socialLead:"Folgen Sie der Bergstimmung, saisonalen Momenten und dem Alltag des Fletschhorn in Saas-Fee.",
@@ -3600,6 +3739,8 @@
           heroLead:"Забронируйте всё шале для вашей группы: 14 комнат, до 48 спальных мест, гибкий доступ к кухне и частная альпийская база над Саас-Фе.",
           heroContactPhone:"Позвонить напрямую",
           heroContactEmail:"Email",
+          fieldGuests:"Гости",
+          fieldGuestsPh:"Сколько гостей?",
           fieldFirstName:"Имя",
           fieldFirstNamePh:"Имя",
           fieldLastName:"Фамилия",
@@ -3619,8 +3760,10 @@
           calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны.",
           minNights:"Требуется минимальный срок пребывания 2 ночи. Пожалуйста, расширьте выбор, чтобы продолжить.",
           estimatedTotal:"Ориентировочная сумма",
-          bookNow:"Забронировать",
+          bookNow:"Бронировать напрямую",
           bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
+          trustBandTitle:"Альпийские пребывания с отзывами гостей",
+          trustBandText:"Читайте независимые впечатления гостей в официальных профилях отзывов, затем бронируйте напрямую у команды объекта.",
           socialKicker:"Социальные профили",
           socialTitle:"Ритм Fletschhorn",
           socialLead:"Следите за горной атмосферой, сезонными моментами и повседневным ритмом Fletschhorn в Саас-Фе.",
@@ -3647,6 +3790,8 @@
           heroLead:"הזמינו את כל השאלה לקבוצה שלכם: 14 חדרים, עד 48 מקומות לינה, גישה גמישה למטבח ובסיס אלפיני פרטי מעל סאס-פה.",
           heroContactPhone:"התקשרות ישירה",
           heroContactEmail:"אימייל",
+          fieldGuests:"אורחים",
+          fieldGuestsPh:"כמה אורחים?",
           fieldFirstName:"שם פרטי",
           fieldFirstNamePh:"שם פרטי",
           fieldLastName:"שם משפחה",
@@ -3666,8 +3811,10 @@
           calendarRangeUnavailable:"לילה אחד או יותר בטווח שבחרתם אינו זמין. בחרו טווח אחר.",
           minNights:"נדרשת שהייה מינימלית של 2 לילות. אנא הרחיבו את הבחירה כדי להמשיך.",
           estimatedTotal:"מחיר משוער",
-          bookNow:"להזמין את השהייה",
+          bookNow:"להזמין ישירות",
           bookingNote:"התחילו כאן. הפרטים יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
+          trustBandTitle:"שהיות אלפיניות עם דירוגי אורחים",
+          trustBandText:"קראו חוויות אורחים בלתי תלויות בפרופילי הביקורות הרשמיים, ואז הזמינו ישירות מול צוות הנכס.",
           privateKicker:"השאלה הפרטית",
           privateTitle:"בית אלפיני פרטי לקבוצות שרוצות את כל המקום לעצמן.",
           privateLead:"Fletschhorn הוא חוויית שאלה פרטית מלאה מעל סאס-פה, עם מקום לישון, להתכנס, לבשל, לחגוג, לנוח ולצאת אל ההרים.",
@@ -4400,9 +4547,7 @@
           listingId: CFG.listingId,
           guestyListingId: CFG.listingId,
           workerBase: CFG.workerBase,
-          firstName: $("#fhFirstName") ? $("#fhFirstName").value.trim() : "",
-          lastName: $("#fhLastName") ? $("#fhLastName").value.trim() : "",
-          email: $("#fhEmail") ? $("#fhEmail").value.trim() : "",
+          guests: $("#fhGuests") ? $("#fhGuests").value.trim() : "",
           checkIn: $("#fhArrival") ? $("#fhArrival").value : "",
           checkOut: $("#fhDeparture") ? $("#fhDeparture").value : "",
           language: state.lang,
@@ -4796,52 +4941,6 @@
       function goToBookingPage(){
         const payload = getBookingStartPayload();
 
-        if (!payload.firstName){
-          setStatus(t("missingFirstName"), "error");
-          $("#fhFirstName") && $("#fhFirstName").focus();
-          return;
-        }
-
-        if (!payload.lastName){
-          setStatus(t("missingLastName"), "error");
-          $("#fhLastName") && $("#fhLastName").focus();
-          return;
-        }
-
-        if (!payload.email){
-          setStatus(t("missingEmail"), "error");
-          $("#fhEmail") && $("#fhEmail").focus();
-          return;
-        }
-
-        if (!emailIsValid(payload.email)){
-          setStatus(t("invalidEmail"), "error");
-          $("#fhEmail") && $("#fhEmail").focus();
-          return;
-        }
-
-        if (!payload.checkIn || !payload.checkOut){
-          setStatus(t("missingDates"), "error");
-          openToolbarCalendar();
-          return;
-        }
-
-        if (payload.checkOut <= payload.checkIn){
-          setStatus(t("badDates"), "error");
-          openToolbarCalendar();
-          return;
-        }
-
-        if (nightsBetweenToolbar() < CFG.minNights){
-          setStatus(t("minNights") || "Please select at least 2 nights.", "error");
-          openToolbarCalendar();
-
-          const warning = $("#fhToolbarCalendarWarning");
-          if (warning) warning.classList.add("show");
-
-          return;
-        }
-
         try {
           localStorage.setItem("fhBookingStart", JSON.stringify(payload));
         } catch(error) {
@@ -4849,11 +4948,9 @@
         }
 
         const params = new URLSearchParams();
-        params.set("firstName", payload.firstName);
-        params.set("lastName", payload.lastName);
-        params.set("email", payload.email);
-        params.set("checkIn", payload.checkIn);
-        params.set("checkOut", payload.checkOut);
+        if (payload.guests) params.set("guests", payload.guests);
+        if (payload.checkIn) params.set("checkIn", payload.checkIn);
+        if (payload.checkOut) params.set("checkOut", payload.checkOut);
         params.set("lang", payload.language);
         params.set("source", "homepage");
 
@@ -5451,7 +5548,7 @@
         }
       });
 
-      ["#fhFirstName","#fhLastName","#fhEmail","#fhArrival","#fhDeparture"].forEach(function(selector){
+      ["#fhGuests","#fhArrival","#fhDeparture"].forEach(function(selector){
         const el = $(selector);
         if (!el) return;
 
