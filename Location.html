@@ -194,7 +194,7 @@
 }
 @media(prefers-reduced-motion:reduce){#fh-location-clean *,#fh-location-clean *:before,#fh-location-clean *:after{animation:none!important;transition:none!important}}
 
-/* Index booking toolbar behavior — copied/adapted from homepage, scoped to this page */
+/* Isolated booking toolbar: guests / schedule / CTA only, scoped to this page */
 #fh-location-clean .fh-index-booking{
   margin:clamp(14px,2.2vw,24px) 0 0;
   width:min(1100px,100%);
@@ -208,7 +208,7 @@
 }
 #fh-location-clean .fh-index-booking-form{
   display:grid;
-  grid-template-columns:.88fr .88fr 1.15fr 1.72fr 185px;
+  grid-template-columns:minmax(120px,.42fr) minmax(250px,1fr) 185px;
   background:var(--paper);
 }
 #fh-location-clean .fh-index-field{
@@ -486,41 +486,27 @@
             <a href="mailto:welcome@fletschhorn.ch"><span data-i18n="contactEmailLabel">Email</span><strong>welcome@fletschhorn.ch</strong></a>
           </div>
 
-          <div class="fh-index-booking fh-reveal pre" id="booking">
+          <div class="fh-index-booking fh-reveal pre" id="booking" data-fh-booking-toolbar>
             <div class="fh-index-booking-form" id="fhBookingFields">
               <div class="fh-index-field">
-                <label for="fhFirstName" data-booking-i18n="fieldFirstName">First name</label>
-                <input id="fhFirstName" name="firstName" type="text" data-booking-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name">
-              </div>
-
-              <div class="fh-index-field">
-                <label for="fhLastName" data-booking-i18n="fieldLastName">Last name</label>
-                <input id="fhLastName" name="lastName" type="text" data-booking-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name">
-              </div>
-
-              <div class="fh-index-field">
-                <label for="fhEmail" data-booking-i18n="fieldEmail">Email</label>
-                <input id="fhEmail" name="email" type="email" data-booking-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email">
+                <label for="fhToolbarGuests" data-booking-i18n="fieldGuests">Guests</label>
+                <input id="fhToolbarGuests" name="guests" type="number" min="1" inputmode="numeric" data-fh-guests data-booking-i18n-placeholder="fieldGuestsPh" placeholder="How many guests?" autocomplete="off">
               </div>
 
               <div class="fh-index-field fh-date-field">
                 <label data-booking-i18n="fieldDates">Dates</label>
-                <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar">
-                  <span id="fhToolbarDateText" data-booking-i18n="fieldDatesPh">Select arrival and departure</span>
+                <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar" data-fh-open-calendar>
+                  <span id="fhToolbarDateText" data-fh-date-text data-booking-i18n="fieldDatesPh">Select arrival and departure</span>
                   <strong data-booking-i18n="openCalendar">Open calendar</strong>
                 </button>
-                <input id="fhArrival" name="arrivalDate" type="hidden">
-                <input id="fhDeparture" name="departureDate" type="hidden">
+                <input id="fhArrival" name="arrivalDate" type="hidden" data-fh-arrival>
+                <input id="fhDeparture" name="departureDate" type="hidden" data-fh-departure>
               </div>
 
-              <button class="fh-index-submit" type="button" id="fhBookNowBtn" data-booking-i18n="bookNow">Book my stay now</button>
+              <button class="fh-index-submit" type="button" id="fhBookNowBtn" data-fh-book-now data-booking-i18n="bookNow">Book my stay now</button>
             </div>
 
-            <div class="fh-index-booking-note" data-booking-i18n="bookingNote">
-              Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.
-            </div>
-
-            <div class="fh-index-status" id="fhFormStatus" role="status" aria-live="polite"></div>
+            <div class="fh-index-status" id="fhFormStatus" data-fh-status role="status" aria-live="polite"></div>
           </div>
 
         </div>
@@ -947,6 +933,20 @@
 
   bookingCopy.he={"fieldFirstName": "שם פרטי", "fieldFirstNamePh": "שם פרטי", "fieldLastName": "שם משפחה", "fieldLastNamePh": "שם משפחה", "fieldEmail": "אימייל", "fieldEmailPh": "email@example.com", "fieldDates": "תאריכים", "fieldDatesPh": "בחרו הגעה ועזיבה", "openCalendar": "פתיחת לוח שנה", "calendarKicker": "בחירת תאריכים", "calendarHelp": "בחרו תאריך הגעה ואז תאריך עזיבה.", "calendarMinWarning": "נא לבחור לפחות 2 לילות.", "selectDeparture": "בחרו עזיבה", "alreadyBooked": "תפוס", "calendarRangeUnavailable": "לילה אחד או יותר בטווח שבחרתם אינו זמין. אנא בחרו טווח אחר.", "minNights": "נא לבחור לפחות 2 לילות.", "bookNow": "להזמין את השהייה", "bookingNote": "התחילו כאן. הפרטים יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.", "missingFirstName": "נא להזין שם פרטי.", "missingLastName": "נא להזין שם משפחה.", "missingEmail": "נא להזין אימייל.", "invalidEmail": "נא להזין כתובת אימייל תקינה.", "missingDates": "נא לבחור תאריכי הגעה ועזיבה.", "badDates": "תאריך העזיבה חייב להיות אחרי תאריך ההגעה.", "redirecting": "פותחים את ההזמנה…"};
 
+  const toolbarGuestCopy={
+    en:{fieldGuests:"Guests",fieldGuestsPh:"How many guests?"},
+    fr:{fieldGuests:"Voyageurs",fieldGuestsPh:"Combien de voyageurs ?"},
+    de:{fieldGuests:"Gäste",fieldGuestsPh:"Wie viele Gäste?"},
+    ru:{fieldGuests:"Гости",fieldGuestsPh:"Сколько гостей?"},
+    he:{fieldGuests:"אורחים",fieldGuestsPh:"כמה אורחים?"}
+  };
+  Object.keys(toolbarGuestCopy).forEach(function(code){
+    bookingCopy[code]=bookingCopy[code]||{};
+    Object.keys(toolbarGuestCopy[code]).forEach(function(key){
+      bookingCopy[code][key]=toolbarGuestCopy[code][key];
+    });
+  });
+
   const state={lang:"en"};
   const toolbarCalendar={currentMonth:new Date(),dayMap:{},loading:false};
 
@@ -1084,15 +1084,13 @@
       listingId:CFG.listingId,
       guestyListingId:CFG.listingId,
       workerBase:CFG.workerBase,
-      firstName:$("#fhFirstName")?.value.trim()||"",
-      lastName:$("#fhLastName")?.value.trim()||"",
-      email:$("#fhEmail")?.value.trim()||"",
+      guests:$("#fhToolbarGuests")?.value.trim()||"",
       checkIn:$("#fhArrival")?.value||"",
       checkOut:$("#fhDeparture")?.value||"",
       language:state.lang,
       lang:state.lang,
       source:"location",
-      pageSource:"fletschhorn-location-toolbar",
+      pageSource:"fletschhorn-location-isolated-toolbar",
       pageUrl:window.location.href,
       createdAt:new Date().toISOString()
     };
@@ -1278,31 +1276,28 @@
 
   function goToBookingPage(){
     const payload=getBookingStartPayload();
-    if(!payload.firstName){ setStatus(t("missingFirstName"),"error"); $("#fhFirstName")?.focus(); return; }
-    if(!payload.lastName){ setStatus(t("missingLastName"),"error"); $("#fhLastName")?.focus(); return; }
-    if(!payload.email){ setStatus(t("missingEmail"),"error"); $("#fhEmail")?.focus(); return; }
-    if(!emailIsValid(payload.email)){ setStatus(t("invalidEmail"),"error"); $("#fhEmail")?.focus(); return; }
-    if(!payload.checkIn||!payload.checkOut){ setStatus(t("missingDates"),"error"); openToolbarCalendar(); return; }
-    if(payload.checkOut<=payload.checkIn){ setStatus(t("badDates"),"error"); openToolbarCalendar(); return; }
-    if(nightsBetweenToolbar()<CFG.minNights){
-      setStatus(t("minNights")||"Please select at least 2 nights.","error");
-      openToolbarCalendar();
-      const warning=$("#fhToolbarCalendarWarning");
-      if(warning) warning.classList.add("show");
-      return;
+
+    try{
+      localStorage.setItem("fhBookingStart",JSON.stringify(payload));
+    }catch(error){
+      console.warn("Could not save booking start data.",error);
     }
-    try{ localStorage.setItem("fhBookingStart",JSON.stringify(payload)); }catch(error){ console.warn("Could not save booking start data.",error); }
+
     const params=new URLSearchParams();
-    params.set("firstName",payload.firstName);
-    params.set("lastName",payload.lastName);
-    params.set("email",payload.email);
-    params.set("checkIn",payload.checkIn);
-    params.set("checkOut",payload.checkOut);
+    if(payload.guests) params.set("guests",payload.guests);
+    if(payload.checkIn) params.set("checkIn",payload.checkIn);
+    if(payload.checkOut) params.set("checkOut",payload.checkOut);
     params.set("lang",payload.language);
     params.set("source","location");
+
     setStatus(t("redirecting"),"success");
     const btn=$("#fhBookNowBtn");
-    if(btn){ btn.disabled=true; btn.dataset.oldText=btn.textContent; btn.textContent=t("redirecting"); }
+    if(btn){
+      btn.disabled=true;
+      btn.dataset.oldText=btn.textContent;
+      btn.textContent=t("redirecting");
+    }
+
     window.location.href=CFG.bookingPageUrl+"?"+params.toString();
   }
 
@@ -1310,7 +1305,7 @@
     const params=new URLSearchParams(window.location.search);
     let stored={};
     try{ stored=JSON.parse(localStorage.getItem("fhBookingStart")||"{}"); }catch(error){}
-    const map={firstName:"#fhFirstName",lastName:"#fhLastName",email:"#fhEmail",checkIn:"#fhArrival",checkOut:"#fhDeparture"};
+    const map={guests:"#fhToolbarGuests",checkIn:"#fhArrival",checkOut:"#fhDeparture"};
     Object.keys(map).forEach(function(key){
       const el=$(map[key]);
       const value=params.get(key)||stored[key]||"";
@@ -1324,8 +1319,7 @@
     if(!form) return false;
     form.scrollIntoView({behavior:"smooth",block:"center"});
     setTimeout(function(){
-      const firstEmpty=[$("#fhFirstName"),$("#fhLastName"),$("#fhEmail")].find(function(el){ return el && !el.value; });
-      (firstEmpty || $("#fhOpenToolbarCalendar") || $("#fhFirstName"))?.focus?.();
+      ($("#fhToolbarGuests") || $("#fhOpenToolbarCalendar") || $("#fhBookNowBtn"))?.focus?.();
     },350);
     return true;
   }
@@ -1333,8 +1327,9 @@
   function bindToolbar(){
     $("#fhOpenToolbarCalendar")?.addEventListener("click",openToolbarCalendar);
     $("#fhBookNowBtn")?.addEventListener("click",goToBookingPage);
-    ["#fhFirstName","#fhLastName","#fhEmail"].forEach(function(selector){
+    ["#fhToolbarGuests","#fhArrival","#fhDeparture"].forEach(function(selector){
       $(selector)?.addEventListener("input",function(){ clearStatus(); persistToolbarStart(false); });
+      $(selector)?.addEventListener("change",function(){ clearStatus(); persistToolbarStart(false); });
     });
     $("#fhToolbarPrevMonth")?.addEventListener("click",function(){ toolbarCalendar.currentMonth=new Date(toolbarCalendar.currentMonth.getFullYear(),toolbarCalendar.currentMonth.getMonth()-1,1); loadToolbarCalendarMonth(); });
     $("#fhToolbarNextMonth")?.addEventListener("click",function(){ toolbarCalendar.currentMonth=new Date(toolbarCalendar.currentMonth.getFullYear(),toolbarCalendar.currentMonth.getMonth()+1,1); loadToolbarCalendarMonth(); });
@@ -1344,6 +1339,7 @@
 
     document.addEventListener("click",function(event){
       const trigger=event.target.closest("[data-fh-booking-open], a[href*='booking.html'], a[href*='/booking'], a[href='#book'], a[href='#booking'], a[href='#contact-booking']");
+      if(trigger && trigger.closest("[data-no-booking-toolbar], a[href*='booking.com']")) return;
       if(!trigger) return;
       const href=(trigger.getAttribute("href")||"").toLowerCase();
       if(trigger.hasAttribute("data-fh-booking-open")){
