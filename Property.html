@@ -820,6 +820,243 @@
   #fh-property[dir="rtl"] .fh-trust-head p{text-align:right}
 }
 
+
+
+/* ===== FIX: Sleeping Layout room cards must not inherit image-gallery .fh-room-card behavior =====
+   The messy overlap came from the global rule:
+   #fh-property .fh-room-card div { position:absolute; ... }
+   That rule is correct for the photo cards in #roomGallery, but it breaks the generated room-layout cards.
+*/
+#fh-property #sleeping-layout .fh-room-cards{
+  display:flex!important;
+  gap:16px!important;
+  overflow-x:auto!important;
+  overscroll-behavior-x:contain!important;
+  scroll-snap-type:x mandatory!important;
+  padding:8px 18px 24px 0!important;
+  margin-top:22px!important;
+  scrollbar-width:none!important;
+}
+#fh-property #sleeping-layout .fh-room-cards::-webkit-scrollbar{display:none!important;}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card,
+#fh-property #sleeping-layout .fh-room-cards > article,
+#fh-property #sleeping-layout .fh-room-cards > div{
+  flex:0 0 min(420px,86vw)!important;
+  scroll-snap-align:start!important;
+  position:relative!important;
+  isolation:isolate!important;
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:24px!important;
+  overflow:hidden!important;
+  color:var(--ink)!important;
+  background:rgba(255,250,243,.88)!important;
+  border:1px solid rgba(25,23,20,.13)!important;
+  box-shadow:0 16px 46px rgba(22,19,16,.12)!important;
+  border-radius:24px!important;
+}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card:after,
+#fh-property #sleeping-layout .fh-room-cards > article:after,
+#fh-property #sleeping-layout .fh-room-cards > div:after{
+  display:none!important;
+  content:none!important;
+}
+
+/* Reset the old gallery-card absolute positioning on generated content blocks. */
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card div,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card p,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card dl,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card dt,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card dd,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card footer,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card span,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card small,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card strong{
+  position:static!important;
+  inset:auto!important;
+  left:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  color:inherit!important;
+}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card small,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="number"],
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="room-id"]{
+  display:block!important;
+  margin:0 0 10px!important;
+  color:var(--clay2)!important;
+  font-size:11px!important;
+  font-weight:900!important;
+  letter-spacing:.20em!important;
+  line-height:1.1!important;
+  text-transform:uppercase!important;
+}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card h3,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card h4{
+  margin:0 0 18px!important;
+  color:var(--ink)!important;
+  font-family:var(--serif)!important;
+  font-size:clamp(25px,4.8vw,32px)!important;
+  font-weight:400!important;
+  line-height:1.02!important;
+  letter-spacing:-.045em!important;
+}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card dl,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="meta"],
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="details"]{
+  display:grid!important;
+  grid-template-columns:max-content minmax(0,1fr)!important;
+  column-gap:18px!important;
+  row-gap:9px!important;
+  margin:0 0 18px!important;
+  padding:0!important;
+}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card dt,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="label"]{
+  margin:0!important;
+  color:rgba(25,23,20,.50)!important;
+  font-size:12px!important;
+  font-weight:900!important;
+  letter-spacing:.08em!important;
+  line-height:1.35!important;
+  text-transform:uppercase!important;
+}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card dd,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="value"]{
+  margin:0!important;
+  min-width:0!important;
+  color:rgba(25,23,20,.70)!important;
+  font-size:15px!important;
+  line-height:1.38!important;
+  overflow-wrap:break-word!important;
+}
+
+/* Floor badge and room-type pills stay in normal flow, not floating over the bed details. */
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="floor"],
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="badge"]{
+  display:inline-flex!important;
+  align-self:flex-start!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  max-width:100%!important;
+  min-height:26px!important;
+  margin:0 0 14px!important;
+  padding:7px 11px!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:rgba(34,57,47,.90)!important;
+  color:#fffaf3!important;
+  font-size:10px!important;
+  font-weight:900!important;
+  letter-spacing:.13em!important;
+  line-height:1!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="best"],
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="recommend"],
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card blockquote{
+  margin:2px 0 18px!important;
+  padding:16px!important;
+  border:0!important;
+  border-radius:14px!important;
+  background:rgba(34,57,47,.075)!important;
+  color:var(--forest)!important;
+  font-size:14px!important;
+  line-height:1.45!important;
+}
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="best"] strong,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="recommend"] strong{
+  color:var(--forest)!important;
+  font-weight:900!important;
+}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="actions"],
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="buttons"],
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card footer{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:8px!important;
+  align-items:center!important;
+  margin-top:auto!important;
+  padding-top:8px!important;
+}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card a,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card button{
+  position:static!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  min-height:38px!important;
+  padding:9px 12px!important;
+  border-radius:12px!important;
+  border:1px solid rgba(135,110,88,.22)!important;
+  background:rgba(255,250,243,.76)!important;
+  color:var(--forest)!important;
+  font-size:12px!important;
+  font-weight:850!important;
+  line-height:1.1!important;
+  white-space:normal!important;
+  text-align:center!important;
+  box-shadow:none!important;
+}
+
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card a:last-child,
+#fh-property #sleeping-layout .fh-room-cards .fh-room-card button:last-child{
+  margin-left:auto!important;
+  border-color:rgba(34,57,47,.75)!important;
+  background:#fffaf3!important;
+}
+
+#fh-property #sleeping-layout .fh-room-carousel-hint{
+  margin-top:10px!important;
+  color:rgba(25,23,20,.58)!important;
+  font-size:14px!important;
+}
+
+@media(max-width:640px){
+  #fh-property #sleeping-layout .fh-room-cards{
+    gap:12px!important;
+    padding-right:16px!important;
+  }
+  #fh-property #sleeping-layout .fh-room-cards .fh-room-card,
+  #fh-property #sleeping-layout .fh-room-cards > article,
+  #fh-property #sleeping-layout .fh-room-cards > div{
+    flex-basis:84vw!important;
+    padding:20px!important;
+    border-radius:22px!important;
+  }
+  #fh-property #sleeping-layout .fh-room-cards .fh-room-card dl,
+  #fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="meta"],
+  #fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="details"]{
+    grid-template-columns:94px minmax(0,1fr)!important;
+    column-gap:12px!important;
+  }
+  #fh-property #sleeping-layout .fh-room-cards .fh-room-card a,
+  #fh-property #sleeping-layout .fh-room-cards .fh-room-card button{
+    flex:1 1 auto!important;
+  }
+  #fh-property #sleeping-layout .fh-room-cards .fh-room-card a:last-child,
+  #fh-property #sleeping-layout .fh-room-cards .fh-room-card button:last-child{
+    margin-left:0!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1049,6 +1286,7 @@
             </div>
 
             <div class="fh-booking-note" data-booking-i18n="bookingNote">
+              Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.
             </div>
 
             <div class="fh-status" id="fhFormStatus" role="status" aria-live="polite"></div>
