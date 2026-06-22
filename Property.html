@@ -1241,51 +1241,47 @@
 
     <main>
 
-      <!-- ============ B1: Private Lodge Layout + summary band ============ -->
-      <section class="fh-section fh-layout-section" id="private-lodge-layout" aria-label="Private lodge layout">
+      <!-- ============ MERGED: Private Lodge + Sleeping Layout + Best Room Setups ============ -->
+      <section class="fh-section alt fh-layout-section fh-mixed-layout-section" id="sleeping-layout" aria-label="Private lodge sleeping layout and group setups">
+        <span id="private-lodge-layout" class="fh-scroll-anchor" aria-hidden="true"></span>
         <div class="fh-layout-wrap">
           <div class="fh-layout-head preSlide">
-            <p class="fh-kicker">The entire house is yours</p>
+            <p class="fh-kicker">The full house, planned simply</p>
             <h2>Private Lodge Layout</h2>
-            <p>When you reserve Fletschhorn, the full house is yours. Explore the bedrooms, floors, dining spaces, wellness areas, and sleeping layout so your group can plan the stay with confidence.</p>
+            <p>One clean planning section for the whole property: house summary, Guesty photo preview, floor-by-floor sleeping layout, and the best room setup ideas for couples, families, organisers, children, staff, or retreat leaders.</p>
           </div>
+
           <ul class="fh-lodge-summary" id="fhLodgeSummary"></ul>
           <p class="fh-lodge-flag" id="fhLodgeFlag"></p>
-        </div>
-      </section>
 
-      <!-- ============ B2–B6: Sleeping Layout (floors, cards, modal) ============ -->
-      <section class="fh-section alt fh-layout-section" id="sleeping-layout" aria-label="Sleeping layout">
-        <div class="fh-layout-wrap">
-          <div class="fh-layout-head preSlide">
-            <p class="fh-kicker">Plan the stay</p>
-            <h2>Sleeping Layout</h2>
+          <div class="fh-layout-photo-strip" id="layoutCarousel" aria-label="Property photos from Guesty"></div>
+          <p class="fh-layout-photo-note" aria-hidden="true">Property photo preview · swipe to browse · tap to zoom</p>
+
+          <div class="fh-layout-subhead">
+            <p class="fh-kicker">Sleeping layout</p>
+            <h3>Choose a floor, then open the rooms your group needs.</h3>
             <p>The rooms are shown to help your group organiser assign couples, families, children, retreat leaders, or staff before arrival. They are part of the full-property rental and are not booked separately.</p>
           </div>
-          <div class="fh-layout-photo-strip" id="layoutCarousel" aria-label="Property photos from Guesty"></div>
-          <p class="fh-layout-photo-note" aria-hidden="true">Property photo preview · swipe to browse →</p>
+
           <div class="fh-floor-pills" id="fhFloorPills" role="tablist" aria-label="Floors"></div>
           <p class="fh-floor-summary" id="fhFloorSummary"></p>
           <div class="fh-floor-shared" id="fhFloorShared" aria-label="Shared spaces on this floor"></div>
           <div class="fh-room-cards" id="fhRoomCards"></div>
           <p class="fh-room-carousel-hint" aria-hidden="true">Swipe to see all rooms →</p>
-        </div>
-      </section>
 
-      <!-- ============ B7: Best room setups for your group ============ -->
-      <section class="fh-section fh-layout-section" id="group-setups" aria-label="Group sleeping setups">
-        <div class="fh-layout-wrap">
-          <div class="fh-layout-head preSlide">
-            <p class="fh-kicker">Planning who sleeps where?</p>
-            <h2>Best room setups for your group</h2>
-            <p>A practical starting point for assigning your group across the house. Tap any room to open its layout. The whole lodge is reserved as one private booking.</p>
-          </div>
-          <div class="fh-setup-grid" id="fhSetupGrid"></div>
-          <div class="fh-setup-cta"><a href="#property-inquiry">Ask us for layout help</a></div>
-          <div class="fh-layout-cta">
-            <a class="primary" href="#booking" data-check-dates>Check Dates</a>
-            <a class="ghost" href="#sleeping-layout">View Sleeping Layout</a>
-            <a class="ghost" href="mailto:welcome@fletschhorn.ch">Contact Fletschhorn</a>
+          <div class="fh-setup-block" id="group-setups" aria-label="Best room setups for your group">
+            <div class="fh-layout-subhead">
+              <p class="fh-kicker">Best room setups for your group</p>
+              <h3>Quick starting points before you assign every room.</h3>
+              <p>Use these setup ideas as a practical shortcut, then tap any room card above to see the detailed text layout.</p>
+            </div>
+            <div class="fh-setup-grid" id="fhSetupGrid"></div>
+            <div class="fh-setup-cta"><a href="#property-inquiry">Ask us for layout help</a></div>
+            <div class="fh-layout-cta">
+              <a class="primary" href="#booking" data-check-dates>Check Dates</a>
+              <a class="ghost" href="#sleeping-layout">View Sleeping Layout</a>
+              <a class="ghost" href="mailto:welcome@fletschhorn.ch">Contact Fletschhorn</a>
+            </div>
           </div>
         </div>
       </section>
@@ -3051,6 +3047,181 @@ html.fh-photo-zoom-open body{
   }, true);
 })();
 </script>
+
+
+<style id="fh-merged-layout-section-final">
+/* FINAL PATCH: merge Private Lodge Layout + Sleeping Layout + Best Room Setups into one clean section */
+#fh-property #sleeping-layout.fh-mixed-layout-section{
+  background:
+    radial-gradient(circle at 12% 4%, rgba(255,255,255,.74), transparent 0 24%),
+    linear-gradient(180deg, rgba(255,250,243,.74), rgba(239,229,217,.60));
+}
+
+#fh-property #sleeping-layout .fh-scroll-anchor{
+  position:relative;
+  display:block;
+  top:-100px;
+  height:0;
+  overflow:hidden;
+}
+
+#fh-property #sleeping-layout .fh-layout-wrap{
+  width:var(--container);
+  margin-inline:auto;
+}
+
+#fh-property #sleeping-layout .fh-layout-head{
+  max-width:920px;
+  margin-bottom:clamp(18px,3vw,30px);
+}
+
+#fh-property #sleeping-layout .fh-lodge-summary{
+  margin-bottom:12px!important;
+}
+
+#fh-property #sleeping-layout .fh-lodge-flag{
+  margin-bottom:clamp(18px,3vw,28px)!important;
+}
+
+/* Bigger Guesty photo carousel, still horizontal and scrollable */
+#fh-property #sleeping-layout .fh-layout-photo-strip{
+  display:flex!important;
+  gap:14px!important;
+  width:100%!important;
+  margin:clamp(18px,3vw,30px) 0 10px!important;
+  padding:5px 5px 14px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  overscroll-behavior-x:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  touch-action:pan-x!important;
+  scroll-snap-type:x proximity!important;
+  scrollbar-width:none!important;
+}
+
+#fh-property #sleeping-layout .fh-layout-photo-strip::-webkit-scrollbar{
+  display:none!important;
+}
+
+#fh-property #sleeping-layout .fh-layout-photo-strip img{
+  flex:0 0 clamp(240px,32vw,430px)!important;
+  width:clamp(240px,32vw,430px)!important;
+  height:clamp(160px,21vw,270px)!important;
+  max-width:none!important;
+  border-radius:18px!important;
+  object-fit:cover!important;
+  scroll-snap-align:start!important;
+  cursor:zoom-in!important;
+  box-shadow:0 16px 42px rgba(22,19,16,.14)!important;
+}
+
+#fh-property #sleeping-layout .fh-layout-photo-note{
+  margin:0 0 clamp(24px,4vw,38px)!important;
+  font-size:12.5px!important;
+  color:rgba(25,23,20,.58)!important;
+}
+
+/* Internal dividers instead of three separate long sections */
+#fh-property #sleeping-layout .fh-layout-subhead{
+  max-width:880px;
+  margin:clamp(28px,5vw,56px) 0 clamp(16px,2.4vw,24px);
+  padding-top:clamp(22px,3.4vw,36px);
+  border-top:1px solid rgba(25,23,20,.12);
+}
+
+#fh-property #sleeping-layout .fh-layout-subhead h3{
+  margin-bottom:10px!important;
+  font-size:clamp(29px,3.5vw,46px)!important;
+}
+
+#fh-property #sleeping-layout .fh-layout-subhead p:last-child{
+  max-width:760px;
+  margin:0!important;
+  color:rgba(25,23,20,.66)!important;
+}
+
+/* Best setup is now inside the same section */
+#fh-property #sleeping-layout .fh-setup-block{
+  margin-top:clamp(32px,5vw,58px);
+}
+
+/* Keep setup cards side-by-side on mobile: carousel, not long feed */
+@media(max-width:760px){
+  #fh-property #sleeping-layout .fh-layout-wrap{
+    width:calc(100% - 28px);
+  }
+
+  #fh-property #sleeping-layout .fh-layout-head{
+    margin-bottom:16px;
+  }
+
+  #fh-property #sleeping-layout .fh-layout-photo-strip{
+    gap:12px!important;
+    margin:18px 0 8px!important;
+    padding:4px 18px 12px 0!important;
+  }
+
+  #fh-property #sleeping-layout .fh-layout-photo-strip img{
+    flex:0 0 76vw!important;
+    width:76vw!important;
+    min-width:260px!important;
+    height:182px!important;
+    border-radius:17px!important;
+  }
+
+  #fh-property #sleeping-layout .fh-layout-photo-note{
+    margin-bottom:22px!important;
+  }
+
+  #fh-property #sleeping-layout .fh-layout-subhead{
+    margin-top:30px;
+    padding-top:24px;
+  }
+
+  #fh-property #sleeping-layout .fh-layout-subhead h3{
+    font-size:30px!important;
+  }
+
+  #fh-property #group-setups #fhSetupGrid{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    gap:12px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    overscroll-behavior-x:contain!important;
+    -webkit-overflow-scrolling:touch!important;
+    scroll-snap-type:x mandatory!important;
+    padding:4px 18px 14px 0!important;
+    margin-top:14px!important;
+    scrollbar-width:none!important;
+  }
+
+  #fh-property #group-setups #fhSetupGrid::-webkit-scrollbar{
+    display:none!important;
+  }
+
+  #fh-property #group-setups #fhSetupGrid > *{
+    flex:0 0 78vw!important;
+    width:78vw!important;
+    min-width:0!important;
+    scroll-snap-align:start!important;
+  }
+}
+
+@media(max-width:420px){
+  #fh-property #sleeping-layout .fh-layout-photo-strip img{
+    flex-basis:82vw!important;
+    width:82vw!important;
+    min-width:245px!important;
+    height:170px!important;
+  }
+
+  #fh-property #group-setups #fhSetupGrid > *{
+    flex-basis:82vw!important;
+    width:82vw!important;
+  }
+}
+</style>
 
 </body>
 </html>
