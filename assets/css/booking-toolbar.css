@@ -1,0 +1,225 @@
+/* =====================================================================
+   Fletschhorn — Canonical Booking Toolbar (layout/styles)
+   ---------------------------------------------------------------------
+   Single source of truth for the toolbar LOOK, paired with
+   assets/js/booking-toolbar.js (behaviour). Class-based so any page can
+   adopt it. Matches the clean index.html bar: [ Dates ] [ Guests ] CTA,
+   premium on desktop, comfortable and readable on mobile.
+
+   Adopt on a page by:
+     - including the canonical toolbar markup (.fh-booking > .fh-booking-form)
+     - <link rel="stylesheet" href="assets/css/booking-toolbar.css">
+     - removing any older page-scoped (#id) toolbar rules that would
+       out-specify these class rules.
+
+   Uses CSS custom properties with safe fallbacks so it inherits each
+   page's palette where present.
+   ===================================================================== */
+
+.fh-booking {
+  margin: clamp(14px, 2.2vw, 24px) auto 0;
+  width: min(1100px, 100%);
+  padding: 9px;
+  border-radius: 16px;
+  background: rgba(255, 250, 242, .16);
+  border: 1px solid rgba(255, 250, 242, .28);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.fh-booking *,
+.fh-booking *::before,
+.fh-booking *::after { box-sizing: border-box; }
+
+.fh-booking-form {
+  display: grid;
+  grid-template-columns: minmax(120px, .5fr) minmax(240px, 1.5fr) minmax(150px, 178px);
+  align-items: stretch;
+  border-radius: 11px;
+  overflow: hidden;
+  background: var(--paper, #fffaf2);
+}
+
+.fh-booking .fh-field {
+  min-width: 0;
+  padding: 14px 16px;
+  border-right: 1px solid var(--line, rgba(28, 24, 20, .12));
+  background: rgba(255, 250, 242, .96);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.fh-booking .fh-field label {
+  display: block;
+  margin: 0 0 7px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  font-weight: 850;
+  color: rgba(28, 24, 20, .52);
+}
+
+.fh-booking .fh-field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink, #1c1814);
+  font-size: 15px;
+  line-height: 1.2;
+  font-family: inherit;
+}
+
+.fh-booking .fh-date-field { justify-content: center; }
+
+.fh-booking .fh-date-button {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink, #1c1814);
+  text-align: left;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 22px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.fh-booking .fh-date-button span {
+  color: var(--ink, #1c1814);
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.fh-booking .fh-date-button strong {
+  color: var(--forest, #22392f);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  font-weight: 850;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+.fh-booking .fh-submit {
+  border: 0;
+  min-height: 58px;
+  padding: 0 18px;
+  background: var(--forest, #22392f);
+  color: var(--white, #fffaf2);
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .18s, opacity .18s;
+}
+.fh-booking .fh-submit:hover { background: var(--forest2, #1b2d24); }
+.fh-booking .fh-submit:disabled { opacity: .68; cursor: wait; }
+
+.fh-booking .fh-booking-note {
+  margin-top: 12px;
+  color: rgba(255, 250, 242, .82);
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.fh-booking .fh-status {
+  display: none;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 250, 242, .22);
+  background: rgba(255, 250, 242, .14);
+  color: #fffaf2;
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: center;
+}
+.fh-booking .fh-status.show { display: block; }
+.fh-booking .fh-status.error { border-color: rgba(190, 70, 60, .5); background: rgba(190, 70, 60, .16); }
+.fh-booking .fh-status.success { border-color: rgba(70, 150, 100, .5); background: rgba(70, 150, 100, .16); }
+
+/* ---- Tablet: keep one row but let the dates field breathe ---- */
+@media (max-width: 860px) {
+  .fh-booking-form {
+    grid-template-columns: minmax(110px, .6fr) minmax(200px, 1.4fr) minmax(132px, 150px);
+  }
+  .fh-booking .fh-field { padding: 13px 14px; }
+}
+
+/* ---- Mobile: clean stacked card, comfortable tap targets ---- */
+@media (max-width: 600px) {
+  .fh-booking { padding: 7px; margin-top: 14px; border-radius: 14px; }
+  .fh-booking-form { grid-template-columns: 1fr; }
+  .fh-booking .fh-field {
+    grid-column: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line, rgba(28, 24, 20, .12));
+    padding: 13px 15px;
+  }
+  .fh-booking .fh-submit { min-height: 54px; }
+  .fh-booking .fh-booking-note { font-size: 12.5px; }
+}
+
+/* ---- RTL ---- */
+[dir="rtl"] .fh-booking .fh-field { border-right: 0; border-left: 1px solid var(--line, rgba(28, 24, 20, .12)); }
+[dir="rtl"] .fh-booking .fh-date-button { text-align: right; }
+@media (max-width: 600px) {
+  [dir="rtl"] .fh-booking .fh-field { border-left: 0; border-bottom: 1px solid var(--line, rgba(28, 24, 20, .12)); }
+}
+
+/* =====================================================================
+   Calendar modal (shared). Lower specificity than existing page #id
+   rules, so it never overrides pages that already style the calendar —
+   it only provides styling for pages that have none.
+   ===================================================================== */
+.fh-calendar-modal {
+  position: fixed; inset: 0; z-index: 1300; display: none;
+  align-items: center; justify-content: center; padding: 16px;
+  background: rgba(20, 16, 12, .55); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+}
+.fh-calendar-modal.open { display: flex; }
+.fh-calendar-card {
+  width: min(440px, 100%); max-height: 90vh; overflow-y: auto;
+  background: var(--paper, #fffaf2); border-radius: 16px; padding: 18px;
+}
+.fh-calendar-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
+.fh-calendar-title { font-family: Georgia, serif; font-size: 22px; margin: 2px 0 0; }
+.fh-calendar-nav { display: flex; gap: 6px; flex: 0 0 auto; }
+.fh-calendar-nav button {
+  border: 1px solid rgba(28, 24, 20, .18); background: #fff; border-radius: 9px;
+  width: 36px; height: 36px; font-size: 18px; line-height: 1; cursor: pointer;
+}
+.fh-calendar-help { font-size: 12.5px; color: rgba(28, 24, 20, .6); margin: 4px 0 10px; }
+.fh-calendar-warning { display: none; font-size: 12.5px; color: #8a5418; background: rgba(154, 91, 28, .1); border-radius: 9px; padding: 9px 11px; margin-bottom: 10px; }
+.fh-calendar-warning.show { display: block; }
+.fh-weekdays, .fh-calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.fh-weekday { text-align: center; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: rgba(28, 24, 20, .45); font-weight: 800; padding-bottom: 4px; }
+.fh-day {
+  position: relative; border: 1px solid rgba(28, 24, 20, .1); background: #fff; border-radius: 9px;
+  min-height: 46px; padding: 5px 4px; cursor: pointer; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2px; font-family: inherit;
+}
+.fh-day:hover:not(:disabled) { border-color: var(--forest, #22392f); }
+.fh-day.empty { border: 0; background: transparent; cursor: default; }
+.fh-day.past, .fh-day.unavailable { opacity: .4; cursor: not-allowed; }
+.fh-day.start, .fh-day.end { background: var(--forest, #22392f); color: #fff; border-color: var(--forest, #22392f); }
+.fh-day.range { background: rgba(34, 57, 47, .12); }
+.fh-day-number { font-size: 13px; font-weight: 700; }
+.fh-day-price { font-size: 9.5px; color: rgba(28, 24, 20, .55); }
+.fh-day.start .fh-day-price, .fh-day.end .fh-day-price { color: rgba(255, 255, 255, .85); }
+.fh-day-status { font-size: 8px; text-transform: uppercase; letter-spacing: .04em; }

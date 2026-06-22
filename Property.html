@@ -15,6 +15,7 @@
   <meta name="twitter:title" content="Fletschhorn · The Property — Exclusive Alpine Chalet">
   <meta name="twitter:description" content="6 room types, sleeps up to 48. Private sauna, professional kitchen, mountain terraces above Saas-Fee.">
   <link rel="stylesheet" href="assets/fh-global.css">
+  <link rel="stylesheet" href="assets/css/booking-toolbar.css">
   <link rel="stylesheet" href="assets/css/property-layout.css">
   <script type="application/ld+json">
   {
@@ -485,137 +486,7 @@
 }
 
 
-/* ===== INDEX TOOLBAR BEHAVIOR APPLIED TO PROPERTY.HTML ===== */
-#fh-property .fh-booking{
-      margin:clamp(14px,2.2vw,24px) auto 0;
-      width:min(1100px,100%);
-      padding:9px;
-      background:rgba(255,250,242,.16);
-      border:1px solid rgba(255,250,242,.25);
-      -webkit-backdrop-filter:blur(10px);
-      backdrop-filter:blur(10px);
-      text-align:left;
-    }
-
-    #fh-property .fh-booking-form{
-      display:grid;
-      grid-template-columns:.88fr .88fr 1.15fr 1.72fr 185px;
-      background:var(--paper);
-    }
-
-    #fh-property .fh-field{
-      min-width:0;
-      padding:15px 16px;
-      border-right:1px solid var(--line);
-      background:rgba(255,250,242,.96);
-    }
-
-    #fh-property .fh-field label{
-      display:block;
-      margin-bottom:7px;
-      font-size:10px;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      font-weight:850;
-      color:rgba(28,24,20,.52);
-    }
-
-    #fh-property .fh-field input{
-      width:100%;
-      min-width:0;
-      border:0;
-      outline:0;
-      background:transparent;
-      color:var(--ink);
-      font-size:15px;
-    }
-
-    #fh-property .fh-date-button{
-      width:100%;
-      border:0;
-      outline:0;
-      background:transparent;
-      color:var(--ink);
-      text-align:left;
-      padding:0;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      min-height:22px;
-    }
-
-    #fh-property .fh-date-button span{
-      color:var(--ink);
-      font-size:15px;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-    }
-
-    #fh-property .fh-date-button strong{
-      color:var(--forest);
-      font-size:10px;
-      text-transform:uppercase;
-      letter-spacing:.13em;
-      font-weight:850;
-      white-space:nowrap;
-    }
-
-    #fh-property .fh-submit{
-      border:0;
-      min-height:58px;
-      background:var(--forest);
-      color:var(--white);
-      text-transform:uppercase;
-      letter-spacing:.13em;
-      font-size:11px;
-      font-weight:850;
-      transition:background .18s,opacity .18s;
-    }
-
-    #fh-property .fh-submit:hover{
-      background:var(--forest2);
-    }
-
-    #fh-property .fh-submit:disabled{
-      opacity:.68;
-      cursor:wait;
-    }
-
-    #fh-property .fh-booking-note{
-      margin-top:12px;
-      color:rgba(255,250,242,.78);
-      font-size:13px;
-      line-height:1.45;
-      text-align:center;
-    }
-
-    #fh-property .fh-status{
-      display:none;
-      margin-top:12px;
-      padding:12px 14px;
-      border:1px solid rgba(255,250,242,.22);
-      background:rgba(255,250,242,.14);
-      color:#fffaf2;
-      font-size:14px;
-      line-height:1.45;
-      text-align:center;
-    }
-
-    #fh-property .fh-status.show{
-      display:block;
-    }
-
-    #fh-property .fh-status.error{
-      background:rgba(180,40,40,.18);
-      border-color:rgba(255,100,100,.28);
-    }
-
-    #fh-property .fh-status.success{
-      background:rgba(45,112,74,.22);
-      border-color:rgba(155,225,180,.28);
-    }
+/* Booking toolbar bar styles now come from assets/css/booking-toolbar.css (canonical). Calendar modal styles remain below. */
 
     #fh-property .fh-calendar-modal{
       position:fixed;
@@ -784,26 +655,7 @@
 
     
 
-@media(max-width:1120px){
-  #fh-property .fh-booking-form{grid-template-columns:repeat(6,minmax(0,1fr));}
-  #fh-property .fh-field:nth-child(1),
-  #fh-property .fh-field:nth-child(2),
-  #fh-property .fh-field:nth-child(3){grid-column:span 2;}
-  #fh-property .fh-field:nth-child(4){grid-column:span 4;}
-  #fh-property .fh-submit{grid-column:span 2;}
-  #fh-property .fh-field{border-bottom:1px solid var(--line);}
-}
 @media(max-width:640px){
-  #fh-property .fh-booking{padding:7px;margin-top:16px;}
-  #fh-property .fh-booking-form{grid-template-columns:1fr;}
-  #fh-property .fh-field,
-  #fh-property .fh-field:nth-child(1),
-  #fh-property .fh-field:nth-child(2),
-  #fh-property .fh-field:nth-child(3),
-  #fh-property .fh-field:nth-child(4),
-  #fh-property .fh-submit{grid-column:auto;border-right:0;}
-  #fh-property .fh-field{padding:12px 14px;}
-  #fh-property .fh-submit{min-height:52px;}
   #fh-property .fh-calendar-card{padding:14px;}
   #fh-property .fh-calendar-title{font-size:28px;}
   #fh-property .fh-weekdays,
@@ -1032,6 +884,7 @@
           <p class="fh-floor-summary" id="fhFloorSummary"></p>
           <div class="fh-floor-shared" id="fhFloorShared" aria-label="Shared spaces on this floor"></div>
           <div class="fh-room-cards" id="fhRoomCards"></div>
+          <p class="fh-room-carousel-hint" aria-hidden="true">Swipe to see all rooms →</p>
         </div>
       </section>
 
@@ -1714,7 +1567,7 @@
     },
     sources:[
       {id:"google",score:"4.7",scale:"/ 5",stars:5,url:"https://www.google.com/maps/search/?api=1&query=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland",source:{en:"Google reviews",fr:"Avis Google",de:"Google-Bewertungen",ru:"Отзывы Google",he:"ביקורות Google"},text:{en:"155 reviews. Guests highlight the setting, service, food, and views.",fr:"155 avis. Les hôtes soulignent le cadre, le service, la cuisine et les vues.",de:"155 Bewertungen. Gäste heben Lage, Service, Essen und Aussicht hervor.",ru:"155 отзывов. Гости отмечают место, сервис, еду и виды.",he:"155 ביקורות. אורחים מדגישים את המיקום, השירות, האוכל והנופים."}},
-      {id:"booking",score:"9.4",scale:"/ 10",stars:5,url:"https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html",source:{en:"Booking.com",fr:"Booking.com",de:"Booking.com",ru:"Booking.com",he:"Booking.com"},text:{en:"120 reviews. Rated wonderful, with strong cleanliness and staff scores.",fr:"120 avis. Noté merveilleux, avec de fortes notes pour la propreté et le personnel.",de:"120 Bewertungen. Als wunderbar bewertet, mit starken Noten für Sauberkeit und Personal.",ru:"120 отзывов. Оценка «wonderful», высокие баллы за чистоту и персонал.",he:"120 ביקורות. דירוג Wonderful, עם ציונים חזקים לניקיון ולצוות."}},
+      {id:"booking",score:"9.4",scale:"/ 10",stars:5,url:"https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html?label=New_English_EN_NY%3A_New_York_State_23537688865-3HhLaepAvUOrD5Rz7Hri*wS217243092435%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwl-64415224945%3Alp9004718%3Ali%3Adec%3Adm&sid=3f5ffe155205f2621ca0fb55b7e75ee8&gclid=CjwKCAjwuuPRBhAnEiwA2Ji8esG3Yid7OWHMkMi2COGZda9YP7pqdXnaRaAMKF6HGJ4DwmbQQpFkUhoCwYgQAvD_BwE&aid=318615&ucfs=1&arphpl=1&dest_id=-2553924&dest_type=city&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=popularity&srpvid=df5186e6f7bc0844&srepoch=1782155470&from=searchresults",source:{en:"Booking.com",fr:"Booking.com",de:"Booking.com",ru:"Booking.com",he:"Booking.com"},text:{en:"120 reviews. Rated wonderful, with strong cleanliness and staff scores.",fr:"120 avis. Noté merveilleux, avec de fortes notes pour la propreté et le personnel.",de:"120 Bewertungen. Als wunderbar bewertet, mit starken Noten für Sauberkeit und Personal.",ru:"120 отзывов. Оценка «wonderful», высокие баллы за чистоту и персонал.",he:"120 ביקורות. דירוג Wonderful, עם ציונים חזקים לניקיון ולצוות."}},
       {id:"hotels",score:"9.2",scale:"/ 10",stars:5,url:"https://www.hotels.com/ho2948041472/waldhotel-fletschhorn-sachseln-switzerland/",source:{en:"Hotels.com",fr:"Hotels.com",de:"Hotels.com",ru:"Hotels.com",he:"Hotels.com"},text:{en:"15 verified reviews. Guests praise the quiet forest setting and personal service.",fr:"15 avis vérifiés. Les hôtes apprécient le calme de la forêt et le service personnel.",de:"15 verifizierte Bewertungen. Gäste loben die ruhige Waldlage und den persönlichen Service.",ru:"15 проверенных отзывов. Гости хвалят тихое лесное место и персональный сервис.",he:"15 ביקורות מאומתות. אורחים משבחים את היער השקט ואת השירות האישי."}},
       {id:"tripadvisor",score:"4.5",scale:"/ 5",stars:5,url:"https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html",source:{en:"Tripadvisor",fr:"Tripadvisor",de:"Tripadvisor",ru:"Tripadvisor",he:"Tripadvisor"},text:{en:"Independent traveller reviews praising the forest setting, cuisine, and personal welcome.",fr:"Avis de voyageurs indépendants saluant le cadre forestier, la cuisine et l'accueil personnel.",de:"Unabhängige Reisebewertungen loben die Waldlage, die Küche und den persönlichen Empfang.",ru:"Независимые отзывы путешественников отмечают лесное место, кухню и личный приём.",he:"ביקורות מטיילים עצמאיות משבחות את היער, המטבח וקבלת הפנים האישית."}},
       {id:"airbnb",score:"New",scale:"listing",stars:0,url:"https://www.airbnb.com/rooms/1583676843313625450",source:{en:"Airbnb",fr:"Airbnb",de:"Airbnb",ru:"Airbnb",he:"Airbnb"},scoreI18n:{en:"New",fr:"Nouveau",de:"Neu",ru:"Новое",he:"חדש"},scaleI18n:{en:"listing",fr:"logement",de:"Listing",ru:"объявление",he:"מודעה"},text:{en:"Official whole-hotel listing for up to 48 guests; Airbnb shows no property reviews yet.",fr:"Annonce officielle de l'hôtel entier jusqu'à 48 hôtes ; Airbnb n'affiche pas encore d'avis pour ce bien.",de:"Offizielles Whole-Hotel-Listing für bis zu 48 Gäste; Airbnb zeigt derzeit noch keine Objektbewertungen.",ru:"Официальное объявление всего отеля до 48 гостей; Airbnb пока не показывает отзывов об объекте.",he:"מודעה רשמית לכל המלון עד 48 אורחים; Airbnb עדיין לא מציג ביקורות לנכס."}}
@@ -1755,7 +1608,7 @@
       var scaleVal=s.scaleI18n?pick(s.scaleI18n,l):s.scale;
       var stars=Number(s.stars)||0;
       var starsHtml=stars>0?'<div class="fh-review-stars" aria-hidden="true">'+Array(stars+1).join("★")+'</div>':'';
-      return '<a class="fh-review-card" href="'+esc(s.url)+'" target="_blank" rel="noopener" aria-label="'+esc(src)+'">'
+      return '<a class="fh-review-card" href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc(src)+'">'
         +'<b>'+esc(src)+'</b>'
         +'<div class="fh-review-score"><strong>'+esc(scoreVal)+'</strong><span>'+esc(scaleVal)+'</span></div>'
         +starsHtml
