@@ -1226,6 +1226,12 @@
       var signal = state.calendarController ? state.calendarController.signal : undefined;
 
       var range = monthRange(state.currentMonth);
+      if (state.arrival && state.departure) {
+        var selectedStartRange = monthRange(new Date(state.arrival + "T00:00:00"));
+        var selectedEndRange = monthRange(new Date(state.departure + "T00:00:00"));
+        if (selectedStartRange.from < range.from) range.from = selectedStartRange.from;
+        if (selectedEndRange.to > range.to) range.to = selectedEndRange.to;
+      }
       setText("fhScheduleStatus", txt("loadingSchedule"));
       var statusEl = $("fhScheduleStatus");
       if (statusEl) statusEl.classList.remove("error");
@@ -1285,12 +1291,19 @@
         var classes = ["fh-day"];
         var disabled = false;
         var statusText = "";
+        var selectedStart = state.arrival === iso;
+        var selectedEnd = state.departure === iso;
+        var canBeCheckout = state.arrival && !state.departure && iso > state.arrival && !isPast(iso) && daysBetween(state.arrival, iso) >= CFG.minNights && !rangeHasUnavailable(state.arrival, iso);
         if (isPast(iso)) { classes.push("past"); disabled = true; statusText = txt("past"); }
-        else if (info && (info.unavailable || info.available === false)) { classes.push("unavailable"); disabled = true; statusText = (info.status && info.status !== "unavailable") ? info.status : txt("booked"); }
+        else if (info && (info.unavailable || info.available === false)) {
+          classes.push("unavailable");
+          disabled = !(selectedEnd || canBeCheckout);
+          statusText = (selectedEnd || canBeCheckout) ? txt("departure") : ((info.status && info.status !== "unavailable") ? info.status : txt("booked"));
+        }
         else if (info && info.available === true) { classes.push("available"); statusText = txt("available"); }
         else { statusText = ""; }
-        if (state.arrival === iso) classes.push("start");
-        if (state.departure === iso) classes.push("end");
+        if (selectedStart) classes.push("start");
+        if (selectedEnd) classes.push("end");
         if (state.arrival && state.departure && iso > state.arrival && iso < state.departure) classes.push("range");
         var price = info ? formatMoney(info.price, info.currency) : "";
         html += '<button type="button" class="'+classes.join(" ")+'" data-date="'+iso+'" '+(disabled?'disabled':'')+' aria-label="'+escapeHTML(iso + (price ? ' '+price : ''))+'">'
@@ -1530,6 +1543,10 @@
       var params = new URLSearchParams(window.location.search);
       state.arrival = params.get("checkIn") || params.get("arrivalDate") || data.checkIn || data.arrivalDate || "";
       state.departure = params.get("checkOut") || params.get("departureDate") || data.checkOut || data.departureDate || "";
+      if (state.arrival && /^\d{4}-\d{2}-\d{2}$/.test(state.arrival)) {
+        var selectedMonth = new Date(state.arrival + "T00:00:00");
+        state.currentMonth = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), 1);
+      }
       var fields = [
         ["fhFirstName", params.get("firstName") || data.firstName],
         ["fhLastName", params.get("lastName") || data.lastName],

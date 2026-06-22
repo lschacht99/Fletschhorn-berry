@@ -4812,6 +4812,12 @@
         return day.unavailable === true || day.available === false;
       }
 
+      function nightsBetweenDates(startIso, endIso){
+        const start = new Date(startIso + "T00:00:00");
+        const end = new Date(endIso + "T00:00:00");
+        return Math.round((end - start) / 86400000);
+      }
+
       function rangeHasUnavailable(startIso, endIso){
         if (!startIso || !endIso) return false;
 
@@ -4871,12 +4877,15 @@
 
           const past = dateIsPast(iso);
           const unavailable = dateUnavailable(iso);
+          const selectedStart = arrival && iso === arrival;
+          const selectedEnd = departure && iso === departure;
+          const canBeCheckout = arrival && !departure && iso > arrival && !past && nightsBetweenDates(arrival, iso) >= CFG.minNights && !rangeHasUnavailable(arrival, iso);
 
           if (past) btn.classList.add("past");
           if (unavailable) btn.classList.add("unavailable");
 
-          if (arrival && iso === arrival) btn.classList.add("start");
-          if (departure && iso === departure) btn.classList.add("end");
+          if (selectedStart) btn.classList.add("start");
+          if (selectedEnd) btn.classList.add("end");
 
           if (arrival && departure && iso > arrival && iso < departure){
             btn.classList.add("range");
@@ -4900,11 +4909,11 @@
             ) +
             (
               unavailable
-                ? '<span class="fh-day-status">' + (t("alreadyBooked") || "Booked") + '</span>'
+                ? '<span class="fh-day-status">' + ((selectedEnd || canBeCheckout) ? (t("fieldDeparture") || "Departure") : (t("alreadyBooked") || "Booked")) + '</span>'
                 : ''
             );
 
-          if (past || unavailable){
+          if (past || (unavailable && !(selectedEnd || canBeCheckout))){
             btn.disabled = true;
           } else {
             btn.addEventListener("click", function(){
