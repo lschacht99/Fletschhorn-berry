@@ -1,0 +1,235 @@
+/* =====================================================================
+   Fletschhorn — Private Lodge Layout / Sleeping Layout (property page)
+   Mobile-first. Calm Swiss alpine palette (white / stone / warm wood).
+   Reuses the page's existing CSS variables where present, with fallbacks.
+   ===================================================================== */
+#fh-property .fh-layout-section { padding: clamp(48px, 7vw, 92px) 0; }
+#fh-property .fh-layout-wrap {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+}
+#fh-property .fh-layout-head { max-width: 760px; margin: 0 0 clamp(22px, 3vw, 34px); }
+#fh-property .fh-layout-head .fh-kicker {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  font-weight: 800; color: var(--clay2, #876e58); margin: 0 0 10px;
+}
+#fh-property .fh-layout-head h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(26px, 3.4vw, 40px); line-height: 1.12;
+  margin: 0 0 14px; color: var(--ink, #1c1814);
+}
+#fh-property .fh-layout-head p {
+  font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6;
+  color: rgba(28, 24, 20, .72); margin: 0;
+}
+
+/* --- Summary band (B1) --- */
+#fh-property .fh-lodge-summary {
+  display: grid; grid-template-columns: 1fr; gap: 10px;
+  margin-top: clamp(20px, 3vw, 30px);
+}
+@media (min-width: 720px) {
+  #fh-property .fh-lodge-summary { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  #fh-property .fh-lodge-summary { grid-template-columns: repeat(4, 1fr); }
+}
+#fh-property .fh-lodge-summary li {
+  list-style: none; margin: 0; padding: 16px 18px;
+  background: #fffaf3; border: 1px solid rgba(28, 24, 20, .10);
+  border-radius: 14px; font-size: 14px; line-height: 1.45;
+  color: rgba(28, 24, 20, .82);
+}
+#fh-property .fh-lodge-summary li strong {
+  display: block; font-size: 20px; color: var(--forest, #22392f); margin-bottom: 3px;
+}
+#fh-property .fh-lodge-flag {
+  margin-top: 14px; font-size: 12.5px; line-height: 1.5;
+  color: rgba(28, 24, 20, .6); font-style: italic;
+}
+
+/* --- Floor pills (B6) --- */
+#fh-property .fh-floor-pills {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin: clamp(18px, 2.6vw, 26px) 0 6px;
+}
+#fh-property .fh-floor-pill {
+  border: 1px solid rgba(28, 24, 20, .18); background: #fff;
+  color: rgba(28, 24, 20, .76); border-radius: 999px;
+  padding: 9px 16px; font-size: 13px; font-weight: 700; letter-spacing: .02em;
+  cursor: pointer; transition: background .18s, color .18s, border-color .18s;
+}
+#fh-property .fh-floor-pill:hover { border-color: var(--forest, #22392f); }
+#fh-property .fh-floor-pill.active {
+  background: var(--forest, #22392f); color: #fff; border-color: var(--forest, #22392f);
+}
+#fh-property .fh-floor-summary {
+  margin: 14px 0 4px; font-size: 14px; line-height: 1.55;
+  color: rgba(28, 24, 20, .68);
+}
+#fh-property .fh-floor-shared {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 18px;
+}
+#fh-property .fh-floor-shared span {
+  font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--clay2, #876e58); background: rgba(135, 110, 88, .10);
+  border-radius: 7px; padding: 5px 9px; font-weight: 700;
+}
+
+/* --- Room cards (B4) --- */
+#fh-property .fh-room-cards {
+  display: grid; grid-template-columns: 1fr; gap: 14px;
+}
+@media (min-width: 680px) {
+  #fh-property .fh-room-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  #fh-property .fh-room-cards { grid-template-columns: repeat(3, 1fr); }
+}
+#fh-property .fh-room-card {
+  display: flex; flex-direction: column;
+  background: #fff; border: 1px solid rgba(28, 24, 20, .10);
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 10px 30px rgba(20, 16, 12, .05);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+#fh-property .fh-room-card:hover {
+  transform: translateY(-3px); box-shadow: 0 16px 40px rgba(20, 16, 12, .10);
+}
+#fh-property .fh-room-card-media {
+  aspect-ratio: 16 / 10; background:
+    linear-gradient(135deg, #efe5d9, #fffaf2 45%, #cdbda9);
+  position: relative; background-size: cover; background-position: center;
+}
+#fh-property .fh-room-card-floor {
+  position: absolute; top: 10px; left: 10px;
+  font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase;
+  font-weight: 800; color: #fff; background: rgba(28, 24, 20, .55);
+  border-radius: 7px; padding: 4px 9px; backdrop-filter: blur(4px);
+}
+#fh-property .fh-room-card-body { padding: 16px 17px 18px; display: flex; flex-direction: column; flex: 1; }
+#fh-property .fh-room-card-num {
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 800; color: var(--clay2, #876e58); margin: 0 0 4px;
+}
+#fh-property .fh-room-card-type {
+  font-family: Georgia, serif; font-size: 18px; line-height: 1.2;
+  margin: 0 0 12px; color: var(--ink, #1c1814);
+}
+#fh-property .fh-room-card-meta { list-style: none; margin: 0 0 12px; padding: 0; }
+#fh-property .fh-room-card-meta li {
+  display: flex; gap: 8px; font-size: 13px; line-height: 1.45;
+  color: rgba(28, 24, 20, .74); padding: 3px 0;
+}
+#fh-property .fh-room-card-meta li b {
+  flex: 0 0 64px; color: rgba(28, 24, 20, .5); font-weight: 700;
+  font-size: 11px; letter-spacing: .03em; text-transform: uppercase; padding-top: 2px;
+}
+#fh-property .fh-room-card-best {
+  font-size: 12.5px; line-height: 1.4; color: var(--forest, #22392f);
+  background: rgba(34, 57, 47, .07); border-radius: 9px; padding: 9px 11px;
+  margin: 0 0 14px;
+}
+#fh-property .fh-room-card-best span { font-weight: 800; }
+#fh-property .fh-room-tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 14px; }
+#fh-property .fh-room-tag {
+  font-size: 11px; font-weight: 700; color: var(--clay2, #876e58);
+  border: 1px solid rgba(135, 110, 88, .3); border-radius: 7px; padding: 3px 8px;
+}
+#fh-property .fh-room-tag.flag { color: #9a5b1c; border-color: rgba(154, 91, 28, .35); background: rgba(154, 91, 28, .07); }
+#fh-property .fh-room-card-btn {
+  margin-top: auto; border: 1px solid var(--forest, #22392f);
+  background: #fff; color: var(--forest, #22392f);
+  border-radius: 10px; padding: 11px 14px; font-size: 13px; font-weight: 800;
+  letter-spacing: .02em; cursor: pointer; transition: background .18s, color .18s;
+}
+#fh-property .fh-room-card-btn:hover { background: var(--forest, #22392f); color: #fff; }
+
+/* --- Group setups helper (B7) --- */
+#fh-property .fh-setup-grid {
+  display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 8px;
+}
+@media (min-width: 680px) { #fh-property .fh-setup-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { #fh-property .fh-setup-grid { grid-template-columns: repeat(3, 1fr); } }
+#fh-property .fh-setup-card {
+  background: #fffaf3; border: 1px solid rgba(28, 24, 20, .10);
+  border-radius: 14px; padding: 16px 18px;
+}
+#fh-property .fh-setup-card h3 {
+  font-size: 15px; margin: 0 0 8px; color: var(--ink, #1c1814);
+}
+#fh-property .fh-setup-rooms { display: flex; flex-wrap: wrap; gap: 6px; }
+#fh-property .fh-setup-rooms button {
+  font-size: 12.5px; font-weight: 800; color: var(--forest, #22392f);
+  background: #fff; border: 1px solid rgba(34, 57, 47, .25); border-radius: 8px;
+  padding: 5px 10px; cursor: pointer; transition: background .15s, color .15s;
+}
+#fh-property .fh-setup-rooms button:hover { background: var(--forest, #22392f); color: #fff; }
+#fh-property .fh-setup-cta { margin-top: clamp(18px, 2.6vw, 26px); }
+#fh-property .fh-setup-cta a {
+  display: inline-block; background: var(--forest, #22392f); color: #fff;
+  text-decoration: none; border-radius: 10px; padding: 13px 22px;
+  font-size: 14px; font-weight: 800;
+}
+
+/* --- Conversion CTA row (B9) --- */
+#fh-property .fh-layout-cta {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;
+}
+#fh-property .fh-layout-cta a, #fh-property .fh-layout-cta button {
+  display: inline-block; text-decoration: none; cursor: pointer;
+  border-radius: 10px; padding: 13px 20px; font-size: 14px; font-weight: 800;
+  border: 1px solid var(--forest, #22392f);
+}
+#fh-property .fh-layout-cta .primary { background: var(--forest, #22392f); color: #fff; }
+#fh-property .fh-layout-cta .ghost { background: #fff; color: var(--forest, #22392f); }
+
+/* --- Room detail modal / drawer (B5) --- */
+#fh-property .fh-room-modal {
+  position: fixed; inset: 0; z-index: 1200; display: none;
+  align-items: flex-end; justify-content: center;
+  background: rgba(20, 16, 12, .5); backdrop-filter: blur(3px);
+}
+#fh-property .fh-room-modal.open { display: flex; }
+#fh-property .fh-room-modal-card {
+  width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto;
+  background: #fffaf3; border-radius: 20px 20px 0 0;
+  padding: 22px 22px 30px; animation: fhRoomUp .26s ease;
+}
+@keyframes fhRoomUp { from { transform: translateY(24px); opacity: .6; } to { transform: translateY(0); opacity: 1; } }
+@media (min-width: 720px) {
+  #fh-property .fh-room-modal { align-items: center; }
+  #fh-property .fh-room-modal-card { border-radius: 20px; }
+}
+#fh-property .fh-room-modal-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+#fh-property .fh-room-modal-close {
+  border: 0; background: rgba(28, 24, 20, .08); border-radius: 9px;
+  width: 36px; height: 36px; font-size: 20px; line-height: 1; cursor: pointer; flex: 0 0 auto;
+}
+#fh-property .fh-room-modal-num { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 800; color: var(--clay2, #876e58); margin: 0 0 4px; }
+#fh-property .fh-room-modal-title { font-family: Georgia, serif; font-size: 22px; margin: 0 0 4px; color: var(--ink, #1c1814); }
+#fh-property .fh-room-modal-floor { font-size: 13px; color: rgba(28, 24, 20, .6); margin: 0; }
+#fh-property .fh-room-modal-media {
+  margin: 16px 0; aspect-ratio: 16 / 9; border-radius: 14px;
+  background: linear-gradient(135deg, #efe5d9, #fffaf2 45%, #cdbda9);
+  background-size: cover; background-position: center;
+  display: flex; align-items: flex-end; padding: 10px 12px; color: rgba(28,24,20,.45); font-size: 12px;
+}
+#fh-property .fh-room-modal dl { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 0; }
+#fh-property .fh-room-modal dl > div {
+  display: grid; grid-template-columns: 110px 1fr; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid rgba(28, 24, 20, .08);
+}
+#fh-property .fh-room-modal dt { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: rgba(28, 24, 20, .5); font-weight: 700; }
+#fh-property .fh-room-modal dd { margin: 0; font-size: 14px; line-height: 1.45; color: rgba(28, 24, 20, .82); }
+#fh-property .fh-room-modal-flag {
+  margin-top: 14px; font-size: 12.5px; line-height: 1.5;
+  background: rgba(154, 91, 28, .08); color: #8a5418;
+  border: 1px solid rgba(154, 91, 28, .25); border-radius: 10px; padding: 11px 13px;
+}
+#fh-property .fh-room-modal-sketch {
+  margin-top: 14px; border: 1px dashed rgba(28, 24, 20, .25); border-radius: 12px;
+  padding: 22px; text-align: center; font-size: 12.5px; color: rgba(28, 24, 20, .45);
+}
+
+#fh-property[dir="rtl"] .fh-room-card-floor { left: auto; right: 10px; }
