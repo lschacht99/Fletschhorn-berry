@@ -2527,36 +2527,27 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
           <button class="fh-season-choice" type="button" data-filter="calm"><b data-i18n="filters.calm">Soft days</b><span data-i18n="filters.calmText">Wellness, village walks, gentle trails.</span></button>
         </div>
 
-        <form class="fh-booking preSlide" id="fh-exp-quick-form" style="--d:.34s">
+        <div class="fh-booking preSlide" id="fh-exp-quick-form" data-fh-booking-toolbar style="--d:.34s">
           <div class="fh-booking-form" id="fhBookingFields">
             <div class="fh-field">
-              <label for="fh-exp-first-name">First name</label>
-              <input id="fh-exp-first-name" name="firstName" type="text" placeholder="First name" autocomplete="given-name" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fh-exp-last-name">Last name</label>
-              <input id="fh-exp-last-name" name="lastName" type="text" placeholder="Last name" autocomplete="family-name" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fh-exp-email">Email</label>
-              <input id="fh-exp-email" name="email" type="email" placeholder="email@example.com" autocomplete="email" required>
+              <label>Guests</label>
+              <input name="guests" type="number" min="1" max="48" inputmode="numeric" placeholder="How many guests?" autocomplete="off" data-fh-guests>
             </div>
 
             <div class="fh-field fh-date-field">
-              <label>Dates</label>
-              <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar">
-                <span id="fhToolbarDateText">Select arrival and departure</span>
+              <label>Schedule</label>
+              <button type="button" class="fh-date-button" data-fh-open-calendar>
+                <span data-fh-date-text>Select arrival and departure</span>
                 <strong>Open calendar</strong>
               </button>
-              <input id="fh-exp-checkin" name="checkIn" type="hidden" required>
-              <input id="fh-exp-checkout" name="checkOut" type="hidden" required>
+              <input name="arrivalDate" type="hidden" data-fh-arrival>
+              <input name="departureDate" type="hidden" data-fh-departure>
             </div>
 
-            <button class="fh-submit" type="submit" id="fhBookNowBtn">Book my stay now</button>
+            <button class="fh-submit" type="button" data-fh-book-now>Book my stay now</button>
           </div>
-        </form>
+          <div class="fh-status" data-fh-status role="status" aria-live="polite"></div>
+        </div>
         <p class="fh-hero-note preFade" id="fh-exp-status" style="--d:.40s" data-i18n="hero.note">Best rates are guaranteed when booking direct</p>
 
         <a href="#fh-area" class="fh-peek preFade" style="--d:.48s" aria-label="Scroll to the area map">
@@ -2861,31 +2852,23 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
           </div>
 
           <div class="fh-mobile-booking-shell">
-            <form class="fh-mobile-booking" id="fh-mobile-booking-form" novalidate>
-              <div class="fh-mobile-booking-field">
-                <label for="fh-mobile-first-name" data-mobile-i18n="firstName">First name</label>
-                <input id="fh-mobile-first-name" name="firstName" type="text" autocomplete="given-name" placeholder="First name" data-mobile-placeholder="firstNamePh" required>
-              </div>
-              <div class="fh-mobile-booking-field">
-                <label for="fh-mobile-last-name" data-mobile-i18n="lastName">Last name</label>
-                <input id="fh-mobile-last-name" name="lastName" type="text" autocomplete="family-name" placeholder="Last name" data-mobile-placeholder="lastNamePh" required>
-              </div>
+            <div class="fh-mobile-booking" data-fh-booking-toolbar>
               <div class="fh-mobile-booking-field full">
-                <label for="fh-mobile-email" data-mobile-i18n="email">Email</label>
-                <input id="fh-mobile-email" name="email" type="email" autocomplete="email" placeholder="email@example.com" required>
+                <label>Guests</label>
+                <input name="guests" type="number" min="1" max="48" inputmode="numeric" autocomplete="off" placeholder="How many guests?" data-fh-guests>
               </div>
               <div class="fh-mobile-booking-field full fh-date-field">
-                <label data-mobile-i18n="dates">Dates</label>
-                <button type="button" class="fh-date-button" data-mobile-open-calendar>
-                  <span data-mobile-date-text>Select arrival and departure</span>
-                  <strong data-mobile-i18n="openCalendar">Open calendar</strong>
+                <label>Schedule</label>
+                <button type="button" class="fh-date-button" data-fh-open-calendar>
+                  <span data-fh-date-text>Select arrival and departure</span>
+                  <strong>Open calendar</strong>
                 </button>
-                <input id="fh-mobile-checkin" name="checkIn" type="hidden" required>
-                <input id="fh-mobile-checkout" name="checkOut" type="hidden" required>
+                <input name="arrivalDate" type="hidden" data-fh-arrival>
+                <input name="departureDate" type="hidden" data-fh-departure>
               </div>
-              <div class="fh-mobile-booking-error" id="fh-mobile-booking-error" data-mobile-i18n="error">Please complete the highlighted fields.</div>
-              <button type="submit" data-i18n="cta.button">Book my stay now</button>
-            </form>
+              <div class="fh-mobile-booking-error" data-fh-status role="status" aria-live="polite"></div>
+              <button type="button" data-fh-book-now>Book my stay now</button>
+            </div>
             <p class="fh-mobile-direct-note" data-i18n="hero.note">Best rates are guaranteed when booking direct</p>
           </div>
         </section>
@@ -6431,36 +6414,27 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
           <button class="fh-season-choice" type="button" data-filter="calm"><b data-i18n="filters.calm">Soft days</b><span data-i18n="filters.calmText">Wellness, village walks, gentle trails.</span></button>
         </div>
 
-        <form class="fh-booking preSlide" id="fh-exp-quick-form" style="--d:.34s">
+        <div class="fh-booking preSlide" id="fh-exp-quick-form" data-fh-booking-toolbar style="--d:.34s">
           <div class="fh-booking-form" id="fhBookingFields">
             <div class="fh-field">
-              <label for="fh-exp-first-name">First name</label>
-              <input id="fh-exp-first-name" name="firstName" type="text" placeholder="First name" autocomplete="given-name" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fh-exp-last-name">Last name</label>
-              <input id="fh-exp-last-name" name="lastName" type="text" placeholder="Last name" autocomplete="family-name" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fh-exp-email">Email</label>
-              <input id="fh-exp-email" name="email" type="email" placeholder="email@example.com" autocomplete="email" required>
+              <label>Guests</label>
+              <input name="guests" type="number" min="1" max="48" inputmode="numeric" placeholder="How many guests?" autocomplete="off" data-fh-guests>
             </div>
 
             <div class="fh-field fh-date-field">
-              <label>Dates</label>
-              <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar">
-                <span id="fhToolbarDateText">Select arrival and departure</span>
+              <label>Schedule</label>
+              <button type="button" class="fh-date-button" data-fh-open-calendar>
+                <span data-fh-date-text>Select arrival and departure</span>
                 <strong>Open calendar</strong>
               </button>
-              <input id="fh-exp-checkin" name="checkIn" type="hidden" required>
-              <input id="fh-exp-checkout" name="checkOut" type="hidden" required>
+              <input name="arrivalDate" type="hidden" data-fh-arrival>
+              <input name="departureDate" type="hidden" data-fh-departure>
             </div>
 
-            <button class="fh-submit" type="submit" id="fhBookNowBtn">Book my stay now</button>
+            <button class="fh-submit" type="button" data-fh-book-now>Book my stay now</button>
           </div>
-        </form>
+          <div class="fh-status" data-fh-status role="status" aria-live="polite"></div>
+        </div>
         <p class="fh-hero-note preFade" id="fh-exp-status" style="--d:.40s" data-i18n="hero.note">Best rates are guaranteed when booking direct</p>
 
         <a href="#fh-area" class="fh-peek preFade" style="--d:.48s" aria-label="Scroll to the area map">
@@ -9241,6 +9215,1104 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   window.addEventListener("fh:worker-images-loaded", function(){ runFinalImageFix(); });
 })();
 </script>
+
+
+
+<style id="fh-isolated-toolbar-booking-final-replacement">
+/* FINAL REPLACEMENT: isolated Guest / Schedule / CTA booking toolbar */
+#fh-experiences-desktop [data-fh-booking-toolbar],
+#fh-experiences-mobile [data-fh-booking-toolbar]{
+  text-align:left!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar].fh-booking .fh-booking-form,
+#fh-experiences-mobile [data-fh-booking-toolbar].fh-booking .fh-booking-form{
+  display:grid!important;
+  grid-template-columns:minmax(130px,.58fr) minmax(280px,1.42fr) 185px!important;
+  background:var(--fh-paper, #fffaf3)!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar].fh-booking .fh-field,
+#fh-experiences-mobile [data-fh-booking-toolbar].fh-booking .fh-field{
+  grid-column:auto!important;
+  min-width:0!important;
+  padding:15px 16px!important;
+  border-right:1px solid var(--fh-line, rgba(25,23,21,.14))!important;
+  border-bottom:0!important;
+  background:rgba(255,250,243,.96)!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] label,
+#fh-experiences-mobile [data-fh-booking-toolbar] label{
+  display:block!important;
+  margin:0 0 7px!important;
+  color:rgba(25,23,21,.52)!important;
+  font-size:10px!important;
+  font-weight:850!important;
+  letter-spacing:.16em!important;
+  line-height:1.1!important;
+  text-transform:uppercase!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] input[data-fh-guests],
+#fh-experiences-mobile [data-fh-booking-toolbar] input[data-fh-guests]{
+  width:100%!important;
+  min-width:0!important;
+  border:0!important;
+  outline:0!important;
+  background:transparent!important;
+  color:var(--fh-ink, #191715)!important;
+  font-size:15px!important;
+  line-height:1.25!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] input[data-fh-guests]::placeholder,
+#fh-experiences-mobile [data-fh-booking-toolbar] input[data-fh-guests]::placeholder{
+  color:rgba(25,23,21,.45)!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] .fh-date-button,
+#fh-experiences-mobile [data-fh-booking-toolbar] .fh-date-button{
+  width:100%!important;
+  min-height:22px!important;
+  border:0!important;
+  outline:0!important;
+  padding:0!important;
+  background:transparent!important;
+  color:var(--fh-ink, #191715)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  text-align:left!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] .fh-date-button span,
+#fh-experiences-mobile [data-fh-booking-toolbar] .fh-date-button span{
+  min-width:0!important;
+  overflow:hidden!important;
+  color:var(--fh-ink, #191715)!important;
+  font-size:15px!important;
+  line-height:1.2!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] .fh-date-button strong,
+#fh-experiences-mobile [data-fh-booking-toolbar] .fh-date-button strong{
+  flex:0 0 auto!important;
+  color:var(--fh-clay-dark, #846c56)!important;
+  font-size:10px!important;
+  font-weight:850!important;
+  letter-spacing:.13em!important;
+  line-height:1!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] [data-fh-book-now],
+#fh-experiences-mobile [data-fh-booking-toolbar] [data-fh-book-now]{
+  grid-column:auto!important;
+  width:100%!important;
+  min-height:58px!important;
+  margin:0!important;
+  border:0!important;
+  background:var(--fh-clay, #b99f86)!important;
+  color:#fff!important;
+  font-size:11px!important;
+  font-weight:850!important;
+  letter-spacing:.13em!important;
+  line-height:1.2!important;
+  text-transform:uppercase!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] [data-fh-book-now]:hover,
+#fh-experiences-mobile [data-fh-booking-toolbar] [data-fh-book-now]:hover{
+  background:var(--fh-clay-dark, #846c56)!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] [data-fh-book-now]:disabled,
+#fh-experiences-mobile [data-fh-booking-toolbar] [data-fh-book-now]:disabled{
+  opacity:.68!important;
+  cursor:wait!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] [data-fh-status],
+#fh-experiences-mobile [data-fh-booking-toolbar] [data-fh-status]{
+  display:none;
+  margin-top:10px!important;
+  padding:10px 12px!important;
+  background:rgba(255,250,243,.16)!important;
+  border:1px solid rgba(255,250,243,.24)!important;
+  color:#fffaf3!important;
+  font-size:13px!important;
+  line-height:1.4!important;
+  text-align:center!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] [data-fh-status].show,
+#fh-experiences-mobile [data-fh-booking-toolbar] [data-fh-status].show{
+  display:block!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] [data-fh-status].error,
+#fh-experiences-mobile [data-fh-booking-toolbar] [data-fh-status].error{
+  background:rgba(154,75,63,.12)!important;
+  border-color:rgba(154,75,63,.26)!important;
+  color:#9a4b3f!important;
+}
+
+#fh-experiences-desktop [data-fh-booking-toolbar] [data-fh-status].success,
+#fh-experiences-mobile [data-fh-booking-toolbar] [data-fh-status].success{
+  background:rgba(45,112,74,.14)!important;
+  border-color:rgba(45,112,74,.24)!important;
+  color:#1f3a2f!important;
+}
+
+/* Independent mobile bar, kept clean and stacked. */
+#fh-experiences-desktop .fh-mobile-booking[data-fh-booking-toolbar],
+#fh-experiences-mobile .fh-mobile-booking[data-fh-booking-toolbar]{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  background:var(--fh-paper, #fffaf3)!important;
+  border:1px solid rgba(132,108,86,.16)!important;
+  box-shadow:0 18px 46px rgba(18,16,14,.14)!important;
+}
+
+#fh-experiences-desktop .fh-mobile-booking[data-fh-booking-toolbar] .fh-mobile-booking-field,
+#fh-experiences-mobile .fh-mobile-booking[data-fh-booking-toolbar] .fh-mobile-booking-field{
+  grid-column:1/-1!important;
+  padding:11px 12px!important;
+  border-right:0!important;
+  border-bottom:1px solid rgba(25,23,21,.12)!important;
+  background:rgba(255,250,243,.98)!important;
+}
+
+#fh-experiences-desktop .fh-mobile-booking[data-fh-booking-toolbar] [data-fh-book-now],
+#fh-experiences-mobile .fh-mobile-booking[data-fh-booking-toolbar] [data-fh-book-now]{
+  grid-column:1/-1!important;
+  min-height:50px!important;
+  border:0!important;
+  background:var(--fh-clay, #b99f86)!important;
+  color:#fff!important;
+  font-size:10px!important;
+  font-weight:850!important;
+  letter-spacing:.13em!important;
+  text-transform:uppercase!important;
+}
+
+#fh-experiences-desktop .fh-mobile-booking[data-fh-booking-toolbar] [data-fh-status],
+#fh-experiences-mobile .fh-mobile-booking[data-fh-booking-toolbar] [data-fh-status]{
+  grid-column:1/-1!important;
+  margin:0!important;
+  color:#9a4b3f!important;
+  background:rgba(154,75,63,.08)!important;
+  border:0!important;
+  border-bottom:1px solid rgba(154,75,63,.16)!important;
+  text-align:left!important;
+}
+
+/* Calendar modal used only by the isolated toolbar patch. */
+.fh-isolated-calendar-modal{
+  position:fixed!important;
+  inset:0!important;
+  z-index:9999!important;
+  display:none!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:18px!important;
+  background:rgba(28,24,20,.48)!important;
+  -webkit-backdrop-filter:blur(10px)!important;
+  backdrop-filter:blur(10px)!important;
+}
+
+.fh-isolated-calendar-modal.open{
+  display:flex!important;
+}
+
+.fh-isolated-calendar-modal .fh-calendar-card{
+  width:min(760px,100%)!important;
+  max-height:calc(100svh - 36px)!important;
+  overflow:auto!important;
+  background:#fffaf3!important;
+  color:#191715!important;
+  border:1px solid rgba(255,250,243,.72)!important;
+  box-shadow:0 30px 90px rgba(0,0,0,.24)!important;
+  padding:20px!important;
+}
+
+.fh-isolated-calendar-modal .fh-calendar-head{
+  display:flex!important;
+  justify-content:space-between!important;
+  align-items:flex-start!important;
+  gap:14px!important;
+  margin-bottom:14px!important;
+}
+
+.fh-isolated-calendar-modal .fh-kicker{
+  margin:0 0 8px!important;
+  color:#846c56!important;
+  font-size:10px!important;
+  font-weight:850!important;
+  letter-spacing:.16em!important;
+  text-transform:uppercase!important;
+}
+
+.fh-isolated-calendar-modal .fh-calendar-title{
+  margin:0!important;
+  color:#191715!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:34px!important;
+  font-weight:400!important;
+  line-height:.96!important;
+  letter-spacing:-.05em!important;
+}
+
+.fh-isolated-calendar-modal .fh-calendar-nav{
+  display:flex!important;
+  gap:8px!important;
+}
+
+.fh-isolated-calendar-modal .fh-calendar-nav button{
+  width:42px!important;
+  min-height:38px!important;
+  border:1px solid rgba(25,23,21,.13)!important;
+  background:#fffaf3!important;
+  color:#191715!important;
+  font-weight:900!important;
+}
+
+.fh-isolated-calendar-modal .fh-calendar-help{
+  margin:0 0 12px!important;
+  color:rgba(25,23,21,.68)!important;
+  font-size:13px!important;
+  line-height:1.45!important;
+}
+
+.fh-isolated-calendar-modal .fh-calendar-warning{
+  display:none!important;
+  margin:0 0 14px!important;
+  padding:10px 12px!important;
+  border:1px solid rgba(150,101,35,.25)!important;
+  background:rgba(150,101,35,.08)!important;
+  color:#966523!important;
+  font-size:13px!important;
+  font-weight:760!important;
+}
+
+.fh-isolated-calendar-modal .fh-calendar-warning.show{
+  display:block!important;
+}
+
+.fh-isolated-calendar-modal .fh-weekdays,
+.fh-isolated-calendar-modal .fh-calendar-grid{
+  display:grid!important;
+  grid-template-columns:repeat(7,1fr)!important;
+  gap:6px!important;
+}
+
+.fh-isolated-calendar-modal .fh-weekday{
+  text-align:center!important;
+  color:rgba(25,23,21,.45)!important;
+  font-size:10px!important;
+  font-weight:900!important;
+  letter-spacing:.10em!important;
+  padding-bottom:4px!important;
+  text-transform:uppercase!important;
+}
+
+.fh-isolated-calendar-modal .fh-day{
+  min-height:78px!important;
+  padding:7px!important;
+  border:1px solid rgba(25,23,21,.10)!important;
+  background:rgba(255,250,243,.84)!important;
+  color:#191715!important;
+  position:relative!important;
+  text-align:left!important;
+}
+
+.fh-isolated-calendar-modal .fh-day:hover{
+  border-color:rgba(25,23,21,.28)!important;
+}
+
+.fh-isolated-calendar-modal .fh-day.empty{
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+
+.fh-isolated-calendar-modal .fh-day.past,
+.fh-isolated-calendar-modal .fh-day.unavailable{
+  opacity:.42!important;
+  cursor:not-allowed!important;
+}
+
+.fh-isolated-calendar-modal .fh-day.unavailable{
+  background:rgba(25,23,21,.07)!important;
+}
+
+.fh-isolated-calendar-modal .fh-day.start,
+.fh-isolated-calendar-modal .fh-day.end{
+  background:#846c56!important;
+  border-color:#846c56!important;
+  color:#fff!important;
+}
+
+.fh-isolated-calendar-modal .fh-day.range{
+  background:rgba(132,108,86,.12)!important;
+}
+
+.fh-isolated-calendar-modal .fh-day-number{
+  display:block!important;
+  font-size:13px!important;
+  font-weight:900!important;
+}
+
+.fh-isolated-calendar-modal .fh-day-price{
+  display:block!important;
+  min-height:10px!important;
+  margin-top:5px!important;
+  color:rgba(25,23,21,.68)!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  line-height:1.05!important;
+  white-space:nowrap!important;
+}
+
+.fh-isolated-calendar-modal .fh-day.start .fh-day-price,
+.fh-isolated-calendar-modal .fh-day.end .fh-day-price{
+  color:rgba(255,250,243,.86)!important;
+}
+
+.fh-isolated-calendar-modal .fh-day-status{
+  display:block!important;
+  margin-top:3px!important;
+  color:rgba(25,23,21,.46)!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+}
+
+@media(max-width:760px){
+  #fh-experiences-desktop [data-fh-booking-toolbar].fh-booking .fh-booking-form,
+  #fh-experiences-mobile [data-fh-booking-toolbar].fh-booking .fh-booking-form{
+    grid-template-columns:1fr!important;
+  }
+
+  #fh-experiences-desktop [data-fh-booking-toolbar].fh-booking .fh-field,
+  #fh-experiences-mobile [data-fh-booking-toolbar].fh-booking .fh-field{
+    grid-column:1/-1!important;
+    padding:12px 14px!important;
+    border-right:0!important;
+    border-bottom:1px solid var(--fh-line, rgba(25,23,21,.14))!important;
+  }
+
+  #fh-experiences-desktop [data-fh-booking-toolbar] [data-fh-book-now],
+  #fh-experiences-mobile [data-fh-booking-toolbar] [data-fh-book-now]{
+    grid-column:1/-1!important;
+    min-height:52px!important;
+  }
+
+  .fh-isolated-calendar-modal{
+    align-items:flex-end!important;
+    padding:0!important;
+  }
+
+  .fh-isolated-calendar-modal .fh-calendar-card{
+    width:100%!important;
+    max-height:88svh!important;
+    padding:13px!important;
+    border-radius:18px 18px 0 0!important;
+  }
+
+  .fh-isolated-calendar-modal .fh-calendar-title{
+    font-size:25px!important;
+  }
+
+  .fh-isolated-calendar-modal .fh-calendar-nav button{
+    width:38px!important;
+    min-height:36px!important;
+  }
+
+  .fh-isolated-calendar-modal .fh-weekdays,
+  .fh-isolated-calendar-modal .fh-calendar-grid{
+    gap:3px!important;
+  }
+
+  .fh-isolated-calendar-modal .fh-weekday{
+    font-size:8px!important;
+  }
+
+  .fh-isolated-calendar-modal .fh-day{
+    min-height:47px!important;
+    padding:4px!important;
+  }
+
+  .fh-isolated-calendar-modal .fh-day-number{
+    font-size:12px!important;
+  }
+
+  .fh-isolated-calendar-modal .fh-day-price{
+    display:none!important;
+  }
+}
+</style>
+
+
+<script id="fh-isolated-toolbar-booking-final-replacement-js">
+(function(){
+  "use strict";
+
+  const CFG = {
+    bookingPageUrl: "booking.html",
+    listingId: "6968339ab7d735001ca015ba",
+    workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
+    minNights: 2,
+    currency: "CHF",
+    storageKey: "fhBookingStart"
+  };
+
+  const TXT = {
+    en: {
+      dates: "Select arrival and departure",
+      selectDeparture: "Select departure",
+      openCalendar: "Open calendar",
+      booked: "Booked",
+      minNights: "A minimum stay of 2 nights is required. Please extend your selection to continue.",
+      rangeUnavailable: "One or more selected nights is unavailable. Please choose another range.",
+      estimatedTotal: "Estimated total",
+      redirecting: "Opening booking…",
+      calendarKicker: "Select dates",
+      calendarTitle: "Calendar",
+      calendarHelp: "Choose your arrival date, then your departure date."
+    },
+    fr: {
+      dates: "Sélectionnez l’arrivée et le départ",
+      selectDeparture: "Choisir le départ",
+      openCalendar: "Ouvrir le calendrier",
+      booked: "Réservé",
+      minNights: "Un séjour minimum de 2 nuits est requis. Veuillez prolonger votre sélection.",
+      rangeUnavailable: "Une ou plusieurs nuits sélectionnées ne sont pas disponibles.",
+      estimatedTotal: "Total estimé",
+      redirecting: "Ouverture de la réservation…",
+      calendarKicker: "Sélectionner les dates",
+      calendarTitle: "Calendrier",
+      calendarHelp: "Choisissez votre arrivée, puis votre départ."
+    },
+    de: {
+      dates: "Anreise und Abreise auswählen",
+      selectDeparture: "Abreise auswählen",
+      openCalendar: "Kalender öffnen",
+      booked: "Belegt",
+      minNights: "Ein Mindestaufenthalt von 2 Nächten ist erforderlich.",
+      rangeUnavailable: "Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.",
+      estimatedTotal: "Geschätzter Gesamtpreis",
+      redirecting: "Buchung wird geöffnet…",
+      calendarKicker: "Daten auswählen",
+      calendarTitle: "Kalender",
+      calendarHelp: "Wählen Sie zuerst die Anreise und dann die Abreise."
+    }
+  };
+
+  function currentLang(){
+    return (localStorage.getItem("fh_lang") || document.documentElement.getAttribute("lang") || "en").slice(0,2).toLowerCase();
+  }
+
+  function text(key){
+    const lang = currentLang();
+    return (TXT[lang] && TXT[lang][key]) || TXT.en[key] || key;
+  }
+
+  function locale(){
+    const map = { en:"en-US", fr:"fr-FR", de:"de-DE", ru:"ru-RU", he:"he-IL" };
+    return map[currentLang()] || "en-US";
+  }
+
+  function queryOne(scope, selectors){
+    for (const selector of selectors){
+      const el = scope.querySelector(selector);
+      if (el) return el;
+    }
+    return null;
+  }
+
+  function toISO(date){
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+    return y + "-" + m + "-" + d;
+  }
+
+  function monthRange(date){
+    return {
+      from: toISO(new Date(date.getFullYear(), date.getMonth(), 1)),
+      to: toISO(new Date(date.getFullYear(), date.getMonth() + 1, 1))
+    };
+  }
+
+  function nightsBetween(startIso, endIso){
+    if (!startIso || !endIso) return 0;
+    const start = new Date(startIso + "T00:00:00");
+    const end = new Date(endIso + "T00:00:00");
+    return Math.round((end - start) / 86400000);
+  }
+
+  function isPast(iso){
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    return new Date(iso + "T00:00:00") < today;
+  }
+
+  function money(amount, currency){
+    if (amount === null || amount === undefined || amount === "" || isNaN(Number(amount))) return "";
+    try {
+      return new Intl.NumberFormat(locale(), {
+        style: "currency",
+        currency: currency || CFG.currency,
+        maximumFractionDigits: 0
+      }).format(Number(amount));
+    } catch(error) {
+      return Math.round(Number(amount)).toLocaleString() + " " + (currency || CFG.currency);
+    }
+  }
+
+  function uniqueId(){
+    return "fhIsoCalendar" + Math.random().toString(36).slice(2,9);
+  }
+
+  function ensureHidden(toolbar, selector, name, attrName){
+    let input = toolbar.querySelector(selector);
+    if (!input){
+      input = document.createElement("input");
+      input.type = "hidden";
+      input.name = name;
+      input.setAttribute(attrName, "");
+      toolbar.appendChild(input);
+    }
+    return input;
+  }
+
+  function createModal(toolbar){
+    const modalId = uniqueId();
+    const modal = document.createElement("div");
+    modal.className = "fh-calendar-modal fh-isolated-calendar-modal";
+    modal.id = modalId;
+    modal.setAttribute("data-fh-isolated-calendar-modal", "");
+    modal.setAttribute("aria-hidden", "true");
+    modal.innerHTML =
+      '<div class="fh-calendar-card" role="dialog" aria-modal="true" aria-label="' + text("calendarKicker") + '">' +
+        '<div class="fh-calendar-head">' +
+          '<div>' +
+            '<p class="fh-kicker">' + text("calendarKicker") + '</p>' +
+            '<h3 class="fh-calendar-title" data-fh-calendar-title>' + text("calendarTitle") + '</h3>' +
+          '</div>' +
+          '<div class="fh-calendar-nav">' +
+            '<button type="button" data-fh-prev-month aria-label="Previous month">‹</button>' +
+            '<button type="button" data-fh-next-month aria-label="Next month">›</button>' +
+            '<button type="button" data-fh-close-calendar aria-label="Close calendar">×</button>' +
+          '</div>' +
+        '</div>' +
+        '<p class="fh-calendar-help">' + text("calendarHelp") + '</p>' +
+        '<div class="fh-calendar-warning" data-fh-calendar-warning>' + text("minNights") + '</div>' +
+        '<div class="fh-weekdays" aria-hidden="true">' +
+          '<div class="fh-weekday">Sun</div><div class="fh-weekday">Mon</div><div class="fh-weekday">Tue</div>' +
+          '<div class="fh-weekday">Wed</div><div class="fh-weekday">Thu</div><div class="fh-weekday">Fri</div><div class="fh-weekday">Sat</div>' +
+        '</div>' +
+        '<div class="fh-calendar-grid" data-fh-calendar-grid></div>' +
+      '</div>';
+
+    document.body.appendChild(modal);
+    return modal;
+  }
+
+  function endpoint(path){
+    return CFG.workerBase.replace(/\/$/, "") + path;
+  }
+
+  async function workerGetOrPost(path, payload){
+    try {
+      const url = new URL(endpoint(path));
+      Object.keys(payload || {}).forEach(function(key){
+        if (payload[key] !== undefined && payload[key] !== null && payload[key] !== ""){
+          url.searchParams.set(key, payload[key]);
+        }
+      });
+
+      const response = await fetch(url.toString(), {
+        method: "GET",
+        headers: { "Accept": "application/json" }
+      });
+
+      const raw = await response.text();
+      let data;
+      try { data = JSON.parse(raw); } catch(error) { data = { rawText:raw }; }
+
+      if (response.ok && data && data.ok !== false && !data.error){
+        return data;
+      }
+    } catch(error) {}
+
+    const response = await fetch(endpoint(path), {
+      method: "POST",
+      headers: {
+        "Content-Type":"application/json",
+        "Accept":"application/json"
+      },
+      body: JSON.stringify(payload || {})
+    });
+
+    const raw = await response.text();
+    let data;
+    try { data = JSON.parse(raw); } catch(error) { data = { rawText:raw }; }
+
+    if (!response.ok || data.ok === false || data.error){
+      throw new Error(data.error || data.message || "Calendar request failed.");
+    }
+
+    return data;
+  }
+
+  function normalizeDay(item){
+    if (!item || typeof item !== "object") return null;
+
+    const date = item.date || item.day || item.dateString || item.startDate || item._id || "";
+    if (!/^\d{4}-\d{2}-\d{2}/.test(String(date))) return null;
+
+    const unavailable =
+      item.available === false ||
+      item.isAvailable === false ||
+      item.status === "unavailable" ||
+      item.status === "booked" ||
+      item.status === "BLOCKED" ||
+      item.status === "UNAVAILABLE" ||
+      item.availability === "unavailable";
+
+    const available =
+      item.available === true ||
+      item.isAvailable === true ||
+      item.status === "available" ||
+      item.status === "AVAILABLE" ||
+      item.availability === "available";
+
+    return {
+      date: String(date).slice(0,10),
+      unavailable: unavailable,
+      available: unavailable ? false : available,
+      price: item.price || item.nightlyPrice || item.basePrice || item.rate || item.amount || item.totalPrice || null,
+      currency: item.currency || CFG.currency
+    };
+  }
+
+  function collectDays(data){
+    const found = [];
+    function walk(value){
+      if (!value || typeof value !== "object") return;
+      if (Array.isArray(value)){
+        value.forEach(walk);
+        return;
+      }
+
+      const day = normalizeDay(value);
+      if (day) found.push(day);
+
+      Object.keys(value).forEach(function(key){
+        walk(value[key]);
+      });
+    }
+
+    walk(data);
+    return found;
+  }
+
+  function initToolbar(toolbar){
+    if (!toolbar || toolbar.dataset.fhBookingToolbarReady === "true") return;
+    toolbar.dataset.fhBookingToolbarReady = "true";
+
+    const guests = queryOne(toolbar, ["[data-fh-guests]", "input[name='guests']"]);
+    const openBtn = queryOne(toolbar, ["[data-fh-open-calendar]"]);
+    const dateText = queryOne(toolbar, ["[data-fh-date-text]"]);
+    const bookBtn = queryOne(toolbar, ["[data-fh-book-now]"]);
+    const status = queryOne(toolbar, ["[data-fh-status]"]);
+    const arrival = queryOne(toolbar, ["[data-fh-arrival]"]) || ensureHidden(toolbar, "[data-fh-arrival]", "arrivalDate", "data-fh-arrival");
+    const departure = queryOne(toolbar, ["[data-fh-departure]"]) || ensureHidden(toolbar, "[data-fh-departure]", "departureDate", "data-fh-departure");
+    const modal = createModal(toolbar);
+
+    const title = queryOne(modal, ["[data-fh-calendar-title]"]);
+    const grid = queryOne(modal, ["[data-fh-calendar-grid]"]);
+    const warning = queryOne(modal, ["[data-fh-calendar-warning]"]);
+    const closeBtn = queryOne(modal, ["[data-fh-close-calendar]"]);
+    const prevBtn = queryOne(modal, ["[data-fh-prev-month]"]);
+    const nextBtn = queryOne(modal, ["[data-fh-next-month]"]);
+
+    const state = {
+      currentMonth: new Date(),
+      dayMap: {},
+      loading: false
+    };
+
+    function setStatus(message, type){
+      if (!status) return;
+      status.textContent = message || "";
+      status.classList.toggle("show", Boolean(message));
+      status.classList.toggle("error", type === "error");
+      status.classList.toggle("success", type === "success");
+    }
+
+    function clearStatus(){
+      setStatus("", "");
+    }
+
+    function dateUnavailable(iso){
+      const day = state.dayMap[iso];
+      if (!day) return false;
+      return day.unavailable === true || day.available === false;
+    }
+
+    function rangeHasUnavailable(startIso, endIso){
+      if (!startIso || !endIso) return false;
+
+      const start = new Date(startIso + "T00:00:00");
+      const end = new Date(endIso + "T00:00:00");
+
+      for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)){
+        const iso = toISO(d);
+        if (isPast(iso) || dateUnavailable(iso)) return true;
+      }
+
+      return false;
+    }
+
+    function rangeTotal(){
+      if (!arrival.value || !departure.value) return null;
+
+      let total = 0;
+      let counted = 0;
+      let missing = 0;
+      let currency = CFG.currency;
+
+      for (let d = new Date(arrival.value + "T00:00:00"); d < new Date(departure.value + "T00:00:00"); d.setDate(d.getDate() + 1)){
+        const info = state.dayMap[toISO(d)];
+
+        if (!info || info.price === null || info.price === undefined || info.price === "" || isNaN(Number(info.price))){
+          missing++;
+          continue;
+        }
+
+        total += Number(info.price);
+        currency = info.currency || currency;
+        counted++;
+      }
+
+      return counted && !missing ? { total:total, currency:currency } : null;
+    }
+
+    function updateDateText(){
+      if (!dateText) return;
+
+      if (arrival.value && departure.value){
+        const total = rangeTotal();
+        dateText.textContent = total
+          ? arrival.value + " → " + departure.value + " · " + text("estimatedTotal") + " " + money(total.total, total.currency)
+          : arrival.value + " → " + departure.value;
+      } else if (arrival.value){
+        dateText.textContent = arrival.value + " → " + text("selectDeparture");
+      } else {
+        dateText.textContent = text("dates");
+      }
+
+      const strong = openBtn ? openBtn.querySelector("strong") : null;
+      if (strong) strong.textContent = text("openCalendar");
+    }
+
+    function persist(){
+      const payload = {
+        listingId: CFG.listingId,
+        guestyListingId: CFG.listingId,
+        workerBase: CFG.workerBase,
+        guests: guests ? guests.value.trim() : "",
+        checkIn: arrival.value,
+        checkOut: departure.value,
+        language: currentLang(),
+        source: "experiences-toolbar",
+        pageSource: "isolated-fletschhorn-experiences-toolbar",
+        pageUrl: window.location.href,
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        localStorage.setItem(CFG.storageKey, JSON.stringify(payload));
+      } catch(error) {}
+
+      return payload;
+    }
+
+    function renderCalendar(){
+      if (!grid || !title) return;
+
+      const year = state.currentMonth.getFullYear();
+      const month = state.currentMonth.getMonth();
+
+      title.textContent = state.currentMonth.toLocaleDateString(locale(), {
+        month:"long",
+        year:"numeric"
+      });
+
+      grid.innerHTML = "";
+
+      const first = new Date(year, month, 1);
+      const last = new Date(year, month + 1, 0);
+
+      for (let i = 0; i < first.getDay(); i++){
+        const empty = document.createElement("button");
+        empty.type = "button";
+        empty.className = "fh-day empty";
+        empty.tabIndex = -1;
+        grid.appendChild(empty);
+      }
+
+      for (let dayNumber = 1; dayNumber <= last.getDate(); dayNumber++){
+        const iso = toISO(new Date(year, month, dayNumber));
+        const info = state.dayMap[iso] || {};
+        const past = isPast(iso);
+        const unavailable = dateUnavailable(iso);
+        const selectedStart = arrival.value && iso === arrival.value;
+        const selectedEnd = departure.value && iso === departure.value;
+        const inRange = arrival.value && departure.value && iso > arrival.value && iso < departure.value;
+        const hasPrice = info.price !== null && info.price !== undefined && info.price !== "" && !isNaN(Number(info.price));
+        const price = hasPrice ? money(info.price, info.currency || CFG.currency) : "";
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "fh-day";
+        btn.dataset.date = iso;
+
+        if (past) btn.classList.add("past");
+        if (unavailable) btn.classList.add("unavailable");
+        if (selectedStart) btn.classList.add("start");
+        if (selectedEnd) btn.classList.add("end");
+        if (inRange) btn.classList.add("range");
+
+        btn.innerHTML =
+          '<span class="fh-day-number">' + dayNumber + '</span>' +
+          (price
+            ? '<span class="fh-day-price" aria-label="Nightly price">' + price + '</span>'
+            : '<span class="fh-day-price missing" aria-hidden="true"></span>') +
+          (unavailable ? '<span class="fh-day-status">' + text("booked") + '</span>' : '');
+
+        if (past || unavailable){
+          btn.disabled = true;
+        } else {
+          btn.addEventListener("click", function(){
+            selectDate(iso);
+          });
+        }
+
+        grid.appendChild(btn);
+      }
+    }
+
+    async function loadMonth(){
+      const range = monthRange(state.currentMonth);
+      state.loading = true;
+      renderCalendar();
+
+      try {
+        const data = await workerGetOrPost("/calendar", {
+          listingId: CFG.listingId,
+          guestyListingId: CFG.listingId,
+          from: range.from,
+          to: range.to,
+          startDate: range.from,
+          endDate: range.to,
+          language: currentLang(),
+          source: "isolated-experiences-toolbar-calendar"
+        });
+
+        let days = [];
+        if (data && Array.isArray(data.days)){
+          days = data.days.map(normalizeDay).filter(Boolean);
+        } else if (data && data.data && Array.isArray(data.data.days)){
+          days = data.data.days.map(normalizeDay).filter(Boolean);
+        } else {
+          days = collectDays(data);
+        }
+
+        state.dayMap = {};
+        days.forEach(function(day){
+          if (day && day.date) state.dayMap[day.date] = day;
+        });
+      } catch(error) {
+        console.warn("Isolated toolbar calendar failed to load.", error);
+        state.dayMap = {};
+      } finally {
+        state.loading = false;
+        renderCalendar();
+        updateDateText();
+      }
+    }
+
+    function selectDate(iso){
+      clearStatus();
+      if (warning) warning.classList.remove("show");
+
+      if (!arrival.value || (arrival.value && departure.value) || iso <= arrival.value){
+        arrival.value = iso;
+        departure.value = "";
+      } else {
+        departure.value = iso;
+
+        if (nightsBetween(arrival.value, departure.value) < CFG.minNights){
+          departure.value = "";
+          if (warning){
+            warning.textContent = text("minNights");
+            warning.classList.add("show");
+          }
+        } else if (rangeHasUnavailable(arrival.value, departure.value)){
+          departure.value = "";
+          setStatus(text("rangeUnavailable"), "error");
+        } else {
+          closeCalendar();
+        }
+      }
+
+      updateDateText();
+      renderCalendar();
+      persist();
+    }
+
+    function openCalendar(event){
+      if (event){
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      clearStatus();
+      if (warning) warning.classList.remove("show");
+
+      if (arrival.value){
+        const d = new Date(arrival.value + "T00:00:00");
+        if (!isNaN(d.getTime())){
+          state.currentMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+        }
+      }
+
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      loadMonth();
+    }
+
+    function closeCalendar(event){
+      if (event){
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    function goToBooking(event){
+      if (event){
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      const payload = persist();
+      const url = new URL(CFG.bookingPageUrl, window.location.href);
+
+      if (payload.guests) url.searchParams.set("guests", payload.guests);
+      if (payload.checkIn) url.searchParams.set("checkIn", payload.checkIn);
+      if (payload.checkOut) url.searchParams.set("checkOut", payload.checkOut);
+      url.searchParams.set("lang", payload.language);
+      url.searchParams.set("source", "experiences-toolbar");
+
+      setStatus(text("redirecting"), "success");
+
+      if (bookBtn){
+        bookBtn.disabled = true;
+        bookBtn.dataset.oldText = bookBtn.textContent;
+        bookBtn.textContent = text("redirecting");
+      }
+
+      window.location.href = url.toString();
+    }
+
+    function prefill(){
+      let saved = {};
+      try {
+        saved = JSON.parse(localStorage.getItem(CFG.storageKey) || "{}");
+      } catch(error) {
+        saved = {};
+      }
+
+      const params = new URLSearchParams(window.location.search);
+
+      if (guests){
+        guests.value = params.get("guests") || saved.guests || guests.value || "";
+      }
+
+      arrival.value = params.get("checkIn") || params.get("arrivalDate") || saved.checkIn || arrival.value || "";
+      departure.value = params.get("checkOut") || params.get("departureDate") || saved.checkOut || departure.value || "";
+
+      updateDateText();
+    }
+
+    if (openBtn) openBtn.addEventListener("click", openCalendar, true);
+    if (closeBtn) closeBtn.addEventListener("click", closeCalendar, true);
+
+    if (prevBtn){
+      prevBtn.addEventListener("click", function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        state.currentMonth = new Date(state.currentMonth.getFullYear(), state.currentMonth.getMonth() - 1, 1);
+        loadMonth();
+      }, true);
+    }
+
+    if (nextBtn){
+      nextBtn.addEventListener("click", function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        state.currentMonth = new Date(state.currentMonth.getFullYear(), state.currentMonth.getMonth() + 1, 1);
+        loadMonth();
+      }, true);
+    }
+
+    modal.addEventListener("click", function(event){
+      if (event.target === modal) closeCalendar(event);
+    }, true);
+
+    if (bookBtn) bookBtn.addEventListener("click", goToBooking, true);
+
+    [guests, arrival, departure].forEach(function(el){
+      if (!el) return;
+      el.addEventListener("input", persist);
+      el.addEventListener("change", persist);
+    });
+
+    document.addEventListener("keydown", function(event){
+      if (event.key === "Escape" && modal.classList.contains("open")) closeCalendar(event);
+    });
+
+    prefill();
+  }
+
+  function boot(){
+    document.querySelectorAll("[data-fh-booking-toolbar]").forEach(initToolbar);
+  }
+
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", boot, { once:true });
+  } else {
+    boot();
+  }
+
+  window.FHBookingToolbarPatch = {
+    init: initToolbar,
+    config: CFG
+  };
+})();
+</script>
+
 
 <div id="fh-footer-slot"></div>
 </body>
