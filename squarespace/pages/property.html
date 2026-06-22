@@ -946,6 +946,33 @@
 #fh-property .fh-pet-note{font-size:13px;line-height:1.5;color:var(--clay2,#876e58);border-left:2px solid var(--clay,#b99f86);padding-left:12px;margin:0}
 #fh-property .fh-pet-note strong{font-weight:700;color:inherit}
 
+/* Guest ratings / review trust band — reused from the / trust-band design, scoped to the property page */
+#fh-property #property-reviews{background:transparent}
+#fh-property .fh-trust-reviews{width:var(--container);margin-inline:auto;background:rgba(255,250,243,.92);border:1px solid rgba(135,110,88,.18);box-shadow:var(--soft-shadow);padding:clamp(18px,2.6vw,30px);overflow:hidden}
+#fh-property .fh-trust-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(14px,2vw,20px)}
+#fh-property .fh-trust-head .fh-kicker{margin-bottom:8px}
+#fh-property .fh-trust-head h2{font-family:var(--serif);font-size:clamp(24px,3vw,40px);font-weight:400;letter-spacing:-.04em;line-height:1.02}
+#fh-property .fh-trust-head p{max-width:480px;margin:0;color:var(--muted);font-size:13.5px;line-height:1.5;text-align:right}
+#fh-property .fh-review-carousel{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(190px,calc((100% - 30px) / 4));gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:1px 2px 12px;scrollbar-width:none}
+#fh-property .fh-review-carousel::-webkit-scrollbar{display:none}
+#fh-property .fh-review-card{color:inherit;text-decoration:none;scroll-snap-align:start;min-height:142px;padding:18px;border:1px solid rgba(135,110,88,.17);background:rgba(255,255,255,.58);display:grid;align-content:space-between;gap:12px;transition:transform .22s ease,border-color .22s ease,background .22s ease}
+#fh-property .fh-review-card:hover{transform:translateY(-3px);border-color:rgba(31,58,47,.30);background:rgba(255,255,255,.85)}
+#fh-property .fh-review-card b{color:var(--forest);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+#fh-property .fh-review-score{display:flex;align-items:baseline;gap:7px;color:var(--ink);line-height:1}
+#fh-property .fh-review-score strong{font-family:var(--serif);font-size:clamp(28px,3.4vw,44px);font-weight:400;letter-spacing:-.05em}
+#fh-property .fh-review-score span{color:var(--clay);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+#fh-property .fh-review-stars{display:flex;gap:2px;color:var(--clay);font-size:13px;letter-spacing:.04em}
+#fh-property .fh-review-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.42}
+#fh-property .fh-trust-direct-strip{display:flex;gap:8px;flex-wrap:wrap;padding-top:14px;margin-top:4px;border-top:1px solid rgba(135,110,88,.13)}
+#fh-property .fh-trust-direct-strip span{display:inline-flex;align-items:center;min-height:30px;padding:8px 11px;border:1px solid rgba(31,58,47,.13);background:rgba(31,58,47,.055);color:var(--forest);font-size:10px;font-weight:900;letter-spacing:.10em;text-transform:uppercase}
+#fh-property[dir="rtl"] .fh-trust-head p{text-align:left}
+@media(max-width:980px){
+  #fh-property .fh-review-carousel{grid-auto-columns:minmax(220px,80%)}
+  #fh-property .fh-trust-head{flex-direction:column;align-items:flex-start;gap:8px}
+  #fh-property .fh-trust-head p{text-align:left}
+  #fh-property[dir="rtl"] .fh-trust-head p{text-align:right}
+}
+
 </style>
 
 <div id="fh-property" data-current-lang="en">
@@ -1060,6 +1087,26 @@
           <a href="/experiences" style="font-size:14px;color:var(--clay2,#876e58);text-decoration:underline;text-underline-offset:3px" data-i18n="regionExperiencesLink">Discover all experiences in Saas-Fee →</a>
         </div>
       </section>
+
+      <section class="fh-section" id="property-reviews" aria-label="Guest ratings and reviews">
+        <div class="fh-trust-reviews preSlide">
+          <div class="fh-trust-head">
+            <div>
+              <p class="fh-kicker" data-i18n="reviewsK" data-review-i18n="kicker">Guest ratings</p>
+              <h2 data-i18n="reviewsH" data-review-i18n="title">Guest ratings, at a glance.</h2>
+            </div>
+            <p data-i18n="reviewsP" data-review-i18n="lead">Independent review snapshots from the platforms guests already trust — without sending you away from the page.</p>
+          </div>
+          <div class="fh-review-carousel" id="fhPropertyReviews" aria-label="Review snapshots"></div>
+          <div class="fh-trust-direct-strip" aria-label="Direct booking benefits">
+            <span data-i18n="whyDirect1H">Best price guaranteed</span>
+            <span data-i18n="whyDirect2H">No service fees</span>
+            <span data-i18n="whyDirect3H">Direct contact</span>
+            <span data-i18n="whyDirect4H">More flexibility</span>
+          </div>
+        </div>
+      </section>
+
       <section class="fh-section fh-why-direct-section" id="why-book-direct" aria-label="Why book direct">
         <div class="fh-container">
           <div class="fh-why-direct-head preSlide">
@@ -1794,3 +1841,96 @@
      after every DOM mutation, which caused the hero to flash/restart and made the page feel broken.
      The main property script already loads Worker images and builds the hero/gallery once, then refreshes after Worker images arrive.
 -->
+
+<!-- FH GUEST RATINGS / REVIEW TRUST BAND
+     Reuses the proven / trust-band design + copy, fed from assets/reviews.json (single source of truth)
+     with an embedded fallback so it still renders on Squarespace or offline. Self-contained, language-aware. -->
+<script id="fh-property-reviews-trust">
+(function(){
+  "use strict";
+  var root=document.getElementById("fh-property");
+  if(!root || root.dataset.reviewsReady==="1") return;
+  root.dataset.reviewsReady="1";
+
+  // Embedded fallback mirrors assets/reviews.json so the band always renders.
+  var FALLBACK={
+    section:{
+      en:{kicker:"Guest ratings",title:"Guest ratings, at a glance.",lead:"Independent review snapshots from the platforms guests already trust — without sending you away from the page."},
+      fr:{kicker:"Avis clients",title:"Avis clients en un coup d'œil.",lead:"Des aperçus d'avis indépendants depuis les plateformes que les hôtes connaissent déjà, sans quitter la page."},
+      de:{kicker:"Gästebewertungen",title:"Gästebewertungen auf einen Blick.",lead:"Unabhängige Bewertungs-Snapshots von den Plattformen, denen Gäste vertrauen, ohne die Seite zu verlassen."},
+      ru:{kicker:"Оценки гостей",title:"Оценки гостей в одном блоке.",lead:"Краткие независимые рейтинги с площадок, которым доверяют гости, без ухода со страницы."},
+      he:{kicker:"דירוגי אורחים",title:"דירוגי אורחים במבט מהיר.",lead:"תקצירי ביקורות עצמאיות מהפלטפורמות שאורחים כבר סומכים עליהן, בלי לעזוב את העמוד."}
+    },
+    sources:[
+      {id:"google",score:"4.7",scale:"/ 5",stars:5,url:"https://www.google.com/maps/search/?api=1&query=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland",source:{en:"Google reviews",fr:"Avis Google",de:"Google-Bewertungen",ru:"Отзывы Google",he:"ביקורות Google"},text:{en:"155 reviews. Guests highlight the setting, service, food, and views.",fr:"155 avis. Les hôtes soulignent le cadre, le service, la cuisine et les vues.",de:"155 Bewertungen. Gäste heben Lage, Service, Essen und Aussicht hervor.",ru:"155 отзывов. Гости отмечают место, сервис, еду и виды.",he:"155 ביקורות. אורחים מדגישים את המיקום, השירות, האוכל והנופים."}},
+      {id:"booking",score:"9.4",scale:"/ 10",stars:5,url:"https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html",source:{en:"Booking.com",fr:"Booking.com",de:"Booking.com",ru:"Booking.com",he:"Booking.com"},text:{en:"120 reviews. Rated wonderful, with strong cleanliness and staff scores.",fr:"120 avis. Noté merveilleux, avec de fortes notes pour la propreté et le personnel.",de:"120 Bewertungen. Als wunderbar bewertet, mit starken Noten für Sauberkeit und Personal.",ru:"120 отзывов. Оценка «wonderful», высокие баллы за чистоту и персонал.",he:"120 ביקורות. דירוג Wonderful, עם ציונים חזקים לניקיון ולצוות."}},
+      {id:"hotels",score:"9.2",scale:"/ 10",stars:5,url:"https://www.hotels.com/ho2948041472/waldhotel-fletschhorn-sachseln-switzerland/",source:{en:"Hotels.com",fr:"Hotels.com",de:"Hotels.com",ru:"Hotels.com",he:"Hotels.com"},text:{en:"15 verified reviews. Guests praise the quiet forest setting and personal service.",fr:"15 avis vérifiés. Les hôtes apprécient le calme de la forêt et le service personnel.",de:"15 verifizierte Bewertungen. Gäste loben die ruhige Waldlage und den persönlichen Service.",ru:"15 проверенных отзывов. Гости хвалят тихое лесное место и персональный сервис.",he:"15 ביקורות מאומתות. אורחים משבחים את היער השקט ואת השירות האישי."}},
+      {id:"tripadvisor",score:"4.5",scale:"/ 5",stars:5,url:"https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html",source:{en:"Tripadvisor",fr:"Tripadvisor",de:"Tripadvisor",ru:"Tripadvisor",he:"Tripadvisor"},text:{en:"Independent traveller reviews praising the forest setting, cuisine, and personal welcome.",fr:"Avis de voyageurs indépendants saluant le cadre forestier, la cuisine et l'accueil personnel.",de:"Unabhängige Reisebewertungen loben die Waldlage, die Küche und den persönlichen Empfang.",ru:"Независимые отзывы путешественников отмечают лесное место, кухню и личный приём.",he:"ביקורות מטיילים עצמאיות משבחות את היער, המטבח וקבלת הפנים האישית."}},
+      {id:"airbnb",score:"New",scale:"listing",stars:0,url:"https://www.airbnb.com/rooms/1583676843313625450",source:{en:"Airbnb",fr:"Airbnb",de:"Airbnb",ru:"Airbnb",he:"Airbnb"},scoreI18n:{en:"New",fr:"Nouveau",de:"Neu",ru:"Новое",he:"חדש"},scaleI18n:{en:"listing",fr:"logement",de:"Listing",ru:"объявление",he:"מודעה"},text:{en:"Official whole-hotel listing for up to 48 guests; Airbnb shows no property reviews yet.",fr:"Annonce officielle de l'hôtel entier jusqu'à 48 hôtes ; Airbnb n'affiche pas encore d'avis pour ce bien.",de:"Offizielles Whole-Hotel-Listing für bis zu 48 Gäste; Airbnb zeigt derzeit noch keine Objektbewertungen.",ru:"Официальное объявление всего отеля до 48 гостей; Airbnb пока не показывает отзывов об объекте.",he:"מודעה רשמית לכל המלון עד 48 אורחים; Airbnb עדיין לא מציג ביקורות לנכס."}}
+    ]
+  };
+
+  var data=FALLBACK;
+
+  function lang(){
+    var raw="en";
+    try{raw=root.getAttribute("data-current-lang")||localStorage.getItem("fh_lang")||document.documentElement.lang||"en";}catch(e){raw=document.documentElement.lang||"en";}
+    raw=String(raw||"en").toLowerCase();
+    if(raw.indexOf("iw")===0) return "he";
+    raw=raw.slice(0,2);
+    return ({en:1,fr:1,de:1,ru:1,he:1})[raw]?raw:"en";
+  }
+  function pick(obj,l){ if(!obj) return ""; return obj[l]!==undefined?obj[l]:(obj.en!==undefined?obj.en:""); }
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+  function render(){
+    var rail=root.querySelector("#fhPropertyReviews");
+    if(!rail) return;
+    var l=lang();
+    var sec=(data.section&&(data.section[l]||data.section.en))||{};
+    var head=root.querySelector("#property-reviews .fh-trust-head");
+    if(head){
+      var k=head.querySelector('[data-review-i18n="kicker"]');
+      var ti=head.querySelector('[data-review-i18n="title"]');
+      var le=head.querySelector('[data-review-i18n="lead"]');
+      if(k&&sec.kicker) k.textContent=sec.kicker;
+      if(ti&&sec.title) ti.textContent=sec.title;
+      if(le&&sec.lead) le.textContent=sec.lead;
+    }
+    var list=(data.sources||[]).map(function(s){
+      var src=pick(s.source,l)||s.id;
+      var txt=pick(s.text,l);
+      var scoreVal=s.scoreI18n?pick(s.scoreI18n,l):s.score;
+      var scaleVal=s.scaleI18n?pick(s.scaleI18n,l):s.scale;
+      var stars=Number(s.stars)||0;
+      var starsHtml=stars>0?'<div class="fh-review-stars" aria-hidden="true">'+Array(stars+1).join("★")+'</div>':'';
+      return '<a class="fh-review-card" href="'+esc(s.url)+'" target="_blank" rel="noopener" aria-label="'+esc(src)+'">'
+        +'<b>'+esc(src)+'</b>'
+        +'<div class="fh-review-score"><strong>'+esc(scoreVal)+'</strong><span>'+esc(scaleVal)+'</span></div>'
+        +starsHtml
+        +'<p>'+esc(txt)+'</p>'
+        +'</a>';
+    }).join("");
+    rail.innerHTML=list;
+  }
+
+  function boot(){ render(); }
+
+  // Load JSON source of truth; keep fallback if it fails (Squarespace/offline safe).
+  try{
+    var base=new URL("assets/", document.baseURI).href;
+    fetch(base+"reviews.json",{cache:"no-cache"})
+      .then(function(r){ if(!r.ok) throw new Error("reviews.json "+r.status); return r.json(); })
+      .then(function(json){ if(json&&json.sources&&json.sources.length){ data=json; render(); } })
+      .catch(function(){ /* keep embedded fallback */ });
+  }catch(e){}
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else boot();
+  document.addEventListener("click",function(e){ if(e.target.closest("[data-fh-lang],[data-lang],[data-language]")) setTimeout(render,40); });
+  window.addEventListener("fh:languagechange",function(){ setTimeout(render,0); });
+  document.addEventListener("fh:language-change",function(){ setTimeout(render,0); });
+  document.addEventListener("fh:languagechange",function(){ setTimeout(render,0); });
+  window.addEventListener("storage",function(e){ if(e.key==="fh_lang"||e.key==="fh_language"||e.key==="fhLang") render(); });
+  setTimeout(render,300); setTimeout(render,1200);
+})();
+</script>
