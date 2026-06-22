@@ -2963,6 +2963,52 @@
 </head>
 
 <body>
+  <script>
+    /*
+      HARD GUARD: Booking.com review links must never be treated as the site booking toolbar.
+      This is registered before the shared Header.html script loads, so it wins over any
+      global header click handler that tries to intercept links containing "booking".
+    */
+    (function(){
+      "use strict";
+
+      var BOOKING_COM_PROPERTY_URL = "https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html";
+
+      function isBookingComPropertyLink(target){
+        if (!target || !target.closest) return null;
+
+        var link = target.closest(
+          'a[data-fh-external-review="bookingcom"], a[data-no-booking-toolbar="true"], a[href*="booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html"]'
+        );
+
+        if (!link) return null;
+
+        var href = link.getAttribute("href") || "";
+        var isBookingCom = href.indexOf("booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html") !== -1;
+
+        return isBookingCom || link.getAttribute("data-fh-external-review") === "bookingcom" ? link : null;
+      }
+
+      function openBookingComProperty(event){
+        var link = isBookingComPropertyLink(event.target);
+        if (!link) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        if (typeof event.stopImmediatePropagation === "function"){
+          event.stopImmediatePropagation();
+        }
+
+        window.location.href = BOOKING_COM_PROPERTY_URL;
+      }
+
+      document.addEventListener("click", openBookingComProperty, true);
+      document.addEventListener("auxclick", openBookingComProperty, true);
+
+      window.FH_BOOKING_COM_PROPERTY_URL = BOOKING_COM_PROPERTY_URL;
+    })();
+  </script>
+
   <div id="fh-header-slot"></div>
 
   <div id="fh-home" data-current-lang="en">
@@ -3035,7 +3081,7 @@
           <div class="fh-review-score"><strong>4.7</strong><span>/ 5</span></div>
           <p data-i18n="reviewGoogleText">155 reviews. Guests highlight the setting, service, food, and views.</p>
         </a>
-        <a class="fh-review-card" href="https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html?label=New_English_EN_NY%3A_New_York_State_23537688865-3HhLaepAvUOrD5Rz7Hri*wS217243092435%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwl-64415224945%3Alp9004718%3Ali%3Adec%3Adm&sid=3f5ffe155205f2621ca0fb55b7e75ee8&gclid=CjwKCAjwuuPRBhAnEiwA2Ji8esG3Yid7OWHMkMi2COGZda9YP7pqdXnaRaAMKF6HGJ4DwmbQQpFkUhoCwYgQAvD_BwE&aid=318615&ucfs=1&arphpl=1&dest_id=-2553924&dest_type=city&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=popularity&srpvid=df5186e6f7bc0844&srepoch=1782155470&from=searchresults" target="_blank" rel="noopener noreferrer" aria-label="Open Booking.com reviews">
+        <a class="fh-review-card" data-fh-external-review="bookingcom" data-no-booking-toolbar="true" href="https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html" target="_blank" rel="noopener noreferrer" aria-label="Open Booking.com reviews">
           <b data-i18n="reviewBookingSource">Booking.com</b>
           <div class="fh-review-score"><strong>9.4</strong><span>/ 10</span></div>
           <p data-i18n="reviewBookingText">120 reviews. Rated wonderful, with strong cleanliness and staff scores.</p>
@@ -5590,10 +5636,34 @@
         const href = link.getAttribute("href") || "";
         const cleanHref = href.toLowerCase();
 
+        /*
+          Only local direct-booking links should scroll to the booking toolbar.
+          External review/profile links must be left alone, especially Booking.com.
+        */
+        if (
+          link.matches('[data-no-booking-toolbar="true"], [data-fh-external-review]') ||
+          cleanHref.includes("booking.com/") ||
+          cleanHref.includes("google.com/") ||
+          cleanHref.includes("airbnb.com/") ||
+          cleanHref.includes("hotels.com/") ||
+          cleanHref.includes("tripadvisor.com/") ||
+          cleanHref.includes("instagram.com/") ||
+          cleanHref.includes("facebook.com/") ||
+          cleanHref.includes("linkedin.com/")
+        ){
+          return;
+        }
+
+        const isExternalHttp =
+          /^https?:\/\//i.test(href) &&
+          !cleanHref.includes(window.location.hostname.toLowerCase());
+
+        if (isExternalHttp) return;
+
         const isBookingIntent =
           cleanHref === "#book" ||
           cleanHref === "#booking" ||
-          cleanHref.includes("booking.html") ||
+          /(^|\/)booking\.html(\?|#|$)/i.test(href) ||
           cleanHref.includes("contact-booking");
 
         if (!isBookingIntent) return;
