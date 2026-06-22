@@ -2532,19 +2532,13 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
 
         <form class="fh-booking preSlide" id="fh-exp-quick-form" style="--d:.34s">
           <div class="fh-booking-form" id="fhBookingFields">
-            <div class="fh-field">
-              <label for="fh-exp-first-name">First name</label>
-              <input id="fh-exp-first-name" name="firstName" type="text" placeholder="First name" autocomplete="given-name" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fh-exp-last-name">Last name</label>
-              <input id="fh-exp-last-name" name="lastName" type="text" placeholder="Last name" autocomplete="family-name" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fh-exp-email">Email</label>
-              <input id="fh-exp-email" name="email" type="email" placeholder="email@example.com" autocomplete="email" required>
+            <div class="fh-field fh-people-field">
+              <label for="fhGuests">How many people</label>
+              <div class="fh-people-stepper">
+                <button type="button" id="fhGuestsMinus" aria-label="Fewer people">−</button>
+                <input id="fhGuests" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
+                <button type="button" id="fhGuestsPlus" aria-label="More people">+</button>
+              </div>
             </div>
 
             <div class="fh-field fh-date-field">
@@ -3652,6 +3646,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
       lang: bookingPayload.lang,
       source: 'experiences'
     });
+    if(window.FHOpenBookingPopup && params.get('checkIn') && params.get('checkOut')){ window.FHOpenBookingPopup({checkIn:params.get('checkIn'),checkOut:params.get('checkOut'),people:($('#fhGuests')&&$('#fhGuests').value)||2}); return; }
     window.location.href = '/booking?' + params.toString();
   }
 
@@ -3666,10 +3661,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
         checkOut: $('#fh-exp-checkout')?.value || ''
       };
       const dateError = validateBookingDates(payload.checkIn, payload.checkOut);
-      if(!payload.firstName || !payload.lastName || !payload.email){
-        if(heroStatus) heroStatus.textContent = 'Please enter your first name, last name, and email.';
-        return;
-      }
+      // Name & email are now collected at checkout, not on this toolbar.
       if(dateError){
         if(heroStatus) heroStatus.textContent = dateError;
         return;
@@ -3711,6 +3703,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     if(payload.email) params.set('email', payload.email);
     if(payload.checkIn) params.set('checkIn', payload.checkIn);
     if(payload.checkOut) params.set('checkOut', payload.checkOut);
+    if(window.FHOpenBookingPopup && params.get('checkIn') && params.get('checkOut')){ window.FHOpenBookingPopup({checkIn:params.get('checkIn'),checkOut:params.get('checkOut'),people:($('#fhGuests')&&$('#fhGuests').value)||2}); return; }
     window.location.href = '/booking?' + params.toString();
   }
 
@@ -4445,9 +4438,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
       const checkOut = qs('#fh-exp-checkout')?.value || '';
       clearErrors();
       let bad = false;
-      if(!first){mark('#fh-exp-first-name'); bad = true;}
-      if(!last){mark('#fh-exp-last-name'); bad = true;}
-      if(!email){mark('#fh-exp-email'); bad = true;}
+      // Name & email validation removed — collected at checkout.
       if(bad){
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -4736,6 +4727,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
         lang: payload.lang,
         source: 'experiences-mobile'
       });
+      if(window.FHOpenBookingPopup && params.get('checkIn') && params.get('checkOut')){ window.FHOpenBookingPopup({checkIn:params.get('checkIn'),checkOut:params.get('checkOut'),people:($('#fhGuests')&&$('#fhGuests').value)||2}); return; }
       window.location.href = BOOKING_PAGE + '?' + params.toString();
     });
   }
@@ -6436,19 +6428,13 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
 
         <form class="fh-booking preSlide" id="fh-exp-quick-form" style="--d:.34s">
           <div class="fh-booking-form" id="fhBookingFields">
-            <div class="fh-field">
-              <label for="fh-exp-first-name">First name</label>
-              <input id="fh-exp-first-name" name="firstName" type="text" placeholder="First name" autocomplete="given-name" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fh-exp-last-name">Last name</label>
-              <input id="fh-exp-last-name" name="lastName" type="text" placeholder="Last name" autocomplete="family-name" required>
-            </div>
-
-            <div class="fh-field">
-              <label for="fh-exp-email">Email</label>
-              <input id="fh-exp-email" name="email" type="email" placeholder="email@example.com" autocomplete="email" required>
+            <div class="fh-field fh-people-field">
+              <label for="fhGuests">How many people</label>
+              <div class="fh-people-stepper">
+                <button type="button" id="fhGuestsMinus" aria-label="Fewer people">−</button>
+                <input id="fhGuests" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
+                <button type="button" id="fhGuestsPlus" aria-label="More people">+</button>
+              </div>
             </div>
 
             <div class="fh-field fh-date-field">
@@ -7549,6 +7535,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
       lang: bookingPayload.lang,
       source: 'experiences'
     });
+    if(window.FHOpenBookingPopup && params.get('checkIn') && params.get('checkOut')){ window.FHOpenBookingPopup({checkIn:params.get('checkIn'),checkOut:params.get('checkOut'),people:($('#fhGuests')&&$('#fhGuests').value)||2}); return; }
     window.location.href = '/booking?' + params.toString();
   }
 
@@ -7563,10 +7550,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
         checkOut: $('#fh-exp-checkout')?.value || ''
       };
       const dateError = validateBookingDates(payload.checkIn, payload.checkOut);
-      if(!payload.firstName || !payload.lastName || !payload.email){
-        if(heroStatus) heroStatus.textContent = 'Please enter your first name, last name, and email.';
-        return;
-      }
+      // Name & email are now collected at checkout, not on this toolbar.
       if(dateError){
         if(heroStatus) heroStatus.textContent = dateError;
         return;
@@ -7608,6 +7592,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     if(payload.email) params.set('email', payload.email);
     if(payload.checkIn) params.set('checkIn', payload.checkIn);
     if(payload.checkOut) params.set('checkOut', payload.checkOut);
+    if(window.FHOpenBookingPopup && params.get('checkIn') && params.get('checkOut')){ window.FHOpenBookingPopup({checkIn:params.get('checkIn'),checkOut:params.get('checkOut'),people:($('#fhGuests')&&$('#fhGuests').value)||2}); return; }
     window.location.href = '/booking?' + params.toString();
   }
 
@@ -8342,9 +8327,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
       const checkOut = qs('#fh-exp-checkout')?.value || '';
       clearErrors();
       let bad = false;
-      if(!first){mark('#fh-exp-first-name'); bad = true;}
-      if(!last){mark('#fh-exp-last-name'); bad = true;}
-      if(!email){mark('#fh-exp-email'); bad = true;}
+      // Name & email validation removed — collected at checkout.
       if(bad){
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -9242,5 +9225,27 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
 
   /* Do not run this again on load/timeouts. Re-running was the real cause of the fast hero reload. */
   window.addEventListener("fh:worker-images-loaded", function(){ runFinalImageFix(); });
+})();
+</script>
+
+<style>
+  .fh-people-field .fh-people-stepper{display:inline-flex;align-items:center;border:1px solid rgba(20,21,24,.2);border-radius:12px;overflow:hidden;background:#fff;height:46px;}
+  .fh-people-stepper button{width:44px;height:100%;border:0;background:transparent;font-size:1.3rem;line-height:1;cursor:pointer;color:inherit;}
+  .fh-people-stepper button:hover{background:rgba(20,21,24,.06);}
+  .fh-people-stepper input{width:54px;height:100%;border:0;border-left:1px solid rgba(20,21,24,.12);border-right:1px solid rgba(20,21,24,.12);text-align:center;font-size:1rem;background:transparent;-moz-appearance:textfield;appearance:textfield;}
+  .fh-people-stepper input::-webkit-outer-spin-button,.fh-people-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+</style>
+<script>
+(function(){
+  function clamp(n){ return Math.min(48, Math.max(1, parseInt(n,10)||2)); }
+  document.querySelectorAll('.fh-people-stepper').forEach(function(stepper){
+    var input = stepper.querySelector('input');
+    var minus = stepper.querySelector('[id$="Minus"]');
+    var plus = stepper.querySelector('[id$="Plus"]');
+    function sync(){ if(input){ input.value = clamp(input.value); if(window.FHSetBookingPeople) window.FHSetBookingPeople(input.value); } }
+    if(minus) minus.addEventListener('click', function(){ if(input) input.value = clamp(input.value)-1; sync(); });
+    if(plus) plus.addEventListener('click', function(){ if(input) input.value = clamp(input.value)+1; sync(); });
+    if(input) input.addEventListener('change', sync);
+  });
 })();
 </script>
