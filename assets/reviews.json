@@ -2,11 +2,31 @@
   "updated": "2026-06-22",
   "property": "Waldhotel Fletschhorn, Saas-Fee",
   "section": {
-    "en": {"kicker": "Guest ratings", "title": "Guest ratings, at a glance.", "lead": "Independent review snapshots from the platforms guests already trust — without sending you away from the page."},
-    "fr": {"kicker": "Avis clients", "title": "Avis clients en un coup d'œil.", "lead": "Des aperçus d'avis indépendants depuis les plateformes que les hôtes connaissent déjà, sans quitter la page."},
-    "de": {"kicker": "Gästebewertungen", "title": "Gästebewertungen auf einen Blick.", "lead": "Unabhängige Bewertungs-Snapshots von den Plattformen, denen Gäste vertrauen, ohne die Seite zu verlassen."},
-    "ru": {"kicker": "Оценки гостей", "title": "Оценки гостей в одном блоке.", "lead": "Краткие независимые рейтинги с площадок, которым доверяют гости, без ухода со страницы."},
-    "he": {"kicker": "דירוגי אורחים", "title": "דירוגי אורחים במבט מהיר.", "lead": "תקצירי ביקורות עצמאיות מהפלטפורמות שאורחים כבר סומכים עליהן, בלי לעזוב את העמוד."}
+    "en": {
+      "kicker": "Guest ratings",
+      "title": "Guest ratings, at a glance.",
+      "lead": "Independent review snapshots from the platforms guests already trust — without sending you away from the page."
+    },
+    "fr": {
+      "kicker": "Avis clients",
+      "title": "Avis clients en un coup d'œil.",
+      "lead": "Des aperçus d'avis indépendants depuis les plateformes que les hôtes connaissent déjà, sans quitter la page."
+    },
+    "de": {
+      "kicker": "Gästebewertungen",
+      "title": "Gästebewertungen auf einen Blick.",
+      "lead": "Unabhängige Bewertungs-Snapshots von den Plattformen, denen Gäste vertrauen, ohne die Seite zu verlassen."
+    },
+    "ru": {
+      "kicker": "Оценки гостей",
+      "title": "Оценки гостей в одном блоке.",
+      "lead": "Краткие независимые рейтинги с площадок, которым доверяют гости, без ухода со страницы."
+    },
+    "he": {
+      "kicker": "דירוגי אורחים",
+      "title": "דירוגי אורחים במבט מהיר.",
+      "lead": "תקצירי ביקורות עצמאיות מהפלטפורמות שאורחים כבר סומכים עליהן, בלי לעזוב את העמוד."
+    }
   },
   "sources": [
     {
@@ -15,7 +35,13 @@
       "scale": "/ 5",
       "stars": 5,
       "url": "https://www.google.com/maps/search/?api=1&query=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland",
-      "source": {"en": "Google reviews", "fr": "Avis Google", "de": "Google-Bewertungen", "ru": "Отзывы Google", "he": "ביקורות Google"},
+      "source": {
+        "en": "Google reviews",
+        "fr": "Avis Google",
+        "de": "Google-Bewertungen",
+        "ru": "Отзывы Google",
+        "he": "ביקורות Google"
+      },
       "text": {
         "en": "155 reviews. Guests highlight the setting, service, food, and views.",
         "fr": "155 avis. Les hôtes soulignent le cadre, le service, la cuisine et les vues.",
@@ -29,8 +55,14 @@
       "score": "9.4",
       "scale": "/ 10",
       "stars": 5,
-      "url": "https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html",
-      "source": {"en": "Booking.com", "fr": "Booking.com", "de": "Booking.com", "ru": "Booking.com", "he": "Booking.com"},
+      "url": "https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html?label=New_English_EN_NY%3A_New_York_State_23537688865-3HhLaepAvUOrD5Rz7Hri*wS217243092435%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwl-64415224945%3Alp9004718%3Ali%3Adec%3Adm&sid=3f5ffe155205f2621ca0fb55b7e75ee8&gclid=CjwKCAjwuuPRBhAnEiwA2Ji8esG3Yid7OWHMkMi2COGZda9YP7pqdXnaRaAMKF6HGJ4DwmbQQpFkUhoCwYgQAvD_BwE&aid=318615&ucfs=1&arphpl=1&dest_id=-2553924&dest_type=city&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=popularity&srpvid=df5186e6f7bc0844&srepoch=1782155470&from=searchresults",
+      "source": {
+        "en": "Booking.com",
+        "fr": "Booking.com",
+        "de": "Booking.com",
+        "ru": "Booking.com",
+        "he": "Booking.com"
+      },
       "text": {
         "en": "120 reviews. Rated wonderful, with strong cleanliness and staff scores.",
         "fr": "120 avis. Noté merveilleux, avec de fortes notes pour la propreté et le personnel.",
@@ -45,7 +77,13 @@
       "scale": "/ 10",
       "stars": 5,
       "url": "https://www.hotels.com/ho2948041472/waldhotel-fletschhorn-sachseln-switzerland/",
-      "source": {"en": "Hotels.com", "fr": "Hotels.com", "de": "Hotels.com", "ru": "Hotels.com", "he": "Hotels.com"},
+      "source": {
+        "en": "Hotels.com",
+        "fr": "Hotels.com",
+        "de": "Hotels.com",
+        "ru": "Hotels.com",
+        "he": "Hotels.com"
+      },
       "text": {
         "en": "15 verified reviews. Guests praise the quiet forest setting and personal service.",
         "fr": "15 avis vérifiés. Les hôtes apprécient le calme de la forêt et le service personnel.",
@@ -60,7 +98,13 @@
       "scale": "/ 5",
       "stars": 5,
       "url": "https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html",
-      "source": {"en": "Tripadvisor", "fr": "Tripadvisor", "de": "Tripadvisor", "ru": "Tripadvisor", "he": "Tripadvisor"},
+      "source": {
+        "en": "Tripadvisor",
+        "fr": "Tripadvisor",
+        "de": "Tripadvisor",
+        "ru": "Tripadvisor",
+        "he": "Tripadvisor"
+      },
       "text": {
         "en": "Independent traveller reviews praising the forest setting, cuisine, and personal welcome.",
         "fr": "Avis de voyageurs indépendants saluant le cadre forestier, la cuisine et l'accueil personnel.",
@@ -75,9 +119,27 @@
       "scale": "listing",
       "stars": 0,
       "url": "https://www.airbnb.com/rooms/1583676843313625450",
-      "source": {"en": "Airbnb", "fr": "Airbnb", "de": "Airbnb", "ru": "Airbnb", "he": "Airbnb"},
-      "scoreI18n": {"en": "New", "fr": "Nouveau", "de": "Neu", "ru": "Новое", "he": "חדש"},
-      "scaleI18n": {"en": "listing", "fr": "logement", "de": "Listing", "ru": "объявление", "he": "מודעה"},
+      "source": {
+        "en": "Airbnb",
+        "fr": "Airbnb",
+        "de": "Airbnb",
+        "ru": "Airbnb",
+        "he": "Airbnb"
+      },
+      "scoreI18n": {
+        "en": "New",
+        "fr": "Nouveau",
+        "de": "Neu",
+        "ru": "Новое",
+        "he": "חדש"
+      },
+      "scaleI18n": {
+        "en": "listing",
+        "fr": "logement",
+        "de": "Listing",
+        "ru": "объявление",
+        "he": "מודעה"
+      },
       "text": {
         "en": "Official whole-hotel listing for up to 48 guests; Airbnb shows no property reviews yet.",
         "fr": "Annonce officielle de l'hôtel entier jusqu'à 48 hôtes ; Airbnb n'affiche pas encore d'avis pour ce bien.",
