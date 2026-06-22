@@ -500,10 +500,10 @@
           <div class="fh-index-booking fh-reveal pre" id="booking">
             <div class="fh-index-booking-form" id="fhBookingFields">
               <div class="fh-index-field fh-people-field">
-                <label for="fhGuests" data-booking-i18n="fieldPeople">How many people</label>
+                <label for="fhToolbarPeople" data-booking-i18n="fieldPeople">How many people</label>
                 <div class="fh-people-stepper">
                   <button type="button" id="fhGuestsMinus" aria-label="Fewer people">−</button>
-                  <input id="fhGuests" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
+                  <input id="fhToolbarPeople" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
                   <button type="button" id="fhGuestsPlus" aria-label="More people">+</button>
                 </div>
               </div>
@@ -1280,7 +1280,7 @@
     if(modal){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); }
   }
 
-  function getToolbarPeople(){ const el=$("#fhGuests"); if(!el) return 2; return Math.min(48,Math.max(1,parseInt(el.value,10)||2)); }
+  function getToolbarPeople(){ const el=$("#fhToolbarPeople"); if(!el) return 2; return Math.min(48,Math.max(1,parseInt(el.value,10)||2)); }
   function goToBookingPage(){
     const payload=getBookingStartPayload();
     const people=getToolbarPeople();
@@ -1334,7 +1334,7 @@
   function bindToolbar(){
     $("#fhOpenToolbarCalendar")?.addEventListener("click",openToolbarCalendar);
     $("#fhBookNowBtn")?.addEventListener("click",goToBookingPage);
-    (function(){ const input=$("#fhGuests"),minus=$("#fhGuestsMinus"),plus=$("#fhGuestsPlus"); function sync(){ const v=getToolbarPeople(); if(input) input.value=v; if(typeof window.FHSetBookingPeople==="function") window.FHSetBookingPeople(v); } minus?.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()-1; sync(); }); plus?.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()+1; sync(); }); input?.addEventListener("change",sync); sync(); })();
+    (function(){ const input=$("#fhToolbarPeople"),minus=$("#fhGuestsMinus"),plus=$("#fhGuestsPlus"); function sync(){ const v=getToolbarPeople(); if(input) input.value=v; if(typeof window.FHSetBookingPeople==="function") window.FHSetBookingPeople(v); } minus?.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()-1; sync(); }); plus?.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()+1; sync(); }); input?.addEventListener("change",sync); sync(); })();
     ["#fhFirstName","#fhLastName","#fhEmail"].forEach(function(selector){
       $(selector)?.addEventListener("input",function(){ clearStatus(); persistToolbarStart(false); });
     });

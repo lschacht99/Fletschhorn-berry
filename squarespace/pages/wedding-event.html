@@ -2034,10 +2034,10 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
           #fh-events .fh-people-stepper input::-webkit-outer-spin-button,#fh-events .fh-people-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
         </style>
         <form class="fh-standard-booking-bar" id="fh-standard-booking-form" novalidate>
-          <div class="fh-standard-booking-field fh-people-field"><label for="fhGuests" data-booking-i18n="fieldPeople">How many people</label>
+          <div class="fh-standard-booking-field fh-people-field"><label for="fhToolbarPeople" data-booking-i18n="fieldPeople">How many people</label>
             <div class="fh-people-stepper">
               <button type="button" id="fhGuestsMinus" aria-label="Fewer people">−</button>
-              <input id="fhGuests" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
+              <input id="fhToolbarPeople" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
               <button type="button" id="fhGuestsPlus" aria-label="More people">+</button>
             </div>
           </div>
@@ -3927,7 +3927,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     }
   }
 
-  function getToolbarPeople(){ const el=document.getElementById("fhGuests"); if(!el) return 2; return Math.min(48,Math.max(1,parseInt(el.value,10)||2)); }
+  function getToolbarPeople(){ const el=document.getElementById("fhToolbarPeople"); if(!el) return 2; return Math.min(48,Math.max(1,parseInt(el.value,10)||2)); }
   function goToBookingPage(){
     const payload=getPayload();
     const people=getToolbarPeople();
@@ -3995,7 +3995,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       event.preventDefault();
       goToBookingPage();
     });
-    (function(){ const input=document.getElementById("fhGuests"),minus=document.getElementById("fhGuestsMinus"),plus=document.getElementById("fhGuestsPlus"); function sync(){ const v=getToolbarPeople(); if(input) input.value=v; if(typeof window.FHSetBookingPeople==="function") window.FHSetBookingPeople(v); } if(minus) minus.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()-1; sync(); }); if(plus) plus.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()+1; sync(); }); if(input) input.addEventListener("change",sync); sync(); })();
+    (function(){ const input=document.getElementById("fhToolbarPeople"),minus=document.getElementById("fhGuestsMinus"),plus=document.getElementById("fhGuestsPlus"); function sync(){ const v=getToolbarPeople(); if(input) input.value=v; if(typeof window.FHSetBookingPeople==="function") window.FHSetBookingPeople(v); } if(minus) minus.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()-1; sync(); }); if(plus) plus.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()+1; sync(); }); if(input) input.addEventListener("change",sync); sync(); })();
     loadToolbarCalendarMonth();
   }
 
