@@ -1564,6 +1564,28 @@ html.fh-rpop-open,html.fh-rpop-open body{overflow:hidden}
     }
   }, true);
 
+  /* Set the guest count that the review pop-up / checkout will use. */
+  window.FHSetBookingPeople = function(n){
+    var p = Math.min(48, Math.max(1, parseInt(n, 10) || 2));
+    fhReviewState.people = p;
+    var input = document.getElementById("fhRpopPeople");
+    if(input) input.value = p;
+    return p;
+  };
+
+  /* Single entry point for on-page toolbars: open the booking pop-up directly
+     when dates are known, otherwise open the schedule (which auto-continues to
+     the pop-up once a valid range is picked). */
+  window.FHOpenBookingPopup = function(opts){
+    opts = opts || {};
+    if(opts.people != null) window.FHSetBookingPeople(opts.people);
+    if(opts.checkIn && opts.checkOut){
+      return proceedAfterDates({ checkIn:opts.checkIn, checkOut:opts.checkOut });
+    }
+    openHeaderSchedule();
+    return false;
+  };
+
   window.FHOpenCleanSchedule = openHeaderSchedule;
   window.FHCloseCleanSchedule = closeToolbarCalendar;
 

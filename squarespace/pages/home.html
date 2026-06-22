@@ -2852,19 +2852,13 @@
 
         <div class="fh-booking fh-reveal" id="booking">
           <div class="fh-booking-form" id="fhBookingFields">
-            <div class="fh-field">
-              <label for="fhFirstName" data-i18n="fieldFirstName">First name</label>
-              <input id="fhFirstName" name="firstName" type="text" data-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name">
-            </div>
-
-            <div class="fh-field">
-              <label for="fhLastName" data-i18n="fieldLastName">Last name</label>
-              <input id="fhLastName" name="lastName" type="text" data-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name">
-            </div>
-
-            <div class="fh-field">
-              <label for="fhEmail" data-i18n="fieldEmail">Email</label>
-              <input id="fhEmail" name="email" type="email" data-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email">
+            <div class="fh-field fh-people-field">
+              <label for="fhGuests" data-i18n="fieldPeople">How many people</label>
+              <div class="fh-people-stepper">
+                <button type="button" id="fhGuestsMinus" aria-label="Fewer people">−</button>
+                <input id="fhGuests" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
+                <button type="button" id="fhGuestsPlus" aria-label="More people">+</button>
+              </div>
             </div>
 
             <div class="fh-field fh-date-field">
@@ -2881,7 +2875,7 @@
           </div>
 
           <div class="fh-booking-note" data-i18n="bookingNote">
-            Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.
+            Choose your group size and dates — then check availability, see the live price, and book right here.
           </div>
 
           <div class="fh-status" id="fhFormStatus" role="status" aria-live="polite"></div>
@@ -2924,6 +2918,22 @@
         display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;
         color:#171819;border-bottom:1px solid rgba(20,21,24,.35);padding-bottom:2px;
       }
+      #fh-home .fh-people-field .fh-people-stepper{
+        display:inline-flex;align-items:center;border:1px solid rgba(20,21,24,.18);
+        border-radius:12px;overflow:hidden;background:#fff;height:46px;
+      }
+      #fh-home .fh-people-stepper button{
+        width:44px;height:100%;border:0;background:transparent;font-size:1.3rem;
+        line-height:1;cursor:pointer;color:#171819;
+      }
+      #fh-home .fh-people-stepper button:hover{background:rgba(20,21,24,.06);}
+      #fh-home .fh-people-stepper input{
+        width:54px;height:100%;border:0;border-left:1px solid rgba(20,21,24,.12);
+        border-right:1px solid rgba(20,21,24,.12);text-align:center;font-size:1rem;
+        background:transparent;-moz-appearance:textfield;appearance:textfield;
+      }
+      #fh-home .fh-people-stepper input::-webkit-outer-spin-button,
+      #fh-home .fh-people-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
       @media (max-width:820px){
         #fh-home .fh-trustband{padding:34px 6vw 4px;}
         #fh-home .fh-trustband-inner{grid-template-columns:1fr;}
@@ -3464,7 +3474,8 @@
           minNights:"A minimum stay of 2 nights is required. Please extend your selection to continue.",
           estimatedTotal:"Estimated total",
           bookNow:"Book my stay now",
-          bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
+          fieldPeople:"How many people",
+          bookingNote:"Choose your group size and dates — then check availability, see the live price, and book right here.",
           privateKicker:"The private chalet",
           privateTitle:"A private alpine house for groups who want the whole place to themselves.",
           privateLead:"Fletschhorn is a complete private chalet experience above Saas-Fee, with space to sleep, gather, cook, celebrate, reset, and explore the mountains.",
@@ -3627,7 +3638,8 @@
           minNights:"Un séjour minimum de 2 nuits est requis. Veuillez prolonger votre sélection pour continuer.",
           estimatedTotal:"Total estimé",
           bookNow:"Réserver mon séjour",
-          bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
+          fieldPeople:"Combien de personnes",
+          bookingNote:"Choisissez la taille de votre groupe et vos dates — vérifiez ensuite la disponibilité, voyez le prix en direct et réservez ici même.",
           socialKicker:"Présence sociale",
           socialTitle:"Le rythme du Fletschhorn",
           socialLead:"Suivez l’atmosphère de la montagne, les moments de saison et le rythme quotidien du Fletschhorn à Saas-Fee.",
@@ -3684,7 +3696,8 @@
           minNights:"Mindestaufenthalt von 2 Nächten erforderlich. Bitte verlängern Sie Ihre Auswahl, um fortzufahren.",
           estimatedTotal:"Geschätzter Gesamtpreis",
           bookNow:"Aufenthalt buchen",
-          bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
+          fieldPeople:"Wie viele Personen",
+          bookingNote:"Wählen Sie Gruppengröße und Daten — prüfen Sie dann Verfügbarkeit und Live-Preis und buchen Sie direkt hier.",
           socialKicker:"Soziale Präsenz",
           socialTitle:"Der Fletschhorn-Rhythmus",
           socialLead:"Folgen Sie der Bergstimmung, saisonalen Momenten und dem Alltag des Fletschhorn in Saas-Fee.",
@@ -3741,7 +3754,8 @@
           minNights:"Требуется минимальный срок пребывания 2 ночи. Пожалуйста, расширьте выбор, чтобы продолжить.",
           estimatedTotal:"Ориентировочная сумма",
           bookNow:"Забронировать",
-          bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
+          fieldPeople:"Сколько человек",
+          bookingNote:"Выберите размер группы и даты — затем проверьте доступность, посмотрите цену и забронируйте прямо здесь.",
           socialKicker:"Социальные профили",
           socialTitle:"Ритм Fletschhorn",
           socialLead:"Следите за горной атмосферой, сезонными моментами и повседневным ритмом Fletschhorn в Саас-Фе.",
@@ -3798,7 +3812,8 @@
           minNights:"נדרשת שהייה מינימלית של 2 לילות. אנא הרחיבו את הבחירה כדי להמשיך.",
           estimatedTotal:"מחיר משוער",
           bookNow:"להזמין את השהייה",
-          bookingNote:"התחילו כאן. הפרטים יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
+          fieldPeople:"כמה אנשים",
+          bookingNote:"בחרו את גודל הקבוצה והתאריכים — לאחר מכן בדקו זמינות, ראו את המחיר וזמינו כאן.",
           privateKicker:"השאלה הפרטית",
           privateTitle:"בית אלפיני פרטי לקבוצות שרוצות את כל המקום לעצמן.",
           privateLead:"Fletschhorn הוא חוויית שאלה פרטית מלאה מעל סאס-פה, עם מקום לישון, להתכנס, לבשל, לחגוג, לנוח ולצאת אל ההרים.",
@@ -4926,32 +4941,12 @@
 
       function goToBookingPage(){
         const payload = getBookingStartPayload();
-
-        if (!payload.firstName){
-          setStatus(t("missingFirstName"), "error");
-          $("#fhFirstName") && $("#fhFirstName").focus();
-          return;
-        }
-
-        if (!payload.lastName){
-          setStatus(t("missingLastName"), "error");
-          $("#fhLastName") && $("#fhLastName").focus();
-          return;
-        }
-
-        if (!payload.email){
-          setStatus(t("missingEmail"), "error");
-          $("#fhEmail") && $("#fhEmail").focus();
-          return;
-        }
-
-        if (!emailIsValid(payload.email)){
-          setStatus(t("invalidEmail"), "error");
-          $("#fhEmail") && $("#fhEmail").focus();
-          return;
-        }
+        const people = getToolbarPeople();
+        if (typeof window.FHSetBookingPeople === "function") window.FHSetBookingPeople(people);
 
         if (!payload.checkIn || !payload.checkOut){
+          // No dates yet → open the schedule; picking a valid range auto-opens the pop-up.
+          if (typeof window.FHOpenCleanSchedule === "function"){ window.FHOpenCleanSchedule(); return; }
           setStatus(t("missingDates"), "error");
           openToolbarCalendar();
           return;
@@ -4979,24 +4974,24 @@
           console.warn("Could not save booking start data.", error);
         }
 
-        const params = new URLSearchParams();
-        params.set("firstName", payload.firstName);
-        params.set("lastName", payload.lastName);
-        params.set("email", payload.email);
-        params.set("checkIn", payload.checkIn);
-        params.set("checkOut", payload.checkOut);
-        params.set("lang", payload.language);
-        params.set("source", "homepage");
-
-        setStatus(t("redirecting"), "success");
-
-        const btn = $("#fhBookNowBtn");
-        if (btn){
-          btn.disabled = true;
-          btn.dataset.oldText = btn.textContent;
-          btn.textContent = t("redirecting");
+        // Open the booking pop-up right here — no detour to the booking page.
+        if (typeof window.FHOpenBookingPopup === "function"){
+          window.FHOpenBookingPopup({
+            checkIn: payload.checkIn,
+            checkOut: payload.checkOut,
+            people: getToolbarPeople()
+          });
+          return;
         }
 
+        // Fallback (global header flow unavailable): carry details to the booking page.
+        const params = new URLSearchParams();
+        params.set("checkIn", payload.checkIn);
+        params.set("checkOut", payload.checkOut);
+        params.set("guests", String(getToolbarPeople()));
+        params.set("lang", payload.language);
+        params.set("source", "homepage");
+        setStatus(t("redirecting"), "success");
         window.location.href = CFG.bookingPageUrl + "?" + params.toString();
       }
 
@@ -5594,6 +5589,27 @@
           persistToolbarStart(false);
         });
       });
+
+      function getToolbarPeople(){
+        const el = $("#fhGuests");
+        if (!el) return 2;
+        return Math.min(48, Math.max(1, parseInt(el.value, 10) || 2));
+      }
+
+      (function bindPeopleStepper(){
+        const input = $("#fhGuests");
+        const minus = $("#fhGuestsMinus");
+        const plus = $("#fhGuestsPlus");
+        function sync(){
+          const v = getToolbarPeople();
+          if (input) input.value = v;
+          if (typeof window.FHSetBookingPeople === "function") window.FHSetBookingPeople(v);
+        }
+        if (minus) minus.addEventListener("click", function(){ if (input) input.value = getToolbarPeople() - 1; sync(); });
+        if (plus) plus.addEventListener("click", function(){ if (input) input.value = getToolbarPeople() + 1; sync(); });
+        if (input) input.addEventListener("change", sync);
+        sync();
+      })();
 
       const bookBtn = $("#fhBookNowBtn");
       if (bookBtn){
