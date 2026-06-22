@@ -198,6 +198,8 @@ JSONLD_RE = re.compile(
     r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>.*?</script>', re.S | re.I)
 SLOT_RE = re.compile(r'[ \t]*<div id="fh-(?:header|footer)-slot"></div>[ \t]*\n?', re.I)
 DEAD_CSS_RE = re.compile(r'[ \t]*<link[^>]*assets/fh-global\.css[^>]*>[ \t]*\n?', re.I)
+LOCAL_CSS_RE = re.compile(r'[ \t]*<link[^>]*href=["\'](assets/css/[^"\']+\.css)["\'][^>]*>[ \t]*\n?', re.I)
+LOCAL_SCRIPT_RE = re.compile(r'[ \t]*<script([^>]*)\s+src=["\'](assets/js/[^"\']+\.js)["\']([^>]*)>\s*</script>[ \t]*\n?', re.I)
 TITLE_RE = re.compile(r'[ \t]*<title>.*?</title>[ \t]*\n?', re.S | re.I)
 VIEWPORT_RE = re.compile(r'[ \t]*<meta[^>]*name=["\']viewport["\'][^>]*>[ \t]*\n?', re.I)
 SEO_TAG_RE = re.compile(
@@ -234,6 +236,28 @@ def build_page(src, out_name, title):
 
     # --- clean the Code block content
     content = DEAD_CSS_RE.sub("", content)      # dead link to assets/fh-global.css
+    # Squarespace code blocks cannot rely on repo-relative asset paths. Keep the
+    # existing page adaptation, but inline page-local CSS/JS assets that the
+    # source document references directly (currently the property layout and
+    # canonical booking toolbar helpers).
+    def inline_local_css(match):
+        rel = match.group(1)
+        css = read(os.path.join(ROOT, rel))
+        return "\n<style data-fh-inline-source=\"%s\">\n%s\n</style>\n" % (rel, css.strip())
+
+    def inline_local_script(match):
+        before, rel, after = match.groups()
+        attrs = (before + " " + after).strip()
+        attrs = re.sub(r'\s*\bdefer\b', '', attrs, flags=re.I).strip()
+        attrs = (" " + attrs) if attrs else ""
+        js = read(os.path.join(ROOT, rel))
+        # Avoid prematurely closing the containing Squarespace code-block script
+        # if documentation/comments contain a literal "</script>" string.
+        js = js.replace("</script", "<\\/script")
+        return "\n<script%s data-fh-inline-source=\"%s\">\n%s\n</script>\n" % (attrs, rel, js.strip())
+
+    content = LOCAL_CSS_RE.sub(inline_local_css, content)
+    content = LOCAL_SCRIPT_RE.sub(inline_local_script, content)
     content = SLOT_RE.sub("", content)          # prototype header/footer mount points
     if not is_full_doc:
         # fragment: SEO/title/viewport are inline at top -> strip the duplicates
