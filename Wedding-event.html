@@ -1923,6 +1923,35 @@
   direction:rtl;
 }
 #fh-events[dir="rtl"] .fh-day{text-align:right;}
+
+/* Isolated Number / Schedule / CTA toolbar layout */
+#fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-bar{
+  grid-template-columns:minmax(120px,.65fr) minmax(240px,1fr) 190px;
+}
+#fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-field:nth-child(1),
+#fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-field:nth-child(2){
+  grid-column:auto;
+}
+@media(max-width:1120px){
+  #fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-bar{
+    grid-template-columns:repeat(6,minmax(0,1fr));
+  }
+  #fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-field:nth-child(1),
+  #fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-field:nth-child(2),
+  #fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-btn{
+    grid-column:span 2;
+  }
+}
+@media(max-width:720px){
+  #fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-bar{
+    grid-template-columns:1fr;
+  }
+  #fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-field:nth-child(1),
+  #fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-field:nth-child(2),
+  #fh-events .fh-standard-booking-shell[data-fh-booking-toolbar] .fh-standard-booking-btn{
+    grid-column:auto;
+  }
+}
 </style>
 
 <style>
@@ -1930,7 +1959,7 @@
 body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 #fh-header-slot,#fh-footer-slot{position:relative;z-index:100;}
 #fh-events .fh-standard-booking-shell{width:min(1080px,100%);margin:0 auto;padding:9px;border:1px solid rgba(255,250,243,.22);background:rgba(255,250,243,.12);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:var(--fh-shadow);}
-#fh-events .fh-standard-booking-bar{display:grid;grid-template-columns:.88fr .88fr 1.15fr 1.72fr 185px;background:rgba(255,250,243,.94);color:var(--fh-ink);}
+#fh-events .fh-standard-booking-bar{display:grid;grid-template-columns:minmax(120px,.65fr) minmax(240px,1fr) 190px;background:rgba(255,250,243,.94);color:var(--fh-ink);}
 #fh-events .fh-standard-booking-field{min-width:0;padding:15px 16px;border-right:1px solid var(--fh-line);background:rgba(255,250,243,.92);text-align:left;}
 #fh-events .fh-standard-booking-field label{display:block;margin:0 0 7px;font-size:10px;text-transform:uppercase;letter-spacing:.16em;font-weight:850;color:rgba(36,31,28,.50);}
 #fh-events .fh-standard-booking-field input{width:100%;border:0;background:transparent;outline:none;color:var(--fh-ink);font-size:15px;padding:0;margin:0;min-height:22px;}
@@ -2021,23 +2050,26 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
         <div class="fh-proof"><strong data-fh-i18n="proof3Title">Saas-Fee</strong><span data-fh-i18n="proof3Text">Forest edge, alpine views, village access</span></div>
       </div>
 
-      <div class="fh-standard-booking-shell" id="fh-event-inquiry-bar">
+      <div class="fh-standard-booking-shell" id="fh-event-inquiry-bar" data-fh-booking-toolbar>
         <form class="fh-standard-booking-bar" id="fh-standard-booking-form" novalidate>
-          <div class="fh-standard-booking-field"><label for="fhFirstName" data-booking-i18n="firstNameLabel">First name</label><input id="fhFirstName" name="firstName" autocomplete="given-name" data-booking-i18n-placeholder="firstNamePlaceholder" placeholder="First name" required /></div>
-          <div class="fh-standard-booking-field"><label for="fhLastName" data-booking-i18n="lastNameLabel">Last name</label><input id="fhLastName" name="lastName" autocomplete="family-name" data-booking-i18n-placeholder="lastNamePlaceholder" placeholder="Last name" required /></div>
-          <div class="fh-standard-booking-field"><label for="fhEmail" data-booking-i18n="emailLabel">Email</label><input id="fhEmail" name="email" type="email" autocomplete="email" data-booking-i18n-placeholder="emailPlaceholder" placeholder="Email address" required /></div>
+          <div class="fh-standard-booking-field">
+            <label for="fhToolbarGuests" data-booking-i18n="fieldGuests">Guests</label>
+            <input id="fhToolbarGuests" name="guests" type="number" min="1" inputmode="numeric" data-booking-i18n-placeholder="fieldGuestsPh" placeholder="How many guests?" autocomplete="off" />
+          </div>
+
           <div class="fh-standard-booking-field fh-date-field">
             <label data-booking-i18n="fieldDates">Dates</label>
             <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar">
               <span id="fhToolbarDateText" data-booking-i18n="fieldDatesPh">Select arrival and departure</span>
               <strong data-booking-i18n="openCalendar">Open calendar</strong>
             </button>
-            <input id="fhArrival" name="checkIn" type="hidden" required />
-            <input id="fhDeparture" name="checkOut" type="hidden" required />
+            <input id="fhArrival" name="checkIn" type="hidden" />
+            <input id="fhDeparture" name="checkOut" type="hidden" />
           </div>
+
           <button class="fh-standard-booking-btn" id="fhBookNowBtn" type="submit" data-booking-i18n="bookButton">Book my stay now</button>
         </form>
-        <div class="fh-standard-booking-note" data-booking-i18n="bookingNote">Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.</div>
+        <div class="fh-standard-booking-note" data-booking-i18n="bookingNote">Start here. Your guest count and dates will be carried to the booking page, where you can review availability, price, and send the final inquiry.</div>
         <div class="fh-standard-booking-status" id="fh-standard-booking-status" role="status" aria-live="polite"></div>
       </div>
 
@@ -3301,6 +3333,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
   const bookingCopy={
     en:{
+      fieldGuests:"Guests",
+      fieldGuestsPh:"How many guests?",
       firstNameLabel:"First name",
       lastNameLabel:"Last name",
       emailLabel:"Email",
@@ -3313,14 +3347,16 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       selectDeparture:"Select departure",
       alreadyBooked:"Booked",
       bookButton:"Book my stay now",
-      bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
-      missing:"Please complete your first name, last name, email, arrival date, and departure date.",
+      bookingNote:"Start here. Your guest count and dates will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
+      missing:"Please enter the number of guests, arrival date, and departure date.",
       email:"Please enter a valid email address.",
       date:"Departure must be after arrival.",
       minNights:"Please select at least 2 nights.",
       calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range."
     },
     fr:{
+      fieldGuests:"Invités",
+      fieldGuestsPh:"Combien d’invités ?",
       firstNameLabel:"Prénom",
       lastNameLabel:"Nom",
       emailLabel:"Email",
@@ -3333,14 +3369,16 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       selectDeparture:"Sélectionnez le départ",
       alreadyBooked:"Réservé",
       bookButton:"Réserver mon séjour",
-      bookingNote:"Vos informations seront envoyées vers la page de réservation pour vérifier disponibilité, prix et demande finale.",
-      missing:"Veuillez compléter le prénom, le nom, l’email, la date d’arrivée et la date de départ.",
+      bookingNote:"Le nombre d’invités et les dates seront envoyés vers la page de réservation pour vérifier disponibilité, prix et demande finale.",
+      missing:"Veuillez indiquer le nombre d’invités, la date d’arrivée et la date de départ.",
       email:"Veuillez entrer une adresse email valide.",
       date:"La date de départ doit être après la date d’arrivée.",
       minNights:"Please select at least 2 nights.",
       calendarRangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles. Veuillez choisir une autre période."
     },
     de:{
+      fieldGuests:"Gäste",
+      fieldGuestsPh:"Wie viele Gäste?",
       firstNameLabel:"Vorname",
       lastNameLabel:"Nachname",
       emailLabel:"E-Mail",
@@ -3353,14 +3391,16 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       selectDeparture:"Abreise auswählen",
       alreadyBooked:"Gebucht",
       bookButton:"Aufenthalt buchen",
-      bookingNote:"Ihre Angaben werden zur Buchungsseite übernommen, wo Verfügbarkeit, Preis und finale Anfrage geprüft werden.",
-      missing:"Bitte Vorname, Nachname, E-Mail, Anreise und Abreise ausfüllen.",
+      bookingNote:"Gästezahl und Reisedaten werden zur Buchungsseite übernommen, wo Verfügbarkeit, Preis und finale Anfrage geprüft werden.",
+      missing:"Bitte geben Sie Gästezahl, Anreise und Abreise an.",
       email:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",
       date:"Die Abreise muss nach der Anreise liegen.",
       minNights:"Please select at least 2 nights.",
       calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar. Bitte wählen Sie einen anderen Zeitraum."
     },
     ru:{
+      fieldGuests:"Гости",
+      fieldGuestsPh:"Сколько гостей?",
       firstNameLabel:"Имя",
       lastNameLabel:"Фамилия",
       emailLabel:"Email",
@@ -3373,8 +3413,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       selectDeparture:"Выберите выезд",
       alreadyBooked:"Занято",
       bookButton:"Забронировать",
-      bookingNote:"Ваши данные будут перенесены на страницу бронирования для проверки доступности, цены и финальной заявки.",
-      missing:"Заполните имя, фамилию, email, дату заезда и дату выезда.",
+      bookingNote:"Количество гостей и даты будут перенесены на страницу бронирования для проверки доступности, цены и финальной заявки.",
+      missing:"Укажите количество гостей, дату заезда и дату выезда.",
       email:"Введите корректный email.",
       date:"Дата выезда должна быть позже даты заезда.",
       minNights:"Please select at least 2 nights.",
@@ -3382,6 +3422,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     }
 ,
     he:{
+      fieldGuests:"אורחים",
+      fieldGuestsPh:"כמה אורחים?",
       firstNameLabel:"שם פרטי",
       lastNameLabel:"שם משפחה",
       emailLabel:"אימייל",
@@ -3394,8 +3436,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       selectDeparture:"בחרו עזיבה",
       alreadyBooked:"תפוס",
       bookButton:"הזמנת השהייה",
-      bookingNote:"הפרטים יועברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
-      missing:"יש להשלים שם פרטי, שם משפחה, אימייל, תאריך הגעה ותאריך עזיבה.",
+      bookingNote:"מספר האורחים והתאריכים יועברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
+      missing:"יש להזין מספר אורחים, תאריך הגעה ותאריך עזיבה.",
       email:"יש להזין כתובת אימייל תקינה.",
       date:"תאריך העזיבה חייב להיות אחרי תאריך ההגעה.",
       minNights:"יש לבחור לפחות 2 לילות.",
@@ -3518,9 +3560,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
   function getForm(){ return document.getElementById("fh-standard-booking-form"); }
   function getStatus(){ return document.getElementById("fh-standard-booking-status"); }
-  function firstNameEl(){ return document.getElementById("fhFirstName"); }
-  function lastNameEl(){ return document.getElementById("fhLastName"); }
-  function emailEl(){ return document.getElementById("fhEmail"); }
+  function guestsEl(){ return document.getElementById("fhToolbarGuests"); }
   function arrivalEl(){ return document.getElementById("fhArrival"); }
   function departureEl(){ return document.getElementById("fhDeparture"); }
 
@@ -3561,15 +3601,13 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
   function getPayload(){
     return {
-      firstName:firstNameEl() ? firstNameEl().value.trim() : "",
-      lastName:lastNameEl() ? lastNameEl().value.trim() : "",
-      email:emailEl() ? emailEl().value.trim() : "",
+      guests:guestsEl() ? guestsEl().value.trim() : "",
       checkIn:arrivalEl() ? arrivalEl().value : "",
       checkOut:departureEl() ? departureEl().value : "",
       lang:bookingState.lang,
       language:bookingState.lang,
       source:"wedding-events",
-      pageSource:"fletschhorn-weddings-events-toolbar-schedule",
+      pageSource:"fletschhorn-weddings-events-isolated-toolbar",
       pageUrl:window.location.href,
       listingId:CFG.listingId,
       guestyListingId:CFG.listingId,
@@ -3910,14 +3948,10 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
   function goToBookingPage(){
     const payload=getPayload();
-    if(!payload.firstName || !payload.lastName || !payload.email || !payload.checkIn || !payload.checkOut){
+    if(!payload.guests || !payload.checkIn || !payload.checkOut){
       show(t("missing"),"error");
-      if(!payload.firstName && firstNameEl()) firstNameEl().focus();
-      return;
-    }
-    if(!validEmail(payload.email)){
-      show(t("email"),"error");
-      if(emailEl()) emailEl().focus();
+      if(!payload.guests && guestsEl()) guestsEl().focus();
+      else openToolbarCalendar();
       return;
     }
     if(payload.checkOut<=payload.checkIn){
@@ -3937,9 +3971,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     }
     persistToolbarStart();
     const next=new URL(CFG.bookingPageUrl,document.baseURI);
-    next.searchParams.set("firstName",payload.firstName);
-    next.searchParams.set("lastName",payload.lastName);
-    next.searchParams.set("email",payload.email);
+    next.searchParams.set("guests",payload.guests);
     next.searchParams.set("checkIn",payload.checkIn);
     next.searchParams.set("checkOut",payload.checkOut);
     next.searchParams.set("lang",payload.lang);
@@ -3953,14 +3985,17 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     const params=new URLSearchParams(window.location.search);
     let stored={};
     try{stored=JSON.parse(localStorage.getItem("fhBookingStart")||"{}");}catch(e){}
-    const map={firstName:firstNameEl(),lastName:lastNameEl(),email:emailEl(),checkIn:arrivalEl(),checkOut:departureEl()};
+    const map={guests:guestsEl(),checkIn:arrivalEl(),checkOut:departureEl()};
     Object.keys(map).forEach(function(key){
       const value=params.get(key) || stored[key] || "";
       if(value && map[key]) map[key].value=value;
     });
     updateToolbarDateText();
-    [firstNameEl(),lastNameEl(),emailEl()].forEach(function(el){
-      if(el) el.addEventListener("input",persistToolbarStart);
+    [guestsEl(),arrivalEl(),departureEl()].forEach(function(el){
+      if(el){
+        el.addEventListener("input",persistToolbarStart);
+        el.addEventListener("change",persistToolbarStart);
+      }
     });
     const openButton=document.getElementById("fhOpenToolbarCalendar");
     const close=document.getElementById("fhToolbarCloseCalendar");
@@ -3987,6 +4022,9 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       const link=event.target.closest("a[href], button[data-fh-booking-open], [data-booking-link]");
       if(!link) return;
       const href=(link.getAttribute("href")||"").trim();
+      const cleanHref=href.toLowerCase();
+      if(cleanHref.includes("booking.com")) return;
+
       const isBookingIntent=
         link.hasAttribute("data-fh-booking-open") ||
         link.hasAttribute("data-booking-link") ||
@@ -3995,8 +4033,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
         href==="#book" ||
         href==="#booking" ||
         href==="#fh-event-inquiry-bar" ||
-        href.includes("booking.html") ||
-        href.includes("contact-booking");
+        cleanHref.includes("booking.html") ||
+        cleanHref.includes("contact-booking");
       if(!isBookingIntent) return;
       const toolbar=document.getElementById("fh-event-inquiry-bar") || document.getElementById("fh-standard-booking-form");
       if(!toolbar) return;
