@@ -1155,19 +1155,13 @@
   <section class="fh-booking-toolbar-wrap" aria-label="Quick booking" id="booking">
     <div class="fh-booking-toolbar">
       <div class="fh-booking-form" id="fhBookingFields">
-        <div class="fh-field">
-          <label for="fhFirstName" data-i18n="fieldFirstName">First name</label>
-          <input id="fhFirstName" name="firstName" type="text" data-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name">
-        </div>
-
-        <div class="fh-field">
-          <label for="fhLastName" data-i18n="fieldLastName">Last name</label>
-          <input id="fhLastName" name="lastName" type="text" data-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name">
-        </div>
-
-        <div class="fh-field">
-          <label for="fhEmail" data-i18n="fieldEmail">Email</label>
-          <input id="fhEmail" name="email" type="email" data-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email">
+        <div class="fh-field fh-people-field">
+          <label for="fhGuests" data-i18n="fieldPeople">How many people</label>
+          <div class="fh-people-stepper">
+            <button type="button" id="fhGuestsMinus" aria-label="Fewer people">−</button>
+            <input id="fhGuests" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
+            <button type="button" id="fhGuestsPlus" aria-label="More people">+</button>
+          </div>
         </div>
 
         <div class="fh-field fh-date-field">
@@ -1184,7 +1178,7 @@
       </div>
 
       <div class="fh-booking-note" data-i18n="bookingNote">
-        Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.
+        Choose your group size and dates — then check availability, see the live price, and book right here.
       </div>
 
       <div class="fh-status" id="fhFormStatus" role="status" aria-live="polite"></div>
@@ -2178,7 +2172,7 @@
       calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",
       minNights:"Please select at least 2 nights.",
       bookNow:"Book my stay now",
-      bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
+      fieldPeople:"How many people",bookingNote:"Choose your group size and dates — then check availability, see the live price, and book right here.",
       missingFirstName:"Please enter your first name.",
       missingLastName:"Please enter your last name.",
       missingEmail:"Please enter your email.",
@@ -2205,7 +2199,7 @@
       calendarRangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles.",
       minNights:"Veuillez sélectionner au moins 2 nuits.",
       bookNow:"Réserver mon séjour",
-      bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
+      fieldPeople:"Combien de personnes",bookingNote:"Choisissez la taille de votre groupe et vos dates — vérifiez ensuite la disponibilité, voyez le prix en direct et réservez ici même.",
       missingFirstName:"Veuillez entrer votre prénom.",
       missingLastName:"Veuillez entrer votre nom.",
       missingEmail:"Veuillez entrer votre email.",
@@ -2232,7 +2226,7 @@
       calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.",
       minNights:"Bitte mindestens 2 Nächte auswählen.",
       bookNow:"Aufenthalt buchen",
-      bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
+      fieldPeople:"Wie viele Personen",bookingNote:"Wählen Sie Gruppengröße und Daten — prüfen Sie dann Verfügbarkeit und Live-Preis und buchen Sie direkt hier.",
       missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",
       missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",
       missingEmail:"Bitte geben Sie Ihre E-Mail ein.",
@@ -2259,7 +2253,7 @@
       calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны.",
       minNights:"Выберите минимум 2 ночи.",
       bookNow:"Забронировать",
-      bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
+      fieldPeople:"Сколько человек",bookingNote:"Выберите размер группы и даты — затем проверьте доступность, посмотрите цену и забронируйте прямо здесь.",
       missingFirstName:"Введите имя.",
       missingLastName:"Введите фамилию.",
       missingEmail:"Введите email.",
@@ -2288,7 +2282,7 @@
     calendarRangeUnavailable:"לילה אחד או יותר בטווח שנבחר אינו זמין. בחרו טווח אחר.",
     minNights:"בחרו לפחות 2 לילות.",
     bookNow:"הזמינו את השהייה",
-    bookingNote:"התחילו כאן. הפרטים שלכם יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הפנייה הסופית.",
+    fieldPeople:"כמה אנשים",bookingNote:"בחרו את גודל הקבוצה והתאריכים — לאחר מכן בדקו זמינות, ראו את המחיר וזמינו כאן.",
     missingFirstName:"נא להזין שם פרטי.",
     missingLastName:"נא להזין שם משפחה.",
     missingEmail:"נא להזין אימייל.",
@@ -2755,36 +2749,15 @@
     }
   }
 
+  function getToolbarPeople(){ const el = $("#fhGuests"); if(!el) return 2; return Math.min(48, Math.max(1, parseInt(el.value, 10) || 2)); }
   function goToBookingPage(){
     const payload = getBookingStartPayload();
-
     clearStatus();
-
-    if (!payload.firstName){
-      setStatus(t("missingFirstName"), "error");
-      $("#fhFirstName") && $("#fhFirstName").focus();
-      return;
-    }
-
-    if (!payload.lastName){
-      setStatus(t("missingLastName"), "error");
-      $("#fhLastName") && $("#fhLastName").focus();
-      return;
-    }
-
-    if (!payload.email){
-      setStatus(t("missingEmail"), "error");
-      $("#fhEmail") && $("#fhEmail").focus();
-      return;
-    }
-
-    if (!emailIsValid(payload.email)){
-      setStatus(t("invalidEmail"), "error");
-      $("#fhEmail") && $("#fhEmail").focus();
-      return;
-    }
+    const people = getToolbarPeople();
+    if (typeof window.FHSetBookingPeople === "function") window.FHSetBookingPeople(people);
 
     if (!payload.checkIn || !payload.checkOut){
+      if (typeof window.FHOpenCleanSchedule === "function"){ window.FHOpenCleanSchedule(); return; }
       setStatus(t("missingDates"), "error");
       openToolbarCalendar();
       return;
@@ -2807,24 +2780,19 @@
     try { localStorage.setItem("fhBookingStart", JSON.stringify(payload)); }
     catch(error) { console.warn("Could not save booking start data.", error); }
 
-    const params = new URLSearchParams();
-    params.set("firstName", payload.firstName);
-    params.set("lastName", payload.lastName);
-    params.set("email", payload.email);
-    params.set("checkIn", payload.checkIn);
-    params.set("checkOut", payload.checkOut);
-    params.set("lang", payload.language);
-    params.set("source", "homepage");
-
-    setStatus(t("redirecting"), "success");
-
-    const btn = $("#fhBookNowBtn");
-    if (btn){
-      btn.disabled = true;
-      btn.dataset.oldText = btn.textContent;
-      btn.textContent = t("redirecting");
+    // Open the booking pop-up right here — no detour to the booking page.
+    if (typeof window.FHOpenBookingPopup === "function"){
+      window.FHOpenBookingPopup({ checkIn: payload.checkIn, checkOut: payload.checkOut, people: people });
+      return;
     }
 
+    const params = new URLSearchParams();
+    params.set("checkIn", payload.checkIn);
+    params.set("checkOut", payload.checkOut);
+    params.set("guests", String(people));
+    params.set("lang", payload.language);
+    params.set("source", "about");
+    setStatus(t("redirecting"), "success");
     window.location.href = CFG.bookingPageUrl + "?" + params.toString();
   }
 
@@ -4284,19 +4252,13 @@
   <section class="fh-booking-toolbar-wrap" aria-label="Quick booking" id="booking">
     <div class="fh-booking-toolbar">
       <div class="fh-booking-form" id="fhBookingFields">
-        <div class="fh-field">
-          <label for="fhFirstName" data-i18n="fieldFirstName">First name</label>
-          <input id="fhFirstName" name="firstName" type="text" data-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name">
-        </div>
-
-        <div class="fh-field">
-          <label for="fhLastName" data-i18n="fieldLastName">Last name</label>
-          <input id="fhLastName" name="lastName" type="text" data-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name">
-        </div>
-
-        <div class="fh-field">
-          <label for="fhEmail" data-i18n="fieldEmail">Email</label>
-          <input id="fhEmail" name="email" type="email" data-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email">
+        <div class="fh-field fh-people-field">
+          <label for="fhGuests" data-i18n="fieldPeople">How many people</label>
+          <div class="fh-people-stepper">
+            <button type="button" id="fhGuestsMinus" aria-label="Fewer people">−</button>
+            <input id="fhGuests" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
+            <button type="button" id="fhGuestsPlus" aria-label="More people">+</button>
+          </div>
         </div>
 
         <div class="fh-field fh-date-field">
@@ -4313,7 +4275,7 @@
       </div>
 
       <div class="fh-booking-note" data-i18n="bookingNote">
-        Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.
+        Choose your group size and dates — then check availability, see the live price, and book right here.
       </div>
 
       <div class="fh-status" id="fhFormStatus" role="status" aria-live="polite"></div>
@@ -5307,7 +5269,7 @@
       calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",
       minNights:"Please select at least 2 nights.",
       bookNow:"Book my stay now",
-      bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
+      fieldPeople:"How many people",bookingNote:"Choose your group size and dates — then check availability, see the live price, and book right here.",
       missingFirstName:"Please enter your first name.",
       missingLastName:"Please enter your last name.",
       missingEmail:"Please enter your email.",
@@ -5334,7 +5296,7 @@
       calendarRangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles.",
       minNights:"Veuillez sélectionner au moins 2 nuits.",
       bookNow:"Réserver mon séjour",
-      bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
+      fieldPeople:"Combien de personnes",bookingNote:"Choisissez la taille de votre groupe et vos dates — vérifiez ensuite la disponibilité, voyez le prix en direct et réservez ici même.",
       missingFirstName:"Veuillez entrer votre prénom.",
       missingLastName:"Veuillez entrer votre nom.",
       missingEmail:"Veuillez entrer votre email.",
@@ -5361,7 +5323,7 @@
       calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.",
       minNights:"Bitte mindestens 2 Nächte auswählen.",
       bookNow:"Aufenthalt buchen",
-      bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
+      fieldPeople:"Wie viele Personen",bookingNote:"Wählen Sie Gruppengröße und Daten — prüfen Sie dann Verfügbarkeit und Live-Preis und buchen Sie direkt hier.",
       missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",
       missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",
       missingEmail:"Bitte geben Sie Ihre E-Mail ein.",
@@ -5388,7 +5350,7 @@
       calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны.",
       minNights:"Выберите минимум 2 ночи.",
       bookNow:"Забронировать",
-      bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
+      fieldPeople:"Сколько человек",bookingNote:"Выберите размер группы и даты — затем проверьте доступность, посмотрите цену и забронируйте прямо здесь.",
       missingFirstName:"Введите имя.",
       missingLastName:"Введите фамилию.",
       missingEmail:"Введите email.",
@@ -5417,7 +5379,7 @@
     calendarRangeUnavailable:"לילה אחד או יותר בטווח שנבחר אינו זמין. בחרו טווח אחר.",
     minNights:"בחרו לפחות 2 לילות.",
     bookNow:"הזמינו את השהייה",
-    bookingNote:"התחילו כאן. הפרטים שלכם יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הפנייה הסופית.",
+    fieldPeople:"כמה אנשים",bookingNote:"בחרו את גודל הקבוצה והתאריכים — לאחר מכן בדקו זמינות, ראו את המחיר וזמינו כאן.",
     missingFirstName:"נא להזין שם פרטי.",
     missingLastName:"נא להזין שם משפחה.",
     missingEmail:"נא להזין אימייל.",
@@ -5884,36 +5846,15 @@
     }
   }
 
+  function getToolbarPeople(){ const el = $("#fhGuests"); if(!el) return 2; return Math.min(48, Math.max(1, parseInt(el.value, 10) || 2)); }
   function goToBookingPage(){
     const payload = getBookingStartPayload();
-
     clearStatus();
-
-    if (!payload.firstName){
-      setStatus(t("missingFirstName"), "error");
-      $("#fhFirstName") && $("#fhFirstName").focus();
-      return;
-    }
-
-    if (!payload.lastName){
-      setStatus(t("missingLastName"), "error");
-      $("#fhLastName") && $("#fhLastName").focus();
-      return;
-    }
-
-    if (!payload.email){
-      setStatus(t("missingEmail"), "error");
-      $("#fhEmail") && $("#fhEmail").focus();
-      return;
-    }
-
-    if (!emailIsValid(payload.email)){
-      setStatus(t("invalidEmail"), "error");
-      $("#fhEmail") && $("#fhEmail").focus();
-      return;
-    }
+    const people = getToolbarPeople();
+    if (typeof window.FHSetBookingPeople === "function") window.FHSetBookingPeople(people);
 
     if (!payload.checkIn || !payload.checkOut){
+      if (typeof window.FHOpenCleanSchedule === "function"){ window.FHOpenCleanSchedule(); return; }
       setStatus(t("missingDates"), "error");
       openToolbarCalendar();
       return;
@@ -5936,24 +5877,19 @@
     try { localStorage.setItem("fhBookingStart", JSON.stringify(payload)); }
     catch(error) { console.warn("Could not save booking start data.", error); }
 
-    const params = new URLSearchParams();
-    params.set("firstName", payload.firstName);
-    params.set("lastName", payload.lastName);
-    params.set("email", payload.email);
-    params.set("checkIn", payload.checkIn);
-    params.set("checkOut", payload.checkOut);
-    params.set("lang", payload.language);
-    params.set("source", "homepage");
-
-    setStatus(t("redirecting"), "success");
-
-    const btn = $("#fhBookNowBtn");
-    if (btn){
-      btn.disabled = true;
-      btn.dataset.oldText = btn.textContent;
-      btn.textContent = t("redirecting");
+    // Open the booking pop-up right here — no detour to the booking page.
+    if (typeof window.FHOpenBookingPopup === "function"){
+      window.FHOpenBookingPopup({ checkIn: payload.checkIn, checkOut: payload.checkOut, people: people });
+      return;
     }
 
+    const params = new URLSearchParams();
+    params.set("checkIn", payload.checkIn);
+    params.set("checkOut", payload.checkOut);
+    params.set("guests", String(people));
+    params.set("lang", payload.language);
+    params.set("source", "about");
+    setStatus(t("redirecting"), "success");
     window.location.href = CFG.bookingPageUrl + "?" + params.toString();
   }
 
@@ -6765,5 +6701,28 @@
   setTimeout(bootPatch, 120);
   setTimeout(bootPatch, 600);
   setTimeout(bootPatch, 1400);
+})();
+</script>
+
+
+<style>
+  #fh-about .fh-people-field .fh-people-stepper{display:inline-flex;align-items:center;border:1px solid rgba(26,23,20,.22);border-radius:12px;overflow:hidden;background:#fff;height:46px;}
+  #fh-about .fh-people-stepper button{width:44px;height:100%;border:0;background:transparent;font-size:1.3rem;line-height:1;cursor:pointer;color:inherit;}
+  #fh-about .fh-people-stepper button:hover{background:rgba(26,23,20,.06);}
+  #fh-about .fh-people-stepper input{width:54px;height:100%;border:0;border-left:1px solid rgba(26,23,20,.14);border-right:1px solid rgba(26,23,20,.14);text-align:center;font-size:1rem;background:transparent;-moz-appearance:textfield;appearance:textfield;}
+  #fh-about .fh-people-stepper input::-webkit-outer-spin-button,#fh-about .fh-people-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+</style>
+<script>
+(function(){
+  function clamp(n){ return Math.min(48, Math.max(1, parseInt(n,10)||2)); }
+  document.querySelectorAll('.fh-people-stepper').forEach(function(stepper){
+    var input = stepper.querySelector('input');
+    var minus = stepper.querySelector('[id$="Minus"]');
+    var plus = stepper.querySelector('[id$="Plus"]');
+    function sync(){ if(input){ input.value = clamp(input.value); if(window.FHSetBookingPeople) window.FHSetBookingPeople(input.value); } }
+    if(minus) minus.addEventListener('click', function(){ if(input) input.value = clamp(input.value)-1; sync(); });
+    if(plus) plus.addEventListener('click', function(){ if(input) input.value = clamp(input.value)+1; sync(); });
+    if(input) input.addEventListener('change', sync);
+  });
 })();
 </script>
