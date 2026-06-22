@@ -1476,6 +1476,26 @@
   const exts=["jpg","jpeg","png","webp"];
   const fallback=["data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="];
 
+  // Explicit Guesty image sets requested for the Property page.
+  // Hero uses only these three images; Kitchen carousel uses only the kitchen set.
+  const GUESTY_HERO_IMAGES = [
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_2200/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg",
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_2200/v1769382070/production/686c48ada4bbacd7a82a4f83/zs0mhl3cjpiebf41tf7l.jpg",
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_2200/v1769382057/production/686c48ada4bbacd7a82a4f83/nww8q4ksbnfcpgzqdvbo.jpg"
+  ];
+
+  const GUESTY_KITCHEN_IMAGES = [
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188827/production/686c48ada4bbacd7a82a4f83/by5e62eed9fomtsgwmcv.jpg",
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188827/production/686c48ada4bbacd7a82a4f83/ik84e4ah5nii8v6enxqu.jpg",
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188827/production/686c48ada4bbacd7a82a4f83/lhvcpue7hssvx7p5vr01.jpg",
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188827/production/686c48ada4bbacd7a82a4f83/g1mjadqx0kelu9baqgyk.jpg",
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188837/production/686c48ada4bbacd7a82a4f83/wbkjqrvy0snd580tpy4g.jpg",
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188837/production/686c48ada4bbacd7a82a4f83/mrrc9wco6gapqrgfjn8s.jpg",
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188827/production/686c48ada4bbacd7a82a4f83/l5xqmzmbssdc9hgboxzc.jpg",
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188837/production/686c48ada4bbacd7a82a4f83/tnlxetxfx48lou2dpaa1.jpg",
+    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188837/production/686c48ada4bbacd7a82a4f83/gc4zujui1h3mdh2zrmey.jpg"
+  ];
+
   function buildNames(base,max){
     const names=[];
     for(let i=0;i<=max;i++) exts.forEach(ext=>names.push(i===0 ? `${base}.${ext}` : `${base} (${i}).${ext}`));
@@ -1510,7 +1530,7 @@
     return rotateList([imgAt(exterior,0),imgAt(inside,1),imgAt(sauna,2),imgAt(mountain,3),imgAt(prop,4),imgAt(inside,5)],1);
   }
   let lang="en", heroIndex=0, heroTimer=null;
-  let propertyUrls=[], shuttleUrls=[], kitchenUrls=imagekitKitchenUrls.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
+  let propertyUrls=[], shuttleUrls=[], kitchenUrls=GUESTY_KITCHEN_IMAGES.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
   const WORKER_IMAGE_BASE="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
   const WORKER_LISTING_ID="6968339ab7d735001ca015ba";
 
@@ -1609,7 +1629,7 @@
       workerRandomUrls=urls;
       propertyUrls=rotateList(urls,0);
       insideUrls=rotateList(urls,3);
-      kitchenUrls=rotateList(urls,6);
+      kitchenUrls=GUESTY_KITCHEN_IMAGES.slice();
       privateSaunaUrls=rotateList(urls,9);
       groupUrls=rotateList(urls,12);
       exteriorUrls=rotateList(urls,15);
@@ -1786,7 +1806,7 @@
     qsa("[data-kitchen-main]").forEach((el)=>setImg(el,next()));
     qsa("[data-kitchen-img]").forEach((el)=>setImg(el,next()));
     const cta=qs(".fh-cta"); if(cta) cta.style.setProperty("--cta-bg",`url('${imgAt(exterior,0)}')`);
-    buildHeroSlides(rotateList(all,4).slice(0,Math.min(12,all.length))); startHero();
+    buildHeroSlides(GUESTY_HERO_IMAGES); startHero();
   }
   function galleryCard(url,small,cap){return `<article class="fh-gallery-card${small?' small':''}"><img src="${url}" alt="Fletschhorn" loading="lazy"><div class="fh-gallery-caption"><small>${cap[0]}</small><strong>${cap[1]}</strong></div></article>`;}
   function buildGallery(railId,images,captions){
@@ -1815,7 +1835,7 @@
     try{localStorage.setItem("fh_lang",lang);localStorage.setItem("fh_language",lang);localStorage.setItem("fhLang",lang);}catch(e){}
     root.setAttribute("dir",lang==="he"?"rtl":"ltr");
     document.documentElement.setAttribute("dir",lang==="he"?"rtl":"ltr");
-    applyStaticTranslations(); buildDynamic(); buildHeroSlides(rotateList(workerRandomUrls.length?workerRandomUrls:(propertyUrls.length?propertyUrls:fallback),5)); startHero();
+    applyStaticTranslations(); buildDynamic(); buildHeroSlides(GUESTY_HERO_IMAGES); startHero();
   }
   window.FHSetLanguage=function(next){ setLanguage(next); };
   function bindGalleryButtons(){
