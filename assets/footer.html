@@ -43,37 +43,6 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
     }
   ];
 
-  /* Guest ratings shown site-wide. Fill in your real score (and review URL)
-     for each platform — any row with an empty "score" is hidden, so nothing
-     is ever invented. */
-  const FH_RATINGS = [
-    { source:"Tripadvisor", score:"5.0", url:"https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html" },
-    { source:"Google",      score:"",    url:"" },
-    { source:"Airbnb",      score:"",    url:"" },
-    { source:"Booking.com", score:"",    url:"" }
-  ];
-
-  function makeTrustBar(){
-    const chips = FH_RATINGS.filter(function(r){ return r.score; }).map(function(r){
-      const inner = '<span class="fh-trust-star" aria-hidden="true">★</span>' +
-                    '<span class="fh-trust-score">' + r.score + '</span>' +
-                    '<span class="fh-trust-src">' + r.source + '</span>';
-      return r.url
-        ? '<a class="fh-trust-chip" href="' + r.url + '" target="_blank" rel="noopener noreferrer" aria-label="' + r.source + ' rating ' + r.score + '">' + inner + '</a>'
-        : '<span class="fh-trust-chip">' + inner + '</span>';
-    }).join("");
-    return '' +
-      '<div class="fh-trust-bar" aria-label="Guest ratings and direct-booking benefit">' +
-        '<div class="fh-trust-ratings">' +
-          '<span class="fh-trust-lead">Trusted by our guests</span>' + chips +
-        '</div>' +
-        '<div class="fh-trust-direct">' +
-          '<strong>Book direct — best price.</strong>' +
-          '<span>No Airbnb or Booking.com fees. The lowest rate comes straight from us.</span>' +
-        '</div>' +
-      '</div>';
-  }
-
   function makeFooter(){
     const links = FH_FOOTER_PAGES.map(page => `
       <a href="${page.href}">${page.label}</a>
@@ -86,8 +55,6 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
     return `
       <footer class="fh-global-footer" id="fhGlobalFooter">
         <div class="fh-footer-shell">
-
-          ${makeTrustBar()}
 
           <div class="fh-footer-topline"></div>
 
@@ -219,32 +186,6 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
   z-index:2;
   max-width:1320px;
   margin:0 auto;
-}
-
-.fh-trust-bar{
-  position:relative;
-  z-index:2;
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px 24px;
-  padding:20px 0 22px;
-  margin-bottom:6px;
-  border-bottom:1px solid rgba(20,21,24,.1);
-}
-.fh-trust-ratings{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
-.fh-trust-lead{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:rgba(23,24,25,.55);margin-right:4px}
-.fh-trust-chip{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid rgba(20,21,24,.14);background:rgba(255,255,255,.62);border-radius:999px;text-decoration:none;color:#171819;font-size:13px;line-height:1}
-a.fh-trust-chip:hover{background:#fff;border-color:rgba(135,110,88,.5)}
-.fh-trust-star{color:#b8862f;font-size:14px;line-height:1}
-.fh-trust-score{font-weight:850}
-.fh-trust-src{color:rgba(23,24,25,.58);font-size:12px}
-.fh-trust-direct{display:flex;flex-direction:column;gap:2px;max-width:380px}
-.fh-trust-direct strong{color:#22392f;font-size:13px;font-weight:850}
-.fh-trust-direct span{color:rgba(23,24,25,.6);font-size:12px;line-height:1.4}
-@media(max-width:760px){
-  .fh-trust-bar{flex-direction:column;align-items:flex-start;gap:12px;padding:16px 0 18px}
 }
 
 .fh-footer-topline{
