@@ -1126,6 +1126,83 @@
 </style>
 
 
+
+
+<style id="fh-room-card-placeholder-removal-fix">
+/* FINAL FIX: room cards stay text-only. Remove the empty image/placeholder block and the floor pill. */
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card{
+  min-height:0!important;
+  height:auto!important;
+  padding:22px!important;
+  gap:0!important;
+  background:rgba(255,250,243,.90)!important;
+  background-image:none!important;
+  border:1px solid rgba(25,23,20,.12)!important;
+  box-shadow:0 14px 38px rgba(22,19,16,.10)!important;
+}
+
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card::before,
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card::after{
+  display:none!important;
+  content:none!important;
+}
+
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="visual"],
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="media"],
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="cover"],
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="placeholder"],
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="thumb"],
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="image"],
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="photo"],
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card img,
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card picture,
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card figure{
+  display:none!important;
+  visibility:hidden!important;
+  width:0!important;
+  height:0!important;
+  min-height:0!important;
+  max-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+}
+
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="floor"],
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="badge"]{
+  display:none!important;
+}
+
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card .fh-room-topline{
+  display:block!important;
+  margin:0 0 12px!important;
+  color:rgba(25,23,20,.58)!important;
+  font-size:11px!important;
+  font-weight:900!important;
+  letter-spacing:.17em!important;
+  line-height:1.35!important;
+  text-transform:uppercase!important;
+}
+
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card h3,
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card h4{
+  margin-top:0!important;
+  margin-bottom:18px!important;
+}
+
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card dl,
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="meta"],
+#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="details"]{
+  margin-top:0!important;
+}
+
+@media(max-width:640px){
+  #fh-property #sleeping-layout #fhRoomCards .fh-room-card{
+    padding:20px!important;
+    flex-basis:84vw!important;
+  }
+}
+</style>
 </head>
 <body>
   <div id="fh-header-slot"></div>
@@ -2065,5 +2142,101 @@
 </script>
 
 
+
+
+<script id="fh-room-card-remove-placeholder-script">
+(function(){
+  "use strict";
+
+  function cleanText(value){
+    return String(value || "").replace(/\s+/g, " ").trim();
+  }
+
+  function findText(card, regex){
+    var found = "";
+    Array.prototype.some.call(card.querySelectorAll("small, span, b, strong, em, div, p"), function(el){
+      var text = cleanText(el.textContent);
+      if(text && regex.test(text)){
+        found = text;
+        return true;
+      }
+      return false;
+    });
+    return found;
+  }
+
+  function removePlaceholderBlocks(card){
+    card.querySelectorAll("img, picture, figure").forEach(function(el){ el.remove(); });
+
+    card.querySelectorAll('[class*="visual"], [class*="media"], [class*="cover"], [class*="placeholder"], [class*="thumb"], [class*="image"], [class*="photo"]').forEach(function(el){
+      if(el.closest("#layoutCarousel")) return;
+      if(el.closest("button, a")) return;
+      el.remove();
+    });
+
+    Array.prototype.slice.call(card.children).forEach(function(el){
+      var text = cleanText(el.textContent);
+      var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : {height:0};
+      var cls = String(el.className || "").toLowerCase();
+      if(!text && (rect.height > 40 || /blank|empty|placeholder|visual|media|cover/i.test(cls))){
+        el.remove();
+      }
+    });
+
+    card.style.backgroundImage = "none";
+  }
+
+  function normalizeRoomCards(){
+    document.querySelectorAll("#fhRoomCards .fh-room-card").forEach(function(card){
+      removePlaceholderBlocks(card);
+
+      var roomText = findText(card, /\broom\s*\d+/i);
+      var floorText = findText(card, /\b(ground|first|second|third|fourth|lower|upper|garden|attic)\s+floor\b|\bfloor\s+\d+\b/i);
+
+      card.querySelectorAll('[class*="floor"], [class*="badge"]').forEach(function(el){
+        var text = cleanText(el.textContent);
+        if(/floor|ground|first|second|third|fourth|lower|upper|garden|attic/i.test(text)){
+          el.remove();
+        }
+      });
+
+      var topline = card.querySelector(".fh-room-topline");
+      if(!topline){
+        topline = document.createElement("div");
+        topline.className = "fh-room-topline";
+        var title = card.querySelector("h3, h4");
+        if(title) card.insertBefore(topline, title);
+        else card.insertBefore(topline, card.firstChild);
+      }
+
+      var parts = [];
+      if(roomText) parts.push(roomText.toUpperCase());
+      if(floorText) parts.push(floorText);
+      topline.textContent = parts.length ? parts.join(" · ") : "Room layout";
+
+      /* Remove duplicate room-number labels if the new top line already contains them. */
+      card.querySelectorAll("small, span, b, strong").forEach(function(el){
+        if(el === topline || topline.contains(el)) return;
+        var text = cleanText(el.textContent);
+        if(roomText && text.toLowerCase() === roomText.toLowerCase()) el.remove();
+      });
+    });
+  }
+
+  function boot(){ normalizeRoomCards(); }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+  window.addEventListener("load", boot);
+  setTimeout(boot, 200);
+  setTimeout(boot, 800);
+  setTimeout(boot, 1800);
+
+  var observer = new MutationObserver(function(){
+    window.clearTimeout(window.__fhRoomPlaceholderCleanupTimer);
+    window.__fhRoomPlaceholderCleanupTimer = window.setTimeout(boot, 80);
+  });
+  observer.observe(document.documentElement, { childList:true, subtree:true });
+})();
+</script>
 </body>
 </html>
