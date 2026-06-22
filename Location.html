@@ -486,21 +486,22 @@
             <a href="mailto:welcome@fletschhorn.ch"><span data-i18n="contactEmailLabel">Email</span><strong>welcome@fletschhorn.ch</strong></a>
           </div>
 
+          <style>
+            #fh-location .fh-people-field .fh-people-stepper{display:inline-flex;align-items:center;border:1px solid rgba(20,21,24,.18);border-radius:12px;overflow:hidden;background:#fff;height:46px;}
+            #fh-location .fh-people-stepper button{width:44px;height:100%;border:0;background:transparent;font-size:1.3rem;line-height:1;cursor:pointer;color:inherit;}
+            #fh-location .fh-people-stepper button:hover{background:rgba(20,21,24,.06);}
+            #fh-location .fh-people-stepper input{width:54px;height:100%;border:0;border-left:1px solid rgba(20,21,24,.12);border-right:1px solid rgba(20,21,24,.12);text-align:center;font-size:1rem;background:transparent;-moz-appearance:textfield;appearance:textfield;}
+            #fh-location .fh-people-stepper input::-webkit-outer-spin-button,#fh-location .fh-people-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+          </style>
           <div class="fh-index-booking fh-reveal pre" id="booking">
             <div class="fh-index-booking-form" id="fhBookingFields">
-              <div class="fh-index-field">
-                <label for="fhFirstName" data-booking-i18n="fieldFirstName">First name</label>
-                <input id="fhFirstName" name="firstName" type="text" data-booking-i18n-placeholder="fieldFirstNamePh" placeholder="First name" autocomplete="given-name">
-              </div>
-
-              <div class="fh-index-field">
-                <label for="fhLastName" data-booking-i18n="fieldLastName">Last name</label>
-                <input id="fhLastName" name="lastName" type="text" data-booking-i18n-placeholder="fieldLastNamePh" placeholder="Last name" autocomplete="family-name">
-              </div>
-
-              <div class="fh-index-field">
-                <label for="fhEmail" data-booking-i18n="fieldEmail">Email</label>
-                <input id="fhEmail" name="email" type="email" data-booking-i18n-placeholder="fieldEmailPh" placeholder="email@example.com" autocomplete="email">
+              <div class="fh-index-field fh-people-field">
+                <label for="fhGuests" data-booking-i18n="fieldPeople">How many people</label>
+                <div class="fh-people-stepper">
+                  <button type="button" id="fhGuestsMinus" aria-label="Fewer people">−</button>
+                  <input id="fhGuests" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
+                  <button type="button" id="fhGuestsPlus" aria-label="More people">+</button>
+                </div>
               </div>
 
               <div class="fh-index-field fh-date-field">
@@ -517,7 +518,7 @@
             </div>
 
             <div class="fh-index-booking-note" data-booking-i18n="bookingNote">
-              Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.
+              Choose your group size and dates — then check availability, see the live price, and book right here.
             </div>
 
             <div class="fh-index-status" id="fhFormStatus" role="status" aria-live="polite"></div>
@@ -939,13 +940,13 @@
   const ENDPOINTS = { calendarMonthPrices:"/calendar" };
 
   const bookingCopy={
-    en:{fieldFirstName:"First name",fieldFirstNamePh:"First name",fieldLastName:"Last name",fieldLastNamePh:"Last name",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Dates",fieldDatesPh:"Select arrival and departure",openCalendar:"Open calendar",calendarKicker:"Select dates",calendarHelp:"Choose your arrival date, then your departure date.",calendarMinWarning:"Please select at least 2 nights.",selectDeparture:"Select departure",alreadyBooked:"Booked",calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",minNights:"Please select at least 2 nights.",bookNow:"Book my stay now",bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",missingFirstName:"Please enter your first name.",missingLastName:"Please enter your last name.",missingEmail:"Please enter your email.",invalidEmail:"Please enter a valid email address.",missingDates:"Please choose arrival and departure dates.",badDates:"Departure must be after arrival.",redirecting:"Opening booking…"},
-    fr:{fieldFirstName:"Prénom",fieldFirstNamePh:"Prénom",fieldLastName:"Nom",fieldLastNamePh:"Nom",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Dates",fieldDatesPh:"Sélectionnez l’arrivée et le départ",openCalendar:"Ouvrir le calendrier",calendarKicker:"Sélectionner les dates",calendarHelp:"Choisissez votre arrivée, puis votre départ.",calendarMinWarning:"Veuillez sélectionner au moins 2 nuits.",selectDeparture:"Choisir le départ",alreadyBooked:"Réservé",calendarRangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles.",minNights:"Veuillez sélectionner au moins 2 nuits.",bookNow:"Réserver mon séjour",bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",missingFirstName:"Veuillez entrer votre prénom.",missingLastName:"Veuillez entrer votre nom.",missingEmail:"Veuillez entrer votre email.",invalidEmail:"Veuillez entrer un email valide.",missingDates:"Veuillez choisir les dates d’arrivée et de départ.",badDates:"La date de départ doit être après l’arrivée.",redirecting:"Ouverture de la réservation…"},
-    de:{fieldFirstName:"Vorname",fieldFirstNamePh:"Vorname",fieldLastName:"Nachname",fieldLastNamePh:"Nachname",fieldEmail:"E-Mail",fieldEmailPh:"email@example.com",fieldDates:"Daten",fieldDatesPh:"Anreise und Abreise auswählen",openCalendar:"Kalender öffnen",calendarKicker:"Daten auswählen",calendarHelp:"Wählen Sie zuerst die Anreise, dann die Abreise.",calendarMinWarning:"Bitte mindestens 2 Nächte auswählen.",selectDeparture:"Abreise auswählen",alreadyBooked:"Gebucht",calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.",minNights:"Bitte mindestens 2 Nächte auswählen.",bookNow:"Aufenthalt buchen",bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",missingEmail:"Bitte geben Sie Ihre E-Mail ein.",invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",missingDates:"Bitte wählen Sie Anreise- und Abreisedatum.",badDates:"Die Abreise muss nach der Anreise liegen.",redirecting:"Buchung wird geöffnet…"},
-    ru:{fieldFirstName:"Имя",fieldFirstNamePh:"Имя",fieldLastName:"Фамилия",fieldLastNamePh:"Фамилия",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Даты",fieldDatesPh:"Выберите заезд и выезд",openCalendar:"Открыть календарь",calendarKicker:"Выберите даты",calendarHelp:"Сначала выберите дату заезда, затем дату выезда.",calendarMinWarning:"Выберите минимум 2 ночи.",selectDeparture:"Выбрать выезд",alreadyBooked:"Занято",calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны.",minNights:"Выберите минимум 2 ночи.",bookNow:"Забронировать",bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",missingFirstName:"Введите имя.",missingLastName:"Введите фамилию.",missingEmail:"Введите email.",invalidEmail:"Введите корректный email.",missingDates:"Выберите даты заезда и выезда.",badDates:"Дата выезда должна быть после даты заезда.",redirecting:"Открываем бронирование…"}
+    en:{fieldFirstName:"First name",fieldFirstNamePh:"First name",fieldLastName:"Last name",fieldLastNamePh:"Last name",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Dates",fieldDatesPh:"Select arrival and departure",openCalendar:"Open calendar",calendarKicker:"Select dates",calendarHelp:"Choose your arrival date, then your departure date.",calendarMinWarning:"Please select at least 2 nights.",selectDeparture:"Select departure",alreadyBooked:"Booked",calendarRangeUnavailable:"One or more selected nights is unavailable. Please choose another range.",minNights:"Please select at least 2 nights.",bookNow:"Book my stay now",fieldPeople:"How many people",bookingNote:"Choose your group size and dates — then check availability, see the live price, and book right here.",missingFirstName:"Please enter your first name.",missingLastName:"Please enter your last name.",missingEmail:"Please enter your email.",invalidEmail:"Please enter a valid email address.",missingDates:"Please choose arrival and departure dates.",badDates:"Departure must be after arrival.",redirecting:"Opening booking…"},
+    fr:{fieldFirstName:"Prénom",fieldFirstNamePh:"Prénom",fieldLastName:"Nom",fieldLastNamePh:"Nom",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Dates",fieldDatesPh:"Sélectionnez l’arrivée et le départ",openCalendar:"Ouvrir le calendrier",calendarKicker:"Sélectionner les dates",calendarHelp:"Choisissez votre arrivée, puis votre départ.",calendarMinWarning:"Veuillez sélectionner au moins 2 nuits.",selectDeparture:"Choisir le départ",alreadyBooked:"Réservé",calendarRangeUnavailable:"Une ou plusieurs nuits sélectionnées ne sont pas disponibles.",minNights:"Veuillez sélectionner au moins 2 nuits.",bookNow:"Réserver mon séjour",fieldPeople:"Combien de personnes",bookingNote:"Choisissez la taille de votre groupe et vos dates — vérifiez ensuite la disponibilité, voyez le prix en direct et réservez ici même.",missingFirstName:"Veuillez entrer votre prénom.",missingLastName:"Veuillez entrer votre nom.",missingEmail:"Veuillez entrer votre email.",invalidEmail:"Veuillez entrer un email valide.",missingDates:"Veuillez choisir les dates d’arrivée et de départ.",badDates:"La date de départ doit être après l’arrivée.",redirecting:"Ouverture de la réservation…"},
+    de:{fieldFirstName:"Vorname",fieldFirstNamePh:"Vorname",fieldLastName:"Nachname",fieldLastNamePh:"Nachname",fieldEmail:"E-Mail",fieldEmailPh:"email@example.com",fieldDates:"Daten",fieldDatesPh:"Anreise und Abreise auswählen",openCalendar:"Kalender öffnen",calendarKicker:"Daten auswählen",calendarHelp:"Wählen Sie zuerst die Anreise, dann die Abreise.",calendarMinWarning:"Bitte mindestens 2 Nächte auswählen.",selectDeparture:"Abreise auswählen",alreadyBooked:"Gebucht",calendarRangeUnavailable:"Eine oder mehrere ausgewählte Nächte sind nicht verfügbar.",minNights:"Bitte mindestens 2 Nächte auswählen.",bookNow:"Aufenthalt buchen",fieldPeople:"Wie viele Personen",bookingNote:"Wählen Sie Gruppengröße und Daten — prüfen Sie dann Verfügbarkeit und Live-Preis und buchen Sie direkt hier.",missingFirstName:"Bitte geben Sie Ihren Vornamen ein.",missingLastName:"Bitte geben Sie Ihren Nachnamen ein.",missingEmail:"Bitte geben Sie Ihre E-Mail ein.",invalidEmail:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",missingDates:"Bitte wählen Sie Anreise- und Abreisedatum.",badDates:"Die Abreise muss nach der Anreise liegen.",redirecting:"Buchung wird geöffnet…"},
+    ru:{fieldFirstName:"Имя",fieldFirstNamePh:"Имя",fieldLastName:"Фамилия",fieldLastNamePh:"Фамилия",fieldEmail:"Email",fieldEmailPh:"email@example.com",fieldDates:"Даты",fieldDatesPh:"Выберите заезд и выезд",openCalendar:"Открыть календарь",calendarKicker:"Выберите даты",calendarHelp:"Сначала выберите дату заезда, затем дату выезда.",calendarMinWarning:"Выберите минимум 2 ночи.",selectDeparture:"Выбрать выезд",alreadyBooked:"Занято",calendarRangeUnavailable:"Одна или несколько выбранных ночей недоступны.",minNights:"Выберите минимум 2 ночи.",bookNow:"Забронировать",fieldPeople:"Сколько человек",bookingNote:"Выберите размер группы и даты — затем проверьте доступность, посмотрите цену и забронируйте прямо здесь.",missingFirstName:"Введите имя.",missingLastName:"Введите фамилию.",missingEmail:"Введите email.",invalidEmail:"Введите корректный email.",missingDates:"Выберите даты заезда и выезда.",badDates:"Дата выезда должна быть после даты заезда.",redirecting:"Открываем бронирование…"}
   };
 
-  bookingCopy.he={"fieldFirstName": "שם פרטי", "fieldFirstNamePh": "שם פרטי", "fieldLastName": "שם משפחה", "fieldLastNamePh": "שם משפחה", "fieldEmail": "אימייל", "fieldEmailPh": "email@example.com", "fieldDates": "תאריכים", "fieldDatesPh": "בחרו הגעה ועזיבה", "openCalendar": "פתיחת לוח שנה", "calendarKicker": "בחירת תאריכים", "calendarHelp": "בחרו תאריך הגעה ואז תאריך עזיבה.", "calendarMinWarning": "נא לבחור לפחות 2 לילות.", "selectDeparture": "בחרו עזיבה", "alreadyBooked": "תפוס", "calendarRangeUnavailable": "לילה אחד או יותר בטווח שבחרתם אינו זמין. אנא בחרו טווח אחר.", "minNights": "נא לבחור לפחות 2 לילות.", "bookNow": "להזמין את השהייה", "bookingNote": "התחילו כאן. הפרטים יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.", "missingFirstName": "נא להזין שם פרטי.", "missingLastName": "נא להזין שם משפחה.", "missingEmail": "נא להזין אימייל.", "invalidEmail": "נא להזין כתובת אימייל תקינה.", "missingDates": "נא לבחור תאריכי הגעה ועזיבה.", "badDates": "תאריך העזיבה חייב להיות אחרי תאריך ההגעה.", "redirecting": "פותחים את ההזמנה…"};
+  bookingCopy.he={"fieldFirstName": "שם פרטי", "fieldFirstNamePh": "שם פרטי", "fieldLastName": "שם משפחה", "fieldLastNamePh": "שם משפחה", "fieldEmail": "אימייל", "fieldEmailPh": "email@example.com", "fieldDates": "תאריכים", "fieldDatesPh": "בחרו הגעה ועזיבה", "openCalendar": "פתיחת לוח שנה", "calendarKicker": "בחירת תאריכים", "calendarHelp": "בחרו תאריך הגעה ואז תאריך עזיבה.", "calendarMinWarning": "נא לבחור לפחות 2 לילות.", "selectDeparture": "בחרו עזיבה", "alreadyBooked": "תפוס", "calendarRangeUnavailable": "לילה אחד או יותר בטווח שבחרתם אינו זמין. אנא בחרו טווח אחר.", "minNights": "נא לבחור לפחות 2 לילות.", "bookNow": "להזמין את השהייה", "fieldPeople": "כמה אנשים", "bookingNote": "בחרו את גודל הקבוצה והתאריכים — לאחר מכן בדקו זמינות, ראו את המחיר וזמינו כאן.", "missingFirstName": "נא להזין שם פרטי.", "missingLastName": "נא להזין שם משפחה.", "missingEmail": "נא להזין אימייל.", "invalidEmail": "נא להזין כתובת אימייל תקינה.", "missingDates": "נא לבחור תאריכי הגעה ועזיבה.", "badDates": "תאריך העזיבה חייב להיות אחרי תאריך ההגעה.", "redirecting": "פותחים את ההזמנה…"};
 
   const state={lang:"en"};
   const toolbarCalendar={currentMonth:new Date(),dayMap:{},loading:false};
@@ -1276,13 +1277,12 @@
     if(modal){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); }
   }
 
+  function getToolbarPeople(){ const el=$("#fhGuests"); if(!el) return 2; return Math.min(48,Math.max(1,parseInt(el.value,10)||2)); }
   function goToBookingPage(){
     const payload=getBookingStartPayload();
-    if(!payload.firstName){ setStatus(t("missingFirstName"),"error"); $("#fhFirstName")?.focus(); return; }
-    if(!payload.lastName){ setStatus(t("missingLastName"),"error"); $("#fhLastName")?.focus(); return; }
-    if(!payload.email){ setStatus(t("missingEmail"),"error"); $("#fhEmail")?.focus(); return; }
-    if(!emailIsValid(payload.email)){ setStatus(t("invalidEmail"),"error"); $("#fhEmail")?.focus(); return; }
-    if(!payload.checkIn||!payload.checkOut){ setStatus(t("missingDates"),"error"); openToolbarCalendar(); return; }
+    const people=getToolbarPeople();
+    if(typeof window.FHSetBookingPeople==="function") window.FHSetBookingPeople(people);
+    if(!payload.checkIn||!payload.checkOut){ if(typeof window.FHOpenCleanSchedule==="function"){ window.FHOpenCleanSchedule(); return; } setStatus(t("missingDates"),"error"); openToolbarCalendar(); return; }
     if(payload.checkOut<=payload.checkIn){ setStatus(t("badDates"),"error"); openToolbarCalendar(); return; }
     if(nightsBetweenToolbar()<CFG.minNights){
       setStatus(t("minNights")||"Please select at least 2 nights.","error");
@@ -1292,17 +1292,15 @@
       return;
     }
     try{ localStorage.setItem("fhBookingStart",JSON.stringify(payload)); }catch(error){ console.warn("Could not save booking start data.",error); }
+    // Open the booking pop-up right here — no detour to the booking page.
+    if(typeof window.FHOpenBookingPopup==="function"){ window.FHOpenBookingPopup({checkIn:payload.checkIn,checkOut:payload.checkOut,people:people}); return; }
     const params=new URLSearchParams();
-    params.set("firstName",payload.firstName);
-    params.set("lastName",payload.lastName);
-    params.set("email",payload.email);
     params.set("checkIn",payload.checkIn);
     params.set("checkOut",payload.checkOut);
+    params.set("guests",String(people));
     params.set("lang",payload.language);
     params.set("source","location");
     setStatus(t("redirecting"),"success");
-    const btn=$("#fhBookNowBtn");
-    if(btn){ btn.disabled=true; btn.dataset.oldText=btn.textContent; btn.textContent=t("redirecting"); }
     window.location.href=CFG.bookingPageUrl+"?"+params.toString();
   }
 
@@ -1333,6 +1331,7 @@
   function bindToolbar(){
     $("#fhOpenToolbarCalendar")?.addEventListener("click",openToolbarCalendar);
     $("#fhBookNowBtn")?.addEventListener("click",goToBookingPage);
+    (function(){ const input=$("#fhGuests"),minus=$("#fhGuestsMinus"),plus=$("#fhGuestsPlus"); function sync(){ const v=getToolbarPeople(); if(input) input.value=v; if(typeof window.FHSetBookingPeople==="function") window.FHSetBookingPeople(v); } minus?.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()-1; sync(); }); plus?.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()+1; sync(); }); input?.addEventListener("change",sync); sync(); })();
     ["#fhFirstName","#fhLastName","#fhEmail"].forEach(function(selector){
       $(selector)?.addEventListener("input",function(){ clearStatus(); persistToolbarStart(false); });
     });
