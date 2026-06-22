@@ -1476,6 +1476,16 @@
   const exts=["jpg","jpeg","png","webp"];
   const fallback=["data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="];
 
+  const BLOCKED_GUESTY_IMAGE_IDS = [
+    "tck0hivuecpuggtsis1p.jpg",
+    "rktrqvflveefwyy33q9r.jpg",
+    "em1vnl5ftcdcuubl2anx.jpg"
+  ];
+  function shouldSkipGuestyImage(url){
+    url = String(url || "");
+    return BLOCKED_GUESTY_IMAGE_IDS.some(function(id){ return url.indexOf(id) !== -1; });
+  }
+
   // Explicit Guesty image sets requested for the Property page.
   // Hero uses only these three images; Kitchen carousel uses only the kitchen set.
   const GUESTY_HERO_IMAGES = [
@@ -1495,6 +1505,9 @@
     "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188837/production/686c48ada4bbacd7a82a4f83/tnlxetxfx48lou2dpaa1.jpg",
     "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188837/production/686c48ada4bbacd7a82a4f83/gc4zujui1h3mdh2zrmey.jpg"
   ];
+
+  const CLEAN_GUESTY_HERO_IMAGES = GUESTY_HERO_IMAGES.filter(function(url){ return !shouldSkipGuestyImage(url); });
+  const CLEAN_GUESTY_KITCHEN_IMAGES = GUESTY_KITCHEN_IMAGES.filter(function(url){ return !shouldSkipGuestyImage(url); });
 
   function buildNames(base,max){
     const names=[];
@@ -1530,12 +1543,12 @@
     return rotateList([imgAt(exterior,0),imgAt(inside,1),imgAt(sauna,2),imgAt(mountain,3),imgAt(prop,4),imgAt(inside,5)],1);
   }
   let lang="en", heroIndex=0, heroTimer=null;
-  let propertyUrls=[], shuttleUrls=[], kitchenUrls=GUESTY_KITCHEN_IMAGES.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
+  let propertyUrls=[], shuttleUrls=[], kitchenUrls=CLEAN_GUESTY_KITCHEN_IMAGES.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
   const WORKER_IMAGE_BASE="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
   const WORKER_LISTING_ID="6968339ab7d735001ca015ba";
 
   function shuffleWorkerList(input){
-    const arr=Array.from(new Set((input||[]).filter(Boolean)));
+    const arr=Array.from(new Set((input||[]).filter(Boolean))).filter(function(url){ return !shouldSkipGuestyImage(url); });
     for(let i=arr.length-1;i>0;i--){
       const j=Math.floor(Math.random()*(i+1));
       const tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp;
@@ -1604,7 +1617,7 @@
     const text=await response.text();
     let data={}; try{data=JSON.parse(text);}catch(e){data={rawText:text};}
     if(!response.ok || data.ok===false || data.error) throw new Error(data.error || data.message || ("Images request failed: "+response.status));
-    return collectWorkerImageUrls(data,text);
+    return collectWorkerImageUrls(data,text).filter(function(url){ return !shouldSkipGuestyImage(url); });
   }
   async function loadWorkerImageAssets(){
     const base=WORKER_IMAGE_BASE.replace(/\/$/,"")+"/images";
@@ -1629,7 +1642,7 @@
       workerRandomUrls=urls;
       propertyUrls=rotateList(urls,0);
       insideUrls=rotateList(urls,3);
-      kitchenUrls=GUESTY_KITCHEN_IMAGES.slice();
+      kitchenUrls=CLEAN_GUESTY_KITCHEN_IMAGES.slice();
       privateSaunaUrls=rotateList(urls,9);
       groupUrls=rotateList(urls,12);
       exteriorUrls=rotateList(urls,15);
@@ -1806,7 +1819,7 @@
     qsa("[data-kitchen-main]").forEach((el)=>setImg(el,next()));
     qsa("[data-kitchen-img]").forEach((el)=>setImg(el,next()));
     const cta=qs(".fh-cta"); if(cta) cta.style.setProperty("--cta-bg",`url('${imgAt(exterior,0)}')`);
-    buildHeroSlides(GUESTY_HERO_IMAGES); startHero();
+    buildHeroSlides(CLEAN_GUESTY_HERO_IMAGES.length ? CLEAN_GUESTY_HERO_IMAGES : GUESTY_HERO_IMAGES); startHero();
   }
   function galleryCard(url,small,cap){return `<article class="fh-gallery-card${small?' small':''}"><img src="${url}" alt="Fletschhorn" loading="lazy"><div class="fh-gallery-caption"><small>${cap[0]}</small><strong>${cap[1]}</strong></div></article>`;}
   function buildGallery(railId,images,captions){
@@ -1835,7 +1848,7 @@
     try{localStorage.setItem("fh_lang",lang);localStorage.setItem("fh_language",lang);localStorage.setItem("fhLang",lang);}catch(e){}
     root.setAttribute("dir",lang==="he"?"rtl":"ltr");
     document.documentElement.setAttribute("dir",lang==="he"?"rtl":"ltr");
-    applyStaticTranslations(); buildDynamic(); buildHeroSlides(GUESTY_HERO_IMAGES); startHero();
+    applyStaticTranslations(); buildDynamic(); buildHeroSlides(CLEAN_GUESTY_HERO_IMAGES.length ? CLEAN_GUESTY_HERO_IMAGES : GUESTY_HERO_IMAGES); startHero();
   }
   window.FHSetLanguage=function(next){ setLanguage(next); };
   function bindGalleryButtons(){
@@ -1925,6 +1938,17 @@
 
   var BOOKING_COM_PROPERTY_URL = "https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html";
 
+  var BLOCKED_LAYOUT_GUESTY_IMAGE_IDS = [
+    "tck0hivuecpuggtsis1p.jpg",
+    "rktrqvflveefwyy33q9r.jpg",
+    "em1vnl5ftcdcuubl2anx.jpg"
+  ];
+
+  function isBlockedLayoutGuestyImage(url){
+    url = String(url || "");
+    return BLOCKED_LAYOUT_GUESTY_IMAGE_IDS.some(function(id){ return url.indexOf(id) !== -1; });
+  }
+
   window.GUESTY_PROPERTY_IMAGES = [
     "https://assets.guesty.com/image/upload/v1769381526/production/686c48ada4bbacd7a82a4f83/wd8mhudl4qtcc7chp1ya.jpg",
     "https://assets.guesty.com/image/upload/v1769381547/production/686c48ada4bbacd7a82a4f83/fdfmu0txiyyj9q2qp6ky.jpg",
@@ -1939,6 +1963,8 @@
     "https://assets.guesty.com/image/upload/v1769381552/production/686c48ada4bbacd7a82a4f83/w7cqwpi3jthmkxyguiwb.jpg",
     "https://assets.guesty.com/image/upload/v1769381550/production/686c48ada4bbacd7a82a4f83/s6gmipywiy5afbaf2z8y.jpg"
 ];
+
+  window.GUESTY_PROPERTY_IMAGES = window.GUESTY_PROPERTY_IMAGES.filter(function(url){ return !isBlockedLayoutGuestyImage(url); });
 
   function optimizeGuestyImage(url, width){
     url = String(url || "").trim();
@@ -3025,48 +3051,6 @@ html.fh-photo-zoom-open body{
 }
 </style>
 
-<script id="fh-layout-carousel-scroll-safe-click-final">
-(function(){
-  "use strict";
-
-  var startX = 0;
-  var startY = 0;
-  var moved = false;
-
-  document.addEventListener("pointerdown", function(event){
-    var carousel = event.target && event.target.closest ? event.target.closest("#layoutCarousel") : null;
-    if(!carousel) return;
-    startX = event.clientX || 0;
-    startY = event.clientY || 0;
-    moved = false;
-    carousel.dataset.fhWasDragging = "0";
-  }, true);
-
-  document.addEventListener("pointermove", function(event){
-    var carousel = event.target && event.target.closest ? event.target.closest("#layoutCarousel") : null;
-    if(!carousel) return;
-    var dx = Math.abs((event.clientX || 0) - startX);
-    var dy = Math.abs((event.clientY || 0) - startY);
-    if(dx > 8 || dy > 8){
-      moved = true;
-      carousel.dataset.fhWasDragging = "1";
-    }
-  }, true);
-
-  document.addEventListener("click", function(event){
-    var carousel = event.target && event.target.closest ? event.target.closest("#layoutCarousel") : null;
-    if(!carousel) return;
-
-    /* If the user was scrolling/swiping the carousel, do not trigger the zoom click. */
-    if(moved || carousel.dataset.fhWasDragging === "1"){
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      window.setTimeout(function(){ carousel.dataset.fhWasDragging = "0"; moved = false; }, 80);
-    }
-  }, true);
-})();
-</script>
 
 
 <style id="fh-merged-layout-section-final">
@@ -3239,6 +3223,48 @@ html.fh-photo-zoom-open body{
   #fh-property #group-setups #fhSetupGrid > *{
     flex-basis:82vw!important;
     width:82vw!important;
+  }
+}
+</style>
+
+
+<style id="fh-final-layout-carousel-bigger-click-revert">
+/* Final requested correction:
+   - layout photos are bigger again
+   - simple click-to-zoom behavior is restored
+   - the 3 blocked Guesty images are never rendered
+*/
+#fh-property #sleeping-layout .fh-layout-photo-strip{
+  gap:14px!important;
+  margin:clamp(18px,2.8vw,28px) 0 12px!important;
+  padding:5px 5px 14px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  -webkit-overflow-scrolling:touch!important;
+  scroll-snap-type:x proximity!important;
+  touch-action:auto!important;
+}
+#fh-property #sleeping-layout .fh-layout-photo-strip img{
+  flex:0 0 clamp(225px,31vw,390px)!important;
+  width:clamp(225px,31vw,390px)!important;
+  height:clamp(150px,20vw,250px)!important;
+  border-radius:18px!important;
+  object-fit:cover!important;
+  cursor:zoom-in!important;
+  scroll-snap-align:start!important;
+  box-shadow:0 16px 42px rgba(22,19,16,.14)!important;
+}
+@media(max-width:640px){
+  #fh-property #sleeping-layout .fh-layout-photo-strip{
+    gap:12px!important;
+    padding-right:20px!important;
+  }
+  #fh-property #sleeping-layout .fh-layout-photo-strip img{
+    flex-basis:72vw!important;
+    width:72vw!important;
+    min-width:240px!important;
+    height:168px!important;
+    border-radius:17px!important;
   }
 }
 </style>
