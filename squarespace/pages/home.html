@@ -271,7 +271,7 @@
 
     #fh-home .fh-booking-form{
       display:grid;
-      grid-template-columns:minmax(180px,1fr) minmax(260px,1.45fr) 185px;
+      grid-template-columns:minmax(110px,.42fr) minmax(220px,1fr) 170px;
       background:var(--paper);
     }
 
@@ -383,100 +383,124 @@
       position:relative;
       z-index:4;
       width:var(--container);
-      margin:clamp(-28px,-3vw,-16px) auto clamp(28px,4vw,48px);
-      display:grid;
-      grid-template-columns:minmax(240px,.72fr) 1fr;
-      gap:1px;
-      background:rgba(135,110,88,.20);
+      margin:clamp(-18px,-2vw,-10px) auto clamp(24px,3.6vw,44px);
+      padding:clamp(12px,2vw,18px);
+      background:rgba(255,250,242,.92);
       border:1px solid rgba(135,110,88,.18);
       box-shadow:var(--soft-shadow);
+      overflow:hidden;
     }
 
-    #fh-home .fh-trust-proof,
-    #fh-home .fh-trust-benefits{
-      background:rgba(255,250,242,.94);
-      padding:clamp(16px,2.4vw,24px);
+    #fh-home .fh-trust-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:12px;
     }
 
-    #fh-home .fh-trust-stars{
-      color:var(--clay);
-      font-size:18px;
-      letter-spacing:.08em;
-      line-height:1;
-      margin-bottom:10px;
-    }
-
-    #fh-home .fh-trust-proof strong{
+    #fh-home .fh-trust-head strong{
       display:block;
       color:var(--ink);
       font-family:var(--serif);
-      font-size:clamp(22px,2.6vw,32px);
+      font-size:clamp(22px,2.8vw,34px);
       font-weight:400;
       letter-spacing:-.04em;
-      line-height:1.05;
-      margin-bottom:8px;
+      line-height:1.03;
     }
 
-    #fh-home .fh-trust-proof span{
+    #fh-home .fh-trust-head span{
       display:block;
+      max-width:520px;
       color:var(--muted);
       font-size:13px;
-      line-height:1.5;
+      line-height:1.45;
+      text-align:right;
     }
 
-    #fh-home .fh-trust-source-list{
+    #fh-home .fh-review-carousel{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:minmax(160px,calc((100% - 20px) / 3));
+      gap:10px;
+      overflow-x:auto;
+      overscroll-behavior-x:contain;
+      scroll-snap-type:x proximity;
+      padding:1px 2px 10px;
+      scrollbar-width:thin;
+    }
+
+    #fh-home .fh-review-card{
+      color:inherit;
+      text-decoration:none;
+      scroll-snap-align:start;
+      min-height:128px;
+      padding:14px;
+      border:1px solid rgba(135,110,88,.17);
+      background:rgba(255,255,255,.54);
+      display:grid;
+      align-content:space-between;
+      gap:10px;
+    }
+
+    #fh-home .fh-review-card b{
+      color:var(--forest);
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    #fh-home .fh-review-score{
       display:flex;
-      flex-wrap:wrap;
+      align-items:baseline;
       gap:7px;
-      margin-top:13px;
+      color:var(--ink);
+      line-height:1;
     }
 
-    #fh-home .fh-trust-source-list a{
+    #fh-home .fh-review-score strong{
+      font-family:var(--serif);
+      font-size:clamp(28px,3.4vw,42px);
+      font-weight:400;
+      letter-spacing:-.05em;
+    }
+
+    #fh-home .fh-review-score span{
+      color:var(--clay);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    #fh-home .fh-review-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.38;
+    }
+
+    #fh-home .fh-trust-direct-strip{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      padding-top:10px;
+      border-top:1px solid rgba(135,110,88,.13);
+    }
+
+    #fh-home .fh-trust-direct-strip span{
       display:inline-flex;
       align-items:center;
       min-height:30px;
       padding:8px 10px;
-      border:1px solid rgba(135,110,88,.18);
-      background:rgba(255,255,255,.48);
+      border:1px solid rgba(31,58,47,.13);
+      background:rgba(31,58,47,.055);
       color:var(--forest);
       font-size:10px;
       font-weight:900;
-      letter-spacing:.11em;
-      line-height:1;
+      letter-spacing:.10em;
       text-transform:uppercase;
-    }
-
-    #fh-home .fh-trust-benefits{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:1px;
-      padding:0;
-    }
-
-    #fh-home .fh-trust-benefit{
-      min-height:138px;
-      padding:clamp(15px,2vw,20px);
-      background:rgba(255,250,242,.76);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-
-    #fh-home .fh-trust-benefit strong{
-      display:block;
-      margin-bottom:8px;
-      color:var(--forest);
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.13em;
-      line-height:1.25;
-      text-transform:uppercase;
-    }
-
-    #fh-home .fh-trust-benefit span{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.46;
     }
 
     #fh-home .fh-status.error{
@@ -2196,7 +2220,7 @@
       }
 
       #fh-home .fh-booking-form{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:minmax(92px,.42fr) minmax(0,1fr);
       }
 
       #fh-home .fh-field{
@@ -2685,6 +2709,13 @@
 
 
 
+    @media(max-width:560px){
+      #fh-home .fh-date-field{min-width:0;}
+      #fh-home .fh-date-button{gap:6px;}
+      #fh-home .fh-date-button span{font-size:13px;line-height:1.2;white-space:normal;}
+      #fh-home .fh-date-button strong{font-size:8px;letter-spacing:.09em;}
+    }
+
     /* Header-controlled language mode.
        The page-level language bar stays in the DOM only for legacy JS compatibility,
        but it is invisible because the shared header now controls fh_lang. */
@@ -2993,26 +3024,40 @@
       </div>
     </section>
 
-    <section class="fh-trust-band fh-reveal" aria-label="Guest trust and direct booking benefits">
-      <div class="fh-trust-proof">
-        <div class="fh-trust-stars" aria-hidden="true">★★★★★</div>
-        <strong data-i18n="trustBandTitle">Guest-rated alpine stays</strong>
-        <span data-i18n="trustBandText">Read independent guest impressions on the official review profiles, then book direct with the property team.</span>
-        <div class="fh-trust-source-list" aria-label="Review sources">
-          <a href="https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html" target="_blank" rel="noopener">Tripadvisor</a>
-          <a href="https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html" target="_blank" rel="noopener">Booking.com</a>
-          <a href="https://www.google.com/maps/search/?api=1&query=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland" target="_blank" rel="noopener">Google</a>
-          <a href="https://www.airbnb.com/rooms/1583676843313625450" target="_blank" rel="noopener">Airbnb</a>
-        </div>
+    <section class="fh-trust-band fh-reveal" aria-label="Guest ratings and direct booking benefits">
+      <div class="fh-trust-head">
+        <strong data-i18n="trustBandTitle">Guest ratings, at a glance</strong>
+        <span data-i18n="trustBandText">Independent review snapshots and direct-booking benefits, without sending you away from the page.</span>
       </div>
-      <div class="fh-trust-benefits">
-        <div class="fh-trust-benefit"><strong data-i18n="whyDirect1H">Best price guaranteed</strong><span data-i18n="whyDirect1P">Direct rates are never higher than any third-party platform. No markup, no inflated base price.</span></div>
-        <div class="fh-trust-benefit"><strong data-i18n="whyDirect2H">No service fees</strong><span data-i18n="whyDirect2P">Platforms add 12–18% in service fees on top of the property rate. Booking direct means every franc goes toward your stay.</span></div>
-        <div class="fh-trust-benefit"><strong data-i18n="whyDirect3H">Direct contact</strong><span data-i18n="whyDirect3P">Speak with the property team directly about arrivals, catering, sauna access, group needs, and anything else your stay requires.</span></div>
-        <div class="fh-trust-benefit"><strong data-i18n="whyDirect4H">More flexibility</strong><span data-i18n="whyDirect4P">Shuttle, kitchen concept, sauna timing, and group arrangements are handled directly — not through a platform inbox.</span></div>
+      <div class="fh-review-carousel" aria-label="Review snapshots">
+        <a class="fh-review-card" href="https://www.google.com/maps/search/?api=1&query=Waldhotel%20Fletschhorn%2C%20Saas-Fee%2C%20Switzerland" target="_blank" rel="noopener" aria-label="Open Google reviews">
+          <b data-i18n="reviewGoogleSource">Google reviews</b>
+          <div class="fh-review-score"><strong>4.7</strong><span>/ 5</span></div>
+          <p data-i18n="reviewGoogleText">155 reviews. Guests highlight the setting, service, food, and views.</p>
+        </a>
+        <a class="fh-review-card" href="https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html" target="_blank" rel="noopener" aria-label="Open Booking.com reviews">
+          <b data-i18n="reviewBookingSource">Booking.com</b>
+          <div class="fh-review-score"><strong>9.4</strong><span>/ 10</span></div>
+          <p data-i18n="reviewBookingText">120 reviews. Rated wonderful, with strong cleanliness and staff scores.</p>
+        </a>
+        <a class="fh-review-card" href="https://www.airbnb.com/rooms/1583676843313625450" target="_blank" rel="noopener" aria-label="Open Airbnb listing">
+          <b data-i18n="reviewAirbnbSource">Airbnb</b>
+          <div class="fh-review-score"><strong data-i18n="reviewAirbnbScore">New</strong><span data-i18n="reviewAirbnbBadge">listing</span></div>
+          <p data-i18n="reviewAirbnbText">Official whole-hotel listing for up to 48 guests; Airbnb shows no property reviews yet.</p>
+        </a>
+        <a class="fh-review-card" href="https://www.hotels.com/ho2948041472/waldhotel-fletschhorn-sachseln-switzerland/" target="_blank" rel="noopener" aria-label="Open Hotels.com reviews">
+          <b data-i18n="reviewHotelsSource">Hotels.com</b>
+          <div class="fh-review-score"><strong>9.2</strong><span>/ 10</span></div>
+          <p data-i18n="reviewHotelsText">15 verified reviews. Guests praise the quiet forest setting and personal service.</p>
+        </a>
+      </div>
+      <div class="fh-trust-direct-strip" aria-label="Direct booking benefits">
+        <span data-i18n="whyDirect1H">Best price guaranteed</span>
+        <span data-i18n="whyDirect2H">No service fees</span>
+        <span data-i18n="whyDirect3H">Direct contact</span>
+        <span data-i18n="whyDirect4H">More flexibility</span>
       </div>
     </section>
-
 
     <section class="fh-section" id="rooms">
       <div class="fh-container fh-section-head">
@@ -3502,8 +3547,9 @@
           estimatedTotal:"Estimated total",
           bookNow:"Book direct",
           bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
-          trustBandTitle:"Guest-rated alpine stays",
-          trustBandText:"Read independent guest impressions on the official review profiles, then book direct with the property team.",
+          trustBandTitle:"Guest ratings, at a glance",
+          trustBandText:"Independent review snapshots and direct-booking benefits, without sending you away from the page.",
+          reviewGoogleSource:"Google reviews",reviewGoogleText:"155 reviews. Guests highlight the setting, service, food, and views.",reviewBookingSource:"Booking.com",reviewBookingText:"120 reviews. Rated wonderful, with strong cleanliness and staff scores.",reviewAirbnbSource:"Airbnb",reviewAirbnbScore:"New",reviewAirbnbBadge:"listing",reviewAirbnbText:"Official whole-hotel listing for up to 48 guests; Airbnb shows no property reviews yet.",reviewHotelsSource:"Hotels.com",reviewHotelsText:"15 verified reviews. Guests praise the quiet forest setting and personal service.",
           privateKicker:"The private chalet",
           privateTitle:"A private alpine house for groups who want the whole place to themselves.",
           privateLead:"Fletschhorn is a complete private chalet experience above Saas-Fee, with space to sleep, gather, cook, celebrate, reset, and explore the mountains.",
@@ -3659,8 +3705,9 @@
           estimatedTotal:"Total estimé",
           bookNow:"Réserver en direct",
           bookingNote:"Commencez ici. Vos informations seront transférées vers la page de réservation, où vous pourrez vérifier la disponibilité, le prix et envoyer la demande finale.",
-          trustBandTitle:"Séjours alpins appréciés par les hôtes",
-          trustBandText:"Lisez les avis indépendants sur les profils officiels, puis réservez directement avec l’équipe.",
+          trustBandTitle:"Avis clients en un coup d’œil",
+          trustBandText:"Des aperçus d’avis indépendants et les avantages de la réservation directe, sans quitter la page.",
+          reviewGoogleSource:"Avis Google",reviewGoogleText:"155 avis. Les hôtes soulignent le cadre, le service, la cuisine et les vues.",reviewBookingSource:"Booking.com",reviewBookingText:"120 avis. Noté merveilleux, avec de fortes notes pour la propreté et le personnel.",reviewAirbnbSource:"Airbnb",reviewAirbnbScore:"Nouveau",reviewAirbnbBadge:"logement",reviewAirbnbText:"Annonce officielle de l’hôtel entier jusqu’à 48 hôtes ; Airbnb n’affiche pas encore d’avis pour ce bien.",reviewHotelsSource:"Hotels.com",reviewHotelsText:"15 avis vérifiés. Les hôtes apprécient le calme de la forêt et le service personnel.",
           socialKicker:"Présence sociale",
           socialTitle:"Le rythme du Fletschhorn",
           socialLead:"Suivez l’atmosphère de la montagne, les moments de saison et le rythme quotidien du Fletschhorn à Saas-Fee.",
@@ -3710,8 +3757,9 @@
           estimatedTotal:"Geschätzter Gesamtpreis",
           bookNow:"Direkt buchen",
           bookingNote:"Starten Sie hier. Ihre Angaben werden auf die Buchungsseite übertragen, wo Sie Verfügbarkeit, Preis und die finale Anfrage prüfen können.",
-          trustBandTitle:"Von Gästen bewertete alpine Aufenthalte",
-          trustBandText:"Lesen Sie unabhängige Gästestimmen auf den offiziellen Bewertungsprofilen und buchen Sie dann direkt beim Team.",
+          trustBandTitle:"Gästebewertungen auf einen Blick",
+          trustBandText:"Unabhängige Bewertungs-Snapshots und Vorteile der Direktbuchung, ohne die Seite zu verlassen.",
+          reviewGoogleSource:"Google-Bewertungen",reviewGoogleText:"155 Bewertungen. Gäste heben Lage, Service, Essen und Aussicht hervor.",reviewBookingSource:"Booking.com",reviewBookingText:"120 Bewertungen. Als wunderbar bewertet, mit starken Noten für Sauberkeit und Personal.",reviewAirbnbSource:"Airbnb",reviewAirbnbScore:"Neu",reviewAirbnbBadge:"Listing",reviewAirbnbText:"Offizielles Whole-Hotel-Listing für bis zu 48 Gäste; Airbnb zeigt derzeit noch keine Objektbewertungen.",reviewHotelsSource:"Hotels.com",reviewHotelsText:"15 verifizierte Bewertungen. Gäste loben die ruhige Waldlage und den persönlichen Service.",
           socialKicker:"Soziale Präsenz",
           socialTitle:"Der Fletschhorn-Rhythmus",
           socialLead:"Folgen Sie der Bergstimmung, saisonalen Momenten und dem Alltag des Fletschhorn in Saas-Fee.",
@@ -3761,8 +3809,9 @@
           estimatedTotal:"Ориентировочная сумма",
           bookNow:"Бронировать напрямую",
           bookingNote:"Начните здесь. Ваши данные перейдут на страницу бронирования, где можно проверить доступность, цену и отправить финальный запрос.",
-          trustBandTitle:"Альпийские пребывания с отзывами гостей",
-          trustBandText:"Читайте независимые впечатления гостей в официальных профилях отзывов, затем бронируйте напрямую у команды объекта.",
+          trustBandTitle:"Оценки гостей в одном блоке",
+          trustBandText:"Краткие независимые рейтинги и преимущества прямого бронирования без ухода со страницы.",
+          reviewGoogleSource:"Отзывы Google",reviewGoogleText:"155 отзывов. Гости отмечают место, сервис, еду и виды.",reviewBookingSource:"Booking.com",reviewBookingText:"120 отзывов. Оценка «wonderful», высокие баллы за чистоту и персонал.",reviewAirbnbSource:"Airbnb",reviewAirbnbScore:"Новое",reviewAirbnbBadge:"объявление",reviewAirbnbText:"Официальное объявление всего отеля до 48 гостей; Airbnb пока не показывает отзывов об объекте.",reviewHotelsSource:"Hotels.com",reviewHotelsText:"15 проверенных отзывов. Гости хвалят тихое лесное место и персональный сервис.",
           socialKicker:"Социальные профили",
           socialTitle:"Ритм Fletschhorn",
           socialLead:"Следите за горной атмосферой, сезонными моментами и повседневным ритмом Fletschhorn в Саас-Фе.",
@@ -3812,8 +3861,9 @@
           estimatedTotal:"מחיר משוער",
           bookNow:"להזמין ישירות",
           bookingNote:"התחילו כאן. הפרטים יעברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
-          trustBandTitle:"שהיות אלפיניות עם דירוגי אורחים",
-          trustBandText:"קראו חוויות אורחים בלתי תלויות בפרופילי הביקורות הרשמיים, ואז הזמינו ישירות מול צוות הנכס.",
+          trustBandTitle:"דירוגי אורחים במבט מהיר",
+          trustBandText:"תקצירי ביקורות עצמאיות ויתרונות הזמנה ישירה, בלי לעזוב את העמוד.",
+          reviewGoogleSource:"ביקורות Google",reviewGoogleText:"155 ביקורות. אורחים מדגישים את המיקום, השירות, האוכל והנופים.",reviewBookingSource:"Booking.com",reviewBookingText:"120 ביקורות. דירוג Wonderful, עם ציונים חזקים לניקיון ולצוות.",reviewAirbnbSource:"Airbnb",reviewAirbnbScore:"חדש",reviewAirbnbBadge:"מודעה",reviewAirbnbText:"מודעה רשמית לכל המלון עד 48 אורחים; Airbnb עדיין לא מציג ביקורות לנכס.",reviewHotelsSource:"Hotels.com",reviewHotelsText:"15 ביקורות מאומתות. אורחים משבחים את היער השקט ואת השירות האישי.",
           privateKicker:"השאלה הפרטית",
           privateTitle:"בית אלפיני פרטי לקבוצות שרוצות את כל המקום לעצמן.",
           privateLead:"Fletschhorn הוא חוויית שאלה פרטית מלאה מעל סאס-פה, עם מקום לישון, להתכנס, לבשל, לחגוג, לנוח ולצאת אל ההרים.",
