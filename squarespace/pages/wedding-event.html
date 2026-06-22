@@ -2026,10 +2026,21 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       </div>
 
       <div class="fh-standard-booking-shell" id="fh-event-inquiry-bar">
+        <style>
+          #fh-events .fh-people-field .fh-people-stepper{display:inline-flex;align-items:center;border:1px solid rgba(20,21,24,.22);border-radius:12px;overflow:hidden;background:#fff;height:46px;}
+          #fh-events .fh-people-stepper button{width:44px;height:100%;border:0;background:transparent;font-size:1.3rem;line-height:1;cursor:pointer;color:inherit;}
+          #fh-events .fh-people-stepper button:hover{background:rgba(20,21,24,.06);}
+          #fh-events .fh-people-stepper input{width:54px;height:100%;border:0;border-left:1px solid rgba(20,21,24,.14);border-right:1px solid rgba(20,21,24,.14);text-align:center;font-size:1rem;background:transparent;-moz-appearance:textfield;appearance:textfield;}
+          #fh-events .fh-people-stepper input::-webkit-outer-spin-button,#fh-events .fh-people-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+        </style>
         <form class="fh-standard-booking-bar" id="fh-standard-booking-form" novalidate>
-          <div class="fh-standard-booking-field"><label for="fhFirstName" data-booking-i18n="firstNameLabel">First name</label><input id="fhFirstName" name="firstName" autocomplete="given-name" data-booking-i18n-placeholder="firstNamePlaceholder" placeholder="First name" required /></div>
-          <div class="fh-standard-booking-field"><label for="fhLastName" data-booking-i18n="lastNameLabel">Last name</label><input id="fhLastName" name="lastName" autocomplete="family-name" data-booking-i18n-placeholder="lastNamePlaceholder" placeholder="Last name" required /></div>
-          <div class="fh-standard-booking-field"><label for="fhEmail" data-booking-i18n="emailLabel">Email</label><input id="fhEmail" name="email" type="email" autocomplete="email" data-booking-i18n-placeholder="emailPlaceholder" placeholder="Email address" required /></div>
+          <div class="fh-standard-booking-field fh-people-field"><label for="fhGuests" data-booking-i18n="fieldPeople">How many people</label>
+            <div class="fh-people-stepper">
+              <button type="button" id="fhGuestsMinus" aria-label="Fewer people">−</button>
+              <input id="fhGuests" name="guests" type="number" inputmode="numeric" min="1" max="48" value="2" aria-label="How many people">
+              <button type="button" id="fhGuestsPlus" aria-label="More people">+</button>
+            </div>
+          </div>
           <div class="fh-standard-booking-field fh-date-field">
             <label data-booking-i18n="fieldDates">Dates</label>
             <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar">
@@ -2041,7 +2052,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
           </div>
           <button class="fh-standard-booking-btn" id="fhBookNowBtn" type="submit" data-booking-i18n="bookButton">Book my stay now</button>
         </form>
-        <div class="fh-standard-booking-note" data-booking-i18n="bookingNote">Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.</div>
+        <div class="fh-standard-booking-note" data-booking-i18n="bookingNote">Choose your group size and dates — then check availability, see the live price, and book right here.</div>
         <div class="fh-standard-booking-status" id="fh-standard-booking-status" role="status" aria-live="polite"></div>
       </div>
 
@@ -3316,7 +3327,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       selectDeparture:"Select departure",
       alreadyBooked:"Booked",
       bookButton:"Book my stay now",
-      bookingNote:"Start here. Your details will be carried to the booking page, where you can review availability, price, and send the final inquiry.",
+      fieldPeople:"How many people",
+      bookingNote:"Choose your group size and dates — then check availability, see the live price, and book right here.",
       missing:"Please complete your first name, last name, email, arrival date, and departure date.",
       email:"Please enter a valid email address.",
       date:"Departure must be after arrival.",
@@ -3336,7 +3348,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       selectDeparture:"Sélectionnez le départ",
       alreadyBooked:"Réservé",
       bookButton:"Réserver mon séjour",
-      bookingNote:"Vos informations seront envoyées vers la page de réservation pour vérifier disponibilité, prix et demande finale.",
+      fieldPeople:"Combien de personnes",
+      bookingNote:"Choisissez la taille de votre groupe et vos dates — vérifiez ensuite la disponibilité, voyez le prix en direct et réservez ici même.",
       missing:"Veuillez compléter le prénom, le nom, l’email, la date d’arrivée et la date de départ.",
       email:"Veuillez entrer une adresse email valide.",
       date:"La date de départ doit être après la date d’arrivée.",
@@ -3356,7 +3369,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       selectDeparture:"Abreise auswählen",
       alreadyBooked:"Gebucht",
       bookButton:"Aufenthalt buchen",
-      bookingNote:"Ihre Angaben werden zur Buchungsseite übernommen, wo Verfügbarkeit, Preis und finale Anfrage geprüft werden.",
+      fieldPeople:"Wie viele Personen",
+      bookingNote:"Wählen Sie Gruppengröße und Daten — prüfen Sie dann Verfügbarkeit und Live-Preis und buchen Sie direkt hier.",
       missing:"Bitte Vorname, Nachname, E-Mail, Anreise und Abreise ausfüllen.",
       email:"Bitte geben Sie eine gültige E-Mail-Adresse ein.",
       date:"Die Abreise muss nach der Anreise liegen.",
@@ -3376,7 +3390,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       selectDeparture:"Выберите выезд",
       alreadyBooked:"Занято",
       bookButton:"Забронировать",
-      bookingNote:"Ваши данные будут перенесены на страницу бронирования для проверки доступности, цены и финальной заявки.",
+      fieldPeople:"Сколько человек",
+      bookingNote:"Выберите размер группы и даты — затем проверьте доступность, посмотрите цену и забронируйте прямо здесь.",
       missing:"Заполните имя, фамилию, email, дату заезда и дату выезда.",
       email:"Введите корректный email.",
       date:"Дата выезда должна быть позже даты заезда.",
@@ -3397,7 +3412,8 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       selectDeparture:"בחרו עזיבה",
       alreadyBooked:"תפוס",
       bookButton:"הזמנת השהייה",
-      bookingNote:"הפרטים יועברו לעמוד ההזמנה, שם תוכלו לבדוק זמינות, מחיר ולשלוח את הבקשה הסופית.",
+      fieldPeople:"כמה אנשים",
+      bookingNote:"בחרו את גודל הקבוצה והתאריכים — לאחר מכן בדקו זמינות, ראו את המחיר וזמינו כאן.",
       missing:"יש להשלים שם פרטי, שם משפחה, אימייל, תאריך הגעה ותאריך עזיבה.",
       email:"יש להזין כתובת אימייל תקינה.",
       date:"תאריך העזיבה חייב להיות אחרי תאריך ההגעה.",
@@ -3911,17 +3927,14 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     }
   }
 
+  function getToolbarPeople(){ const el=document.getElementById("fhGuests"); if(!el) return 2; return Math.min(48,Math.max(1,parseInt(el.value,10)||2)); }
   function goToBookingPage(){
     const payload=getPayload();
-    if(!payload.firstName || !payload.lastName || !payload.email || !payload.checkIn || !payload.checkOut){
-      show(t("missing"),"error");
-      if(!payload.firstName && firstNameEl()) firstNameEl().focus();
-      return;
-    }
-    if(!validEmail(payload.email)){
-      show(t("email"),"error");
-      if(emailEl()) emailEl().focus();
-      return;
+    const people=getToolbarPeople();
+    if(typeof window.FHSetBookingPeople==="function") window.FHSetBookingPeople(people);
+    if(!payload.checkIn || !payload.checkOut){
+      if(typeof window.FHOpenCleanSchedule==="function"){ window.FHOpenCleanSchedule(); return; }
+      show(t("missing"),"error"); openToolbarCalendar(); return;
     }
     if(payload.checkOut<=payload.checkIn){
       show(t("date"),"error");
@@ -3939,12 +3952,12 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       return;
     }
     persistToolbarStart();
+    // Open the booking pop-up right here — no detour to the booking page.
+    if(typeof window.FHOpenBookingPopup==="function"){ window.FHOpenBookingPopup({checkIn:payload.checkIn,checkOut:payload.checkOut,people:people}); return; }
     const next=new URL(CFG.bookingPageUrl,document.baseURI);
-    next.searchParams.set("firstName",payload.firstName);
-    next.searchParams.set("lastName",payload.lastName);
-    next.searchParams.set("email",payload.email);
     next.searchParams.set("checkIn",payload.checkIn);
     next.searchParams.set("checkOut",payload.checkOut);
+    next.searchParams.set("guests",String(people));
     next.searchParams.set("lang",payload.lang);
     next.searchParams.set("source","wedding-events");
     window.location.href=next.toString();
@@ -3982,6 +3995,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       event.preventDefault();
       goToBookingPage();
     });
+    (function(){ const input=document.getElementById("fhGuests"),minus=document.getElementById("fhGuestsMinus"),plus=document.getElementById("fhGuestsPlus"); function sync(){ const v=getToolbarPeople(); if(input) input.value=v; if(typeof window.FHSetBookingPeople==="function") window.FHSetBookingPeople(v); } if(minus) minus.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()-1; sync(); }); if(plus) plus.addEventListener("click",function(){ if(input) input.value=getToolbarPeople()+1; sync(); }); if(input) input.addEventListener("change",sync); sync(); })();
     loadToolbarCalendarMonth();
   }
 
