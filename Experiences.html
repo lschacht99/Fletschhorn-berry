@@ -9138,6 +9138,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
       });
 
       root.querySelectorAll("[data-bg-img], .fh-route-img, .fh-place, .fh-photo-tile").forEach(function(el, index){
+        if(el.closest('[data-official-image="true"]')) return;
         if(el.matches(".fh-photo-tile") && el.querySelector("img")) return;
         const url = randomized[(offset + 31 + index) % randomized.length];
         el.style.backgroundImage = cssUrl(url);
@@ -9145,6 +9146,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
       });
 
       root.querySelectorAll(".fh-activity").forEach(function(el, index){
+        if(el.closest('[data-official-image="true"]')) return;
         const url = randomized[(offset + 61 + index) % randomized.length];
         el.style.setProperty("--activity-image", cssUrl(url));
         el.dataset.fhRandomWorkerImage = "true";
