@@ -270,8 +270,8 @@
       workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
       listingId: "6968339ab7d735001ca015ba",
       currency: "CHF",
-      bookingPage: "/booking",
-      confirmationPage: "/confirmation"
+      bookingPage: (window.location.hostname.indexOf("github.io") >= 0 ? "/booking" : "/booking"),
+      confirmationPage: (window.location.hostname.indexOf("github.io") >= 0 ? "https://lschacht99.github.io/Fletschhorn-berry/confirmation" : "/confirmation")
     };
 
     var BLANK = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
@@ -299,7 +299,7 @@
     function safe(value){ return String(value == null ? "" : value); }
     function escapeHTML(value){ return safe(value).replace(/[&<>'"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]; }); }
     function endpoint(path){ return CFG.workerBase.replace(/\/$/, "") + path; }
-    function txt(key){ var bundle = TEXT[state.lang] || TEXT.en; return bundle[key] || TEXT.en[key] || ""; }
+    function txt(key){ var bundle = TEXT[state.lang] || TEXT.en; var v = bundle[key] || TEXT.en[key]; if (v == null) { console.warn("[i18n] missing key:", key, "lang:", state.lang); return ""; } return v; }
     function setText(id, value){ var el = $(id); if (el) el.textContent = value || ""; }
     function getValue(id){ var el = $(id); return el ? el.value.trim() : ""; }
     function setValue(id, value){ var el = $(id); if (el && value !== undefined && value !== null && value !== "") el.value = value; }
@@ -347,6 +347,155 @@
     }
     function apiPost(path, body){
       return fetch(endpoint(path), { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify(body || {}) }).then(readApi);
+    }
+
+    /*
+      Internal no-payment checkout test.
+      This is intentionally NOT a simple URL bypass. It requires:
+      1) the secure-booking URL parameter: ?fh_internal_test=secure-booking
+      2) a same-tab console unlock command
+      3) the exact test card values below
+      4) matching booking dates / email / total for the current day
+
+      IMPORTANT: this is still client-side test tooling, not real security.
+      Remove this block before public launch if you do not want any no-payment path in production.
+    */
+    var DEV_NO_PAY = {
+      storageKey:"fhSecureBookingInternalNoPay",
+      unlockFnName:"FH_UNLOCK_TEST_CHECKOUT",
+      phraseHash:3881316994,
+      ttlMs:15 * 60 * 1000,
+      urlParam:"fh_internal_test",
+      urlValue:"secure-booking",
+      testCardNumber:"4242424242424242",
+      testExpMonth:"12",
+      testExpYear:"2099",
+      testCvc:"000"
+    };
+
+    function fhHash(value){
+      var h = 2166136261;
+      value = safe(value);
+      for (var i = 0; i < value.length; i++) {
+        h ^= value.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return h >>> 0;
+    }
+    function devNoPayDay(){
+      return new Date().toISOString().slice(0,10);
+    }
+    function devNoPaySeed(){
+      var draft = state.draft || {};
+      var email = (getValue("fhEmail") || draft.email || "").toLowerCase();
+      var total = Math.round(Number(state.finalTotal || 0));
+      return [CFG.listingId, draft.checkIn || "", draft.checkOut || "", email, total, devNoPayDay()].join("|");
+    }
+    function devNoPayExpectedToken(){
+      return String(fhHash("fh-secure-booking-no-pay|" + devNoPaySeed()));
+    }
+    function devNoPayUrlArmed(){
+      try {
+        var params = new URLSearchParams(window.location.search);
+        return params.get(DEV_NO_PAY.urlParam) === DEV_NO_PAY.urlValue;
+      } catch(error) {
+        return false;
+      }
+    }
+    function devNoPayStoredUnlock(){
+      try { return JSON.parse(sessionStorage.getItem(DEV_NO_PAY.storageKey) || "{}"); }
+      catch(error) { return {}; }
+    }
+    function devNoPayReady(){
+      if (!devNoPayUrlArmed()) return false;
+      var stored = devNoPayStoredUnlock();
+      if (!stored || !stored.token || !stored.expiresAt) return false;
+      if (Date.now() > Number(stored.expiresAt)) return false;
+      return stored.token === devNoPayExpectedToken();
+    }
+    function devNoPayCardIsValid(){
+      return getValue("fhCardNumber").replace(/\s+/g, "") === DEV_NO_PAY.testCardNumber &&
+        getValue("fhExpMonth").padStart(2,"0") === DEV_NO_PAY.testExpMonth &&
+        getValue("fhExpYear") === DEV_NO_PAY.testExpYear &&
+        getValue("fhCvc") === DEV_NO_PAY.testCvc;
+    }
+    function devNoPayArm(phrase){
+      syncDraftFromForm();
+      if (fhHash(phrase) !== DEV_NO_PAY.phraseHash) {
+        console.warn("Fletschhorn internal no-payment test was not armed.");
+        return "Wrong internal test phrase.";
+      }
+      if (!devNoPayUrlArmed()) {
+        var url = new URL(window.location.href);
+        url.searchParams.set(DEV_NO_PAY.urlParam, DEV_NO_PAY.urlValue);
+        console.warn("Reload this exact URL, then run the unlock command again:", url.toString());
+        return "Add ?" + DEV_NO_PAY.urlParam + "=" + DEV_NO_PAY.urlValue + " to this URL, reload, then run the unlock command again.";
+      }
+      if (!state.draft.checkIn || !state.draft.checkOut || !state.finalTotal) {
+        return "Choose dates from the booking page first, then return here and unlock again.";
+      }
+
+      /* Fill safe fake values so the visible form is complete but still requires the secret unlock. */
+      setValue("fhPhone", getValue("fhPhone") || "+41000000000");
+      setValue("fhCardName", getValue("fhCardName") || "Fletschhorn Internal Test");
+      setValue("fhCardNumber", "4242 4242 4242 4242");
+      setValue("fhExpMonth", "12");
+      setValue("fhExpYear", "2099");
+      setValue("fhCvc", "000");
+      setValue("fhCountry", "CH");
+      setValue("fhAddress", getValue("fhAddress") || "Internal Test Address 1");
+      setValue("fhCity", getValue("fhCity") || "Saas-Fee");
+      setValue("fhPostal", getValue("fhPostal") || "3906");
+      var accept = $("fhAccept");
+      if (accept) accept.checked = true;
+      syncDraftFromForm();
+
+      var unlock = {
+        token:devNoPayExpectedToken(),
+        expiresAt:Date.now() + DEV_NO_PAY.ttlMs,
+        day:devNoPayDay(),
+        email:(getValue("fhEmail") || state.draft.email || "").toLowerCase(),
+        total:Math.round(Number(state.finalTotal || 0))
+      };
+      sessionStorage.setItem(DEV_NO_PAY.storageKey, JSON.stringify(unlock));
+      showMessage("Internal no-payment checkout test is armed for this tab for 15 minutes. The fake card and billing fields were filled automatically. Click Pay and confirm booking to test the confirmation flow without charging.", "warn");
+      console.info("Fletschhorn internal no-payment test armed. No payment will be attempted only if the test URL, session unlock, and fake card all match.");
+      return "Internal no-payment checkout test armed for 15 minutes. Fake card filled. Submit the form to skip payment.";
+    }
+    window[DEV_NO_PAY.unlockFnName] = devNoPayArm;
+
+    async function runInternalNoPayCheckout(){
+      syncDraftFromForm();
+      if (!devNoPayReady()) throw new Error("Internal no-payment test is not armed for this booking.");
+      if (!devNoPayCardIsValid()) throw new Error("Internal no-payment test is armed, but the test card must be 4242 4242 4242 4242, 12/2099, CVC 000.");
+
+      var draft = state.draft || {};
+      var testId = "TEST-NOPAY-" + Date.now();
+      var complete = Object.assign({}, draft, {
+        bookingResponse:{ ok:true, testMode:true, source:"client-internal-no-payment-checkout-test" },
+        reservationId:testId,
+        confirmationCode:testId,
+        finalTotal:Number(state.finalTotal || 0),
+        finalCurrency:state.finalCurrency || CFG.currency,
+        finalPriceText:state.finalPriceText || formatMoney(state.finalTotal, state.finalCurrency),
+        quoteBreakdown:state.quoteBreakdown || [],
+        testMode:true,
+        noPayment:true,
+        completedAt:new Date().toISOString()
+      });
+      try { localStorage.setItem("fhBookingComplete", JSON.stringify(complete)); } catch(error) {}
+      try { sessionStorage.removeItem(DEV_NO_PAY.storageKey); } catch(error2) {}
+
+      var params = new URLSearchParams({
+        reservationId:testId,
+        confirmationCode:testId,
+        lang:state.lang,
+        finalTotal:String(state.finalTotal || ""),
+        finalCurrency:state.finalCurrency || CFG.currency,
+        test:"1",
+        noPayment:"1"
+      });
+      window.location.href = CFG.confirmationPage + "?" + params.toString();
     }
 
     function applyLanguage(){
@@ -742,6 +891,42 @@
 
     async function handlePayment(event){
       event.preventDefault();
+
+      /* Internal no-payment test path: check BEFORE normal validation so empty/auto-filled billing fields do not block it. */
+      if (devNoPayReady()) {
+        clearErrors();
+        syncDraftFromForm();
+
+        if (!state.draft.checkIn || !state.draft.checkOut) {
+          showMessage(txt("missingDates"), "error");
+          return;
+        }
+        if (!ensureFixedPrice()) return;
+        if (!devNoPayCardIsValid()) {
+          showMessage("Internal no-payment test is armed, but the fake test card must be exactly: 4242 4242 4242 4242, 12/2099, CVC 000.", "error");
+          return;
+        }
+
+        var testButton = $("fhPayButton");
+        if (testButton) {
+          testButton.disabled = true;
+          testButton.textContent = "Internal test...";
+        }
+        try {
+          showMessage("Running internal no-payment checkout test. No GuestyPay tokenization and no charge will be attempted.", "warn");
+          await runInternalNoPayCheckout();
+          return;
+        } catch(testError) {
+          console.error("Internal no-payment checkout error", testError);
+          showMessage(testError && testError.message ? testError.message : txt("failed"), "error");
+          if (testButton) {
+            testButton.disabled = false;
+            testButton.textContent = txt("pay");
+          }
+          return;
+        }
+      }
+
       if (!validateCheckout()) return;
       var button = $("fhPayButton");
       button.disabled = true;
@@ -794,6 +979,8 @@
         var next = getLangFromRaw((event.detail && (event.detail.lang || event.detail.language)) || "");
         if (next && next !== state.lang) { state.lang = next; applyLanguage(); }
       });
+      window.setFletschhornLanguage = function(next){ state.lang = getLangFromRaw(next); applyLanguage(); };
+      window.FHSetLanguage = window.setFletschhornLanguage;
     }
 
     async function boot(){

@@ -306,6 +306,26 @@ Fletschhorn — Global Footer + Private Estate Positioning Patch
     patchEvents();
     patchExperiences();
     patchLocation();
+
+    /*
+      This patch injects/overwrites [data-i18n] elements with hardcoded
+      English text. It runs after the header/footer fetch(), which is
+      always later than the page's own i18n script, so it was silently
+      reverting already-translated content back to English on every
+      page load. Re-apply the active language immediately afterward so
+      translated content wins.
+    */
+    let activeLang = "en";
+    try {
+      activeLang = localStorage.getItem("fh_lang") || localStorage.getItem("fh_language") || localStorage.getItem("fhLang") || document.documentElement.getAttribute("lang") || "en";
+    } catch(error) {}
+
+    const relang = window.setFletschhornLanguage || window.FHSetLanguage;
+    if (typeof relang === "function") {
+      relang(activeLang);
+    } else {
+      console.warn("[i18n] no page-level language function found to re-apply after footer patch; injected content may stay in English.");
+    }
   }
 
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", runPatch);

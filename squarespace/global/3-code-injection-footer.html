@@ -3,12 +3,12 @@
      ready and hides the native Squarespace footer. -->
 
 <!-- ==========================================================
-Fletschhorn — Global Footer Only
-Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
+Fletschhorn — Global Footer + Private Estate Positioning Patch
 ========================================================== -->
 
 <script>
 (function(){
+  "use strict";
 
   const FH_WORKER_BASE = "https://guetsyapi.moshe-cohen-h1.workers.dev";
   const FH_INQUIRY_ENDPOINT = FH_WORKER_BASE.replace(/\/$/, "") + "/guesty/book-inquiry";
@@ -29,41 +29,21 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
   ];
 
   const FH_SOCIAL_LINKS = [
-    {
-      label: "Instagram",
-      href: "https://www.instagram.com/fletschhornsaasfee/"
-    },
-    {
-      label: "Facebook",
-      href: "https://www.facebook.com/waldhotelfletschhornsaasfee"
-    },
-    {
-      label: "Tripadvisor",
-      href: "https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html"
-    },
-    {
-      label: "LinkedIn",
-      href: "https://www.linkedin.com/company/waldhotel-fletschhorn-saas-fee/"
-    }
+    { label: "Instagram", href: "https://www.instagram.com/fletschhornsaasfee/" },
+    { label: "Facebook", href: "https://www.facebook.com/waldhotelfletschhornsaasfee" },
+    { label: "Tripadvisor", href: "https://www.tripadvisor.com/Hotel_Review-g198839-d236309-Reviews-Waldhotel_Fletschhorn-Saas_Fee_Canton_of_Valais_Swiss_Alps.html" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/waldhotel-fletschhorn-saas-fee/" }
   ];
 
   function makeFooter(){
-    const links = FH_FOOTER_PAGES.map(page => `
-      <a href="${page.href}">${page.label}</a>
-    `).join("");
-
-    const socialLinks = FH_SOCIAL_LINKS.map(item => `
-      <a href="${item.href}" target="_blank" rel="noopener noreferrer">${item.label}</a>
-    `).join("");
+    const links = FH_FOOTER_PAGES.map(page => `<a href="${page.href}">${page.label}</a>`).join("");
+    const socialLinks = FH_SOCIAL_LINKS.map(item => `<a href="${item.href}" target="_blank" rel="noopener noreferrer">${item.label}</a>`).join("");
 
     return `
       <footer class="fh-global-footer" id="fhGlobalFooter">
         <div class="fh-footer-shell">
-
           <div class="fh-footer-topline"></div>
-
           <div class="fh-footer-main">
-
             <div class="fh-footer-brand">
               <a href="/" class="fh-footer-logo" aria-label="Fletschhorn home">
                 <span class="fh-footer-mark">
@@ -71,59 +51,37 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
                 </span>
                 <span class="fh-footer-wordmark">
                   <strong>Fletschhorn</strong>
-                  <small>Private alpine house · Saas-Fee</small>
+                  <small>Private alpine hotel · Saas-Fee</small>
                 </span>
               </a>
-
-              <p>
-                A private alpine house for whole-property stays, family gatherings,
-                retreats, weddings and quiet mountain weeks above Saas-Fee.
-              </p>
+              <p>A fully private boutique alpine hotel for one group at a time — made for retreats, weddings, celebrations, private ski weeks, and slow mountain days above Saas-Fee.</p>
             </div>
 
             <div class="fh-footer-nav-block">
               <h3>Navigate</h3>
-              <nav class="fh-footer-links" aria-label="Footer navigation">
-                ${links}
-              </nav>
+              <nav class="fh-footer-links" aria-label="Footer navigation">${links}</nav>
             </div>
 
             <div class="fh-footer-info-block">
               <h3>Private stay</h3>
-              <p>
-                Exclusive access to the property, 14 rooms reserved for your group,
-                daily shuttles, refreshments, kitchen access and optional catering on request.
-              </p>
-
+              <p>One group only. No outside guests. Full-property privacy, kitchen flexibility, mountain views, sauna by arrangement, and direct planning for arrivals, dining, and group rhythm.</p>
               <div class="fh-footer-social-block">
                 <h3>Follow</h3>
-                <nav class="fh-footer-social-links" aria-label="Social links">
-                  ${socialLinks}
-                </nav>
+                <nav class="fh-footer-social-links" aria-label="Social links">${socialLinks}</nav>
               </div>
             </div>
 
             <div class="fh-footer-contact-block">
               <h3>Contact</h3>
-              <p>
-                Waldhotel Fletschhorn<br>
-                Wildistrasse<br>
-                3906 Saas-Fee, Switzerland
-              </p>
-              <p class="fh-footer-contact-line">
-                <a href="tel:+41279572131">+41 27 957 2131</a><br>
-                <a href="mailto:welcome@fletschhorn.ch">welcome@fletschhorn.ch</a>
-              </p>
+              <p>Waldhotel Fletschhorn<br>Wildistrasse<br>3906 Saas-Fee, Switzerland</p>
+              <p class="fh-footer-contact-line"><a href="tel:+41279572131">+41 27 957 2131</a><br><a href="mailto:welcome@fletschhorn.ch">welcome@fletschhorn.ch</a></p>
               <a class="fh-footer-cta" href="/booking">Book my stay now</a>
             </div>
-
           </div>
-
           <div class="fh-footer-bottom">
             <span>© ${new Date().getFullYear()} Fletschhorn</span>
             <span>Saas-Fee · Switzerland</span>
           </div>
-
         </div>
       </footer>
     `;
@@ -131,377 +89,253 @@ Paste in: Squarespace > Settings > Advanced > Code Injection > Footer
 
   function initFooter(){
     if(document.getElementById("fhGlobalFooter")) return;
-
     const nativeFooter = document.querySelector("footer:not(#fhGlobalFooter), .Footer, .SiteFooter, [data-test='footer']");
-    if(nativeFooter){
-      nativeFooter.style.display = "none";
-    }
-
+    if(nativeFooter) nativeFooter.style.display = "none";
     document.body.insertAdjacentHTML("beforeend", makeFooter());
   }
 
-  if(document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", initFooter);
-  }else{
-    initFooter();
-  }
-
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", initFooter);
+  else initFooter();
 })();
 </script>
 
 <style>
-.fh-global-footer{
-  position:relative;
-  z-index:20;
-  margin-top:0;
-  padding:0 6vw 34px;
-  color:#171819;
-  background:
-    radial-gradient(circle at 14% 0%, rgba(255,255,255,.95), transparent 28%),
-    radial-gradient(circle at 86% 18%, rgba(196,201,204,.22), transparent 31%),
-    linear-gradient(180deg,#f8f6f1 0%,#eeece6 58%,#e4e2dc 100%);
-  border-top:1px solid rgba(20,21,24,.08);
-  overflow:hidden;
-}
-
-.fh-global-footer::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='800' viewBox='0 0 1600 800'%3E%3Cg fill='none' stroke='%238b9095' stroke-opacity='.14' stroke-width='1.1'%3E%3Cpath d='M-60 140c170 52 315 58 470 20 137-33 257-29 376 12 126 43 254 50 389 12 148-42 290-33 480 42'/%3E%3Cpath d='M-80 252c162 42 317 49 472 18 144-29 278-20 410 24 122 41 238 42 374 3 175-50 318-42 500 34'/%3E%3Cpath d='M-70 365c168 34 326 38 486 10 146-25 287-18 424 20 131 36 252 37 388 0 156-43 296-44 458 10'/%3E%3Cpath d='M-80 490c185 25 346 20 512-8 142-24 291-20 442 8 131 24 257 18 384-18 157-45 293-48 440-8'/%3E%3Cpath d='M-70 618c198 12 368 5 540-24 151-25 309-24 472-4 136 17 270 8 400-28 132-36 246-42 344-24'/%3E%3C/g%3E%3C/svg%3E");
-  background-size:cover;
-  background-position:center top;
-  opacity:.42;
-  pointer-events:none;
-}
-
-.fh-global-footer::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(112deg, transparent 0 36%, rgba(255,255,255,.34) 48%, transparent 62%),
-    radial-gradient(circle at 20% 90%, rgba(255,255,255,.48), transparent 32%);
-  pointer-events:none;
-}
-
-.fh-footer-shell{
-  position:relative;
-  z-index:2;
-  max-width:1320px;
-  margin:0 auto;
-}
-
-.fh-footer-topline{
-  height:1px;
-  width:100%;
-  background:linear-gradient(90deg, transparent, rgba(20,21,24,.18), transparent);
-  margin-bottom:42px;
-}
-
-.fh-footer-main{
-  display:grid;
-  grid-template-columns:minmax(280px,1.25fr) minmax(150px,.58fr) minmax(250px,.9fr) minmax(230px,.78fr);
-  gap:44px;
-  align-items:start;
-}
-
-.fh-footer-logo{
-  display:inline-flex;
-  align-items:center;
-  gap:15px;
-  color:inherit;
-  text-decoration:none;
-}
-
-.fh-footer-mark{
-  width:58px;
-  height:58px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:18px;
-  background:rgba(255,255,255,.58);
-  border:1px solid rgba(20,21,24,.08);
-  overflow:hidden;
-  box-shadow:0 18px 42px rgba(20,21,24,.07);
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:20px;
-  font-style:italic;
-  color:rgba(20,21,24,.72);
-}
-
-.fh-footer-mark img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-
-.fh-footer-wordmark strong{
-  display:block;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:34px;
-  line-height:.9;
-  font-weight:400;
-  letter-spacing:-.055em;
-}
-
-.fh-footer-wordmark small{
-  display:block;
-  margin-top:8px;
-  font-size:10px;
-  line-height:1.2;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:rgba(20,21,24,.46);
-}
-
-.fh-footer-brand p,
-.fh-footer-info-block p,
-.fh-footer-contact-block p{
-  max-width:420px;
-  margin:22px 0 0;
-  font-size:14.5px;
-  line-height:1.7;
-  color:rgba(20,21,24,.62);
-}
-
-.fh-footer-nav-block h3,
-.fh-footer-info-block h3,
-.fh-footer-contact-block h3,
-.fh-footer-social-block h3{
-  margin:2px 0 18px;
-  font-size:10px;
-  line-height:1;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:rgba(20,21,24,.42);
-}
-
-.fh-footer-links{
-  display:grid;
-  gap:10px;
-}
-
-.fh-footer-social-block{
-  margin-top:26px;
-}
-
-.fh-footer-social-links{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-.fh-footer-social-links a{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:32px;
-  padding:8px 11px;
-  border-radius:999px;
-  border:1px solid rgba(20,21,24,.10);
-  background:rgba(255,255,255,.42);
-  color:rgba(20,21,24,.68);
-  text-decoration:none;
-  font-size:12.5px;
-  line-height:1;
-  transition:background .25s ease, color .25s ease, transform .25s ease, border-color .25s ease;
-}
-
-.fh-footer-social-links a:hover{
-  background:rgba(255,255,255,.76);
-  color:#171819;
-  border-color:rgba(20,21,24,.18);
-  transform:translateY(-1px);
-}
-
-.fh-footer-links a,
-.fh-footer-contact-block a{
-  color:rgba(20,21,24,.72);
-  text-decoration:none;
-  font-size:14.5px;
-  line-height:1.4;
-  transition:color .25s ease, opacity .25s ease, transform .25s ease;
-}
-
-.fh-footer-links a:hover,
-.fh-footer-contact-block a:hover{
-  color:#171819;
-}
-
-.fh-footer-links a:hover{
-  transform:translateX(3px);
-}
-
-.fh-footer-contact-line{
-  margin-top:16px !important;
-}
-
-.fh-footer-cta{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  margin-top:22px;
-  padding:12px 17px;
-  border-radius:999px;
-  background:#1f2022;
-  color:#fff !important;
-  text-decoration:none;
-  font-weight:700;
-  font-size:13px !important;
-  letter-spacing:.01em;
-  box-shadow:0 16px 34px rgba(20,21,24,.18);
-}
-
-.fh-footer-bottom{
-  margin-top:46px;
-  padding-top:18px;
-  border-top:1px solid rgba(20,21,24,.08);
-  display:flex;
-  justify-content:space-between;
-  gap:18px;
-  font-size:11px;
-  line-height:1.3;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:rgba(20,21,24,.42);
-}
-
-/* Tablet */
-@media(max-width:980px){
-  .fh-footer-main{
-    grid-template-columns:1fr 1fr;
-    gap:34px 42px;
-  }
-}
-
-/* Mobile: short, clean, not a big footer */
-@media(max-width:640px){
-  .fh-global-footer{
-    padding:0 20px 18px;
-    background:
-      radial-gradient(circle at 20% 0%, rgba(255,255,255,.9), transparent 34%),
-      linear-gradient(180deg,#f8f6f1 0%,#e7e5df 100%);
-  }
-
-  .fh-global-footer::before{
-    opacity:.22;
-  }
-
-  .fh-footer-topline{
-    margin-bottom:22px;
-  }
-
-  .fh-footer-main{
-    display:block;
-  }
-
-  .fh-footer-logo{
-    gap:11px;
-  }
-
-  .fh-footer-mark{
-    width:40px;
-    height:40px;
-    border-radius:13px;
-    box-shadow:0 10px 22px rgba(20,21,24,.06);
-  }
-
-  .fh-footer-wordmark strong{
-    font-size:25px;
-  }
-
-  .fh-footer-wordmark small{
-    font-size:8px;
-    letter-spacing:.14em;
-    margin-top:5px;
-  }
-
-  .fh-footer-brand p{
-    margin-top:13px;
-    max-width:330px;
-    font-size:13px;
-    line-height:1.48;
-  }
-
-  .fh-footer-nav-block{
-    margin-top:18px;
-  }
-
-  .fh-footer-nav-block h3,
-  .fh-footer-info-block,
-  .fh-footer-contact-block h3,
-  .fh-footer-contact-block p:first-of-type{
-    display:none;
-  }
-
-  .fh-footer-links{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px 13px;
-  }
-
-  .fh-footer-links a{
-    font-size:13px;
-    line-height:1.2;
-    color:rgba(20,21,24,.64);
-  }
-
-  .fh-footer-contact-block{
-    margin-top:15px;
-  }
-
-  .fh-footer-contact-line{
-    display:block;
-    margin:0 !important;
-    font-size:13px !important;
-    line-height:1.45 !important;
-  }
-
-  .fh-footer-contact-line a{
-    font-size:13px !important;
-  }
-
-  .fh-footer-social-block{
-    display:block;
-    margin-top:14px;
-  }
-
-  .fh-footer-social-block h3{
-    display:none;
-  }
-
-  .fh-footer-social-links{
-    gap:7px;
-  }
-
-  .fh-footer-social-links a{
-    min-height:28px;
-    padding:7px 9px;
-    font-size:11.5px;
-    background:rgba(255,255,255,.38);
-  }
-
-  .fh-footer-cta{
-    margin-top:13px;
-    padding:10px 14px;
-    font-size:12.5px !important;
-    box-shadow:0 12px 24px rgba(20,21,24,.15);
-  }
-
-  .fh-footer-bottom{
-    margin-top:16px;
-    padding-top:12px;
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    font-size:9.5px;
-    letter-spacing:.05em;
-  }
-
-  .fh-footer-bottom span:last-child{
-    text-align:right;
-  }
-}
+.fh-global-footer{position:relative;z-index:20;margin-top:0;padding:0 6vw 34px;color:#171819;background:radial-gradient(circle at 14% 0%,rgba(255,255,255,.95),transparent 28%),radial-gradient(circle at 86% 18%,rgba(196,201,204,.22),transparent 31%),linear-gradient(180deg,#f8f6f1 0%,#eeece6 58%,#e4e2dc 100%);border-top:1px solid rgba(20,21,24,.08);overflow:hidden}.fh-global-footer:before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='800' viewBox='0 0 1600 800'%3E%3Cg fill='none' stroke='%238b9095' stroke-opacity='.14' stroke-width='1.1'%3E%3Cpath d='M-60 140c170 52 315 58 470 20 137-33 257-29 376 12 126 43 254 50 389 12 148-42 290-33 480 42'/%3E%3Cpath d='M-80 252c162 42 317 49 472 18 144-29 278-20 410 24 122 41 238 42 374 3 175-50 318-42 500 34'/%3E%3Cpath d='M-70 365c168 34 326 38 486 10 146-25 287-18 424 20 131 36 252 37 388 0 156-43 296-44 458 10'/%3E%3Cpath d='M-80 490c185 25 346 20 512-8 142-24 291-20 442 8 131 24 257 18 384-18 157-45 293-48 440-8'/%3E%3Cpath d='M-70 618c198 12 368 5 540-24 151-25 309-24 472-4 136 17 270 8 400-28 132-36 246-42 344-24'/%3E%3C/g%3E%3C/svg%3E");background-size:cover;background-position:center top;opacity:.42;pointer-events:none}.fh-footer-shell{position:relative;z-index:2;max-width:1320px;margin:0 auto}.fh-footer-topline{height:1px;width:100%;background:linear-gradient(90deg,transparent,rgba(20,21,24,.18),transparent);margin-bottom:42px}.fh-footer-main{display:grid;grid-template-columns:minmax(280px,1.25fr) minmax(150px,.58fr) minmax(250px,.9fr) minmax(230px,.78fr);gap:44px;align-items:start}.fh-footer-logo{display:inline-flex;align-items:center;gap:15px;color:inherit;text-decoration:none}.fh-footer-mark{width:58px;height:58px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:rgba(255,255,255,.58);box-shadow:0 18px 42px rgba(20,21,24,.07);font-family:Georgia,"Times New Roman",serif;font-size:20px;font-style:italic;color:rgba(20,21,24,.72)}.fh-footer-mark img{width:100%;height:100%;object-fit:contain}.fh-footer-wordmark strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:34px;line-height:.9;font-weight:400;letter-spacing:-.055em}.fh-footer-wordmark small{display:block;margin-top:8px;font-size:10px;line-height:1.2;letter-spacing:.18em;text-transform:uppercase;color:rgba(20,21,24,.46)}.fh-footer-brand p,.fh-footer-info-block p,.fh-footer-contact-block p{max-width:420px;margin:22px 0 0;font-size:14.5px;line-height:1.7;color:rgba(20,21,24,.62)}.fh-footer-nav-block h3,.fh-footer-info-block h3,.fh-footer-contact-block h3,.fh-footer-social-block h3{margin:2px 0 18px;font-size:10px;line-height:1;letter-spacing:.22em;text-transform:uppercase;color:rgba(20,21,24,.42)}.fh-footer-links{display:grid;gap:10px}.fh-footer-social-block{margin-top:26px}.fh-footer-social-links{display:flex;flex-wrap:wrap;gap:8px}.fh-footer-social-links a{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:8px 11px;border-radius:999px;border:1px solid rgba(20,21,24,.10);background:rgba(255,255,255,.42);color:rgba(20,21,24,.68);text-decoration:none;font-size:12.5px;line-height:1}.fh-footer-links a,.fh-footer-contact-block a{color:rgba(20,21,24,.72);text-decoration:none;font-size:14.5px;line-height:1.4}.fh-footer-cta{display:inline-flex;align-items:center;justify-content:center;margin-top:22px;padding:12px 17px;border-radius:999px;background:#1f2022;color:#fff!important;text-decoration:none;font-weight:700;font-size:13px!important;letter-spacing:.01em;box-shadow:0 16px 34px rgba(20,21,24,.18)}.fh-footer-bottom{margin-top:46px;padding-top:18px;border-top:1px solid rgba(20,21,24,.08);display:flex;justify-content:space-between;gap:18px;font-size:11px;line-height:1.3;letter-spacing:.08em;text-transform:uppercase;color:rgba(20,21,24,.42)}@media(max-width:980px){.fh-footer-main{grid-template-columns:1fr 1fr;gap:34px 42px}}@media(max-width:640px){.fh-global-footer{padding:0 20px 18px}.fh-footer-topline{margin-bottom:22px}.fh-footer-main{display:block}.fh-footer-logo{gap:11px}.fh-footer-mark{width:40px;height:40px;border-radius:13px}.fh-footer-wordmark strong{font-size:25px}.fh-footer-wordmark small{font-size:8px;letter-spacing:.14em;margin-top:5px}.fh-footer-brand p{margin-top:13px;max-width:330px;font-size:13px;line-height:1.48}.fh-footer-nav-block{margin-top:18px}.fh-footer-nav-block h3,.fh-footer-info-block,.fh-footer-contact-block h3,.fh-footer-contact-block p:first-of-type{display:none}.fh-footer-links{display:flex;flex-wrap:wrap;gap:8px 13px}.fh-footer-links a{font-size:13px;line-height:1.2}.fh-footer-contact-block{margin-top:15px}.fh-footer-contact-line{display:block;margin:0!important;font-size:13px!important;line-height:1.45!important}.fh-footer-contact-line a{font-size:13px!important}.fh-footer-bottom{margin-top:16px;padding-top:12px;display:flex;justify-content:space-between;gap:10px;font-size:9.5px;letter-spacing:.05em}.fh-footer-bottom span:last-child{text-align:right}}
 </style>
+
+<style id="fhPrivateEstatePatchStyle">
+.fh-estate-cta-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px auto 0;width:min(920px,100%)}.fh-estate-cta-row a{min-height:52px;display:flex;align-items:center;justify-content:center;padding:13px 15px;border:1px solid rgba(255,250,242,.32);background:rgba(255,250,242,.15);color:#fffaf2!important;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:900;text-decoration:none!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .2s ease,transform .2s ease}.fh-estate-cta-row a:hover{background:rgba(255,250,242,.25);transform:translateY(-1px)}.fh-estate-section{position:relative;padding:clamp(54px,7vw,92px) var(--edge,24px);background:rgba(255,250,242,.78);border-top:1px solid rgba(28,24,20,.08);border-bottom:1px solid rgba(28,24,20,.08)}.fh-estate-wrap{width:min(1180px,calc(100% - 0px));margin:0 auto}.fh-estate-kicker{margin:0 0 12px;color:#876e58;font-size:10px;line-height:1;text-transform:uppercase;letter-spacing:.2em;font-weight:900}.fh-estate-title{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(34px,5vw,64px);line-height:.94;font-weight:400;letter-spacing:-.055em;color:#1c1814}.fh-estate-lead{margin:16px 0 0;max-width:760px;color:rgba(28,24,20,.68);font-size:clamp(15px,1.2vw,18px);line-height:1.62}.fh-estate-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:30px}.fh-estate-card{padding:19px 18px;border:1px solid rgba(28,24,20,.10);background:rgba(255,250,242,.72);box-shadow:0 12px 34px rgba(27,23,18,.06)}.fh-estate-card strong{display:block;margin-bottom:8px;font-family:Georgia,"Times New Roman",serif;font-size:24px;line-height:1;font-weight:400;color:#1f3a2f}.fh-estate-card span{display:block;color:rgba(28,24,20,.66);font-size:13.5px;line-height:1.5}.fh-estate-composition{margin-top:28px;padding:22px;border:1px solid rgba(31,58,47,.14);background:rgba(31,58,47,.06)}.fh-estate-composition h3{margin:0 0 12px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,3vw,42px);line-height:1;font-weight:400;color:#1c1814}.fh-estate-pill-list{display:flex;flex-wrap:wrap;gap:8px}.fh-estate-pill-list span{display:inline-flex;align-items:center;min-height:32px;padding:8px 11px;border:1px solid rgba(28,24,20,.11);background:rgba(255,255,255,.52);color:rgba(28,24,20,.72);font-size:12px;font-weight:750}.fh-estate-dossier{width:min(1180px,calc(100% - 32px));margin:34px auto;padding:28px;border:1px solid rgba(36,31,28,.12);background:rgba(255,250,243,.72);box-shadow:0 14px 38px rgba(23,19,16,.08)}.fh-estate-dossier-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.fh-estate-dossier-card{padding:24px;border:1px solid rgba(36,31,28,.10);background:rgba(255,255,255,.38)}.fh-estate-dossier-card h2,.fh-estate-dossier-card h3{margin:0 0 12px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,4vw,52px);line-height:.96;font-weight:400;letter-spacing:-.045em;color:#241f1c}.fh-estate-dossier-card p{margin:0 0 14px;color:rgba(36,31,28,.66);font-size:15px;line-height:1.65}.fh-estate-dossier-card ul{margin:0;padding-left:18px;color:rgba(36,31,28,.68);font-size:14px;line-height:1.55}.fh-estate-dossier-card li{margin:6px 0}.fh-estate-anchor{display:block;position:relative;top:-120px;visibility:hidden}@media(max-width:900px){.fh-estate-cta-row,.fh-estate-grid,.fh-estate-dossier-grid{grid-template-columns:1fr}.fh-estate-card strong{font-size:22px}}@media(max-width:640px){.fh-estate-section{padding:44px 16px}.fh-estate-cta-row{gap:7px;margin-top:10px}.fh-estate-cta-row a{min-height:46px;padding:10px 8px;font-size:8.5px;letter-spacing:.08em}.fh-estate-grid{gap:9px}.fh-estate-card{padding:16px}.fh-estate-dossier{width:calc(100% - 24px);padding:18px;margin:24px auto}.fh-estate-dossier-card{padding:18px}}
+</style>
+
+<script>
+(function(){
+  "use strict";
+  if(document.documentElement.dataset.fhPrivateEstatePatchLoaded === "1") return;
+  document.documentElement.dataset.fhPrivateEstatePatchLoaded = "1";
+
+  function page(path){ return path; }
+  function one(selector){ return document.querySelector(selector); }
+  function all(selector){ return Array.prototype.slice.call(document.querySelectorAll(selector)); }
+  function setText(selector,text){ const el = one(selector); if(el) el.textContent = text; }
+  function meta(name,value){ const el = document.querySelector("meta[name='" + name + "']"); if(el) el.setAttribute("content", value); }
+  function prop(name,value){ const el = document.querySelector("meta[property='" + name + "']"); if(el) el.setAttribute("content", value); }
+  function after(target, html){ if(target) target.insertAdjacentHTML("afterend", html); }
+  function append(target, html){ if(target) target.insertAdjacentHTML("beforeend", html); }
+
+  function patchHome(){
+    const root = one("#fh-home");
+    if(!root) return;
+
+    document.title = "Fletschhorn · Private Alpine Hotel in Saas-Fee for Groups";
+    meta("description", "A fully private boutique alpine hotel in Saas-Fee for groups of 30–49 guests, retreats, weddings, celebrations, private ski weeks, dining, sauna and full-property stays.");
+    prop("og:title", "Fletschhorn · Private Alpine Hotel in Saas-Fee");
+    prop("og:description", "A private mountain world for one group at a time: retreats, weddings, celebrations and ski weeks above Saas-Fee.");
+
+    setText('[data-i18n="heroKicker"]', "Private boutique alpine hotel · Saas-Fee");
+    setText('[data-i18n="heroTitle"]', "Your Private Alpine Hotel in Saas-Fee");
+    setText('[data-i18n="heroLead"]', "A fully private boutique alpine hotel for groups of 30–49 guests — built for retreats, celebrations, weddings, private ski weeks, and unforgettable gatherings above Saas-Fee.");
+
+    const booking = one("#fh-home .fh-booking");
+    if(booking && !one("#fh-home .fh-estate-cta-row")){
+      after(booking, `
+        <nav class="fh-estate-cta-row" aria-label="Explore private stay types">
+          <a href="${page("/wedding-event#your-event")}">Corporate Retreats</a>
+          <a href="${page("/wedding-event#your-wedding")}">Weddings</a>
+          <a href="${page("/experiences#winter")}">Private Ski Weeks</a>
+        </nav>
+      `);
+    }
+
+    const hero = one("#fh-home .fh-hero");
+    if(hero && !one("#our-concept")){
+      after(hero, `
+        <section class="fh-estate-section" id="our-concept">
+          <div class="fh-estate-wrap">
+            <p class="fh-estate-kicker">Our Concept</p>
+            <h2 class="fh-estate-title">A private alpine hotel, entirely yours.</h2>
+            <p class="fh-estate-lead">Fletschhorn is not a traditional hotel stay or a room-inventory website. It is a fully private boutique alpine hotel for one group at a time, designed for retreats, weddings, celebrations, private ski weeks, and family gatherings in Saas-Fee.</p>
+            <p class="fh-estate-lead">Your group has the full property rhythm: private rooms, shared gathering spaces, kitchen flexibility, mountain views, and no outside guests interrupting the atmosphere.</p>
+            <div class="fh-estate-grid">
+              <div class="fh-estate-card"><strong>One group only</strong><span>The property is reserved for your group, not mixed with other hotel guests.</span></div>
+              <div class="fh-estate-card"><strong>Full privacy</strong><span>A quiet alpine setting for people who want space, silence, and exclusivity.</span></div>
+              <div class="fh-estate-card"><strong>Kitchen all yours</strong><span>Self-cooking, catering, or private chef options can be planned around your stay.</span></div>
+              <div class="fh-estate-card"><strong>Made for groups</strong><span>Ideal for 30–49 guests across retreats, events, weddings, ski weeks, and family celebrations.</span></div>
+              <div class="fh-estate-card"><strong>Mountain world</strong><span>Views, sauna, fireside evenings, village access, and alpine experiences around Saas-Fee.</span></div>
+            </div>
+            <div class="fh-estate-composition">
+              <h3>The full-property experience</h3>
+              <div class="fh-estate-pill-list">
+                <span>Private chef by arrangement</span><span>Catering</span><span>Self-cooking</span><span>Wellness</span><span>Mountain experiences</span><span>Fireside evenings</span><span>Full-property access</span><span>No staff disturbing the rhythm</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      `);
+    }
+
+    setText('[data-i18n="roomsKicker"]', "Sleeping layout");
+    setText('[data-i18n="roomsTitle"]', "Private sleeping spaces for one group, under one alpine roof.");
+    setText('[data-i18n="roomsLead"]', "The sleeping layout supports the private-estate concept: your guests stay together at Fletschhorn instead of being split across different hotels.");
+    setText('[data-i18n="staysKicker"]', "Stay types");
+    setText('[data-i18n="staysTitle"]', "Retreats, weddings, private events, family celebrations, and ski weeks.");
+    setText('[data-i18n="staysLead"]', "Each stay type starts from the same promise: one private alpine hotel, one group, full privacy, and a mountain world around you.");
+    setText('[data-i18n="retreatKicker"]', "Corporate retreats");
+    setText('[data-i18n="retreatTitle"]', "A private base for focused teams.");
+    setText('[data-i18n="retreatText"]', "Work sessions, shared meals, wellness, mountain air, and quiet space with no outside guests.");
+    setText('[data-i18n="eventKicker"]', "Weddings & celebrations");
+    setText('[data-i18n="eventTitle"]', "A full weekend, not just a venue.");
+    setText('[data-i18n="eventText"]', "Family and friends can stay together, dine together, and take over the atmosphere of the hotel.");
+    setText('[data-i18n="skiKicker"]', "Private ski weeks");
+    setText('[data-i18n="skiTitle"]', "Ski days, sauna, warm returns.");
+    setText('[data-i18n="skiText"]', "A private winter base for groups who want the mountains by day and the whole hotel by night.");
+
+    setText('[data-i18n="foodKicker"]', "Private dining");
+    setText('[data-i18n="foodTitle"]', "Private Chef · Catering · Self-Cooking");
+    setText('[data-i18n="foodText"]', "Dining follows the group: private chef by arrangement, catering for weddings or events, or full kitchen access for groups who want the house to feel entirely theirs.");
+    setText('[data-i18n="foodItem1Title"]', "Self-cooking");
+    setText('[data-i18n="foodItem1Text"]', "The kitchen can become part of the private-house rhythm for groups who want to cook together.");
+    setText('[data-i18n="foodItem2Title"]', "Private chef or catering");
+    setText('[data-i18n="foodItem2Text"]', "For weddings, retreats, and celebrations, chef or catering support can be discussed by arrangement.");
+    setText('[data-i18n="foodItem3Title"]', "Group meal planning");
+    setText('[data-i18n="foodItem3Text"]', "Breakfasts, buffets, packed lunches, dinners, and arrival logistics can be planned before the stay.");
+
+    setText('[data-i18n="mapKicker"]', "How to get here");
+    setText('[data-i18n="mapTitle"]', "Arrival is part of the alpine experience.");
+    setText('[data-i18n="mapLead"]', "Saas-Fee is car-free, so arrival should be planned carefully: car or train to the village, luggage coordination, shuttle timing, and helicopter transfer by request with pricing to be confirmed.");
+    setText('[data-i18n="mapCard3Title"]', "Shuttle & luggage");
+    setText('[data-i18n="mapCard3Text"]', "Plan arrival windows, luggage movement, and village transfer details in advance.");
+    setText('[data-i18n="mapCard4Title"]', "Private transfers");
+    setText('[data-i18n="mapCard4Text"]', "Taxi, shuttle, and helicopter transfer by request; helicopter pricing to be confirmed.");
+
+    setText('[data-i18n="winterKicker"]', "Winter · Private ski weeks");
+    setText('[data-i18n="winterTitle"]', "A private winter base for ski weeks together.");
+    setText('[data-i18n="winterText"]', "Glacier skiing, warm returns, sauna after the mountain, group dinners, and the comfort of not splitting guests across multiple hotels.");
+  }
+
+  function patchEvents(){
+    const root = one("#fh-events");
+    if(!root) return;
+    document.title = "Fletschhorn · Weddings, Corporate Retreats & Private Events";
+    meta("description", "A private alpine hotel in Saas-Fee for weddings, corporate retreats, birthdays, family celebrations and private events with full-property privacy.");
+
+    if(!one("#fh-event-private-composition")){
+      const hero = one("#fh-events .fh-hero") || root.firstElementChild;
+      after(hero, `
+        <section class="fh-estate-dossier" id="fh-event-private-composition">
+          <span class="fh-estate-anchor" id="your-event"></span>
+          <div class="fh-estate-dossier-grid">
+            <article class="fh-estate-dossier-card">
+              <h2>Your Event</h2>
+              <p>For corporate retreats, private events, birthdays, parties, and family celebrations, Fletschhorn becomes a full alpine base for one group only.</p>
+              <ul>
+                <li>Entire hotel privately reserved for your group</li>
+                <li>No outside guests interrupting the atmosphere</li>
+                <li>Gathering spaces, quiet corners, and mountain views</li>
+                <li>Private Chef · Catering · Self-Cooking by arrangement</li>
+                <li>Sauna, shuttle, luggage, and arrival planning by request</li>
+              </ul>
+            </article>
+            <article class="fh-estate-dossier-card">
+              <span class="fh-estate-anchor" id="your-wedding"></span>
+              <h2>Your Wedding</h2>
+              <p>A private alpine wedding stay, not just a venue: family and friends can sleep, dine, gather, and celebrate together in one mountain hotel.</p>
+              <ul>
+                <li>Whole hotel for the wedding group</li>
+                <li>Mountain backdrop and intimate house atmosphere</li>
+                <li>Catering, private chef, or self-cooking by arrangement</li>
+                <li>No other hotel guests during your stay</li>
+                <li>Weekend rhythm: arrival, dinner, celebration, recovery, and slow alpine mornings</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      `);
+    }
+  }
+
+  function patchExperiences(){
+    const root = one("#fh-experiences");
+    if(!root) return;
+    document.title = "Fletschhorn · Private Ski Weeks & Alpine Experiences";
+    meta("description", "Private ski weeks, summer trails, wellness, sauna, dining and alpine experiences from a fully private hotel above Saas-Fee.");
+
+    if(!one("#winter")){
+      const winterTarget = Array.from(root.querySelectorAll("section, article, div")).find(function(el){ return /winter|ski|glacier/i.test(el.textContent || ""); }) || root.firstElementChild;
+      if(winterTarget) winterTarget.insertAdjacentHTML("beforebegin", '<span class="fh-estate-anchor" id="winter"></span>');
+    }
+
+    if(!one("#fh-winter-private-ski-weeks")){
+      const anchor = one("#winter") || root.firstElementChild;
+      after(anchor, `
+        <section class="fh-estate-dossier" id="fh-winter-private-ski-weeks">
+          <div class="fh-estate-dossier-card">
+            <h2>Private Ski Weeks</h2>
+            <p>Fletschhorn works as a private winter base for ski groups, families, and alpine weeks together: mountain days outside, then the whole hotel waiting for your group only.</p>
+            <ul>
+              <li>Glacier skiing and high-alpine winter days</li>
+              <li>Warm returns, sauna after skiing, and fireside evenings</li>
+              <li>Group dinners with Private Chef · Catering · Self-Cooking options by arrangement</li>
+              <li>No splitting guests across multiple hotels</li>
+              <li>Shuttle, luggage, and car-free Saas-Fee arrival planning</li>
+            </ul>
+          </div>
+        </section>
+      `);
+    }
+  }
+
+  function patchLocation(){
+    const root = one("#fh-location") || one("#access");
+    if(!root) return;
+    if(!one("#fh-how-to-get-here-composition")){
+      append(root, `
+        <section class="fh-estate-dossier" id="fh-how-to-get-here-composition">
+          <div class="fh-estate-dossier-card">
+            <h2>How to get here</h2>
+            <p>Saas-Fee is car-free, so arrival is best planned before the stay. The group can coordinate car arrival, train and bus arrival, luggage movement, shuttle timing, and private transfer details.</p>
+            <ul>
+              <li>Arrive by car to Saas-Fee, then continue according to village access rules</li>
+              <li>Arrive by train and bus with luggage planning</li>
+              <li>Coordinate shuttle windows where available</li>
+              <li>Helicopter transfer by request; pricing to be confirmed</li>
+            </ul>
+          </div>
+        </section>
+      `);
+    }
+  }
+
+  function runPatch(){
+    patchHome();
+    patchEvents();
+    patchExperiences();
+    patchLocation();
+
+    /*
+      This patch injects/overwrites [data-i18n] elements with hardcoded
+      English text. It runs after the header/footer fetch(), which is
+      always later than the page's own i18n script, so it was silently
+      reverting already-translated content back to English on every
+      page load. Re-apply the active language immediately afterward so
+      translated content wins.
+    */
+    let activeLang = "en";
+    try {
+      activeLang = localStorage.getItem("fh_lang") || localStorage.getItem("fh_language") || localStorage.getItem("fhLang") || document.documentElement.getAttribute("lang") || "en";
+    } catch(error) {}
+
+    const relang = window.setFletschhornLanguage || window.FHSetLanguage;
+    if (typeof relang === "function") {
+      relang(activeLang);
+    } else {
+      console.warn("[i18n] no page-level language function found to re-apply after footer patch; injected content may stay in English.");
+    }
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", runPatch);
+  else runPatch();
+  window.setTimeout(runPatch, 250);
+  window.setTimeout(runPatch, 900);
+  window.addEventListener("fh-language-change", function(){ window.setTimeout(runPatch, 80); });
+})();
+</script>

@@ -697,7 +697,9 @@
   let currentLang = normalizeLang(data.lang);
 
   function t(key){
-    return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
+    const v = (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key];
+    if (v == null) { console.warn("[i18n] missing key:", key, "lang:", currentLang); return key; }
+    return v;
   }
 
   function setLang(lang){

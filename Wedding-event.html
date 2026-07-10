@@ -3473,7 +3473,9 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
   function t(key){
     const dict=bookingCopy[bookingState.lang]||bookingCopy.en;
-    return dict[key] || bookingCopy.en[key] || key;
+    const v = dict[key] || bookingCopy.en[key];
+    if (v == null) { console.warn("[i18n] missing key:", key, "lang:", bookingState.lang); return key; }
+    return v;
   }
 
   function setLanguage(lang){

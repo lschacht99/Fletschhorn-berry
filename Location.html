@@ -988,7 +988,7 @@
     return normalizeLang(new URLSearchParams(window.location.search).get("lang")||saved||document.documentElement.lang||"en");
   }
 
-  function t(key){ return (bookingCopy[state.lang] && bookingCopy[state.lang][key]) || bookingCopy.en[key] || ""; }
+  function t(key){ var v=(bookingCopy[state.lang] && bookingCopy[state.lang][key]) || bookingCopy.en[key]; if(v==null){console.warn("[i18n] missing key:",key,"lang:",state.lang); return "";} return v; }
 
   function applyToolbarLanguage(lang){
     state.lang=normalizeLang(lang);
