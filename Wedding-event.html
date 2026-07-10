@@ -2085,7 +2085,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
         </article>
 
         <div class="fh-photo-stage fh-preclip">
-          <div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="12" aria-hidden="true"></div>
+          <div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="12" data-fh-carousel-fixed="xxhxc78ctnmxg4yqscjv.jpg" aria-hidden="true"></div>
           <div class="fh-photo-caption"><small data-fh-i18n="introPhotoSmall">Private alpine event setting</small><strong data-fh-i18n="introPhotoTitle">One house, one group, one shared weekend.</strong></div>
         </div>
       </div>
@@ -2103,7 +2103,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
       <div class="fh-container fh-wedding-feature">
         <div class="fh-wedding-visual fh-preclip">
-          <div class="fh-simple-carousel" data-fh-carousel="love" data-fh-carousel-offset="0" aria-hidden="true"></div>
+          <div class="fh-simple-carousel" data-fh-carousel="love" data-fh-carousel-offset="0" data-fh-carousel-fixed="zpwembp1gflcyocsnvnd.jpg" aria-hidden="true"></div>
           <div class="fh-wedding-visual-copy">
             <p class="fh-kicker" data-fh-i18n="weddingVisualKicker">Your wedding weekend</p>
             <h3 data-fh-i18n="weddingVisualTitle">Your moment. Here. Forever.</h3>
@@ -2179,7 +2179,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
       <div class="fh-container fh-event-hero fh-reveal">
         <div class="fh-event-hero-media">
-          <div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="0" aria-hidden="true"></div>
+          <div class="fh-simple-carousel" data-fh-carousel="events" data-fh-carousel-offset="0" data-fh-carousel-fixed="rcetbf39w7n4qyihyz6n.jpg" aria-hidden="true"></div>
         </div>
         <div class="fh-event-hero-copy">
           <p class="fh-kicker" data-fh-i18n="eventsHeroKicker">Bring the group together</p>
@@ -3498,12 +3498,31 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
     }
   }
 
-  root.querySelectorAll('[data-fh-carousel="love"]').forEach((host, index)=>{
+  const FIXED_CAROUSEL_URLS = {
+    "xxhxc78ctnmxg4yqscjv.jpg": "https://assets.guesty.com/image/upload/v1769382097/production/686c48ada4bbacd7a82a4f83/xxhxc78ctnmxg4yqscjv.jpg",
+    "zpwembp1gflcyocsnvnd.jpg": "https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/zpwembp1gflcyocsnvnd.jpg",
+    "rcetbf39w7n4qyihyz6n.jpg": "https://assets.guesty.com/image/upload/v1781188638/production/686c48ada4bbacd7a82a4f83/rcetbf39w7n4qyihyz6n.jpg"
+  };
+
+  function buildFixedCarousel(host){
+    const key = host.getAttribute('data-fh-carousel-fixed');
+    const url = FIXED_CAROUSEL_URLS[key];
+    if(!url) return;
+    host.innerHTML = '';
+    const slide = document.createElement('div');
+    slide.className = 'fh-carousel-slide fh-active';
+    slide.style.backgroundImage = `url("${url}")`;
+    host.appendChild(slide);
+  }
+
+  root.querySelectorAll('[data-fh-carousel-fixed]').forEach(buildFixedCarousel);
+
+  root.querySelectorAll('[data-fh-carousel="love"]:not([data-fh-carousel-fixed])').forEach((host, index)=>{
     if(!host.getAttribute('data-fh-carousel-offset')) host.setAttribute('data-fh-carousel-offset', String(index * 3));
     buildCarousel(host, LOVE_IMAGES, 5200);
   });
 
-  root.querySelectorAll('[data-fh-carousel="events"]').forEach((host, index)=>{
+  root.querySelectorAll('[data-fh-carousel="events"]:not([data-fh-carousel-fixed])').forEach((host, index)=>{
     if(!host.getAttribute('data-fh-carousel-offset')) host.setAttribute('data-fh-carousel-offset', String(index * 4));
     buildCarousel(host, EVENT_IMAGES, 5200);
   });
