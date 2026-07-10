@@ -495,6 +495,12 @@ html.fh-toolbar-calendar-open body{
 #fhToolbarCalendarModal.open{display:flex!important;align-items:center!important;justify-content:center!important;padding:14px!important}
 #fhToolbarCalendarModal.open .fh-calendar-card,#fhToolbarCalendarModal.open [class*="calendar-card"]{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;margin:auto!important;width:min(560px,calc(100vw - 28px))!important;max-height:calc(100svh - 28px)!important}
 @media(max-width:760px){.fh-mobile-footbar{display:grid}body.fh-global-shell{padding-bottom:72px!important}#fhToolbarCalendarModal.open{align-items:center!important;justify-content:center!important}}
+
+/* Global calendar rescue: the schedule modal must always win against
+   embed/container CSS (Squarespace blocks, transformed wrappers). */
+#fhToolbarCalendarModal{position:fixed!important;inset:0!important;z-index:999999!important;display:none}
+#fhToolbarCalendarModal.open{display:flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
+@media(max-width:760px){#fhToolbarCalendarModal{align-items:flex-end!important;padding:0!important}.fh-calendar-card{width:100%!important;max-height:86svh!important;overflow:auto!important}}
 </style>
 
 <script>
@@ -1369,6 +1375,153 @@ html.fh-toolbar-calendar-open body{
       openHeaderSchedule();
     }
   }, true);
+
+  /*
+    Global calendar rescue.
+    Delegated capture handlers that guarantee, on every page and inside
+    Squarespace embeds, that:
+      - clicking a date field / #fhOpenToolbarCalendar / .fh-date-button ends
+        with a visible #fhToolbarCalendarModal (relocating it to <body> when a
+        transformed/hidden ancestor breaks position:fixed),
+      - Book Now without arrival+departure never redirects: it opens the
+        calendar and shows a status message instead,
+      - Book Now with valid dates is left completely alone (existing flow).
+    No page calendar logic is replaced — this only re-triggers or force-shows
+    the modals the pages already own.
+  */
+  const FH_CHOOSE_DATES_MSG = "Please choose arrival and departure dates first.";
+  let fhCalendarRescueAt = 0;
+
+  function fhModalAncestorBreaksFixed(modal){
+    let el = modal.parentElement;
+    while(el && el !== document.body && el !== document.documentElement){
+      const cs = getComputedStyle(el);
+      if(cs.display === "none") return true;
+      if(cs.transform !== "none" || cs.perspective !== "none" || (cs.filter && cs.filter !== "none")) return true;
+      if(cs.contentVisibility === "auto" || cs.contentVisibility === "hidden") return true;
+      if(/paint|layout|strict|content/.test(cs.contain || "")) return true;
+      el = el.parentElement;
+    }
+    return false;
+  }
+
+  function fhRelocateToolbarModal(){
+    const modal = document.getElementById("fhToolbarCalendarModal");
+    if(modal && modal.parentElement && modal.parentElement !== document.body && fhModalAncestorBreaksFixed(modal)){
+      document.body.appendChild(modal);
+    }
+    return modal;
+  }
+
+  function fhCalendarOpenAndVisible(){
+    const open = document.querySelectorAll("#fhToolbarCalendarModal.open, .fh-calendar-modal.open, .fh-isolated-calendar-modal.open");
+    for(const el of open){
+      const rect = el.getBoundingClientRect();
+      const cs = getComputedStyle(el);
+      if(rect.width > 40 && rect.height > 40 && cs.display !== "none" && cs.visibility !== "hidden") return true;
+    }
+    return false;
+  }
+
+  function fhForceOpenCalendarFallback(){
+    const modal = fhRelocateToolbarModal();
+    if(modal){
+      openToolbarCalendarModal(modal);
+      if(fhCalendarOpenAndVisible()) return;
+      if(modal.parentElement !== document.body){
+        document.body.appendChild(modal);
+        if(fhCalendarOpenAndVisible()) return;
+      }
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+    openToolbarCalendarModal(ensureToolbarCalendarModal());
+  }
+
+  function fhEnsureCalendarVisibleSoon(clickedOpener){
+    window.setTimeout(function(){
+      fhRelocateToolbarModal();
+      if(fhCalendarOpenAndVisible()) return;
+      const primary = document.getElementById("fhOpenToolbarCalendar");
+      if(primary && clickedOpener && clickedOpener !== primary && document.documentElement.dataset.fhCalendarRescueClick !== "1"){
+        document.documentElement.dataset.fhCalendarRescueClick = "1";
+        primary.click();
+        window.setTimeout(function(){
+          delete document.documentElement.dataset.fhCalendarRescueClick;
+          fhRelocateToolbarModal();
+          if(!fhCalendarOpenAndVisible()) fhForceOpenCalendarFallback();
+        }, 160);
+        return;
+      }
+      fhForceOpenCalendarFallback();
+    }, 150);
+  }
+
+  function fhToolbarScope(node){
+    return (node && node.closest) ? node.closest("[data-fh-booking-toolbar], form, .fh-booking") : null;
+  }
+
+  function fhToolbarScopeDates(node){
+    const toolbar = fhToolbarScope(node);
+    if(toolbar){
+      const a = toolbar.querySelector("[data-fh-arrival], #fhArrival, [name='checkIn'], [name='arrival']");
+      const d = toolbar.querySelector("[data-fh-departure], #fhDeparture, [name='checkOut'], [name='departure']");
+      if(a || d) return { checkIn:(a && a.value) || "", checkOut:(d && d.value) || "" };
+    }
+    return pageToolbarDates();
+  }
+
+  function fhShowChooseDatesMessage(bookBtn){
+    const toolbar = fhToolbarScope(bookBtn) || document;
+    let status = toolbar.querySelector("[data-fh-status], .fh-standard-booking-status, #fhFormStatus, .fh-status");
+    if(!status) status = document.getElementById("fhFormStatus") || document.getElementById("fh-standard-booking-status");
+    if(!status){
+      status = document.createElement("div");
+      status.className = "fh-status fh-calendar-rescue-status";
+      status.setAttribute("role", "status");
+      status.setAttribute("aria-live", "polite");
+      status.style.cssText = "display:block;margin-top:10px;font-size:13px;line-height:1.4;";
+      if(bookBtn.parentElement) bookBtn.parentElement.appendChild(status);
+    }
+    status.textContent = FH_CHOOSE_DATES_MSG;
+    status.classList.add("show", "fh-show", "is-visible", "error");
+  }
+
+  function fhCalendarRescueHandler(event){
+    const t = event.target;
+    if(!t || !t.closest) return;
+
+    const bookBtn = t.closest("#fhBookNowBtn, [data-fh-book-now]");
+    if(bookBtn){
+      const dates = fhToolbarScopeDates(bookBtn);
+      if(!dates.checkIn || !dates.checkOut){
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        const now = Date.now();
+        if(now - fhCalendarRescueAt < 700) return;
+        fhCalendarRescueAt = now;
+        fhShowChooseDatesMessage(bookBtn);
+        const toolbar = fhToolbarScope(bookBtn) || document;
+        const opener = toolbar.querySelector("[data-fh-open-calendar], #fhOpenToolbarCalendar, .fh-date-button, [data-mobile-open-calendar]") ||
+                       document.getElementById("fhOpenToolbarCalendar");
+        if(opener){
+          opener.click();
+          fhEnsureCalendarVisibleSoon(opener);
+        } else {
+          fhForceOpenCalendarFallback();
+        }
+      }
+      return;
+    }
+
+    const opener = t.closest("#fhOpenToolbarCalendar, .fh-date-button, [data-mobile-open-calendar], [data-fh-open-calendar]");
+    if(opener && event.type === "click"){
+      fhEnsureCalendarVisibleSoon(opener);
+    }
+  }
+
+  document.addEventListener("click", fhCalendarRescueHandler, true);
+  document.addEventListener("touchend", fhCalendarRescueHandler, true);
 
   window.FHOpenCleanSchedule = openHeaderSchedule;
   window.FHCloseCleanSchedule = closeToolbarCalendar;

@@ -5907,6 +5907,14 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
 }
 #fh-experiences-mobile .fh-activity h3{margin:0 0 8px;font-size:31px;color:var(--fh-paper)}
 #fh-experiences-mobile .fh-activity p{margin:0;color:rgba(255,250,243,.82);font-size:14px;line-height:1.55}
+/* Mobile Activity Finder: real .fh-activity-img block (same behavior as the
+   desktop finder), not the old gradient-only ::after cards. */
+#fh-experiences-mobile #fh-activity-grid .fh-activity{display:block!important;background:var(--fh-card,#fffaf3)!important;color:var(--fh-ink)!important;overflow:hidden!important}
+#fh-experiences-mobile #fh-activity-grid .fh-activity::before,#fh-experiences-mobile #fh-activity-grid .fh-activity::after{display:none!important}
+#fh-experiences-mobile #fh-activity-grid .fh-activity-img{height:145px!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;position:relative!important}
+#fh-experiences-mobile #fh-activity-grid .fh-activity-copy{padding:17px!important;color:var(--fh-ink)!important}
+#fh-experiences-mobile #fh-activity-grid .fh-activity h3{color:var(--fh-ink)!important}
+#fh-experiences-mobile #fh-activity-grid .fh-activity p{color:var(--fh-ink-soft)!important}
 #fh-experiences-mobile .fh-activity.is-hidden{display:none}
 
 #fh-experiences-mobile .fh-route-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -11436,5 +11444,28 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     init: initToolbar,
     config: CFG
   };
+})();
+</script>
+
+<script id="fh-mobile-activity-images-js">
+/* Mobile Activity Finder: give each card a real .fh-activity-img block from
+   its own inline --activity-image, matching the desktop finder behavior. */
+(function(){
+  function applyMobileActivityImages(){
+    document.querySelectorAll('#fh-experiences-mobile #fh-activity-grid .fh-activity').forEach(function(card){
+      if(card.querySelector('.fh-activity-img')) return;
+      var bg = card.style.getPropertyValue('--activity-image');
+      if(!bg) return;
+      var img = document.createElement('div');
+      img.className = 'fh-activity-img';
+      img.style.backgroundImage = bg.trim();
+      card.insertBefore(img, card.firstChild);
+    });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', applyMobileActivityImages, { once:true });
+  } else {
+    applyMobileActivityImages();
+  }
 })();
 </script>
