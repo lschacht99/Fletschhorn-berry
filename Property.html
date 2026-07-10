@@ -1549,14 +1549,27 @@
     return [
       "https://assets.guesty.com/image/upload/v1769382057/production/686c48ada4bbacd7a82a4f83/nww8q4ksbnfcpgzqdvbo.jpg", // Arrival
       "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg", // Exterior
-      "https://assets.guesty.com/image/upload/v1769381553/production/686c48ada4bbacd7a82a4f83/ddeflvigcilxsddu6xw7.jpg", // Rooms
-      GUESTY_HERO_IMAGES[1], // Gathering
+      "https://assets.guesty.com/image/upload/v1769381529/production/686c48ada4bbacd7a82a4f83/t271yu7nbfb9wvmnzkxc.jpg", // Rooms
+      "https://assets.guesty.com/image/upload/v1769382041/production/686c48ada4bbacd7a82a4f83/ytriu0rh45hqrstlz4od.jpg", // Gathering
       "https://assets.guesty.com/image/upload/v1769382057/production/686c48ada4bbacd7a82a4f83/y3rxm1ftmci9w4d2rxxe.jpg", // Wellness
-      GUESTY_HERO_IMAGES[2], // Views
-      GUESTY_HERO_IMAGES[3], // Details
+      "https://assets.guesty.com/image/upload/v1769382080/production/686c48ada4bbacd7a82a4f83/gzyo54cw9ouldi3r9ioq.jpg", // Views
+      "https://assets.guesty.com/image/upload/v1769382103/production/686c48ada4bbacd7a82a4f83/mkyytdjajecnbe3mqmtp.jpg", // Details
       GUESTY_HERO_IMAGES[0]  // Stay
     ];
   }
+  // Fixed images for the "Shared spaces" cards (Rooms, Gathering, Details, Views).
+  const SHARED_SPACES_IMAGES = [
+    "https://assets.guesty.com/image/upload/v1769381529/production/686c48ada4bbacd7a82a4f83/t271yu7nbfb9wvmnzkxc.jpg", // Rooms
+    "https://assets.guesty.com/image/upload/v1769382041/production/686c48ada4bbacd7a82a4f83/ytriu0rh45hqrstlz4od.jpg", // Gathering
+    "https://assets.guesty.com/image/upload/v1769382103/production/686c48ada4bbacd7a82a4f83/mkyytdjajecnbe3mqmtp.jpg", // Details
+    "https://assets.guesty.com/image/upload/v1769382080/production/686c48ada4bbacd7a82a4f83/gzyo54cw9ouldi3r9ioq.jpg"  // Views
+  ];
+  // Fixed images for the "Private / Grounded / Useful" concept cards.
+  const PROPERTY_CONCEPT_IMAGES = [
+    "https://assets.guesty.com/image/upload/v1769381684/production/686c48ada4bbacd7a82a4f83/kzwdncmnkciaw508jnk7.jpg", // Private
+    "https://assets.guesty.com/image/upload/v1769382092/production/686c48ada4bbacd7a82a4f83/qwtnpaeljbh9na5zcljw.jpg", // Grounded
+    "https://assets.guesty.com/image/upload/v1769381459/production/686c48ada4bbacd7a82a4f83/lyfcapqgihb8omwhctzv.jpg"  // Useful
+  ];
   let lang="en", heroIndex=0, heroTimer=null;
   let propertyUrls=[], shuttleUrls=[], kitchenUrls=CLEAN_GUESTY_KITCHEN_IMAGES.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
   const WORKER_IMAGE_BASE="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
@@ -1928,9 +1941,9 @@
     buildGallery("propertyShuttleRail",shuttleUrls,d("shuttle"));
     const shuttleStage=qs("#propertyShuttleGallery"); if(shuttleStage) shuttleStage.style.display=(shuttleUrls.length||workerRandomUrls.length)?"block":"none";
     const suites=d("suites"); qs("#suiteGrid").innerHTML=suites.map((s,i)=>`<article class="fh-suite-card preSlide ${i%3===1?'delay-1':i%3===2?'delay-2':''}"><small>${s[0]}</small><h3>${s[1]}</h3><div class="fh-suite-meta">${s[2].map(x=>`<span>${x}</span>`).join("")}</div><p>${s[3]}</p></article>`).join("");
-    const room=d("roomCards"); const roomImgs=rotateList(workerRandomUrls.length?workerRandomUrls:(insideUrls.length?insideUrls:(propertyUrls.length?propertyUrls:fallback)),11); qs("#roomGallery").innerHTML=room.map((r,i)=>`<article class="fh-room-card preSlide ${i?'delay-1':''} fh-img-loading"><img src="${imgAt(roomImgs,i)}" data-worker-image-applied="true" alt="${i===1?'Fletschhorn group gathering':'Fletschhorn interior'}"><div><small>${r[0]}</small><strong>${r[1]}</strong></div></article>`).join("");
+    const room=d("roomCards"); const roomImgs=SHARED_SPACES_IMAGES; qs("#roomGallery").innerHTML=room.map((r,i)=>`<article class="fh-room-card preSlide ${i?'delay-1':''} fh-img-loading"><img src="${imgAt(roomImgs,i)}" data-worker-image-applied="true" alt="${i===1?'Fletschhorn group gathering':'Fletschhorn interior'}"><div><small>${r[0]}</small><strong>${r[1]}</strong></div></article>`).join("");
     const regs=d("regionCards"); qs("#regionCards").innerHTML=regs.map((r,i)=>`<article class="fh-card preSlide ${i?'delay-1':''}"><small>${r[0]}</small><strong>${r[1]}</strong><p>${r[2]}</p></article>`).join("");
-    const cons=d("concepts"); const conceptImgs=rotateList(workerRandomUrls.length?workerRandomUrls:(propertyUrls.length?propertyUrls:fallback),17); qs("#conceptCards").innerHTML=cons.map((c,i)=>`<article class="fh-concept preSlide ${i?'delay-1':''}"><img src="${imgAt(conceptImgs,i)}" data-worker-image-applied="true" alt="Fletschhorn"><div><small>${c[0]}</small><strong>${c[1]}</strong><p>${c[2]}</p></div></article>`).join("");
+    const cons=d("concepts"); const conceptImgs=PROPERTY_CONCEPT_IMAGES; qs("#conceptCards").innerHTML=cons.map((c,i)=>`<article class="fh-concept preSlide ${i?'delay-1':''}"><img src="${imgAt(conceptImgs,i)}" data-worker-image-applied="true" alt="Fletschhorn"><div><small>${c[0]}</small><strong>${c[1]}</strong><p>${c[2]}</p></div></article>`).join("");
     observeNew();
   }
   function setLanguage(next){
