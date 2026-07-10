@@ -563,3 +563,94 @@ body.fh-global-shell.fh-hide-sqs-shell .site-footer{
     transition:none !important;
   }
 }
+
+/* ==========================================================
+   Final viewport-safe schedule layout
+   CSS only: Worker/API, pricing, payloads, localStorage and redirects untouched.
+   ========================================================== */
+
+html.fh-toolbar-calendar-open,
+html.fh-toolbar-calendar-open body,
+html.fh-calendar-open,
+html.fh-calendar-open body,
+body:has(#fhToolbarCalendarModal.open),
+body:has(#fhScheduleModal.open){
+  overflow:hidden !important;
+  overscroll-behavior:none !important;
+}
+
+html body #fhToolbarCalendarModal,
+html body #fhScheduleModal.fh-modal{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  height:100dvh !important;
+  min-height:100dvh !important;
+  margin:0 !important;
+  padding:20px !important;
+  overflow:hidden !important;
+  align-items:center !important;
+  justify-content:center !important;
+  z-index:999999 !important;
+}
+
+html body #fhToolbarCalendarModal:not(.open),
+html body #fhScheduleModal.fh-modal:not(.open){
+  display:none !important;
+}
+
+html body #fhToolbarCalendarModal.open,
+html body #fhScheduleModal.fh-modal.open{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+
+html body #fhToolbarCalendarModal .fh-calendar-card,
+html body #fhToolbarCalendarModal [class*="calendar-card"],
+html body #fhScheduleModal .fh-modal-card{
+  position:relative !important;
+  inset:auto !important;
+  left:auto !important;
+  right:auto !important;
+  top:auto !important;
+  bottom:auto !important;
+  transform:none !important;
+  width:min(760px,calc(100vw - 32px)) !important;
+  max-width:760px !important;
+  max-height:calc(100dvh - 40px) !important;
+  margin:0 !important;
+  overflow:auto !important;
+  overscroll-behavior:contain !important;
+  pointer-events:auto !important;
+  -webkit-overflow-scrolling:touch !important;
+}
+
+@media (max-width:760px){
+  html body #fhToolbarCalendarModal,
+  html body #fhScheduleModal.fh-modal{
+    align-items:flex-end !important;
+    justify-content:center !important;
+    padding:0 !important;
+  }
+
+  html body #fhToolbarCalendarModal.open,
+  html body #fhScheduleModal.fh-modal.open{
+    align-items:flex-end !important;
+    justify-content:center !important;
+  }
+
+  html body #fhToolbarCalendarModal .fh-calendar-card,
+  html body #fhToolbarCalendarModal [class*="calendar-card"],
+  html body #fhScheduleModal .fh-modal-card{
+    width:100% !important;
+    max-width:none !important;
+    max-height:86dvh !important;
+    margin:0 !important;
+    border-radius:18px 18px 0 0 !important;
+  }
+}
