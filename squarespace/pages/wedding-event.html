@@ -2054,29 +2054,6 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
         <div class="fh-proof"><strong data-fh-i18n="proof3Title">Saas-Fee</strong><span data-fh-i18n="proof3Text">Forest edge, alpine views, village access</span></div>
       </div>
 
-      <div class="fh-standard-booking-shell" id="fh-event-inquiry-bar" data-fh-booking-toolbar>
-        <form class="fh-standard-booking-bar" id="fh-standard-booking-form" novalidate>
-          <div class="fh-standard-booking-field">
-            <label for="fhToolbarGuests" data-booking-i18n="fieldGuests">Guests</label>
-            <input id="fhToolbarGuests" name="guests" type="number" min="1" inputmode="numeric" data-booking-i18n-placeholder="fieldGuestsPh" placeholder="How many guests?" autocomplete="off" />
-          </div>
-
-          <div class="fh-standard-booking-field fh-date-field">
-            <label data-booking-i18n="fieldDates">Dates</label>
-            <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar">
-              <span id="fhToolbarDateText" data-booking-i18n="fieldDatesPh">Select arrival and departure</span>
-              <strong data-booking-i18n="openCalendar">Open calendar</strong>
-            </button>
-            <input id="fhArrival" name="checkIn" type="hidden" />
-            <input id="fhDeparture" name="checkOut" type="hidden" />
-          </div>
-
-          <button class="fh-standard-booking-btn" id="fhBookNowBtn" type="submit" data-booking-i18n="bookButton">Book my stay now</button>
-        </form>
-        <div class="fh-standard-booking-note" data-booking-i18n="bookingNote">Start here. Your guest count and dates will be carried to the booking page, where you can review availability, price, and send the final inquiry.</div>
-        <div class="fh-standard-booking-status" id="fh-standard-booking-status" role="status" aria-live="polite"></div>
-      </div>
-
       <a class="fh-scroll-cue" href="#fh-wedding-house" aria-label="Scroll to wedding and events content">
         <span data-fh-i18n="scrollCue">See the venue story</span>
         <div class="fh-scroll-line"></div>
@@ -2180,7 +2157,7 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
       <div class="fh-container fh-wedding-gallery fh-stagger">
         <article class="fh-gallery-card">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-fh-worker-image="ynowbkmnknjm38unkn13.jpg" alt="Wedding weekend arrival at Fletschhorn" />
+          <img src="https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg" alt="Wedding weekend arrival at Fletschhorn" />
           <div class="fh-gallery-copy"><strong data-fh-i18n="gallery1Title">The first view</strong><span data-fh-i18n="gallery1Text">The weekend begins with the mountains already in the frame.</span></div>
         </article>
         <article class="fh-gallery-card">
@@ -2291,51 +2268,28 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
           </div>
         </div>
 
-        <form class="fh-form-panel fh-reveal" data-fh-event-main-form>
-          <div class="fh-form-fields">
-            <div class="fh-form-field">
-              <label for="fhName" data-fh-i18n="formNameLabel">Name</label>
-              <input id="fhName" name="name" data-fh-i18n-placeholder="formNamePlaceholder" placeholder="Your name" />
+        <div class="fh-standard-booking-shell" id="fh-event-inquiry-bar" data-fh-booking-toolbar>
+          <form class="fh-standard-booking-bar" id="fh-standard-booking-form" novalidate>
+            <div class="fh-standard-booking-field">
+              <label for="fhToolbarGuests" data-booking-i18n="fieldGuests">Guests</label>
+              <input id="fhToolbarGuests" name="guests" type="number" min="1" inputmode="numeric" data-booking-i18n-placeholder="fieldGuestsPh" placeholder="How many guests?" autocomplete="off" />
             </div>
 
-            <div class="fh-form-field">
-              <label for="fhContact" data-fh-i18n="formContactLabel">Contact</label>
-              <input id="fhContact" name="contact" data-fh-i18n-placeholder="formContactPlaceholder" placeholder="Email or phone" />
+            <div class="fh-standard-booking-field fh-date-field">
+              <label data-booking-i18n="fieldDates">Dates</label>
+              <button type="button" class="fh-date-button" id="fhOpenToolbarCalendar">
+                <span id="fhToolbarDateText" data-booking-i18n="fieldDatesPh">Select arrival and departure</span>
+                <strong data-booking-i18n="openCalendar">Open calendar</strong>
+              </button>
+              <input id="fhArrival" name="checkIn" type="hidden" />
+              <input id="fhDeparture" name="checkOut" type="hidden" />
             </div>
 
-            <div class="fh-form-field">
-              <label for="fhEventType" data-fh-i18n="formEventTypeLabel">Event type</label>
-              <select id="fhEventType" name="eventType" data-fh-select="eventType"></select>
-            </div>
-
-            <div class="fh-form-field">
-              <label for="fhDate" data-fh-i18n="formDateLabel">Preferred date</label>
-              <input id="fhDate" name="date" data-fh-i18n-placeholder="formDatePlaceholder" placeholder="Date or season" />
-            </div>
-
-            <div class="fh-form-field">
-              <label for="fhGuests" data-fh-i18n="formGuestsLabel">Guest count</label>
-              <input id="fhGuests" name="guests" data-fh-i18n-placeholder="formGuestsPlaceholder" placeholder="Estimated number" />
-            </div>
-
-            <div class="fh-form-field">
-              <label for="fhOvernight" data-fh-i18n="formOvernightLabel">Overnight stay?</label>
-              <select id="fhOvernight" name="overnight" data-fh-select="overnight"></select>
-            </div>
-
-            <div class="fh-form-field fh-full">
-              <label for="fhNotes" data-fh-i18n="formNotesLabel">Event vision</label>
-              <textarea id="fhNotes" name="notes" data-fh-i18n-placeholder="formNotesPlaceholder" placeholder="Tell us about the mood, timing, group, and anything important for the event."></textarea>
-            </div>
-          </div>
-
-          <div class="fh-form-actions">
-            <button class="fh-btn" type="submit" data-fh-i18n="formSubmit">Send event inquiry</button>
-            <button class="fh-btn fh-btn-light" type="button" data-fh-open-event-details data-fh-i18n="formMore">More details</button>
-          </div>
-
-          <div class="fh-status" data-fh-event-main-status></div>
-        </form>
+            <button class="fh-standard-booking-btn" id="fhBookNowBtn" type="submit" data-booking-i18n="bookButton">Book my stay now</button>
+          </form>
+          <div class="fh-standard-booking-note" data-booking-i18n="bookingNote">Start here. Your guest count and dates will be carried to the booking page, where you can review availability, price, and send the final inquiry.</div>
+          <div class="fh-standard-booking-status" id="fh-standard-booking-status" role="status" aria-live="polite"></div>
+        </div>
       </div>
     </section>
 
@@ -2436,9 +2390,11 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
   const PHOTO_MANIFEST = {
     hero:[
-      {id:"sgnvt8esvocag0t0zt4k.jpg", url:"https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/sgnvt8esvocag0t0zt4k.jpg"}
+      {id:"sgnvt8esvocag0t0zt4k.jpg", url:"https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/sgnvt8esvocag0t0zt4k.jpg"},
+      {id:"lyfcapqgihb8omwhctzv.jpg", url:"https://assets.guesty.com/image/upload/v1769381459/production/686c48ada4bbacd7a82a4f83/lyfcapqgihb8omwhctzv.jpg"}
     ],
     wedding:[
+      {id:"zpwembp1gflcyocsnvnd.jpg", url:"https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/zpwembp1gflcyocsnvnd.jpg"},
       {id:"ynowbkmnknjm38unkn13.jpg", url:"https://assets.guesty.com/image/upload/v1781188727/production/686c48ada4bbacd7a82a4f83/ynowbkmnknjm38unkn13.jpg"},
       {id:"m4dmbmdielanubvzdgvf.jpg", url:"https://assets.guesty.com/image/upload/v1781188703/production/686c48ada4bbacd7a82a4f83/m4dmbmdielanubvzdgvf.jpg"},
       {id:"bwarbedrbihgqu6fyctt.jpg", url:"https://assets.guesty.com/image/upload/v1781188729/production/686c48ada4bbacd7a82a4f83/bwarbedrbihgqu6fyctt.jpg"},
@@ -2448,10 +2404,10 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       {id:"o5amfaz3mnbsvvmz8owc.jpg", url:"https://assets.guesty.com/image/upload/v1781188730/production/686c48ada4bbacd7a82a4f83/o5amfaz3mnbsvvmz8owc.jpg"}
     ],
     event:[
+      {id:"rcetbf39w7n4qyihyz6n.jpg", url:"https://assets.guesty.com/image/upload/v1781188638/production/686c48ada4bbacd7a82a4f83/rcetbf39w7n4qyihyz6n.jpg"},
       {id:"nhbliowk99qiv0jgf77b.jpg", url:"https://assets.guesty.com/image/upload/v1781188578/production/686c48ada4bbacd7a82a4f83/nhbliowk99qiv0jgf77b.jpg"},
-      {id:"gs7vewokpklgmw32z6tb.jpg", url:"https://assets.guesty.com/image/upload/v1781188711/production/686c48ada4bbacd7a82a4f83/gs7vewokpklgmw32z6tb.jpg"},
       {id:"uyb97nsacpy6ipo49rpy.jpg", url:"https://assets.guesty.com/image/upload/v1781188597/production/686c48ada4bbacd7a82a4f83/uyb97nsacpy6ipo49rpy.jpg"},
-      {id:"zpwembp1gflcyocsnvnd.jpg", url:"https://assets.guesty.com/image/upload/v1781188788/production/686c48ada4bbacd7a82a4f83/zpwembp1gflcyocsnvnd.jpg"},
+      {id:"gs7vewokpklgmw32z6tb.jpg", url:"https://assets.guesty.com/image/upload/v1781188711/production/686c48ada4bbacd7a82a4f83/gs7vewokpklgmw32z6tb.jpg"},
       {id:"e8imjtm3b6zscb4exc1i.jpg", url:"https://assets.guesty.com/image/upload/v1781188784/production/686c48ada4bbacd7a82a4f83/e8imjtm3b6zscb4exc1i.jpg"}
     ]
   };
@@ -3558,9 +3514,9 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
 
   const heroSlides = [
     {image:PHOTO_IDS.hero[0], theme:{green:'#345f46'}},
-    {image:PHOTO_IDS.wedding[0], theme:{green:'#3f6f51'}},
-    {image:PHOTO_IDS.wedding[3], theme:{green:'#2f5b43'}},
-    {image:PHOTO_IDS.event[0], theme:{green:'#345f46'}}
+    {image:PHOTO_IDS.hero[1], theme:{green:'#3f6f51'}},
+    {image:PHOTO_IDS.wedding[0], theme:{green:'#2f5b43'}},
+    {image:PHOTO_IDS.event[1], theme:{green:'#345f46'}}
   ];
 
   const slideHost = root.querySelector('[data-fh-event-slides]');
