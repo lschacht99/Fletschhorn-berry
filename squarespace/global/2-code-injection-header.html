@@ -506,7 +506,7 @@ html.fh-toolbar-calendar-open body{
 .fh-mobile-footbar .fh-footbar-book{background:rgba(185,159,134,.82);color:#fffaf3;box-shadow:0 10px 22px rgba(135,110,88,.18)}
 .fh-mobile-footbar a.is-active{background:#22392f;color:#fffaf3}
 #fhToolbarCalendarModal.open{display:flex!important;align-items:center!important;justify-content:center!important;padding:14px!important}
-#fhToolbarCalendarModal.open .fh-calendar-card,#fhToolbarCalendarModal.open [class*="calendar-card"]{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;margin:auto!important;width:min(560px,calc(100vw - 28px))!important;max-height:calc(100svh - 28px)!important}
+#fhToolbarCalendarModal.open .fh-calendar-card,#fhToolbarCalendarModal.open [class*="calendar-card"]{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;margin:auto!important;width:min(760px,calc(100vw - 28px))!important;max-height:calc(100svh - 28px)!important}
 @media(max-width:760px){.fh-mobile-footbar{display:grid}body.fh-global-shell{padding-bottom:72px!important}#fhToolbarCalendarModal.open{align-items:center!important;justify-content:center!important}}
 
 /* Global calendar rescue: the schedule modal must always win against
@@ -516,33 +516,174 @@ html.fh-toolbar-calendar-open body{
 @media(max-width:760px){#fhToolbarCalendarModal{align-items:flex-end!important;padding:0!important}.fh-calendar-card{width:100%!important;max-height:86svh!important;overflow:auto!important}}
 
 /*
-  Global calendar layout CSS, scoped by #fhToolbarCalendarModal itself
-  (not by a page root id). Page-local calendar CSS is written as
-  "#fh-home .fh-calendar-grid", "#fh-events .fh-day", etc. — that stops
-  applying the moment the calendar-rescue script above relocates the modal
-  to document.body (required on Squarespace / any transformed ancestor),
-  because the modal is then outside the page root it was scoped to. This
-  block is the same working layout, rewritten so it always applies
-  regardless of where the modal lives in the DOM.
+  Global calendar layout CSS — verbatim clone of the working plain-HTML
+  calendar (/ "#fh-home .fh-calendar-*" rules), rescoped by
+  #fhToolbarCalendarModal itself instead of a page root id. Page-local
+  calendar CSS stops applying the moment the calendar-rescue script above
+  relocates the modal to document.body (required on Squarespace / any
+  transformed ancestor), because the modal is then outside the page root
+  it was scoped to. Variables (--paper/--ink/--forest/...) are inlined
+  because they too are defined on the page root.
 */
-#fhToolbarCalendarModal{align-items:center;justify-content:center;padding:24px;background:rgba(18,15,12,.72);backdrop-filter:blur(10px)}
+#fhToolbarCalendarModal{align-items:center;justify-content:center;padding:18px;background:rgba(28,24,20,.48);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 #fhToolbarCalendarModal *{box-sizing:border-box}
-#fhToolbarCalendarModal button{font-family:inherit;appearance:none;-webkit-appearance:none}
-#fhToolbarCalendarModal .fh-calendar-card{width:min(760px,calc(100vw - 28px));max-height:86svh;overflow:auto;background:#fffaf2;border:1px solid rgba(28,24,20,.14);box-shadow:0 30px 90px rgba(0,0,0,.28);padding:22px;font-family:var(--fh-shell-sans,Inter,system-ui,sans-serif)}
-#fhToolbarCalendarModal .fh-calendar-head{display:flex!important;align-items:flex-start;justify-content:space-between;gap:16px}
-#fhToolbarCalendarModal .fh-calendar-title{font-family:var(--fh-shell-serif,Georgia,serif)!important;font-size:34px;margin:6px 0}
-#fhToolbarCalendarModal .fh-calendar-nav{display:flex!important;gap:8px}
-#fhToolbarCalendarModal .fh-calendar-nav button{width:38px;height:38px;border:1px solid rgba(28,24,20,.16);background:#f4ece2;color:#1c1814}
-#fhToolbarCalendarModal .fh-weekdays,#fhToolbarCalendarModal .fh-calendar-grid{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:6px!important}
-#fhToolbarCalendarModal .fh-weekday{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(28,24,20,.55)}
-#fhToolbarCalendarModal .fh-day{min-height:64px;padding:7px;border:1px solid rgba(28,24,20,.10);background:#fffaf2;text-align:left;color:#1c1814}
-#fhToolbarCalendarModal .fh-day-price{display:block!important;margin-top:5px;font-size:9px;font-weight:850;color:rgba(28,24,20,.65)}
+#fhToolbarCalendarModal button{font-family:inherit;appearance:none;-webkit-appearance:none;border-radius:0;cursor:pointer}
+#fhToolbarCalendarModal .fh-calendar-card{
+  width:min(760px,100%);
+  max-height:calc(100svh - 36px);
+  overflow:auto;
+  background:#fffaf2;
+  border:1px solid rgba(255,250,242,.72);
+  box-shadow:0 30px 90px rgba(0,0,0,.24);
+  padding:20px;
+  font-family:var(--fh-shell-sans,Inter,system-ui,sans-serif);
+  color:#1c1814;
+}
+#fhToolbarCalendarModal .fh-calendar-head{
+  display:flex!important;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:14px;
+}
+#fhToolbarCalendarModal .fh-calendar-title{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:34px;
+  font-weight:400;
+  line-height:.96;
+  letter-spacing:-.05em;
+  color:#1c1814;
+}
+#fhToolbarCalendarModal .fh-calendar-nav{
+  display:flex!important;
+  gap:8px;
+}
+#fhToolbarCalendarModal .fh-calendar-nav button{
+  width:42px;
+  min-height:38px;
+  border:1px solid rgba(28,24,20,.13);
+  background:#fffaf2;
+  color:#1c1814;
+  font-weight:900;
+}
+#fhToolbarCalendarModal .fh-calendar-help{
+  margin:0 0 12px;
+  font-size:13px;
+  color:rgba(28,24,20,.68);
+}
+#fhToolbarCalendarModal .fh-calendar-warning{
+  display:none;
+  margin:0 0 14px;
+  padding:10px 12px;
+  border:1px solid rgba(150,101,35,.25);
+  background:rgba(150,101,35,.08);
+  color:#966523;
+  font-size:13px;
+  font-weight:760;
+}
+#fhToolbarCalendarModal .fh-calendar-warning.show{
+  display:block;
+}
+#fhToolbarCalendarModal .fh-weekdays,
+#fhToolbarCalendarModal .fh-calendar-grid{
+  display:grid!important;
+  grid-template-columns:repeat(7,1fr)!important;
+  gap:6px!important;
+}
+#fhToolbarCalendarModal .fh-weekday{
+  text-align:center;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-weight:900;
+  color:rgba(28,24,20,.45);
+  padding-bottom:4px;
+}
+#fhToolbarCalendarModal .fh-day{
+  min-height:78px;
+  padding:7px;
+  border:1px solid rgba(28,24,20,.10);
+  background:rgba(255,250,242,.84);
+  color:#1c1814;
+  text-align:left;
+  position:relative;
+}
+#fhToolbarCalendarModal .fh-day:hover{
+  border-color:rgba(28,24,20,.28);
+}
+#fhToolbarCalendarModal .fh-day.empty{
+  visibility:hidden;
+  pointer-events:none;
+}
+#fhToolbarCalendarModal .fh-day.past,
+#fhToolbarCalendarModal .fh-day.unavailable{
+  opacity:.42;
+  cursor:not-allowed;
+}
+#fhToolbarCalendarModal .fh-day.unavailable{
+  background:rgba(28,24,20,.07);
+}
+#fhToolbarCalendarModal .fh-day.start,
+#fhToolbarCalendarModal .fh-day.end{
+  background:#1f3a2f;
+  border-color:#1f3a2f;
+  color:#fffaf2;
+}
+#fhToolbarCalendarModal .fh-day.range{
+  background:rgba(31,58,47,.10);
+}
+#fhToolbarCalendarModal .fh-day-number{
+  display:block;
+  font-size:13px;
+  font-weight:900;
+}
+#fhToolbarCalendarModal .fh-day-price{
+  display:block!important;
+  margin-top:16px;
+  font-size:10px;
+  font-weight:850;
+  color:rgba(28,24,20,.62);
+}
+#fhToolbarCalendarModal .fh-day-status{
+  display:block;
+  margin-top:3px;
+  font-size:9px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:900;
+  color:rgba(28,24,20,.46);
+}
+#fhToolbarCalendarModal .fh-day.start .fh-day-price,
+#fhToolbarCalendarModal .fh-day.end .fh-day-price{
+  color:rgba(255,250,242,.76);
+}
 
 @media(max-width:760px){
   #fhToolbarCalendarModal{align-items:flex-end!important;padding:0!important}
-  #fhToolbarCalendarModal .fh-calendar-card{width:100%!important;max-height:86svh!important;border-radius:18px 18px 0 0!important;padding:14px!important}
-  #fhToolbarCalendarModal .fh-day{min-height:54px!important;padding:5px!important}
-  #fhToolbarCalendarModal .fh-day-price{font-size:8.5px!important}
+  #fhToolbarCalendarModal .fh-calendar-card{
+    width:100%!important;
+    max-height:86svh!important;
+    border-radius:18px 18px 0 0!important;
+    padding:14px!important;
+  }
+  #fhToolbarCalendarModal .fh-calendar-title{font-size:28px}
+  #fhToolbarCalendarModal .fh-weekdays,
+  #fhToolbarCalendarModal .fh-calendar-grid{gap:4px!important}
+  #fhToolbarCalendarModal .fh-day{min-height:62px!important;padding:6px!important}
+  #fhToolbarCalendarModal .fh-day-price{
+    display:block!important;
+    margin-top:5px;
+    font-size:8.5px;
+    line-height:1.05;
+    font-weight:850;
+    color:rgba(28,24,20,.62);
+    white-space:nowrap;
+  }
+  #fhToolbarCalendarModal .fh-day.start .fh-day-price,
+  #fhToolbarCalendarModal .fh-day.end .fh-day-price{
+    color:rgba(255,250,242,.78);
+  }
 }
 </style>
 
