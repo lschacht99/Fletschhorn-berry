@@ -3982,12 +3982,9 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
       });
     });
 
-    root.querySelectorAll(".fh-mobile-hero-media").forEach(function(el){
-      el.style.backgroundImage = 'linear-gradient(180deg,rgba(18,16,14,.10),rgba(18,16,14,.42)),url("' + (byName["Nature (8).jpg"] || fallbackImages[7] || fallbackImages[0]) + '")';
-      el.style.backgroundSize = "cover";
-      el.style.backgroundPosition = "center top";
-      el.dataset.workerImageApplied = "true";
-    });
+    /* .fh-mobile-hero-media is an official marketing image, not a Worker
+       image — it is set once from a fixed URL (see the final boot script)
+       and must never be reassigned here. */
   }
 
   async function loadWorkerImages(){
@@ -8413,12 +8410,9 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
       });
     });
 
-    root.querySelectorAll(".fh-mobile-hero-media").forEach(function(el){
-      el.style.backgroundImage = 'linear-gradient(180deg,rgba(18,16,14,.10),rgba(18,16,14,.42)),url("' + (byName["Nature (8).jpg"] || fallbackImages[7] || fallbackImages[0]) + '")';
-      el.style.backgroundSize = "cover";
-      el.style.backgroundPosition = "center top";
-      el.dataset.workerImageApplied = "true";
-    });
+    /* .fh-mobile-hero-media is an official marketing image, not a Worker
+       image — it is set once from a fixed URL (see the final boot script)
+       and must never be reassigned here. */
   }
 
   async function loadWorkerImages(){
@@ -10224,17 +10218,18 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
 
       buildHero(root, EXPERIENCES_HERO_IMAGES, 0);
 
-      root.querySelectorAll(".fh-mobile-hero-media").forEach(function(el, index){
-        const url = randomized[(offset + index) % randomized.length];
-        el.style.backgroundImage = "linear-gradient(180deg,rgba(18,16,14,.10),rgba(18,16,14,.42))," + cssUrl(url);
-        el.dataset.fhRandomWorkerImage = "true";
-      });
-
-      root.querySelectorAll(".fh-nature-carousel img, img[data-fh-img], .fh-photo-tile img").forEach(function(img, index){
+      /*
+        Random/Worker images are restricted to the legacy Nature carousel
+        (.fh-nature-carousel) only. .fh-activity, .fh-route-img,
+        .fh-hero-slide, .fh-mobile-hero-media, and anything flagged
+        [data-official-image="true"] must never be touched here — those
+        are official/curated marketing images, not Worker-driven.
+      */
+      root.querySelectorAll(".fh-nature-carousel img").forEach(function(img, index){
         setImageElement(img, randomized, offset + index);
       });
 
-      root.querySelectorAll("[data-bg-img], .fh-photo-tile").forEach(function(el, index){
+      root.querySelectorAll(".fh-nature-carousel [data-bg-img], .fh-nature-carousel .fh-photo-tile").forEach(function(el, index){
         if(el.matches(".fh-photo-tile") && el.querySelector("img")) return;
         const url = randomized[(offset + 31 + index) % randomized.length];
         el.style.backgroundImage = cssUrl(url);
@@ -10292,7 +10287,18 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     }
   }
 
+  /* Fixed background for the mobile-only hero variant, matching the main
+     hero. Set once, independent of the Worker/random image loader. */
+  function applyFixedMobileHeroMedia(){
+    document.querySelectorAll(".fh-mobile-hero-media").forEach(function(el){
+      if(el.dataset.fhFixedHeroApplied === "true") return;
+      el.style.backgroundImage = "linear-gradient(180deg,rgba(18,16,14,.10),rgba(18,16,14,.42))," + cssUrl(EXPERIENCES_HERO_IMAGES[0]);
+      el.dataset.fhFixedHeroApplied = "true";
+    });
+  }
+
   function boot(){
+    applyFixedMobileHeroMedia();
     runFinalImageFix();
   }
 

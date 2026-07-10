@@ -1325,8 +1325,8 @@
         <div class="fh-container fh-spa-clean">
           <div class="fh-gallery-stage fh-clean-carousel preScale" id="propertySpaGallery">
             <div class="fh-gallery-rail" id="propertySpaRail" aria-label="Private sauna carousel">
-              <article class="fh-gallery-card"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-sauna-img="0" data-fh-image-key="Spa (1).jpg" alt="Private sauna" loading="lazy"><div class="fh-gallery-caption"><small data-i18n="wellnessK"></small><strong data-i18n="wellnessP"></strong></div></article>
-              <article class="fh-gallery-card small"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-sauna-img="1" data-fh-image-key="Spa (3).jpg" alt="Private sauna detail" loading="lazy"><div class="fh-gallery-caption"><small data-i18n="saunaImageK"></small><strong data-i18n="saunaImageP"></strong></div></article>
+              <article class="fh-gallery-card"><img src="https://assets.guesty.com/image/upload/v1769381514/production/686c48ada4bbacd7a82a4f83/xwc502lfsteekp8ggp5g.jpg" alt="Private sauna" loading="lazy"><div class="fh-gallery-caption"><small data-i18n="wellnessK"></small><strong data-i18n="wellnessP"></strong></div></article>
+              <article class="fh-gallery-card small"><img src="https://assets.guesty.com/image/upload/v1769381486/production/686c48ada4bbacd7a82a4f83/mnwo1kwrm3cresqhjcbx.jpg" alt="Private sauna detail" loading="lazy"><div class="fh-gallery-caption"><small data-i18n="saunaImageK"></small><strong data-i18n="saunaImageP"></strong></div></article>
             </div>
             <div class="fh-gallery-controls"><button type="button" data-gallery-prev="propertySpaRail" data-i18n="galleryPrev"></button><button type="button" data-gallery-next="propertySpaRail" data-i18n="galleryNext"></button></div>
           </div>
@@ -1535,15 +1535,27 @@
   }
   function imgAt(arr,i){const list=arr && arr.length ? arr : fallback;return list[((i%list.length)+list.length)%list.length];}
   function randomFrom(arr,fallbackArr){const list=arr && arr.length ? arr : fallbackArr; return list[Math.floor(Math.random()*list.length)];}
+  /*
+    Fixed marketing images for the property overview carousel, one per
+    caption in order (Arrival, Exterior, Rooms, Gathering, Wellness, Views,
+    Details, Stay). This carousel used to pull from the live/random Worker
+    image pool, which is why it could show the wrong photo under a caption
+    and why "Rooms" could repeat when the pool had more than 8 photos
+    (captions cycle by index, images did not). Marketing images are no
+    longer sourced from the Worker; the Worker stays available for
+    search/quote/booking only.
+  */
   function buildPropertyGalleryImages(){
-    const worker=workerRandomUrls && workerRandomUrls.length ? workerRandomUrls : [];
-    if(worker.length) return rotateList(worker,2).slice(0,Math.min(12,worker.length));
-    const prop=propertyUrls.length?propertyUrls:fallback;
-    const inside=insideUrls.length?insideUrls:prop;
-    const sauna=privateSaunaUrls.length?privateSaunaUrls:prop;
-    const exterior=exteriorUrls.length?exteriorUrls:prop;
-    const mountain=mountainUrls.length?mountainUrls:exterior;
-    return rotateList([imgAt(exterior,0),imgAt(inside,1),imgAt(sauna,2),imgAt(mountain,3),imgAt(prop,4),imgAt(inside,5)],1);
+    return [
+      "https://assets.guesty.com/image/upload/v1769382057/production/686c48ada4bbacd7a82a4f83/nww8q4ksbnfcpgzqdvbo.jpg", // Arrival
+      "https://assets.guesty.com/image/upload/v1769381685/production/686c48ada4bbacd7a82a4f83/malcrgrnibqqwcupigqh.jpg", // Exterior
+      "https://assets.guesty.com/image/upload/v1769381553/production/686c48ada4bbacd7a82a4f83/ddeflvigcilxsddu6xw7.jpg", // Rooms
+      GUESTY_HERO_IMAGES[1], // Gathering
+      "https://assets.guesty.com/image/upload/v1769382057/production/686c48ada4bbacd7a82a4f83/y3rxm1ftmci9w4d2rxxe.jpg", // Wellness
+      GUESTY_HERO_IMAGES[2], // Views
+      GUESTY_HERO_IMAGES[3], // Details
+      GUESTY_HERO_IMAGES[0]  // Stay
+    ];
   }
   let lang="en", heroIndex=0, heroTimer=null;
   let propertyUrls=[], shuttleUrls=[], kitchenUrls=CLEAN_GUESTY_KITCHEN_IMAGES.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
@@ -1893,7 +1905,8 @@
     qsa("[data-mountain-img]").forEach((el)=>setImg(el,next()));
     qsa("[data-inside-img]").forEach((el)=>setImg(el,next()));
     qsa("[data-group-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-sauna-img]").forEach((el)=>setImg(el,next()));
+    /* Sauna & amenities carousel images are fixed marketing photos set
+       directly in the markup; no longer cycled from the random pool. */
     qsa("[data-kitchen-main]").forEach((el)=>setImg(el,next()));
     qsa("[data-kitchen-img]").forEach((el)=>setImg(el,next()));
     const cta=qs(".fh-cta"); if(cta) cta.style.setProperty("--cta-bg",`url('${imgAt(exterior,0)}')`);
@@ -1902,7 +1915,9 @@
   function galleryCard(url,small,cap){return `<article class="fh-gallery-card${small?' small':''}"><img src="${url}" alt="Fletschhorn" loading="lazy"><div class="fh-gallery-caption"><small>${cap[0]}</small><strong>${cap[1]}</strong></div></article>`;}
   function buildGallery(railId,images,captions){
     const rail=qs("#"+railId); if(!rail) return;
-    const offset={propertyGalleryRail:1,propertyKitchenRail:7,propertyShuttleRail:13,propertySpaRail:19}[railId]||0;
+    /* propertyGalleryRail must not rotate: buildPropertyGalleryImages() returns
+       a fixed array already aligned index-for-index with its caption list. */
+    const offset={propertyGalleryRail:0,propertyKitchenRail:7,propertyShuttleRail:13,propertySpaRail:19}[railId]||0;
     let source=(images && images.length>1 ? images : (workerRandomUrls.length?workerRandomUrls:fallback));
     const list=rotateList(source,offset).slice(0,Math.min(18,Math.max(1,source.length)));
     rail.innerHTML=list.map((url,i)=>galleryCard(url,i%3===1,captions[i%captions.length])).join("");
