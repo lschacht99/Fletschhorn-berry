@@ -3547,10 +3547,10 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       el.style.backgroundImage = fallback
         ? `linear-gradient(180deg,rgba(23,19,16,.62),rgba(23,19,16,.34) 42%,rgba(23,19,16,.70)),url("${fallback}")`
         : 'linear-gradient(180deg,rgba(23,19,16,.62),rgba(23,19,16,.34) 42%,rgba(23,19,16,.70)),linear-gradient(135deg,#d9d1c8,#b8ad9f 45%,#345f46)';
+      /* Hero is locked to the two direct manifest URLs. No Worker /images
+         lookup here: its fuzzy needle match can swap in a wrong image after
+         the async fetch resolves. */
       slideHost.appendChild(el);
-      resolveWorkerImage(slide.image).then(url=>{
-        if(url) el.style.backgroundImage = `linear-gradient(180deg,rgba(23,19,16,.62),rgba(23,19,16,.34) 42%,rgba(23,19,16,.70)),url("${url}")`;
-      });
     });
 
     const slideEls = Array.from(slideHost.querySelectorAll('.fh-slide'));
@@ -3564,6 +3564,38 @@ body.fh-github-version{margin:0;overflow-x:hidden;background:#fbf7f0;}
       root.style.setProperty('--fh-green', heroSlides[active].theme.green);
     }, 9000);
   }
+
+  /*
+    Scoped Wedding/Event safeguard: re-assert the hero slides and the fixed
+    section images so no Worker/random/fallback/late JS can leave a wrong
+    image in place. Runs now, on load, and after 300/1200 ms.
+  */
+  function forceWeddingEventImages(){
+    const slides = root.querySelectorAll('[data-fh-event-slides] .fh-slide');
+    slides.forEach((el, i)=>{
+      const url = directImageUrl(PHOTO_IDS.hero[i % PHOTO_IDS.hero.length]);
+      if(!url) return;
+      const wanted = `linear-gradient(180deg,rgba(23,19,16,.62),rgba(23,19,16,.34) 42%,rgba(23,19,16,.70)),url("${url}")`;
+      if(el.style.backgroundImage !== wanted) el.style.backgroundImage = wanted;
+    });
+
+    root.querySelectorAll('[data-fh-carousel-fixed]').forEach(host=>{
+      const url = FIXED_CAROUSEL_URLS[host.getAttribute('data-fh-carousel-fixed')];
+      if(!url) return;
+      const slide = host.querySelector('.fh-carousel-slide');
+      if(!slide){
+        buildFixedCarousel(host);
+        return;
+      }
+      const wanted = `url("${url}")`;
+      if(slide.style.backgroundImage !== wanted) slide.style.backgroundImage = wanted;
+    });
+  }
+
+  forceWeddingEventImages();
+  window.addEventListener('load', forceWeddingEventImages);
+  window.setTimeout(forceWeddingEventImages, 300);
+  window.setTimeout(forceWeddingEventImages, 1200);
 
   const revealObserver = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
