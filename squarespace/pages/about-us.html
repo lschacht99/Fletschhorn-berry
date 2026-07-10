@@ -1269,7 +1269,7 @@
         </article>
 
         <div class="story-photo-wall preScale" style="--d:.12s">
-          <img class="story-photo-main" data-guesty-img="0" src="https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg" alt="Fletschhorn private Swiss chalet above Saas-Fee" />
+          <img class="story-photo-main" src="https://assets.guesty.com/image/upload/v1769381482/production/686c48ada4bbacd7a82a4f83/fnui28ywjvq9revtugq4.jpg" alt="Fletschhorn private Swiss chalet above Saas-Fee" />
           <img class="story-photo-small one" data-guesty-img="48" src="https://assets.guesty.com/image/upload/v1769382042/production/686c48ada4bbacd7a82a4f83/mjjhmydnya1oyzd4scz3.jpg" alt="Fletschhorn room detail" />
           <img class="story-photo-small two" data-guesty-img="56" src="https://assets.guesty.com/image/upload/v1769382038/production/686c48ada4bbacd7a82a4f83/pifyveloe4hifyue8kfn.jpg" alt="Fletschhorn interior detail" />
           <div class="image-caption-card">
@@ -1318,9 +1318,9 @@
         </div>
 
         <div class="image-stage preScale" style="--d:.12s">
-          <img class="main" src="https://assets.guesty.com/image/upload/v1781188827/production/686c48ada4bbacd7a82a4f83/om4npeyvqh6lqsp3zmwf.jpg" alt="Private kitchen at Fletschhorn" />
+          <img class="main" src="https://assets.guesty.com/image/upload/v1781188716/production/686c48ada4bbacd7a82a4f83/rlj0n6xxnkxz4drwzmiv.jpg" alt="Private kitchen at Fletschhorn" />
           <img class="float-one preSlide" style="--d:.20s" src="https://assets.guesty.com/image/upload/v1781188827/production/686c48ada4bbacd7a82a4f83/ik84e4ah5nii8v6enxqu.jpg" alt="Kitchen detail at Fletschhorn" />
-          <img class="float-two preSlide" style="--d:.28s" src="https://assets.guesty.com/image/upload/v1781188837/production/686c48ada4bbacd7a82a4f83/wbkjqrvy0snd580tpy4g.jpg" alt="Kitchen preparation area at Fletschhorn" />
+          <img class="float-two preSlide" style="--d:.28s" src="https://assets.guesty.com/image/upload/v1781188675/production/686c48ada4bbacd7a82a4f83/zybfhiaifujy5z2wjump.jpg" alt="Kitchen preparation area at Fletschhorn" />
           <div class="mini-card preFade" style="--d:.36s">
             <p class="kicker" data-i18n="kitchen.card.kicker">Flexible food planning</p>
             <p data-i18n="kitchen.card.text">Self-catering is part of the stay. Chefs and caterers can be arranged on request for an additional fee.</p>
@@ -2083,7 +2083,10 @@
     heroCopy = heroCopyByLang[activeLang] || heroCopyByLang.en;
 
     setSlideImages(fallbackImages);
-    loadGuestyImages();
+    /* loadGuestyImages() used to overwrite fixed marketing images (including
+       [data-guesty-img] photos) with a live/random Worker feed, which is how
+       the wrong "broken" kitchen photo appeared. Marketing images are now
+       fixed; the Worker stays available for booking/search/quote only. */
     startSlideshow();
     setFletschhornLanguage(activeLang);
 
@@ -4386,7 +4389,7 @@
         </article>
 
         <div class="story-photo-wall preScale" style="--d:.12s">
-          <img class="story-photo-main" data-guesty-img="0" src="https://assets.guesty.com/image/upload/v1777824044/production/686c48ada4bbacd7a82a4f83/gluqecbjjcviqfujt52m.jpg" alt="Fletschhorn private Swiss chalet above Saas-Fee" />
+          <img class="story-photo-main" src="https://assets.guesty.com/image/upload/v1769381482/production/686c48ada4bbacd7a82a4f83/fnui28ywjvq9revtugq4.jpg" alt="Fletschhorn private Swiss chalet above Saas-Fee" />
           <img class="story-photo-small one" data-guesty-img="48" src="https://assets.guesty.com/image/upload/v1769382042/production/686c48ada4bbacd7a82a4f83/mjjhmydnya1oyzd4scz3.jpg" alt="Fletschhorn room detail" />
           <img class="story-photo-small two" data-guesty-img="56" src="https://assets.guesty.com/image/upload/v1769382038/production/686c48ada4bbacd7a82a4f83/pifyveloe4hifyue8kfn.jpg" alt="Fletschhorn interior detail" />
           <div class="image-caption-card">
@@ -4436,8 +4439,8 @@
 
         <div class="image-stage preScale" style="--d:.12s">
           <img class="main" src="https://assets.guesty.com/image/upload/v1781188837/production/686c48ada4bbacd7a82a4f83/tnlxetxfx48lou2dpaa1.jpg" alt="Private kitchen at Fletschhorn" />
-          <img class="float-one preSlide" style="--d:.20s" src="https://assets.guesty.com/image/upload/v1781188827/production/686c48ada4bbacd7a82a4f83/om4npeyvqh6lqsp3zmwf.jpg" alt="Kitchen detail at Fletschhorn" />
-          <img class="float-two preSlide" style="--d:.28s" src="https://assets.guesty.com/image/upload/v1781188827/production/686c48ada4bbacd7a82a4f83/ik84e4ah5nii8v6enxqu.jpg" alt="Kitchen preparation area at Fletschhorn" />
+          <img class="float-one preSlide" style="--d:.20s" src="https://assets.guesty.com/image/upload/v1781188716/production/686c48ada4bbacd7a82a4f83/rlj0n6xxnkxz4drwzmiv.jpg" alt="Kitchen detail at Fletschhorn" />
+          <img class="float-two preSlide" style="--d:.28s" src="https://assets.guesty.com/image/upload/v1781188675/production/686c48ada4bbacd7a82a4f83/zybfhiaifujy5z2wjump.jpg" alt="Kitchen preparation area at Fletschhorn" />
           <div class="mini-card preFade" style="--d:.36s">
             <p class="kicker" data-i18n="kitchen.card.kicker">Flexible food planning</p>
             <p data-i18n="kitchen.card.text">Self-catering is part of the stay. Chefs and caterers can be arranged on request for an additional fee.</p>
@@ -5200,7 +5203,10 @@
     heroCopy = heroCopyByLang[activeLang] || heroCopyByLang.en;
 
     setSlideImages(fallbackImages);
-    loadGuestyImages();
+    /* loadGuestyImages() used to overwrite fixed marketing images (including
+       [data-guesty-img] photos) with a live/random Worker feed, which is how
+       the wrong "broken" kitchen photo appeared. Marketing images are now
+       fixed; the Worker stays available for booking/search/quote only. */
     startSlideshow();
     setFletschhornLanguage(activeLang);
 
