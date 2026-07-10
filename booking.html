@@ -886,7 +886,7 @@
     function safe(value){ return String(value == null ? "" : value); }
     function escapeHTML(value){ return safe(value).replace(/[&<>'"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]; }); }
     function endpoint(path){ return CFG.workerBase.replace(/\/$/, "") + path; }
-    function txt(key){ var bundle = TEXT[state.lang] || TEXT.en; return bundle[key] || TEXT.en[key] || ""; }
+    function txt(key){ var bundle = TEXT[state.lang] || TEXT.en; var v = bundle[key] || TEXT.en[key]; if (v == null) { console.warn("[i18n] missing key:", key, "lang:", state.lang); return ""; } return v; }
     function setText(id, value){ var el = $(id); if (el) el.textContent = value || ""; }
     function setHTML(id, value){ var el = $(id); if (el) el.innerHTML = value || ""; }
     function pad(n){ return String(n).padStart(2,"0"); }
@@ -1626,6 +1626,8 @@
       window.addEventListener("fh:languagechange", function(event){ setLanguage(event.detail && (event.detail.lang || event.detail.language)); });
       document.addEventListener("fh:language-change", function(event){ setLanguage(event.detail && (event.detail.lang || event.detail.language)); });
       window.addEventListener("storage", function(event){ if (event.key === "fh_lang" || event.key === "fh_language" || event.key === "fhLang") setLanguage(event.newValue); });
+      window.setFletschhornLanguage = setLanguage;
+      window.FHSetLanguage = setLanguage;
     }
     function setLanguage(raw){
       raw = safe(raw || "en").toLowerCase();

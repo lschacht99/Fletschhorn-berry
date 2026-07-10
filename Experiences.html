@@ -3241,7 +3241,9 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   }
 
   function t(key){
-    return (i18n[currentLang] && i18n[currentLang][key]) || i18n.en[key] || key;
+    const v = (i18n[currentLang] && i18n[currentLang][key]) || i18n.en[key];
+    if (v == null) { console.warn("[i18n] missing key:", key, "lang:", currentLang); return key; }
+    return v;
   }
 
   function applyLanguage(lang){
@@ -3273,7 +3275,10 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
       if(idName.includes('lang') || idName.includes('language')) applyLanguage(target.value);
     });
     window.addEventListener('fh:language', e => applyLanguage(e.detail?.lang || e.detail || 'en'));
+    window.addEventListener('fh-language-change', e => applyLanguage((e.detail && (e.detail.lang || e.detail.language)) || 'en'));
     window.addEventListener('languagechange', () => applyLanguage(document.documentElement.lang || 'en'));
+    window.setFletschhornLanguage = applyLanguage;
+    window.FHSetLanguage = applyLanguage;
     const urlLang = new URLSearchParams(window.location.search).get('lang');
     if(urlLang) applyLanguage(urlLang);
   }
@@ -7122,7 +7127,9 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   }
 
   function t(key){
-    return (i18n[currentLang] && i18n[currentLang][key]) || i18n.en[key] || key;
+    const v = (i18n[currentLang] && i18n[currentLang][key]) || i18n.en[key];
+    if (v == null) { console.warn("[i18n] missing key:", key, "lang:", currentLang); return key; }
+    return v;
   }
 
   function applyLanguage(lang){
@@ -7154,7 +7161,10 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
       if(idName.includes('lang') || idName.includes('language')) applyLanguage(target.value);
     });
     window.addEventListener('fh:language', e => applyLanguage(e.detail?.lang || e.detail || 'en'));
+    window.addEventListener('fh-language-change', e => applyLanguage((e.detail && (e.detail.lang || e.detail.language)) || 'en'));
     window.addEventListener('languagechange', () => applyLanguage(document.documentElement.lang || 'en'));
+    window.setFletschhornLanguage = applyLanguage;
+    window.FHSetLanguage = applyLanguage;
     const urlLang = new URLSearchParams(window.location.search).get('lang');
     if(urlLang) applyLanguage(urlLang);
   }

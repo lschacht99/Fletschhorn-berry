@@ -1750,7 +1750,7 @@
   dynamic.he = JSON.parse(JSON.stringify(dynamic.en));
   dynamic.he.hero = ["הנכס כבית אלפיני פרטי","חדרים, סוויטות ונופים לעד 48 אורחים","רגעי רוגע אחרי ההר","מטבח מקצועי לארוחות קבוצתיות גמישות"];
 
-  function t(key){return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || "";}
+  function t(key){var v=(I18N[lang] && I18N[lang][key]) || I18N.en[key]; if(v==null){console.warn("[i18n] missing key:",key,"lang:",lang); return "";} return v;}
   function d(group){return (dynamic[lang] && dynamic[lang][group]) || dynamic.en[group] || [];}
 
   function applyStaticTranslations(){

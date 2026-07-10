@@ -4451,7 +4451,9 @@
       });
 
       function t(key){
-        return (T[state.lang] && T[state.lang][key]) || T.en[key] || "";
+        const v = (T[state.lang] && T[state.lang][key]) || T.en[key];
+        if (v == null) { console.warn("[i18n] missing key:", key, "lang:", state.lang); return ""; }
+        return v;
       }
 
       function localeForLang(lang){
