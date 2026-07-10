@@ -954,7 +954,12 @@
   const state={lang:"en"};
   const toolbarCalendar={currentMonth:new Date(),dayMap:{},loading:false};
 
-  function $(selector){ return root.querySelector(selector); }
+  function $(selector){
+    if (selector.charAt(0) === "#" && !/[\s>+~.\[:]/.test(selector)){
+      return document.getElementById(selector.slice(1)) || root.querySelector(selector);
+    }
+    return root.querySelector(selector);
+  }
   function $$(selector){ return Array.from(root.querySelectorAll(selector)); }
   function endpoint(path){ return CFG.workerBase.replace(/\/$/,"") + path; }
 

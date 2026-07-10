@@ -3517,6 +3517,9 @@
       };
 
       function $(selector){
+        if (selector.charAt(0) === "#" && !/[\s>+~.\[:]/.test(selector)){
+          return document.getElementById(selector.slice(1)) || root.querySelector(selector);
+        }
         return root.querySelector(selector);
       }
 
