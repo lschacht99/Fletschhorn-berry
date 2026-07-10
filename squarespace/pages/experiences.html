@@ -2165,6 +2165,12 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     font-size:12.8px!important;
     line-height:1.43!important;
   }
+  #fh-experiences-desktop .fh-mobile-activity-rail .fh-activity{display:block!important;background:var(--fh-card,#fffaf3)!important;color:var(--fh-ink)!important;overflow:hidden!important}
+  #fh-experiences-desktop .fh-mobile-activity-rail .fh-activity::before,#fh-experiences-desktop .fh-mobile-activity-rail .fh-activity::after{display:none!important}
+  #fh-experiences-desktop .fh-mobile-activity-rail .fh-activity-img{height:145px!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;position:relative!important}
+  #fh-experiences-desktop .fh-mobile-activity-rail .fh-activity-copy{padding:17px!important;color:var(--fh-ink)!important}
+  #fh-experiences-desktop .fh-mobile-activity-rail .fh-activity h3{color:var(--fh-ink)!important}
+  #fh-experiences-desktop .fh-mobile-activity-rail .fh-activity p{color:var(--fh-ink-soft)!important}
 
   #fh-experiences-desktop .fh-mobile-route-rail .fh-route{
     flex:0 0 84%!important;
@@ -5070,6 +5076,19 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     fillRail('#fh-area .fh-photo-strip .fh-photo-tile', '#fh-mobile-photo-rail', 3);
     fillRail('#fh-map-sidebar .fh-place', '#fh-mobile-place-rail', 12);
     fillRail('#fh-activity-grid .fh-activity', '#fh-mobile-activity-rail', 18);
+    (function(){
+      const sources = qsa('#fh-activity-grid .fh-activity', root);
+      const clones = qsa('#fh-mobile-activity-rail .fh-activity', root);
+      clones.forEach((clone, i) => {
+        const source = sources[i];
+        const bg = source && source.style.getPropertyValue('--activity-image');
+        if(!bg || clone.querySelector('.fh-activity-img')) return;
+        const img = document.createElement('div');
+        img.className = 'fh-activity-img';
+        img.style.backgroundImage = bg.trim();
+        clone.insertBefore(img, clone.firstChild);
+      });
+    })();
     fillRail('#fh-treks .fh-route', '#fh-mobile-route-rail', 6);
     fillRail('#fh-dayplans .fh-itinerary', '#fh-mobile-dayplan-rail', 3);
   }
