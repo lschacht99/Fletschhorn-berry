@@ -19,13 +19,13 @@ Fletschhorn — Global Footer + Private Estate Positioning Patch
   window.CLOUDFLARE_INQUIRY_ENDPOINT = FH_INQUIRY_ENDPOINT;
 
   const FH_FOOTER_PAGES = [
-    { label: "Home", href: "/" },
-    { label: "Property", href: "/property" },
-    { label: "Experiences", href: "/experiences" },
-    { label: "Events", href: "/wedding-event" },
-    { label: "Location", href: "/location" },
-    { label: "Booking", href: "/booking" },
-    { label: "About", href: "/about-us" }
+    { key: "home",        label: "Home", href: "/" },
+    { key: "property",    label: "Property", href: "/property" },
+    { key: "experiences", label: "Experiences", href: "/experiences" },
+    { key: "events",      label: "Events", href: "/wedding-event" },
+    { key: "location",    label: "Location", href: "/location" },
+    { key: "booking",     label: "Booking", href: "/booking" },
+    { key: "about",       label: "About", href: "/about-us" }
   ];
 
   const FH_SOCIAL_LINKS = [
@@ -36,7 +36,7 @@ Fletschhorn — Global Footer + Private Estate Positioning Patch
   ];
 
   function makeFooter(){
-    const links = FH_FOOTER_PAGES.map(page => `<a href="${page.href}">${page.label}</a>`).join("");
+    const links = FH_FOOTER_PAGES.map(page => `<a href="${page.href}" data-fh-fi18n="footer.nav.${page.key}">${page.label}</a>`).join("");
     const socialLinks = FH_SOCIAL_LINKS.map(item => `<a href="${item.href}" target="_blank" rel="noopener noreferrer">${item.label}</a>`).join("");
 
     return `
@@ -51,31 +51,31 @@ Fletschhorn — Global Footer + Private Estate Positioning Patch
                 </span>
                 <span class="fh-footer-wordmark">
                   <strong>Fletschhorn</strong>
-                  <small>Private alpine hotel · Saas-Fee</small>
+                  <small data-fh-fi18n="footer.tagline">Private alpine hotel · Saas-Fee</small>
                 </span>
               </a>
-              <p>A fully private boutique alpine hotel for one group at a time — made for retreats, weddings, celebrations, private ski weeks, and slow mountain days above Saas-Fee.</p>
+              <p data-fh-fi18n="footer.brandText">A fully private boutique alpine hotel for one group at a time — made for retreats, weddings, celebrations, private ski weeks, and slow mountain days above Saas-Fee.</p>
             </div>
 
             <div class="fh-footer-nav-block">
-              <h3>Navigate</h3>
+              <h3 data-fh-fi18n="footer.navigate">Navigate</h3>
               <nav class="fh-footer-links" aria-label="Footer navigation">${links}</nav>
             </div>
 
             <div class="fh-footer-info-block">
-              <h3>Private stay</h3>
-              <p>One group only. No outside guests. Full-property privacy, kitchen flexibility, mountain views, sauna by arrangement, and direct planning for arrivals, dining, and group rhythm.</p>
+              <h3 data-fh-fi18n="footer.privateStay">Private stay</h3>
+              <p data-fh-fi18n="footer.privateStayText">One group only. No outside guests. Full-property privacy, kitchen flexibility, mountain views, sauna by arrangement, and direct planning for arrivals, dining, and group rhythm.</p>
               <div class="fh-footer-social-block">
-                <h3>Follow</h3>
+                <h3 data-fh-fi18n="footer.follow">Follow</h3>
                 <nav class="fh-footer-social-links" aria-label="Social links">${socialLinks}</nav>
               </div>
             </div>
 
             <div class="fh-footer-contact-block">
-              <h3>Contact</h3>
+              <h3 data-fh-fi18n="footer.contact">Contact</h3>
               <p>Waldhotel Fletschhorn<br>Wildistrasse<br>3906 Saas-Fee, Switzerland</p>
               <p class="fh-footer-contact-line"><a href="tel:+41279572131">+41 27 957 2131</a><br><a href="mailto:welcome@fletschhorn.ch">welcome@fletschhorn.ch</a></p>
-              <a class="fh-footer-cta" href="/booking">Book my stay now</a>
+              <a class="fh-footer-cta" href="/booking" data-fh-fi18n="footer.cta">Book my stay now</a>
             </div>
           </div>
           <div class="fh-footer-bottom">
@@ -139,9 +139,9 @@ Fletschhorn — Global Footer + Private Estate Positioning Patch
     if(booking && !one("#fh-home .fh-estate-cta-row")){
       after(booking, `
         <nav class="fh-estate-cta-row" aria-label="Explore private stay types">
-          <a href="${page("/wedding-event#your-event")}">Corporate Retreats</a>
-          <a href="${page("/wedding-event#your-wedding")}">Weddings</a>
-          <a href="${page("/experiences#winter")}">Private Ski Weeks</a>
+          <a href="${page("/wedding-event#your-event")}" data-fh-fi18n="home.cta.retreats">Corporate Retreats</a>
+          <a href="${page("/wedding-event#your-wedding")}" data-fh-fi18n="home.cta.weddings">Weddings</a>
+          <a href="${page("/experiences#winter")}" data-fh-fi18n="home.cta.ski">Private Ski Weeks</a>
         </nav>
       `);
     }
@@ -151,21 +151,21 @@ Fletschhorn — Global Footer + Private Estate Positioning Patch
       after(hero, `
         <section class="fh-estate-section" id="our-concept">
           <div class="fh-estate-wrap">
-            <p class="fh-estate-kicker">Our Concept</p>
-            <h2 class="fh-estate-title">A private alpine hotel, entirely yours.</h2>
-            <p class="fh-estate-lead">Fletschhorn is not a traditional hotel stay or a room-inventory website. It is a fully private boutique alpine hotel for one group at a time, designed for retreats, weddings, celebrations, private ski weeks, and family gatherings in Saas-Fee.</p>
-            <p class="fh-estate-lead">Your group has the full property rhythm: private rooms, shared gathering spaces, kitchen flexibility, mountain views, and no outside guests interrupting the atmosphere.</p>
+            <p class="fh-estate-kicker" data-fh-fi18n="concept.kicker">Our Concept</p>
+            <h2 class="fh-estate-title" data-fh-fi18n="concept.title">A private alpine hotel, entirely yours.</h2>
+            <p class="fh-estate-lead" data-fh-fi18n="concept.lead1">Fletschhorn is not a traditional hotel stay or a room-inventory website. It is a fully private boutique alpine hotel for one group at a time, designed for retreats, weddings, celebrations, private ski weeks, and family gatherings in Saas-Fee.</p>
+            <p class="fh-estate-lead" data-fh-fi18n="concept.lead2">Your group has the full property rhythm: private rooms, shared gathering spaces, kitchen flexibility, mountain views, and no outside guests interrupting the atmosphere.</p>
             <div class="fh-estate-grid">
-              <div class="fh-estate-card"><strong>One group only</strong><span>The property is reserved for your group, not mixed with other hotel guests.</span></div>
-              <div class="fh-estate-card"><strong>Full privacy</strong><span>A quiet alpine setting for people who want space, silence, and exclusivity.</span></div>
-              <div class="fh-estate-card"><strong>Kitchen all yours</strong><span>Self-cooking, catering, or private chef options can be planned around your stay.</span></div>
-              <div class="fh-estate-card"><strong>Made for groups</strong><span>Ideal for 30–49 guests across retreats, events, weddings, ski weeks, and family celebrations.</span></div>
-              <div class="fh-estate-card"><strong>Mountain world</strong><span>Views, sauna, fireside evenings, village access, and alpine experiences around Saas-Fee.</span></div>
+              <div class="fh-estate-card"><strong data-fh-fi18n="concept.card1t">One group only</strong><span data-fh-fi18n="concept.card1x">The property is reserved for your group, not mixed with other hotel guests.</span></div>
+              <div class="fh-estate-card"><strong data-fh-fi18n="concept.card2t">Full privacy</strong><span data-fh-fi18n="concept.card2x">A quiet alpine setting for people who want space, silence, and exclusivity.</span></div>
+              <div class="fh-estate-card"><strong data-fh-fi18n="concept.card3t">Kitchen all yours</strong><span data-fh-fi18n="concept.card3x">Self-cooking, catering, or private chef options can be planned around your stay.</span></div>
+              <div class="fh-estate-card"><strong data-fh-fi18n="concept.card4t">Made for groups</strong><span data-fh-fi18n="concept.card4x">Ideal for 30–49 guests across retreats, events, weddings, ski weeks, and family celebrations.</span></div>
+              <div class="fh-estate-card"><strong data-fh-fi18n="concept.card5t">Mountain world</strong><span data-fh-fi18n="concept.card5x">Views, sauna, fireside evenings, village access, and alpine experiences around Saas-Fee.</span></div>
             </div>
             <div class="fh-estate-composition">
-              <h3>The full-property experience</h3>
+              <h3 data-fh-fi18n="concept.compTitle">The full-property experience</h3>
               <div class="fh-estate-pill-list">
-                <span>Private chef by arrangement</span><span>Catering</span><span>Self-cooking</span><span>Wellness</span><span>Mountain experiences</span><span>Fireside evenings</span><span>Full-property access</span><span>No staff disturbing the rhythm</span>
+                <span data-fh-fi18n="concept.pill1">Private chef by arrangement</span><span data-fh-fi18n="concept.pill2">Catering</span><span data-fh-fi18n="concept.pill3">Self-cooking</span><span data-fh-fi18n="concept.pill4">Wellness</span><span data-fh-fi18n="concept.pill5">Mountain experiences</span><span data-fh-fi18n="concept.pill6">Fireside evenings</span><span data-fh-fi18n="concept.pill7">Full-property access</span><span data-fh-fi18n="concept.pill8">No staff disturbing the rhythm</span>
               </div>
             </div>
           </div>
@@ -225,26 +225,26 @@ Fletschhorn — Global Footer + Private Estate Positioning Patch
           <span class="fh-estate-anchor" id="your-event"></span>
           <div class="fh-estate-dossier-grid">
             <article class="fh-estate-dossier-card">
-              <h2>Your Event</h2>
-              <p>For corporate retreats, private events, birthdays, parties, and family celebrations, Fletschhorn becomes a full alpine base for one group only.</p>
+              <h2 data-fh-fi18n="events.eventTitle">Your Event</h2>
+              <p data-fh-fi18n="events.eventLead">For corporate retreats, private events, birthdays, parties, and family celebrations, Fletschhorn becomes a full alpine base for one group only.</p>
               <ul>
-                <li>Entire hotel privately reserved for your group</li>
-                <li>No outside guests interrupting the atmosphere</li>
-                <li>Gathering spaces, quiet corners, and mountain views</li>
-                <li>Private Chef · Catering · Self-Cooking by arrangement</li>
-                <li>Sauna, shuttle, luggage, and arrival planning by request</li>
+                <li data-fh-fi18n="events.eventLi1">Entire hotel privately reserved for your group</li>
+                <li data-fh-fi18n="events.eventLi2">No outside guests interrupting the atmosphere</li>
+                <li data-fh-fi18n="events.eventLi3">Gathering spaces, quiet corners, and mountain views</li>
+                <li data-fh-fi18n="events.eventLi4">Private Chef · Catering · Self-Cooking by arrangement</li>
+                <li data-fh-fi18n="events.eventLi5">Sauna, shuttle, luggage, and arrival planning by request</li>
               </ul>
             </article>
             <article class="fh-estate-dossier-card">
               <span class="fh-estate-anchor" id="your-wedding"></span>
-              <h2>Your Wedding</h2>
-              <p>A private alpine wedding stay, not just a venue: family and friends can sleep, dine, gather, and celebrate together in one mountain hotel.</p>
+              <h2 data-fh-fi18n="events.wedTitle">Your Wedding</h2>
+              <p data-fh-fi18n="events.wedLead">A private alpine wedding stay, not just a venue: family and friends can sleep, dine, gather, and celebrate together in one mountain hotel.</p>
               <ul>
-                <li>Whole hotel for the wedding group</li>
-                <li>Mountain backdrop and intimate house atmosphere</li>
-                <li>Catering, private chef, or self-cooking by arrangement</li>
-                <li>No other hotel guests during your stay</li>
-                <li>Weekend rhythm: arrival, dinner, celebration, recovery, and slow alpine mornings</li>
+                <li data-fh-fi18n="events.wedLi1">Whole hotel for the wedding group</li>
+                <li data-fh-fi18n="events.wedLi2">Mountain backdrop and intimate house atmosphere</li>
+                <li data-fh-fi18n="events.wedLi3">Catering, private chef, or self-cooking by arrangement</li>
+                <li data-fh-fi18n="events.wedLi4">No other hotel guests during your stay</li>
+                <li data-fh-fi18n="events.wedLi5">Weekend rhythm: arrival, dinner, celebration, recovery, and slow alpine mornings</li>
               </ul>
             </article>
           </div>
@@ -269,14 +269,14 @@ Fletschhorn — Global Footer + Private Estate Positioning Patch
       after(anchor, `
         <section class="fh-estate-dossier" id="fh-winter-private-ski-weeks">
           <div class="fh-estate-dossier-card">
-            <h2>Private Ski Weeks</h2>
-            <p>Fletschhorn works as a private winter base for ski groups, families, and alpine weeks together: mountain days outside, then the whole hotel waiting for your group only.</p>
+            <h2 data-fh-fi18n="ski.title">Private Ski Weeks</h2>
+            <p data-fh-fi18n="ski.lead">Fletschhorn works as a private winter base for ski groups, families, and alpine weeks together: mountain days outside, then the whole hotel waiting for your group only.</p>
             <ul>
-              <li>Glacier skiing and high-alpine winter days</li>
-              <li>Warm returns, sauna after skiing, and fireside evenings</li>
-              <li>Group dinners with Private Chef · Catering · Self-Cooking options by arrangement</li>
-              <li>No splitting guests across multiple hotels</li>
-              <li>Shuttle, luggage, and car-free Saas-Fee arrival planning</li>
+              <li data-fh-fi18n="ski.li1">Glacier skiing and high-alpine winter days</li>
+              <li data-fh-fi18n="ski.li2">Warm returns, sauna after skiing, and fireside evenings</li>
+              <li data-fh-fi18n="ski.li3">Group dinners with Private Chef · Catering · Self-Cooking options by arrangement</li>
+              <li data-fh-fi18n="ski.li4">No splitting guests across multiple hotels</li>
+              <li data-fh-fi18n="ski.li5">Shuttle, luggage, and car-free Saas-Fee arrival planning</li>
             </ul>
           </div>
         </section>
@@ -291,18 +291,223 @@ Fletschhorn — Global Footer + Private Estate Positioning Patch
       append(root, `
         <section class="fh-estate-dossier" id="fh-how-to-get-here-composition">
           <div class="fh-estate-dossier-card">
-            <h2>How to get here</h2>
-            <p>Saas-Fee is car-free, so arrival is best planned before the stay. The group can coordinate car arrival, train and bus arrival, luggage movement, shuttle timing, and private transfer details.</p>
+            <h2 data-fh-fi18n="access.title">How to get here</h2>
+            <p data-fh-fi18n="access.lead">Saas-Fee is car-free, so arrival is best planned before the stay. The group can coordinate car arrival, train and bus arrival, luggage movement, shuttle timing, and private transfer details.</p>
             <ul>
-              <li>Arrive by car to Saas-Fee, then continue according to village access rules</li>
-              <li>Arrive by train and bus with luggage planning</li>
-              <li>Coordinate shuttle windows where available</li>
-              <li>Helicopter transfer by request; pricing to be confirmed</li>
+              <li data-fh-fi18n="access.li1">Arrive by car to Saas-Fee, then continue according to village access rules</li>
+              <li data-fh-fi18n="access.li2">Arrive by train and bus with luggage planning</li>
+              <li data-fh-fi18n="access.li3">Coordinate shuttle windows where available</li>
+              <li data-fh-fi18n="access.li4">Helicopter transfer by request; pricing to be confirmed</li>
             </ul>
           </div>
         </section>
       `);
     }
+  }
+
+  /*
+    Shared dictionary for everything this file injects (global footer +
+    estate-patch sections). The rest of each page translates through the
+    page's own engine; these strings exist only here, so they must be
+    translated here.
+  */
+  const FOOTER_I18N = {
+    en: {
+      "footer.tagline":"Private alpine hotel · Saas-Fee",
+      "footer.brandText":"A fully private boutique alpine hotel for one group at a time — made for retreats, weddings, celebrations, private ski weeks, and slow mountain days above Saas-Fee.",
+      "footer.navigate":"Navigate",
+      "footer.nav.home":"Home","footer.nav.property":"Property","footer.nav.experiences":"Experiences","footer.nav.events":"Events","footer.nav.location":"Location","footer.nav.booking":"Booking","footer.nav.about":"About",
+      "footer.privateStay":"Private stay",
+      "footer.privateStayText":"One group only. No outside guests. Full-property privacy, kitchen flexibility, mountain views, sauna by arrangement, and direct planning for arrivals, dining, and group rhythm.",
+      "footer.follow":"Follow","footer.contact":"Contact","footer.cta":"Book my stay now",
+      "home.cta.retreats":"Corporate Retreats","home.cta.weddings":"Weddings","home.cta.ski":"Private Ski Weeks",
+      "concept.kicker":"Our Concept",
+      "concept.title":"A private alpine hotel, entirely yours.",
+      "concept.lead1":"Fletschhorn is not a traditional hotel stay or a room-inventory website. It is a fully private boutique alpine hotel for one group at a time, designed for retreats, weddings, celebrations, private ski weeks, and family gatherings in Saas-Fee.",
+      "concept.lead2":"Your group has the full property rhythm: private rooms, shared gathering spaces, kitchen flexibility, mountain views, and no outside guests interrupting the atmosphere.",
+      "concept.card1t":"One group only","concept.card1x":"The property is reserved for your group, not mixed with other hotel guests.",
+      "concept.card2t":"Full privacy","concept.card2x":"A quiet alpine setting for people who want space, silence, and exclusivity.",
+      "concept.card3t":"Kitchen all yours","concept.card3x":"Self-cooking, catering, or private chef options can be planned around your stay.",
+      "concept.card4t":"Made for groups","concept.card4x":"Ideal for 30–49 guests across retreats, events, weddings, ski weeks, and family celebrations.",
+      "concept.card5t":"Mountain world","concept.card5x":"Views, sauna, fireside evenings, village access, and alpine experiences around Saas-Fee.",
+      "concept.compTitle":"The full-property experience",
+      "concept.pill1":"Private chef by arrangement","concept.pill2":"Catering","concept.pill3":"Self-cooking","concept.pill4":"Wellness","concept.pill5":"Mountain experiences","concept.pill6":"Fireside evenings","concept.pill7":"Full-property access","concept.pill8":"No staff disturbing the rhythm",
+      "events.eventTitle":"Your Event",
+      "events.eventLead":"For corporate retreats, private events, birthdays, parties, and family celebrations, Fletschhorn becomes a full alpine base for one group only.",
+      "events.eventLi1":"Entire hotel privately reserved for your group","events.eventLi2":"No outside guests interrupting the atmosphere","events.eventLi3":"Gathering spaces, quiet corners, and mountain views","events.eventLi4":"Private Chef · Catering · Self-Cooking by arrangement","events.eventLi5":"Sauna, shuttle, luggage, and arrival planning by request",
+      "events.wedTitle":"Your Wedding",
+      "events.wedLead":"A private alpine wedding stay, not just a venue: family and friends can sleep, dine, gather, and celebrate together in one mountain hotel.",
+      "events.wedLi1":"Whole hotel for the wedding group","events.wedLi2":"Mountain backdrop and intimate house atmosphere","events.wedLi3":"Catering, private chef, or self-cooking by arrangement","events.wedLi4":"No other hotel guests during your stay","events.wedLi5":"Weekend rhythm: arrival, dinner, celebration, recovery, and slow alpine mornings",
+      "ski.title":"Private Ski Weeks",
+      "ski.lead":"Fletschhorn works as a private winter base for ski groups, families, and alpine weeks together: mountain days outside, then the whole hotel waiting for your group only.",
+      "ski.li1":"Glacier skiing and high-alpine winter days","ski.li2":"Warm returns, sauna after skiing, and fireside evenings","ski.li3":"Group dinners with Private Chef · Catering · Self-Cooking options by arrangement","ski.li4":"No splitting guests across multiple hotels","ski.li5":"Shuttle, luggage, and car-free Saas-Fee arrival planning",
+      "access.title":"How to get here",
+      "access.lead":"Saas-Fee is car-free, so arrival is best planned before the stay. The group can coordinate car arrival, train and bus arrival, luggage movement, shuttle timing, and private transfer details.",
+      "access.li1":"Arrive by car to Saas-Fee, then continue according to village access rules","access.li2":"Arrive by train and bus with luggage planning","access.li3":"Coordinate shuttle windows where available","access.li4":"Helicopter transfer by request; pricing to be confirmed"
+    },
+    fr: {
+      "footer.tagline":"Hôtel alpin privé · Saas-Fee",
+      "footer.brandText":"Un hôtel alpin boutique entièrement privé, pour un seul groupe à la fois — pensé pour les retraites, mariages, célébrations, semaines de ski privées et journées de montagne paisibles au-dessus de Saas-Fee.",
+      "footer.navigate":"Navigation",
+      "footer.nav.home":"Accueil","footer.nav.property":"Propriété","footer.nav.experiences":"Expériences","footer.nav.events":"Événements","footer.nav.location":"Emplacement","footer.nav.booking":"Réservation","footer.nav.about":"À propos",
+      "footer.privateStay":"Séjour privé",
+      "footer.privateStayText":"Un seul groupe. Aucun client extérieur. Intimité totale, cuisine flexible, vues sur la montagne, sauna sur demande et organisation directe des arrivées, des repas et du rythme du groupe.",
+      "footer.follow":"Suivez-nous","footer.contact":"Contact","footer.cta":"Réserver mon séjour",
+      "home.cta.retreats":"Retraites d'entreprise","home.cta.weddings":"Mariages","home.cta.ski":"Semaines de ski privées",
+      "concept.kicker":"Notre concept",
+      "concept.title":"Un hôtel alpin privé, entièrement à vous.",
+      "concept.lead1":"Fletschhorn n'est ni un séjour hôtelier classique ni un site de réservation de chambres. C'est un hôtel alpin boutique entièrement privé, pour un seul groupe à la fois, conçu pour les retraites, mariages, célébrations, semaines de ski privées et réunions de famille à Saas-Fee.",
+      "concept.lead2":"Votre groupe profite de toute la propriété : chambres privées, espaces communs, cuisine flexible, vues sur la montagne et aucun client extérieur pour troubler l'atmosphère.",
+      "concept.card1t":"Un seul groupe","concept.card1x":"La propriété est réservée à votre groupe, sans mélange avec d'autres clients.",
+      "concept.card2t":"Intimité totale","concept.card2x":"Un cadre alpin paisible pour ceux qui recherchent espace, silence et exclusivité.",
+      "concept.card3t":"La cuisine pour vous","concept.card3x":"Cuisine autonome, traiteur ou chef privé peuvent être organisés autour de votre séjour.",
+      "concept.card4t":"Conçu pour les groupes","concept.card4x":"Idéal pour 30 à 49 invités : retraites, événements, mariages, semaines de ski et fêtes de famille.",
+      "concept.card5t":"Univers montagnard","concept.card5x":"Vues, sauna, soirées au coin du feu, accès au village et expériences alpines autour de Saas-Fee.",
+      "concept.compTitle":"L'expérience de la propriété entière",
+      "concept.pill1":"Chef privé sur demande","concept.pill2":"Traiteur","concept.pill3":"Cuisine autonome","concept.pill4":"Bien-être","concept.pill5":"Expériences en montagne","concept.pill6":"Soirées au coin du feu","concept.pill7":"Accès à toute la propriété","concept.pill8":"Aucun personnel ne perturbe le rythme",
+      "events.eventTitle":"Votre événement",
+      "events.eventLead":"Pour les retraites d'entreprise, événements privés, anniversaires, fêtes et célébrations familiales, Fletschhorn devient une base alpine complète pour un seul groupe.",
+      "events.eventLi1":"Hôtel entier réservé en privé pour votre groupe","events.eventLi2":"Aucun client extérieur ne perturbe l'atmosphère","events.eventLi3":"Espaces de réunion, coins tranquilles et vues sur la montagne","events.eventLi4":"Chef privé · Traiteur · Cuisine autonome sur demande","events.eventLi5":"Sauna, navette, bagages et organisation de l'arrivée sur demande",
+      "events.wedTitle":"Votre mariage",
+      "events.wedLead":"Un séjour de mariage alpin privé, pas seulement un lieu : famille et amis dorment, dînent, se réunissent et célèbrent ensemble dans un seul hôtel de montagne.",
+      "events.wedLi1":"L'hôtel entier pour le groupe de mariage","events.wedLi2":"Décor de montagne et atmosphère intime de maison","events.wedLi3":"Traiteur, chef privé ou cuisine autonome sur demande","events.wedLi4":"Aucun autre client pendant votre séjour","events.wedLi5":"Rythme du week-end : arrivée, dîner, célébration, récupération et matinées alpines paisibles",
+      "ski.title":"Semaines de ski privées",
+      "ski.lead":"Fletschhorn est une base hivernale privée pour les groupes de skieurs, les familles et les semaines alpines : des journées en montagne, puis tout l'hôtel qui n'attend que votre groupe.",
+      "ski.li1":"Ski sur glacier et journées d'hiver en haute montagne","ski.li2":"Retours au chaud, sauna après le ski et soirées au coin du feu","ski.li3":"Dîners de groupe avec chef privé · traiteur · cuisine autonome sur demande","ski.li4":"Pas de groupe réparti entre plusieurs hôtels","ski.li5":"Navette, bagages et organisation de l'arrivée à Saas-Fee, village sans voiture",
+      "access.title":"Comment venir",
+      "access.lead":"Saas-Fee est sans voiture : l'arrivée se planifie de préférence avant le séjour. Le groupe peut coordonner l'arrivée en voiture, en train et en bus, le transport des bagages, les horaires de navette et les transferts privés.",
+      "access.li1":"Arrivez en voiture jusqu'à Saas-Fee, puis continuez selon les règles d'accès du village","access.li2":"Arrivez en train et en bus avec organisation des bagages","access.li3":"Coordonnez les créneaux de navette disponibles","access.li4":"Transfert en hélicoptère sur demande ; tarif à confirmer"
+    },
+    de: {
+      "footer.tagline":"Privates Alpenhotel · Saas-Fee",
+      "footer.brandText":"Ein vollständig privates Boutique-Alpenhotel für jeweils eine Gruppe — für Retreats, Hochzeiten, Feiern, private Skiwochen und ruhige Bergtage oberhalb von Saas-Fee.",
+      "footer.navigate":"Navigation",
+      "footer.nav.home":"Startseite","footer.nav.property":"Das Haus","footer.nav.experiences":"Erlebnisse","footer.nav.events":"Events","footer.nav.location":"Lage","footer.nav.booking":"Buchung","footer.nav.about":"Über uns",
+      "footer.privateStay":"Privater Aufenthalt",
+      "footer.privateStayText":"Nur eine Gruppe. Keine fremden Gäste. Volle Privatsphäre, flexible Küche, Bergblick, Sauna nach Absprache und direkte Planung von Anreise, Essen und Gruppenrhythmus.",
+      "footer.follow":"Folgen","footer.contact":"Kontakt","footer.cta":"Jetzt Aufenthalt buchen",
+      "home.cta.retreats":"Firmen-Retreats","home.cta.weddings":"Hochzeiten","home.cta.ski":"Private Skiwochen",
+      "concept.kicker":"Unser Konzept",
+      "concept.title":"Ein privates Alpenhotel, ganz für Sie.",
+      "concept.lead1":"Fletschhorn ist kein klassischer Hotelaufenthalt und keine Zimmerbuchungsseite. Es ist ein vollständig privates Boutique-Alpenhotel für jeweils eine Gruppe — für Retreats, Hochzeiten, Feiern, private Skiwochen und Familientreffen in Saas-Fee.",
+      "concept.lead2":"Ihre Gruppe erlebt das ganze Haus: private Zimmer, gemeinsame Aufenthaltsbereiche, flexible Küche, Bergblick und keine fremden Gäste, die die Atmosphäre stören.",
+      "concept.card1t":"Nur eine Gruppe","concept.card1x":"Das Haus ist für Ihre Gruppe reserviert und wird nicht mit anderen Hotelgästen geteilt.",
+      "concept.card2t":"Volle Privatsphäre","concept.card2x":"Eine ruhige alpine Umgebung für Menschen, die Raum, Stille und Exklusivität suchen.",
+      "concept.card3t":"Die Küche gehört Ihnen","concept.card3x":"Selbstversorgung, Catering oder Privatkoch können rund um Ihren Aufenthalt geplant werden.",
+      "concept.card4t":"Für Gruppen gemacht","concept.card4x":"Ideal für 30–49 Gäste: Retreats, Events, Hochzeiten, Skiwochen und Familienfeiern.",
+      "concept.card5t":"Bergwelt","concept.card5x":"Aussicht, Sauna, Kaminabende, Dorfnähe und alpine Erlebnisse rund um Saas-Fee.",
+      "concept.compTitle":"Das Ganzhaus-Erlebnis",
+      "concept.pill1":"Privatkoch nach Absprache","concept.pill2":"Catering","concept.pill3":"Selbstversorgung","concept.pill4":"Wellness","concept.pill5":"Bergerlebnisse","concept.pill6":"Kaminabende","concept.pill7":"Zugang zum ganzen Haus","concept.pill8":"Kein Personal stört den Rhythmus",
+      "events.eventTitle":"Ihr Event",
+      "events.eventLead":"Für Firmen-Retreats, private Events, Geburtstage, Feste und Familienfeiern wird Fletschhorn zur kompletten alpinen Basis für nur eine Gruppe.",
+      "events.eventLi1":"Das ganze Hotel privat für Ihre Gruppe reserviert","events.eventLi2":"Keine fremden Gäste, die die Atmosphäre stören","events.eventLi3":"Gemeinschaftsräume, ruhige Ecken und Bergblick","events.eventLi4":"Privatkoch · Catering · Selbstversorgung nach Absprache","events.eventLi5":"Sauna, Shuttle, Gepäck und Anreiseplanung auf Anfrage",
+      "events.wedTitle":"Ihre Hochzeit",
+      "events.wedLead":"Ein privater alpiner Hochzeitsaufenthalt, nicht nur eine Location: Familie und Freunde schlafen, essen, feiern und verbringen die Zeit gemeinsam in einem Berghotel.",
+      "events.wedLi1":"Das ganze Hotel für die Hochzeitsgesellschaft","events.wedLi2":"Bergkulisse und intime Hausatmosphäre","events.wedLi3":"Catering, Privatkoch oder Selbstversorgung nach Absprache","events.wedLi4":"Keine anderen Hotelgäste während Ihres Aufenthalts","events.wedLi5":"Wochenendrhythmus: Ankunft, Abendessen, Feier, Erholung und ruhige alpine Morgen",
+      "ski.title":"Private Skiwochen",
+      "ski.lead":"Fletschhorn ist eine private Winterbasis für Skigruppen, Familien und gemeinsame Alpenwochen: Bergtage draußen, danach wartet das ganze Hotel nur auf Ihre Gruppe.",
+      "ski.li1":"Gletscherski und hochalpine Wintertage","ski.li2":"Warme Rückkehr, Sauna nach dem Skifahren und Kaminabende","ski.li3":"Gruppenessen mit Privatkoch · Catering · Selbstversorgung nach Absprache","ski.li4":"Keine Aufteilung der Gäste auf mehrere Hotels","ski.li5":"Shuttle, Gepäck und Anreiseplanung im autofreien Saas-Fee",
+      "access.title":"Anreise",
+      "access.lead":"Saas-Fee ist autofrei, daher planen Sie die Anreise am besten vor dem Aufenthalt. Die Gruppe kann Auto-, Zug- und Busanreise, Gepäcktransport, Shuttle-Zeiten und private Transfers koordinieren.",
+      "access.li1":"Mit dem Auto nach Saas-Fee, dann weiter gemäß den Zugangsregeln des Dorfes","access.li2":"Anreise mit Zug und Bus mit Gepäckplanung","access.li3":"Shuttle-Zeitfenster koordinieren, sofern verfügbar","access.li4":"Helikoptertransfer auf Anfrage; Preis nach Absprache"
+    },
+    ru: {
+      "footer.tagline":"Частный альпийский отель · Саас-Фе",
+      "footer.brandText":"Полностью частный бутик-отель в Альпах — для одной группы за раз. Создан для ретритов, свадеб, торжеств, частных лыжных недель и спокойных горных дней над Саас-Фе.",
+      "footer.navigate":"Навигация",
+      "footer.nav.home":"Главная","footer.nav.property":"Объект","footer.nav.experiences":"Впечатления","footer.nav.events":"События","footer.nav.location":"Расположение","footer.nav.booking":"Бронирование","footer.nav.about":"О нас",
+      "footer.privateStay":"Частное пребывание",
+      "footer.privateStayText":"Только одна группа. Никаких посторонних гостей. Полная приватность, гибкая кухня, вид на горы, сауна по договорённости и прямое планирование заезда, питания и ритма группы.",
+      "footer.follow":"Мы в соцсетях","footer.contact":"Контакты","footer.cta":"Забронировать пребывание",
+      "home.cta.retreats":"Корпоративные ретриты","home.cta.weddings":"Свадьбы","home.cta.ski":"Частные лыжные недели",
+      "concept.kicker":"Наша концепция",
+      "concept.title":"Частный альпийский отель — полностью ваш.",
+      "concept.lead1":"Fletschhorn — это не обычный отель и не сайт бронирования номеров. Это полностью частный бутик-отель в Альпах для одной группы за раз, созданный для ретритов, свадеб, торжеств, частных лыжных недель и семейных встреч в Саас-Фе.",
+      "concept.lead2":"Ваша группа живёт в ритме всего дома: частные комнаты, общие пространства, гибкая кухня, вид на горы и никаких посторонних гостей.",
+      "concept.card1t":"Только одна группа","concept.card1x":"Объект резервируется для вашей группы и не делится с другими гостями отеля.",
+      "concept.card2t":"Полная приватность","concept.card2x":"Тихое альпийское место для тех, кто ценит простор, тишину и эксклюзивность.",
+      "concept.card3t":"Кухня полностью ваша","concept.card3x":"Самостоятельная готовка, кейтеринг или частный шеф — всё можно спланировать под ваше пребывание.",
+      "concept.card4t":"Создан для групп","concept.card4x":"Идеально для 30–49 гостей: ретриты, события, свадьбы, лыжные недели и семейные праздники.",
+      "concept.card5t":"Мир гор","concept.card5x":"Виды, сауна, вечера у камина, доступ к деревне и альпийские впечатления вокруг Саас-Фе.",
+      "concept.compTitle":"Опыт всего дома",
+      "concept.pill1":"Частный шеф по договорённости","concept.pill2":"Кейтеринг","concept.pill3":"Самостоятельная готовка","concept.pill4":"Велнес","concept.pill5":"Горные впечатления","concept.pill6":"Вечера у камина","concept.pill7":"Доступ ко всему дому","concept.pill8":"Персонал не нарушает ваш ритм",
+      "events.eventTitle":"Ваше событие",
+      "events.eventLead":"Для корпоративных ретритов, частных мероприятий, дней рождения, вечеринок и семейных торжеств Fletschhorn становится полной альпийской базой только для одной группы.",
+      "events.eventLi1":"Весь отель приватно зарезервирован для вашей группы","events.eventLi2":"Никакие посторонние гости не нарушают атмосферу","events.eventLi3":"Пространства для встреч, тихие уголки и вид на горы","events.eventLi4":"Частный шеф · Кейтеринг · Самостоятельная готовка по договорённости","events.eventLi5":"Сауна, трансфер, багаж и планирование заезда по запросу",
+      "events.wedTitle":"Ваша свадьба",
+      "events.wedLead":"Частное альпийское свадебное пребывание, а не просто площадка: семья и друзья спят, ужинают, собираются и празднуют вместе в одном горном отеле.",
+      "events.wedLi1":"Весь отель для свадебной группы","events.wedLi2":"Горный фон и камерная атмосфера дома","events.wedLi3":"Кейтеринг, частный шеф или самостоятельная готовка по договорённости","events.wedLi4":"Никаких других гостей во время вашего пребывания","events.wedLi5":"Ритм выходных: приезд, ужин, праздник, отдых и неспешные альпийские утра",
+      "ski.title":"Частные лыжные недели",
+      "ski.lead":"Fletschhorn — частная зимняя база для лыжных групп, семей и совместных альпийских недель: дни в горах, а затем весь отель ждёт только вашу группу.",
+      "ski.li1":"Катание на леднике и высокогорные зимние дни","ski.li2":"Тёплое возвращение, сауна после лыж и вечера у камина","ski.li3":"Групповые ужины: частный шеф · кейтеринг · самостоятельная готовка по договорённости","ski.li4":"Группа не делится между несколькими отелями","ski.li5":"Трансфер, багаж и планирование прибытия в свободный от машин Саас-Фе",
+      "access.title":"Как добраться",
+      "access.lead":"Саас-Фе закрыт для автомобилей, поэтому прибытие лучше спланировать заранее. Группа может согласовать приезд на машине, поезде и автобусе, перемещение багажа, время трансфера и частные пересадки.",
+      "access.li1":"Приезжайте на машине до Саас-Фе, далее — по правилам доступа в деревню","access.li2":"Прибытие поездом и автобусом с планированием багажа","access.li3":"Согласуйте доступные окна трансфера","access.li4":"Вертолётный трансфер по запросу; цена уточняется"
+    },
+    he: {
+      "footer.tagline":"מלון אלפיני פרטי · סאס-פה",
+      "footer.brandText":"מלון בוטיק אלפיני פרטי לחלוטין, לקבוצה אחת בכל פעם — לריטריטים, חתונות, חגיגות, שבועות סקי פרטיים וימי הרים רגועים מעל סאס-פה.",
+      "footer.navigate":"ניווט",
+      "footer.nav.home":"בית","footer.nav.property":"הנכס","footer.nav.experiences":"חוויות","footer.nav.events":"אירועים","footer.nav.location":"מיקום","footer.nav.booking":"הזמנה","footer.nav.about":"אודות",
+      "footer.privateStay":"שהייה פרטית",
+      "footer.privateStayText":"קבוצה אחת בלבד. ללא אורחים חיצוניים. פרטיות מלאה, מטבח גמיש, נוף הרים, סאונה בתיאום ותכנון ישיר של הגעות, ארוחות וקצב הקבוצה.",
+      "footer.follow":"עקבו אחרינו","footer.contact":"צרו קשר","footer.cta":"הזמינו את השהייה שלכם",
+      "home.cta.retreats":"ריטריטים עסקיים","home.cta.weddings":"חתונות","home.cta.ski":"שבועות סקי פרטיים",
+      "concept.kicker":"הקונספט שלנו",
+      "concept.title":"מלון אלפיני פרטי, כולו שלכם.",
+      "concept.lead1":"Fletschhorn אינו שהות מלונאית רגילה ואינו אתר הזמנת חדרים. זהו מלון בוטיק אלפיני פרטי לחלוטין, לקבוצה אחת בכל פעם — לריטריטים, חתונות, חגיגות, שבועות סקי פרטיים ומפגשים משפחתיים בסאס-פה.",
+      "concept.lead2":"הקבוצה שלכם חיה את קצב הבית כולו: חדרים פרטיים, מרחבי התכנסות משותפים, מטבח גמיש, נוף הרים — וללא אורחים חיצוניים שמפריעים לאווירה.",
+      "concept.card1t":"קבוצה אחת בלבד","concept.card1x":"הנכס שמור לקבוצה שלכם, ללא ערבוב עם אורחי מלון אחרים.",
+      "concept.card2t":"פרטיות מלאה","concept.card2x":"סביבה אלפינית שקטה למי שמחפש מרחב, שקט ובלעדיות.",
+      "concept.card3t":"המטבח כולו שלכם","concept.card3x":"בישול עצמי, קייטרינג או שף פרטי — ניתן לתכנן סביב השהייה שלכם.",
+      "concept.card4t":"נבנה לקבוצות","concept.card4x":"אידיאלי ל-30–49 אורחים: ריטריטים, אירועים, חתונות, שבועות סקי וחגיגות משפחתיות.",
+      "concept.card5t":"עולם של הרים","concept.card5x":"נופים, סאונה, ערבים ליד האח, גישה לכפר וחוויות אלפיניות סביב סאס-פה.",
+      "concept.compTitle":"חוויית הנכס כולו",
+      "concept.pill1":"שף פרטי בתיאום","concept.pill2":"קייטרינג","concept.pill3":"בישול עצמי","concept.pill4":"ולנס","concept.pill5":"חוויות הרים","concept.pill6":"ערבים ליד האח","concept.pill7":"גישה לכל הנכס","concept.pill8":"צוות שאינו מפריע לקצב",
+      "events.eventTitle":"האירוע שלכם",
+      "events.eventLead":"לריטריטים עסקיים, אירועים פרטיים, ימי הולדת, מסיבות וחגיגות משפחתיות — Fletschhorn הופך לבסיס אלפיני שלם לקבוצה אחת בלבד.",
+      "events.eventLi1":"המלון כולו שמור באופן פרטי לקבוצה שלכם","events.eventLi2":"ללא אורחים חיצוניים שמפריעים לאווירה","events.eventLi3":"מרחבי התכנסות, פינות שקטות ונוף הרים","events.eventLi4":"שף פרטי · קייטרינג · בישול עצמי בתיאום","events.eventLi5":"סאונה, שאטל, מזוודות ותכנון הגעה לפי בקשה",
+      "events.wedTitle":"החתונה שלכם",
+      "events.wedLead":"שהות חתונה אלפינית פרטית, לא רק מקום אירוע: משפחה וחברים ישנים, סועדים, מתכנסים וחוגגים יחד במלון הרים אחד.",
+      "events.wedLi1":"המלון כולו לקבוצת החתונה","events.wedLi2":"רקע הרים ואווירת בית אינטימית","events.wedLi3":"קייטרינג, שף פרטי או בישול עצמי בתיאום","events.wedLi4":"ללא אורחי מלון אחרים במהלך השהייה שלכם","events.wedLi5":"קצב סוף שבוע: הגעה, ארוחת ערב, חגיגה, מנוחה ובקרים אלפיניים רגועים",
+      "ski.title":"שבועות סקי פרטיים",
+      "ski.lead":"Fletschhorn משמש בסיס חורף פרטי לקבוצות סקי, משפחות ושבועות אלפיניים משותפים: ימי הרים בחוץ, ואז המלון כולו מחכה רק לקבוצה שלכם.",
+      "ski.li1":"סקי על קרחון וימי חורף אלפיניים גבוהים","ski.li2":"חזרה חמימה, סאונה אחרי הסקי וערבים ליד האח","ski.li3":"ארוחות ערב קבוצתיות עם שף פרטי · קייטרינג · בישול עצמי בתיאום","ski.li4":"בלי לפצל אורחים בין כמה מלונות","ski.li5":"שאטל, מזוודות ותכנון הגעה לסאס-פה נטולת המכוניות",
+      "access.title":"איך מגיעים",
+      "access.lead":"סאס-פה נטולת מכוניות, ולכן כדאי לתכנן את ההגעה לפני השהייה. הקבוצה יכולה לתאם הגעה ברכב, ברכבת ובאוטובוס, העברת מזוודות, זמני שאטל והסעות פרטיות.",
+      "access.li1":"הגיעו ברכב עד סאס-פה, ואז המשיכו לפי כללי הגישה של הכפר","access.li2":"הגעה ברכבת ובאוטובוס עם תכנון מזוודות","access.li3":"תיאום חלונות שאטל היכן שזמינים","access.li4":"העברה במסוק לפי בקשה; המחיר יאושר בנפרד"
+    }
+  };
+
+  function normalizeFooterLang(raw){
+    raw = String(raw || "en").toLowerCase();
+    if(raw.indexOf("iw") === 0) raw = "he";
+    raw = raw.slice(0, 2);
+    return FOOTER_I18N[raw] ? raw : "en";
+  }
+
+  function storedFooterLang(){
+    try {
+      return normalizeFooterLang(
+        localStorage.getItem("fh_lang") || localStorage.getItem("fh_language") || localStorage.getItem("fhLang") || document.documentElement.getAttribute("lang") || "en"
+      );
+    } catch(error) {
+      return "en";
+    }
+  }
+
+  function applyFooterI18n(rawLang){
+    const lang = normalizeFooterLang(rawLang);
+    const dict = FOOTER_I18N[lang];
+    document.querySelectorAll("[data-fh-fi18n]").forEach(function(el){
+      const key = el.getAttribute("data-fh-fi18n");
+      const value = dict[key] || FOOTER_I18N.en[key];
+      if(value == null){
+        console.warn("[i18n] missing footer key:", key, "lang:", lang);
+        return;
+      }
+      el.textContent = value;
+    });
   }
 
   function runPatch(){
@@ -319,18 +524,25 @@ Fletschhorn — Global Footer + Private Estate Positioning Patch
       page load. Re-apply the active language immediately afterward so
       translated content wins.
     */
-    let activeLang = "en";
-    try {
-      activeLang = localStorage.getItem("fh_lang") || localStorage.getItem("fh_language") || localStorage.getItem("fhLang") || document.documentElement.getAttribute("lang") || "en";
-    } catch(error) {}
-
+    const activeLang = storedFooterLang();
     const relang = window.setFletschhornLanguage || window.FHSetLanguage;
     if (typeof relang === "function") {
       relang(activeLang);
     } else {
-      console.warn("[i18n] no page-level language function found to re-apply after footer patch; injected content may stay in English.");
+      console.warn("[i18n] no page-level language function found to re-apply after footer patch; page content may stay in English.");
     }
+
+    /* Translate everything this file injected (footer chrome + estate sections). */
+    applyFooterI18n(activeLang);
   }
+
+  /* Toolbar clicks and cross-tab changes re-translate the injected content. */
+  window.addEventListener("fh-language-change", function(event){
+    applyFooterI18n(event.detail && (event.detail.lang || event.detail.language));
+  });
+  window.addEventListener("storage", function(event){
+    if(["fh_lang","fh_language","fhLang"].indexOf(event.key) >= 0) applyFooterI18n(event.newValue);
+  });
 
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", runPatch);
   else runPatch();

@@ -23,6 +23,24 @@
 
   var state = { data: null, activeFloor: null, byId: {} };
 
+  /* UI chrome strings owned by this renderer (room/floor names stay data
+     from rooms.json). Keyed off the shared fh_lang store. */
+  var LODGE_T = {
+    en: { exclusive: "Exclusive", exclusiveText: "Full-house private rental", guestsMax: "Guests max capacity", floors: "Main floors", dining: "Restaurant / dining seats", bestFor: "Best for:", viewLayout: "View layout" },
+    fr: { exclusive: "Exclusif", exclusiveText: "Location privée de toute la maison", guestsMax: "Capacité maximale", floors: "Étages principaux", dining: "Places restaurant / repas", bestFor: "Idéal pour :", viewLayout: "Voir le plan" },
+    de: { exclusive: "Exklusiv", exclusiveText: "Private Miete des ganzen Hauses", guestsMax: "Maximale Gästezahl", floors: "Hauptetagen", dining: "Restaurant- / Essplätze", bestFor: "Ideal für:", viewLayout: "Grundriss ansehen" },
+    ru: { exclusive: "Эксклюзив", exclusiveText: "Частная аренда всего дома", guestsMax: "Максимум гостей", floors: "Основные этажи", dining: "Мест в ресторане / столовой", bestFor: "Лучше всего для:", viewLayout: "Показать планировку" },
+    he: { exclusive: "בלעדי", exclusiveText: "השכרה פרטית של הבית כולו", guestsMax: "קיבולת אורחים מרבית", floors: "קומות עיקריות", dining: "מקומות מסעדה / אוכל", bestFor: "מתאים במיוחד ל:", viewLayout: "הצגת פריסה" }
+  };
+  function lodgeLang() {
+    var lang = "en";
+    try { lang = localStorage.getItem("fh_lang") || document.documentElement.getAttribute("lang") || "en"; } catch (e) {}
+    lang = String(lang).slice(0, 2).toLowerCase();
+    if (lang === "iw") lang = "he";
+    return LODGE_T[lang] ? lang : "en";
+  }
+  function lt(key) { return LODGE_T[lodgeLang()][key] || LODGE_T.en[key] || ""; }
+
   function render() {
     var d = state.data;
     if (!d) return;
@@ -32,10 +50,10 @@
     if (sum && d.capacitySummary) {
       var c = d.capacitySummary;
       var items = [
-        "<li><strong>Exclusive</strong>Full-house private rental</li>",
-        "<li><strong>" + esc(c.maxGuests) + "</strong>Guests max capacity</li>",
-        "<li><strong>" + esc(c.floors) + "</strong>Main floors</li>",
-        "<li><strong>" + esc(c.diningSeats) + "</strong>Restaurant / dining seats</li>"
+        "<li><strong>" + esc(lt("exclusive")) + "</strong>" + esc(lt("exclusiveText")) + "</li>",
+        "<li><strong>" + esc(c.maxGuests) + "</strong>" + esc(lt("guestsMax")) + "</li>",
+        "<li><strong>" + esc(c.floors) + "</strong>" + esc(lt("floors")) + "</li>",
+        "<li><strong>" + esc(c.diningSeats) + "</strong>" + esc(lt("dining")) + "</li>"
       ];
       sum.innerHTML = items.join("");
     }
@@ -128,9 +146,9 @@
             "<li><b>Beds</b><span>" + esc(r.beds) + "</span></li>" +
             (r.size ? "<li><b>Size</b><span>" + esc(r.size) + "</span></li>" : "") +
           "</ul>" +
-          '<p class="fh-room-card-best"><span>Best for:</span> ' + esc(r.bestFor) + "</p>" +
+          '<p class="fh-room-card-best"><span>' + esc(lt("bestFor")) + '</span> ' + esc(r.bestFor) + "</p>" +
           (tags.length ? '<div class="fh-room-tags">' + tags.join("") + "</div>" : "") +
-          '<button type="button" class="fh-room-card-btn" data-room-open="' + esc(r.id) + '">View layout</button>' +
+          '<button type="button" class="fh-room-card-btn" data-room-open="' + esc(r.id) + '">' + esc(lt("viewLayout")) + '</button>' +
         "</div>" +
       "</article>";
   }
@@ -205,6 +223,16 @@
   }
 
   /* ---------------------------------------------------------- load */
+  function relocaliseLodge() { if (state.data) render(); }
+  ["fh:languagechange", "fh:language-change", "fh-language-change"].forEach(function (evt) {
+    document.addEventListener(evt, relocaliseLodge);
+    window.addEventListener(evt, relocaliseLodge);
+  });
+  window.addEventListener("storage", function (e) { if (e.key === "fh_lang") relocaliseLodge(); });
+  document.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("[data-lang],[data-fh-lang],[data-language]")) window.setTimeout(relocaliseLodge, 0);
+  });
+
   fetch(DATA_URL, { headers: { Accept: "application/json" } })
     .then(function (r) { if (!r.ok) throw new Error("rooms.json " + r.status); return r.json(); })
     .then(function (json) {

@@ -315,8 +315,10 @@
       color:var(--ink);
       font-size:15px;
       overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
+      /* Localized placeholders (fr/de/ru) are longer than the English text;
+         nowrap+ellipsis truncated them, so wrap instead. */
+      white-space:normal;
+      line-height:1.25;
     }
 
     #fh-home .fh-date-button strong{
@@ -3536,6 +3538,16 @@
         return [imageRecord(PLACEHOLDER_IMAGE, "Fletschhorn image placeholder")];
       }
 
+      const HOME_HERO_IMAGES = [
+        "https://assets.guesty.com/image/upload/v1769382059/production/686c48ada4bbacd7a82a4f83/jvmndciiso46wxa30fzl.jpg",
+        "https://assets.guesty.com/image/upload/v1769382057/production/686c48ada4bbacd7a82a4f83/nww8q4ksbnfcpgzqdvbo.jpg",
+        "https://assets.guesty.com/image/upload/v1769382038/production/686c48ada4bbacd7a82a4f83/pifyveloe4hifyue8kfn.jpg",
+        "https://assets.guesty.com/image/upload/v1769382068/production/686c48ada4bbacd7a82a4f83/rd6hiidgbdhzr6am9mdx.jpg",
+        "https://assets.guesty.com/image/upload/v1769381543/production/686c48ada4bbacd7a82a4f83/m3tc0oop1nlnyhdgcfeq.jpg",
+        "https://assets.guesty.com/image/upload/v1769381550/production/686c48ada4bbacd7a82a4f83/s6gmipywiy5afbaf2z8y.jpg",
+        "https://assets.guesty.com/image/upload/v1769381553/production/686c48ada4bbacd7a82a4f83/ddeflvigcilxsddu6xw7.jpg"
+      ].map(function(url, i){ return imageRecord(url, "Fletschhorn home hero " + (i + 1)); });
+
       let IMAGES = {
         hero: placeholderSet(),
         overview: placeholderSet(),
@@ -5230,13 +5242,7 @@
         const clean = pool.map(function(item, index){ return normalizeWorkerImageItem(item, index); }).filter(Boolean);
         if (!clean.length) return;
 
-        // Hero: force one visible background immediately, then rebuild the slideshow.
-        const hero = $("#fhHeroMedia");
-        if (hero){
-          hero.style.backgroundImage = 'url("' + String(clean[0].url).replace(/"/g, "%22") + '")';
-          hero.style.backgroundSize = "cover";
-          hero.style.backgroundPosition = "center";
-        }
+        // Hero uses the fixed HOME_HERO_IMAGES slideshow set by setHeroSlides() and is left untouched here.
 
         // Any direct image slot that is still empty, broken, or placeholder gets a Worker image.
         const imgs = Array.from(root.querySelectorAll("img"));
@@ -5387,7 +5393,7 @@
         const slides = (urls && urls.length ? urls : placeholderSet())
           .map(function(item, idx){ return normalizeWorkerImageItem(item, idx); })
           .filter(Boolean)
-          .slice(0,3);
+          .slice(0,7);
 
         hero.innerHTML = "";
 
@@ -5460,7 +5466,7 @@
 
       async function initWorkerDrivenMedia(){
         // Render a safe lightweight placeholder first so the hero is never blank.
-        setHeroSlides(IMAGES.hero);
+        setHeroSlides(HOME_HERO_IMAGES);
         setStaticImages();
         initCarousel("inside", IMAGES.inside);
         initCarousel("kitchen", IMAGES.kitchen);
@@ -5469,7 +5475,7 @@
         // Replace with Worker images once. Do not run a second independent image patch.
         const workerImages = await loadWorkerImages();
 
-        setHeroSlides(IMAGES.hero);
+        setHeroSlides(HOME_HERO_IMAGES);
         setStaticImages();
         initCarousel("inside", IMAGES.inside);
         initCarousel("kitchen", IMAGES.kitchen);
@@ -5710,7 +5716,14 @@
       initMap();
       initReveal();
       prefillExisting();
-      applyLanguage(T[state.lang] ? state.lang : (T[startLang] ? startLang : "en"));
+      /*
+        Boot language precedence: explicit ?lang= URL param, then the stored
+        fh_lang choice, then English. state.lang must not be used here — it
+        defaults to "en", which made every homepage load reset the visitor's
+        stored language back to English.
+      */
+      const urlLang = (new URLSearchParams(window.location.search).get("lang") || "").slice(0,2).toLowerCase();
+      applyLanguage(T[urlLang] ? urlLang : (T[startLang] ? startLang : "en"));
       initWorkerDrivenMedia();
 
       function processInstagramEmbed(){
