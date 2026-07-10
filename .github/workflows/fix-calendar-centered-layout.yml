@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - fix/calendar-centered-layout
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -287,7 +290,6 @@ body.fh-booking-calendar-open{
           elif 'document.body.classList.remove("fh-booking-calendar-open")' not in booking:
               raise SystemExit('booking closeScheduleModal signature changed; refusing unsafe patch')
 
-          # Static safety checks: no backend/redirect identifiers are removed.
           for token in [
               'fletschhorn-guesty-api.bookings-e2d.workers.dev',
               'loadCalendar()',
