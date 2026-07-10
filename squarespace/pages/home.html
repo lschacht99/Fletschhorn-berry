@@ -321,8 +321,10 @@
       color:var(--ink);
       font-size:15px;
       overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
+      /* Localized placeholders (fr/de/ru) are longer than the English text;
+         nowrap+ellipsis truncated them, so wrap instead. */
+      white-space:normal;
+      line-height:1.25;
     }
 
     #fh-home .fh-date-button strong{
@@ -5716,7 +5718,14 @@
       initMap();
       initReveal();
       prefillExisting();
-      applyLanguage(T[state.lang] ? state.lang : (T[startLang] ? startLang : "en"));
+      /*
+        Boot language precedence: explicit ?lang= URL param, then the stored
+        fh_lang choice, then English. state.lang must not be used here — it
+        defaults to "en", which made every homepage load reset the visitor's
+        stored language back to English.
+      */
+      const urlLang = (new URLSearchParams(window.location.search).get("lang") || "").slice(0,2).toLowerCase();
+      applyLanguage(T[urlLang] ? urlLang : (T[startLang] ? startLang : "en"));
       initWorkerDrivenMedia();
 
       function processInstagramEmbed(){

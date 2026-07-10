@@ -1065,8 +1065,9 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   color:var(--fh-ink);
   font-size:15px;
   overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  /* Localized placeholders (fr/de/ru) are longer; wrap instead of truncating. */
+  white-space:normal;
+  line-height:1.25;
 }
 #fh-experiences-desktop .fh-date-button strong{
   color:var(--fh-clay-dark);
@@ -2531,21 +2532,21 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
         <div class="fh-booking preSlide" id="fh-exp-quick-form" data-fh-booking-toolbar style="--d:.34s">
           <div class="fh-booking-form" id="fhBookingFields">
             <div class="fh-field">
-              <label>Guests</label>
-              <input name="guests" type="number" min="1" max="48" inputmode="numeric" placeholder="How many guests?" autocomplete="off" data-fh-guests>
+              <label data-i18n="booking.guests">Guests</label>
+              <input name="guests" type="number" min="1" max="48" inputmode="numeric" placeholder="How many guests?" autocomplete="off" data-fh-guests data-i18n-placeholder="booking.guestsPh">
             </div>
 
             <div class="fh-field fh-date-field">
-              <label>Schedule</label>
+              <label data-i18n="booking.schedule">Schedule</label>
               <button type="button" class="fh-date-button" data-fh-open-calendar>
                 <span data-fh-date-text>Select arrival and departure</span>
-                <strong>Open calendar</strong>
+                <strong data-i18n="booking.openCal">Open calendar</strong>
               </button>
               <input name="arrivalDate" type="hidden" data-fh-arrival>
               <input name="departureDate" type="hidden" data-fh-departure>
             </div>
 
-            <button class="fh-submit" type="button" data-fh-book-now>Book my stay now</button>
+            <button class="fh-submit" type="button" data-fh-book-now data-i18n="booking.bookNow">Book my stay now</button>
           </div>
           <div class="fh-status" data-fh-status role="status" aria-live="polite"></div>
         </div>
@@ -2584,47 +2585,47 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
             <div class="fh-nature-track">
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(1).jpg" alt="Saas-Fee nature view 1" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Forest paths around Saas-Fee</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap1">Forest paths around Saas-Fee</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(2).jpg" alt="Saas-Fee nature view 2" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Alpine nature close to the house</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap2">Alpine nature close to the house</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(3).jpg" alt="Saas-Fee nature view 3" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Quiet mountain textures</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap3">Quiet mountain textures</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(4).jpg" alt="Saas-Fee nature view 4" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Fresh air, slow mornings</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap4">Fresh air, slow mornings</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(5).jpg" alt="Saas-Fee nature view 5" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Summer paths and open valley</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap5">Summer paths and open valley</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(6).jpg" alt="Saas-Fee nature view 6" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Soft alpine day plans</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap6">Soft alpine day plans</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(7).jpg" alt="Saas-Fee nature view 7" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Nature for families and groups</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap7">Nature for families and groups</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(8).jpg" alt="Saas-Fee nature view 8" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Mountain calm around Fletschhorn</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap8">Mountain calm around Fletschhorn</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(9).jpg" alt="Saas-Fee nature view 9" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Walks, viewpoints, and fresh air</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap9">Walks, viewpoints, and fresh air</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(10).jpg" alt="Saas-Fee nature view 10" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">The valley beyond the house</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap11">The valley beyond the house</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(11).jpg" alt="Saas-Fee nature view 11" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Return to one private base</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap10">Return to one private base</span>
             </figure>
             </div>
           </div>
@@ -2855,20 +2856,20 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
           <div class="fh-mobile-booking-shell">
             <div class="fh-mobile-booking" data-fh-booking-toolbar>
               <div class="fh-mobile-booking-field full">
-                <label>Guests</label>
-                <input name="guests" type="number" min="1" max="48" inputmode="numeric" autocomplete="off" placeholder="How many guests?" data-fh-guests>
+                <label data-i18n="booking.guests">Guests</label>
+                <input name="guests" type="number" min="1" max="48" inputmode="numeric" autocomplete="off" placeholder="How many guests?" data-fh-guests data-i18n-placeholder="booking.guestsPh">
               </div>
               <div class="fh-mobile-booking-field full fh-date-field">
-                <label>Schedule</label>
+                <label data-i18n="booking.schedule">Schedule</label>
                 <button type="button" class="fh-date-button" data-fh-open-calendar>
                   <span data-fh-date-text>Select arrival and departure</span>
-                  <strong>Open calendar</strong>
+                  <strong data-i18n="booking.openCal">Open calendar</strong>
                 </button>
                 <input name="arrivalDate" type="hidden" data-fh-arrival>
                 <input name="departureDate" type="hidden" data-fh-departure>
               </div>
               <div class="fh-mobile-booking-error" data-fh-status role="status" aria-live="polite"></div>
-              <button type="button" data-fh-book-now>Book my stay now</button>
+              <button type="button" data-fh-book-now data-i18n="booking.bookNow">Book my stay now</button>
             </div>
             <p class="fh-mobile-direct-note" data-i18n="hero.note">Best rates are guaranteed when booking direct</p>
           </div>
@@ -3064,6 +3065,23 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
 
   const i18n = {
     en:{
+      "booking.guests":"Guests",
+      "booking.guestsPh":"How many guests?",
+      "booking.schedule":"Schedule",
+      "booking.openCal":"Open calendar",
+      "booking.bookNow":"Book my stay now",
+      "booking.dateText":"Select arrival and departure",
+      "photos.cap1":"Forest paths around Saas-Fee",
+      "photos.cap2":"Alpine nature close to the house",
+      "photos.cap3":"Quiet mountain textures",
+      "photos.cap4":"Fresh air, slow mornings",
+      "photos.cap5":"Summer paths and open valley",
+      "photos.cap6":"Soft alpine day plans",
+      "photos.cap7":"Nature for families and groups",
+      "photos.cap8":"Mountain calm around Fletschhorn",
+      "photos.cap9":"Walks, viewpoints, and fresh air",
+      "photos.cap10":"Return to one private base",
+      "photos.cap11":"The valley beyond the house",
       "hero.kicker":"Experiences around Saas-Fee","hero.title":"A private base for every season in Saas-Fee.","hero.lead":"From glacier skiing and winter sledging to summer hikes, marmots, mountain lakes, rope parks, and slow alpine days, Saas-Fee offers something for every kind of group. Fletschhorn gives you a private alpine base above the village, close to the experiences that make the valley special.","hero.note":"Best rates are guaranteed when booking direct","hero.scroll":"Browse the experiences",
       "filters.all":"Everything","filters.allText":"Show the whole valley around the house.","filters.winter":"Winter","filters.winterText":"Ski, snow, sledging, glacier, cozy resets.","filters.summer":"Summer","filters.summerText":"Marmots, hikes, scooters, lakes, ropes.","filters.calm":"Soft days","filters.calmText":"Wellness, village walks, gentle trails.","filters.house":"House & village","filters.family":"Family","filters.adrenaline":"Adrenaline","filters.trek":"Trek",
       "form.guestsLabel":"Guests","form.guestsPlaceholder":"Family, group, retreat…","form.datesLabel":"Dates","form.datesPlaceholder":"Winter, summer, exact dates…","form.contactLabel":"Contact","form.contactPlaceholder":"Email or phone","form.planBtn":"Book my stay now",
@@ -3083,6 +3101,135 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   };
 
   const fr = {
+    "cards.almageller.text":"Ponts suspendus, ambiance de sentier alpin et une option de randonnée plus exigeante pour les hôtes actifs.",
+    "cards.almageller.title":"Sentier aventure d'Almageller",
+    "cards.aqua.text":"Piscine et centre bien-être au village — utile pour les journées douces, les changements de météo et les groupes mixtes.",
+    "cards.aqua.title":"Aqua Allalin",
+    "cards.eddie.text":"Balade thématique interactive guidée par appli, de Hannig vers Saas-Fee, pensée pour les familles curieuses.",
+    "cards.eddie.title":"Eddie et la météo de montagne",
+    "cards.fairy.text":"Une douce promenade en forêt avec des stations contées, idéale pour les jeunes enfants et les journées familiales tranquilles.",
+    "cards.fairy.title":"Sentier des contes",
+    "cards.feeblitz.text":"Rapide, facile, proche du village — parfait pour les groupes de tous âges qui veulent un frisson simple.",
+    "cards.feeblitz.title":"Luge sur rails Feeblitz",
+    "cards.foxtrail.text":"Une expérience interactive façon chasse au trésor à travers le village, pour les familles et les grands groupes.",
+    "cards.foxtrail.title":"Foxtrail",
+    "cards.gorge.text":"Traversée de gorge façon via ferrata entre Saas-Fee et Saas-Grund, avec un guide de montagne.",
+    "cards.gorge.title":"Gorge Alpine",
+    "cards.ice.text":"Montez au-dessus de la vallée pour l'atmosphère du glacier, les espaces de glace et l'expérience Mittelallalin.",
+    "cards.ice.title":"Metro Alpin & Pavillon de glace",
+    "cards.kian.text":"Un espace neige idéal pour les enfants qui apprennent à skier et les familles qui veulent un cadre hivernal doux.",
+    "cards.kian.title":"Kian's Adventure Land",
+    "cards.marmots.text":"Un moment familial emblématique de Saas-Fee : voir les célèbres marmottes et l'intégrer dans une journée de montagne légère.",
+    "cards.marmots.title":"Nourrir les marmottes à Spielboden",
+    "cards.mattmark.text":"Eau turquoise, vues sur le barrage, énergie de vallée plus calme et itinéraires du facile à l'exigeant.",
+    "cards.mattmark.title":"Lac de Mattmark",
+    "cards.rope.text":"Un parcours de cordes en forêt avec des niveaux de difficulté et une vraie énergie de groupe.",
+    "cards.rope.title":"Parc aventure de Saas-Fee",
+    "cards.ski.text":"Pistes en altitude, journées de ski en groupe, pistes bleues à noires et neige fiable en altitude.",
+    "cards.ski.title":"Ski & Snowboard",
+    "cards.sledging.text":"Une activité mémorable hors ski, de Hannig vers le village, quand les conditions le permettent.",
+    "cards.sledging.title":"Luge nocturne",
+    "cards.summerSki.text":"Saas-Fee est connue pour le ski sur glacier, même en été, quand les conditions et l'exploitation le permettent.",
+    "cards.summerSki.title":"Ski d'été",
+    "cards.sunrise.text":"Une expérience de groupe spéciale pour les lève-tôt : première lumière, premières traces et petit-déjeuner en altitude.",
+    "cards.sunrise.title":"Ski au lever du soleil",
+    "cards.trotti.text":"Descendez de Hannig par les chemins de montagne — simple à comprendre, mémorable pour les groupes.",
+    "cards.trotti.title":"Trottinettes & Mountaincarts",
+    "dayplans.active1":"Prenez la remontée de Hannig quand elle fonctionne.",
+    "dayplans.active2":"Suivez le sentier Eddie ou une descente panoramique.",
+    "dayplans.active3":"Ajoutez mountaincarts ou trottinettes pour le groupe.",
+    "dayplans.active4":"Rentrez à la maison avant le soir.",
+    "dayplans.activeKicker":"Journée d'été active",
+    "dayplans.activeTitle":"Hannig + sentier thématique + trottinettes",
+    "dayplans.kicker":"Rythmes prêts à l'emploi",
+    "dayplans.lead":"Utilisez ces exemples de rythmes pour imaginer une journée complète autour de la maison, du temps calme en famille aux plans de montagne actifs.",
+    "dayplans.soft1":"Commencez doucement à la maison.",
+    "dayplans.soft2":"Marchez ou prenez un transport vers le village et les remontées.",
+    "dayplans.soft3":"Visitez Spielboden pour les marmottes en saison.",
+    "dayplans.soft4":"Terminez à l'Aqua Allalin ou par une promenade tranquille au village.",
+    "dayplans.softKicker":"Journée familiale douce",
+    "dayplans.softTitle":"Village + marmottes + piscine",
+    "dayplans.title":"Des plans de journée simples, compris en quelques secondes.",
+    "dayplans.winter1":"Ski, snowboard ou école de ski le matin.",
+    "dayplans.winter2":"Pause au village pour les groupes mixtes.",
+    "dayplans.winter3":"Luge nocturne si disponible et sûre.",
+    "dayplans.winter4":"Retour à la maison, la base privée.",
+    "dayplans.winterKicker":"Journée d'hiver en groupe",
+    "dayplans.winterTitle":"Ski + luge + repos au chaud",
+    "places.almageller.tag":"Trek · ponts",
+    "places.almageller.text":"Ponts suspendus et une journée de randonnée estivale plus soutenue.",
+    "places.aqua.tag":"Calme · famille",
+    "places.aqua.text":"Piscine et centre bien-être pour les journées douces, les changements de météo et les groupes mixtes.",
+    "places.feeblitz.tag":"Été · adrénaline",
+    "places.feeblitz.text":"Rapide, simple, proche du village, bien pour les groupes de tous âges.",
+    "places.fletschhorn.tag":"Maison · calme · famille",
+    "places.fletschhorn.text":"Base de la maison alpine privée. Point d'ancrage du séjour.",
+    "places.gorge.tag":"Guide · adrénaline",
+    "places.gorge.text":"Itinéraire guidé de gorge / via ferrata entre Saas-Fee et Saas-Grund.",
+    "places.hannig.tag":"Hiver · été · famille",
+    "places.hannig.text":"Montagne ensoleillée, luge, trottinettes, mountaincarts, aires de jeux et sentiers thématiques.",
+    "places.langfluh.tag":"Glacier · trek",
+    "places.langfluh.text":"Vues rapprochées sur le glacier et sensation de haute altitude plus forte.",
+    "places.mattmark.tag":"Lac · trek · calme",
+    "places.mattmark.text":"Lac turquoise, vues sur le barrage, promenades de vallée plus calmes et itinéraires plus longs.",
+    "places.mittelallalin.tag":"Glacier · famille",
+    "places.mittelallalin.text":"Metro Alpin, Pavillon de glace, atmosphère de glacier et neige d'été.",
+    "places.ropepark.tag":"Été · forêt",
+    "places.ropepark.text":"Parcours de cordes en forêt avec une énergie de tyrolienne pour les groupes actifs.",
+    "places.spielboden.tag":"Été · famille · calme",
+    "places.spielboden.text":"Marmottes, journées de montagne en famille et accès vers les paysages alpins plus hauts.",
+    "places.village.tag":"Village · toutes saisons",
+    "places.village.text":"Centre sans voiture, remontées, boutiques, Foxtrail et logistique d'arrivée.",
+    "routes.active":"Actif / ponts",
+    "routes.activeShort":"Actif",
+    "routes.advanced":"Avancé",
+    "routes.allalin.text":"Pour les hôtes qui veulent un objectif de haute montagne encadré. À traiter toujours comme un itinéraire avec guide, pas comme une promenade.",
+    "routes.allalin.title":"Premier 4000 / Allalin",
+    "routes.almageller.text":"Pour les familles actives et les groupes qui veulent un sentier de montagne plus marqué, avec ponts suspendus et caractère alpin.",
+    "routes.almageller.title":"Sentier aventure d'Almageller",
+    "routes.bridges":"Ponts suspendus",
+    "routes.cableCar":"Téléphérique",
+    "routes.details":"Détails officiels",
+    "routes.easy":"Facile / famille",
+    "routes.fairy.text":"Une énergie de sentier conté et doux pour les familles et les hôtes qui veulent une introduction en douceur à la forêt de Saas-Fee.",
+    "routes.fairy.title":"Sentier des contes & chemins forestiers",
+    "routes.guided":"Guidé / sommet",
+    "routes.hannig.text":"Idéal pour les familles actives, les sentiers thématiques, les journées trottinette ou luge, et les hôtes qui veulent du dénivelé sans grand trek alpin.",
+    "routes.hannig.title":"De Hannig à Saas-Fee",
+    "routes.high":"Haute montagne",
+    "routes.kicker":"Treks & idées d'itinéraires",
+    "routes.lake":"Lac / vallée",
+    "routes.langfluh.text":"Pour les hôtes qui veulent se sentir proches du glacier sans forcément s'engager dans une grande journée de sommet.",
+    "routes.langfluh.title":"Spielboden / vue glacier de Längfluh",
+    "routes.lead":"Chaque carte d'itinéraire donne une idée claire du rythme, de la saison, du niveau d'effort et des détails officiels à vérifier avant de partir.",
+    "routes.low":"Effort léger",
+    "routes.mattmark.text":"Une destination de vallée plus calme avec vues sur le barrage. Une promenade panoramique ou l'amorce d'un itinéraire plus long.",
+    "routes.mattmark.title":"Lac de Mattmark",
+    "routes.medium":"Moyen / panoramique",
+    "routes.reservoir":"Lac de barrage",
+    "routes.search":"Chercher sur la carte",
+    "routes.summerWinter":"Été / hiver",
+    "routes.title":"Des balades accessibles en poussette aux vraies journées de montagne.",
+    "routes.trailOption":"Option de sentier",
+    "routes.views":"Vues",
+    "routes.weather":"Selon la météo",
+    "booking.guests":"Invités",
+    "booking.guestsPh":"Combien d'invités ?",
+    "booking.schedule":"Dates",
+    "booking.openCal":"Ouvrir le calendrier",
+    "booking.bookNow":"Réserver mon séjour",
+    "booking.dateText":"Sélectionnez l'arrivée et le départ",
+    "photos.cap1":"Chemins forestiers autour de Saas-Fee",
+    "photos.cap2":"Nature alpine près de la maison",
+    "photos.cap3":"Textures de montagne paisibles",
+    "photos.cap4":"Air pur, matinées lentes",
+    "photos.cap5":"Chemins d'été et vallée ouverte",
+    "photos.cap6":"Journées alpines douces",
+    "photos.cap7":"Nature pour familles et groupes",
+    "photos.cap8":"Calme des montagnes autour du Fletschhorn",
+    "photos.cap9":"Balades, points de vue et air frais",
+    "photos.cap10":"Retour à une base privée",
+    "photos.cap11":"La vallée au-delà de la maison",
     "hero.kicker":"Expériences autour de Saas-Fee","hero.title":"Une base privée pour chaque saison à Saas-Fee.","hero.lead":"Du ski sur glacier et de la luge d’hiver aux randonnées d’été, marmottes, lacs de montagne, parcs aventure et journées alpines plus calmes, Saas-Fee offre des expériences pour chaque type de groupe. Fletschhorn donne à vos invités une base alpine privée au-dessus du village, proche de ce qui rend la vallée spéciale.","hero.note":"Meilleurs tarifs garantis en réservation directe","hero.scroll":"Découvrir la région",
     "filters.all":"Tout","filters.allText":"Afficher toute la vallée autour de la maison.","filters.winter":"Hiver","filters.winterText":"Ski, neige, luge, glacier, moments chaleureux.","filters.summer":"Été","filters.summerText":"Marmottes, randonnées, trottinettes, lacs, accrobranche.","filters.calm":"Journées douces","filters.calmText":"Bien-être, village, chemins faciles.","filters.house":"Maison & village","filters.family":"Famille","filters.adrenaline":"Adrénaline","filters.trek":"Randonnée",
     "form.guestsLabel":"Invités","form.guestsPlaceholder":"Famille, groupe, retraite…","form.datesLabel":"Dates","form.datesPlaceholder":"Hiver, été, dates précises…","form.contactLabel":"Contact","form.contactPlaceholder":"Email ou téléphone","form.planBtn":"Réserver mon séjour",
@@ -3097,6 +3244,135 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   };
 
   const de = {
+    "cards.almageller.text":"Hängebrücken, alpine Wegatmosphäre und eine anspruchsvollere Wanderoption für aktive Gäste.",
+    "cards.almageller.title":"Almageller Abenteuerweg",
+    "cards.aqua.text":"Schwimmbad und Wellnesscenter im Dorf — ideal für ruhige Tage, Wetterumschwünge und gemischte Gruppen.",
+    "cards.aqua.title":"Aqua Allalin",
+    "cards.eddie.text":"Interaktiver, App-geführter Themenweg von Hannig Richtung Saas-Fee, gemacht für neugierige Familien.",
+    "cards.eddie.title":"Eddie & das Bergwetter",
+    "cards.fairy.text":"Ein sanfter Waldspaziergang mit Erzählstationen, ideal für kleinere Kinder und ruhigere Familientage.",
+    "cards.fairy.title":"Märchenweg",
+    "cards.feeblitz.text":"Schnell, einfach, dorfnah — gut für Gruppen mit gemischtem Alter, die einen unkomplizierten Nervenkitzel wollen.",
+    "cards.feeblitz.title":"Feeblitz Rodelbahn",
+    "cards.foxtrail.text":"Ein interaktives Schnitzeljagd-Erlebnis durch das Dorf für Familien und größere Gruppen.",
+    "cards.foxtrail.title":"Foxtrail",
+    "cards.gorge.text":"Klettersteigartige Schluchtquerung zwischen Saas-Fee und Saas-Grund mit Bergführer.",
+    "cards.gorge.title":"Gorge Alpine",
+    "cards.ice.text":"Hoch über das Tal für Gletscheratmosphäre, Eisräume und das Mittelallalin-Erlebnis.",
+    "cards.ice.title":"Metro Alpin & Eispavillon",
+    "cards.kian.text":"Ein hilfreiches Schneegelände für Kinder, die Skifahren lernen, und Familien, die einen sanften Wintereinstieg brauchen.",
+    "cards.kian.title":"Kian's Adventure Land",
+    "cards.marmots.text":"Ein typischer Saas-Fee-Familienmoment: die berühmten Murmeltiere sehen und daraus einen leichten Bergtag machen.",
+    "cards.marmots.title":"Murmeltierfüttern am Spielboden",
+    "cards.mattmark.text":"Türkisfarbenes Wasser, Staumauerblick, ruhigere Talenergie und Routen von leicht bis fordernd.",
+    "cards.mattmark.title":"Mattmark-Stausee",
+    "cards.rope.text":"Ein Seilpark im Wald mit Schwierigkeitsstufen und starkem Gruppengefühl.",
+    "cards.rope.title":"Seilpark Saas-Fee",
+    "cards.ski.text":"Hochgelegene Pisten, Gruppen-Skitage, blaue bis schwarze Abfahrten und Schneesicherheit in der Höhe.",
+    "cards.ski.title":"Ski & Snowboard",
+    "cards.sledging.text":"Ein unvergessliches Nicht-Ski-Erlebnis von Hannig zurück Richtung Dorf, wenn die Bedingungen es erlauben.",
+    "cards.sledging.title":"Nachtrodeln",
+    "cards.summerSki.text":"Saas-Fee ist bekannt für Gletscherski, auch in den Sommermonaten, wenn Bedingungen und Betrieb es erlauben.",
+    "cards.summerSki.title":"Sommerski",
+    "cards.sunrise.text":"Ein besonderes Gruppenerlebnis für Frühaufsteher: erstes Berglicht, erste Spuren und Frühstück in der Höhe.",
+    "cards.sunrise.title":"Sonnenaufgangs-Ski",
+    "cards.trotti.text":"Von Hannig über Bergwege hinunterfahren — leicht verständlich, unvergesslich für Gruppen.",
+    "cards.trotti.title":"Trotti-Bikes & Mountaincarts",
+    "dayplans.active1":"Die Hannig-Bahn nehmen, wenn sie in Betrieb ist.",
+    "dayplans.active2":"Den Eddie-Weg oder einen Panoramaabstieg nutzen.",
+    "dayplans.active3":"Mountaincarts oder Trotti-Bikes für die Gruppe ergänzen.",
+    "dayplans.active4":"Vor dem Abend zurück zum Haus.",
+    "dayplans.activeKicker":"Aktiver Sommertag",
+    "dayplans.activeTitle":"Hannig + Themenweg + Trotti",
+    "dayplans.kicker":"Fertige Tagesrhythmen",
+    "dayplans.lead":"Nutzen Sie diese Beispielrhythmen, um sich einen ganzen Tag rund um das Haus vorzustellen — von ruhiger Familienzeit bis zu aktiven Bergplänen.",
+    "dayplans.soft1":"Langsam im Haus starten.",
+    "dayplans.soft2":"Zu Fuß oder mit Transport Richtung Dorf und Bahnen.",
+    "dayplans.soft3":"In der Saison die Murmeltiere am Spielboden besuchen.",
+    "dayplans.soft4":"Mit Aqua Allalin oder einem ruhigen Dorfspaziergang ausklingen.",
+    "dayplans.softKicker":"Sanfter Familientag",
+    "dayplans.softTitle":"Dorf + Murmeltiere + Pool",
+    "dayplans.title":"Einfache Tagespläne, die Gäste in Sekunden verstehen.",
+    "dayplans.winter1":"Morgens Ski, Snowboard oder Skischule.",
+    "dayplans.winter2":"Dorfpause für gemischte Gruppen.",
+    "dayplans.winter3":"Nachtrodeln, wenn verfügbar und sicher.",
+    "dayplans.winter4":"Zurück zum Haus als privater Basis.",
+    "dayplans.winterKicker":"Winter-Gruppentag",
+    "dayplans.winterTitle":"Ski + Rodeln + warmes Ankommen",
+    "places.almageller.tag":"Trek · Brücken",
+    "places.almageller.text":"Hängebrücken und ein stärkerer Sommerwandertag.",
+    "places.aqua.tag":"Ruhig · Familie",
+    "places.aqua.text":"Schwimmbad und Wellnesscenter für ruhige Tage, Wetterwechsel und gemischte Gruppen.",
+    "places.feeblitz.tag":"Sommer · Adrenalin",
+    "places.feeblitz.text":"Schnell, einfach, dorfnah, gut für Gruppen mit gemischtem Alter.",
+    "places.fletschhorn.tag":"Haus · Ruhe · Familie",
+    "places.fletschhorn.text":"Private alpine Hausbasis. Ankerpunkt des Aufenthalts.",
+    "places.gorge.tag":"Guide · Adrenalin",
+    "places.gorge.text":"Geführte Schlucht- / Klettersteigroute zwischen Saas-Fee und Saas-Grund.",
+    "places.hannig.tag":"Winter · Sommer · Familie",
+    "places.hannig.text":"Sonnenberg, Rodeln, Trotti-Bikes, Mountaincarts, Spielplätze und Themenwege.",
+    "places.langfluh.tag":"Gletscher · Trek",
+    "places.langfluh.text":"Gletscherblicke aus der Nähe und ein stärkeres Hochgebirgsgefühl.",
+    "places.mattmark.tag":"See · Trek · Ruhe",
+    "places.mattmark.text":"Türkisfarbener Stausee, Staumauerblick, ruhigere Talwege und längere Routen.",
+    "places.mittelallalin.tag":"Gletscher · Familie",
+    "places.mittelallalin.text":"Metro Alpin, Eispavillon, Gletscheratmosphäre und Sommerschnee.",
+    "places.ropepark.tag":"Sommer · Wald",
+    "places.ropepark.text":"Seilpark im Wald mit Zipline-Energie für aktive Gruppen.",
+    "places.spielboden.tag":"Sommer · Familie · Ruhe",
+    "places.spielboden.text":"Murmeltiere, Familien-Bergtage und Zugang zu höherer alpiner Landschaft.",
+    "places.village.tag":"Dorf · alle Jahreszeiten",
+    "places.village.text":"Autofreies Zentrum, Bahnen, Geschäfte, Foxtrail und Ankunftslogistik.",
+    "routes.active":"Aktiv / Brücken",
+    "routes.activeShort":"Aktiv",
+    "routes.advanced":"Fortgeschritten",
+    "routes.allalin.text":"Für Gäste, die ein geführtes hochalpines Ziel wollen. Immer als Bergführer-Route zu behandeln, nicht als Spaziergang.",
+    "routes.allalin.title":"Erster Viertausender / Allalin",
+    "routes.almageller.text":"Für aktive Familien und Gruppen, die einen kräftigeren Bergweg mit Hängebrücken und alpinem Charakter wollen.",
+    "routes.almageller.title":"Almageller Abenteuerweg",
+    "routes.bridges":"Hängebrücken",
+    "routes.cableCar":"Seilbahn",
+    "routes.details":"Offizielle Details",
+    "routes.easy":"Leicht / Familie",
+    "routes.fairy.text":"Sanfte, erzählerische Wegenergie für Familien und Gäste, die einen weichen Einstieg in den Wald um Saas-Fee wollen.",
+    "routes.fairy.title":"Märchenweg & Waldpfade",
+    "routes.guided":"Geführt / Gipfel",
+    "routes.hannig.text":"Gut für aktive Familien, Themenwege, Trotti- und Rodeltage sowie Gäste, die Höhenmeter ohne große Alpintour wollen.",
+    "routes.hannig.title":"Hannig nach Saas-Fee",
+    "routes.high":"Hochalpin",
+    "routes.kicker":"Treks & Routenideen",
+    "routes.lake":"See / Tal",
+    "routes.langfluh.text":"Für Gäste, die dem Gletscher nah sein wollen, ohne sich gleich einem großen Gipfeltag zu verpflichten.",
+    "routes.langfluh.title":"Spielboden / Längfluh Gletscherblick",
+    "routes.lead":"Jede Routenkarte vermittelt klar Tempo, Saison, Anstrengung und die offiziellen Details, die vor dem Start zu prüfen sind.",
+    "routes.low":"Wenig Aufwand",
+    "routes.mattmark.text":"Ein ruhigeres Talziel mit Staumauerblick. Als Panoramaspaziergang oder Teil einer längeren Route.",
+    "routes.mattmark.title":"Mattmark-Stausee",
+    "routes.medium":"Mittel / Panorama",
+    "routes.reservoir":"Stausee",
+    "routes.search":"Karte durchsuchen",
+    "routes.summerWinter":"Sommer / Winter",
+    "routes.title":"Von kinderwagentauglichen Wegen bis zu echten Bergtagen.",
+    "routes.trailOption":"Wegoption",
+    "routes.views":"Aussicht",
+    "routes.weather":"Wetterabhängig",
+    "booking.guests":"Gäste",
+    "booking.guestsPh":"Wie viele Gäste?",
+    "booking.schedule":"Daten",
+    "booking.openCal":"Kalender öffnen",
+    "booking.bookNow":"Jetzt Aufenthalt buchen",
+    "booking.dateText":"Anreise und Abreise auswählen",
+    "photos.cap1":"Waldwege rund um Saas-Fee",
+    "photos.cap2":"Alpine Natur nah am Haus",
+    "photos.cap3":"Stille Bergtexturen",
+    "photos.cap4":"Frische Luft, langsame Morgen",
+    "photos.cap5":"Sommerwege und offenes Tal",
+    "photos.cap6":"Sanfte Alpentagespläne",
+    "photos.cap7":"Natur für Familien und Gruppen",
+    "photos.cap8":"Bergruhe rund um das Fletschhorn",
+    "photos.cap9":"Spaziergänge, Aussichtspunkte und frische Luft",
+    "photos.cap10":"Zurück zu einer privaten Basis",
+    "photos.cap11":"Das Tal jenseits des Hauses",
     "hero.kicker":"Erlebnisse rund um Saas-Fee","hero.title":"Eine private Basis für jede Saison in Saas-Fee.","hero.lead":"Von Gletscherski und Winterrodeln bis zu Sommerwanderungen, Murmeltieren, Bergseen, Seilparks und ruhigen Alpentagen bietet Saas-Fee für jede Gruppe etwas. Fletschhorn ist eine private alpine Basis oberhalb des Dorfes, nahe an den Erlebnissen, die das Tal besonders machen.","hero.note":"Beste Preise bei Direktbuchung garantiert","hero.scroll":"Region öffnen",
     "filters.all":"Alles","filters.allText":"Das ganze Tal rund um das Haus anzeigen.","filters.winter":"Winter","filters.winterText":"Ski, Schnee, Rodeln, Gletscher, gemütliche Pausen.","filters.summer":"Sommer","filters.summerText":"Murmeltiere, Wanderungen, Scooter, Seen, Seilpark.","filters.calm":"Ruhige Tage","filters.calmText":"Wellness, Dorfspaziergänge, leichte Wege.","filters.house":"Haus & Dorf","filters.family":"Familie","filters.adrenaline":"Adrenalin","filters.trek":"Wandern",
     "form.guestsLabel":"Gäste","form.guestsPlaceholder":"Familie, Gruppe, Retreat…","form.datesLabel":"Daten","form.datesPlaceholder":"Winter, Sommer, genaue Daten…","form.contactLabel":"Kontakt","form.contactPlaceholder":"E-Mail oder Telefon","form.planBtn":"Aufenthalt buchen",
@@ -3111,6 +3387,135 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   };
 
   const ru = {
+    "cards.almageller.text":"Подвесные мосты, атмосфера альпийской тропы и более серьёзный вариант похода для активных гостей.",
+    "cards.almageller.title":"Приключенческая тропа Альмагеллер",
+    "cards.aqua.text":"Бассейн и велнес-центр в деревне — выручает в спокойные дни, при смене погоды и для смешанных групп.",
+    "cards.aqua.title":"Aqua Allalin",
+    "cards.eddie.text":"Интерактивная тематическая прогулка с приложением от Ханнига к Саас-Фе — для любознательных семей.",
+    "cards.eddie.title":"Эдди и горная погода",
+    "cards.fairy.text":"Лёгкая лесная прогулка со сказочными станциями — идеально для младших детей и неспешных семейных дней.",
+    "cards.fairy.title":"Сказочная тропа",
+    "cards.feeblitz.text":"Быстро, просто, рядом с деревней — хорошо для разновозрастных групп, которым нужен лёгкий адреналин.",
+    "cards.feeblitz.title":"Горные сани Feeblitz",
+    "cards.foxtrail.text":"Интерактивный квест в духе поиска сокровищ по деревне — для семей и больших групп.",
+    "cards.foxtrail.title":"Foxtrail",
+    "cards.gorge.text":"Переход через ущелье в стиле виа феррата между Саас-Фе и Саас-Грундом с горным гидом.",
+    "cards.gorge.title":"Gorge Alpine",
+    "cards.ice.text":"Поднимитесь высоко над долиной: атмосфера ледника, ледяные залы и Миттелаллалин.",
+    "cards.ice.title":"Metro Alpin и Ледяной павильон",
+    "cards.kian.text":"Удобная снежная зона для детей, которые учатся кататься, и семей, которым нужен мягкий зимний формат.",
+    "cards.kian.title":"Kian's Adventure Land",
+    "cards.marmots.text":"Фирменный семейный момент Саас-Фе: увидеть знаменитых сурков и встроить это в лёгкий горный день.",
+    "cards.marmots.title":"Кормление сурков на Шпильбодене",
+    "cards.mattmark.text":"Бирюзовая вода, виды на плотину, спокойная энергия долины и маршруты от лёгких до сложных.",
+    "cards.mattmark.title":"Водохранилище Маттмарк",
+    "cards.rope.text":"Верёвочный парк в лесу с уровнями сложности и сильным командным духом.",
+    "cards.rope.title":"Верёвочный парк Саас-Фе",
+    "cards.ski.text":"Высокогорные трассы, групповые лыжные дни, склоны от синих до чёрных и надёжный снег на высоте.",
+    "cards.ski.title":"Лыжи и сноуборд",
+    "cards.sledging.text":"Запоминающееся нелыжное занятие: спуск от Ханнига к деревне, когда позволяют условия.",
+    "cards.sledging.title":"Ночные санки",
+    "cards.summerSki.text":"Саас-Фе известен катанием на леднике даже летом, когда позволяют условия и работа подъёмников.",
+    "cards.summerSki.title":"Летние лыжи",
+    "cards.sunrise.text":"Особый групповой опыт для ранних пташек: первый свет в горах, первые следы и завтрак на высоте.",
+    "cards.sunrise.title":"Лыжи на рассвете",
+    "cards.trotti.text":"Спуск от Ханнига по горным дорожкам — просто понять, легко запомнить всей группой.",
+    "cards.trotti.title":"Самокаты Trotti и маунтинкарты",
+    "dayplans.active1":"Поднимитесь на Ханниг, когда работает подъёмник.",
+    "dayplans.active2":"Пройдите тропу Эдди или живописный спуск.",
+    "dayplans.active3":"Добавьте маунтинкарты или самокаты для группы.",
+    "dayplans.active4":"Вернитесь в дом до вечера.",
+    "dayplans.activeKicker":"Активный летний день",
+    "dayplans.activeTitle":"Ханниг + тематическая тропа + самокаты",
+    "dayplans.kicker":"Готовые ритмы",
+    "dayplans.lead":"Используйте эти примеры, чтобы представить целый день вокруг дома — от неспешного семейного времени до активных горных планов.",
+    "dayplans.soft1":"Начните день неспешно в доме.",
+    "dayplans.soft2":"Прогуляйтесь или доберитесь до деревни и подъёмников.",
+    "dayplans.soft3":"Загляните на Шпильбоден к суркам в сезон.",
+    "dayplans.soft4":"Завершите день в Aqua Allalin или спокойной прогулкой по деревне.",
+    "dayplans.softKicker":"Мягкий семейный день",
+    "dayplans.softTitle":"Деревня + сурки + бассейн",
+    "dayplans.title":"Простые планы дня, понятные за секунды.",
+    "dayplans.winter1":"Утром лыжи, сноуборд или лыжная школа.",
+    "dayplans.winter2":"Перерыв в деревне для смешанных групп.",
+    "dayplans.winter3":"Ночные санки, если доступны и безопасны.",
+    "dayplans.winter4":"Возвращение в дом — частную базу.",
+    "dayplans.winterKicker":"Зимний день группы",
+    "dayplans.winterTitle":"Лыжи + санки + тёплый отдых",
+    "places.almageller.tag":"Трек · мосты",
+    "places.almageller.text":"Подвесные мосты и более серьёзный летний походный день.",
+    "places.aqua.tag":"Спокойно · семья",
+    "places.aqua.text":"Бассейн и велнес-центр для спокойных дней, смены погоды и смешанных групп.",
+    "places.feeblitz.tag":"Лето · адреналин",
+    "places.feeblitz.text":"Быстро, просто, рядом с деревней, подходит разновозрастным группам.",
+    "places.fletschhorn.tag":"Дом · покой · семья",
+    "places.fletschhorn.text":"База частного альпийского дома. Якорная точка пребывания.",
+    "places.gorge.tag":"Гид · адреналин",
+    "places.gorge.text":"Маршрут по ущелью / виа феррата с гидом между Саас-Фе и Саас-Грундом.",
+    "places.hannig.tag":"Зима · лето · семья",
+    "places.hannig.text":"Солнечная гора, санки, самокаты, маунтинкарты, площадки и тематические тропы.",
+    "places.langfluh.tag":"Ледник · трек",
+    "places.langfluh.text":"Ледник совсем близко и более сильное ощущение высокогорья.",
+    "places.mattmark.tag":"Озеро · трек · покой",
+    "places.mattmark.text":"Бирюзовое водохранилище, виды на плотину, тихие прогулки по долине и длинные маршруты.",
+    "places.mittelallalin.tag":"Ледник · семья",
+    "places.mittelallalin.text":"Metro Alpin, Ледяной павильон, атмосфера ледника и летний снег.",
+    "places.ropepark.tag":"Лето · лес",
+    "places.ropepark.text":"Верёвочный парк в лесу с энергией зиплайна для активных групп.",
+    "places.spielboden.tag":"Лето · семья · покой",
+    "places.spielboden.text":"Сурки, семейные горные дни и путь к более высоким альпийским пейзажам.",
+    "places.village.tag":"Деревня · все сезоны",
+    "places.village.text":"Центр без машин, подъёмники, магазины, Foxtrail и логистика прибытия.",
+    "routes.active":"Активный / мосты",
+    "routes.activeShort":"Активный",
+    "routes.advanced":"Сложный",
+    "routes.allalin.text":"Для гостей, которым нужна высокогорная цель с гидом. Это всегда маршрут с горным гидом, а не прогулка.",
+    "routes.allalin.title":"Первый четырёхтысячник / Аллалин",
+    "routes.almageller.text":"Для активных семей и групп, которым нужна серьёзная горная тропа с подвесными мостами и альпийским характером.",
+    "routes.almageller.title":"Приключенческая тропа Альмагеллер",
+    "routes.bridges":"Подвесные мосты",
+    "routes.cableCar":"Канатная дорога",
+    "routes.details":"Официальные сведения",
+    "routes.easy":"Легко / семья",
+    "routes.fairy.text":"Мягкая сказочная тропа для семей и гостей, которым нужно нежное знакомство с лесом вокруг Саас-Фе.",
+    "routes.fairy.title":"Сказочная тропа и лесные дорожки",
+    "routes.guided":"С гидом / вершина",
+    "routes.hannig.text":"Подходит активным семьям, любителям тематических троп, дням на самокатах и санках, и гостям, которым нужна высота без большого альпийского трека.",
+    "routes.hannig.title":"С Ханнига в Саас-Фе",
+    "routes.high":"Высокогорье",
+    "routes.kicker":"Треки и идеи маршрутов",
+    "routes.lake":"Озеро / долина",
+    "routes.langfluh.text":"Для гостей, которые хотят почувствовать ледник рядом, не обязуясь на большой день восхождения.",
+    "routes.langfluh.title":"Шпильбоден / вид на ледник Лангфлю",
+    "routes.lead":"Каждая карточка маршрута даёт ясное представление о темпе, сезоне, уровне усилий и официальных деталях, которые нужно проверить перед выходом.",
+    "routes.low":"Небольшое усилие",
+    "routes.mattmark.text":"Более тихое место в долине с видами на плотину. Живописная прогулка или часть более длинного маршрута.",
+    "routes.mattmark.title":"Водохранилище Маттмарк",
+    "routes.medium":"Средний / живописный",
+    "routes.reservoir":"Водохранилище",
+    "routes.search":"Поиск по карте",
+    "routes.summerWinter":"Лето / зима",
+    "routes.title":"От прогулок с коляской до настоящих горных дней.",
+    "routes.trailOption":"Вариант тропы",
+    "routes.views":"Виды",
+    "routes.weather":"Зависит от погоды",
+    "booking.guests":"Гости",
+    "booking.guestsPh":"Сколько гостей?",
+    "booking.schedule":"Даты",
+    "booking.openCal":"Открыть календарь",
+    "booking.bookNow":"Забронировать пребывание",
+    "booking.dateText":"Выберите заезд и выезд",
+    "photos.cap1":"Лесные тропы вокруг Саас-Фе",
+    "photos.cap2":"Альпийская природа рядом с домом",
+    "photos.cap3":"Тихие горные фактуры",
+    "photos.cap4":"Свежий воздух, неспешные утра",
+    "photos.cap5":"Летние тропы и открытая долина",
+    "photos.cap6":"Планы мягких альпийских дней",
+    "photos.cap7":"Природа для семей и групп",
+    "photos.cap8":"Горное спокойствие вокруг Fletschhorn",
+    "photos.cap9":"Прогулки, смотровые точки и свежий воздух",
+    "photos.cap10":"Возвращение на частную базу",
+    "photos.cap11":"Долина за домом",
     "hero.kicker":"Впечатления вокруг Саас-Фе","hero.title":"Частная база для каждого сезона в Саас-Фе.","hero.lead":"От катания на леднике и зимних санок до летних маршрутов, сурков, горных озёр, верёвочных парков и спокойных альпийских дней — Саас-Фе подходит для разных групп. Fletschhorn даёт частную альпийскую базу над деревней, рядом с главными впечатлениями долины.","hero.note":"Лучшие цены гарантированы при бронировании напрямую","hero.scroll":"Открыть регион",
     "filters.all":"Всё","filters.allText":"Показать всю долину вокруг дома.","filters.winter":"Зима","filters.winterText":"Лыжи, снег, санки, ледник, уютные паузы.","filters.summer":"Лето","filters.summerText":"Сурки, походы, самокаты, озёра, верёвочный парк.","filters.calm":"Спокойные дни","filters.calmText":"Велнес, прогулки по деревне, лёгкие тропы.","filters.house":"Дом и деревня","filters.family":"Семья","filters.adrenaline":"Адреналин","filters.trek":"Походы",
     "form.guestsLabel":"Гости","form.guestsPlaceholder":"Семья, группа, ретрит…","form.datesLabel":"Даты","form.datesPlaceholder":"Зима, лето, точные даты…","form.contactLabel":"Контакт","form.contactPlaceholder":"Email или телефон","form.planBtn":"Забронировать",
@@ -3125,6 +3530,144 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
   };
 
   const he = {
+    "cards.almageller.text":"גשרים תלויים, אווירת שביל אלפיני ואפשרות טרק תובענית יותר לאורחים פעילים.",
+    "cards.almageller.title":"שביל ההרפתקאות אלמגלר",
+    "cards.aqua.text":"בריכה ומרכז ולנס בכפר — שימושי לימים רגועים, שינויי מזג אוויר וקבוצות מעורבות.",
+    "cards.aqua.title":"Aqua Allalin",
+    "cards.eddie.text":"מסלול נושא אינטראקטיבי מודרך באפליקציה מהאניג לכיוון סאס-פה, למשפחות סקרניות.",
+    "cards.eddie.title":"אדי ומזג האוויר בהרים",
+    "cards.fairy.text":"טיול יער עדין עם תחנות סיפור, אידיאלי לילדים קטנים ולימי משפחה איטיים.",
+    "cards.fairy.title":"שביל האגדות",
+    "cards.feeblitz.text":"מהיר, קל, קרוב לכפר — מתאים לקבוצות בגילאים מעורבים שרוצות ריגוש פשוט.",
+    "cards.feeblitz.title":"מזחלת ההרים Feeblitz",
+    "cards.foxtrail.text":"חוויה אינטראקטיבית בסגנון חיפוש אוצר דרך הכפר, למשפחות ולקבוצות גדולות.",
+    "cards.foxtrail.title":"Foxtrail",
+    "cards.gorge.text":"חציית קניון בסגנון ויה פראטה בין סאס-פה לסאס-גרונד עם מדריך הרים.",
+    "cards.gorge.title":"Gorge Alpine",
+    "cards.ice.text":"עלו גבוה מעל העמק לאווירת קרחון, חללי קרח וחוויית מיטלאלאלין.",
+    "cards.ice.title":"Metro Alpin וביתן הקרח",
+    "cards.kian.text":"אזור שלג נוח לילדים שלומדים סקי ולמשפחות שצריכות פתיחה חורפית עדינה.",
+    "cards.kian.title":"Kian's Adventure Land",
+    "cards.marmots.text":"רגע משפחתי מזוהה עם סאס-פה: לראות את המרמיטות המפורסמות ולשלב זאת ביום הרים קליל.",
+    "cards.marmots.title":"האכלת מרמיטות בשפילבודן",
+    "cards.mattmark.text":"מים בצבע טורקיז, נוף הסכר, אנרגיית עמק שקטה ומסלולים מקלים ועד תובעניים.",
+    "cards.mattmark.title":"מאגר מאטמרק",
+    "cards.rope.text":"פארק חבלים ביער עם רמות קושי ותחושת אנרגיה קבוצתית חזקה.",
+    "cards.rope.title":"פארק החבלים סאס-פה",
+    "cards.ski.text":"מסלולים בגובה רב, ימי סקי קבוצתיים, מסלולים כחולים עד שחורים ושלג אמין בגובה.",
+    "cards.ski.title":"סקי וסנובורד",
+    "cards.sledging.text":"פעילות בלתי נשכחת שאינה סקי — מהאניג חזרה לכיוון הכפר כשהתנאים מאפשרים.",
+    "cards.sledging.title":"מזחלות לילה",
+    "cards.summerSki.text":"סאס-פה ידועה בסקי על קרחון, גם בחודשי הקיץ, כשהתנאים והתפעול מאפשרים.",
+    "cards.summerSki.title":"סקי קיץ",
+    "cards.sunrise.text":"חוויה קבוצתית מיוחדת למשכימי קום: אור ראשון בהרים, מסלולים ראשונים וארוחת בוקר בגובה.",
+    "cards.sunrise.title":"סקי בזריחה",
+    "cards.trotti.text":"רדו מהאניג בשבילי הרים — קל להבין, בלתי נשכח לקבוצות.",
+    "cards.trotti.title":"קורקינטים ומאונטיין-קארטס",
+    "dayplans.active1":"עלו במעלית האניג כשהיא פועלת.",
+    "dayplans.active2":"לכו בשביל אדי או בירידה נופית.",
+    "dayplans.active3":"הוסיפו מאונטיין-קארטס או קורקינטים לקבוצה.",
+    "dayplans.active4":"חזרו לבית לפני הערב.",
+    "dayplans.activeKicker":"יום קיץ פעיל",
+    "dayplans.activeTitle":"האניג + שביל נושא + קורקינטים",
+    "dayplans.kicker":"מקצבים מוכנים",
+    "dayplans.lead":"השתמשו בדוגמאות האלה כדי לדמיין יום שלם סביב הבית — מזמן משפחתי רגוע ועד תוכניות הרים פעילות.",
+    "dayplans.soft1":"התחילו לאט בבית.",
+    "dayplans.soft2":"לכו ברגל או סעו לכיוון הכפר והמעליות.",
+    "dayplans.soft3":"בקרו בשפילבודן אצל המרמיטות בעונה.",
+    "dayplans.soft4":"סיימו ב-Aqua Allalin או בטיול רגוע בכפר.",
+    "dayplans.softKicker":"יום משפחתי רך",
+    "dayplans.softTitle":"כפר + מרמיטות + בריכה",
+    "dayplans.title":"תוכניות יום פשוטות שאורחים מבינים בשניות.",
+    "dayplans.winter1":"בבוקר סקי, סנובורד או בית ספר לסקי.",
+    "dayplans.winter2":"הפסקה בכפר לקבוצות מעורבות.",
+    "dayplans.winter3":"מזחלות לילה אם זמין ובטוח.",
+    "dayplans.winter4":"חזרה לבית — הבסיס הפרטי.",
+    "dayplans.winterKicker":"יום חורף קבוצתי",
+    "dayplans.winterTitle":"סקי + מזחלות + התחממות",
+    "places.almageller.tag":"טרק · גשרים",
+    "places.almageller.text":"גשרים תלויים ויום טיול קיץ חזק יותר.",
+    "places.aqua.tag":"רוגע · משפחה",
+    "places.aqua.text":"בריכה ומרכז ולנס לימים רגועים, שינויי מזג אוויר וקבוצות מעורבות.",
+    "places.feeblitz.tag":"קיץ · אדרנלין",
+    "places.feeblitz.text":"מהיר, פשוט, קרוב לכפר, מתאים לקבוצות בגילאים מעורבים.",
+    "places.fletschhorn.tag":"בית · רוגע · משפחה",
+    "places.fletschhorn.text":"בסיס הבית האלפיני הפרטי. נקודת העוגן של השהות.",
+    "places.gorge.tag":"מדריך · אדרנלין",
+    "places.gorge.text":"מסלול קניון / ויה פראטה מודרך בין סאס-פה לסאס-גרונד.",
+    "places.hannig.tag":"חורף · קיץ · משפחה",
+    "places.hannig.text":"הר שטוף שמש, מזחלות, קורקינטים, מאונטיין-קארטס, מגרשי משחקים ושבילי נושא.",
+    "places.langfluh.tag":"קרחון · טרק",
+    "places.langfluh.text":"נופי קרחון מקרוב ותחושת גובה חזקה יותר.",
+    "places.mattmark.tag":"אגם · טרק · רוגע",
+    "places.mattmark.text":"מאגר טורקיז, נוף הסכר, הליכות עמק שקטות ומסלולים ארוכים יותר.",
+    "places.mittelallalin.tag":"קרחון · משפחה",
+    "places.mittelallalin.text":"Metro Alpin, ביתן הקרח, אווירת קרחון ושלג קיץ.",
+    "places.ropepark.tag":"קיץ · יער",
+    "places.ropepark.text":"פארק חבלים ביער עם אנרגיית אומגה לקבוצות פעילות.",
+    "places.spielboden.tag":"קיץ · משפחה · רוגע",
+    "places.spielboden.text":"מרמיטות, ימי הרים משפחתיים וגישה לנופים אלפיניים גבוהים יותר.",
+    "places.village.tag":"כפר · כל העונות",
+    "places.village.text":"מרכז ללא מכוניות, מעליות, חנויות, Foxtrail ולוגיסטיקת הגעה.",
+    "routes.active":"פעיל / גשרים",
+    "routes.activeShort":"פעיל",
+    "routes.advanced":"מתקדם",
+    "routes.allalin.text":"לאורחים שרוצים יעד הרים גבוה עם מדריך. תמיד יש להתייחס לזה כמסלול עם מדריך הרים, לא כטיול רגיל.",
+    "routes.allalin.title":"ארבעת-אלפים ראשון / אלאלין",
+    "routes.almageller.text":"למשפחות פעילות וקבוצות שרוצות שביל הרים חזק יותר עם גשרים תלויים ואופי אלפיני.",
+    "routes.almageller.title":"שביל ההרפתקאות אלמגלר",
+    "routes.bridges":"גשרים תלויים",
+    "routes.cableCar":"רכבל",
+    "routes.details":"פרטים רשמיים",
+    "routes.easy":"קל / משפחה",
+    "routes.fairy.text":"אנרגיית מסלול סיפורי ועדין למשפחות ולאורחים שרוצים היכרות רכה עם היער סביב סאס-פה.",
+    "routes.fairy.title":"שביל האגדות ושבילי היער",
+    "routes.guided":"מודרך / פסגה",
+    "routes.hannig.text":"מתאים למשפחות פעילות, שבילי נושא, ימי קורקינטים ומזחלות, ולאורחים שרוצים גובה בלי טרק אלפיני מלא.",
+    "routes.hannig.title":"מהאניג לסאס-פה",
+    "routes.high":"אלפיני גבוה",
+    "routes.kicker":"טרקים ורעיונות למסלולים",
+    "routes.lake":"אגם / עמק",
+    "routes.langfluh.text":"לאורחים שרוצים להרגיש קרובים לקרחון בלי להתחייב ליום פסגה גדול.",
+    "routes.langfluh.title":"שפילבודן / נוף הקרחון לנגפלו",
+    "routes.lead":"כל כרטיס מסלול נותן תחושה ברורה של קצב, עונה, רמת מאמץ והפרטים הרשמיים שיש לבדוק לפני היציאה.",
+    "routes.low":"מאמץ נמוך",
+    "routes.mattmark.text":"יעד עמק שקט יותר עם נוף הסכר. אפשר כהליכה נופית או כחלק ממסלול ארוך יותר.",
+    "routes.mattmark.title":"מאגר מאטמרק",
+    "routes.medium":"בינוני / נופי",
+    "routes.reservoir":"מאגר",
+    "routes.search":"חיפוש במפה",
+    "routes.summerWinter":"קיץ / חורף",
+    "routes.title":"מהליכות מתאימות לעגלות ועד ימי הרים רציניים.",
+    "routes.trailOption":"אפשרות שביל",
+    "routes.views":"נופים",
+    "routes.weather":"תלוי מזג אוויר",
+    "booking.guests":"אורחים",
+    "booking.guestsPh":"כמה אורחים?",
+    "booking.schedule":"תאריכים",
+    "booking.openCal":"פתחו יומן",
+    "booking.bookNow":"הזמינו את השהייה",
+    "booking.dateText":"בחרו תאריך הגעה ועזיבה",
+    "photos.cap1":"שבילי יער סביב סאס-פה",
+    "photos.cap2":"טבע אלפיני קרוב לבית",
+    "photos.cap3":"מרקמי הרים שקטים",
+    "photos.cap4":"אוויר צלול, בקרים איטיים",
+    "photos.cap5":"שבילי קיץ ועמק פתוח",
+    "photos.cap6":"תוכניות ליום אלפיני רך",
+    "photos.cap7":"טבע למשפחות וקבוצות",
+    "photos.cap8":"שלוות הרים סביב Fletschhorn",
+    "photos.cap9":"הליכות, נקודות תצפית ואוויר צח",
+    "photos.cap10":"חזרה לבסיס פרטי אחד",
+    "photos.cap11":"העמק שמעבר לבית",
+    "area.howKicker":"איך הדף הזה עובד",
+    "area.howText":"הקישו על חורף, קיץ, ימים רכים, משפחה, טרק או אדרנלין. המפה, הסרגל הצדדי, כרטיסי הפעילות והטקסט המסייע מתעדכנים יחד.",
+    "area.howTitle":"בחרו לפי עונה, מצב רוח או רמת אנרגיה.",
+    "area.proofCalm":"Aqua Allalin, טיולי כפר, שבילים משפחתיים, נקודות תצפית ברכבל.",
+    "area.proofSummer":"מרמיטות, טיולים, אופניים, פארק חבלים, גישה לקרחון, אגמי הרים.",
+    "area.proofWinter":"סקי, מזחלות, קרחון, שבילי שלג, ימי ריגוש קבוצתיים.",
+    "photos.one":"מתחילים מבית פרטי אחד",
+    "photos.three":"חוזרים לרוגע",
+    "photos.two":"נעים דרך העמק",
     "hero.kicker":"חוויות סביב סאס-פה",
     "hero.title":"בסיס פרטי לכל עונה בסאס-פה.",
     "hero.lead":"מסקי על הקרחון ומזחלות חורף ועד טיולי קיץ, מרמיטות, אגמי הרים, פארק חבלים וימים אלפיניים רגועים — סאס-פה מציעה חוויה לכל סוג קבוצה. Fletschhorn נותן לכם בסיס אלפיני פרטי מעל הכפר, קרוב לחוויות שהופכות את העמק למיוחד.",
@@ -3257,6 +3800,7 @@ section:has(#fh-experiences-desktop) .sqs-block-code{
     document.documentElement.setAttribute('dir', currentLang === 'he' ? 'rtl' : 'ltr');
     $all('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     $all('[data-i18n-placeholder]').forEach(el => { el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder)); });
+    $all('[data-fh-date-text]').forEach(el => { const v = el.textContent || ''; if(!/\u2192/.test(v) && !/\d{4}-\d{2}-\d{2}/.test(v)) el.textContent = t('booking.dateText'); });
     const helper = $('#fh-map-helper');
     if(helper) helper.textContent = t('helper.' + (helper.dataset.helperKey || 'all'));
     selectPlace(currentPlace, false, true);
@@ -5662,8 +6206,9 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   color:var(--fh-ink);
   font-size:15px;
   overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  /* Localized placeholders (fr/de/ru) are longer; wrap instead of truncating. */
+  white-space:normal;
+  line-height:1.25;
 }
 #fh-experiences-mobile .fh-date-button strong{
   color:var(--fh-clay-dark);
@@ -6417,21 +6962,21 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
         <div class="fh-booking preSlide" id="fh-exp-quick-form" data-fh-booking-toolbar style="--d:.34s">
           <div class="fh-booking-form" id="fhBookingFields">
             <div class="fh-field">
-              <label>Guests</label>
-              <input name="guests" type="number" min="1" max="48" inputmode="numeric" placeholder="How many guests?" autocomplete="off" data-fh-guests>
+              <label data-i18n="booking.guests">Guests</label>
+              <input name="guests" type="number" min="1" max="48" inputmode="numeric" placeholder="How many guests?" autocomplete="off" data-fh-guests data-i18n-placeholder="booking.guestsPh">
             </div>
 
             <div class="fh-field fh-date-field">
-              <label>Schedule</label>
+              <label data-i18n="booking.schedule">Schedule</label>
               <button type="button" class="fh-date-button" data-fh-open-calendar>
                 <span data-fh-date-text>Select arrival and departure</span>
-                <strong>Open calendar</strong>
+                <strong data-i18n="booking.openCal">Open calendar</strong>
               </button>
               <input name="arrivalDate" type="hidden" data-fh-arrival>
               <input name="departureDate" type="hidden" data-fh-departure>
             </div>
 
-            <button class="fh-submit" type="button" data-fh-book-now>Book my stay now</button>
+            <button class="fh-submit" type="button" data-fh-book-now data-i18n="booking.bookNow">Book my stay now</button>
           </div>
           <div class="fh-status" data-fh-status role="status" aria-live="polite"></div>
         </div>
@@ -6470,47 +7015,47 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
             <div class="fh-nature-track">
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(1).jpg" alt="Saas-Fee nature view 1" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Forest paths around Saas-Fee</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap1">Forest paths around Saas-Fee</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(2).jpg" alt="Saas-Fee nature view 2" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Alpine nature close to the house</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap2">Alpine nature close to the house</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(3).jpg" alt="Saas-Fee nature view 3" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Quiet mountain textures</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap3">Quiet mountain textures</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(4).jpg" alt="Saas-Fee nature view 4" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Fresh air, slow mornings</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap4">Fresh air, slow mornings</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(5).jpg" alt="Saas-Fee nature view 5" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Summer paths and open valley</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap5">Summer paths and open valley</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(6).jpg" alt="Saas-Fee nature view 6" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Soft alpine day plans</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap6">Soft alpine day plans</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(7).jpg" alt="Saas-Fee nature view 7" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Nature for families and groups</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap7">Nature for families and groups</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(8).jpg" alt="Saas-Fee nature view 8" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Mountain calm around Fletschhorn</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap8">Mountain calm around Fletschhorn</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(9).jpg" alt="Saas-Fee nature view 9" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Walks, viewpoints, and fresh air</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap9">Walks, viewpoints, and fresh air</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(10).jpg" alt="Saas-Fee nature view 10" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">The valley beyond the house</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap11">The valley beyond the house</span>
             </figure>
             <figure class="fh-photo-slide fh-photo-tile preClip">
               <img src="https://fletschhorn-guesty-api.bookings-e2d.workers.dev/images/Nature%20(11).jpg" alt="Saas-Fee nature view 11" loading="lazy" decoding="async">
-              <span class="fh-photo-caption">Return to one private base</span>
+              <span class="fh-photo-caption" data-i18n="photos.cap10">Return to one private base</span>
             </figure>
             </div>
           </div>
@@ -6951,6 +7496,23 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
 
   const i18n = {
     en:{
+      "booking.guests":"Guests",
+      "booking.guestsPh":"How many guests?",
+      "booking.schedule":"Schedule",
+      "booking.openCal":"Open calendar",
+      "booking.bookNow":"Book my stay now",
+      "booking.dateText":"Select arrival and departure",
+      "photos.cap1":"Forest paths around Saas-Fee",
+      "photos.cap2":"Alpine nature close to the house",
+      "photos.cap3":"Quiet mountain textures",
+      "photos.cap4":"Fresh air, slow mornings",
+      "photos.cap5":"Summer paths and open valley",
+      "photos.cap6":"Soft alpine day plans",
+      "photos.cap7":"Nature for families and groups",
+      "photos.cap8":"Mountain calm around Fletschhorn",
+      "photos.cap9":"Walks, viewpoints, and fresh air",
+      "photos.cap10":"Return to one private base",
+      "photos.cap11":"The valley beyond the house",
       "hero.kicker":"Experiences around Saas-Fee","hero.title":"A private base for every season in Saas-Fee.","hero.lead":"From glacier skiing and winter sledging to summer hikes, marmots, mountain lakes, rope parks, and slow alpine days, Saas-Fee offers something for every kind of group. Fletschhorn gives you a private alpine base above the village, close to the experiences that make the valley special.","hero.note":"Best rates are guaranteed when booking direct","hero.scroll":"Browse the experiences",
       "filters.all":"Everything","filters.allText":"Show the whole valley around the house.","filters.winter":"Winter","filters.winterText":"Ski, snow, sledging, glacier, cozy resets.","filters.summer":"Summer","filters.summerText":"Marmots, hikes, scooters, lakes, ropes.","filters.calm":"Soft days","filters.calmText":"Wellness, village walks, gentle trails.","filters.house":"House & village","filters.family":"Family","filters.adrenaline":"Adrenaline","filters.trek":"Trek",
       "form.guestsLabel":"Guests","form.guestsPlaceholder":"Family, group, retreat…","form.datesLabel":"Dates","form.datesPlaceholder":"Winter, summer, exact dates…","form.contactLabel":"Contact","form.contactPlaceholder":"Email or phone","form.planBtn":"Book my stay now",
@@ -6970,6 +7532,135 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   };
 
   const fr = {
+    "cards.almageller.text":"Ponts suspendus, ambiance de sentier alpin et une option de randonnée plus exigeante pour les hôtes actifs.",
+    "cards.almageller.title":"Sentier aventure d'Almageller",
+    "cards.aqua.text":"Piscine et centre bien-être au village — utile pour les journées douces, les changements de météo et les groupes mixtes.",
+    "cards.aqua.title":"Aqua Allalin",
+    "cards.eddie.text":"Balade thématique interactive guidée par appli, de Hannig vers Saas-Fee, pensée pour les familles curieuses.",
+    "cards.eddie.title":"Eddie et la météo de montagne",
+    "cards.fairy.text":"Une douce promenade en forêt avec des stations contées, idéale pour les jeunes enfants et les journées familiales tranquilles.",
+    "cards.fairy.title":"Sentier des contes",
+    "cards.feeblitz.text":"Rapide, facile, proche du village — parfait pour les groupes de tous âges qui veulent un frisson simple.",
+    "cards.feeblitz.title":"Luge sur rails Feeblitz",
+    "cards.foxtrail.text":"Une expérience interactive façon chasse au trésor à travers le village, pour les familles et les grands groupes.",
+    "cards.foxtrail.title":"Foxtrail",
+    "cards.gorge.text":"Traversée de gorge façon via ferrata entre Saas-Fee et Saas-Grund, avec un guide de montagne.",
+    "cards.gorge.title":"Gorge Alpine",
+    "cards.ice.text":"Montez au-dessus de la vallée pour l'atmosphère du glacier, les espaces de glace et l'expérience Mittelallalin.",
+    "cards.ice.title":"Metro Alpin & Pavillon de glace",
+    "cards.kian.text":"Un espace neige idéal pour les enfants qui apprennent à skier et les familles qui veulent un cadre hivernal doux.",
+    "cards.kian.title":"Kian's Adventure Land",
+    "cards.marmots.text":"Un moment familial emblématique de Saas-Fee : voir les célèbres marmottes et l'intégrer dans une journée de montagne légère.",
+    "cards.marmots.title":"Nourrir les marmottes à Spielboden",
+    "cards.mattmark.text":"Eau turquoise, vues sur le barrage, énergie de vallée plus calme et itinéraires du facile à l'exigeant.",
+    "cards.mattmark.title":"Lac de Mattmark",
+    "cards.rope.text":"Un parcours de cordes en forêt avec des niveaux de difficulté et une vraie énergie de groupe.",
+    "cards.rope.title":"Parc aventure de Saas-Fee",
+    "cards.ski.text":"Pistes en altitude, journées de ski en groupe, pistes bleues à noires et neige fiable en altitude.",
+    "cards.ski.title":"Ski & Snowboard",
+    "cards.sledging.text":"Une activité mémorable hors ski, de Hannig vers le village, quand les conditions le permettent.",
+    "cards.sledging.title":"Luge nocturne",
+    "cards.summerSki.text":"Saas-Fee est connue pour le ski sur glacier, même en été, quand les conditions et l'exploitation le permettent.",
+    "cards.summerSki.title":"Ski d'été",
+    "cards.sunrise.text":"Une expérience de groupe spéciale pour les lève-tôt : première lumière, premières traces et petit-déjeuner en altitude.",
+    "cards.sunrise.title":"Ski au lever du soleil",
+    "cards.trotti.text":"Descendez de Hannig par les chemins de montagne — simple à comprendre, mémorable pour les groupes.",
+    "cards.trotti.title":"Trottinettes & Mountaincarts",
+    "dayplans.active1":"Prenez la remontée de Hannig quand elle fonctionne.",
+    "dayplans.active2":"Suivez le sentier Eddie ou une descente panoramique.",
+    "dayplans.active3":"Ajoutez mountaincarts ou trottinettes pour le groupe.",
+    "dayplans.active4":"Rentrez à la maison avant le soir.",
+    "dayplans.activeKicker":"Journée d'été active",
+    "dayplans.activeTitle":"Hannig + sentier thématique + trottinettes",
+    "dayplans.kicker":"Rythmes prêts à l'emploi",
+    "dayplans.lead":"Utilisez ces exemples de rythmes pour imaginer une journée complète autour de la maison, du temps calme en famille aux plans de montagne actifs.",
+    "dayplans.soft1":"Commencez doucement à la maison.",
+    "dayplans.soft2":"Marchez ou prenez un transport vers le village et les remontées.",
+    "dayplans.soft3":"Visitez Spielboden pour les marmottes en saison.",
+    "dayplans.soft4":"Terminez à l'Aqua Allalin ou par une promenade tranquille au village.",
+    "dayplans.softKicker":"Journée familiale douce",
+    "dayplans.softTitle":"Village + marmottes + piscine",
+    "dayplans.title":"Des plans de journée simples, compris en quelques secondes.",
+    "dayplans.winter1":"Ski, snowboard ou école de ski le matin.",
+    "dayplans.winter2":"Pause au village pour les groupes mixtes.",
+    "dayplans.winter3":"Luge nocturne si disponible et sûre.",
+    "dayplans.winter4":"Retour à la maison, la base privée.",
+    "dayplans.winterKicker":"Journée d'hiver en groupe",
+    "dayplans.winterTitle":"Ski + luge + repos au chaud",
+    "places.almageller.tag":"Trek · ponts",
+    "places.almageller.text":"Ponts suspendus et une journée de randonnée estivale plus soutenue.",
+    "places.aqua.tag":"Calme · famille",
+    "places.aqua.text":"Piscine et centre bien-être pour les journées douces, les changements de météo et les groupes mixtes.",
+    "places.feeblitz.tag":"Été · adrénaline",
+    "places.feeblitz.text":"Rapide, simple, proche du village, bien pour les groupes de tous âges.",
+    "places.fletschhorn.tag":"Maison · calme · famille",
+    "places.fletschhorn.text":"Base de la maison alpine privée. Point d'ancrage du séjour.",
+    "places.gorge.tag":"Guide · adrénaline",
+    "places.gorge.text":"Itinéraire guidé de gorge / via ferrata entre Saas-Fee et Saas-Grund.",
+    "places.hannig.tag":"Hiver · été · famille",
+    "places.hannig.text":"Montagne ensoleillée, luge, trottinettes, mountaincarts, aires de jeux et sentiers thématiques.",
+    "places.langfluh.tag":"Glacier · trek",
+    "places.langfluh.text":"Vues rapprochées sur le glacier et sensation de haute altitude plus forte.",
+    "places.mattmark.tag":"Lac · trek · calme",
+    "places.mattmark.text":"Lac turquoise, vues sur le barrage, promenades de vallée plus calmes et itinéraires plus longs.",
+    "places.mittelallalin.tag":"Glacier · famille",
+    "places.mittelallalin.text":"Metro Alpin, Pavillon de glace, atmosphère de glacier et neige d'été.",
+    "places.ropepark.tag":"Été · forêt",
+    "places.ropepark.text":"Parcours de cordes en forêt avec une énergie de tyrolienne pour les groupes actifs.",
+    "places.spielboden.tag":"Été · famille · calme",
+    "places.spielboden.text":"Marmottes, journées de montagne en famille et accès vers les paysages alpins plus hauts.",
+    "places.village.tag":"Village · toutes saisons",
+    "places.village.text":"Centre sans voiture, remontées, boutiques, Foxtrail et logistique d'arrivée.",
+    "routes.active":"Actif / ponts",
+    "routes.activeShort":"Actif",
+    "routes.advanced":"Avancé",
+    "routes.allalin.text":"Pour les hôtes qui veulent un objectif de haute montagne encadré. À traiter toujours comme un itinéraire avec guide, pas comme une promenade.",
+    "routes.allalin.title":"Premier 4000 / Allalin",
+    "routes.almageller.text":"Pour les familles actives et les groupes qui veulent un sentier de montagne plus marqué, avec ponts suspendus et caractère alpin.",
+    "routes.almageller.title":"Sentier aventure d'Almageller",
+    "routes.bridges":"Ponts suspendus",
+    "routes.cableCar":"Téléphérique",
+    "routes.details":"Détails officiels",
+    "routes.easy":"Facile / famille",
+    "routes.fairy.text":"Une énergie de sentier conté et doux pour les familles et les hôtes qui veulent une introduction en douceur à la forêt de Saas-Fee.",
+    "routes.fairy.title":"Sentier des contes & chemins forestiers",
+    "routes.guided":"Guidé / sommet",
+    "routes.hannig.text":"Idéal pour les familles actives, les sentiers thématiques, les journées trottinette ou luge, et les hôtes qui veulent du dénivelé sans grand trek alpin.",
+    "routes.hannig.title":"De Hannig à Saas-Fee",
+    "routes.high":"Haute montagne",
+    "routes.kicker":"Treks & idées d'itinéraires",
+    "routes.lake":"Lac / vallée",
+    "routes.langfluh.text":"Pour les hôtes qui veulent se sentir proches du glacier sans forcément s'engager dans une grande journée de sommet.",
+    "routes.langfluh.title":"Spielboden / vue glacier de Längfluh",
+    "routes.lead":"Chaque carte d'itinéraire donne une idée claire du rythme, de la saison, du niveau d'effort et des détails officiels à vérifier avant de partir.",
+    "routes.low":"Effort léger",
+    "routes.mattmark.text":"Une destination de vallée plus calme avec vues sur le barrage. Une promenade panoramique ou l'amorce d'un itinéraire plus long.",
+    "routes.mattmark.title":"Lac de Mattmark",
+    "routes.medium":"Moyen / panoramique",
+    "routes.reservoir":"Lac de barrage",
+    "routes.search":"Chercher sur la carte",
+    "routes.summerWinter":"Été / hiver",
+    "routes.title":"Des balades accessibles en poussette aux vraies journées de montagne.",
+    "routes.trailOption":"Option de sentier",
+    "routes.views":"Vues",
+    "routes.weather":"Selon la météo",
+    "booking.guests":"Invités",
+    "booking.guestsPh":"Combien d'invités ?",
+    "booking.schedule":"Dates",
+    "booking.openCal":"Ouvrir le calendrier",
+    "booking.bookNow":"Réserver mon séjour",
+    "booking.dateText":"Sélectionnez l'arrivée et le départ",
+    "photos.cap1":"Chemins forestiers autour de Saas-Fee",
+    "photos.cap2":"Nature alpine près de la maison",
+    "photos.cap3":"Textures de montagne paisibles",
+    "photos.cap4":"Air pur, matinées lentes",
+    "photos.cap5":"Chemins d'été et vallée ouverte",
+    "photos.cap6":"Journées alpines douces",
+    "photos.cap7":"Nature pour familles et groupes",
+    "photos.cap8":"Calme des montagnes autour du Fletschhorn",
+    "photos.cap9":"Balades, points de vue et air frais",
+    "photos.cap10":"Retour à une base privée",
+    "photos.cap11":"La vallée au-delà de la maison",
     "hero.kicker":"Expériences autour de Saas-Fee","hero.title":"Une base privée pour chaque saison à Saas-Fee.","hero.lead":"Du ski sur glacier et de la luge d’hiver aux randonnées d’été, marmottes, lacs de montagne, parcs aventure et journées alpines plus calmes, Saas-Fee offre des expériences pour chaque type de groupe. Fletschhorn donne à vos invités une base alpine privée au-dessus du village, proche de ce qui rend la vallée spéciale.","hero.note":"Meilleurs tarifs garantis en réservation directe","hero.scroll":"Découvrir la région",
     "filters.all":"Tout","filters.allText":"Afficher toute la vallée autour de la maison.","filters.winter":"Hiver","filters.winterText":"Ski, neige, luge, glacier, moments chaleureux.","filters.summer":"Été","filters.summerText":"Marmottes, randonnées, trottinettes, lacs, accrobranche.","filters.calm":"Journées douces","filters.calmText":"Bien-être, village, chemins faciles.","filters.house":"Maison & village","filters.family":"Famille","filters.adrenaline":"Adrénaline","filters.trek":"Randonnée",
     "form.guestsLabel":"Invités","form.guestsPlaceholder":"Famille, groupe, retraite…","form.datesLabel":"Dates","form.datesPlaceholder":"Hiver, été, dates précises…","form.contactLabel":"Contact","form.contactPlaceholder":"Email ou téléphone","form.planBtn":"Réserver mon séjour",
@@ -6984,6 +7675,135 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   };
 
   const de = {
+    "cards.almageller.text":"Hängebrücken, alpine Wegatmosphäre und eine anspruchsvollere Wanderoption für aktive Gäste.",
+    "cards.almageller.title":"Almageller Abenteuerweg",
+    "cards.aqua.text":"Schwimmbad und Wellnesscenter im Dorf — ideal für ruhige Tage, Wetterumschwünge und gemischte Gruppen.",
+    "cards.aqua.title":"Aqua Allalin",
+    "cards.eddie.text":"Interaktiver, App-geführter Themenweg von Hannig Richtung Saas-Fee, gemacht für neugierige Familien.",
+    "cards.eddie.title":"Eddie & das Bergwetter",
+    "cards.fairy.text":"Ein sanfter Waldspaziergang mit Erzählstationen, ideal für kleinere Kinder und ruhigere Familientage.",
+    "cards.fairy.title":"Märchenweg",
+    "cards.feeblitz.text":"Schnell, einfach, dorfnah — gut für Gruppen mit gemischtem Alter, die einen unkomplizierten Nervenkitzel wollen.",
+    "cards.feeblitz.title":"Feeblitz Rodelbahn",
+    "cards.foxtrail.text":"Ein interaktives Schnitzeljagd-Erlebnis durch das Dorf für Familien und größere Gruppen.",
+    "cards.foxtrail.title":"Foxtrail",
+    "cards.gorge.text":"Klettersteigartige Schluchtquerung zwischen Saas-Fee und Saas-Grund mit Bergführer.",
+    "cards.gorge.title":"Gorge Alpine",
+    "cards.ice.text":"Hoch über das Tal für Gletscheratmosphäre, Eisräume und das Mittelallalin-Erlebnis.",
+    "cards.ice.title":"Metro Alpin & Eispavillon",
+    "cards.kian.text":"Ein hilfreiches Schneegelände für Kinder, die Skifahren lernen, und Familien, die einen sanften Wintereinstieg brauchen.",
+    "cards.kian.title":"Kian's Adventure Land",
+    "cards.marmots.text":"Ein typischer Saas-Fee-Familienmoment: die berühmten Murmeltiere sehen und daraus einen leichten Bergtag machen.",
+    "cards.marmots.title":"Murmeltierfüttern am Spielboden",
+    "cards.mattmark.text":"Türkisfarbenes Wasser, Staumauerblick, ruhigere Talenergie und Routen von leicht bis fordernd.",
+    "cards.mattmark.title":"Mattmark-Stausee",
+    "cards.rope.text":"Ein Seilpark im Wald mit Schwierigkeitsstufen und starkem Gruppengefühl.",
+    "cards.rope.title":"Seilpark Saas-Fee",
+    "cards.ski.text":"Hochgelegene Pisten, Gruppen-Skitage, blaue bis schwarze Abfahrten und Schneesicherheit in der Höhe.",
+    "cards.ski.title":"Ski & Snowboard",
+    "cards.sledging.text":"Ein unvergessliches Nicht-Ski-Erlebnis von Hannig zurück Richtung Dorf, wenn die Bedingungen es erlauben.",
+    "cards.sledging.title":"Nachtrodeln",
+    "cards.summerSki.text":"Saas-Fee ist bekannt für Gletscherski, auch in den Sommermonaten, wenn Bedingungen und Betrieb es erlauben.",
+    "cards.summerSki.title":"Sommerski",
+    "cards.sunrise.text":"Ein besonderes Gruppenerlebnis für Frühaufsteher: erstes Berglicht, erste Spuren und Frühstück in der Höhe.",
+    "cards.sunrise.title":"Sonnenaufgangs-Ski",
+    "cards.trotti.text":"Von Hannig über Bergwege hinunterfahren — leicht verständlich, unvergesslich für Gruppen.",
+    "cards.trotti.title":"Trotti-Bikes & Mountaincarts",
+    "dayplans.active1":"Die Hannig-Bahn nehmen, wenn sie in Betrieb ist.",
+    "dayplans.active2":"Den Eddie-Weg oder einen Panoramaabstieg nutzen.",
+    "dayplans.active3":"Mountaincarts oder Trotti-Bikes für die Gruppe ergänzen.",
+    "dayplans.active4":"Vor dem Abend zurück zum Haus.",
+    "dayplans.activeKicker":"Aktiver Sommertag",
+    "dayplans.activeTitle":"Hannig + Themenweg + Trotti",
+    "dayplans.kicker":"Fertige Tagesrhythmen",
+    "dayplans.lead":"Nutzen Sie diese Beispielrhythmen, um sich einen ganzen Tag rund um das Haus vorzustellen — von ruhiger Familienzeit bis zu aktiven Bergplänen.",
+    "dayplans.soft1":"Langsam im Haus starten.",
+    "dayplans.soft2":"Zu Fuß oder mit Transport Richtung Dorf und Bahnen.",
+    "dayplans.soft3":"In der Saison die Murmeltiere am Spielboden besuchen.",
+    "dayplans.soft4":"Mit Aqua Allalin oder einem ruhigen Dorfspaziergang ausklingen.",
+    "dayplans.softKicker":"Sanfter Familientag",
+    "dayplans.softTitle":"Dorf + Murmeltiere + Pool",
+    "dayplans.title":"Einfache Tagespläne, die Gäste in Sekunden verstehen.",
+    "dayplans.winter1":"Morgens Ski, Snowboard oder Skischule.",
+    "dayplans.winter2":"Dorfpause für gemischte Gruppen.",
+    "dayplans.winter3":"Nachtrodeln, wenn verfügbar und sicher.",
+    "dayplans.winter4":"Zurück zum Haus als privater Basis.",
+    "dayplans.winterKicker":"Winter-Gruppentag",
+    "dayplans.winterTitle":"Ski + Rodeln + warmes Ankommen",
+    "places.almageller.tag":"Trek · Brücken",
+    "places.almageller.text":"Hängebrücken und ein stärkerer Sommerwandertag.",
+    "places.aqua.tag":"Ruhig · Familie",
+    "places.aqua.text":"Schwimmbad und Wellnesscenter für ruhige Tage, Wetterwechsel und gemischte Gruppen.",
+    "places.feeblitz.tag":"Sommer · Adrenalin",
+    "places.feeblitz.text":"Schnell, einfach, dorfnah, gut für Gruppen mit gemischtem Alter.",
+    "places.fletschhorn.tag":"Haus · Ruhe · Familie",
+    "places.fletschhorn.text":"Private alpine Hausbasis. Ankerpunkt des Aufenthalts.",
+    "places.gorge.tag":"Guide · Adrenalin",
+    "places.gorge.text":"Geführte Schlucht- / Klettersteigroute zwischen Saas-Fee und Saas-Grund.",
+    "places.hannig.tag":"Winter · Sommer · Familie",
+    "places.hannig.text":"Sonnenberg, Rodeln, Trotti-Bikes, Mountaincarts, Spielplätze und Themenwege.",
+    "places.langfluh.tag":"Gletscher · Trek",
+    "places.langfluh.text":"Gletscherblicke aus der Nähe und ein stärkeres Hochgebirgsgefühl.",
+    "places.mattmark.tag":"See · Trek · Ruhe",
+    "places.mattmark.text":"Türkisfarbener Stausee, Staumauerblick, ruhigere Talwege und längere Routen.",
+    "places.mittelallalin.tag":"Gletscher · Familie",
+    "places.mittelallalin.text":"Metro Alpin, Eispavillon, Gletscheratmosphäre und Sommerschnee.",
+    "places.ropepark.tag":"Sommer · Wald",
+    "places.ropepark.text":"Seilpark im Wald mit Zipline-Energie für aktive Gruppen.",
+    "places.spielboden.tag":"Sommer · Familie · Ruhe",
+    "places.spielboden.text":"Murmeltiere, Familien-Bergtage und Zugang zu höherer alpiner Landschaft.",
+    "places.village.tag":"Dorf · alle Jahreszeiten",
+    "places.village.text":"Autofreies Zentrum, Bahnen, Geschäfte, Foxtrail und Ankunftslogistik.",
+    "routes.active":"Aktiv / Brücken",
+    "routes.activeShort":"Aktiv",
+    "routes.advanced":"Fortgeschritten",
+    "routes.allalin.text":"Für Gäste, die ein geführtes hochalpines Ziel wollen. Immer als Bergführer-Route zu behandeln, nicht als Spaziergang.",
+    "routes.allalin.title":"Erster Viertausender / Allalin",
+    "routes.almageller.text":"Für aktive Familien und Gruppen, die einen kräftigeren Bergweg mit Hängebrücken und alpinem Charakter wollen.",
+    "routes.almageller.title":"Almageller Abenteuerweg",
+    "routes.bridges":"Hängebrücken",
+    "routes.cableCar":"Seilbahn",
+    "routes.details":"Offizielle Details",
+    "routes.easy":"Leicht / Familie",
+    "routes.fairy.text":"Sanfte, erzählerische Wegenergie für Familien und Gäste, die einen weichen Einstieg in den Wald um Saas-Fee wollen.",
+    "routes.fairy.title":"Märchenweg & Waldpfade",
+    "routes.guided":"Geführt / Gipfel",
+    "routes.hannig.text":"Gut für aktive Familien, Themenwege, Trotti- und Rodeltage sowie Gäste, die Höhenmeter ohne große Alpintour wollen.",
+    "routes.hannig.title":"Hannig nach Saas-Fee",
+    "routes.high":"Hochalpin",
+    "routes.kicker":"Treks & Routenideen",
+    "routes.lake":"See / Tal",
+    "routes.langfluh.text":"Für Gäste, die dem Gletscher nah sein wollen, ohne sich gleich einem großen Gipfeltag zu verpflichten.",
+    "routes.langfluh.title":"Spielboden / Längfluh Gletscherblick",
+    "routes.lead":"Jede Routenkarte vermittelt klar Tempo, Saison, Anstrengung und die offiziellen Details, die vor dem Start zu prüfen sind.",
+    "routes.low":"Wenig Aufwand",
+    "routes.mattmark.text":"Ein ruhigeres Talziel mit Staumauerblick. Als Panoramaspaziergang oder Teil einer längeren Route.",
+    "routes.mattmark.title":"Mattmark-Stausee",
+    "routes.medium":"Mittel / Panorama",
+    "routes.reservoir":"Stausee",
+    "routes.search":"Karte durchsuchen",
+    "routes.summerWinter":"Sommer / Winter",
+    "routes.title":"Von kinderwagentauglichen Wegen bis zu echten Bergtagen.",
+    "routes.trailOption":"Wegoption",
+    "routes.views":"Aussicht",
+    "routes.weather":"Wetterabhängig",
+    "booking.guests":"Gäste",
+    "booking.guestsPh":"Wie viele Gäste?",
+    "booking.schedule":"Daten",
+    "booking.openCal":"Kalender öffnen",
+    "booking.bookNow":"Jetzt Aufenthalt buchen",
+    "booking.dateText":"Anreise und Abreise auswählen",
+    "photos.cap1":"Waldwege rund um Saas-Fee",
+    "photos.cap2":"Alpine Natur nah am Haus",
+    "photos.cap3":"Stille Bergtexturen",
+    "photos.cap4":"Frische Luft, langsame Morgen",
+    "photos.cap5":"Sommerwege und offenes Tal",
+    "photos.cap6":"Sanfte Alpentagespläne",
+    "photos.cap7":"Natur für Familien und Gruppen",
+    "photos.cap8":"Bergruhe rund um das Fletschhorn",
+    "photos.cap9":"Spaziergänge, Aussichtspunkte und frische Luft",
+    "photos.cap10":"Zurück zu einer privaten Basis",
+    "photos.cap11":"Das Tal jenseits des Hauses",
     "hero.kicker":"Erlebnisse rund um Saas-Fee","hero.title":"Eine private Basis für jede Saison in Saas-Fee.","hero.lead":"Von Gletscherski und Winterrodeln bis zu Sommerwanderungen, Murmeltieren, Bergseen, Seilparks und ruhigen Alpentagen bietet Saas-Fee für jede Gruppe etwas. Fletschhorn ist eine private alpine Basis oberhalb des Dorfes, nahe an den Erlebnissen, die das Tal besonders machen.","hero.note":"Beste Preise bei Direktbuchung garantiert","hero.scroll":"Region öffnen",
     "filters.all":"Alles","filters.allText":"Das ganze Tal rund um das Haus anzeigen.","filters.winter":"Winter","filters.winterText":"Ski, Schnee, Rodeln, Gletscher, gemütliche Pausen.","filters.summer":"Sommer","filters.summerText":"Murmeltiere, Wanderungen, Scooter, Seen, Seilpark.","filters.calm":"Ruhige Tage","filters.calmText":"Wellness, Dorfspaziergänge, leichte Wege.","filters.house":"Haus & Dorf","filters.family":"Familie","filters.adrenaline":"Adrenalin","filters.trek":"Wandern",
     "form.guestsLabel":"Gäste","form.guestsPlaceholder":"Familie, Gruppe, Retreat…","form.datesLabel":"Daten","form.datesPlaceholder":"Winter, Sommer, genaue Daten…","form.contactLabel":"Kontakt","form.contactPlaceholder":"E-Mail oder Telefon","form.planBtn":"Aufenthalt buchen",
@@ -6998,6 +7818,135 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   };
 
   const ru = {
+    "cards.almageller.text":"Подвесные мосты, атмосфера альпийской тропы и более серьёзный вариант похода для активных гостей.",
+    "cards.almageller.title":"Приключенческая тропа Альмагеллер",
+    "cards.aqua.text":"Бассейн и велнес-центр в деревне — выручает в спокойные дни, при смене погоды и для смешанных групп.",
+    "cards.aqua.title":"Aqua Allalin",
+    "cards.eddie.text":"Интерактивная тематическая прогулка с приложением от Ханнига к Саас-Фе — для любознательных семей.",
+    "cards.eddie.title":"Эдди и горная погода",
+    "cards.fairy.text":"Лёгкая лесная прогулка со сказочными станциями — идеально для младших детей и неспешных семейных дней.",
+    "cards.fairy.title":"Сказочная тропа",
+    "cards.feeblitz.text":"Быстро, просто, рядом с деревней — хорошо для разновозрастных групп, которым нужен лёгкий адреналин.",
+    "cards.feeblitz.title":"Горные сани Feeblitz",
+    "cards.foxtrail.text":"Интерактивный квест в духе поиска сокровищ по деревне — для семей и больших групп.",
+    "cards.foxtrail.title":"Foxtrail",
+    "cards.gorge.text":"Переход через ущелье в стиле виа феррата между Саас-Фе и Саас-Грундом с горным гидом.",
+    "cards.gorge.title":"Gorge Alpine",
+    "cards.ice.text":"Поднимитесь высоко над долиной: атмосфера ледника, ледяные залы и Миттелаллалин.",
+    "cards.ice.title":"Metro Alpin и Ледяной павильон",
+    "cards.kian.text":"Удобная снежная зона для детей, которые учатся кататься, и семей, которым нужен мягкий зимний формат.",
+    "cards.kian.title":"Kian's Adventure Land",
+    "cards.marmots.text":"Фирменный семейный момент Саас-Фе: увидеть знаменитых сурков и встроить это в лёгкий горный день.",
+    "cards.marmots.title":"Кормление сурков на Шпильбодене",
+    "cards.mattmark.text":"Бирюзовая вода, виды на плотину, спокойная энергия долины и маршруты от лёгких до сложных.",
+    "cards.mattmark.title":"Водохранилище Маттмарк",
+    "cards.rope.text":"Верёвочный парк в лесу с уровнями сложности и сильным командным духом.",
+    "cards.rope.title":"Верёвочный парк Саас-Фе",
+    "cards.ski.text":"Высокогорные трассы, групповые лыжные дни, склоны от синих до чёрных и надёжный снег на высоте.",
+    "cards.ski.title":"Лыжи и сноуборд",
+    "cards.sledging.text":"Запоминающееся нелыжное занятие: спуск от Ханнига к деревне, когда позволяют условия.",
+    "cards.sledging.title":"Ночные санки",
+    "cards.summerSki.text":"Саас-Фе известен катанием на леднике даже летом, когда позволяют условия и работа подъёмников.",
+    "cards.summerSki.title":"Летние лыжи",
+    "cards.sunrise.text":"Особый групповой опыт для ранних пташек: первый свет в горах, первые следы и завтрак на высоте.",
+    "cards.sunrise.title":"Лыжи на рассвете",
+    "cards.trotti.text":"Спуск от Ханнига по горным дорожкам — просто понять, легко запомнить всей группой.",
+    "cards.trotti.title":"Самокаты Trotti и маунтинкарты",
+    "dayplans.active1":"Поднимитесь на Ханниг, когда работает подъёмник.",
+    "dayplans.active2":"Пройдите тропу Эдди или живописный спуск.",
+    "dayplans.active3":"Добавьте маунтинкарты или самокаты для группы.",
+    "dayplans.active4":"Вернитесь в дом до вечера.",
+    "dayplans.activeKicker":"Активный летний день",
+    "dayplans.activeTitle":"Ханниг + тематическая тропа + самокаты",
+    "dayplans.kicker":"Готовые ритмы",
+    "dayplans.lead":"Используйте эти примеры, чтобы представить целый день вокруг дома — от неспешного семейного времени до активных горных планов.",
+    "dayplans.soft1":"Начните день неспешно в доме.",
+    "dayplans.soft2":"Прогуляйтесь или доберитесь до деревни и подъёмников.",
+    "dayplans.soft3":"Загляните на Шпильбоден к суркам в сезон.",
+    "dayplans.soft4":"Завершите день в Aqua Allalin или спокойной прогулкой по деревне.",
+    "dayplans.softKicker":"Мягкий семейный день",
+    "dayplans.softTitle":"Деревня + сурки + бассейн",
+    "dayplans.title":"Простые планы дня, понятные за секунды.",
+    "dayplans.winter1":"Утром лыжи, сноуборд или лыжная школа.",
+    "dayplans.winter2":"Перерыв в деревне для смешанных групп.",
+    "dayplans.winter3":"Ночные санки, если доступны и безопасны.",
+    "dayplans.winter4":"Возвращение в дом — частную базу.",
+    "dayplans.winterKicker":"Зимний день группы",
+    "dayplans.winterTitle":"Лыжи + санки + тёплый отдых",
+    "places.almageller.tag":"Трек · мосты",
+    "places.almageller.text":"Подвесные мосты и более серьёзный летний походный день.",
+    "places.aqua.tag":"Спокойно · семья",
+    "places.aqua.text":"Бассейн и велнес-центр для спокойных дней, смены погоды и смешанных групп.",
+    "places.feeblitz.tag":"Лето · адреналин",
+    "places.feeblitz.text":"Быстро, просто, рядом с деревней, подходит разновозрастным группам.",
+    "places.fletschhorn.tag":"Дом · покой · семья",
+    "places.fletschhorn.text":"База частного альпийского дома. Якорная точка пребывания.",
+    "places.gorge.tag":"Гид · адреналин",
+    "places.gorge.text":"Маршрут по ущелью / виа феррата с гидом между Саас-Фе и Саас-Грундом.",
+    "places.hannig.tag":"Зима · лето · семья",
+    "places.hannig.text":"Солнечная гора, санки, самокаты, маунтинкарты, площадки и тематические тропы.",
+    "places.langfluh.tag":"Ледник · трек",
+    "places.langfluh.text":"Ледник совсем близко и более сильное ощущение высокогорья.",
+    "places.mattmark.tag":"Озеро · трек · покой",
+    "places.mattmark.text":"Бирюзовое водохранилище, виды на плотину, тихие прогулки по долине и длинные маршруты.",
+    "places.mittelallalin.tag":"Ледник · семья",
+    "places.mittelallalin.text":"Metro Alpin, Ледяной павильон, атмосфера ледника и летний снег.",
+    "places.ropepark.tag":"Лето · лес",
+    "places.ropepark.text":"Верёвочный парк в лесу с энергией зиплайна для активных групп.",
+    "places.spielboden.tag":"Лето · семья · покой",
+    "places.spielboden.text":"Сурки, семейные горные дни и путь к более высоким альпийским пейзажам.",
+    "places.village.tag":"Деревня · все сезоны",
+    "places.village.text":"Центр без машин, подъёмники, магазины, Foxtrail и логистика прибытия.",
+    "routes.active":"Активный / мосты",
+    "routes.activeShort":"Активный",
+    "routes.advanced":"Сложный",
+    "routes.allalin.text":"Для гостей, которым нужна высокогорная цель с гидом. Это всегда маршрут с горным гидом, а не прогулка.",
+    "routes.allalin.title":"Первый четырёхтысячник / Аллалин",
+    "routes.almageller.text":"Для активных семей и групп, которым нужна серьёзная горная тропа с подвесными мостами и альпийским характером.",
+    "routes.almageller.title":"Приключенческая тропа Альмагеллер",
+    "routes.bridges":"Подвесные мосты",
+    "routes.cableCar":"Канатная дорога",
+    "routes.details":"Официальные сведения",
+    "routes.easy":"Легко / семья",
+    "routes.fairy.text":"Мягкая сказочная тропа для семей и гостей, которым нужно нежное знакомство с лесом вокруг Саас-Фе.",
+    "routes.fairy.title":"Сказочная тропа и лесные дорожки",
+    "routes.guided":"С гидом / вершина",
+    "routes.hannig.text":"Подходит активным семьям, любителям тематических троп, дням на самокатах и санках, и гостям, которым нужна высота без большого альпийского трека.",
+    "routes.hannig.title":"С Ханнига в Саас-Фе",
+    "routes.high":"Высокогорье",
+    "routes.kicker":"Треки и идеи маршрутов",
+    "routes.lake":"Озеро / долина",
+    "routes.langfluh.text":"Для гостей, которые хотят почувствовать ледник рядом, не обязуясь на большой день восхождения.",
+    "routes.langfluh.title":"Шпильбоден / вид на ледник Лангфлю",
+    "routes.lead":"Каждая карточка маршрута даёт ясное представление о темпе, сезоне, уровне усилий и официальных деталях, которые нужно проверить перед выходом.",
+    "routes.low":"Небольшое усилие",
+    "routes.mattmark.text":"Более тихое место в долине с видами на плотину. Живописная прогулка или часть более длинного маршрута.",
+    "routes.mattmark.title":"Водохранилище Маттмарк",
+    "routes.medium":"Средний / живописный",
+    "routes.reservoir":"Водохранилище",
+    "routes.search":"Поиск по карте",
+    "routes.summerWinter":"Лето / зима",
+    "routes.title":"От прогулок с коляской до настоящих горных дней.",
+    "routes.trailOption":"Вариант тропы",
+    "routes.views":"Виды",
+    "routes.weather":"Зависит от погоды",
+    "booking.guests":"Гости",
+    "booking.guestsPh":"Сколько гостей?",
+    "booking.schedule":"Даты",
+    "booking.openCal":"Открыть календарь",
+    "booking.bookNow":"Забронировать пребывание",
+    "booking.dateText":"Выберите заезд и выезд",
+    "photos.cap1":"Лесные тропы вокруг Саас-Фе",
+    "photos.cap2":"Альпийская природа рядом с домом",
+    "photos.cap3":"Тихие горные фактуры",
+    "photos.cap4":"Свежий воздух, неспешные утра",
+    "photos.cap5":"Летние тропы и открытая долина",
+    "photos.cap6":"Планы мягких альпийских дней",
+    "photos.cap7":"Природа для семей и групп",
+    "photos.cap8":"Горное спокойствие вокруг Fletschhorn",
+    "photos.cap9":"Прогулки, смотровые точки и свежий воздух",
+    "photos.cap10":"Возвращение на частную базу",
+    "photos.cap11":"Долина за домом",
     "hero.kicker":"Впечатления вокруг Саас-Фе","hero.title":"Частная база для каждого сезона в Саас-Фе.","hero.lead":"От катания на леднике и зимних санок до летних маршрутов, сурков, горных озёр, верёвочных парков и спокойных альпийских дней — Саас-Фе подходит для разных групп. Fletschhorn даёт частную альпийскую базу над деревней, рядом с главными впечатлениями долины.","hero.note":"Лучшие цены гарантированы при бронировании напрямую","hero.scroll":"Открыть регион",
     "filters.all":"Всё","filters.allText":"Показать всю долину вокруг дома.","filters.winter":"Зима","filters.winterText":"Лыжи, снег, санки, ледник, уютные паузы.","filters.summer":"Лето","filters.summerText":"Сурки, походы, самокаты, озёра, верёвочный парк.","filters.calm":"Спокойные дни","filters.calmText":"Велнес, прогулки по деревне, лёгкие тропы.","filters.house":"Дом и деревня","filters.family":"Семья","filters.adrenaline":"Адреналин","filters.trek":"Походы",
     "form.guestsLabel":"Гости","form.guestsPlaceholder":"Семья, группа, ретрит…","form.datesLabel":"Даты","form.datesPlaceholder":"Зима, лето, точные даты…","form.contactLabel":"Контакт","form.contactPlaceholder":"Email или телефон","form.planBtn":"Забронировать",
@@ -7012,6 +7961,144 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
   };
 
   const he = {
+    "cards.almageller.text":"גשרים תלויים, אווירת שביל אלפיני ואפשרות טרק תובענית יותר לאורחים פעילים.",
+    "cards.almageller.title":"שביל ההרפתקאות אלמגלר",
+    "cards.aqua.text":"בריכה ומרכז ולנס בכפר — שימושי לימים רגועים, שינויי מזג אוויר וקבוצות מעורבות.",
+    "cards.aqua.title":"Aqua Allalin",
+    "cards.eddie.text":"מסלול נושא אינטראקטיבי מודרך באפליקציה מהאניג לכיוון סאס-פה, למשפחות סקרניות.",
+    "cards.eddie.title":"אדי ומזג האוויר בהרים",
+    "cards.fairy.text":"טיול יער עדין עם תחנות סיפור, אידיאלי לילדים קטנים ולימי משפחה איטיים.",
+    "cards.fairy.title":"שביל האגדות",
+    "cards.feeblitz.text":"מהיר, קל, קרוב לכפר — מתאים לקבוצות בגילאים מעורבים שרוצות ריגוש פשוט.",
+    "cards.feeblitz.title":"מזחלת ההרים Feeblitz",
+    "cards.foxtrail.text":"חוויה אינטראקטיבית בסגנון חיפוש אוצר דרך הכפר, למשפחות ולקבוצות גדולות.",
+    "cards.foxtrail.title":"Foxtrail",
+    "cards.gorge.text":"חציית קניון בסגנון ויה פראטה בין סאס-פה לסאס-גרונד עם מדריך הרים.",
+    "cards.gorge.title":"Gorge Alpine",
+    "cards.ice.text":"עלו גבוה מעל העמק לאווירת קרחון, חללי קרח וחוויית מיטלאלאלין.",
+    "cards.ice.title":"Metro Alpin וביתן הקרח",
+    "cards.kian.text":"אזור שלג נוח לילדים שלומדים סקי ולמשפחות שצריכות פתיחה חורפית עדינה.",
+    "cards.kian.title":"Kian's Adventure Land",
+    "cards.marmots.text":"רגע משפחתי מזוהה עם סאס-פה: לראות את המרמיטות המפורסמות ולשלב זאת ביום הרים קליל.",
+    "cards.marmots.title":"האכלת מרמיטות בשפילבודן",
+    "cards.mattmark.text":"מים בצבע טורקיז, נוף הסכר, אנרגיית עמק שקטה ומסלולים מקלים ועד תובעניים.",
+    "cards.mattmark.title":"מאגר מאטמרק",
+    "cards.rope.text":"פארק חבלים ביער עם רמות קושי ותחושת אנרגיה קבוצתית חזקה.",
+    "cards.rope.title":"פארק החבלים סאס-פה",
+    "cards.ski.text":"מסלולים בגובה רב, ימי סקי קבוצתיים, מסלולים כחולים עד שחורים ושלג אמין בגובה.",
+    "cards.ski.title":"סקי וסנובורד",
+    "cards.sledging.text":"פעילות בלתי נשכחת שאינה סקי — מהאניג חזרה לכיוון הכפר כשהתנאים מאפשרים.",
+    "cards.sledging.title":"מזחלות לילה",
+    "cards.summerSki.text":"סאס-פה ידועה בסקי על קרחון, גם בחודשי הקיץ, כשהתנאים והתפעול מאפשרים.",
+    "cards.summerSki.title":"סקי קיץ",
+    "cards.sunrise.text":"חוויה קבוצתית מיוחדת למשכימי קום: אור ראשון בהרים, מסלולים ראשונים וארוחת בוקר בגובה.",
+    "cards.sunrise.title":"סקי בזריחה",
+    "cards.trotti.text":"רדו מהאניג בשבילי הרים — קל להבין, בלתי נשכח לקבוצות.",
+    "cards.trotti.title":"קורקינטים ומאונטיין-קארטס",
+    "dayplans.active1":"עלו במעלית האניג כשהיא פועלת.",
+    "dayplans.active2":"לכו בשביל אדי או בירידה נופית.",
+    "dayplans.active3":"הוסיפו מאונטיין-קארטס או קורקינטים לקבוצה.",
+    "dayplans.active4":"חזרו לבית לפני הערב.",
+    "dayplans.activeKicker":"יום קיץ פעיל",
+    "dayplans.activeTitle":"האניג + שביל נושא + קורקינטים",
+    "dayplans.kicker":"מקצבים מוכנים",
+    "dayplans.lead":"השתמשו בדוגמאות האלה כדי לדמיין יום שלם סביב הבית — מזמן משפחתי רגוע ועד תוכניות הרים פעילות.",
+    "dayplans.soft1":"התחילו לאט בבית.",
+    "dayplans.soft2":"לכו ברגל או סעו לכיוון הכפר והמעליות.",
+    "dayplans.soft3":"בקרו בשפילבודן אצל המרמיטות בעונה.",
+    "dayplans.soft4":"סיימו ב-Aqua Allalin או בטיול רגוע בכפר.",
+    "dayplans.softKicker":"יום משפחתי רך",
+    "dayplans.softTitle":"כפר + מרמיטות + בריכה",
+    "dayplans.title":"תוכניות יום פשוטות שאורחים מבינים בשניות.",
+    "dayplans.winter1":"בבוקר סקי, סנובורד או בית ספר לסקי.",
+    "dayplans.winter2":"הפסקה בכפר לקבוצות מעורבות.",
+    "dayplans.winter3":"מזחלות לילה אם זמין ובטוח.",
+    "dayplans.winter4":"חזרה לבית — הבסיס הפרטי.",
+    "dayplans.winterKicker":"יום חורף קבוצתי",
+    "dayplans.winterTitle":"סקי + מזחלות + התחממות",
+    "places.almageller.tag":"טרק · גשרים",
+    "places.almageller.text":"גשרים תלויים ויום טיול קיץ חזק יותר.",
+    "places.aqua.tag":"רוגע · משפחה",
+    "places.aqua.text":"בריכה ומרכז ולנס לימים רגועים, שינויי מזג אוויר וקבוצות מעורבות.",
+    "places.feeblitz.tag":"קיץ · אדרנלין",
+    "places.feeblitz.text":"מהיר, פשוט, קרוב לכפר, מתאים לקבוצות בגילאים מעורבים.",
+    "places.fletschhorn.tag":"בית · רוגע · משפחה",
+    "places.fletschhorn.text":"בסיס הבית האלפיני הפרטי. נקודת העוגן של השהות.",
+    "places.gorge.tag":"מדריך · אדרנלין",
+    "places.gorge.text":"מסלול קניון / ויה פראטה מודרך בין סאס-פה לסאס-גרונד.",
+    "places.hannig.tag":"חורף · קיץ · משפחה",
+    "places.hannig.text":"הר שטוף שמש, מזחלות, קורקינטים, מאונטיין-קארטס, מגרשי משחקים ושבילי נושא.",
+    "places.langfluh.tag":"קרחון · טרק",
+    "places.langfluh.text":"נופי קרחון מקרוב ותחושת גובה חזקה יותר.",
+    "places.mattmark.tag":"אגם · טרק · רוגע",
+    "places.mattmark.text":"מאגר טורקיז, נוף הסכר, הליכות עמק שקטות ומסלולים ארוכים יותר.",
+    "places.mittelallalin.tag":"קרחון · משפחה",
+    "places.mittelallalin.text":"Metro Alpin, ביתן הקרח, אווירת קרחון ושלג קיץ.",
+    "places.ropepark.tag":"קיץ · יער",
+    "places.ropepark.text":"פארק חבלים ביער עם אנרגיית אומגה לקבוצות פעילות.",
+    "places.spielboden.tag":"קיץ · משפחה · רוגע",
+    "places.spielboden.text":"מרמיטות, ימי הרים משפחתיים וגישה לנופים אלפיניים גבוהים יותר.",
+    "places.village.tag":"כפר · כל העונות",
+    "places.village.text":"מרכז ללא מכוניות, מעליות, חנויות, Foxtrail ולוגיסטיקת הגעה.",
+    "routes.active":"פעיל / גשרים",
+    "routes.activeShort":"פעיל",
+    "routes.advanced":"מתקדם",
+    "routes.allalin.text":"לאורחים שרוצים יעד הרים גבוה עם מדריך. תמיד יש להתייחס לזה כמסלול עם מדריך הרים, לא כטיול רגיל.",
+    "routes.allalin.title":"ארבעת-אלפים ראשון / אלאלין",
+    "routes.almageller.text":"למשפחות פעילות וקבוצות שרוצות שביל הרים חזק יותר עם גשרים תלויים ואופי אלפיני.",
+    "routes.almageller.title":"שביל ההרפתקאות אלמגלר",
+    "routes.bridges":"גשרים תלויים",
+    "routes.cableCar":"רכבל",
+    "routes.details":"פרטים רשמיים",
+    "routes.easy":"קל / משפחה",
+    "routes.fairy.text":"אנרגיית מסלול סיפורי ועדין למשפחות ולאורחים שרוצים היכרות רכה עם היער סביב סאס-פה.",
+    "routes.fairy.title":"שביל האגדות ושבילי היער",
+    "routes.guided":"מודרך / פסגה",
+    "routes.hannig.text":"מתאים למשפחות פעילות, שבילי נושא, ימי קורקינטים ומזחלות, ולאורחים שרוצים גובה בלי טרק אלפיני מלא.",
+    "routes.hannig.title":"מהאניג לסאס-פה",
+    "routes.high":"אלפיני גבוה",
+    "routes.kicker":"טרקים ורעיונות למסלולים",
+    "routes.lake":"אגם / עמק",
+    "routes.langfluh.text":"לאורחים שרוצים להרגיש קרובים לקרחון בלי להתחייב ליום פסגה גדול.",
+    "routes.langfluh.title":"שפילבודן / נוף הקרחון לנגפלו",
+    "routes.lead":"כל כרטיס מסלול נותן תחושה ברורה של קצב, עונה, רמת מאמץ והפרטים הרשמיים שיש לבדוק לפני היציאה.",
+    "routes.low":"מאמץ נמוך",
+    "routes.mattmark.text":"יעד עמק שקט יותר עם נוף הסכר. אפשר כהליכה נופית או כחלק ממסלול ארוך יותר.",
+    "routes.mattmark.title":"מאגר מאטמרק",
+    "routes.medium":"בינוני / נופי",
+    "routes.reservoir":"מאגר",
+    "routes.search":"חיפוש במפה",
+    "routes.summerWinter":"קיץ / חורף",
+    "routes.title":"מהליכות מתאימות לעגלות ועד ימי הרים רציניים.",
+    "routes.trailOption":"אפשרות שביל",
+    "routes.views":"נופים",
+    "routes.weather":"תלוי מזג אוויר",
+    "booking.guests":"אורחים",
+    "booking.guestsPh":"כמה אורחים?",
+    "booking.schedule":"תאריכים",
+    "booking.openCal":"פתחו יומן",
+    "booking.bookNow":"הזמינו את השהייה",
+    "booking.dateText":"בחרו תאריך הגעה ועזיבה",
+    "photos.cap1":"שבילי יער סביב סאס-פה",
+    "photos.cap2":"טבע אלפיני קרוב לבית",
+    "photos.cap3":"מרקמי הרים שקטים",
+    "photos.cap4":"אוויר צלול, בקרים איטיים",
+    "photos.cap5":"שבילי קיץ ועמק פתוח",
+    "photos.cap6":"תוכניות ליום אלפיני רך",
+    "photos.cap7":"טבע למשפחות וקבוצות",
+    "photos.cap8":"שלוות הרים סביב Fletschhorn",
+    "photos.cap9":"הליכות, נקודות תצפית ואוויר צח",
+    "photos.cap10":"חזרה לבסיס פרטי אחד",
+    "photos.cap11":"העמק שמעבר לבית",
+    "area.howKicker":"איך הדף הזה עובד",
+    "area.howText":"הקישו על חורף, קיץ, ימים רכים, משפחה, טרק או אדרנלין. המפה, הסרגל הצדדי, כרטיסי הפעילות והטקסט המסייע מתעדכנים יחד.",
+    "area.howTitle":"בחרו לפי עונה, מצב רוח או רמת אנרגיה.",
+    "area.proofCalm":"Aqua Allalin, טיולי כפר, שבילים משפחתיים, נקודות תצפית ברכבל.",
+    "area.proofSummer":"מרמיטות, טיולים, אופניים, פארק חבלים, גישה לקרחון, אגמי הרים.",
+    "area.proofWinter":"סקי, מזחלות, קרחון, שבילי שלג, ימי ריגוש קבוצתיים.",
+    "photos.one":"מתחילים מבית פרטי אחד",
+    "photos.three":"חוזרים לרוגע",
+    "photos.two":"נעים דרך העמק",
     "hero.kicker":"חוויות סביב סאס-פה",
     "hero.title":"בסיס פרטי לכל עונה בסאס-פה.",
     "hero.lead":"מסקי על הקרחון ומזחלות חורף ועד טיולי קיץ, מרמיטות, אגמי הרים, פארק חבלים וימים אלפיניים רגועים — סאס-פה מציעה חוויה לכל סוג קבוצה. Fletschhorn נותן לכם בסיס אלפיני פרטי מעל הכפר, קרוב לחוויות שהופכות את העמק למיוחד.",
@@ -7144,6 +8231,7 @@ section:has(#fh-experiences-mobile) .sqs-block-code{
     document.documentElement.setAttribute('dir', currentLang === 'he' ? 'rtl' : 'ltr');
     $all('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     $all('[data-i18n-placeholder]').forEach(el => { el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder)); });
+    $all('[data-fh-date-text]').forEach(el => { const v = el.textContent || ''; if(!/\u2192/.test(v) && !/\d{4}-\d{2}-\d{2}/.test(v)) el.textContent = t('booking.dateText'); });
     const helper = $('#fh-map-helper');
     if(helper) helper.textContent = t('helper.' + (helper.dataset.helperKey || 'all'));
     selectPlace(currentPlace, false, true);

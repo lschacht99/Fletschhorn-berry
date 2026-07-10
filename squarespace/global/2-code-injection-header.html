@@ -950,14 +950,15 @@ html.fh-toolbar-calendar-open body{
 
     if(typeof window.setFletschhornLanguage === "function"){
       window.setFletschhornLanguage(selectedLang);
-      return;
-    }
-
-    if(typeof window.FHSetLanguage === "function"){
+    } else if(typeof window.FHSetLanguage === "function"){
       window.FHSetLanguage(selectedLang);
-      return;
     }
 
+    /*
+      Always dispatch, even when a page-level function exists. The footer and
+      other late-mounted components rely on this event; returning early here
+      used to leave them stuck in their initial language.
+    */
     window.dispatchEvent(new CustomEvent("fh-language-change", {
       detail:{ lang:selectedLang }
     }));
