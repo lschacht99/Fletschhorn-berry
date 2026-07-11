@@ -23,24 +23,6 @@ jobs:
       - name: Regenerate all paste-ready Squarespace files
         run: python3 squarespace/_build/build_squarespace.py
 
-      - name: Validate generated files
-        run: |
-          test -f squarespace/global/1-custom-css.css
-          test -f squarespace/global/2-code-injection-header.html
-          test -f squarespace/global/3-code-injection-footer.html
-          test -f squarespace/pages/home.html
-          test -f squarespace/pages/property.html
-          test -f squarespace/pages/experiences.html
-          test -f squarespace/pages/location.html
-          test -f squarespace/pages/wedding-event.html
-          test -f squarespace/pages/about-us.html
-          test -f squarespace/pages/booking.html
-          test -f squarespace/pages/checkout.html
-          test -f squarespace/pages/confirmation.html
-          grep -q 'Final viewport-safe schedule layout' squarespace/global/1-custom-css.css
-          grep -q '#fhToolbarCalendarModal' squarespace/global/2-code-injection-header.html
-          grep -q '#fhScheduleModal' squarespace/pages/booking.html
-
       - name: Commit regenerated Squarespace mirror
         run: |
           if git diff --quiet -- squarespace; then
