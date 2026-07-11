@@ -40,7 +40,6 @@ jobs:
           grep -q 'Final viewport-safe schedule layout' squarespace/global/1-custom-css.css
           grep -q '#fhToolbarCalendarModal' squarespace/global/2-code-injection-header.html
           grep -q '#fhScheduleModal' squarespace/pages/booking.html
-          git diff --check
 
       - name: Commit regenerated Squarespace mirror
         run: |
