@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - fix/sync-squarespace-calendar-layout
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
