@@ -244,6 +244,22 @@
     .fh-modal-tools button{width:40px;min-height:38px;border:1px solid var(--fh-line);background:#fffaf3;color:var(--fh-ink);font-weight:900;border-radius:0}
     .fh-modal .fh-calendar-wrap{padding:12px}
 
+    /* Schedule modal rescue: mirrors the toolbar-calendar fix elsewhere on
+       the site. Squarespace/embed wrappers around #fh-booking-page can carry
+       transform/overflow/contain, which turns position:fixed into a
+       document-flow box instead of a viewport-fixed one -- the modal then
+       renders tall and off-center, forcing page scroll to reach it. These
+       !important rules win regardless of ancestor styling, and the open
+       script below relocates the modal to document.body when needed. */
+    #fhScheduleModal{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;display:none;align-items:center!important;justify-content:center!important;padding:20px!important;overflow:hidden!important;z-index:999999!important}
+    #fhScheduleModal.open{display:flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
+    #fhScheduleModal .fh-modal-card{width:min(760px,calc(100vw - 32px))!important;max-height:calc(100dvh - 40px)!important;overflow:auto!important;margin:0!important;position:relative!important;transform:none!important}
+    body.fh-calendar-open{overflow:hidden!important}
+    @media(max-width:760px){
+      #fhScheduleModal{align-items:flex-end!important;padding:0!important}
+      #fhScheduleModal .fh-modal-card{width:100%!important;max-height:86dvh!important;margin:0!important;border-radius:18px 18px 0 0!important}
+    }
+
     #fh-booking-page[dir="rtl"]{direction:rtl}
     #fh-booking-page[dir="rtl"] .fh-day,#fh-booking-page[dir="rtl"] .fh-panel,#fh-booking-page[dir="rtl"] .fh-summary-item,#fh-booking-page[dir="rtl"] .fh-modal-card{text-align:right}
     #fh-booking-page[dir="rtl"] input[type="email"],#fh-booking-page[dir="rtl"] input[type="tel"],#fh-booking-page[dir="rtl"] .fh-day-price{direction:ltr;text-align:left;unicode-bidi:plaintext}
@@ -1555,11 +1571,30 @@
       ];
       fields.forEach(function(pair){ var el = $(pair[0]); if (el && pair[1] !== undefined && pair[1] !== null && pair[1] !== "") el.value = pair[1]; });
     }
+    function scheduleModalAncestorBreaksFixed(modal){
+      var el = modal.parentElement;
+      while (el && el !== document.body && el !== document.documentElement){
+        var cs = getComputedStyle(el);
+        if (cs.display === "none") return true;
+        if (cs.transform !== "none" || cs.perspective !== "none" || (cs.filter && cs.filter !== "none")) return true;
+        if (cs.contentVisibility === "auto" || cs.contentVisibility === "hidden") return true;
+        if (/paint|layout|strict|content/.test(cs.contain || "")) return true;
+        el = el.parentElement;
+      }
+      return false;
+    }
+    function relocateScheduleModal(modal){
+      if (modal && modal.parentElement && modal.parentElement !== document.body && scheduleModalAncestorBreaksFixed(modal)){
+        document.body.appendChild(modal);
+      }
+    }
     function openScheduleModal(){
       var modal = $("fhScheduleModal");
       if (!modal) return;
+      relocateScheduleModal(modal);
       modal.classList.add("open");
       modal.setAttribute("aria-hidden","false");
+      document.body.classList.add("fh-calendar-open");
       renderCalendars();
     }
     function closeScheduleModal(){
@@ -1567,6 +1602,7 @@
       if (!modal) return;
       modal.classList.remove("open");
       modal.setAttribute("aria-hidden","true");
+      document.body.classList.remove("fh-calendar-open");
     }
     function bind(){
       var rail = $("fhPhotoRail");
