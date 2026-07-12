@@ -1474,7 +1474,13 @@
   const imagekit=(name)=>"https://ik.imagekit.io/Redberry/"+encodeURIComponent(name);
   const imagekitRaw=(path)=>"https://ik.imagekit.io/Redberry/"+path;
   const exts=["jpg","jpeg","png","webp"];
-  const fallback=["data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="];
+  const fallback=[
+    "https://assets.guesty.com/image/upload/v1769382059/production/686c48ada4bbacd7a82a4f83/jvmndciiso46wxa30fzl.jpg",
+    "https://assets.guesty.com/image/upload/v1769382057/production/686c48ada4bbacd7a82a4f83/nww8q4ksbnfcpgzqdvbo.jpg",
+    "https://assets.guesty.com/image/upload/v1769382038/production/686c48ada4bbacd7a82a4f83/pifyveloe4hifyue8kfn.jpg",
+    "https://assets.guesty.com/image/upload/v1769382068/production/686c48ada4bbacd7a82a4f83/rd6hiidgbdhzr6am9mdx.jpg",
+    "https://assets.guesty.com/image/upload/v1769381543/production/686c48ada4bbacd7a82a4f83/m3tc0oop1nlnyhdgcfeq.jpg"
+  ];
 
   const BLOCKED_GUESTY_IMAGE_IDS = [
     "tck0hivuecpuggtsis1p.jpg",
@@ -1498,15 +1504,10 @@
   ];
 
   const GUESTY_KITCHEN_IMAGES = [
-    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188827/production/686c48ada4bbacd7a82a4f83/by5e62eed9fomtsgwmcv.jpg",
-    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188827/production/686c48ada4bbacd7a82a4f83/ik84e4ah5nii8v6enxqu.jpg",
-    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188827/production/686c48ada4bbacd7a82a4f83/lhvcpue7hssvx7p5vr01.jpg",
-    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188827/production/686c48ada4bbacd7a82a4f83/g1mjadqx0kelu9baqgyk.jpg",
-    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188837/production/686c48ada4bbacd7a82a4f83/wbkjqrvy0snd580tpy4g.jpg",
-    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188837/production/686c48ada4bbacd7a82a4f83/mrrc9wco6gapqrgfjn8s.jpg",
-    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188827/production/686c48ada4bbacd7a82a4f83/l5xqmzmbssdc9hgboxzc.jpg",
-    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188837/production/686c48ada4bbacd7a82a4f83/tnlxetxfx48lou2dpaa1.jpg",
-    "https://assets.guesty.com/image/upload/f_auto,q_auto,w_1400/v1781188837/production/686c48ada4bbacd7a82a4f83/gc4zujui1h3mdh2zrmey.jpg"
+    "https://assets.guesty.com/image/upload/v1781188837/production/686c48ada4bbacd7a82a4f83/tnlxetxfx48lou2dpaa1.jpg",
+    "https://assets.guesty.com/image/upload/v1781188716/production/686c48ada4bbacd7a82a4f83/rlj0n6xxnkxz4drwzmiv.jpg",
+    "https://assets.guesty.com/image/upload/v1781188827/production/686c48ada4bbacd7a82a4f83/ik84e4ah5nii8v6enxqu.jpg",
+    "https://assets.guesty.com/image/upload/v1781188597/production/686c48ada4bbacd7a82a4f83/uyb97nsacpy6ipo49rpy.jpg"
   ];
 
   const CLEAN_GUESTY_HERO_IMAGES = GUESTY_HERO_IMAGES.filter(function(url){ return !shouldSkipGuestyImage(url); });
@@ -1888,14 +1889,9 @@
     el.loading=el.loading||"lazy";
     el.decoding="async";
     el.onerror=function(){
-      const tried=Number(el.dataset.fallbackTried||"0");
-      el.dataset.fallbackTried=String(tried+1);
-      if(tried<Math.min(6,workerRandomUrls.length||0)){
-        const alt=imgAt(workerRandomUrls,tried+Math.floor(Math.random()*Math.max(1,workerRandomUrls.length)));
-        if(alt && el.src!==alt){ el.src=alt; return; }
-      }
-      const blank=fallback[0];
-      if(blank && el.src!==blank) el.src=blank;
+      el.onerror=null;
+      const alt=fallback[Math.floor(Math.random()*fallback.length)];
+      if(alt && el.src!==alt) el.src=alt;
     };
     el.dataset.workerImageApplied="true";
     el.src=url;
@@ -1925,15 +1921,19 @@
     const cta=qs(".fh-cta"); if(cta) cta.style.setProperty("--cta-bg",`url('${imgAt(exterior,0)}')`);
     buildHeroSlides(CLEAN_GUESTY_HERO_IMAGES.length ? CLEAN_GUESTY_HERO_IMAGES : GUESTY_HERO_IMAGES); startHero();
   }
-  function galleryCard(url,small,cap){return `<article class="fh-gallery-card${small?' small':''}"><img src="${url}" alt="Fletschhorn" loading="lazy"><div class="fh-gallery-caption"><small>${cap[0]}</small><strong>${cap[1]}</strong></div></article>`;}
+  function galleryCard(url,small,cap,eager){
+    const fb=fallback[Math.floor(Math.random()*fallback.length)].replace(/'/g,"%27");
+    return `<article class="fh-gallery-card${small?' small':''}"><img src="${url}" alt="Fletschhorn" loading="${eager?'eager':'lazy'}" onerror="this.onerror=null;this.src='${fb}'"><div class="fh-gallery-caption"><small>${cap[0]}</small><strong>${cap[1]}</strong></div></article>`;
+  }
   function buildGallery(railId,images,captions){
     const rail=qs("#"+railId); if(!rail) return;
-    /* propertyGalleryRail must not rotate: buildPropertyGalleryImages() returns
-       a fixed array already aligned index-for-index with its caption list. */
-    const offset={propertyGalleryRail:0,propertyKitchenRail:7,propertyShuttleRail:13,propertySpaRail:19}[railId]||0;
+    /* propertyGalleryRail and propertyKitchenRail must not rotate:
+       buildPropertyGalleryImages() and the fixed KITCHEN set are already
+       aligned index-for-index with their caption lists. */
+    const offset={propertyGalleryRail:0,propertyKitchenRail:0,propertyShuttleRail:13,propertySpaRail:19}[railId]||0;
     let source=(images && images.length>1 ? images : (workerRandomUrls.length?workerRandomUrls:fallback));
     const list=rotateList(source,offset).slice(0,Math.min(18,Math.max(1,source.length)));
-    rail.innerHTML=list.map((url,i)=>galleryCard(url,i%3===1,captions[i%captions.length])).join("");
+    rail.innerHTML=list.map((url,i)=>galleryCard(url,i%3===1,captions[i%captions.length],i<2)).join("");
   }
   function buildDynamic(){
     buildGallery("propertyGalleryRail",buildPropertyGalleryImages(),d("gallery"));
