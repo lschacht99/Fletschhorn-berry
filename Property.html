@@ -1534,7 +1534,12 @@
     const batch=18;let out=[];let i=0;
     return new Promise(resolve=>{function next(){if(i>=names.length){resolve(unique(out));return;}const slice=names.slice(i,i+batch);i+=batch;Promise.all(slice.map(checkImage)).then(r=>{out=out.concat(r.filter(Boolean));next();});}next();});
   }
-  function imgAt(arr,i){const list=arr && arr.length ? arr : fallback;return list[((i%list.length)+list.length)%list.length];}
+  function isValidGuestyUrl(url){return typeof url==="string" && url.length>0 && /^https:\/\/assets\.guesty\.com\//.test(url);}
+  function imgAt(arr,i){
+    const clean=arr && arr.length ? arr.filter(isValidGuestyUrl) : [];
+    const list=clean.length ? clean : fallback;
+    return list[((i%list.length)+list.length)%list.length];
+  }
   function randomFrom(arr,fallbackArr){const list=arr && arr.length ? arr : fallbackArr; return list[Math.floor(Math.random()*list.length)];}
   /*
     Fixed marketing images for the property overview carousel, one per
@@ -1868,7 +1873,7 @@
   }
   function buildHeroSlides(images){
     const media=qs("#propertyHeroMedia"); if(!media) return;
-    const captions=d("hero"); const list=(images && images.length ? images : fallback).slice(0,12);
+    const captions=d("hero"); const clean=(images||[]).filter(isValidGuestyUrl); const list=(clean.length ? clean : fallback).slice(0,12);
     media.classList.remove("is-ready");
     media.innerHTML=list.map((url,i)=>`<div class="fh-hero-slide${i===0?' is-active':''}" style="background-image:url('${url.replace(/'/g,"%27")}')"></div>`).join("");
     requestAnimationFrame(function(){media.classList.add('is-ready');});
@@ -1885,7 +1890,15 @@
   }
   function startHero(){if(heroTimer) clearInterval(heroTimer);heroTimer=setInterval(()=>showHero(heroIndex+1),32000);}
   function setImg(el,url){
-    if(!el||!url)return;
+    if(!el)return;
+    if(!isValidGuestyUrl(url)){
+      /* A missing/empty/invalid URL (delayed Worker callback, empty array,
+         failed fetch) must never blank out an image that is already
+         showing. If nothing has been applied yet, use a real fallback
+         photo instead of leaving the element without a src. */
+      if(el.dataset.workerImageApplied==="true") return;
+      url=fallback[Math.floor(Math.random()*fallback.length)];
+    }
     el.loading=el.loading||"lazy";
     el.decoding="async";
     el.onerror=function(){
@@ -1927,11 +1940,16 @@
   }
   function buildGallery(railId,images,captions){
     const rail=qs("#"+railId); if(!rail) return;
+    /* propertyKitchenRail is always the fixed KITCHEN set: it must never be
+       rebuilt from Worker results, delayed or otherwise. */
+    if(railId==="propertyKitchenRail") images=CLEAN_GUESTY_KITCHEN_IMAGES;
     /* propertyGalleryRail and propertyKitchenRail must not rotate:
        buildPropertyGalleryImages() and the fixed KITCHEN set are already
        aligned index-for-index with their caption lists. */
     const offset={propertyGalleryRail:0,propertyKitchenRail:0,propertyShuttleRail:13,propertySpaRail:19}[railId]||0;
-    let source=(images && images.length>1 ? images : (workerRandomUrls.length?workerRandomUrls:fallback));
+    const clean=(images||[]).filter(isValidGuestyUrl);
+    const workerClean=workerRandomUrls.filter(isValidGuestyUrl);
+    let source=clean.length>1 ? clean : (workerClean.length ? workerClean : fallback);
     const list=rotateList(source,offset).slice(0,Math.min(18,Math.max(1,source.length)));
     rail.innerHTML=list.map((url,i)=>galleryCard(url,i%3===1,captions[i%captions.length],i<2)).join("");
   }
