@@ -1219,6 +1219,42 @@ html.fh-photo-zoom-open{overflow:hidden}
   #fh-property #sleeping-layout .fh-layout-photo-strip img{flex-basis:82vw;width:82vw;min-width:245px;height:170px}
   #fh-property #sleeping-layout .fh-setup-card{flex-basis:82vw}
 }
+
+/* Hebrew / RTL: keep text flow correct without reversing image or date mechanics. */
+#fh-property[dir="rtl"] .fh-layout-head,
+#fh-property[dir="rtl"] .fh-layout-subhead,
+#fh-property[dir="rtl"] .fh-layout-room-card,
+#fh-property[dir="rtl"] .fh-setup-card,
+#fh-property[dir="rtl"] .fh-lodge-summary,
+#fh-property[dir="rtl"] .fh-floor-summary,
+#fh-property[dir="rtl"] .fh-floor-shared,
+#fh-property[dir="rtl"] .fh-concept div,
+#fh-property[dir="rtl"] .fh-why-card,
+#fh-property[dir="rtl"] .fh-room-modal-card,
+#fh-property[dir="rtl"] .fh-review-card{
+  direction:rtl;
+  text-align:right;
+}
+#fh-property[dir="rtl"] .fh-gallery-rail,
+#fh-property[dir="rtl"] .fh-layout-photo-strip{
+  direction:ltr;
+}
+#fh-property[dir="rtl"] .fh-gallery-caption,
+#fh-property[dir="rtl"] .fh-gallery-card .fh-gallery-caption{
+  direction:rtl;
+  text-align:right;
+}
+#fh-property[dir="rtl"] .fh-layout-room-details > div,
+#fh-property[dir="rtl"] .fh-room-modal-card dl > div{
+  direction:rtl;
+}
+#fh-property[dir="rtl"] #fhGuests,
+#fh-property[dir="rtl"] .fh-date-button span,
+#fh-property[dir="rtl"] .fh-day-number,
+#fh-property[dir="rtl"] .fh-day-price{
+  direction:ltr;
+  unicode-bidi:plaintext;
+}
 </style>
 
 
@@ -1663,45 +1699,151 @@ html.fh-photo-zoom-open{overflow:hidden}
     }
   };
   I18N.he = Object.assign({}, I18N.en, {
-    lodgeKicker:"הבית כולו, מתוכנן בפשטות",
-    lodgeTitle:"פריסת הלודג' הפרטי",
-    lodgeLead:"אזור תכנון אחד ונקי לכל הנכס: תקציר הבית, תצוגת תמונות Guesty, פריסת שינה קומה-קומה והרעיונות הטובים ביותר לשיבוץ חדרים לזוגות, משפחות, מארגנים, ילדים, צוות או מובילי ריטריט.",
+    lodgeKicker:"כל הבית, בתכנון פשוט",
+    lodgeTitle:"תכנית הלודג׳ הפרטי",
+    lodgeLead:"אזור תכנון ברור לכל הנכס: תקציר הבית, תצוגת תמונות Guesty, חלוקת לינה לפי קומות ורעיונות לשיבוץ חדרים לזוגות, משפחות, מארגנים, ילדים, צוות או מובילי ריטריט.",
     lodgePhotoNote:"תצוגת תמונות הנכס · החליקו לעיון · הקישו להגדלה",
-    lodgeSleepKicker:"פריסת שינה",
+    lodgeSleepKicker:"חלוקת לינה",
     lodgeSleepTitle:"בחרו קומה ופתחו את החדרים שהקבוצה שלכם צריכה.",
-    lodgeSleepLead:"החדרים מוצגים כדי לעזור למארגן הקבוצה לשבץ זוגות, משפחות, ילדים, מובילי ריטריט או צוות לפני ההגעה. הם חלק מהשכרת הנכס כולו ואינם מוזמנים בנפרד.",
-    lodgeSwipeHint:"החליקו לראות את כל החדרים ←",
-    lodgeSetupKicker:"השיבוצים הטובים ביותר לקבוצה שלכם",
+    lodgeSleepLead:"החדרים מוצגים כדי לעזור למארגני הקבוצה לשבץ זוגות, משפחות, ילדים, מובילי ריטריט או צוות לפני ההגעה. הם חלק מהשכרת הנכס כולו ואינם מוזמנים בנפרד.",
+    lodgeSwipeHint:"החליקו כדי לראות את כל החדרים ←",
+    lodgeSetupKicker:"שיבוצי חדרים מומלצים לקבוצה שלכם",
     lodgeSetupTitle:"נקודות פתיחה מהירות לפני שיבוץ כל חדר.",
-    lodgeSetupLead:"השתמשו ברעיונות האלה כקיצור דרך מעשי, ואז הקישו על כרטיס חדר למעלה לפריסה המפורטת.",
+    lodgeSetupLead:"השתמשו ברעיונות האלה כקיצור דרך מעשי, ואז הקישו על כרטיס חדר למעלה כדי לראות את הפריסה המפורטת.",
     lodgeSetupCta:"בקשו מאיתנו עזרה בשיבוץ",
     lodgeCheckDates:"בדיקת תאריכים",
-    lodgeViewLayout:"צפייה בפריסת השינה",
-    lodgeContact:"צרו קשר עם Fletschhorn",
-    heroEyebrow:"הנכס · חדרים · שירותים · מטבח",
-    heroTitle:"כל השאלה, באופן פרטי לקבוצה שלכם.",
-    heroLead:"Fletschhorn פועל כבית אלפיני פרטי לקבוצות, עם חדרים וסוויטות, מרחבי התכנסות, טרסות, מטבח מקצועי פרטי וסאונה לפי בקשה.",
+    lodgeViewLayout:"צפייה בחלוקת הלינה",
+    lodgeContact:"יצירת קשר עם Fletschhorn",
+    heroEyebrow:"הנכס · חדרים · מתקנים · מטבח",
+    heroTitle:"כל בית ההרים, כולו לרשות הקבוצה שלכם.",
+    heroLead:"Fletschhorn משלב את הפרטיות של בקתה שווייצרית עם המרחב של בית אירוח אלפיני. מקום לינה לעד 48 אורחים, חדרים וסוויטות מול ההרים, אזורי התכנסות משותפים, טרסות, סאונה בתיאום מראש ומטבח מקצועי פרטי יוצרים שהייה פרטית שלמה לקבוצה אחת.",
     proof1b:"עד 48 אורחים",
+    proof1s:"בית אלפיני פרטי למשפחות, ריטריטים, חתונות, חברות ושהיות קבוצתיות ארוכות יותר.",
     proof2b:"מטבח פרטי",
-    proof3b:"סאונה לפי בקשה",
+    proof2s:"אפשר לתכנן בישול עצמי, שף פרטי, קייטרינג, ארוחת בוקר וקופסאות אוכל בהתאם לשהייה.",
+    proof3b:"סאונה בתיאום מראש",
+    proof3s:"רגע שקט בהרים אחרי סקי, טיול, פגישות, חגיגות או יום נסיעה.",
     peek:"גלו את הנכס",
+    overviewK:"הנכס",
+    overviewH:"בית אלפיני פרטי מעל סאס-פה.",
+    overviewP:"הבקתה נמצאת מעל הכפר, בסביבה שקטה של יער, עם נוף להרים, לעמק ולטבע שמסביב. בפנים, הבית מתוכנן גם להתכנסות וגם לפרטיות: חדרים וסוויטות ללינה, חללים משותפים לזמן יחד, טרסות לאוויר צח ולנוף ואזורים שימושיים לשהיות קבוצתיות ארוכות יותר.",
+    logicK:"שהייה בכל הבקתה",
+    logicH:"כתובת פרטית אחת ללינה, להתכנסות, לבישול, למנוחה ולחזרה מההר.",
+    logicP:"Fletschhorn אינו מוצג כאן כמלון רגיל, אלא כבית אלפיני פרטי לקבוצה אחת בכל פעם, עם המרחב, הנוחות והגמישות הנדרשים למשפחות, ריטריטים, חתונות, חברות וחגיגות.",
+    feat1b:"שימוש בלעדי",
+    feat1p:"הקבוצה שלכם יכולה להתמקם בבית בפרטיות, ללא התחושה של מלון משותף.",
+    feat2b:"יחד ועם פרטיות",
+    feat2p:"החללים המשותפים מקרבים בין האורחים, בעוד שהחדרים והסוויטות מעניקים לכל אחד מקום פרטי למנוחה.",
+    feat3b:"סביבה הררית",
+    feat3p:"הבית נמצא באזור יער שקט מעל סאס-פה, עם אפשרות לתיאום שאטל וגישה לכפר.",
+    capPhoto1b:"עולם אלפיני פרטי",
+    capPhoto1s:"הנכס כולו, מוקף יער ואוויר הרים.",
+    capPhoto2b:"הגעה דרך היער",
+    capPhoto2s:"שקט, רגוע ומבודד.",
+    capPhoto3b:"מרחבים להתחדשות",
+    capPhoto3s:"קצב רגוע יותר אחרי זמן בחוץ.",
+    cap1b:"לינה לעד 48 אורחים",
+    cap1s:"הקיבולת מוצגת בצורה ברורה ומבוקרת לשהיות קבוצתיות פרטיות.",
+    cap2b:"שישה סוגי חדרים",
+    cap2s:"סוויטות וחדרים למשפחות, זוגות, מובילי קבוצות ואורחים יחידים.",
+    cap3b:"נוף ממרפסת או מטרסה",
+    cap3s:"כל קטגוריית חדר כוללת גישה חיצונית עם נוף להרים, לעמק או ליער.",
+    cap4b:"הגעה בתיאום מראש",
+    cap4s:"יש לתאם את ההגעה מראש; ניתן לבצע צ׳ק-אין עד השעה 21:00.",
+    visualK:"האווירה בנכס",
+    visualH:"ראו את הבית, החדרים, הנופים והסביבה האלפינית לפני הפנייה.",
+    visualP:"התמונות הגדולות עוזרות להבין את החוויה: ההגעה מבחוץ, החללים הפרטיים, החדרים מול ההרים, אווירת הרוגע והאזורים שבהם הקבוצה יכולה לבלות יחד.",
+    galleryPrev:"הקודם",
+    galleryNext:"הבא",
+    insideTile1:"חלל פרטי",
+    insideTile2:"אווירת החדר",
+    insideTile3:"חללים משותפים",
+    insideTile4:"פרטי הסוויטה",
+    saunaImageK:"פרטי הסאונה",
+    saunaImageP:"תמונות הסאונה הפרטית מוצגות כאן כדי להמחיש את החלל.",
+    tile1:"חוץ וסביבה",
+    tile2:"אווירת הרים",
+    tile3:"הקצב בתוך הבית",
+    tile4:"פרטים מהבית הפרטי",
+    tile5:"אפשרויות לשהייה קבוצתית",
+    roomsK:"חדרים וסוויטות",
+    roomsH:"חדרים וסוויטות לצרכים שונים של הקבוצה.",
+    roomsP:"Fletschhorn מציע חדרים וסוויטות המתאימים למשפחות, זוגות, ילדים, מובילי קבוצות וחברים הנוסעים יחד. הסוויטות הגדולות מתאימות למשפחות או למארגנים, וחדרים זוגיים מעניקים לזוגות או לאורחים יחידים מקום פרטי להיטען מחדש.",
+    roomNoteH:"חדרים עם נוף כחלק משהייה פרטית בבית כולו.",
+    roomNoteP:"כל סוג חדר כולל מרפסת או טרסה עם נוף להרים. שיבוץ החדרים המדויק, התפוסה, המחירים והזמינות בזמן אמת מטופלים בתהליך ההזמנה.",
+    amenitiesK:"סאונה פרטית ומתקנים",
+    amenitiesH:"כל מה שהקבוצה שלכם צריכה לשהייה אלפינית נוחה.",
+    amenitiesP:"Fletschhorn מתאים לשהיות קבוצתיות פרטיות וארוכות יותר: מקומות לינה, חללים משותפים, טרסות, גישה למטבח, סאונה בתיאום מראש, נופי הרים ופעילויות בסאס-פה.",
+    wellnessK:"סאונה פרטית",
+    wellnessP:"אפשר לתאם שימוש בסאונה לרגע רגוע אחרי סקי, טיול, פגישות או חגיגות.",
+    amenPanelK:"נוחות ופרטים שימושיים",
+    amenPanelH:"שימושי, רגוע ומחובר להרים.",
+    amenPanelP:"הנכס תומך בשימוש אמיתי בבית: לישון היטב, להתכנס בקלות, להתאושש אחרי ההר ולנוע לאורך השהייה בנוחות.",
+    saunaB:"סאונה פרטית בתיאום מראש",
+    saunaP:"רגע שקט אחרי ימי הרים, נסיעות, פגישות או חגיגות. הפרטים עשויים להשתנות בהתאם לשהייה ויש לאשר אותם במהלך ההזמנה.",
+    kitchenB:"מטבח מקצועי פרטי",
+    kitchenP:"מטבח מקצועי תומך בקונספט של בית פרטי, עם אפשרויות לבישול עצמי, שף או קייטרינג בתיאום ישיר.",
+    winterB:"פעילויות חורף",
+    winterP:"סקי, סנובורד, מזחלות לילה, ארמון הקרח, Foxtrail וחוויות בגובה רב מתאימים לשהיות קבוצתיות.",
+    summerB:"פעילויות קיץ",
+    summerP:"מרמיטות ב-Spielboden, Feeblitz, מסלולי הליכה, פארק חבלים, קורקינטים וגישה לקרחון יוצרים חוויית קיץ מלאה.",
+    shuttle1:"גישה לכפר",
+    shuttle1s:"הבית נמצא מעל הכפר; אפשר ללכת מהמרכז בכ-20 דקות או לתאם שירות שאטל.",
+    shuttle2:"שאטל בתיאום מראש",
+    shuttle2s:"אפשר לתאם שאטל החל מ-11:00 ושוב בין 15:00 ל-18:00, בהתאם לשהייה.",
+    shuttle3:"הסעות ערב",
+    shuttle3s:"הסעות בערב עשויות לדרוש מונית מלון ואינן כלולות אלא אם תואמו בנפרד.",
+    shuttle4:"נוחות בחדר",
+    shuttle4s:"תה וקפה, מיני-בר, כספת, בידוד רעש, חימום, שולחן עבודה, טלוויזיה, חלוק, נעלי בית ומוצרי רחצה.",
+    spacesK:"חללים משותפים",
+    spacesH:"להתכנס, לעבוד, לנוח ולחגוג.",
+    spacesP:"החללים המשותפים הם שהופכים את הבקתה למתאימה לשהייה בבית כולו. קבוצות יכולות להתכנס לארוחות, שיחות, מפגשי תכנון, משחקים, בקרים שקטים או ערבים יחד. האווירה היא של בית אלפיני פרטי ולא של לובי במלון.",
+    kitchenK:"אוכל ומטבח",
+    kitchenH:"קונספט המטבח הפרטי",
+    kitchenLead:"המטבח המקצועי הוא אחד המאפיינים המרכזיים של הקונספט החדש של Fletschhorn. במקום מסעדה ציבורית, המטבח הוא חלק מחוויית הבקתה הפרטית.",
+    mealK:"תכנון ארוחות גמיש",
+    mealH:"מטבח שימושי לשהיית הקבוצה שלכם.",
+    kitchenP2:"הקבוצה יכולה לעצב את הארוחות לפי קצב השהייה: להשתמש במטבח בעצמה, להביא שף פרטי, לתאם קייטרינג, לתכנן מזנונים, לבקש ארוחת בוקר או להכין קופסאות אוכל לפני יום סקי, טיול או סיור.",
+    selfB:"בישול עצמי",
+    selfP:"השתמשו במטבח כחלק מהבית האלפיני הפרטי ותכננו את הארוחות לפי הקצב של הקבוצה.",
+    chefB:"שף פרטי",
+    chefP:"אפשר להביא או לתאם שף לארוחה קבוצתית מוקפדת יותר. העלויות והזמינות מאושרות בנפרד.",
+    caterB:"שותפי קייטרינג",
+    caterP:"אפשר לתכנן מראש ארוחות קייטרינג, מזנונים או פורמטים לאירועים.",
+    breakfastB:"ארוחת בוקר וקופסאות אוכל",
+    breakfastP:"אפשר לתאם מראש ארוחת בוקר פשוטה או קופסאות אוכל, בהתאם לשהייה.",
+    culinaryK:"מורשת קולינרית",
+    culinaryP:"ל-Fletschhorn היסטוריה קולינרית ותרבות יין עשירה, שמקבלת כעת פרשנות פרטית וגמישה יותר לקבוצות.",
+    kitchenGalleryK:"אווירת המטבח",
+    kitchenGalleryH:"תכנון אוכל עם תמונות אמיתיות מהמטבח.",
+    kitchenGalleryP:"החלק הזה משתמש בתמונות המטבח המאושרות כדי להציג את סיפור המטבח, קרוסלת האוכל והקצב החזותי של העמוד.",
+    regionK:"אזור סאס-פה",
+    regionH:"סאס-פה הופכת את הבית הפרטי לבסיס אלפיני בכל עונות השנה.",
+    regionP:"האזור שמסביב נותן לכל קבוצה סיבה להגיע: שלג, גישה לקרחון, טיולי קיץ, פעילויות למשפחות, רוגע ותנועה נוחה בעמק.",
+    conceptK:"הקונספט",
+    conceptH:"בקתה שווייצרית פרטית עם הנוחות של בית אלפיני בוטיקי.",
+    conceptP:"כל חלק בחוויה חוזר לאותו רעיון: פרטיות, זמן יחד, נופי הרים, נוחות שימושית ומקום שמרגיש כולו שלכם לאורך השהייה.",
     petNoteB:"חיות מחמד בתיאום מראש",
-    petNoteP:"אנא צרו קשר ישיר לפני ההזמנה לאישור התאמה לחיית המחמד שלכם.",
-    regionExperiencesLink:"גלו את כל החוויות בסאאס-פה →",
-    whyDirectKicker:"הזמינו ישירות",
+    petNoteP:"אנא צרו איתנו קשר ישירות לפני ההזמנה כדי לאשר שהשהייה מתאימה לחיית המחמד שלכם.",
+    regionExperiencesLink:"גלו את כל החוויות בסאס-פה ←",
+    reviewsK:"דירוגי אורחים",
+    reviewsH:"דירוגי אורחים במבט מהיר.",
+    reviewsP:"תקצירי ביקורות עצמאיות מהפלטפורמות שאורחים כבר סומכים עליהן, בלי לעזוב את העמוד.",
+    whyDirectKicker:"למה להזמין ישירות",
     whyDirectTitle:"מחירים טובים יותר. ללא עמלות פלטפורמה.",
-    whyDirectLead:"הזמנה ישירה מ-Fletschhorn מבטיחה את התעריף הטוב ביותר וקשר ישיר עם צוות הנכס.",
+    whyDirectLead:"הזמנה ישירה מ-Fletschhorn מעניקה לכם את המחיר הזמין הטוב ביותר וקשר ישיר עם צוות הנכס.",
     whyDirect1H:"עד 22% פחות",
-    whyDirect1P:"הזמנות ישירות יכולות להיות זולות עד 22% מפלטפורמות הזמנה רגילות, ללא עמלות שירות של פלטפורמה.",
+    whyDirect1P:"הזמנה ישירה יכולה להיות זולה בעד 22% מפלטפורמות הזמנה רגילות, ללא עמלות שירות נוספות.",
     whyDirect2H:"ללא עמלות שירות",
-    whyDirect2P:"פלטפורמות מוסיפות 12–18% עמלות שירות. הזמנה ישירה מבטיחה שכל פרנק הולך לשהייה שלכם.",
+    whyDirect2P:"פלטפורמות מוסיפות 12%–18% עמלות שירות למחיר הנכס. בהזמנה ישירה כל פרנק מיועד לשהייה שלכם.",
     whyDirect3H:"קשר ישיר",
-    whyDirect3P:"שוחחו ישירות עם צוות הנכס על הגעה, קייטרינג, סאונה, צרכי הקבוצה וכל מה שהשהייה שלכם דורשת.",
+    whyDirect3P:"דברו ישירות עם צוות הנכס על הגעה, קייטרינג, סאונה, צורכי הקבוצה וכל מה שנדרש לשהייה.",
     whyDirect4H:"גמישות רבה יותר",
-    whyDirect4P:"שאטל, קונספט המטבח, עיתוי הסאונה וסידורי הקבוצה מטופלים ישירות — לא דרך תיבת הדואר של פלטפורמה.",
+    whyDirect4P:"שאטל, המטבח, זמני הסאונה וסידורי הקבוצה מטופלים ישירות ולא דרך תיבת הודעות של פלטפורמה.",
     ctaK:"השלב הבא",
-    ctaH:"בדקו איך הנכס יכול להתאים לקבוצה שלכם.",
-    ctaP:"שלחו גודל קבוצה, תאריכים מועדפים וסוג שהייה, ונעזור להבין חדרים, מטבח, שירותים ואפשרויות הזמנה."
+    ctaH:"התחילו את ההזמנה כאן.",
+    ctaP:"בחרו את מספר האורחים ואת התאריכים. בעמוד ההזמנה תוכלו לבדוק זמינות ומחיר ולהמשיך בבקשה.",
+    cta:"בדיקת זמינות"
   });
 
   const dynamic={
@@ -1757,8 +1899,24 @@ html.fh-photo-zoom-open{overflow:hidden}
     concepts:[["Частно","Весь дом как опыт.","Группа может представить пребывание ещё до чтения всех деталей."],["Естественно","Тёплый, альпийский и настоящий.","Спокойная швейцарская горная территория с глубиной."],["Практично","Сделано, чтобы группы увидели свой ритм.","Номера, кухня, wellness и регион работают вместе."]],
     kitchenCards_unused:[["Кухня","Фотографии кухни рассказывают практичную историю.","На странице теперь есть отдельный визуальный ритм для кухни вместо пустого или общего блока."],["Встречи","Еда становится частью ощущения частного дома.","Питание может быть самостоятельным, с шефом, с кейтерингом или просто выстроенным вокруг расписания группы."]]
   };
-  dynamic.he = JSON.parse(JSON.stringify(dynamic.en));
-  dynamic.he.hero = ["הנכס כבית אלפיני פרטי","חדרים, סוויטות ונופים לעד 48 אורחים","רגעי רוגע אחרי ההר","מטבח מקצועי לארוחות קבוצתיות גמישות"];
+  dynamic.he = {
+    hero:["הנכס כבית אלפיני פרטי","חדרים, סוויטות ונופים לעד 48 אורחים","רגעי רוגע אחרי ההר","מטבח מקצועי לארוחות קבוצתיות גמישות"],
+    gallery:[["הגעה","הבית בסביבה האלפינית שלו"],["חוץ","כתובת פרטית מעל סאס-פה"],["חדרים","חללי לינה מול ההרים"],["התכנסות","חללים משותפים לקצב של הקבוצה"],["רוגע","מנוחה שקטה אחרי ההר"],["נופים","יער, עמק ואוויר אלפיני"],["פרטים","חומרים חמים ותחושה של בית פרטי"],["שהייה","חוויה של הנכס כולו"]],
+    shuttle:[["הגעה","תנועה מתואמת אל הבית"],["שאטל","סיוע שימושי למזוודות ולתזמון"],["גישה לכפר","חיבור נוח לסאס-פה"],["תנועה בערב","הסעות מתוכננות בנפרד לפי הצורך"]],
+    kitchen:[["מטבח פרטי","בסיס מקצועי לארוחות קבוצתיות"],["הכנה","תכנון אוכל גמיש בהתאם לשהייה"],["שימוש","גישה למטבח בשהיות פרטיות"],["אפשרויות שירות","שף או קייטרינג בתיאום מראש"]],
+    suites:[
+      ["עד 6 · 120 מ״ר","דירת פנטהאוז פנורמית עם שני חדרי שינה",["2 חדרי שינה","מטבח פרטי","2 מרפסות"],"אפשרות מרווחת בקומה העליונה למשפחות, לשהיות ארוכות או למובילי קבוצות, עם אזורי מגורים ואוכל, מטבח ומרפסות מול ההרים, העמק והיער."],
+      ["עד 4 · 65 מ״ר","סוויטת Miralux Retreat",["חלונות פנורמיים","כניסה פרטית","חדר רחצה נגיש"],"סוויטה פרטית מרווחת עם חלונות פנורמיים, מרפסת, ריהוט עץ טבעי, חדר רחצה נגיש, כניסה פרטית ואווירה רגועה."],
+      ["עד 6 · 65 מ״ר","סוויטה משפחתית פנורמית דו-מפלסית",["פריסה משפחתית","גלריית עץ","טרסה"],"סוויטה גמישה למשפחה או לקבוצה עם מיטה זוגית, ספות נפתחות, גלריית עץ, פינת קריאה, טרסה ונוף ליער ולהרים."],
+      ["עד 4 · 35 מ״ר","סוויטת ג׳וניור Panorama Comfort",["חדר ארונות","פינת ישיבה","אמבטיה פינתית"],"סוויטה נוחה לזוגות או למשפחות קטנות, עם מיטה זוגית, ספה נפתחת, פינת ישיבה, חדר ארונות, אמבטיה פינתית ומרפסת או טרסה."],
+      ["עד 3 · 35 מ״ר","חדר זוגי Panorama Comfort",["משופץ","מואר","מרפסת או טרסה"],"חדר קלאסי עם נוף להרים, מיטה זוגית, פינת ישיבה, חדר רחצה פתוח, אמבטיה פינתית, חדר ארונות ומרפסת או טרסה."],
+      ["עד 2 · 25 מ״ר","חדר זוגי Panorama",["משופץ","טרסה פרטית","נוף להרים"],"חדר זוגי פרטי ופשוט יותר עם מיטה זוגית, טרסה פרטית ונוף לעמק וליער."]
+    ],
+    roomCards:[["חדרים","קצב לינה פרטי"],["התכנסות","חללים משותפים"],["פרטים","חומרים אלפיניים חמים"],["נופים","רגעים מול ההרים"]],
+    regionCards:[["חורף","סקי, שלג ואוויר קרחוני.","150 ק״מ של מסלולים, שלג אמין בגובה, מזחלות לילה, ארמון הקרח, Foxtrail וחוויות חורף המתאימות לקבוצות."],["קיץ","תנועה בגובה.","סקי קיץ, Metro Alpin, פארק חבלים, מרמיטות ב-Spielboden, מסלולי הרפתקה, אגמים וקורקינטים מרחיבים את החוויה מעבר לחורף."],["משפחות וקבוצות","קל לדמיין את כולם יחד.","הכפר ללא מכוניות, התחבורה עם SaastalCard והפעילויות המאורגנות עוזרים לקבוצות גדולות לנוע יחד."],["ימים רגועים","רוגע, זמן בכפר ובקרים איטיים.","לא כל יום צריך להיות עמוס. הבית מתאים גם לשקט, לנופים, לזמן בטרסה, לסאונה בתיאום מראש ולקצב אלפיני רגוע."]],
+    concepts:[["פרטי","הבית כולו הוא החוויה.","הקבוצה יכולה לדמיין את השהייה עוד לפני קריאת כל הפרטים."],["אמיתי","חם, אלפיני ומחובר למקום.","נכס הררי שווייצרי רגוע עם עומק ואופי."],["שימושי","מתוכנן כדי שקבוצות ידמיינו את הקצב שלהן.","החדרים, המטבח, הרוגע והאזור עובדים יחד."]],
+    kitchenCards_unused:[["בישול","תמונות המטבח מספרות את הסיפור המעשי.","לעמוד יש קצב חזותי ייעודי למטבח במקום חלק ריק או כללי."],["יחד","האוכל הופך לחלק מתחושת הבית הפרטי.","הארוחות יכולות להיות בבישול עצמי, עם שף, עם קייטרינג או פשוט בהתאם ללוח הזמנים של הקבוצה."]]
+  };
 
   function t(key){var v=(I18N[lang] && I18N[lang][key]) || I18N.en[key]; if(v==null){console.warn("[i18n] missing key:",key,"lang:",lang); return "";} return v;}
   function d(group){return (dynamic[lang] && dynamic[lang][group]) || dynamic.en[group] || [];}
@@ -1823,17 +1981,36 @@ html.fh-photo-zoom-open{overflow:hidden}
     const cons=d("concepts"); const conceptImgs=PROPERTY_CONCEPT_IMAGES; qs("#conceptCards").innerHTML=cons.map((c,i)=>{const fb=fallback[Math.floor(Math.random()*fallback.length)].replace(/'/g,"%27");return `<article class="fh-concept ${i?'':''}"><img src="${imgAt(conceptImgs,i)}" alt="Fletschhorn" loading="lazy" onerror="this.onerror=null;this.src='${fb}'"><div><small>${c[0]}</small><strong>${c[1]}</strong><p>${c[2]}</p></div></article>`;}).join("");
 
   }
-  function setLanguage(next){
-    next=String(next||"en").toLowerCase();
-    if(next.indexOf("iw")===0) next="he";
-    next=next.slice(0,2);
-    lang=I18N[next]?next:"en";
-    try{localStorage.setItem("fh_lang",lang);localStorage.setItem("fh_language",lang);localStorage.setItem("fhLang",lang);}catch(e){}
-    root.setAttribute("dir",lang==="he"?"rtl":"ltr");
-    document.documentElement.setAttribute("dir",lang==="he"?"rtl":"ltr");
-    applyStaticTranslations(); buildDynamic(); buildHeroSlides(CLEAN_GUESTY_HERO_IMAGES.length ? CLEAN_GUESTY_HERO_IMAGES : GUESTY_HERO_IMAGES); startHero(); if(window.FHApplyContactLabels) window.FHApplyContactLabels(); if(window.FHRenderPropertyLayout) window.FHRenderPropertyLayout();
+  function normalizeLanguage(value){
+    value=String(value||"").trim().toLowerCase().replace(/_/g,"-");
+    if(value.indexOf("iw")===0 || value.indexOf("he")===0 || value==="עברית") return "he";
+    value=value.slice(0,2);
+    return I18N[value]?value:"en";
   }
-  window.FHSetLanguage=function(next){ setLanguage(next); };
+  function setLanguage(next){
+    lang=normalizeLanguage(next||"en");
+    try{
+      localStorage.setItem("fh_lang",lang);
+      localStorage.setItem("fh_language",lang);
+      localStorage.setItem("fhLang",lang);
+    }catch(e){}
+    var direction=lang==="he"?"rtl":"ltr";
+    root.setAttribute("lang",lang);
+    root.setAttribute("dir",direction);
+    root.setAttribute("data-current-lang",lang);
+    document.documentElement.setAttribute("lang",lang);
+    document.documentElement.setAttribute("dir",direction);
+    if(document.body) document.body.classList.toggle("fh-hebrew-active",lang==="he");
+    applyStaticTranslations();
+    buildDynamic();
+    buildHeroSlides(CLEAN_GUESTY_HERO_IMAGES.length ? CLEAN_GUESTY_HERO_IMAGES : GUESTY_HERO_IMAGES);
+    startHero();
+    if(window.FHApplyContactLabels) window.FHApplyContactLabels();
+    if(window.FHRenderPropertyLayout) window.FHRenderPropertyLayout();
+    if(window.FHApplyBookingToolbarLanguage) window.FHApplyBookingToolbarLanguage();
+  }
+  window.FHSetLanguage=setLanguage;
+  window.setFletschhornLanguage=setLanguage;
   function bindGalleryButtons(){
     root.addEventListener("click",e=>{
       const prev=e.target.closest("[data-gallery-prev]"); const next=e.target.closest("[data-gallery-next]");
@@ -1842,13 +2019,32 @@ html.fh-photo-zoom-open{overflow:hidden}
     });
   }
   qsa(".fh-lang-switch button").forEach(btn=>btn.addEventListener("click",()=>setLanguage(btn.dataset.lang)));
-  document.addEventListener("click",e=>{const btn=e.target.closest("[data-fh-lang], [data-lang], [data-language]"); if(!btn||root.contains(btn))return; const l=(btn.getAttribute("data-fh-lang")||btn.getAttribute("data-lang")||btn.getAttribute("data-language")||"").slice(0,2).toLowerCase(); if(I18N[l]) setLanguage(l);});
-  window.addEventListener("fh:languagechange",e=>{const l=String((e.detail&&e.detail.lang)||"").slice(0,2).toLowerCase(); if(I18N[l]) setLanguage(l);});
-  document.addEventListener("fh:language-change",e=>{const l=String((e.detail&&(e.detail.lang||e.detail.language))||"").slice(0,2).toLowerCase(); if(I18N[l]) setLanguage(l);});
+  document.addEventListener("click",function(event){
+    var btn=event.target.closest&&event.target.closest("[data-fh-lang],[data-lang],[data-language],[data-locale]");
+    if(!btn || root.contains(btn)) return;
+    var selected=btn.getAttribute("data-fh-lang")||btn.getAttribute("data-lang")||btn.getAttribute("data-language")||btn.getAttribute("data-locale")||"";
+    if(selected) setLanguage(selected);
+  });
+  function languageFromEvent(event){
+    var detail=(event&&event.detail)||{};
+    return detail.lang||detail.language||detail.locale||detail.code||"";
+  }
+  ["fh-language-change","fh:language","fh:languagechange","fh:language-change","fletschhorn:language","fletschhorn:languageChanged"].forEach(function(name){
+    document.addEventListener(name,function(event){var selected=languageFromEvent(event);if(selected)setLanguage(selected);});
+    window.addEventListener(name,function(event){var selected=languageFromEvent(event);if(selected)setLanguage(selected);});
+  });
+  window.addEventListener("storage",function(event){
+    if(event.key==="fh_lang"||event.key==="fh_language"||event.key==="fhLang") setLanguage(event.newValue||"en");
+  });
   bindGalleryButtons();
-  const startLang=(localStorage.getItem("fh_lang")||document.documentElement.getAttribute("lang")||"en").slice(0,2).toLowerCase();
-  lang=I18N[startLang]?startLang:"en";
-  applyStaticTranslations(); applyImages(); buildDynamic();
+  var startLang="en";
+  try{
+    var requested=new URLSearchParams(window.location.search).get("lang");
+    startLang=requested||localStorage.getItem("fh_lang")||localStorage.getItem("fh_language")||localStorage.getItem("fhLang")||document.documentElement.getAttribute("lang")||"en";
+  }catch(e){startLang=document.documentElement.getAttribute("lang")||"en";}
+  lang=normalizeLanguage(startLang);
+  setLanguage(lang);
+  applyImages();
 })();
 </script>
 
@@ -2436,12 +2632,15 @@ html.fh-photo-zoom-open{overflow:hidden}
 
     // Re-localise on language change (page owns the switch; we just react).
     function relocalise() { setTimeout(applyToolbarLanguage, 0); setTimeout(applyToolbarLanguage, 80); }
+    window.FHApplyBookingToolbarLanguage=applyToolbarLanguage;
     document.addEventListener("click", function (e) {
-      var btn = e.target.closest && e.target.closest("[data-lang],[data-fh-lang],[data-language]");
+      var btn = e.target.closest && e.target.closest("[data-lang],[data-fh-lang],[data-language],[data-locale]");
       if (btn) relocalise();
     });
-    window.addEventListener("storage", function (e) { if (e.key === "fh_lang") relocalise(); });
-    ["fh:languagechange", "fh:language-change"].forEach(function (evt) {
+    window.addEventListener("storage", function (e) {
+      if (e.key === "fh_lang" || e.key === "fh_language" || e.key === "fhLang") relocalise();
+    });
+    ["fh-language-change","fh:language","fh:languagechange","fh:language-change","fletschhorn:language","fletschhorn:languageChanged"].forEach(function (evt) {
       document.addEventListener(evt, relocalise);
       window.addEventListener(evt, relocalise);
     });
@@ -2484,19 +2683,38 @@ html.fh-photo-zoom-open{overflow:hidden}
   DATA.rooms.forEach(function(room){state.byId[room.id]=room;});
 
   var UI={
-    en:{exclusive:"Exclusive",exclusiveText:"Full-house private rental",guestsMax:"Guests max capacity",floors:"Main floors",dining:"Dining seats",bestFor:"Best for",viewLayout:"View layout",room:"Room",max:"Max capacity",beds:"Beds",size:"Size",bathroom:"Bathroom",features:"Features",notes:"Notes",confirm:"To confirm"},
+    en:{exclusive:"Exclusive",exclusiveText:"Full-house private rental",guestsMax:"Guests max capacity",floors:"Main floors",dining:"Dining seats",bestFor:"Best for",viewLayout:"View layout",room:"Room",max:"Max capacity",beds:"Beds",size:"Size",bathroom:"Bathroom",features:"Features",notes:"Notes",confirm:"To confirm",connected:"Connected rooms",suite:"Private suite",apartment:"Apartment setup",guests:"guests",sleepingSplit:"Sleeping split",close:"Close"},
     fr:{exclusive:"Exclusif",exclusiveText:"Location privée de toute la maison",guestsMax:"Capacité maximale",floors:"Étages principaux",dining:"Places au repas",bestFor:"Idéal pour",viewLayout:"Voir le plan",room:"Chambre",max:"Capacité",beds:"Lits",size:"Surface",bathroom:"Salle de bain",features:"Équipements",notes:"Notes",confirm:"À confirmer"},
     de:{exclusive:"Exklusiv",exclusiveText:"Private Miete des ganzen Hauses",guestsMax:"Maximale Gästezahl",floors:"Hauptetagen",dining:"Essplätze",bestFor:"Ideal für",viewLayout:"Grundriss ansehen",room:"Zimmer",max:"Maximale Belegung",beds:"Betten",size:"Größe",bathroom:"Badezimmer",features:"Ausstattung",notes:"Hinweise",confirm:"Zu bestätigen"},
     ru:{exclusive:"Эксклюзив",exclusiveText:"Частная аренда всего дома",guestsMax:"Максимум гостей",floors:"Основные этажи",dining:"Места за столом",bestFor:"Лучше всего для",viewLayout:"Показать планировку",room:"Комната",max:"Максимум гостей",beds:"Кровати",size:"Площадь",bathroom:"Ванная",features:"Особенности",notes:"Примечания",confirm:"Подтвердить"},
-    he:{exclusive:"בלעדי",exclusiveText:"השכרה פרטית של הבית כולו",guestsMax:"קיבולת אורחים",floors:"קומות עיקריות",dining:"מקומות אוכל",bestFor:"מתאים במיוחד",viewLayout:"הצגת פריסה",room:"חדר",max:"קיבולת מרבית",beds:"מיטות",size:"גודל",bathroom:"חדר רחצה",features:"מאפיינים",notes:"הערות",confirm:"לאישור"}
+    he:{exclusive:"בלעדי",exclusiveText:"השכרה פרטית של הבית כולו",guestsMax:"קיבולת אורחים",floors:"קומות עיקריות",dining:"מקומות אוכל",bestFor:"מתאים במיוחד",viewLayout:"הצגת פריסה",room:"חדר",max:"קיבולת מרבית",beds:"מיטות",size:"גודל",bathroom:"חדר רחצה",features:"מאפיינים",notes:"הערות",confirm:"לאישור",connected:"חדרים מחוברים",suite:"סוויטה פרטית",apartment:"פריסת דירה",guests:"אורחים",sleepingSplit:"חלוקת לינה",close:"סגירה"}
   };
 
+  var HE_TEXT={
+    "Indicative maximum. Final capacity should be confirmed with the property (see needsVerification on Room 20).":"הקיבולת המרבית משוערת. יש לאשר את הקיבולת הסופית ישירות עם הנכס.",
+    "Ground Floor":"קומת קרקע","First Floor":"קומה ראשונה","Second Floor":"קומה שנייה",
+    "Restaurant, bar, kitchen, rooms 27–29, and the direct-access Miralux Suite.":"מסעדה, בר, מטבח, חדרים 27–29 וסוויטת Miralux עם כניסה ישירה.",
+    "Main bedroom level with sauna, gym, family suite, connected rooms, and multiple terrace rooms.":"קומת החדרים הראשית עם סאונה, חדר כושר, סוויטה משפחתית, חדרים מחוברים וכמה חדרים עם טרסה.",
+    "Apartment-style layouts with private kitchens for families or larger groups.":"פריסות בסגנון דירה עם מטבחים פרטיים למשפחות או לקבוצות גדולות.",
+    "Kitchen":"מטבח","Bar":"בר","Restaurant / dining room (50 seats)":"מסעדה וחדר אוכל ל-50 סועדים","Direct-access Miralux Suite":"סוויטת Miralux עם כניסה ישירה",
+    "Sauna":"סאונה","Gym":"חדר כושר","Wellness access":"גישה למתחם הרוגע","Terrace zones":"אזורי טרסה",
+    "Private kitchens":"מטבחים פרטיים","Apartment-style living areas":"אזורי מגורים בסגנון דירה","Balconies":"מרפסות",
+    "Panorama Comfort Double Room":"חדר זוגי Panorama Comfort","Miralux Retreat Suite":"סוויטת Miralux Retreat","Panorama Double Room":"חדר זוגי Panorama","Sauna / Convertible Double Room":"סאונה / חדר זוגי גמיש","Panorama Duplex Family Suite":"סוויטה משפחתית פנורמית דו-מפלסית","Panorama Comfort Junior Suite":"סוויטת ג׳וניור Panorama Comfort","Panorama Two-Bedroom Penthouse Design Apartment with kitchen":"דירת פנטהאוז פנורמית עם שני חדרי שינה ומטבח","Panorama 3-Bedroom Apartment with Kitchen":"דירה פנורמית עם שלושה חדרי שינה ומטבח",
+    "1 double bed + 1 sofa bed":"מיטה זוגית וספה נפתחת","2 single beds":"שתי מיטות יחיד","1 double bed + 1 chair bed":"מיטה זוגית ומיטת כורסה","1 double bed + 2 sofa beds + 1 single bed on mezzanine":"מיטה זוגית, שתי ספות נפתחות ומיטת יחיד בגלריה","2 double beds + 1 sofa bed + 1 chair bed + 1 single bed":"שתי מיטות זוגיות, ספה נפתחת, מיטת כורסה ומיטת יחיד","1 double bed + 2 sofa beds + 4 single beds":"מיטה זוגית, שתי ספות נפתחות וארבע מיטות יחיד",
+    "Corner bathtub, separate WC":"אמבטיה פינתית ושירותים נפרדים","Large shower, separate WC":"מקלחת גדולה ושירותים נפרדים","Whirlpool, shower, separate WC, barrier-free bathroom":"אמבט זרמים, מקלחת, שירותים נפרדים וחדר רחצה נגיש","Shower, separate WC":"מקלחת ושירותים נפרדים","Spa shower, separate WC":"מקלחת ספא ושירותים נפרדים","Shower, no separate WC":"מקלחת, ללא שירותים נפרדים","Bathroom with shower and bathtub, separate WC":"חדר רחצה עם מקלחת ואמבטיה ושירותים נפרדים",
+    "Walk-in closet":"חדר ארונות","Terrace":"טרסה","Dining table":"שולחן אוכל","Large balcony":"מרפסת גדולה","Direct access":"כניסה ישירה","Maximum privacy":"פרטיות מרבית","On request":"בתיאום מראש","Connected to Room 25":"מחובר לחדר 25","Connected to Room 24":"מחובר לחדר 24","Wooden gallery / mezzanine":"גלריית עץ","Private kitchen":"מטבח פרטי","Spacious living/dining area":"אזור מגורים ואוכל מרווח","Two balconies":"שתי מרפסות","Wardrobes":"ארונות",
+    "Couple, small family, or organiser":"זוג, משפחה קטנה או מארגן","Couple or small family":"זוג או משפחה קטנה","VIP couple, family, guest of honour, retreat leader, or someone needing more privacy":"זוג VIP, משפחה, אורח כבוד, מוביל ריטריט או מי שזקוק לפרטיות רבה יותר","Staff, guide, retreat support, or flexible guest use":"צוות, מדריך, תמיכה בריטריט או שימוש גמיש לאורחים","Family group or friends travelling together":"משפחה או חברים הנוסעים יחד","Family group, child/teen room, or connected guest setup":"משפחה, חדר לילדים או לנוער, או שיבוץ חדרים מחוברים","Family, children, multi-generational group, or close friends":"משפחה, ילדים, קבוצה רב-דורית או חברים קרובים","Couple, small family, or premium guest":"זוג, משפחה קטנה או אורח פרימיום","Family, VIP group, wedding party, leadership team, or guests needing an apartment-style setup":"משפחה, קבוצת VIP, מסיבת חתונה, צוות הנהלה או אורחים הזקוקים לפריסה בסגנון דירה","Large family, kids/teens, retreat group, or friends sharing":"משפחה גדולה, ילדים או בני נוער, קבוצת ריטריט או חברים החולקים חדר",
+    "Located separately, approximately 20 metres from the hotel, for maximum privacy.":"ממוקמת בנפרד, במרחק של כ-20 מטרים מהבית הראשי, לפרטיות מרבית.","Convertible / on request.":"שימוש גמיש, בתיאום מראש.","Two-bedroom apartment combining Rooms 34 and 35.":"דירת שני חדרי שינה המשלבת את חדרים 34 ו-35.",
+    "Capacity conflict: room table lists 5 guests, floor plan shows 4 guests. Confirm with property before publishing a final number.":"קיימת אי-התאמה בקיבולת החדר. יש לאשר את המספר הסופי עם הנכס.","Size conflict: room table lists 90 m² / 970 ft², descriptive page says over 120 m². Confirm with property before publishing a final size.":"קיימת אי-התאמה בגודל הדירה. יש לאשר את הנתון הסופי עם הנכס.",
+    "Couples & VIP Guests":"זוגות ואורחי VIP","Families":"משפחות","Connected Rooms":"חדרים מחוברים","Staff / Guides / Support":"צוות, מדריכים ותמיכה","Larger Shared Setups":"שיבוצים משותפים לקבוצות גדולות"
+  };
   function lang(){
-    var value=(root.getAttribute("data-current-lang")||document.documentElement.lang||"en").slice(0,2).toLowerCase();
-    if(value==="iw") value="he";
+    var value=(root.getAttribute("data-current-lang")||document.documentElement.lang||"en").toLowerCase();
+    if(value.indexOf("iw")===0||value.indexOf("he")===0) value="he"; else value=value.slice(0,2);
     return UI[value]?value:"en";
   }
   function tr(key){return UI[lang()][key]||UI.en[key]||"";}
+  function loc(value){return lang()==="he" && HE_TEXT[value]?HE_TEXT[value]:value;}
   function esc(value){
     return String(value==null?"":value).replace(/[&<>"']/g,function(ch){
       return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
@@ -2505,7 +2723,7 @@ html.fh-photo-zoom-open{overflow:hidden}
   function one(selector,scope){return (scope||root).querySelector(selector);}
   function floorName(id){
     var floor=DATA.floors.find(function(item){return item.id===id;});
-    return floor?floor.name:"";
+    return floor?loc(floor.name):"";
   }
   function row(label,value){
     if(value===null || value===undefined || value==="") return "";
@@ -2514,22 +2732,22 @@ html.fh-photo-zoom-open{overflow:hidden}
 
   function roomCard(room){
     var tags=[];
-    if(room.connectedTo) tags.push('<span class="fh-layout-room-tag">Connected rooms</span>');
-    if(/suite/i.test(room.type)) tags.push('<span class="fh-layout-room-tag">Private suite</span>');
-    if(/apartment/i.test(room.type)) tags.push('<span class="fh-layout-room-tag">Apartment setup</span>');
+    if(room.connectedTo) tags.push('<span class="fh-layout-room-tag">'+esc(tr("connected"))+'</span>');
+    if(/suite/i.test(room.type)) tags.push('<span class="fh-layout-room-tag">'+esc(tr("suite"))+'</span>');
+    if(/apartment/i.test(room.type)) tags.push('<span class="fh-layout-room-tag">'+esc(tr("apartment"))+'</span>');
     if(room.needsVerification) tags.push('<span class="fh-layout-room-tag flag">'+esc(tr("confirm"))+'</span>');
 
     var details=
-      row(tr("max"),room.maxCapacity?room.maxCapacity+" guests":"")+
-      row(tr("beds"),room.beds)+
+      row(tr("max"),room.maxCapacity?room.maxCapacity+" "+tr("guests"):"")+
+      row(tr("beds"),loc(room.beds))+
       row(tr("size"),room.size)+
       row(tr("bathroom"),room.bathroom);
 
     return '<article class="fh-layout-room-card">'+
       '<p class="fh-layout-room-topline">'+esc(tr("room"))+" "+esc(room.roomNumber)+" · "+esc(floorName(room.floor))+'</p>'+
-      '<h4>'+esc(room.type)+'</h4>'+
+      '<h4>'+esc(loc(room.type))+'</h4>'+
       '<dl class="fh-layout-room-details">'+details+'</dl>'+
-      (room.bestFor?'<p class="fh-layout-room-best"><strong>'+esc(tr("bestFor"))+':</strong> '+esc(room.bestFor)+'</p>':"")+
+      (room.bestFor?'<p class="fh-layout-room-best"><strong>'+esc(tr("bestFor"))+':</strong> '+esc(loc(room.bestFor))+'</p>':"")+
       (tags.length?'<div class="fh-layout-room-tags">'+tags.join("")+'</div>':"")+
       '<button type="button" class="fh-layout-room-button" data-room-open="'+esc(room.id)+'">'+esc(tr("viewLayout"))+'</button>'+
     '</article>';
@@ -2546,8 +2764,8 @@ html.fh-photo-zoom-open{overflow:hidden}
     var summary=one("#fhFloorSummary");
     var shared=one("#fhFloorShared");
     var cards=one("#fhRoomCards");
-    if(summary) summary.textContent=floor.summary||"";
-    if(shared) shared.innerHTML=(floor.shared||[]).map(function(item){return "<span>"+esc(item)+"</span>";}).join("");
+    if(summary) summary.textContent=loc(floor.summary)||"";
+    if(shared) shared.innerHTML=(floor.shared||[]).map(function(item){return "<span>"+esc(loc(item))+"</span>";}).join("");
     if(cards){
       cards.innerHTML=DATA.rooms.filter(function(room){return room.floor===id;}).map(roomCard).join("");
       cards.onclick=function(event){
@@ -2568,12 +2786,12 @@ html.fh-photo-zoom-open{overflow:hidden}
         "<li><strong>"+esc(c.diningSeats)+"</strong>"+esc(tr("dining"))+"</li>";
     }
     var flag=one("#fhLodgeFlag");
-    if(flag) flag.textContent=c.maxGuestsNote||"";
+    if(flag) flag.textContent=loc(c.maxGuestsNote)||"";
 
     var pills=one("#fhFloorPills");
     if(pills){
       pills.innerHTML=DATA.floors.map(function(floor){
-        return '<button type="button" class="fh-floor-pill" role="tab" data-floor="'+esc(floor.id)+'">'+esc(floor.name)+'</button>';
+        return '<button type="button" class="fh-floor-pill" role="tab" data-floor="'+esc(floor.id)+'">'+esc(loc(floor.name))+'</button>';
       }).join("");
       pills.onclick=function(event){
         var button=event.target.closest(".fh-floor-pill");
@@ -2587,7 +2805,7 @@ html.fh-photo-zoom-open{overflow:hidden}
         var buttons=group.rooms.map(function(number){
           return '<button type="button" data-room-number="'+esc(number)+'">'+esc(tr("room"))+" "+esc(number)+'</button>';
         }).join("");
-        return '<article class="fh-setup-card"><h4>'+esc(group.title)+'</h4><div class="fh-setup-rooms">'+buttons+'</div></article>';
+        return '<article class="fh-setup-card"><h4>'+esc(loc(group.title))+'</h4><div class="fh-setup-rooms">'+buttons+'</div></article>';
       }).join("");
       setups.onclick=function(event){
         var button=event.target.closest("[data-room-number]");
@@ -2616,24 +2834,24 @@ html.fh-photo-zoom-open{overflow:hidden}
     if(!room) return;
     var modal=buildModal();
     var card=one(".fh-room-modal-card",modal);
-    var split=(room.splitCapacity||[]).map(function(item){return "Room "+item.room+": "+item.guests+" guests";}).join(" · ");
+    var split=(room.splitCapacity||[]).map(function(item){return tr("room")+" "+item.room+": "+item.guests+" "+tr("guests");}).join(" · ");
     var details=
       row(tr("max"),room.maxCapacity?room.maxCapacity+" guests":"")+
-      row("Sleeping split",split)+
+      row(tr("sleepingSplit"),split)+
       row(tr("beds"),room.beds)+
       row(tr("size"),room.size)+
-      row(tr("bathroom"),room.bathroom)+
-      row(tr("features"),(room.features||[]).join(", "))+ 
-      row(tr("bestFor"),room.bestFor)+
-      row(tr("notes"),room.notes);
+      row(tr("bathroom"),loc(room.bathroom))+
+      row(tr("features"),(room.features||[]).map(loc).join(", "))+ 
+      row(tr("bestFor"),loc(room.bestFor))+
+      row(tr("notes"),loc(room.notes));
     card.innerHTML=
       '<div class="fh-room-modal-top"><div>'+
         '<p class="fh-room-modal-num">'+esc(tr("room"))+" "+esc(room.roomNumber)+'</p>'+
-        '<h3 class="fh-room-modal-title">'+esc(room.type)+'</h3>'+
+        '<h3 class="fh-room-modal-title">'+esc(loc(room.type))+'</h3>'+
         '<p class="fh-room-modal-floor">'+esc(floorName(room.floor))+" · "+esc(room.zone||"")+'</p>'+
-      '</div><button type="button" class="fh-room-modal-close" aria-label="Close">×</button></div>'+
+      '</div><button type="button" class="fh-room-modal-close" aria-label="'+esc(tr("close"))+'">×</button></div>'+
       '<dl>'+details+'</dl>'+
-      (room.needsVerification?'<div class="fh-room-modal-flag"><strong>'+esc(tr("confirm"))+':</strong> '+esc(room.needsVerification)+'</div>':"");
+      (room.needsVerification?'<div class="fh-room-modal-flag"><strong>'+esc(tr("confirm"))+':</strong> '+esc(loc(room.needsVerification))+'</div>':"");
     one(".fh-room-modal-close",card).onclick=closeModal;
     modal.classList.add("open");
     modal.setAttribute("aria-hidden","false");
@@ -2645,9 +2863,13 @@ html.fh-photo-zoom-open{overflow:hidden}
 
   document.addEventListener("keydown",function(event){if(event.key==="Escape") closeModal();});
   document.addEventListener("click",function(event){
-    if(event.target.closest("[data-lang],[data-fh-lang],[data-language]")) render();
+    if(event.target.closest("[data-lang],[data-fh-lang],[data-language],[data-locale]")) setTimeout(render,0);
   });
-  window.addEventListener("storage",function(event){if(event.key==="fh_lang") render();});
+  ["fh-language-change","fh:language","fh:languagechange","fh:language-change","fletschhorn:language","fletschhorn:languageChanged"].forEach(function(name){
+    document.addEventListener(name,render);
+    window.addEventListener(name,render);
+  });
+  window.addEventListener("storage",function(event){if(event.key==="fh_lang"||event.key==="fh_language"||event.key==="fhLang") render();});
   window.FHRenderPropertyLayout=render;
   render();
 })();
@@ -2752,9 +2974,13 @@ html.fh-photo-zoom-open{overflow:hidden}
     root.querySelectorAll('[data-contact-i18n="email"]').forEach(function(el){el.textContent=value.email;});
   }
   document.addEventListener("click",function(event){
-    if(event.target.closest("[data-lang],[data-fh-lang],[data-language]")) apply();
+    if(event.target.closest("[data-lang],[data-fh-lang],[data-language],[data-locale]")) setTimeout(apply,0);
   });
-  window.addEventListener("storage",function(event){if(event.key==="fh_lang") apply();});
+  ["fh-language-change","fh:language","fh:languagechange","fh:language-change","fletschhorn:language","fletschhorn:languageChanged"].forEach(function(name){
+    document.addEventListener(name,apply);
+    window.addEventListener(name,apply);
+  });
+  window.addEventListener("storage",function(event){if(event.key==="fh_lang"||event.key==="fh_language"||event.key==="fhLang") apply();});
   window.FHApplyContactLabels=apply;
   apply();
 })();
@@ -2844,7 +3070,11 @@ html.fh-photo-zoom-open{overflow:hidden}
   function boot(){render();}
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot,{once:true}); else boot();
   document.addEventListener("click",function(event){
-    if(event.target.closest("[data-fh-lang],[data-lang],[data-language]")) render();
+    if(event.target.closest("[data-fh-lang],[data-lang],[data-language],[data-locale]")) setTimeout(render,0);
+  });
+  ["fh-language-change","fh:language","fh:languagechange","fh:language-change","fletschhorn:language","fletschhorn:languageChanged"].forEach(function(name){
+    document.addEventListener(name,render);
+    window.addEventListener(name,render);
   });
   window.addEventListener("storage",function(event){
     if(event.key==="fh_lang"||event.key==="fh_language"||event.key==="fhLang") render();
