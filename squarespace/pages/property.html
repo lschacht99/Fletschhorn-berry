@@ -99,8 +99,18 @@
 #fh-property .fh-hero-media{z-index:0}
 #fh-property .fh-hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.045);transition:opacity 3.4s ease,transform 42s ease}
 #fh-property .fh-hero-slide.is-active{opacity:1;transform:scale(1)}
-#fh-property .fh-hero-media{opacity:0;transition:opacity 1.4s ease}
-#fh-property .fh-hero-media.is-ready{opacity:1}
+/* #fh-property .fh-hero-media itself is never gated behind opacity/a
+   JS-added class, matching Home (#fh-home .fh-hero-media has no opacity
+   rule at all). Visibility is controlled per-slide by .is-active above,
+   which is set synchronously on the first slide the moment it's inserted
+   into the DOM. A container-level opacity:0 + .is-ready gate used to sit
+   on top of that: if the script that adds .is-ready never ran (a thrown
+   exception earlier in the same IIFE, a slow/failed fetch elsewhere on
+   the page, or a delayed Squarespace script-injection order), the whole
+   hero stayed permanently black even though a correct slide with a valid
+   background-image was already sitting in the DOM at opacity:1 -- opacity
+   compounds through ancestors, so a fully-opaque child inside a
+   fully-transparent parent still renders invisible. */
 #fh-property .fh-hero-media:before{content:"";z-index:1;background:linear-gradient(180deg,rgba(18,16,13,.58) 0%,rgba(18,16,13,.28) 42%,rgba(18,16,13,.70) 100%),radial-gradient(circle at 50% 12%,rgba(255,255,255,.14),transparent 0 26%)}
 #fh-property .fh-hero-media:after{content:"";z-index:1;background:linear-gradient(180deg,transparent 72%,#fffaf3 100%)}
 #fh-property .fh-hero-inner{position:relative;z-index:2;width:var(--container);padding:clamp(138px,17vh,184px) 0 clamp(58px,8vh,76px);text-align:center}
@@ -246,15 +256,6 @@
 #fh-property .fh-cta p{max-width:680px;margin:18px auto 0;color:rgba(255,250,243,.78)}
 #fh-property .fh-img-loading{background:#d9d1c6 linear-gradient(90deg,#d9d1c6 25%,#e8ded2 50%,#d9d1c6 75%);background-size:200% 100%;animation:fhShimmer 1.4s infinite}
 @keyframes fhShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-#fh-property .preFade{opacity:0;transition:opacity .75s ease}
-#fh-property .fadeIn{opacity:1}
-#fh-property .preSlide{opacity:0;transform:translateY(24px);transition:opacity .78s ease,transform .78s cubic-bezier(.2,.8,.2,1)}
-#fh-property .slideIn{opacity:1;transform:translateY(0)}
-#fh-property .preScale{opacity:0;transform:scale(.985);transition:opacity .78s ease,transform .78s cubic-bezier(.2,.8,.2,1)}
-#fh-property .scaleIn{opacity:1;transform:scale(1)}
-#fh-property .preClip{opacity:0;clip-path:inset(0 0 100% 0);transition:opacity .9s ease,clip-path .95s cubic-bezier(.2,.8,.2,1)}
-#fh-property .clipIn{opacity:1;clip-path:inset(0 0 0 0)}
-#fh-property .delay-1{transition-delay:.08s}#fh-property .delay-2{transition-delay:.16s}#fh-property .delay-3{transition-delay:.24s}
 @media(max-width:1100px){
   #fh-property .fh-section-head,#fh-property .fh-overview,#fh-property .fh-split,#fh-property .fh-dining-wrap,#fh-property .fh-kitchen-feature{grid-template-columns:1fr}
   #fh-property .fh-room-type-grid{grid-template-columns:repeat(2,1fr)}
@@ -280,7 +281,7 @@
   #fh-property .fh-gallery-card.small{flex-basis:72vw}
   #fh-property .fh-section{padding-top:58px;padding-bottom:58px}
 }
-@media(prefers-reduced-motion:reduce){#fh-property *,#fh-property *:before,#fh-property *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}#fh-property .preFade,#fh-property .preSlide,#fh-property .preScale,#fh-property .preClip{opacity:1!important;transform:none!important;clip-path:none!important}}
+@media(prefers-reduced-motion:reduce){#fh-property *,#fh-property *:before,#fh-property *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 
 /* ===== FIX: remove dead blank zones + stronger mobile carousels ===== */
@@ -310,7 +311,7 @@
   gap:clamp(18px,3vw,30px);
   align-items:stretch;
 }
-#fh-property #property-overview > .fh-container.fh-section-head:first-child .preSlide:first-child,
+#fh-property #property-overview > .fh-container.fh-section-head:first-child > div:first-child,
 #fh-property #property-overview > .fh-container.fh-section-head:first-child > p{
   background:rgba(255,250,243,.55);
   border:1px solid rgba(25,23,20,.09);
@@ -323,13 +324,7 @@
   display:flex;
   align-items:center;
 }
-#fh-property #property-overview .fh-mosaic.preClip,
-#fh-property #property-overview .fh-gallery-stage.preScale,
-#fh-property #property-overview .fh-inside-carousel.preScale{
-  opacity:1!important;
-  transform:none!important;
-  clip-path:none!important;
-}
+
 #fh-property #property-overview .fh-photo img[src=""],
 #fh-property #property-overview .fh-media-tile img[src=""],
 #fh-property #property-overview .fh-inside-shot img[src=""]{
@@ -353,7 +348,7 @@
   #fh-property .fh-section{padding-top:46px;padding-bottom:46px}
   #fh-property .fh-section-head{display:block;margin-bottom:18px}
   #fh-property #property-overview > .fh-container.fh-section-head:first-child{display:block}
-  #fh-property #property-overview > .fh-container.fh-section-head:first-child .preSlide:first-child,
+  #fh-property #property-overview > .fh-container.fh-section-head:first-child > div:first-child,
   #fh-property #property-overview > .fh-container.fh-section-head:first-child > p{padding:22px;margin-bottom:12px}
 
   #fh-property .fh-section-head h2{margin-bottom:14px}
@@ -406,7 +401,7 @@
   margin-right:auto;
   text-align:left;
 }
-#fh-property #property-kitchen .fh-section-head .preSlide:first-child,
+#fh-property #property-kitchen .fh-section-head > div:first-child,
 #fh-property #property-kitchen .fh-section-head > p{
   width:100%;
 }
@@ -490,7 +485,166 @@
 }
 
 
-/* Booking toolbar bar styles now come from assets/css/booking-toolbar.css (canonical). Calendar modal styles remain below. */
+/* ===== CANONICAL BOOKING TOOLBAR — EMBEDDED FOR SQUARESPACE =====
+   Squarespace Code Blocks do not automatically load assets/css/booking-toolbar.css.
+   The toolbar styles therefore live directly in this page. */
+#fh-property .fh-booking{
+  margin:clamp(14px,2.2vw,24px) auto 0;
+  width:min(1100px,100%);
+  padding:9px;
+  border-radius:16px;
+  background:rgba(255,250,242,.16);
+  border:1px solid rgba(255,250,242,.28);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  text-align:left;
+}
+#fh-property .fh-booking *,
+#fh-property .fh-booking *::before,
+#fh-property .fh-booking *::after{box-sizing:border-box}
+#fh-property .fh-booking-form{
+  display:grid;
+  grid-template-columns:minmax(120px,.5fr) minmax(240px,1.5fr) minmax(150px,178px);
+  align-items:stretch;
+  border-radius:11px;
+  overflow:hidden;
+  background:var(--paper,#fffaf2);
+}
+#fh-property .fh-booking .fh-field{
+  min-width:0;
+  padding:14px 16px;
+  border-right:1px solid var(--line,rgba(28,24,20,.12));
+  background:rgba(255,250,242,.96);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+#fh-property .fh-booking .fh-field label{
+  display:block;
+  margin:0 0 7px;
+  font-size:10px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:850;
+  color:rgba(28,24,20,.52);
+}
+#fh-property .fh-booking .fh-field input{
+  width:100%;
+  min-width:0;
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  border-radius:0;
+  box-shadow:none;
+  background:transparent;
+  color:var(--ink,#1c1814);
+  font-size:15px;
+  line-height:1.2;
+  font-family:inherit;
+}
+#fh-property .fh-booking .fh-date-field{justify-content:center}
+#fh-property .fh-booking .fh-date-button{
+  width:100%;
+  min-height:22px;
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  border-radius:0;
+  box-shadow:none;
+  background:transparent;
+  color:var(--ink,#1c1814);
+  text-align:left;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  cursor:pointer;
+  font-family:inherit;
+}
+#fh-property .fh-booking .fh-date-button span{
+  min-width:0;
+  color:var(--ink,#1c1814);
+  font-size:15px;
+  line-height:1.2;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+#fh-property .fh-booking .fh-date-button strong{
+  color:var(--forest,#22392f);
+  font-size:10px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-weight:850;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+#fh-property .fh-booking .fh-submit{
+  min-height:58px;
+  margin:0;
+  padding:0 18px;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  background:var(--forest,#22392f);
+  color:var(--white,#fffaf2);
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:11px;
+  font-weight:850;
+  cursor:pointer;
+  font-family:inherit;
+  transition:background .18s,opacity .18s;
+}
+#fh-property .fh-booking .fh-submit:hover{background:var(--forest2,#1b2d24)}
+#fh-property .fh-booking .fh-submit:disabled{opacity:.68;cursor:wait}
+#fh-property .fh-booking .fh-booking-note{
+  margin:12px 0 0;
+  color:rgba(255,250,242,.82);
+  font-size:13px;
+  line-height:1.45;
+  text-align:center;
+}
+#fh-property .fh-booking .fh-status{
+  display:none;
+  margin-top:12px;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid rgba(255,250,242,.22);
+  background:rgba(255,250,242,.14);
+  color:#fffaf2;
+  font-size:14px;
+  line-height:1.45;
+  text-align:center;
+}
+#fh-property .fh-booking .fh-status.show{display:block}
+#fh-property .fh-booking .fh-status.error{border-color:rgba(190,70,60,.5);background:rgba(190,70,60,.16)}
+#fh-property .fh-booking .fh-status.success{border-color:rgba(70,150,100,.5);background:rgba(70,150,100,.16)}
+@media(max-width:860px){
+  #fh-property .fh-booking-form{grid-template-columns:minmax(110px,.6fr) minmax(200px,1.4fr) minmax(132px,150px)}
+  #fh-property .fh-booking .fh-field{padding:13px 14px}
+}
+@media(max-width:600px){
+  #fh-property .fh-booking{padding:7px;margin-top:14px;border-radius:14px}
+  #fh-property .fh-booking-form{grid-template-columns:1fr}
+  #fh-property .fh-booking .fh-field{
+    grid-column:auto;
+    border-right:0;
+    border-bottom:1px solid var(--line,rgba(28,24,20,.12));
+    padding:13px 15px;
+  }
+  #fh-property .fh-booking .fh-submit{min-height:54px}
+  #fh-property .fh-booking .fh-booking-note{font-size:12.5px}
+}
+#fh-property[dir="rtl"] .fh-booking .fh-field{border-right:0;border-left:1px solid var(--line,rgba(28,24,20,.12))}
+#fh-property[dir="rtl"] .fh-booking .fh-date-button{text-align:right}
+@media(max-width:600px){
+  #fh-property[dir="rtl"] .fh-booking .fh-field{border-left:0;border-bottom:1px solid var(--line,rgba(28,24,20,.12))}
+}
 
     #fh-property .fh-calendar-modal{
       position:fixed;
@@ -669,7 +823,6 @@
 }
 
 
-
 /* ===== WORKER FLOW + HIDDEN LANGUAGE TOOLBAR + CONTACT + RTL PATCH ===== */
 #fh-property .fh-lang-switch{
   display:none!important;
@@ -824,385 +977,250 @@
   #fh-property[dir="rtl"] .fh-trust-head p{text-align:right}
 }
 
-
-
-/* ===== FIX: Sleeping Layout room cards must not inherit image-gallery .fh-room-card behavior =====
-   The messy overlap came from the global rule:
-   #fh-property .fh-room-card div { position:absolute; ... }
-   That rule is correct for the photo cards in #roomGallery, but it breaks the generated room-layout cards.
-*/
-#fh-property #sleeping-layout .fh-room-cards{
-  display:flex!important;
-  gap:16px!important;
-  overflow-x:auto!important;
-  overscroll-behavior-x:contain!important;
-  scroll-snap-type:x mandatory!important;
-  padding:8px 18px 24px 0!important;
-  margin-top:22px!important;
-  scrollbar-width:none!important;
+/* ===== PRIVATE LODGE LAYOUT — CLEAN, ISOLATED COMPONENT ===== */
+#fh-property #sleeping-layout.fh-mixed-layout-section{
+  background:
+    radial-gradient(circle at 12% 4%,rgba(255,255,255,.74),transparent 0 24%),
+    linear-gradient(180deg,rgba(255,250,243,.74),rgba(239,229,217,.60));
 }
-#fh-property #sleeping-layout .fh-room-cards::-webkit-scrollbar{display:none!important;}
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card,
-#fh-property #sleeping-layout .fh-room-cards > article,
-#fh-property #sleeping-layout .fh-room-cards > div{
-  flex:0 0 min(420px,86vw)!important;
-  scroll-snap-align:start!important;
-  position:relative!important;
-  isolation:isolate!important;
-  display:flex!important;
-  flex-direction:column!important;
-  min-height:0!important;
-  height:auto!important;
-  padding:24px!important;
-  overflow:hidden!important;
-  color:var(--ink)!important;
-  background:rgba(255,250,243,.88)!important;
-  border:1px solid rgba(25,23,20,.13)!important;
-  box-shadow:0 16px 46px rgba(22,19,16,.12)!important;
-  border-radius:24px!important;
+#fh-property #sleeping-layout .fh-scroll-anchor{position:relative;display:block;top:-100px;height:0;overflow:hidden}
+#fh-property #sleeping-layout .fh-layout-wrap{width:var(--container);margin-inline:auto}
+#fh-property #sleeping-layout .fh-layout-head{max-width:920px;margin-bottom:clamp(18px,3vw,30px)}
+#fh-property #sleeping-layout .fh-lodge-summary{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;
+  margin:0 0 12px;padding:1px;list-style:none;background:rgba(25,23,20,.10);
+  border:1px solid rgba(25,23,20,.08);box-shadow:var(--soft-shadow)
 }
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card:after,
-#fh-property #sleeping-layout .fh-room-cards > article:after,
-#fh-property #sleeping-layout .fh-room-cards > div:after{
-  display:none!important;
-  content:none!important;
+#fh-property #sleeping-layout .fh-lodge-summary li{
+  min-height:108px;padding:18px;background:rgba(255,250,243,.90);
+  color:var(--muted);font-size:13px;line-height:1.45
 }
-
-/* Reset the old gallery-card absolute positioning on generated content blocks. */
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card div,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card p,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card dl,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card dt,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card dd,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card footer,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card span,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card small,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card strong{
-  position:static!important;
-  inset:auto!important;
-  left:auto!important;
-  right:auto!important;
-  bottom:auto!important;
-  transform:none!important;
-  color:inherit!important;
+#fh-property #sleeping-layout .fh-lodge-summary strong{
+  display:block;margin-bottom:7px;color:var(--ink);font-size:14px
 }
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card small,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="number"],
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="room-id"]{
-  display:block!important;
-  margin:0 0 10px!important;
-  color:var(--clay2)!important;
-  font-size:11px!important;
-  font-weight:900!important;
-  letter-spacing:.20em!important;
-  line-height:1.1!important;
-  text-transform:uppercase!important;
+#fh-property #sleeping-layout .fh-lodge-flag{
+  margin:0 0 clamp(18px,3vw,28px);padding:12px 14px;
+  border-left:3px solid var(--clay);background:rgba(255,250,243,.58);
+  color:var(--muted);font-size:12.5px;line-height:1.5
 }
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card h3,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card h4{
-  margin:0 0 18px!important;
-  color:var(--ink)!important;
-  font-family:var(--serif)!important;
-  font-size:clamp(25px,4.8vw,32px)!important;
-  font-weight:400!important;
-  line-height:1.02!important;
-  letter-spacing:-.045em!important;
-}
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card dl,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="meta"],
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="details"]{
-  display:grid!important;
-  grid-template-columns:max-content minmax(0,1fr)!important;
-  column-gap:18px!important;
-  row-gap:9px!important;
-  margin:0 0 18px!important;
-  padding:0!important;
-}
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card dt,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="label"]{
-  margin:0!important;
-  color:rgba(25,23,20,.50)!important;
-  font-size:12px!important;
-  font-weight:900!important;
-  letter-spacing:.08em!important;
-  line-height:1.35!important;
-  text-transform:uppercase!important;
-}
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card dd,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="value"]{
-  margin:0!important;
-  min-width:0!important;
-  color:rgba(25,23,20,.70)!important;
-  font-size:15px!important;
-  line-height:1.38!important;
-  overflow-wrap:break-word!important;
-}
-
-/* Floor badge and room-type pills stay in normal flow, not floating over the bed details. */
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="floor"],
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="badge"]{
-  display:inline-flex!important;
-  align-self:flex-start!important;
-  align-items:center!important;
-  justify-content:center!important;
-  width:auto!important;
-  max-width:100%!important;
-  min-height:26px!important;
-  margin:0 0 14px!important;
-  padding:7px 11px!important;
-  border:0!important;
-  border-radius:999px!important;
-  background:rgba(34,57,47,.90)!important;
-  color:#fffaf3!important;
-  font-size:10px!important;
-  font-weight:900!important;
-  letter-spacing:.13em!important;
-  line-height:1!important;
-  text-transform:uppercase!important;
-  white-space:nowrap!important;
-}
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="best"],
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="recommend"],
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card blockquote{
-  margin:2px 0 18px!important;
-  padding:16px!important;
-  border:0!important;
-  border-radius:14px!important;
-  background:rgba(34,57,47,.075)!important;
-  color:var(--forest)!important;
-  font-size:14px!important;
-  line-height:1.45!important;
-}
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="best"] strong,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="recommend"] strong{
-  color:var(--forest)!important;
-  font-weight:900!important;
-}
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="actions"],
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="buttons"],
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card footer{
-  display:flex!important;
-  flex-wrap:wrap!important;
-  gap:8px!important;
-  align-items:center!important;
-  margin-top:auto!important;
-  padding-top:8px!important;
-}
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card a,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card button{
-  position:static!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  width:auto!important;
-  min-width:0!important;
-  max-width:100%!important;
-  min-height:38px!important;
-  padding:9px 12px!important;
-  border-radius:12px!important;
-  border:1px solid rgba(135,110,88,.22)!important;
-  background:rgba(255,250,243,.76)!important;
-  color:var(--forest)!important;
-  font-size:12px!important;
-  font-weight:850!important;
-  line-height:1.1!important;
-  white-space:normal!important;
-  text-align:center!important;
-  box-shadow:none!important;
-}
-
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card a:last-child,
-#fh-property #sleeping-layout .fh-room-cards .fh-room-card button:last-child{
-  margin-left:auto!important;
-  border-color:rgba(34,57,47,.75)!important;
-  background:#fffaf3!important;
-}
-
-#fh-property #sleeping-layout .fh-room-carousel-hint{
-  margin-top:10px!important;
-  color:rgba(25,23,20,.58)!important;
-  font-size:14px!important;
-}
-
-@media(max-width:640px){
-  #fh-property #sleeping-layout .fh-room-cards{
-    gap:12px!important;
-    padding-right:16px!important;
-  }
-  #fh-property #sleeping-layout .fh-room-cards .fh-room-card,
-  #fh-property #sleeping-layout .fh-room-cards > article,
-  #fh-property #sleeping-layout .fh-room-cards > div{
-    flex-basis:84vw!important;
-    padding:20px!important;
-    border-radius:22px!important;
-  }
-  #fh-property #sleeping-layout .fh-room-cards .fh-room-card dl,
-  #fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="meta"],
-  #fh-property #sleeping-layout .fh-room-cards .fh-room-card [class*="details"]{
-    grid-template-columns:94px minmax(0,1fr)!important;
-    column-gap:12px!important;
-  }
-  #fh-property #sleeping-layout .fh-room-cards .fh-room-card a,
-  #fh-property #sleeping-layout .fh-room-cards .fh-room-card button{
-    flex:1 1 auto!important;
-  }
-  #fh-property #sleeping-layout .fh-room-cards .fh-room-card a:last-child,
-  #fh-property #sleeping-layout .fh-room-cards .fh-room-card button:last-child{
-    margin-left:0!important;
-  }
-}
-
-/* ===== REQUESTED PATCH: former room layout + tiny Guesty carousel =====
-   Former Private Lodge / Sleeping Layout / Best Room Setups flow is preserved.
-   Individual card images are suppressed so the details stay text-only. */
 #fh-property #sleeping-layout .fh-layout-photo-strip{
-  display:flex;
-  gap:10px;
-  width:100%;
-  margin:clamp(14px,2vw,20px) 0 8px;
-  padding:2px 2px 10px;
-  overflow-x:auto;
-  overscroll-behavior-x:contain;
-  scroll-snap-type:x proximity;
-  scrollbar-width:none;
+  display:flex;gap:14px;width:100%;margin:clamp(18px,3vw,30px) 0 10px;padding:5px 5px 14px;
+  overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
+  touch-action:pan-x;scroll-snap-type:x proximity;scrollbar-width:none
 }
-#fh-property #sleeping-layout .fh-layout-photo-strip::-webkit-scrollbar{display:none;}
+#fh-property #sleeping-layout .fh-layout-photo-strip::-webkit-scrollbar{display:none}
 #fh-property #sleeping-layout .fh-layout-photo-strip img{
-  flex:0 0 clamp(132px,19vw,220px);
-  width:clamp(132px,19vw,220px);
-  height:clamp(86px,11vw,132px);
-  object-fit:cover;
-  scroll-snap-align:start;
-  border:1px solid rgba(25,23,20,.10);
-  background:#d9d1c6;
-  box-shadow:0 10px 28px rgba(22,19,16,.10);
+  flex:0 0 clamp(240px,32vw,430px);width:clamp(240px,32vw,430px);
+  height:clamp(160px,21vw,270px);max-width:none;object-fit:cover;scroll-snap-align:start;
+  border:1px solid rgba(25,23,20,.10);border-radius:18px;background:#d9d1c6;
+  box-shadow:0 16px 42px rgba(22,19,16,.14);cursor:zoom-in
 }
 #fh-property #sleeping-layout .fh-layout-photo-note{
-  margin:0 0 clamp(16px,2vw,22px);
-  color:rgba(25,23,20,.55);
-  font-size:12px;
-  line-height:1.4;
+  margin:0 0 clamp(24px,4vw,38px);font-size:12.5px;color:rgba(25,23,20,.58)
 }
-#fh-property #fhRoomCards img,
-#fh-property #fhRoomCards picture,
-#fh-property #fhRoomCards figure,
-#fh-property #fhRoomCards [class*="image"],
-#fh-property #fhRoomCards [class*="photo"],
-#fh-property #fhSetupGrid img,
-#fh-property #fhSetupGrid picture,
-#fh-property #fhSetupGrid figure,
-#fh-property #fhSetupGrid [class*="image"],
-#fh-property #fhSetupGrid [class*="photo"]{
-  display:none!important;
+#fh-property #sleeping-layout .fh-layout-subhead{
+  max-width:880px;margin:clamp(28px,5vw,56px) 0 clamp(16px,2.4vw,24px);
+  padding-top:clamp(22px,3.4vw,36px);border-top:1px solid rgba(25,23,20,.12)
 }
-#fh-property #fhRoomCards .fh-room-card,
-#fh-property #fhSetupGrid > *{
-  background-image:none!important;
+#fh-property #sleeping-layout .fh-layout-subhead h3{
+  margin-bottom:10px;font-size:clamp(29px,3.5vw,46px)
 }
-@media(max-width:640px){
-  #fh-property #sleeping-layout .fh-layout-photo-strip{
-    gap:8px;
-    margin-top:12px;
-    padding-right:14px;
-  }
-  #fh-property #sleeping-layout .fh-layout-photo-strip img{
-    flex-basis:34vw;
-    width:34vw;
-    min-width:118px;
-    height:86px;
-  }
-  #fh-property #sleeping-layout .fh-layout-photo-note{
-    font-size:11.5px;
-    margin-bottom:14px;
-  }
+#fh-property #sleeping-layout .fh-layout-subhead p:last-child{
+  max-width:760px;margin:0;color:rgba(25,23,20,.66)
+}
+#fh-property #sleeping-layout .fh-floor-pills{
+  display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px
+}
+#fh-property #sleeping-layout .fh-floor-pill{
+  min-height:40px;padding:10px 14px;border:1px solid rgba(25,23,20,.13);
+  background:rgba(255,250,243,.82);color:var(--ink);font-size:11px;font-weight:850;
+  letter-spacing:.10em;text-transform:uppercase
+}
+#fh-property #sleeping-layout .fh-floor-pill.active{background:var(--forest);border-color:var(--forest);color:#fffaf3}
+#fh-property #sleeping-layout .fh-floor-summary{max-width:820px;margin:0 0 12px;color:var(--muted)}
+#fh-property #sleeping-layout .fh-floor-shared{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+#fh-property #sleeping-layout .fh-floor-shared span{
+  display:inline-flex;align-items:center;min-height:30px;padding:7px 10px;
+  border:1px solid rgba(25,23,20,.10);background:rgba(255,255,255,.54);
+  color:var(--muted);font-size:12px
+}
+#fh-property #sleeping-layout .fh-room-cards{
+  display:flex;align-items:stretch;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;padding:4px 18px 18px 0;margin-top:14px;scrollbar-width:none
+}
+#fh-property #sleeping-layout .fh-room-cards::-webkit-scrollbar{display:none}
+#fh-property #sleeping-layout .fh-layout-room-card{
+  flex:0 0 min(380px,86vw);width:min(380px,86vw);max-width:min(380px,86vw);
+  scroll-snap-align:start;display:flex;flex-direction:column;min-height:100%;
+  padding:20px;border:1px solid rgba(25,23,20,.12);border-radius:20px;
+  background:rgba(255,250,243,.92);box-shadow:0 12px 34px rgba(22,19,16,.10);
+  color:var(--ink)
+}
+#fh-property #sleeping-layout .fh-layout-room-topline{
+  margin:0 0 10px;color:rgba(25,23,20,.58);font-size:10px;font-weight:900;
+  letter-spacing:.16em;line-height:1.25;text-transform:uppercase
+}
+#fh-property #sleeping-layout .fh-layout-room-card h4{
+  margin:0 0 14px;font-family:var(--serif);font-size:clamp(25px,3vw,34px);
+  font-weight:400;line-height:1.02;letter-spacing:-.045em
+}
+#fh-property #sleeping-layout .fh-layout-room-details{
+  display:grid;gap:9px;width:100%;margin:0 0 14px;padding:0
+}
+#fh-property #sleeping-layout .fh-layout-room-details>div{
+  display:grid;grid-template-columns:82px minmax(0,1fr);gap:12px;align-items:start
+}
+#fh-property #sleeping-layout .fh-layout-room-details dt{
+  margin:0;color:rgba(25,23,20,.50);font-size:10px;font-weight:900;
+  letter-spacing:.08em;line-height:1.3;text-transform:uppercase;white-space:nowrap
+}
+#fh-property #sleeping-layout .fh-layout-room-details dd{
+  margin:0;min-width:0;color:rgba(25,23,20,.72);font-size:14px;line-height:1.4;
+  word-break:normal;overflow-wrap:break-word
+}
+#fh-property #sleeping-layout .fh-layout-room-best{
+  margin:0 0 14px;padding:12px 13px;border-radius:13px;background:rgba(34,57,47,.075);
+  color:var(--forest);font-size:13.5px;line-height:1.42
+}
+#fh-property #sleeping-layout .fh-layout-room-tags{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+#fh-property #sleeping-layout .fh-layout-room-tag{
+  display:inline-flex;align-items:center;min-height:26px;padding:6px 9px;border-radius:999px;
+  background:rgba(185,159,134,.16);color:var(--clay2);font-size:9px;font-weight:900;
+  letter-spacing:.08em;text-transform:uppercase
+}
+#fh-property #sleeping-layout .fh-layout-room-tag.flag{background:rgba(150,101,35,.10);color:#966523}
+#fh-property #sleeping-layout .fh-layout-room-button{
+  align-self:flex-start;margin-top:auto;min-height:38px;padding:9px 13px;
+  border:1px solid rgba(34,57,47,.70);border-radius:12px;background:#fffaf3;
+  color:var(--forest);font-size:11px;font-weight:850;letter-spacing:.06em;text-transform:uppercase
+}
+#fh-property #sleeping-layout .fh-room-carousel-hint{margin:8px 0 0;color:rgba(25,23,20,.58);font-size:13px}
+#fh-property #sleeping-layout .fh-setup-block{margin-top:clamp(32px,5vw,58px)}
+#fh-property #sleeping-layout .fh-setup-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px
+}
+#fh-property #sleeping-layout .fh-setup-card{
+  min-height:150px;padding:18px;border:1px solid rgba(25,23,20,.11);border-radius:18px;
+  background:rgba(255,250,243,.90);box-shadow:0 10px 28px rgba(22,19,16,.09)
+}
+#fh-property #sleeping-layout .fh-setup-card h4{
+  margin:0 0 12px;font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);
+  font-weight:400;line-height:1.05;letter-spacing:-.035em
+}
+#fh-property #sleeping-layout .fh-setup-rooms{display:flex;gap:7px;flex-wrap:wrap}
+#fh-property #sleeping-layout .fh-setup-rooms button{
+  min-height:32px;padding:7px 10px;border:1px solid rgba(25,23,20,.11);
+  border-radius:999px;background:rgba(34,57,47,.06);color:var(--forest);
+  font-size:11px;font-weight:800
+}
+#fh-property #sleeping-layout .fh-setup-cta{margin-top:16px}
+#fh-property #sleeping-layout .fh-setup-cta a{
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 16px;
+  background:var(--forest);color:#fffaf3;font-size:11px;font-weight:850;letter-spacing:.10em;text-transform:uppercase
+}
+#fh-property #sleeping-layout .fh-layout-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+#fh-property #sleeping-layout .fh-layout-cta a{
+  display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 14px;
+  border:1px solid rgba(25,23,20,.13);background:rgba(255,250,243,.76);
+  color:var(--forest);font-size:10px;font-weight:850;letter-spacing:.10em;text-transform:uppercase
+}
+#fh-property #sleeping-layout .fh-layout-cta a.primary{background:var(--forest);border-color:var(--forest);color:#fffaf3}
+
+/* Text-only room detail modal. No visual placeholder or image column. */
+#fh-property .fh-room-modal{
+  position:fixed;inset:0;z-index:220;display:none;align-items:center;justify-content:center;
+  padding:18px;background:rgba(20,18,16,.54);backdrop-filter:blur(10px)
+}
+#fh-property .fh-room-modal.open{display:flex}
+#fh-property .fh-room-modal-card{
+  width:min(720px,100%);max-height:calc(100svh - 36px);overflow:auto;
+  padding:clamp(22px,4vw,34px);border:1px solid rgba(255,250,243,.64);
+  background:var(--paper);box-shadow:0 30px 90px rgba(0,0,0,.26)
+}
+#fh-property .fh-room-modal-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:20px}
+#fh-property .fh-room-modal-num{margin:0 0 8px;color:var(--clay2);font-size:10px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
+#fh-property .fh-room-modal-title{margin:0 0 8px;font-size:clamp(30px,5vw,48px)}
+#fh-property .fh-room-modal-floor{margin:0;color:var(--muted);font-size:13px}
+#fh-property .fh-room-modal-close{
+  flex:0 0 42px;width:42px;min-height:42px;border:1px solid rgba(25,23,20,.13);
+  background:#fffaf3;color:var(--ink);font-size:22px
+}
+#fh-property .fh-room-modal-card dl{display:grid;gap:10px;margin:0;padding:0}
+#fh-property .fh-room-modal-card dl>div{
+  display:grid;grid-template-columns:130px minmax(0,1fr);gap:16px;padding-top:10px;
+  border-top:1px solid rgba(25,23,20,.10)
+}
+#fh-property .fh-room-modal-card dt{
+  color:rgba(25,23,20,.52);font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase
+}
+#fh-property .fh-room-modal-card dd{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+#fh-property .fh-room-modal-flag{
+  margin-top:18px;padding:14px;border:1px solid rgba(150,101,35,.22);
+  background:rgba(150,101,35,.08);color:#7e571f;font-size:13px;line-height:1.45
 }
 
+/* Property photo zoom. */
+html.fh-photo-zoom-open{overflow:hidden}
+.fh-photo-zoom-modal{
+  position:fixed;inset:0;z-index:260;display:none;align-items:center;justify-content:center;
+  padding:18px;background:rgba(12,11,10,.86);backdrop-filter:blur(10px)
+}
+.fh-photo-zoom-modal.is-open{display:flex}
+.fh-photo-zoom-inner{position:relative;width:min(1180px,100%);max-height:calc(100svh - 36px)}
+.fh-photo-zoom-inner img{
+  display:block;width:100%;max-height:calc(100svh - 36px);object-fit:contain;
+  background:#171512;box-shadow:0 30px 90px rgba(0,0,0,.38)
+}
+.fh-photo-zoom-close{
+  position:absolute;z-index:2;top:10px;right:10px;width:44px;min-height:44px;
+  border:1px solid rgba(255,255,255,.36);border-radius:50%;background:rgba(20,18,16,.68);
+  color:#fff;font-size:24px
+}
+.fh-photo-zoom-hint{
+  position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
+  padding:7px 10px;background:rgba(20,18,16,.58);color:#fff;font-size:10px;
+  letter-spacing:.10em;text-transform:uppercase;white-space:nowrap
+}
+
+/* Image visibility is never controlled by an observer or reveal class. */
+#fh-property img{
+  display:block;opacity:1;visibility:visible;max-width:100%
+}
+#fh-property .fh-gallery-stage,
+#fh-property .fh-gallery-rail,
+#fh-property .fh-gallery-card,
+#fh-property .fh-concept,
+#fh-property .fh-room-gallery,
+#fh-property .fh-kitchen-peek,
+#fh-property .fh-layout-photo-strip{
+  opacity:1;visibility:visible
+}
+
+@media(max-width:980px){
+  #fh-property #sleeping-layout .fh-lodge-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #fh-property #sleeping-layout .fh-setup-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  #fh-property #sleeping-layout .fh-layout-wrap{width:calc(100% - 28px)}
+  #fh-property #sleeping-layout .fh-lodge-summary{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;background:transparent;border:0;padding:0;box-shadow:none}
+  #fh-property #sleeping-layout .fh-lodge-summary li{flex:0 0 78%;scroll-snap-align:start;border:1px solid rgba(25,23,20,.10)}
+  #fh-property #sleeping-layout .fh-layout-photo-strip{gap:12px;margin:18px 0 8px;padding:4px 18px 12px 0}
+  #fh-property #sleeping-layout .fh-layout-photo-strip img{flex:0 0 76vw;width:76vw;min-width:260px;height:182px;border-radius:17px}
+  #fh-property #sleeping-layout .fh-layout-subhead{margin-top:30px;padding-top:24px}
+  #fh-property #sleeping-layout .fh-layout-subhead h3{font-size:30px}
+  #fh-property #sleeping-layout .fh-layout-room-card{flex-basis:84vw;width:84vw;max-width:84vw;padding:18px}
+  #fh-property #sleeping-layout .fh-layout-room-details>div{grid-template-columns:74px minmax(0,1fr);gap:10px}
+  #fh-property #sleeping-layout .fh-setup-grid{display:flex;flex-wrap:nowrap;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 18px 14px 0;scrollbar-width:none}
+  #fh-property #sleeping-layout .fh-setup-grid::-webkit-scrollbar{display:none}
+  #fh-property #sleeping-layout .fh-setup-card{flex:0 0 78vw;scroll-snap-align:start}
+  #fh-property .fh-room-modal-card dl>div{grid-template-columns:96px minmax(0,1fr);gap:12px}
+}
+@media(max-width:420px){
+  #fh-property #sleeping-layout .fh-layout-photo-strip img{flex-basis:82vw;width:82vw;min-width:245px;height:170px}
+  #fh-property #sleeping-layout .fh-setup-card{flex-basis:82vw}
+}
 </style>
-<style id="fh-room-card-placeholder-removal-fix">
-/* FINAL FIX: room cards stay text-only. Remove the empty image/placeholder block and the floor pill. */
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card{
-  min-height:0!important;
-  height:auto!important;
-  padding:22px!important;
-  gap:0!important;
-  background:rgba(255,250,243,.90)!important;
-  background-image:none!important;
-  border:1px solid rgba(25,23,20,.12)!important;
-  box-shadow:0 14px 38px rgba(22,19,16,.10)!important;
-}
 
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card::before,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card::after{
-  display:none!important;
-  content:none!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="visual"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="media"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="cover"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="placeholder"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="thumb"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="image"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card > [class*="photo"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card img,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card picture,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card figure{
-  display:none!important;
-  visibility:hidden!important;
-  width:0!important;
-  height:0!important;
-  min-height:0!important;
-  max-height:0!important;
-  margin:0!important;
-  padding:0!important;
-  overflow:hidden!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="floor"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="badge"]{
-  display:none!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card .fh-room-topline{
-  display:block!important;
-  margin:0 0 12px!important;
-  color:rgba(25,23,20,.58)!important;
-  font-size:11px!important;
-  font-weight:900!important;
-  letter-spacing:.17em!important;
-  line-height:1.35!important;
-  text-transform:uppercase!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card h3,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card h4{
-  margin-top:0!important;
-  margin-bottom:18px!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card dl,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="meta"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="details"]{
-  margin-top:0!important;
-}
-
-@media(max-width:640px){
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card{
-    padding:20px!important;
-    flex-basis:84vw!important;
-  }
-}
-</style>
 
 <div id="fh-property" data-current-lang="en">
   <div class="fh-shell">
@@ -1218,15 +1236,15 @@
     <section class="fh-hero" id="property-top">
       <div class="fh-hero-media" id="propertyHeroMedia" aria-hidden="true"></div>
       <div class="fh-hero-inner">
-        <div class="fh-crest preScale scaleIn" aria-hidden="true">fh</div>
-        <p class="fh-eyebrow preSlide slideIn" id="propertyHeroEyebrow" data-i18n="heroEyebrow"></p>
-        <h1 class="preSlide slideIn delay-1" id="propertyHeroTitle" data-i18n="heroTitle"></h1>
-        <p class="fh-hero-lead preSlide slideIn delay-2" id="propertyHeroLead" data-i18n="heroLead"></p>
-        <div class="fh-hero-contact preSlide slideIn delay-2" aria-label="Direct contact">
+        <div class="fh-crest" aria-hidden="true">fh</div>
+        <p class="fh-eyebrow" id="propertyHeroEyebrow" data-i18n="heroEyebrow"></p>
+        <h1 id="propertyHeroTitle" data-i18n="heroTitle"></h1>
+        <p class="fh-hero-lead" id="propertyHeroLead" data-i18n="heroLead"></p>
+        <div class="fh-hero-contact" aria-label="Direct contact">
           <a href="tel:+41279572131"><span data-contact-i18n="phone">Call</span><strong>+41 27 957 2131</strong></a>
           <a href="mailto:welcome@fletschhorn.ch"><span data-contact-i18n="email">Email</span><strong>welcome@fletschhorn.ch</strong></a>
         </div>
-        <div class="fh-proof preSlide slideIn delay-3" aria-label="Property highlights">
+        <div class="fh-proof" aria-label="Property highlights">
           <div><b data-i18n="proof1b"></b><span data-i18n="proof1s"></span></div>
           <div><b data-i18n="proof2b"></b><span data-i18n="proof2s"></span></div>
           <div><b data-i18n="proof3b"></b><span data-i18n="proof3s"></span></div>
@@ -1242,7 +1260,7 @@
       <section class="fh-section alt fh-layout-section fh-mixed-layout-section" id="sleeping-layout" aria-label="Private lodge sleeping layout and group setups">
         <span id="private-lodge-layout" class="fh-scroll-anchor" aria-hidden="true"></span>
         <div class="fh-layout-wrap">
-          <div class="fh-layout-head preSlide">
+          <div class="fh-layout-head">
             <p class="fh-kicker" data-i18n="lodgeKicker">The full house, planned simply</p>
             <h2 data-i18n="lodgeTitle">Private Lodge Layout</h2>
             <p data-i18n="lodgeLead">One clean planning section for the whole property: house summary, Guesty photo preview, floor-by-floor sleeping layout, and the best room setup ideas for couples, families, organisers, children, staff, or retreat leaders.</p>
@@ -1284,43 +1302,43 @@
       </section>
 
       <section class="fh-section alt" id="property-concept">
-        <div class="fh-container fh-section-head"><div class="preSlide"><p class="fh-kicker" data-i18n="conceptK"></p><h2 data-i18n="conceptH"></h2></div><p class="preSlide delay-1" data-i18n="conceptP"></p></div>
+        <div class="fh-container fh-section-head"><div><p class="fh-kicker" data-i18n="conceptK"></p><h2 data-i18n="conceptH"></h2></div><p data-i18n="conceptP"></p></div>
         <div class="fh-container fh-concept-strip" id="conceptCards"></div>
       </section>
 
       <section class="fh-section alt" id="property-overview">
         <div class="fh-container fh-section-head fh-clean-head">
-          <div class="preSlide"><p class="fh-kicker" data-i18n="overviewK"></p><h2 data-i18n="overviewH"></h2></div>
-          <p class="preSlide delay-1" data-i18n="overviewP"></p>
+          <div><p class="fh-kicker" data-i18n="overviewK"></p><h2 data-i18n="overviewH"></h2></div>
+          <p data-i18n="overviewP"></p>
         </div>
 
-        <div class="fh-container fh-gallery-stage fh-clean-carousel preScale" id="propertyGalleryStage">
+        <div class="fh-container fh-gallery-stage fh-clean-carousel" id="propertyGalleryStage">
           <div class="fh-gallery-rail" id="propertyGalleryRail" aria-label="Fletschhorn property carousel"></div>
           <div class="fh-gallery-controls"><button type="button" data-gallery-prev="propertyGalleryRail" data-i18n="galleryPrev"></button><button type="button" data-gallery-next="propertyGalleryRail" data-i18n="galleryNext"></button></div>
         </div>
 
-        <div class="fh-container fh-simple-notes preSlide">
+        <div class="fh-container fh-simple-notes">
           <article><b data-i18n="feat1b"></b><p data-i18n="feat1p"></p></article>
           <article><b data-i18n="feat2b"></b><p data-i18n="feat2p"></p></article>
           <article><b data-i18n="feat3b"></b><p data-i18n="feat3p"></p></article>
         </div>
 
         <div class="fh-container fh-section-head fh-clean-head" style="margin-top:clamp(44px,6vw,70px)">
-          <div class="preSlide"><p class="fh-kicker" data-i18n="roomsK"></p><h2 data-i18n="roomsH"></h2></div>
-          <p class="preSlide delay-1" data-i18n="roomsP"></p>
+          <div><p class="fh-kicker" data-i18n="roomsK"></p><h2 data-i18n="roomsH"></h2></div>
+          <p data-i18n="roomsP"></p>
         </div>
         <div class="fh-container fh-room-type-grid" id="suiteGrid"></div>
-        <div class="fh-container fh-room-note preSlide"><strong data-i18n="roomNoteH"></strong><p data-i18n="roomNoteP"></p></div>
+        <div class="fh-container fh-room-note"><strong data-i18n="roomNoteH"></strong><p data-i18n="roomNoteP"></p></div>
       </section>
 
       <section class="fh-section alt" id="property-spa">
         <div class="fh-container fh-section-head fh-clean-head">
-          <div class="preSlide"><p class="fh-kicker" data-i18n="amenitiesK"></p><h2 data-i18n="amenitiesH"></h2></div>
-          <p class="preSlide delay-1" data-i18n="amenitiesP"></p>
+          <div><p class="fh-kicker" data-i18n="amenitiesK"></p><h2 data-i18n="amenitiesH"></h2></div>
+          <p data-i18n="amenitiesP"></p>
         </div>
 
         <div class="fh-container fh-spa-clean">
-          <div class="fh-gallery-stage fh-clean-carousel preScale" id="propertySpaGallery">
+          <div class="fh-gallery-stage fh-clean-carousel" id="propertySpaGallery">
             <div class="fh-gallery-rail" id="propertySpaRail" aria-label="Private sauna carousel">
               <article class="fh-gallery-card"><img src="https://assets.guesty.com/image/upload/v1769381482/production/686c48ada4bbacd7a82a4f83/j0twhzkt0o1zbsrqlln2.jpg" alt="Private sauna" loading="lazy"><div class="fh-gallery-caption"><small data-i18n="wellnessK"></small><strong data-i18n="wellnessP"></strong></div></article>
               <article class="fh-gallery-card small"><img src="https://assets.guesty.com/image/upload/v1769381488/production/686c48ada4bbacd7a82a4f83/tgbuyyre4bz9oyczaasv.jpg" alt="Private sauna detail" loading="lazy"><div class="fh-gallery-caption"><small data-i18n="saunaImageK"></small><strong data-i18n="saunaImageP"></strong></div></article>
@@ -1328,33 +1346,33 @@
             <div class="fh-gallery-controls"><button type="button" data-gallery-prev="propertySpaRail" data-i18n="galleryPrev"></button><button type="button" data-gallery-next="propertySpaRail" data-i18n="galleryNext"></button></div>
           </div>
 
-          <div class="fh-panel preSlide fh-spa-copy"><p class="fh-kicker" data-i18n="amenPanelK"></p><h3 data-i18n="amenPanelH"></h3><p data-i18n="amenPanelP"></p></div>
+          <div class="fh-panel fh-spa-copy"><p class="fh-kicker" data-i18n="amenPanelK"></p><h3 data-i18n="amenPanelH"></h3><p data-i18n="amenPanelP"></p></div>
         </div>
 
-        <div class="fh-container fh-simple-notes fh-spa-notes preSlide">
+        <div class="fh-container fh-simple-notes fh-spa-notes">
           <article><b data-i18n="saunaB"></b><p data-i18n="saunaP"></p></article>
           <article><b data-i18n="kitchenB"></b><p data-i18n="kitchenP"></p></article>
           <article><b data-i18n="winterB"></b><p data-i18n="winterP"></p></article>
           <article><b data-i18n="summerB"></b><p data-i18n="summerP"></p></article>
         </div>
         <div class="fh-container" style="margin-top:20px">
-          <p class="fh-pet-note preSlide"><strong data-i18n="petNoteB">Pets by arrangement</strong> — <span data-i18n="petNoteP">please contact us directly before booking to confirm suitability for your pet.</span></p>
+          <p class="fh-pet-note"><strong data-i18n="petNoteB">Pets by arrangement</strong> — <span data-i18n="petNoteP">please contact us directly before booking to confirm suitability for your pet.</span></p>
         </div>
 
-        <div class="fh-container fh-section-head fh-clean-head" style="margin-top:clamp(44px,6vw,70px)"><div class="preSlide"><p class="fh-kicker" data-i18n="spacesK"></p><h2 data-i18n="spacesH"></h2></div><p class="preSlide delay-1" data-i18n="spacesP"></p></div>
+        <div class="fh-container fh-section-head fh-clean-head" style="margin-top:clamp(44px,6vw,70px)"><div><p class="fh-kicker" data-i18n="spacesK"></p><h2 data-i18n="spacesH"></h2></div><p data-i18n="spacesP"></p></div>
         <div class="fh-container fh-room-gallery" id="roomGallery"></div>
       </section>
 
       <section class="fh-section" id="property-kitchen">
-        <div class="fh-container fh-section-head"><div class="preSlide"><p class="fh-kicker" data-i18n="kitchenK"></p><h2 data-i18n="kitchenH"></h2></div><p class="preSlide delay-1" data-i18n="kitchenLead"></p></div>
-        <div class="fh-container fh-gallery-stage fh-kitchen-peek preScale" id="propertyKitchenGallery" aria-label="Private kitchen peekaboo carousel">
+        <div class="fh-container fh-section-head"><div><p class="fh-kicker" data-i18n="kitchenK"></p><h2 data-i18n="kitchenH"></h2></div><p data-i18n="kitchenLead"></p></div>
+        <div class="fh-container fh-gallery-stage fh-kitchen-peek" id="propertyKitchenGallery" aria-label="Private kitchen peekaboo carousel">
           <div class="fh-gallery-rail" id="propertyKitchenRail"></div>
           <div class="fh-gallery-controls"><button type="button" data-gallery-prev="propertyKitchenRail" data-i18n="galleryPrev"></button><button type="button" data-gallery-next="propertyKitchenRail" data-i18n="galleryNext"></button></div>
         </div>
       </section>
 
       <section class="fh-section alt" id="property-region">
-        <div class="fh-container fh-section-head"><div class="preSlide"><p class="fh-kicker" data-i18n="regionK"></p><h2 data-i18n="regionH"></h2></div><p class="preSlide delay-1" data-i18n="regionP"></p></div>
+        <div class="fh-container fh-section-head"><div><p class="fh-kicker" data-i18n="regionK"></p><h2 data-i18n="regionH"></h2></div><p data-i18n="regionP"></p></div>
         <div class="fh-container fh-card-grid" id="regionCards"></div>
         <div class="fh-container" style="text-align:center;padding-top:32px">
           <a href="/experiences" style="font-size:14px;color:var(--clay2,#876e58);text-decoration:underline;text-underline-offset:3px" data-i18n="regionExperiencesLink">Discover all experiences in Saas-Fee →</a>
@@ -1362,7 +1380,7 @@
       </section>
 
       <section class="fh-section" id="property-reviews" aria-label="Guest ratings and reviews">
-        <div class="fh-trust-reviews preSlide">
+        <div class="fh-trust-reviews">
           <div class="fh-trust-head">
             <div>
               <p class="fh-kicker" data-i18n="reviewsK" data-review-i18n="kicker">Guest ratings</p>
@@ -1383,29 +1401,29 @@
 
       <section class="fh-section fh-why-direct-section" id="why-book-direct" aria-label="Why book direct">
         <div class="fh-container">
-          <div class="fh-why-direct-head preSlide">
+          <div class="fh-why-direct-head">
             <p class="fh-kicker" data-i18n="whyDirectKicker">Why book direct</p>
             <h2 data-i18n="whyDirectTitle">Better rates. No platform fees.</h2>
             <p data-i18n="whyDirectLead">Booking directly with Fletschhorn means you get the best available rate and a direct line to the property team.</p>
           </div>
           <div class="fh-why-direct-grid">
-            <div class="fh-why-card preSlide"><strong data-i18n="whyDirect1H">Up to 22% less</strong><p data-i18n="whyDirect1P">Direct reservations can be up to 22% less than regular booking platforms, without added platform service fees.</p></div>
-            <div class="fh-why-card preSlide" style="--d:.06s"><strong data-i18n="whyDirect2H">No service fees</strong><p data-i18n="whyDirect2P">Platforms add 12–18% in service fees on top of the property rate. Booking direct means every franc goes toward your stay.</p></div>
-            <div class="fh-why-card preSlide" style="--d:.12s"><strong data-i18n="whyDirect3H">Direct contact</strong><p data-i18n="whyDirect3P">Speak with the property team directly about arrivals, catering, sauna, group needs, and anything your stay requires.</p></div>
-            <div class="fh-why-card preSlide" style="--d:.18s"><strong data-i18n="whyDirect4H">More flexibility</strong><p data-i18n="whyDirect4P">Shuttle, kitchen concept, sauna timing, and group arrangements are handled directly — not through a platform inbox.</p></div>
+            <div class="fh-why-card"><strong data-i18n="whyDirect1H">Up to 22% less</strong><p data-i18n="whyDirect1P">Direct reservations can be up to 22% less than regular booking platforms, without added platform service fees.</p></div>
+            <div class="fh-why-card" style="--d:.06s"><strong data-i18n="whyDirect2H">No service fees</strong><p data-i18n="whyDirect2P">Platforms add 12–18% in service fees on top of the property rate. Booking direct means every franc goes toward your stay.</p></div>
+            <div class="fh-why-card" style="--d:.12s"><strong data-i18n="whyDirect3H">Direct contact</strong><p data-i18n="whyDirect3P">Speak with the property team directly about arrivals, catering, sauna, group needs, and anything your stay requires.</p></div>
+            <div class="fh-why-card" style="--d:.18s"><strong data-i18n="whyDirect4H">More flexibility</strong><p data-i18n="whyDirect4P">Shuttle, kitchen concept, sauna timing, and group arrangements are handled directly — not through a platform inbox.</p></div>
           </div>
         </div>
       </section>
 
       <section class="fh-cta" id="property-inquiry" style="--cta-bg:linear-gradient(135deg,#22392f,#b99f86);">
         <div class="fh-cta-inner">
-          <div class="preSlide">
+          <div>
             <p class="fh-kicker" data-i18n="ctaK"></p>
             <h2 data-i18n="ctaH"></h2>
             <p data-i18n="ctaP"></p>
           </div>
 
-          <div class="fh-booking preSlide delay-1" id="booking">
+          <div class="fh-booking" id="booking">
             <div class="fh-booking-form" id="fhBookingFields">
               <div class="fh-field">
                 <label for="fhGuests" data-booking-i18n="fieldGuests">Guests</label>
@@ -1467,10 +1485,6 @@
   root.dataset.ready="1";
   const qs=(s)=>root.querySelector(s);
   const qsa=(s)=>Array.from(root.querySelectorAll(s));
-  const asset=(name)=>"/s/"+encodeURIComponent(name);
-  const imagekit=(name)=>"https://ik.imagekit.io/Redberry/"+encodeURIComponent(name);
-  const imagekitRaw=(path)=>"https://ik.imagekit.io/Redberry/"+path;
-  const exts=["jpg","jpeg","png","webp"];
   const fallback=[
     "https://assets.guesty.com/image/upload/v1769382059/production/686c48ada4bbacd7a82a4f83/jvmndciiso46wxa30fzl.jpg",
     "https://assets.guesty.com/image/upload/v1769382057/production/686c48ada4bbacd7a82a4f83/nww8q4ksbnfcpgzqdvbo.jpg",
@@ -1511,34 +1525,12 @@
   const CLEAN_GUESTY_HERO_IMAGES = GUESTY_HERO_IMAGES.filter(function(url){ return !shouldSkipGuestyImage(url); });
   const CLEAN_GUESTY_KITCHEN_IMAGES = GUESTY_KITCHEN_IMAGES.filter(function(url){ return !shouldSkipGuestyImage(url); });
 
-  function buildNames(base,max){
-    const names=[];
-    for(let i=0;i<=max;i++) exts.forEach(ext=>names.push(i===0 ? `${base}.${ext}` : `${base} (${i}).${ext}`));
-    return names;
-  }
-  function unique(arr){return Array.from(new Set(arr.filter(Boolean)));}
-  const propertyNames=buildNames("The Property",88);
-  const shuttleNames=buildNames("Shuttle",16);
-  const imagekitKitchenUrls=[];
-  const imagekitKitchenMainUrl="";
-  const imagekitInsideUrls=[];
-  const imagekitPrivateSaunaUrls=[];
-  const imagekitGroupUrls=[];
-  const imagekitAddressUrls=[];
-  const imagekitExteriorUrls=[];
-  const imagekitMountainUrls=[];
-  function checkImage(name){return new Promise(resolve=>{const img=new Image();img.onload=()=>resolve(asset(name));img.onerror=()=>resolve(null);img.src=asset(name);});}
-  function probe(names){
-    const batch=18;let out=[];let i=0;
-    return new Promise(resolve=>{function next(){if(i>=names.length){resolve(unique(out));return;}const slice=names.slice(i,i+batch);i+=batch;Promise.all(slice.map(checkImage)).then(r=>{out=out.concat(r.filter(Boolean));next();});}next();});
-  }
   function isValidGuestyUrl(url){return typeof url==="string" && url.length>0 && /^https:\/\/assets\.guesty\.com\//.test(url);}
   function imgAt(arr,i){
     const clean=arr && arr.length ? arr.filter(isValidGuestyUrl) : [];
     const list=clean.length ? clean : fallback;
     return list[((i%list.length)+list.length)%list.length];
   }
-  function randomFrom(arr,fallbackArr){const list=arr && arr.length ? arr : fallbackArr; return list[Math.floor(Math.random()*list.length)];}
   /*
     Fixed marketing images for the property overview carousel, one per
     caption in order (Arrival, Exterior, Rooms, Gathering, Wellness, Views,
@@ -1575,117 +1567,25 @@
     "https://assets.guesty.com/image/upload/v1781188609/production/686c48ada4bbacd7a82a4f83/iqrvrlht7obdatn4xfmp.jpg"  // useful
   ];
   let lang="en", heroIndex=0, heroTimer=null;
-  let propertyUrls=[], shuttleUrls=[], kitchenUrls=CLEAN_GUESTY_KITCHEN_IMAGES.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
-  const WORKER_IMAGE_BASE="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
-  const WORKER_LISTING_ID="6968339ab7d735001ca015ba";
 
-  function shuffleWorkerList(input){
-    const arr=Array.from(new Set((input||[]).filter(Boolean))).filter(function(url){ return !shouldSkipGuestyImage(url); });
-    for(let i=arr.length-1;i>0;i--){
-      const j=Math.floor(Math.random()*(i+1));
-      const tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp;
-    }
-    return arr;
-  }
-  let workerRandomUrls=[];
-
-  function cleanWorkerUrl(raw){
-    raw=String(raw||"").trim();
-    if(!raw) return "";
-    raw=raw.replace(/^ttps:\/\//i,"https://").replace(/^\/\//,"https://");
-    raw=raw.replace(/[\s'\")<>]+$/g,"");
-    if(/^https?:\/\//i.test(raw)) return raw;
-    if(raw.charAt(0)==="/") return WORKER_IMAGE_BASE.replace(/\/$/,"")+raw;
-    return "";
-  }
-  function isLikelyImageUrl(url){
-    url=String(url||"");
-    return /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url) || /assets\.guesty\.com\/image\/upload/i.test(url) || /cloudinary/i.test(url);
-  }
-  function collectWorkerImageUrls(payload,rawText){
-    const urls=[];
-    function add(value){
-      const url=cleanWorkerUrl(value);
-      if(url && isLikelyImageUrl(url)) urls.push(url);
-    }
-    function addFromText(value){
-      value=String(value||"").replace(/ttps:\/\//gi,"https://");
-      const matches=value.match(/https?:\/\/[^\s"'<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^\s"'<>]*)?/gi)||[];
-      matches.forEach(add);
-    }
-    addFromText(rawText||"");
-    function walk(value,keyName){
-      if(value===null||value===undefined) return;
-      if(typeof value==="string" || typeof value==="number"){
-        const s=String(value);
-        addFromText(s);
-        add(s);
-        if(/\.(jpg|jpeg|png|webp)$/i.test(s) && keyName){ add(WORKER_IMAGE_BASE.replace(/\/$/,"")+"/images/"+encodeURIComponent(s)); }
-        return;
-      }
-      if(Array.isArray(value)){ value.forEach(function(v){walk(v,keyName);}); return; }
-      if(typeof value!=="object") return;
-      ["workerUrl","worker_url","proxiedUrl","proxyUrl","src","url","imageUrl","image_url","secure_url","secureUrl","original","originalUrl","original_url","large","full","href","path","thumbnail","medium"].forEach(function(k){
-        if(value[k]) walk(value[k],k);
-      });
-      Object.keys(value).forEach(function(k){walk(value[k],k);});
-    }
-    walk(payload,"");
-    return Array.from(new Set(urls));
-  }
+  /*
+    Property's marketing images (hero, gallery, concept cards, shared
+    spaces, kitchen, sauna) are static direct Guesty URLs, exactly like
+    Home's HOME_HERO_IMAGES model: one fixed array, rendered once, never
+    touched by Worker data. There used to be a second image system here
+    (loadWorkerImageAssets -> a random Worker /images pool feeding
+    propertyUrls/insideUrls/privateSaunaUrls/groupUrls/exteriorUrls/
+    mountainUrls) that ran after the first render and could silently
+    replace a correct marketing photo with an unrelated random one, or
+    with nothing if the fetch failed slowly. That whole random-pool
+    system has been removed: the Worker API is still used elsewhere on
+    this page for booking/pricing, but it no longer supplies any image.
+  */
   function rotateList(arr,offset){
     arr=arr&&arr.length?arr.slice():fallback.slice();
     if(arr.length<2) return arr;
     offset=((Number(offset)||0)%arr.length+arr.length)%arr.length;
     return arr.slice(offset).concat(arr.slice(0,offset));
-  }
-  function randomWorkerSet(offset,count){
-    const base=workerRandomUrls.length?workerRandomUrls:(propertyUrls.length?propertyUrls:fallback);
-    const list=rotateList(base,offset||0);
-    return typeof count==="number"?list.slice(0,Math.max(1,Math.min(count,list.length))):list;
-  }
-  async function fetchWorkerImagesOnce(url){
-    const response=await fetch(url,{method:"GET",headers:{"Accept":"application/json,text/plain,*/*"},cache:"no-store"});
-    const text=await response.text();
-    let data={}; try{data=JSON.parse(text);}catch(e){data={rawText:text};}
-    if(!response.ok || data.ok===false || data.error) throw new Error(data.error || data.message || ("Images request failed: "+response.status));
-    return collectWorkerImageUrls(data,text).filter(function(url){ return !shouldSkipGuestyImage(url); });
-  }
-  async function loadWorkerImageAssets(){
-    const base=WORKER_IMAGE_BASE.replace(/\/$/,"")+"/images";
-    const stamp=Date.now();
-    const attempts=[
-      base+"?listingId="+encodeURIComponent(WORKER_LISTING_ID)+"&page=property&random=1&limit=120&t="+stamp,
-      base+"?listingId="+encodeURIComponent(WORKER_LISTING_ID)+"&random=1&limit=120&t="+stamp,
-      base+"?page=property&random=1&limit=120&t="+stamp,
-      base+"?random=1&limit=120&t="+stamp,
-      base+"?t="+stamp
-    ];
-    try{
-      let urls=[];
-      for(let i=0;i<attempts.length;i++){
-        try{
-          urls=await fetchWorkerImagesOnce(attempts[i]);
-          if(urls.length>1) break;
-        }catch(inner){ if(i===attempts.length-1) throw inner; }
-      }
-      urls=shuffleWorkerList(urls);
-      if(!urls.length) throw new Error("No image URLs returned by Worker /images.");
-      workerRandomUrls=urls;
-      propertyUrls=rotateList(urls,0);
-      insideUrls=rotateList(urls,3);
-      kitchenUrls=CLEAN_GUESTY_KITCHEN_IMAGES.slice();
-      privateSaunaUrls=rotateList(urls,9);
-      groupUrls=rotateList(urls,12);
-      exteriorUrls=rotateList(urls,15);
-      mountainUrls=rotateList(urls,18);
-      shuttleUrls=rotateList(urls,21).slice(0,Math.min(6,urls.length));
-      return true;
-    }catch(error){
-      console.warn("Fletschhorn property Worker random images not loaded.",error);
-      workerRandomUrls=[];
-      return false;
-    }
   }
 
   const I18N={
@@ -1872,9 +1772,10 @@
   function buildHeroSlides(images){
     const media=qs("#propertyHeroMedia"); if(!media) return;
     const captions=d("hero"); const clean=(images||[]).filter(isValidGuestyUrl); const list=(clean.length ? clean : fallback).slice(0,12);
-    media.classList.remove("is-ready");
+    /* The first slide carries .is-active synchronously here, in the same
+       paint as insertion -- no container-level "ready" flag or rAF wait
+       gates visibility (see the CSS note above .fh-hero-media:before). */
     media.innerHTML=list.map((url,i)=>`<div class="fh-hero-slide${i===0?' is-active':''}" style="background-image:url('${url.replace(/'/g,"%27")}')"></div>`).join("");
-    requestAnimationFrame(function(){media.classList.add('is-ready');});
     heroIndex=0;
     const c=captions[0] || t("heroTitle");
     qs("#propertyHeroEyebrow").textContent=t("heroEyebrow");
@@ -1887,49 +1788,12 @@
     const progress=qs("#propertySlideProgress"); if(progress){progress.style.animation="none"; void progress.offsetHeight; progress.style.animation="fhHeroProgress 32s linear infinite";}
   }
   function startHero(){if(heroTimer) clearInterval(heroTimer);heroTimer=setInterval(()=>showHero(heroIndex+1),32000);}
-  function setImg(el,url){
-    if(!el)return;
-    if(!isValidGuestyUrl(url)){
-      /* A missing/empty/invalid URL (delayed Worker callback, empty array,
-         failed fetch) must never blank out an image that is already
-         showing. If nothing has been applied yet, use a real fallback
-         photo instead of leaving the element without a src. */
-      if(el.dataset.workerImageApplied==="true") return;
-      url=fallback[Math.floor(Math.random()*fallback.length)];
-    }
-    el.loading=el.loading||"lazy";
-    el.decoding="async";
-    el.onerror=function(){
-      el.onerror=null;
-      const alt=fallback[Math.floor(Math.random()*fallback.length)];
-      if(alt && el.src!==alt) el.src=alt;
-    };
-    el.dataset.workerImageApplied="true";
-    el.src=url;
-    const wrap=el.closest(".fh-img-loading");
-    if(wrap) wrap.classList.remove("fh-img-loading");
-  }
+  const PROPERTY_CTA_IMAGE = "https://assets.guesty.com/image/upload/v1769382114/production/686c48ada4bbacd7a82a4f83/xuhjdo9ekahme3rkmln0.jpg";
   function applyImages(){
-    const all=workerRandomUrls.length?workerRandomUrls:(propertyUrls.length?propertyUrls:fallback);
-    const prop=propertyUrls.length?propertyUrls:all;
-    const inside=insideUrls.length?insideUrls:all;
-    const sauna=privateSaunaUrls.length?privateSaunaUrls:all;
-    const group=groupUrls.length?groupUrls:all;
-    const exterior=exteriorUrls.length?exteriorUrls:all;
-    const mountain=mountainUrls.length?mountainUrls:all;
-    let cursor=Math.floor(Math.random()*Math.max(1,all.length));
-    function next(){ const url=imgAt(all,cursor); cursor+=1; return url; }
-    qsa("[data-fh-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-address-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-exterior-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-mountain-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-inside-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-group-img]").forEach((el)=>setImg(el,next()));
-    /* Sauna & amenities carousel images are fixed marketing photos set
-       directly in the markup; no longer cycled from the random pool. */
-    qsa("[data-kitchen-main]").forEach((el)=>setImg(el,next()));
-    qsa("[data-kitchen-img]").forEach((el)=>setImg(el,next()));
-    const cta=qs(".fh-cta"); if(cta) cta.style.setProperty("--cta-bg",`url('${imgAt(exterior,0)}')`);
+    /* Property's own marketing images (CTA background + hero) are fixed
+       direct Guesty URLs, exactly like Home. Nothing here reads Worker
+       state -- see the note above rotateList(). */
+    const cta=qs(".fh-cta"); if(cta) cta.style.setProperty("--cta-bg",`url('${PROPERTY_CTA_IMAGE}')`);
     buildHeroSlides(CLEAN_GUESTY_HERO_IMAGES.length ? CLEAN_GUESTY_HERO_IMAGES : GUESTY_HERO_IMAGES); startHero();
   }
   function galleryCard(url,small,cap,eager){
@@ -1944,23 +1808,20 @@
     /* propertyGalleryRail and propertyKitchenRail must not rotate:
        buildPropertyGalleryImages() and the fixed KITCHEN set are already
        aligned index-for-index with their caption lists. */
-    const offset={propertyGalleryRail:0,propertyKitchenRail:0,propertyShuttleRail:13,propertySpaRail:19}[railId]||0;
+    const offset={propertyGalleryRail:0,propertyKitchenRail:0}[railId]||0;
     const clean=(images||[]).filter(isValidGuestyUrl);
-    const workerClean=workerRandomUrls.filter(isValidGuestyUrl);
-    let source=clean.length>1 ? clean : (workerClean.length ? workerClean : fallback);
+    const source=clean.length>1 ? clean : fallback;
     const list=rotateList(source,offset).slice(0,Math.min(18,Math.max(1,source.length)));
     rail.innerHTML=list.map((url,i)=>galleryCard(url,i%3===1,captions[i%captions.length],i<2)).join("");
   }
   function buildDynamic(){
     buildGallery("propertyGalleryRail",buildPropertyGalleryImages(),d("gallery"));
-    buildGallery("propertyKitchenRail",kitchenUrls,d("kitchen"));
-    buildGallery("propertyShuttleRail",shuttleUrls,d("shuttle"));
-    const shuttleStage=qs("#propertyShuttleGallery"); if(shuttleStage) shuttleStage.style.display=(shuttleUrls.length||workerRandomUrls.length)?"block":"none";
-    const suites=d("suites"); qs("#suiteGrid").innerHTML=suites.map((s,i)=>`<article class="fh-suite-card preSlide ${i%3===1?'delay-1':i%3===2?'delay-2':''}"><small>${s[0]}</small><h3>${s[1]}</h3><div class="fh-suite-meta">${s[2].map(x=>`<span>${x}</span>`).join("")}</div><p>${s[3]}</p></article>`).join("");
-    const room=d("roomCards"); const roomImgs=SHARED_SPACES_IMAGES; qs("#roomGallery").innerHTML=room.map((r,i)=>`<article class="fh-room-card preSlide ${i?'delay-1':''} fh-img-loading"><img src="${imgAt(roomImgs,i)}" data-worker-image-applied="true" alt="${i===1?'Fletschhorn group gathering':'Fletschhorn interior'}"><div><small>${r[0]}</small><strong>${r[1]}</strong></div></article>`).join("");
-    const regs=d("regionCards"); qs("#regionCards").innerHTML=regs.map((r,i)=>`<article class="fh-card preSlide ${i?'delay-1':''}"><small>${r[0]}</small><strong>${r[1]}</strong><p>${r[2]}</p></article>`).join("");
-    const cons=d("concepts"); const conceptImgs=PROPERTY_CONCEPT_IMAGES; qs("#conceptCards").innerHTML=cons.map((c,i)=>`<article class="fh-concept preSlide ${i?'delay-1':''}"><img src="${imgAt(conceptImgs,i)}" data-worker-image-applied="true" alt="Fletschhorn"><div><small>${c[0]}</small><strong>${c[1]}</strong><p>${c[2]}</p></div></article>`).join("");
-    observeNew();
+    buildGallery("propertyKitchenRail",CLEAN_GUESTY_KITCHEN_IMAGES,d("kitchen"));
+    const suites=d("suites"); qs("#suiteGrid").innerHTML=suites.map((s,i)=>`<article class="fh-suite-card ${i%3===1?'':i%3===2?'':''}"><small>${s[0]}</small><h3>${s[1]}</h3><div class="fh-suite-meta">${s[2].map(x=>`<span>${x}</span>`).join("")}</div><p>${s[3]}</p></article>`).join("");
+    const room=d("roomCards"); const roomImgs=SHARED_SPACES_IMAGES; qs("#roomGallery").innerHTML=room.map((r,i)=>{const fb=fallback[Math.floor(Math.random()*fallback.length)].replace(/'/g,"%27");return `<article class="fh-room-card ${i?'':''}"><img src="${imgAt(roomImgs,i)}" alt="${i===1?'Fletschhorn group gathering':'Fletschhorn interior'}" loading="lazy" onerror="this.onerror=null;this.src='${fb}'"><div><small>${r[0]}</small><strong>${r[1]}</strong></div></article>`;}).join("");
+    const regs=d("regionCards"); qs("#regionCards").innerHTML=regs.map((r,i)=>`<article class="fh-card ${i?'':''}"><small>${r[0]}</small><strong>${r[1]}</strong><p>${r[2]}</p></article>`).join("");
+    const cons=d("concepts"); const conceptImgs=PROPERTY_CONCEPT_IMAGES; qs("#conceptCards").innerHTML=cons.map((c,i)=>{const fb=fallback[Math.floor(Math.random()*fallback.length)].replace(/'/g,"%27");return `<article class="fh-concept ${i?'':''}"><img src="${imgAt(conceptImgs,i)}" alt="Fletschhorn" loading="lazy" onerror="this.onerror=null;this.src='${fb}'"><div><small>${c[0]}</small><strong>${c[1]}</strong><p>${c[2]}</p></div></article>`;}).join("");
+
   }
   function setLanguage(next){
     next=String(next||"en").toLowerCase();
@@ -1970,7 +1831,7 @@
     try{localStorage.setItem("fh_lang",lang);localStorage.setItem("fh_language",lang);localStorage.setItem("fhLang",lang);}catch(e){}
     root.setAttribute("dir",lang==="he"?"rtl":"ltr");
     document.documentElement.setAttribute("dir",lang==="he"?"rtl":"ltr");
-    applyStaticTranslations(); buildDynamic(); buildHeroSlides(CLEAN_GUESTY_HERO_IMAGES.length ? CLEAN_GUESTY_HERO_IMAGES : GUESTY_HERO_IMAGES); startHero();
+    applyStaticTranslations(); buildDynamic(); buildHeroSlides(CLEAN_GUESTY_HERO_IMAGES.length ? CLEAN_GUESTY_HERO_IMAGES : GUESTY_HERO_IMAGES); startHero(); if(window.FHApplyContactLabels) window.FHApplyContactLabels(); if(window.FHRenderPropertyLayout) window.FHRenderPropertyLayout();
   }
   window.FHSetLanguage=function(next){ setLanguage(next); };
   function bindGalleryButtons(){
@@ -1980,12 +1841,6 @@
       if(!id)return; const rail=qs("#"+id); if(!rail)return; const step=Math.max(280,rail.clientWidth*.78); rail.scrollBy({left:prev?-step:step,behavior:"smooth"});
     });
   }
-  let observer;
-  function observeNew(){
-    if(!("IntersectionObserver" in window)){qsa(".preFade,.preSlide,.preScale,.preClip").forEach(el=>el.classList.add("fadeIn","slideIn","scaleIn","clipIn"));return;}
-    if(!observer){observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;entry.target.classList.add("fadeIn","slideIn","scaleIn","clipIn");observer.unobserve(entry.target);});},{threshold:.14,rootMargin:"0px 0px -8% 0px"});}
-    qsa(".preFade,.preSlide,.preScale,.preClip").forEach(el=>{if(!el.classList.contains("slideIn")&&!el.classList.contains("scaleIn")&&!el.classList.contains("clipIn"))observer.observe(el);});
-  }
   qsa(".fh-lang-switch button").forEach(btn=>btn.addEventListener("click",()=>setLanguage(btn.dataset.lang)));
   document.addEventListener("click",e=>{const btn=e.target.closest("[data-fh-lang], [data-lang], [data-language]"); if(!btn||root.contains(btn))return; const l=(btn.getAttribute("data-fh-lang")||btn.getAttribute("data-lang")||btn.getAttribute("data-language")||"").slice(0,2).toLowerCase(); if(I18N[l]) setLanguage(l);});
   window.addEventListener("fh:languagechange",e=>{const l=String((e.detail&&e.detail.lang)||"").slice(0,2).toLowerCase(); if(I18N[l]) setLanguage(l);});
@@ -1993,57 +1848,9 @@
   bindGalleryButtons();
   const startLang=(localStorage.getItem("fh_lang")||document.documentElement.getAttribute("lang")||"en").slice(0,2).toLowerCase();
   lang=I18N[startLang]?startLang:"en";
-  applyStaticTranslations(); applyImages(); buildDynamic(); observeNew();
-  loadWorkerImageAssets().then(function(ok){
-    applyImages();
-    buildDynamic();
-    if(ok) console.log("Fletschhorn property Worker images loaded:",{property:propertyUrls.length,inside:insideUrls.length,kitchen:kitchenUrls.length,sauna:privateSaunaUrls.length,exterior:exteriorUrls.length,mountain:mountainUrls.length});
-  });
+  applyStaticTranslations(); applyImages(); buildDynamic();
 })();
 </script>
-
-
-
-<script>
-(function(){
-  "use strict";
-
-  document.body.classList.add("fh-github-version");
-
-  const ASSET_BASE = new URL("assets/", document.baseURI).href;
-
-  async function loadHtml(slotId, fileName){
-    const slot = document.getElementById(slotId);
-    if (!slot) return;
-
-    try {
-      const response = await fetch(ASSET_BASE + fileName, { cache:"no-cache" });
-      if (!response.ok) throw new Error(fileName + " failed: " + response.status);
-
-      const html = await response.text();
-      slot.innerHTML = html;
-
-      slot.querySelectorAll("script").forEach(function(oldScript){
-        const newScript = document.createElement("script");
-
-        Array.from(oldScript.attributes).forEach(function(attr){
-          newScript.setAttribute(attr.name, attr.value);
-        });
-
-        newScript.textContent = oldScript.textContent;
-        oldScript.replaceWith(newScript);
-      });
-
-    } catch(error) {
-      console.error("Fletschhorn header/footer load error:", error);
-    }
-  }
-
-  loadHtml("fh-header-slot", "Header.html");
-  loadHtml("fh-footer-slot", "footer.html");
-})();
-</script>
-
 
 
   <!-- Canonical booking toolbar: generalised from /. -->
@@ -2099,7 +1906,7 @@
   // ---------------------------------------------------------------- config
   var CFG = Object.assign(
     {
-      bookingPageUrl: "booking.html",
+      bookingPageUrl: "https://www.fletschhorn.ch/booking",
       listingId: "6968339ab7d735001ca015ba",
       workerBase: "https://fletschhorn-guesty-api.bookings-e2d.workers.dev",
       minNights: 2,
@@ -2665,272 +2472,196 @@
 })();
 </script>
 
-<script data-fh-inline-source="assets/js/property-layout.js">
-/* =====================================================================
-   Fletschhorn — Private Lodge / Sleeping Layout renderer (property page)
-   Reads assets/rooms.json and renders the summary band, floor navigation,
-   room cards grouped by floor, and the room-detail drawer/modal.
-
-   This is a planning aid for the group organiser. Rooms are part of the
-   full-property rental and are NEVER booked individually — there are no
-   per-room booking or pricing CTAs here.
-   ===================================================================== */
-(function () {
+<script id="fh-property-layout">
+(function(){
   "use strict";
-  var root = document.getElementById("fh-property");
-  if (!root) return;
+  var root=document.getElementById("fh-property");
+  if(!root || root.dataset.layoutReady==="1") return;
+  root.dataset.layoutReady="1";
 
-  var DATA_URL = new URL("assets/rooms.json", document.baseURI).href;
+  var DATA={"updated":"2026-06-22","property":"Waldhotel Fletschhorn, Saas-Fee","note":"Full-house private rental. Rooms are shown so a group organiser can plan the sleeping layout. Rooms are NOT booked individually.","capacitySummary":{"maxGuests":68,"maxGuestsNote":"Indicative maximum. Final capacity should be confirmed with the property (see needsVerification on Room 20).","floors":3,"diningSeats":50,"amenities":["Restaurant / dining room","Open kitchen","Bar","Sauna","Gym","Communal lounges & terraces","Shuttle included"]},"floors":[{"id":"ground","name":"Ground Floor","summary":"Restaurant, bar, kitchen, rooms 27–29, and the direct-access Miralux Suite.","shared":["Kitchen","Bar","Restaurant / dining room (50 seats)","Direct-access Miralux Suite"]},{"id":"first","name":"First Floor","summary":"Main bedroom level with sauna, gym, family suite, connected rooms, and multiple terrace rooms.","shared":["Sauna","Gym","Wellness access","Terrace zones"]},{"id":"second","name":"Second Floor","summary":"Apartment-style layouts with private kitchens for families or larger groups.","shared":["Private kitchens","Apartment-style living areas","Balconies"]}],"rooms":[{"id":"room-27","roomNumber":"27","name":"Room 27","type":"Panorama Comfort Double Room","floor":"ground","zone":"Ground Floor","maxCapacity":4,"beds":"1 double bed + 1 sofa bed","size":"35 m² / 377 ft²","bathroom":"Corner bathtub, separate WC","features":["Walk-in closet","Terrace"],"bestFor":"Couple, small family, or organiser","connectedTo":null,"notes":"","needsVerification":false},{"id":"room-28","roomNumber":"28","name":"Room 28","type":"Panorama Comfort Double Room","floor":"ground","zone":"Ground Floor","maxCapacity":4,"beds":"1 double bed + 1 sofa bed","size":"35 m² / 377 ft²","bathroom":"Corner bathtub, separate WC","features":["Walk-in closet","Terrace"],"bestFor":"Couple or small family","connectedTo":null,"notes":"","needsVerification":false},{"id":"room-29","roomNumber":"29","name":"Room 29","type":"Panorama Comfort Double Room","floor":"ground","zone":"Ground Floor","maxCapacity":4,"beds":"1 double bed + 1 sofa bed","size":"35 m² / 377 ft²","bathroom":"Large shower, separate WC","features":["Walk-in closet","Terrace"],"bestFor":"Couple or small family","connectedTo":null,"notes":"","needsVerification":false},{"id":"room-20","roomNumber":"20","name":"Room 20","type":"Miralux Retreat Suite","floor":"ground","zone":"Ground Floor (direct access, ~20 m from the hotel)","maxCapacity":5,"beds":"1 double bed + 1 sofa bed","size":"65 m² / 700 ft²","bathroom":"Whirlpool, shower, separate WC, barrier-free bathroom","features":["Dining table","Large balcony","Direct access","Maximum privacy"],"bestFor":"VIP couple, family, guest of honour, retreat leader, or someone needing more privacy","connectedTo":null,"notes":"Located separately, approximately 20 metres from the hotel, for maximum privacy.","needsVerification":"Capacity conflict: room table lists 5 guests, floor plan shows 4 guests. Confirm with property before publishing a final number."},{"id":"room-22","roomNumber":"22","name":"Room 22","type":"Panorama Double Room","floor":"first","zone":"First Floor","maxCapacity":4,"beds":"1 double bed + 1 sofa bed","size":"35 m² / 377 ft²","bathroom":"Shower, separate WC","features":["Terrace"],"bestFor":"Couple or small family","connectedTo":null,"notes":"","needsVerification":false},{"id":"room-23","roomNumber":"23","name":"Room 23","type":"Sauna / Convertible Double Room","floor":"first","zone":"First Floor","maxCapacity":2,"beds":"2 single beds","size":"","bathroom":"Spa shower, separate WC","features":["On request"],"bestFor":"Staff, guide, retreat support, or flexible guest use","connectedTo":null,"notes":"Convertible / on request.","needsVerification":false},{"id":"room-24","roomNumber":"24","name":"Room 24","type":"Panorama Double Room","floor":"first","zone":"First Floor","maxCapacity":4,"beds":"1 double bed + 1 sofa bed","size":"35 m² / 377 ft²","bathroom":"Shower, separate WC","features":["Terrace","Connected to Room 25"],"bestFor":"Family group or friends travelling together","connectedTo":"room-25","notes":"","needsVerification":false},{"id":"room-25","roomNumber":"25","name":"Room 25","type":"Panorama Double Room","floor":"first","zone":"First Floor","maxCapacity":3,"beds":"1 double bed + 1 chair bed","size":"25 m² / 269 ft²","bathroom":"Shower, separate WC","features":["Terrace","Connected to Room 24"],"bestFor":"Family group, child/teen room, or connected guest setup","connectedTo":"room-24","notes":"","needsVerification":false},{"id":"room-26","roomNumber":"26","name":"Room 26","type":"Panorama Double Room","floor":"first","zone":"First Floor","maxCapacity":4,"beds":"1 double bed + 1 sofa bed","size":"35 m² / 377 ft²","bathroom":"Shower, no separate WC","features":["Terrace"],"bestFor":"Couple or small family","connectedTo":null,"notes":"","needsVerification":false},{"id":"room-31","roomNumber":"31","name":"Room 31","type":"Panorama Duplex Family Suite","floor":"first","zone":"First Floor","maxCapacity":8,"beds":"1 double bed + 2 sofa beds + 1 single bed on mezzanine","size":"over 65 m²","bathroom":"Corner bathtub, separate WC","features":["Walk-in closet","Terrace","Wooden gallery / mezzanine"],"bestFor":"Family, children, multi-generational group, or close friends","connectedTo":null,"notes":"","needsVerification":false},{"id":"room-32","roomNumber":"32","name":"Room 32","type":"Panorama Comfort Junior Suite","floor":"first","zone":"First Floor","maxCapacity":4,"beds":"1 double bed + 1 sofa bed","size":"35 m² / 377 ft²","bathroom":"Corner bathtub, separate WC","features":["Walk-in closet","Terrace"],"bestFor":"Couple, small family, or premium guest","connectedTo":null,"notes":"","needsVerification":false},{"id":"room-33","roomNumber":"33","name":"Room 33","type":"Panorama Comfort Junior Suite","floor":"first","zone":"First Floor","maxCapacity":4,"beds":"1 double bed + 1 sofa bed","size":"35 m² / 377 ft²","bathroom":"Corner bathtub, separate WC","features":["Walk-in closet","Terrace"],"bestFor":"Couple, small family, or premium guest","connectedTo":null,"notes":"","needsVerification":false},{"id":"room-34-35","roomNumber":"34 & 35","name":"Rooms 34 & 35","type":"Panorama Two-Bedroom Penthouse Design Apartment with kitchen","floor":"second","zone":"Second Floor","maxCapacity":8,"beds":"2 double beds + 1 sofa bed + 1 chair bed + 1 single bed","size":"90 m² / 970 ft²","bathroom":"Bathroom with shower and bathtub, separate WC","features":["Private kitchen","Spacious living/dining area","Two balconies","Wardrobes"],"bestFor":"Family, VIP group, wedding party, leadership team, or guests needing an apartment-style setup","connectedTo":null,"splitCapacity":[{"room":"34","guests":5},{"room":"35","guests":3}],"notes":"Two-bedroom apartment combining Rooms 34 and 35.","needsVerification":"Size conflict: room table lists 90 m² / 970 ft², descriptive page says over 120 m². Confirm with property before publishing a final size."},{"id":"room-36","roomNumber":"36","name":"Room 36","type":"Panorama 3-Bedroom Apartment with Kitchen","floor":"second","zone":"Second Floor","maxCapacity":10,"beds":"1 double bed + 2 sofa beds + 4 single beds","size":"65 m² / 700 ft²","bathroom":"","features":["Private kitchen"],"bestFor":"Large family, kids/teens, retreat group, or friends sharing","connectedTo":null,"notes":"","needsVerification":false}],"groupSetups":[{"title":"Couples & VIP Guests","rooms":["20","27","28","29","32","33"]},{"title":"Families","rooms":["31","34 & 35","36"]},{"title":"Connected Rooms","rooms":["24","25"]},{"title":"Staff / Guides / Support","rooms":["23"]},{"title":"Larger Shared Setups","rooms":["31","36"]}]};
+  var state={activeFloor:null,byId:{}};
+  DATA.rooms.forEach(function(room){state.byId[room.id]=room;});
 
-  function el(sel, ctx) { return (ctx || root).querySelector(sel); }
-  function esc(s) {
-    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
-      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
-    });
-  }
-
-  var state = { data: null, activeFloor: null, byId: {} };
-
-  /* UI chrome strings owned by this renderer (room/floor names stay data
-     from rooms.json). Keyed off the shared fh_lang store. */
-  var LODGE_T = {
-    en: { exclusive: "Exclusive", exclusiveText: "Full-house private rental", guestsMax: "Guests max capacity", floors: "Main floors", dining: "Restaurant / dining seats", bestFor: "Best for:", viewLayout: "View layout" },
-    fr: { exclusive: "Exclusif", exclusiveText: "Location privée de toute la maison", guestsMax: "Capacité maximale", floors: "Étages principaux", dining: "Places restaurant / repas", bestFor: "Idéal pour :", viewLayout: "Voir le plan" },
-    de: { exclusive: "Exklusiv", exclusiveText: "Private Miete des ganzen Hauses", guestsMax: "Maximale Gästezahl", floors: "Hauptetagen", dining: "Restaurant- / Essplätze", bestFor: "Ideal für:", viewLayout: "Grundriss ansehen" },
-    ru: { exclusive: "Эксклюзив", exclusiveText: "Частная аренда всего дома", guestsMax: "Максимум гостей", floors: "Основные этажи", dining: "Мест в ресторане / столовой", bestFor: "Лучше всего для:", viewLayout: "Показать планировку" },
-    he: { exclusive: "בלעדי", exclusiveText: "השכרה פרטית של הבית כולו", guestsMax: "קיבולת אורחים מרבית", floors: "קומות עיקריות", dining: "מקומות מסעדה / אוכל", bestFor: "מתאים במיוחד ל:", viewLayout: "הצגת פריסה" }
+  var UI={
+    en:{exclusive:"Exclusive",exclusiveText:"Full-house private rental",guestsMax:"Guests max capacity",floors:"Main floors",dining:"Dining seats",bestFor:"Best for",viewLayout:"View layout",room:"Room",max:"Max capacity",beds:"Beds",size:"Size",bathroom:"Bathroom",features:"Features",notes:"Notes",confirm:"To confirm"},
+    fr:{exclusive:"Exclusif",exclusiveText:"Location privée de toute la maison",guestsMax:"Capacité maximale",floors:"Étages principaux",dining:"Places au repas",bestFor:"Idéal pour",viewLayout:"Voir le plan",room:"Chambre",max:"Capacité",beds:"Lits",size:"Surface",bathroom:"Salle de bain",features:"Équipements",notes:"Notes",confirm:"À confirmer"},
+    de:{exclusive:"Exklusiv",exclusiveText:"Private Miete des ganzen Hauses",guestsMax:"Maximale Gästezahl",floors:"Hauptetagen",dining:"Essplätze",bestFor:"Ideal für",viewLayout:"Grundriss ansehen",room:"Zimmer",max:"Maximale Belegung",beds:"Betten",size:"Größe",bathroom:"Badezimmer",features:"Ausstattung",notes:"Hinweise",confirm:"Zu bestätigen"},
+    ru:{exclusive:"Эксклюзив",exclusiveText:"Частная аренда всего дома",guestsMax:"Максимум гостей",floors:"Основные этажи",dining:"Места за столом",bestFor:"Лучше всего для",viewLayout:"Показать планировку",room:"Комната",max:"Максимум гостей",beds:"Кровати",size:"Площадь",bathroom:"Ванная",features:"Особенности",notes:"Примечания",confirm:"Подтвердить"},
+    he:{exclusive:"בלעדי",exclusiveText:"השכרה פרטית של הבית כולו",guestsMax:"קיבולת אורחים",floors:"קומות עיקריות",dining:"מקומות אוכל",bestFor:"מתאים במיוחד",viewLayout:"הצגת פריסה",room:"חדר",max:"קיבולת מרבית",beds:"מיטות",size:"גודל",bathroom:"חדר רחצה",features:"מאפיינים",notes:"הערות",confirm:"לאישור"}
   };
-  function lodgeLang() {
-    var lang = "en";
-    try { lang = localStorage.getItem("fh_lang") || document.documentElement.getAttribute("lang") || "en"; } catch (e) {}
-    lang = String(lang).slice(0, 2).toLowerCase();
-    if (lang === "iw") lang = "he";
-    return LODGE_T[lang] ? lang : "en";
+
+  function lang(){
+    var value=(root.getAttribute("data-current-lang")||document.documentElement.lang||"en").slice(0,2).toLowerCase();
+    if(value==="iw") value="he";
+    return UI[value]?value:"en";
   }
-  function lt(key) { return LODGE_T[lodgeLang()][key] || LODGE_T.en[key] || ""; }
-
-  function render() {
-    var d = state.data;
-    if (!d) return;
-
-    // --- Summary band (B1) ---
-    var sum = el("#fhLodgeSummary");
-    if (sum && d.capacitySummary) {
-      var c = d.capacitySummary;
-      var items = [
-        "<li><strong>" + esc(lt("exclusive")) + "</strong>" + esc(lt("exclusiveText")) + "</li>",
-        "<li><strong>" + esc(c.maxGuests) + "</strong>" + esc(lt("guestsMax")) + "</li>",
-        "<li><strong>" + esc(c.floors) + "</strong>" + esc(lt("floors")) + "</li>",
-        "<li><strong>" + esc(c.diningSeats) + "</strong>" + esc(lt("dining")) + "</li>"
-      ];
-      sum.innerHTML = items.join("");
-    }
-    var flag = el("#fhLodgeFlag");
-    if (flag && d.capacitySummary && d.capacitySummary.maxGuestsNote) {
-      flag.textContent = d.capacitySummary.maxGuestsNote;
-    }
-
-    // --- Floor pills (B6) ---
-    var pills = el("#fhFloorPills");
-    if (pills && d.floors) {
-      pills.innerHTML = d.floors.map(function (f) {
-        return '<button type="button" class="fh-floor-pill" data-floor="' + esc(f.id) + '">' + esc(f.name) + "</button>";
-      }).join("");
-      pills.addEventListener("click", function (e) {
-        var b = e.target.closest(".fh-floor-pill");
-        if (b) setFloor(b.getAttribute("data-floor"));
-      });
-    }
-
-    setFloor((d.floors && d.floors[0] && d.floors[0].id) || null);
-
-    // --- Group setups (B7) ---
-    var setupGrid = el("#fhSetupGrid");
-    if (setupGrid && d.groupSetups) {
-      setupGrid.innerHTML = d.groupSetups.map(function (g) {
-        var rooms = (g.rooms || []).map(function (r) {
-          return '<button type="button" data-room-num="' + esc(r) + '">Room ' + esc(r) + "</button>";
-        }).join("");
-        return '<div class="fh-setup-card"><h3>' + esc(g.title) + '</h3><div class="fh-setup-rooms">' + rooms + "</div></div>";
-      }).join("");
-      setupGrid.addEventListener("click", function (e) {
-        var b = e.target.closest("[data-room-num]");
-        if (!b) return;
-        var num = b.getAttribute("data-room-num");
-        var room = (d.rooms || []).filter(function (r) { return String(r.roomNumber) === String(num); })[0];
-        if (room) { setFloor(room.floor); openModal(room.id); }
-      });
-    }
-
-    buildModal();
-  }
-
-  function setFloor(floorId) {
-    var d = state.data;
-    if (!d || !floorId) return;
-    state.activeFloor = floorId;
-
-    Array.prototype.forEach.call(root.querySelectorAll(".fh-floor-pill"), function (p) {
-      p.classList.toggle("active", p.getAttribute("data-floor") === floorId);
+  function tr(key){return UI[lang()][key]||UI.en[key]||"";}
+  function esc(value){
+    return String(value==null?"":value).replace(/[&<>"']/g,function(ch){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
     });
+  }
+  function one(selector,scope){return (scope||root).querySelector(selector);}
+  function floorName(id){
+    var floor=DATA.floors.find(function(item){return item.id===id;});
+    return floor?floor.name:"";
+  }
+  function row(label,value){
+    if(value===null || value===undefined || value==="") return "";
+    return "<div><dt>"+esc(label)+"</dt><dd>"+esc(value)+"</dd></div>";
+  }
 
-    var floor = (d.floors || []).filter(function (f) { return f.id === floorId; })[0];
-    var summary = el("#fhFloorSummary");
-    var shared = el("#fhFloorShared");
-    if (summary && floor) summary.textContent = floor.summary || "";
-    if (shared && floor) {
-      shared.innerHTML = (floor.shared || []).map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("");
+  function roomCard(room){
+    var tags=[];
+    if(room.connectedTo) tags.push('<span class="fh-layout-room-tag">Connected rooms</span>');
+    if(/suite/i.test(room.type)) tags.push('<span class="fh-layout-room-tag">Private suite</span>');
+    if(/apartment/i.test(room.type)) tags.push('<span class="fh-layout-room-tag">Apartment setup</span>');
+    if(room.needsVerification) tags.push('<span class="fh-layout-room-tag flag">'+esc(tr("confirm"))+'</span>');
+
+    var details=
+      row(tr("max"),room.maxCapacity?room.maxCapacity+" guests":"")+
+      row(tr("beds"),room.beds)+
+      row(tr("size"),room.size)+
+      row(tr("bathroom"),room.bathroom);
+
+    return '<article class="fh-layout-room-card">'+
+      '<p class="fh-layout-room-topline">'+esc(tr("room"))+" "+esc(room.roomNumber)+" · "+esc(floorName(room.floor))+'</p>'+
+      '<h4>'+esc(room.type)+'</h4>'+
+      '<dl class="fh-layout-room-details">'+details+'</dl>'+
+      (room.bestFor?'<p class="fh-layout-room-best"><strong>'+esc(tr("bestFor"))+':</strong> '+esc(room.bestFor)+'</p>':"")+
+      (tags.length?'<div class="fh-layout-room-tags">'+tags.join("")+'</div>':"")+
+      '<button type="button" class="fh-layout-room-button" data-room-open="'+esc(room.id)+'">'+esc(tr("viewLayout"))+'</button>'+
+    '</article>';
+  }
+
+  function setFloor(id){
+    state.activeFloor=id;
+    root.querySelectorAll(".fh-floor-pill").forEach(function(button){
+      button.classList.toggle("active",button.dataset.floor===id);
+      button.setAttribute("aria-selected",button.dataset.floor===id?"true":"false");
+    });
+    var floor=DATA.floors.find(function(item){return item.id===id;});
+    if(!floor) return;
+    var summary=one("#fhFloorSummary");
+    var shared=one("#fhFloorShared");
+    var cards=one("#fhRoomCards");
+    if(summary) summary.textContent=floor.summary||"";
+    if(shared) shared.innerHTML=(floor.shared||[]).map(function(item){return "<span>"+esc(item)+"</span>";}).join("");
+    if(cards){
+      cards.innerHTML=DATA.rooms.filter(function(room){return room.floor===id;}).map(roomCard).join("");
+      cards.onclick=function(event){
+        var button=event.target.closest("[data-room-open]");
+        if(button) openModal(button.dataset.roomOpen);
+      };
+    }
+  }
+
+  function render(){
+    var c=DATA.capacitySummary;
+    var summary=one("#fhLodgeSummary");
+    if(summary){
+      summary.innerHTML=
+        "<li><strong>"+esc(tr("exclusive"))+"</strong>"+esc(tr("exclusiveText"))+"</li>"+
+        "<li><strong>"+esc(c.maxGuests)+"</strong>"+esc(tr("guestsMax"))+"</li>"+
+        "<li><strong>"+esc(c.floors)+"</strong>"+esc(tr("floors"))+"</li>"+
+        "<li><strong>"+esc(c.diningSeats)+"</strong>"+esc(tr("dining"))+"</li>";
+    }
+    var flag=one("#fhLodgeFlag");
+    if(flag) flag.textContent=c.maxGuestsNote||"";
+
+    var pills=one("#fhFloorPills");
+    if(pills){
+      pills.innerHTML=DATA.floors.map(function(floor){
+        return '<button type="button" class="fh-floor-pill" role="tab" data-floor="'+esc(floor.id)+'">'+esc(floor.name)+'</button>';
+      }).join("");
+      pills.onclick=function(event){
+        var button=event.target.closest(".fh-floor-pill");
+        if(button) setFloor(button.dataset.floor);
+      };
     }
 
-    var cards = el("#fhRoomCards");
-    if (!cards) return;
-    var rooms = (d.rooms || []).filter(function (r) { return r.floor === floorId; });
-    cards.innerHTML = rooms.map(roomCard).join("");
-    cards.onclick = function (e) {
-      var b = e.target.closest("[data-room-open]");
-      if (b) openModal(b.getAttribute("data-room-open"));
-    };
-  }
-
-  function roomCard(r) {
-    var tags = [];
-    if (r.connectedTo) tags.push('<span class="fh-room-tag">Connected rooms</span>');
-    if (/suite/i.test(r.type)) tags.push('<span class="fh-room-tag">Private suite</span>');
-    if (/apartment/i.test(r.type)) tags.push('<span class="fh-room-tag">Apartment-style setup</span>');
-    if (r.needsVerification) tags.push('<span class="fh-room-tag flag">Confirm details</span>');
-    var media = r.image ? ' style="background-image:url(\'' + esc(r.image) + "')\"" : "";
-    var floorName = (function () {
-      var f = (state.data.floors || []).filter(function (x) { return x.id === r.floor; })[0];
-      return f ? f.name : r.zone || "";
-    })();
-    return '' +
-      '<article class="fh-room-card">' +
-        '<div class="fh-room-card-media"' + media + '><span class="fh-room-card-floor">' + esc(floorName) + "</span></div>" +
-        '<div class="fh-room-card-body">' +
-          '<p class="fh-room-card-num">Room ' + esc(r.roomNumber) + "</p>" +
-          '<h3 class="fh-room-card-type">' + esc(r.type) + "</h3>" +
-          '<ul class="fh-room-card-meta">' +
-            "<li><b>Sleeps</b><span>" + esc(r.maxCapacity) + " guests</span></li>" +
-            "<li><b>Beds</b><span>" + esc(r.beds) + "</span></li>" +
-            (r.size ? "<li><b>Size</b><span>" + esc(r.size) + "</span></li>" : "") +
-          "</ul>" +
-          '<p class="fh-room-card-best"><span>' + esc(lt("bestFor")) + '</span> ' + esc(r.bestFor) + "</p>" +
-          (tags.length ? '<div class="fh-room-tags">' + tags.join("") + "</div>" : "") +
-          '<button type="button" class="fh-room-card-btn" data-room-open="' + esc(r.id) + '">' + esc(lt("viewLayout")) + '</button>' +
-        "</div>" +
-      "</article>";
-  }
-
-  /* ---------------------------------------------------------- modal */
-  function buildModal() {
-    if (el("#fhRoomModal")) return;
-    var m = document.createElement("div");
-    m.className = "fh-room-modal";
-    m.id = "fhRoomModal";
-    m.setAttribute("aria-hidden", "true");
-    m.innerHTML = '<div class="fh-room-modal-card" role="dialog" aria-modal="true" aria-label="Room layout"></div>';
-    root.appendChild(m);
-    m.addEventListener("click", function (e) { if (e.target === m) closeModal(); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
-  }
-
-  function row(label, value) {
-    if (!value) return "";
-    return "<div><dt>" + esc(label) + "</dt><dd>" + esc(value) + "</dd></div>";
-  }
-
-  function openModal(id) {
-    var r = state.byId[id];
-    var m = el("#fhRoomModal");
-    if (!r || !m) return;
-    var card = el(".fh-room-modal-card", m);
-
-    var floorName = (function () {
-      var f = (state.data.floors || []).filter(function (x) { return x.id === r.floor; })[0];
-      return f ? f.name : r.zone || "";
-    })();
-    var split = "";
-    if (r.splitCapacity) {
-      split = r.splitCapacity.map(function (s) { return "Room " + esc(s.room) + ": " + esc(s.guests) + " guests"; }).join(" · ");
+    var setups=one("#fhSetupGrid");
+    if(setups){
+      setups.innerHTML=DATA.groupSetups.map(function(group){
+        var buttons=group.rooms.map(function(number){
+          return '<button type="button" data-room-number="'+esc(number)+'">'+esc(tr("room"))+" "+esc(number)+'</button>';
+        }).join("");
+        return '<article class="fh-setup-card"><h4>'+esc(group.title)+'</h4><div class="fh-setup-rooms">'+buttons+'</div></article>';
+      }).join("");
+      setups.onclick=function(event){
+        var button=event.target.closest("[data-room-number]");
+        if(!button) return;
+        var room=DATA.rooms.find(function(item){return String(item.roomNumber)===String(button.dataset.roomNumber);});
+        if(room){setFloor(room.floor);openModal(room.id);}
+      };
     }
-    var features = (r.features || []).join(", ");
-    var media = r.image
-      ? '<div class="fh-room-modal-media" style="background-image:url(\'' + esc(r.image) + "')\"></div>"
-      : '<div class="fh-room-modal-media">Photo coming soon</div>';
-
-    card.innerHTML =
-      '<div class="fh-room-modal-top"><div>' +
-        '<p class="fh-room-modal-num">Room ' + esc(r.roomNumber) + "</p>" +
-        '<h3 class="fh-room-modal-title">' + esc(r.type) + "</h3>" +
-        '<p class="fh-room-modal-floor">' + esc(floorName) + " · " + esc(r.zone || "") + "</p>" +
-      '</div><button type="button" class="fh-room-modal-close" aria-label="Close">×</button></div>' +
-      media +
-      "<dl>" +
-        row("Max capacity", r.maxCapacity ? r.maxCapacity + " guests" : "") +
-        row("Sleeping split", split) +
-        row("Beds", r.beds) +
-        row("Size", r.size) +
-        row("Bathroom", r.bathroom) +
-        row("Features", features) +
-        row("Best for", r.bestFor) +
-        row("Notes", r.notes) +
-      "</dl>" +
-      (r.needsVerification ? '<div class="fh-room-modal-flag"><strong>To confirm:</strong> ' + esc(r.needsVerification) + "</div>" : "") +
-      '<div class="fh-room-modal-sketch">Mini-layout sketch coming soon</div>';
-
-    var close = el(".fh-room-modal-close", card);
-    if (close) close.addEventListener("click", closeModal);
-
-    m.classList.add("open");
-    m.setAttribute("aria-hidden", "false");
+    setFloor(state.activeFloor||DATA.floors[0].id);
   }
 
-  function closeModal() {
-    var m = el("#fhRoomModal");
-    if (m) { m.classList.remove("open"); m.setAttribute("aria-hidden", "true"); }
+  function buildModal(){
+    var modal=one("#fhRoomModal");
+    if(modal) return modal;
+    modal=document.createElement("div");
+    modal.id="fhRoomModal";
+    modal.className="fh-room-modal";
+    modal.setAttribute("aria-hidden","true");
+    modal.innerHTML='<div class="fh-room-modal-card" role="dialog" aria-modal="true" aria-label="Room layout"></div>';
+    root.appendChild(modal);
+    modal.addEventListener("click",function(event){if(event.target===modal) closeModal();});
+    return modal;
+  }
+  function openModal(id){
+    var room=state.byId[id];
+    if(!room) return;
+    var modal=buildModal();
+    var card=one(".fh-room-modal-card",modal);
+    var split=(room.splitCapacity||[]).map(function(item){return "Room "+item.room+": "+item.guests+" guests";}).join(" · ");
+    var details=
+      row(tr("max"),room.maxCapacity?room.maxCapacity+" guests":"")+
+      row("Sleeping split",split)+
+      row(tr("beds"),room.beds)+
+      row(tr("size"),room.size)+
+      row(tr("bathroom"),room.bathroom)+
+      row(tr("features"),(room.features||[]).join(", "))+ 
+      row(tr("bestFor"),room.bestFor)+
+      row(tr("notes"),room.notes);
+    card.innerHTML=
+      '<div class="fh-room-modal-top"><div>'+
+        '<p class="fh-room-modal-num">'+esc(tr("room"))+" "+esc(room.roomNumber)+'</p>'+
+        '<h3 class="fh-room-modal-title">'+esc(room.type)+'</h3>'+
+        '<p class="fh-room-modal-floor">'+esc(floorName(room.floor))+" · "+esc(room.zone||"")+'</p>'+
+      '</div><button type="button" class="fh-room-modal-close" aria-label="Close">×</button></div>'+
+      '<dl>'+details+'</dl>'+
+      (room.needsVerification?'<div class="fh-room-modal-flag"><strong>'+esc(tr("confirm"))+':</strong> '+esc(room.needsVerification)+'</div>':"");
+    one(".fh-room-modal-close",card).onclick=closeModal;
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden","false");
+  }
+  function closeModal(){
+    var modal=one("#fhRoomModal");
+    if(modal){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");}
   }
 
-  /* ---------------------------------------------------------- load */
-  function relocaliseLodge() { if (state.data) render(); }
-  ["fh:languagechange", "fh:language-change", "fh-language-change"].forEach(function (evt) {
-    document.addEventListener(evt, relocaliseLodge);
-    window.addEventListener(evt, relocaliseLodge);
+  document.addEventListener("keydown",function(event){if(event.key==="Escape") closeModal();});
+  document.addEventListener("click",function(event){
+    if(event.target.closest("[data-lang],[data-fh-lang],[data-language]")) render();
   });
-  window.addEventListener("storage", function (e) { if (e.key === "fh_lang") relocaliseLodge(); });
-  document.addEventListener("click", function (e) {
-    if (e.target.closest && e.target.closest("[data-lang],[data-fh-lang],[data-language]")) window.setTimeout(relocaliseLodge, 0);
-  });
-
-  fetch(DATA_URL, { headers: { Accept: "application/json" } })
-    .then(function (r) { if (!r.ok) throw new Error("rooms.json " + r.status); return r.json(); })
-    .then(function (json) {
-      state.data = json;
-      (json.rooms || []).forEach(function (r) { state.byId[r.id] = r; });
-      render();
-    })
-    .catch(function (err) { console.warn("Could not load rooms.json", err); });
+  window.addEventListener("storage",function(event){if(event.key==="fh_lang") render();});
+  window.FHRenderPropertyLayout=render;
+  render();
 })();
 </script>
 
 <!-- FH ROOM-LAYOUT IMAGE PATCH: tiny Guesty carousel + text-only layout cards -->
-<script id="fh-layout-guesty-strip-carousel">
+<script id="fh-layout-photo-carousel">
 (function(){
   "use strict";
+  var carousel=document.getElementById("layoutCarousel");
+  if(!carousel || carousel.dataset.ready==="1") return;
 
-  var BOOKING_COM_PROPERTY_URL = "https://www.booking.com/hotel/ch/waldhotel-fletschhorn-saas-fee123.html";
-
-  var BLOCKED_LAYOUT_GUESTY_IMAGE_IDS = [
-    "tck0hivuecpuggtsis1p.jpg",
-    "rktrqvflveefwyy33q9r.jpg",
-    "em1vnl5ftcdcuubl2anx.jpg"
-  ];
-
-  function isBlockedLayoutGuestyImage(url){
-    url = String(url || "");
-    return BLOCKED_LAYOUT_GUESTY_IMAGE_IDS.some(function(id){ return url.indexOf(id) !== -1; });
-  }
-
-  window.GUESTY_PROPERTY_IMAGES = [
+  var blocked=["tck0hivuecpuggtsis1p.jpg","rktrqvflveefwyy33q9r.jpg","em1vnl5ftcdcuubl2anx.jpg"];
+  var images=[
     "https://assets.guesty.com/image/upload/v1769381526/production/686c48ada4bbacd7a82a4f83/wd8mhudl4qtcc7chp1ya.jpg",
     "https://assets.guesty.com/image/upload/v1769381547/production/686c48ada4bbacd7a82a4f83/fdfmu0txiyyj9q2qp6ky.jpg",
     "https://assets.guesty.com/image/upload/v1769381535/production/686c48ada4bbacd7a82a4f83/rfmik4x66l0bd2ty446t.jpg",
@@ -2943,124 +2674,91 @@
     "https://assets.guesty.com/image/upload/v1769381543/production/686c48ada4bbacd7a82a4f83/m3tc0oop1nlnyhdgcfeq.jpg",
     "https://assets.guesty.com/image/upload/v1769381552/production/686c48ada4bbacd7a82a4f83/w7cqwpi3jthmkxyguiwb.jpg",
     "https://assets.guesty.com/image/upload/v1769381550/production/686c48ada4bbacd7a82a4f83/s6gmipywiy5afbaf2z8y.jpg"
-];
+  ].filter(function(url){return !blocked.some(function(id){return url.indexOf(id)!==-1;});});
 
-  window.GUESTY_PROPERTY_IMAGES = window.GUESTY_PROPERTY_IMAGES.filter(function(url){ return !isBlockedLayoutGuestyImage(url); });
-
-  function optimizeGuestyImage(url, width){
-    url = String(url || "").trim();
-    if(!url) return "";
-    width = width || 900;
-    if(url.indexOf("/image/upload/") === -1) return url;
-    if(url.indexOf("/image/upload/f_auto") !== -1) return url;
-    return url.replace("/image/upload/", "/image/upload/f_auto,q_auto,w_" + width + "/");
+  function optimized(url,width){
+    return url.replace("/image/upload/","/image/upload/f_auto,q_auto,w_"+width+"/");
   }
-
-  function shuffle(list){
-    var arr = Array.from(new Set((list || []).filter(Boolean)));
-    for(var i = arr.length - 1; i > 0; i--){
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = arr[i];
-      arr[i] = arr[j];
-      arr[j] = t;
-    }
-    return arr;
-  }
-
-  function renderLayoutCarousel(){
-    var carousel = document.getElementById("layoutCarousel");
-    if(!carousel || carousel.dataset.ready === "1") return;
-
-    carousel.innerHTML = shuffle(window.GUESTY_PROPERTY_IMAGES).map(function(url, index){
-      var safe = optimizeGuestyImage(url, 900).replace(/"/g, "&quot;");
-      return '<img src="' + safe + '" alt="Fletschhorn property photo ' + (index + 1) + '" loading="lazy">';
-    }).join("");
-
-    carousel.dataset.ready = "1";
-  }
-
-  function removeSpecificLayoutImages(){
-    ["#fhRoomCards", "#fhSetupGrid"].forEach(function(selector){
-      var wrap = document.querySelector(selector);
-      if(!wrap) return;
-
-      wrap.querySelectorAll("img, picture, figure").forEach(function(el){ el.remove(); });
-      wrap.querySelectorAll('[class*="image"], [class*="photo"]').forEach(function(el){
-        if(!el.closest("#layoutCarousel")) el.remove();
-      });
-
-      wrap.querySelectorAll("*").forEach(function(el){
-        if(el.style && el.style.backgroundImage && el.style.backgroundImage !== "none"){
-          el.style.backgroundImage = "none";
-        }
-      });
+  function zoomModal(){
+    var modal=document.getElementById("fhPhotoZoomModal");
+    if(modal) return modal;
+    modal=document.createElement("div");
+    modal.id="fhPhotoZoomModal";
+    modal.className="fh-photo-zoom-modal";
+    modal.setAttribute("aria-hidden","true");
+    modal.innerHTML='<div class="fh-photo-zoom-inner" role="dialog" aria-modal="true" aria-label="Property photo preview"><button type="button" class="fh-photo-zoom-close" aria-label="Close">×</button><img alt="Expanded Fletschhorn property photo"><span class="fh-photo-zoom-hint">Tap outside to close</span></div>';
+    document.body.appendChild(modal);
+    modal.addEventListener("click",function(event){
+      if(event.target===modal || event.target.closest(".fh-photo-zoom-close")) closeZoom();
     });
+    return modal;
+  }
+  function openZoom(image){
+    var modal=zoomModal();
+    var target=modal.querySelector("img");
+    target.src=optimized(image.dataset.fullSrc||image.src,1800);
+    target.alt=image.alt||"Expanded Fletschhorn property photo";
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden","false");
+    document.documentElement.classList.add("fh-photo-zoom-open");
+  }
+  function closeZoom(){
+    var modal=document.getElementById("fhPhotoZoomModal");
+    if(!modal) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden","true");
+    document.documentElement.classList.remove("fh-photo-zoom-open");
   }
 
-  function fixBookingDotComReview(){
-    document.querySelectorAll('a[data-external-review="bookingcom"], a.fh-review-card[href*="booking.com"], #fhPropertyReviews a[href*="booking.com"]').forEach(function(link){
-      link.href = BOOKING_COM_PROPERTY_URL;
-      link.setAttribute("target", "_blank");
-      link.setAttribute("rel", "noopener noreferrer");
-      link.setAttribute("data-external-review", "bookingcom");
-      link.setAttribute("data-no-booking-toolbar", "true");
-    });
-  }
-
-  function boot(){
-    renderLayoutCarousel();
-    removeSpecificLayoutImages();
-    fixBookingDotComReview();
-  }
-
-  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
-
-  window.addEventListener("load", boot);
-  setTimeout(boot, 250);
-  setTimeout(boot, 900);
-  setTimeout(boot, 1800);
-
-  var observer = new MutationObserver(function(){
-    window.clearTimeout(window.__fhLayoutImageStripTimer);
-    window.__fhLayoutImageStripTimer = window.setTimeout(boot, 60);
+  var fragment=document.createDocumentFragment();
+  images.forEach(function(url,index){
+    var image=document.createElement("img");
+    image.src=optimized(url,900);
+    image.dataset.fullSrc=url;
+    image.alt="Fletschhorn property photo "+(index+1);
+    image.loading=index<2?"eager":"lazy";
+    image.decoding="async";
+    image.width=900;
+    image.height=600;
+    fragment.appendChild(image);
   });
-  observer.observe(document.documentElement, { childList:true, subtree:true });
-
-  document.addEventListener("click", function(event){
-    var link = event.target.closest('a[data-external-review="bookingcom"], a.fh-review-card[href*="booking.com"], #fhPropertyReviews a[href*="booking.com"]');
-    if(!link) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-
-    window.open(BOOKING_COM_PROPERTY_URL, "_blank", "noopener,noreferrer");
-  }, true);
+  carousel.appendChild(fragment);
+  carousel.dataset.ready="1";
+  carousel.addEventListener("click",function(event){
+    var image=event.target.closest("img");
+    if(image) openZoom(image);
+  });
+  document.addEventListener("keydown",function(event){if(event.key==="Escape") closeZoom();});
 })();
 </script>
-
-
 
 
 <!-- FH PROPERTY WORKER FLOW + HIDDEN LANGUAGE TOOLBAR + HERO CONTACT PATCH -->
-<script id="fh-property-worker-flow-contact-patch">
+<script id="fh-property-contact-language">
 (function(){
   "use strict";
-  var CONTACT_LABELS={en:{phone:"Call",email:"Email"},fr:{phone:"Téléphone",email:"Email"},de:{phone:"Telefon",email:"E-Mail"},ru:{phone:"Телефон",email:"Email"},he:{phone:"טלפון",email:"אימייל"}};
-  function root(){return document.getElementById("fh-property");}
-  function lang(){var raw="en";try{raw=localStorage.getItem("fh_lang")||localStorage.getItem("fh_language")||localStorage.getItem("fhLang")||document.documentElement.lang||"en";}catch(e){raw=document.documentElement.lang||"en";}raw=String(raw||"en").toLowerCase();if(raw.indexOf("fr")===0)return"fr";if(raw.indexOf("de")===0||raw.indexOf("ger")===0)return"de";if(raw.indexOf("ru")===0)return"ru";if(raw.indexOf("he")===0||raw.indexOf("iw")===0)return"he";return"en";}
-  function applyContactLabels(){var r=root();if(!r)return;var l=lang(), labels=CONTACT_LABELS[l]||CONTACT_LABELS.en;r.setAttribute("dir",l==="he"?"rtl":"ltr");document.documentElement.setAttribute("lang",l);document.documentElement.setAttribute("dir",l==="he"?"rtl":"ltr");r.querySelectorAll('[data-contact-i18n="phone"]').forEach(function(el){el.textContent=labels.phone;});r.querySelectorAll('[data-contact-i18n="email"]').forEach(function(el){el.textContent=labels.email;});}
-  function markCurrentImages(){var r=root();if(!r)return;r.querySelectorAll('img').forEach(function(img){if(!img.dataset.fhImageKey){var src=img.getAttribute('src')||'';var name=src.split('?')[0].split('#')[0].split('/').pop();try{name=decodeURIComponent(name)}catch(e){};if(name) img.dataset.fhImageKey=name;} if(img.src&&img.src.indexOf('fletschhorn-guesty-api.bookings-e2d.workers.dev')>=0) img.dataset.workerImageApplied='true';});}
-  function boot(){applyContactLabels();markCurrentImages();}
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
-  window.addEventListener("load",boot);
-  document.addEventListener("click",function(e){if(e.target.closest("[data-fh-lang],[data-lang],[data-language]"))setTimeout(boot,40);});
-  document.addEventListener("fh:language",boot);document.addEventListener("fletschhorn:language",boot);document.addEventListener("fletschhorn:languageChanged",boot);window.addEventListener("storage",function(e){if(e.key==="fh_lang"||e.key==="fh_language"||e.key==="fhLang")boot();});
-  setTimeout(boot,200);setTimeout(boot,900);setTimeout(boot,1800);
+  var labels={
+    en:{phone:"Call",email:"Email"},fr:{phone:"Téléphone",email:"Email"},
+    de:{phone:"Telefon",email:"E-Mail"},ru:{phone:"Телефон",email:"Email"},
+    he:{phone:"טלפון",email:"אימייל"}
+  };
+  function apply(){
+    var root=document.getElementById("fh-property");
+    if(!root) return;
+    var lang=(root.getAttribute("data-current-lang")||document.documentElement.lang||"en").slice(0,2).toLowerCase();
+    if(lang==="iw") lang="he";
+    var value=labels[lang]||labels.en;
+    root.querySelectorAll('[data-contact-i18n="phone"]').forEach(function(el){el.textContent=value.phone;});
+    root.querySelectorAll('[data-contact-i18n="email"]').forEach(function(el){el.textContent=value.email;});
+  }
+  document.addEventListener("click",function(event){
+    if(event.target.closest("[data-lang],[data-fh-lang],[data-language]")) apply();
+  });
+  window.addEventListener("storage",function(event){if(event.key==="fh_lang") apply();});
+  window.FHApplyContactLabels=apply;
+  apply();
 })();
 </script>
-
 
 
 <!-- FH HERO STABILITY PATCH
@@ -3143,1109 +2841,24 @@
     rail.innerHTML=list;
   }
 
-  function boot(){ render(); }
-
-  // Load JSON source of truth; keep fallback if it fails (Squarespace/offline safe).
-  try{
-    var base=new URL("assets/", document.baseURI).href;
-    fetch(base+"reviews.json",{cache:"no-cache"})
-      .then(function(r){ if(!r.ok) throw new Error("reviews.json "+r.status); return r.json(); })
-      .then(function(json){ if(json&&json.sources&&json.sources.length){ data=json; render(); } })
-      .catch(function(){ /* keep embedded fallback */ });
-  }catch(e){}
-
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else boot();
-  document.addEventListener("click",function(e){ if(e.target.closest("[data-fh-lang],[data-lang],[data-language]")) setTimeout(render,40); });
-  window.addEventListener("fh:languagechange",function(){ setTimeout(render,0); });
-  document.addEventListener("fh:language-change",function(){ setTimeout(render,0); });
-  document.addEventListener("fh:languagechange",function(){ setTimeout(render,0); });
-  window.addEventListener("storage",function(e){ if(e.key==="fh_lang"||e.key==="fh_language"||e.key==="fhLang") render(); });
-  setTimeout(render,300); setTimeout(render,1200);
-})();
-</script>
-
-
-
-
-<script id="fh-room-card-remove-placeholder-script">
-(function(){
-  "use strict";
-
-  function cleanText(value){
-    return String(value || "").replace(/\s+/g, " ").trim();
-  }
-
-  function findText(card, regex){
-    var found = "";
-    Array.prototype.some.call(card.querySelectorAll("small, span, b, strong, em, div, p"), function(el){
-      var text = cleanText(el.textContent);
-      if(text && regex.test(text)){
-        found = text;
-        return true;
-      }
-      return false;
-    });
-    return found;
-  }
-
-  function removePlaceholderBlocks(card){
-    card.querySelectorAll("img, picture, figure").forEach(function(el){ el.remove(); });
-
-    card.querySelectorAll('[class*="visual"], [class*="media"], [class*="cover"], [class*="placeholder"], [class*="thumb"], [class*="image"], [class*="photo"]').forEach(function(el){
-      if(el.closest("#layoutCarousel")) return;
-      if(el.closest("button, a")) return;
-      el.remove();
-    });
-
-    Array.prototype.slice.call(card.children).forEach(function(el){
-      var text = cleanText(el.textContent);
-      var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : {height:0};
-      var cls = String(el.className || "").toLowerCase();
-      if(!text && (rect.height > 40 || /blank|empty|placeholder|visual|media|cover/i.test(cls))){
-        el.remove();
-      }
-    });
-
-    card.style.backgroundImage = "none";
-  }
-
-  function normalizeRoomCards(){
-    document.querySelectorAll("#fhRoomCards .fh-room-card").forEach(function(card){
-      removePlaceholderBlocks(card);
-
-      var roomText = findText(card, /\broom\s*\d+/i);
-      var floorText = findText(card, /\b(ground|first|second|third|fourth|lower|upper|garden|attic)\s+floor\b|\bfloor\s+\d+\b/i);
-
-      card.querySelectorAll('[class*="floor"], [class*="badge"]').forEach(function(el){
-        var text = cleanText(el.textContent);
-        if(/floor|ground|first|second|third|fourth|lower|upper|garden|attic/i.test(text)){
-          el.remove();
-        }
-      });
-
-      var topline = card.querySelector(".fh-room-topline");
-      if(!topline){
-        topline = document.createElement("div");
-        topline.className = "fh-room-topline";
-        var title = card.querySelector("h3, h4");
-        if(title) card.insertBefore(topline, title);
-        else card.insertBefore(topline, card.firstChild);
-      }
-
-      var parts = [];
-      if(roomText) parts.push(roomText.toUpperCase());
-      if(floorText) parts.push(floorText);
-      topline.textContent = parts.length ? parts.join(" · ") : "Room layout";
-
-      /* Remove duplicate room-number labels if the new top line already contains them. */
-      card.querySelectorAll("small, span, b, strong").forEach(function(el){
-        if(el === topline || topline.contains(el)) return;
-        var text = cleanText(el.textContent);
-        if(roomText && text.toLowerCase() === roomText.toLowerCase()) el.remove();
-      });
-    });
-  }
-
-  function boot(){ normalizeRoomCards(); }
-  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
-  window.addEventListener("load", boot);
-  setTimeout(boot, 200);
-  setTimeout(boot, 800);
-  setTimeout(boot, 1800);
-
-  var observer = new MutationObserver(function(){
-    window.clearTimeout(window.__fhRoomPlaceholderCleanupTimer);
-    window.__fhRoomPlaceholderCleanupTimer = window.setTimeout(boot, 80);
+  function boot(){render();}
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot,{once:true}); else boot();
+  document.addEventListener("click",function(event){
+    if(event.target.closest("[data-fh-lang],[data-lang],[data-language]")) render();
   });
-  observer.observe(document.documentElement, { childList:true, subtree:true });
-})();
-</script>
-
-
-<style id="fh-layout-photo-zoom-style">
-/* CLICK-TO-ZOOM for the tiny Guesty layout carousel */
-#fh-property #sleeping-layout .fh-layout-photo-strip img{
-  cursor:zoom-in;
-  transition:transform .22s ease, box-shadow .22s ease, opacity .22s ease;
-}
-#fh-property #sleeping-layout .fh-layout-photo-strip img:hover{
-  transform:translateY(-2px) scale(1.015);
-  box-shadow:0 16px 40px rgba(22,19,16,.16);
-}
-.fh-photo-zoom-modal{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:clamp(12px,3vw,28px);
-  background:rgba(18,16,13,.78);
-  -webkit-backdrop-filter:blur(14px);
-  backdrop-filter:blur(14px);
-}
-.fh-photo-zoom-modal.is-open{display:flex;}
-.fh-photo-zoom-inner{
-  position:relative;
-  width:min(1180px,100%);
-  max-height:92svh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.fh-photo-zoom-inner img{
-  display:block;
-  max-width:100%;
-  max-height:88svh;
-  width:auto;
-  height:auto;
-  object-fit:contain;
-  background:#1b1915;
-  box-shadow:0 30px 90px rgba(0,0,0,.42);
-}
-.fh-photo-zoom-close{
-  position:absolute;
-  top:10px;
-  right:10px;
-  z-index:2;
-  width:44px;
-  min-height:44px;
-  border:1px solid rgba(255,250,243,.34);
-  background:rgba(25,23,20,.72);
-  color:#fffaf3;
-  font-size:28px;
-  line-height:1;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-}
-.fh-photo-zoom-hint{
-  position:absolute;
-  left:12px;
-  bottom:12px;
-  z-index:2;
-  padding:8px 10px;
-  background:rgba(25,23,20,.64);
-  color:rgba(255,250,243,.82);
-  font-size:10px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  font-weight:850;
-}
-@media(max-width:640px){
-  .fh-photo-zoom-modal{
-    align-items:flex-end;
-    padding:0;
-  }
-  .fh-photo-zoom-inner{
-    width:100%;
-    max-height:92svh;
-    background:#1b1915;
-  }
-  .fh-photo-zoom-inner img{
-    width:100%;
-    max-height:86svh;
-  }
-  .fh-photo-zoom-close{
-    top:8px;
-    right:8px;
-    width:42px;
-    min-height:42px;
-  }
-}
-</style>
-
-<script id="fh-layout-photo-zoom-script">
-(function(){
-  "use strict";
-
-  function largeGuestyUrl(url){
-    url = String(url || "").trim();
-    if(!url) return "";
-
-    if(url.indexOf("/image/upload/") !== -1){
-      /* Replace any existing Cloudinary-style optimization with a larger version for zoom. */
-      url = url.replace(/\/image\/upload\/(?:f_auto,q_auto,w_\d+\/)?/, "/image/upload/f_auto,q_auto,w_1800/");
-    }
-
-    return url;
-  }
-
-  function ensureZoomModal(){
-    var modal = document.getElementById("fhPhotoZoomModal");
-    if(modal) return modal;
-
-    modal = document.createElement("div");
-    modal.className = "fh-photo-zoom-modal";
-    modal.id = "fhPhotoZoomModal";
-    modal.setAttribute("aria-hidden", "true");
-    modal.innerHTML = '' +
-      '<div class="fh-photo-zoom-inner" role="dialog" aria-modal="true" aria-label="Property photo preview">' +
-        '<button type="button" class="fh-photo-zoom-close" aria-label="Close photo preview">×</button>' +
-        '<img alt="Expanded Fletschhorn property photo">' +
-        '<span class="fh-photo-zoom-hint">Tap outside to close</span>' +
-      '</div>';
-
-    document.body.appendChild(modal);
-
-    modal.addEventListener("click", function(event){
-      if(event.target === modal || event.target.closest(".fh-photo-zoom-close")){
-        closeZoom();
-      }
-    });
-
-    document.addEventListener("keydown", function(event){
-      if(event.key === "Escape" && modal.classList.contains("is-open")) closeZoom();
-    });
-
-    return modal;
-  }
-
-  function openZoom(src, alt){
-    var modal = ensureZoomModal();
-    var img = modal.querySelector("img");
-    if(!img) return;
-
-    img.src = largeGuestyUrl(src);
-    img.alt = alt || "Expanded Fletschhorn property photo";
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-    document.documentElement.classList.add("fh-photo-zoom-open");
-  }
-
-  function closeZoom(){
-    var modal = document.getElementById("fhPhotoZoomModal");
-    if(!modal) return;
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    document.documentElement.classList.remove("fh-photo-zoom-open");
-  }
-
-  document.addEventListener("click", function(event){
-    var img = event.target.closest("#layoutCarousel img");
-    if(!img) return;
-
-    event.preventDefault();
-    openZoom(img.currentSrc || img.src, img.alt);
+  window.addEventListener("storage",function(event){
+    if(event.key==="fh_lang"||event.key==="fh_language"||event.key==="fhLang") render();
   });
 })();
 </script>
-
 
 
 <!-- FH FINAL COMPACT ROOM CARD + MOBILE SETUP CAROUSEL + ROOM POPUP PLACEHOLDER FIX -->
-<style id="fh-compact-room-cards-mobile-setup-and-popup-fix">
-/* 1) Room info cards: smaller, no wasted blank space */
-#fh-property #sleeping-layout .fh-room-cards{
-  gap:12px!important;
-  margin-top:14px!important;
-  padding:4px 16px 16px 0!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card{
-  flex:0 0 min(340px,78vw)!important;
-  padding:16px 17px!important;
-  border-radius:18px!important;
-  min-height:0!important;
-  height:auto!important;
-  box-shadow:0 10px 28px rgba(22,19,16,.09)!important;
-  background:rgba(255,250,243,.92)!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card:before,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card:after{
-  display:none!important;
-  content:none!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card > *:empty{
-  display:none!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-topline{
-  margin:0 0 8px!important;
-  font-size:10px!important;
-  line-height:1.2!important;
-  letter-spacing:.15em!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card h3,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card h4{
-  margin:0 0 12px!important;
-  font-size:clamp(23px,3vw,29px)!important;
-  line-height:1.02!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card dl,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="meta"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="details"]{
-  grid-template-columns:68px minmax(0,1fr)!important;
-  column-gap:12px!important;
-  row-gap:6px!important;
-  margin:0 0 12px!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card dt,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="label"]{
-  font-size:10px!important;
-  line-height:1.25!important;
-  letter-spacing:.08em!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card dd,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="value"]{
-  font-size:13px!important;
-  line-height:1.32!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="best"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="recommend"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card blockquote{
-  margin:0 0 12px!important;
-  padding:10px 12px!important;
-  border-radius:12px!important;
-  font-size:13px!important;
-  line-height:1.35!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card footer,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="actions"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="buttons"]{
-  padding-top:4px!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card a,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card button{
-  min-height:34px!important;
-  padding:7px 10px!important;
-  border-radius:11px!important;
-  font-size:11.5px!important;
-}
-
-/* 2) Keep generated room/setup cards text-only. */
-#fh-property #fhRoomCards img,
-#fh-property #fhRoomCards picture,
-#fh-property #fhRoomCards figure,
-#fh-property #fhRoomCards [class*="visual"],
-#fh-property #fhRoomCards [class*="media"],
-#fh-property #fhRoomCards [class*="cover"],
-#fh-property #fhRoomCards [class*="placeholder"],
-#fh-property #fhRoomCards [class*="thumb"],
-#fh-property #fhRoomCards [class*="image"],
-#fh-property #fhRoomCards [class*="photo"],
-#fh-property #fhSetupGrid img,
-#fh-property #fhSetupGrid picture,
-#fh-property #fhSetupGrid figure,
-#fh-property #fhSetupGrid [class*="visual"],
-#fh-property #fhSetupGrid [class*="media"],
-#fh-property #fhSetupGrid [class*="cover"],
-#fh-property #fhSetupGrid [class*="placeholder"],
-#fh-property #fhSetupGrid [class*="thumb"],
-#fh-property #fhSetupGrid [class*="image"],
-#fh-property #fhSetupGrid [class*="photo"]{
-  display:none!important;
-  visibility:hidden!important;
-  width:0!important;
-  height:0!important;
-  min-height:0!important;
-  max-height:0!important;
-  margin:0!important;
-  padding:0!important;
-  overflow:hidden!important;
-}
-
-/* 3) Best room setup: compact cards, not a long mobile feed. */
-#fh-property #group-setups #fhSetupGrid > *{
-  min-height:0!important;
-  height:auto!important;
-  padding:18px!important;
-  border-radius:18px!important;
-  background:rgba(255,250,243,.90)!important;
-  background-image:none!important;
-  box-shadow:0 10px 28px rgba(22,19,16,.09)!important;
-}
-
-#fh-property #group-setups #fhSetupGrid h3,
-#fh-property #group-setups #fhSetupGrid h4{
-  font-size:clamp(22px,3vw,30px)!important;
-  line-height:1.02!important;
-  margin:0 0 10px!important;
-}
-
-#fh-property #group-setups #fhSetupGrid p,
-#fh-property #group-setups #fhSetupGrid li{
-  font-size:13.5px!important;
-  line-height:1.42!important;
-}
-
-@media(max-width:760px){
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card{
-    flex-basis:76vw!important;
-    padding:15px!important;
-  }
-
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card h3,
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card h4{
-    font-size:25px!important;
-  }
-
-  #fh-property #group-setups #fhSetupGrid{
-    display:flex!important;
-    flex-wrap:nowrap!important;
-    gap:12px!important;
-    overflow-x:auto!important;
-    overscroll-behavior-x:contain!important;
-    scroll-snap-type:x mandatory!important;
-    padding:4px 18px 12px 0!important;
-    margin-top:16px!important;
-    scrollbar-width:none!important;
-  }
-
-  #fh-property #group-setups #fhSetupGrid::-webkit-scrollbar{
-    display:none!important;
-  }
-
-  #fh-property #group-setups #fhSetupGrid > *{
-    flex:0 0 76vw!important;
-    scroll-snap-align:start!important;
-    min-width:0!important;
-    padding:16px!important;
-  }
-
-  #fh-property #group-setups .fh-setup-cta,
-  #fh-property #group-setups .fh-layout-cta{
-    margin-top:14px!important;
-  }
-}
-
-@media(max-width:420px){
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card,
-  #fh-property #group-setups #fhSetupGrid > *{
-    flex-basis:82vw!important;
-  }
-}
-
-/* 4) Room detail popup: remove the remaining blank photo/placeholder area. */
-body .fh-room-modal img,
-body .fh-room-detail-modal img,
-body .fh-room-layout-modal img,
-body .fh-layout-modal img,
-body [class*="room-detail"][class*="modal"] img,
-body [class*="room-layout"][class*="modal"] img,
-body [class*="layout"][class*="popup"] img,
-body [class*="room"][class*="popup"] img,
-body .fh-room-modal picture,
-body .fh-room-detail-modal picture,
-body .fh-room-layout-modal picture,
-body .fh-layout-modal picture,
-body .fh-room-modal figure,
-body .fh-room-detail-modal figure,
-body .fh-room-layout-modal figure,
-body .fh-layout-modal figure,
-body .fh-room-modal [class*="visual"],
-body .fh-room-detail-modal [class*="visual"],
-body .fh-room-layout-modal [class*="visual"],
-body .fh-layout-modal [class*="visual"],
-body .fh-room-modal [class*="media"],
-body .fh-room-detail-modal [class*="media"],
-body .fh-room-layout-modal [class*="media"],
-body .fh-layout-modal [class*="media"],
-body .fh-room-modal [class*="placeholder"],
-body .fh-room-detail-modal [class*="placeholder"],
-body .fh-room-layout-modal [class*="placeholder"],
-body .fh-layout-modal [class*="placeholder"],
-body .fh-room-modal [class*="image"],
-body .fh-room-detail-modal [class*="image"],
-body .fh-room-layout-modal [class*="image"],
-body .fh-layout-modal [class*="image"],
-body .fh-room-modal [class*="photo"],
-body .fh-room-detail-modal [class*="photo"],
-body .fh-room-layout-modal [class*="photo"],
-body .fh-layout-modal [class*="photo"]{
-  display:none!important;
-  visibility:hidden!important;
-  width:0!important;
-  height:0!important;
-  min-height:0!important;
-  max-height:0!important;
-  margin:0!important;
-  padding:0!important;
-  overflow:hidden!important;
-}
-
-/* Do not let room popup reserve a visual column after the picture is removed. */
-body .fh-room-modal,
-body .fh-room-detail-modal,
-body .fh-room-layout-modal,
-body .fh-layout-modal,
-body [class*="room-detail"][class*="modal"],
-body [class*="room-layout"][class*="modal"]{
-  --modal-image-width:0!important;
-  --image-width:0!important;
-}
-</style>
-
-<script id="fh-room-popup-placeholder-and-compact-cleanup">
-(function(){
-  "use strict";
-
-  function cleanText(value){
-    return String(value || "").replace(/\s+/g, " ").trim();
-  }
-
-  function looksLikeRoomLayoutModal(el){
-    if(!el || !el.querySelectorAll) return false;
-    if(el.classList && el.classList.contains("fh-photo-zoom-modal")) return false;
-    if(el.classList && el.classList.contains("fh-calendar-modal")) return false;
-
-    var idClass = (String(el.id || "") + " " + String(el.className || "")).toLowerCase();
-    if(/room|layout/.test(idClass) && /modal|popup|drawer|dialog|overlay/.test(idClass)) return true;
-
-    var txt = cleanText(el.textContent).toLowerCase();
-    return (
-      txt.indexOf("room") !== -1 &&
-      (txt.indexOf("sleeps") !== -1 || txt.indexOf("beds") !== -1 || txt.indexOf("best for") !== -1 || txt.indexOf("layout") !== -1)
-    );
-  }
-
-  function removeVisualBlocks(scope){
-    if(!scope || !scope.querySelectorAll) return;
-
-    scope.querySelectorAll("img, picture, figure").forEach(function(el){
-      if(el.closest("#layoutCarousel") || el.closest(".fh-photo-zoom-modal")) return;
-      el.remove();
-    });
-
-    scope.querySelectorAll('[class*="visual"], [class*="media"], [class*="cover"], [class*="placeholder"], [class*="thumb"], [class*="image"], [class*="photo"]').forEach(function(el){
-      if(el.closest("#layoutCarousel") || el.closest(".fh-photo-zoom-modal")) return;
-      if(el.closest("button, a") && cleanText(el.textContent)) return;
-      el.remove();
-    });
-
-    Array.prototype.slice.call(scope.children || []).forEach(function(el){
-      var text = cleanText(el.textContent);
-      var cls = String(el.className || "").toLowerCase();
-      var rect = el.getBoundingClientRect ? el.getBoundingClientRect() : { height:0 };
-      if(!text && (rect.height > 28 || /blank|empty|placeholder|visual|media|cover|image|photo/.test(cls))){
-        el.remove();
-      }
-    });
-
-    scope.querySelectorAll("*").forEach(function(el){
-      if(el.style && el.style.backgroundImage && el.style.backgroundImage !== "none"){
-        el.style.backgroundImage = "none";
-      }
-    });
-  }
-
-  function cleanupRoomCards(){
-    document.querySelectorAll("#fhRoomCards .fh-room-card, #fhSetupGrid > *").forEach(function(card){
-      removeVisualBlocks(card);
-    });
-  }
-
-  function cleanupRoomModals(){
-    document.querySelectorAll('[role="dialog"], [class*="modal"], [id*="modal"], [class*="popup"], [id*="popup"], [class*="drawer"], [id*="drawer"], [class*="overlay"], [id*="overlay"]').forEach(function(el){
-      if(looksLikeRoomLayoutModal(el)) removeVisualBlocks(el);
-    });
-  }
-
-  function boot(){
-    cleanupRoomCards();
-    cleanupRoomModals();
-  }
-
-  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
-
-  window.addEventListener("load", boot);
-  document.addEventListener("click", function(){
-    setTimeout(boot, 30);
-    setTimeout(boot, 180);
-    setTimeout(boot, 500);
-  }, true);
-
-  var observer = new MutationObserver(function(){
-    window.clearTimeout(window.__fhRoomCompactPopupCleanupTimer);
-    window.__fhRoomCompactPopupCleanupTimer = window.setTimeout(boot, 70);
-  });
-  observer.observe(document.documentElement, { childList:true, subtree:true, attributes:true, attributeFilter:["class","style","aria-hidden"] });
-})();
-</script>
 
 
 <!-- FH FINAL FIX: room cards readable + compact again -->
-<style id="fh-final-readable-room-card-layout-fix">
-/* Fix the vertical-letter bug in the room cards.
-   The generated layout uses nested detail blocks; the previous override forced those blocks into columns that were too narrow.
-*/
-#fh-property #sleeping-layout .fh-room-cards{
-  align-items:flex-start!important;
-  gap:12px!important;
-  padding:4px 16px 16px 0!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card{
-  flex:0 0 min(380px,86vw)!important;
-  width:min(380px,86vw)!important;
-  max-width:min(380px,86vw)!important;
-  min-height:0!important;
-  height:auto!important;
-  padding:20px!important;
-  display:flex!important;
-  flex-direction:column!important;
-  gap:0!important;
-  overflow:hidden!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-topline{
-  margin:0 0 10px!important;
-  color:rgba(25,23,20,.68)!important;
-  font-size:11px!important;
-  line-height:1.25!important;
-  letter-spacing:.16em!important;
-  font-weight:900!important;
-  text-transform:uppercase!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card h3,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card h4{
-  margin:0 0 14px!important;
-  font-size:clamp(25px,7vw,34px)!important;
-  line-height:1.02!important;
-  letter-spacing:-.045em!important;
-}
-
-/* Outer details block: stack detail rows, don't try to make the whole block a 2-col grid. */
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card dl,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="meta"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="details"]{
-  display:grid!important;
-  grid-template-columns:1fr!important;
-  gap:9px!important;
-  width:100%!important;
-  min-width:0!important;
-  margin:0 0 14px!important;
-  padding:0!important;
-}
-
-/* Each generated detail row becomes: LABEL | value */
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card dl > div,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="meta"] > div,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="details"] > div,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="row"]{
-  grid-column:1 / -1!important;
-  display:grid!important;
-  grid-template-columns:78px minmax(0,1fr)!important;
-  column-gap:12px!important;
-  align-items:start!important;
-  width:100%!important;
-  min-width:0!important;
-  margin:0!important;
-  padding:0!important;
-}
-
-/* Fallback for direct dt/dd markup */
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card dl:not(:has(> div)){
-  grid-template-columns:78px minmax(0,1fr)!important;
-  column-gap:12px!important;
-  row-gap:9px!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card dt,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="label"]{
-  margin:0!important;
-  color:rgba(25,23,20,.52)!important;
-  font-size:11px!important;
-  line-height:1.25!important;
-  letter-spacing:.08em!important;
-  font-weight:900!important;
-  text-transform:uppercase!important;
-  white-space:nowrap!important;
-  word-break:normal!important;
-  overflow-wrap:normal!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card dd,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="value"]{
-  margin:0!important;
-  min-width:0!important;
-  color:rgba(25,23,20,.72)!important;
-  font-size:14.5px!important;
-  line-height:1.38!important;
-  white-space:normal!important;
-  word-break:normal!important;
-  overflow-wrap:normal!important;
-}
-
-/* Stop accidental character-by-character wrapping on every text piece inside the card. */
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card *{
-  word-break:normal!important;
-  overflow-wrap:normal!important;
-}
-
-/* Best-for note stays compact. */
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="best"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="recommend"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card blockquote{
-  width:100%!important;
-  margin:2px 0 12px!important;
-  padding:11px 13px!important;
-  border-radius:14px!important;
-  font-size:14px!important;
-  line-height:1.38!important;
-}
-
-/* Button no longer stretches into a huge empty block. */
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card footer,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="actions"],
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="buttons"]{
-  display:flex!important;
-  justify-content:flex-end!important;
-  align-items:center!important;
-  gap:8px!important;
-  margin-top:2px!important;
-  padding-top:0!important;
-}
-
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card a,
-#fh-property #sleeping-layout #fhRoomCards .fh-room-card button{
-  flex:0 0 auto!important;
-  width:auto!important;
-  min-width:118px!important;
-  max-width:100%!important;
-  min-height:38px!important;
-  padding:9px 14px!important;
-  border-radius:14px!important;
-  font-size:12px!important;
-  line-height:1.1!important;
-}
-
-@media(max-width:640px){
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card{
-    flex-basis:84vw!important;
-    width:84vw!important;
-    max-width:84vw!important;
-    padding:18px!important;
-  }
-
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card h3,
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card h4{
-    font-size:29px!important;
-  }
-
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card dl > div,
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="meta"] > div,
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="details"] > div,
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="row"]{
-    grid-template-columns:72px minmax(0,1fr)!important;
-    column-gap:10px!important;
-  }
-
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card dl:not(:has(> div)){
-    grid-template-columns:72px minmax(0,1fr)!important;
-  }
-
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card dd,
-  #fh-property #sleeping-layout #fhRoomCards .fh-room-card [class*="value"]{
-    font-size:14px!important;
-  }
-}
-</style>
-
 
 
 <!-- FH FINAL PATCH: bigger layout carousel + scroll-safe zoom behavior -->
-<style id="fh-bigger-layout-carousel-scroll-safe-zoom-final">
-/* Slightly larger Guesty layout carousel */
-#fh-property #sleeping-layout .fh-layout-photo-strip{
-  gap:12px!important;
-  margin:clamp(16px,2.4vw,24px) 0 10px!important;
-  padding:4px 4px 12px!important;
-  overflow-x:auto!important;
-  -webkit-overflow-scrolling:touch!important;
-  touch-action:pan-x!important;
-  scroll-snap-type:x proximity!important;
-}
-#fh-property #sleeping-layout .fh-layout-photo-strip img{
-  flex:0 0 clamp(170px,24vw,285px)!important;
-  width:clamp(170px,24vw,285px)!important;
-  height:clamp(112px,15vw,175px)!important;
-  border-radius:16px!important;
-  object-fit:cover!important;
-}
-@media(max-width:640px){
-  #fh-property #sleeping-layout .fh-layout-photo-strip{
-    gap:10px!important;
-    padding-right:18px!important;
-  }
-  #fh-property #sleeping-layout .fh-layout-photo-strip img{
-    flex-basis:46vw!important;
-    width:46vw!important;
-    min-width:155px!important;
-    height:112px!important;
-    border-radius:15px!important;
-  }
-}
-
-/* Keep scrolling available in the zoom viewer; do not lock the page state. */
-html.fh-photo-zoom-open,
-html.fh-photo-zoom-open body{
-  overflow:auto!important;
-  overscroll-behavior:auto!important;
-}
-.fh-photo-zoom-modal{
-  overflow:auto!important;
-  -webkit-overflow-scrolling:touch!important;
-  align-items:flex-start!important;
-  justify-content:center!important;
-  touch-action:pan-y!important;
-  overscroll-behavior:contain!important;
-}
-.fh-photo-zoom-inner{
-  min-height:100%!important;
-  padding:clamp(18px,3vw,34px) 0!important;
-  align-items:flex-start!important;
-}
-.fh-photo-zoom-inner img{
-  max-height:none!important;
-  width:min(1280px,96vw)!important;
-  max-width:96vw!important;
-  height:auto!important;
-  object-fit:contain!important;
-}
-@media(max-width:640px){
-  .fh-photo-zoom-modal{
-    align-items:flex-start!important;
-    padding:0!important;
-  }
-  .fh-photo-zoom-inner{
-    padding:58px 0 24px!important;
-    background:#1b1915!important;
-  }
-  .fh-photo-zoom-inner img{
-    width:100vw!important;
-    max-width:100vw!important;
-    max-height:none!important;
-  }
-}
-</style>
 
 
-
-<style id="fh-merged-layout-section-final">
-/* FINAL PATCH: merge Private Lodge Layout + Sleeping Layout + Best Room Setups into one clean section */
-#fh-property #sleeping-layout.fh-mixed-layout-section{
-  background:
-    radial-gradient(circle at 12% 4%, rgba(255,255,255,.74), transparent 0 24%),
-    linear-gradient(180deg, rgba(255,250,243,.74), rgba(239,229,217,.60));
-}
-
-#fh-property #sleeping-layout .fh-scroll-anchor{
-  position:relative;
-  display:block;
-  top:-100px;
-  height:0;
-  overflow:hidden;
-}
-
-#fh-property #sleeping-layout .fh-layout-wrap{
-  width:var(--container);
-  margin-inline:auto;
-}
-
-#fh-property #sleeping-layout .fh-layout-head{
-  max-width:920px;
-  margin-bottom:clamp(18px,3vw,30px);
-}
-
-#fh-property #sleeping-layout .fh-lodge-summary{
-  margin-bottom:12px!important;
-}
-
-#fh-property #sleeping-layout .fh-lodge-flag{
-  margin-bottom:clamp(18px,3vw,28px)!important;
-}
-
-/* Bigger Guesty photo carousel, still horizontal and scrollable */
-#fh-property #sleeping-layout .fh-layout-photo-strip{
-  display:flex!important;
-  gap:14px!important;
-  width:100%!important;
-  margin:clamp(18px,3vw,30px) 0 10px!important;
-  padding:5px 5px 14px!important;
-  overflow-x:auto!important;
-  overflow-y:hidden!important;
-  overscroll-behavior-x:contain!important;
-  -webkit-overflow-scrolling:touch!important;
-  touch-action:pan-x!important;
-  scroll-snap-type:x proximity!important;
-  scrollbar-width:none!important;
-}
-
-#fh-property #sleeping-layout .fh-layout-photo-strip::-webkit-scrollbar{
-  display:none!important;
-}
-
-#fh-property #sleeping-layout .fh-layout-photo-strip img{
-  flex:0 0 clamp(240px,32vw,430px)!important;
-  width:clamp(240px,32vw,430px)!important;
-  height:clamp(160px,21vw,270px)!important;
-  max-width:none!important;
-  border-radius:18px!important;
-  object-fit:cover!important;
-  scroll-snap-align:start!important;
-  cursor:zoom-in!important;
-  box-shadow:0 16px 42px rgba(22,19,16,.14)!important;
-}
-
-#fh-property #sleeping-layout .fh-layout-photo-note{
-  margin:0 0 clamp(24px,4vw,38px)!important;
-  font-size:12.5px!important;
-  color:rgba(25,23,20,.58)!important;
-}
-
-/* Internal dividers instead of three separate long sections */
-#fh-property #sleeping-layout .fh-layout-subhead{
-  max-width:880px;
-  margin:clamp(28px,5vw,56px) 0 clamp(16px,2.4vw,24px);
-  padding-top:clamp(22px,3.4vw,36px);
-  border-top:1px solid rgba(25,23,20,.12);
-}
-
-#fh-property #sleeping-layout .fh-layout-subhead h3{
-  margin-bottom:10px!important;
-  font-size:clamp(29px,3.5vw,46px)!important;
-}
-
-#fh-property #sleeping-layout .fh-layout-subhead p:last-child{
-  max-width:760px;
-  margin:0!important;
-  color:rgba(25,23,20,.66)!important;
-}
-
-/* Best setup is now inside the same section */
-#fh-property #sleeping-layout .fh-setup-block{
-  margin-top:clamp(32px,5vw,58px);
-}
-
-/* Keep setup cards side-by-side on mobile: carousel, not long feed */
-@media(max-width:760px){
-  #fh-property #sleeping-layout .fh-layout-wrap{
-    width:calc(100% - 28px);
-  }
-
-  #fh-property #sleeping-layout .fh-layout-head{
-    margin-bottom:16px;
-  }
-
-  #fh-property #sleeping-layout .fh-layout-photo-strip{
-    gap:12px!important;
-    margin:18px 0 8px!important;
-    padding:4px 18px 12px 0!important;
-  }
-
-  #fh-property #sleeping-layout .fh-layout-photo-strip img{
-    flex:0 0 76vw!important;
-    width:76vw!important;
-    min-width:260px!important;
-    height:182px!important;
-    border-radius:17px!important;
-  }
-
-  #fh-property #sleeping-layout .fh-layout-photo-note{
-    margin-bottom:22px!important;
-  }
-
-  #fh-property #sleeping-layout .fh-layout-subhead{
-    margin-top:30px;
-    padding-top:24px;
-  }
-
-  #fh-property #sleeping-layout .fh-layout-subhead h3{
-    font-size:30px!important;
-  }
-
-  #fh-property #group-setups #fhSetupGrid{
-    display:flex!important;
-    flex-wrap:nowrap!important;
-    gap:12px!important;
-    overflow-x:auto!important;
-    overflow-y:hidden!important;
-    overscroll-behavior-x:contain!important;
-    -webkit-overflow-scrolling:touch!important;
-    scroll-snap-type:x mandatory!important;
-    padding:4px 18px 14px 0!important;
-    margin-top:14px!important;
-    scrollbar-width:none!important;
-  }
-
-  #fh-property #group-setups #fhSetupGrid::-webkit-scrollbar{
-    display:none!important;
-  }
-
-  #fh-property #group-setups #fhSetupGrid > *{
-    flex:0 0 78vw!important;
-    width:78vw!important;
-    min-width:0!important;
-    scroll-snap-align:start!important;
-  }
-}
-
-@media(max-width:420px){
-  #fh-property #sleeping-layout .fh-layout-photo-strip img{
-    flex-basis:82vw!important;
-    width:82vw!important;
-    min-width:245px!important;
-    height:170px!important;
-  }
-
-  #fh-property #group-setups #fhSetupGrid > *{
-    flex-basis:82vw!important;
-    width:82vw!important;
-  }
-}
-</style>
-
-
-<style id="fh-final-layout-carousel-bigger-click-revert">
-/* Final requested correction:
-   - layout photos are bigger again
-   - simple click-to-zoom behavior is restored
-   - the 3 blocked Guesty images are never rendered
-*/
-#fh-property #sleeping-layout .fh-layout-photo-strip{
-  gap:14px!important;
-  margin:clamp(18px,2.8vw,28px) 0 12px!important;
-  padding:5px 5px 14px!important;
-  overflow-x:auto!important;
-  overflow-y:hidden!important;
-  -webkit-overflow-scrolling:touch!important;
-  scroll-snap-type:x proximity!important;
-  touch-action:auto!important;
-}
-#fh-property #sleeping-layout .fh-layout-photo-strip img{
-  flex:0 0 clamp(225px,31vw,390px)!important;
-  width:clamp(225px,31vw,390px)!important;
-  height:clamp(150px,20vw,250px)!important;
-  border-radius:18px!important;
-  object-fit:cover!important;
-  cursor:zoom-in!important;
-  scroll-snap-align:start!important;
-  box-shadow:0 16px 42px rgba(22,19,16,.14)!important;
-}
-@media(max-width:640px){
-  #fh-property #sleeping-layout .fh-layout-photo-strip{
-    gap:12px!important;
-    padding-right:20px!important;
-  }
-  #fh-property #sleeping-layout .fh-layout-photo-strip img{
-    flex-basis:72vw!important;
-    width:72vw!important;
-    min-width:240px!important;
-    height:168px!important;
-    border-radius:17px!important;
-  }
-}
-</style>
