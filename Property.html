@@ -95,8 +95,18 @@
 #fh-property .fh-hero-media{z-index:0}
 #fh-property .fh-hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.045);transition:opacity 3.4s ease,transform 42s ease}
 #fh-property .fh-hero-slide.is-active{opacity:1;transform:scale(1)}
-#fh-property .fh-hero-media{opacity:0;transition:opacity 1.4s ease}
-#fh-property .fh-hero-media.is-ready{opacity:1}
+/* #fh-property .fh-hero-media itself is never gated behind opacity/a
+   JS-added class, matching Home (#fh-home .fh-hero-media has no opacity
+   rule at all). Visibility is controlled per-slide by .is-active above,
+   which is set synchronously on the first slide the moment it's inserted
+   into the DOM. A container-level opacity:0 + .is-ready gate used to sit
+   on top of that: if the script that adds .is-ready never ran (a thrown
+   exception earlier in the same IIFE, a slow/failed fetch elsewhere on
+   the page, or a delayed Squarespace script-injection order), the whole
+   hero stayed permanently black even though a correct slide with a valid
+   background-image was already sitting in the DOM at opacity:1 -- opacity
+   compounds through ancestors, so a fully-opaque child inside a
+   fully-transparent parent still renders invisible. */
 #fh-property .fh-hero-media:before{content:"";z-index:1;background:linear-gradient(180deg,rgba(18,16,13,.58) 0%,rgba(18,16,13,.28) 42%,rgba(18,16,13,.70) 100%),radial-gradient(circle at 50% 12%,rgba(255,255,255,.14),transparent 0 26%)}
 #fh-property .fh-hero-media:after{content:"";z-index:1;background:linear-gradient(180deg,transparent 72%,#fffaf3 100%)}
 #fh-property .fh-hero-inner{position:relative;z-index:2;width:var(--container);padding:clamp(138px,17vh,184px) 0 clamp(58px,8vh,76px);text-align:center}
@@ -1757,9 +1767,10 @@
   function buildHeroSlides(images){
     const media=qs("#propertyHeroMedia"); if(!media) return;
     const captions=d("hero"); const clean=(images||[]).filter(isValidGuestyUrl); const list=(clean.length ? clean : fallback).slice(0,12);
-    media.classList.remove("is-ready");
+    /* The first slide carries .is-active synchronously here, in the same
+       paint as insertion -- no container-level "ready" flag or rAF wait
+       gates visibility (see the CSS note above .fh-hero-media:before). */
     media.innerHTML=list.map((url,i)=>`<div class="fh-hero-slide${i===0?' is-active':''}" style="background-image:url('${url.replace(/'/g,"%27")}')"></div>`).join("");
-    requestAnimationFrame(function(){media.classList.add('is-ready');});
     heroIndex=0;
     const c=captions[0] || t("heroTitle");
     qs("#propertyHeroEyebrow").textContent=t("heroEyebrow");
