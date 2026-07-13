@@ -1255,7 +1255,18 @@ html.fh-toolbar-calendar-open body{
   }
 
   function toolbarCalendarOpeners(){
-    return Array.prototype.slice.call(document.querySelectorAll("#fhOpenToolbarCalendar, [data-mobile-open-calendar]"));
+    /* #fhOpenToolbarCalendar / [data-mobile-open-calendar] is the opener
+       used by every page's own toolbar calendar (Home, Wedding, Location,
+       About, Property). Experiences.html runs a separate, already-working
+       isolated toolbar system whose opener carries [data-fh-open-calendar]
+       instead -- its #fhToolbarCalendarModal markup is unused duplicate
+       markup, not a real calendar. Without this selector, the header
+       "Book now" link falls through to the generic synthetic fallback
+       modal below, which on Experiences grabs that dead duplicate
+       #fhToolbarCalendarModal: it adds the scroll-lock class and never
+       shows anything. Including this selector makes the header button
+       click Experiences' real, proven opener instead. */
+    return Array.prototype.slice.call(document.querySelectorAll("#fhOpenToolbarCalendar, [data-mobile-open-calendar], [data-fh-open-calendar]"));
   }
 
   function goToBookingWithDates(dates){
