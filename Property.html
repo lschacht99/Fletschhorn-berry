@@ -1470,10 +1470,6 @@
   root.dataset.ready="1";
   const qs=(s)=>root.querySelector(s);
   const qsa=(s)=>Array.from(root.querySelectorAll(s));
-  const asset=(name)=>"/s/"+encodeURIComponent(name);
-  const imagekit=(name)=>"https://ik.imagekit.io/Redberry/"+encodeURIComponent(name);
-  const imagekitRaw=(path)=>"https://ik.imagekit.io/Redberry/"+path;
-  const exts=["jpg","jpeg","png","webp"];
   const fallback=[
     "https://assets.guesty.com/image/upload/v1769382059/production/686c48ada4bbacd7a82a4f83/jvmndciiso46wxa30fzl.jpg",
     "https://assets.guesty.com/image/upload/v1769382057/production/686c48ada4bbacd7a82a4f83/nww8q4ksbnfcpgzqdvbo.jpg",
@@ -1514,34 +1510,12 @@
   const CLEAN_GUESTY_HERO_IMAGES = GUESTY_HERO_IMAGES.filter(function(url){ return !shouldSkipGuestyImage(url); });
   const CLEAN_GUESTY_KITCHEN_IMAGES = GUESTY_KITCHEN_IMAGES.filter(function(url){ return !shouldSkipGuestyImage(url); });
 
-  function buildNames(base,max){
-    const names=[];
-    for(let i=0;i<=max;i++) exts.forEach(ext=>names.push(i===0 ? `${base}.${ext}` : `${base} (${i}).${ext}`));
-    return names;
-  }
-  function unique(arr){return Array.from(new Set(arr.filter(Boolean)));}
-  const propertyNames=buildNames("The Property",88);
-  const shuttleNames=buildNames("Shuttle",16);
-  const imagekitKitchenUrls=[];
-  const imagekitKitchenMainUrl="";
-  const imagekitInsideUrls=[];
-  const imagekitPrivateSaunaUrls=[];
-  const imagekitGroupUrls=[];
-  const imagekitAddressUrls=[];
-  const imagekitExteriorUrls=[];
-  const imagekitMountainUrls=[];
-  function checkImage(name){return new Promise(resolve=>{const img=new Image();img.onload=()=>resolve(asset(name));img.onerror=()=>resolve(null);img.src=asset(name);});}
-  function probe(names){
-    const batch=18;let out=[];let i=0;
-    return new Promise(resolve=>{function next(){if(i>=names.length){resolve(unique(out));return;}const slice=names.slice(i,i+batch);i+=batch;Promise.all(slice.map(checkImage)).then(r=>{out=out.concat(r.filter(Boolean));next();});}next();});
-  }
   function isValidGuestyUrl(url){return typeof url==="string" && url.length>0 && /^https:\/\/assets\.guesty\.com\//.test(url);}
   function imgAt(arr,i){
     const clean=arr && arr.length ? arr.filter(isValidGuestyUrl) : [];
     const list=clean.length ? clean : fallback;
     return list[((i%list.length)+list.length)%list.length];
   }
-  function randomFrom(arr,fallbackArr){const list=arr && arr.length ? arr : fallbackArr; return list[Math.floor(Math.random()*list.length)];}
   /*
     Fixed marketing images for the property overview carousel, one per
     caption in order (Arrival, Exterior, Rooms, Gathering, Wellness, Views,
@@ -1578,117 +1552,25 @@
     "https://assets.guesty.com/image/upload/v1781188609/production/686c48ada4bbacd7a82a4f83/iqrvrlht7obdatn4xfmp.jpg"  // useful
   ];
   let lang="en", heroIndex=0, heroTimer=null;
-  let propertyUrls=[], shuttleUrls=[], kitchenUrls=CLEAN_GUESTY_KITCHEN_IMAGES.slice(), insideUrls=imagekitInsideUrls.slice(), privateSaunaUrls=imagekitPrivateSaunaUrls.slice(), groupUrls=imagekitGroupUrls.slice(), exteriorUrls=imagekitExteriorUrls.slice(), mountainUrls=imagekitMountainUrls.slice();
-  const WORKER_IMAGE_BASE="https://fletschhorn-guesty-api.bookings-e2d.workers.dev";
-  const WORKER_LISTING_ID="6968339ab7d735001ca015ba";
 
-  function shuffleWorkerList(input){
-    const arr=Array.from(new Set((input||[]).filter(Boolean))).filter(function(url){ return !shouldSkipGuestyImage(url); });
-    for(let i=arr.length-1;i>0;i--){
-      const j=Math.floor(Math.random()*(i+1));
-      const tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp;
-    }
-    return arr;
-  }
-  let workerRandomUrls=[];
-
-  function cleanWorkerUrl(raw){
-    raw=String(raw||"").trim();
-    if(!raw) return "";
-    raw=raw.replace(/^ttps:\/\//i,"https://").replace(/^\/\//,"https://");
-    raw=raw.replace(/[\s'\")<>]+$/g,"");
-    if(/^https?:\/\//i.test(raw)) return raw;
-    if(raw.charAt(0)==="/") return WORKER_IMAGE_BASE.replace(/\/$/,"")+raw;
-    return "";
-  }
-  function isLikelyImageUrl(url){
-    url=String(url||"");
-    return /\.(jpg|jpeg|png|webp)(\?|#|$)/i.test(url) || /assets\.guesty\.com\/image\/upload/i.test(url) || /cloudinary/i.test(url);
-  }
-  function collectWorkerImageUrls(payload,rawText){
-    const urls=[];
-    function add(value){
-      const url=cleanWorkerUrl(value);
-      if(url && isLikelyImageUrl(url)) urls.push(url);
-    }
-    function addFromText(value){
-      value=String(value||"").replace(/ttps:\/\//gi,"https://");
-      const matches=value.match(/https?:\/\/[^\s"'<>]+?\.(?:jpg|jpeg|png|webp)(?:\?[^\s"'<>]*)?/gi)||[];
-      matches.forEach(add);
-    }
-    addFromText(rawText||"");
-    function walk(value,keyName){
-      if(value===null||value===undefined) return;
-      if(typeof value==="string" || typeof value==="number"){
-        const s=String(value);
-        addFromText(s);
-        add(s);
-        if(/\.(jpg|jpeg|png|webp)$/i.test(s) && keyName){ add(WORKER_IMAGE_BASE.replace(/\/$/,"")+"/images/"+encodeURIComponent(s)); }
-        return;
-      }
-      if(Array.isArray(value)){ value.forEach(function(v){walk(v,keyName);}); return; }
-      if(typeof value!=="object") return;
-      ["workerUrl","worker_url","proxiedUrl","proxyUrl","src","url","imageUrl","image_url","secure_url","secureUrl","original","originalUrl","original_url","large","full","href","path","thumbnail","medium"].forEach(function(k){
-        if(value[k]) walk(value[k],k);
-      });
-      Object.keys(value).forEach(function(k){walk(value[k],k);});
-    }
-    walk(payload,"");
-    return Array.from(new Set(urls));
-  }
+  /*
+    Property's marketing images (hero, gallery, concept cards, shared
+    spaces, kitchen, sauna) are static direct Guesty URLs, exactly like
+    Home's HOME_HERO_IMAGES model: one fixed array, rendered once, never
+    touched by Worker data. There used to be a second image system here
+    (loadWorkerImageAssets -> a random Worker /images pool feeding
+    propertyUrls/insideUrls/privateSaunaUrls/groupUrls/exteriorUrls/
+    mountainUrls) that ran after the first render and could silently
+    replace a correct marketing photo with an unrelated random one, or
+    with nothing if the fetch failed slowly. That whole random-pool
+    system has been removed: the Worker API is still used elsewhere on
+    this page for booking/pricing, but it no longer supplies any image.
+  */
   function rotateList(arr,offset){
     arr=arr&&arr.length?arr.slice():fallback.slice();
     if(arr.length<2) return arr;
     offset=((Number(offset)||0)%arr.length+arr.length)%arr.length;
     return arr.slice(offset).concat(arr.slice(0,offset));
-  }
-  function randomWorkerSet(offset,count){
-    const base=workerRandomUrls.length?workerRandomUrls:(propertyUrls.length?propertyUrls:fallback);
-    const list=rotateList(base,offset||0);
-    return typeof count==="number"?list.slice(0,Math.max(1,Math.min(count,list.length))):list;
-  }
-  async function fetchWorkerImagesOnce(url){
-    const response=await fetch(url,{method:"GET",headers:{"Accept":"application/json,text/plain,*/*"},cache:"no-store"});
-    const text=await response.text();
-    let data={}; try{data=JSON.parse(text);}catch(e){data={rawText:text};}
-    if(!response.ok || data.ok===false || data.error) throw new Error(data.error || data.message || ("Images request failed: "+response.status));
-    return collectWorkerImageUrls(data,text).filter(function(url){ return !shouldSkipGuestyImage(url); });
-  }
-  async function loadWorkerImageAssets(){
-    const base=WORKER_IMAGE_BASE.replace(/\/$/,"")+"/images";
-    const stamp=Date.now();
-    const attempts=[
-      base+"?listingId="+encodeURIComponent(WORKER_LISTING_ID)+"&page=property&random=1&limit=120&t="+stamp,
-      base+"?listingId="+encodeURIComponent(WORKER_LISTING_ID)+"&random=1&limit=120&t="+stamp,
-      base+"?page=property&random=1&limit=120&t="+stamp,
-      base+"?random=1&limit=120&t="+stamp,
-      base+"?t="+stamp
-    ];
-    try{
-      let urls=[];
-      for(let i=0;i<attempts.length;i++){
-        try{
-          urls=await fetchWorkerImagesOnce(attempts[i]);
-          if(urls.length>1) break;
-        }catch(inner){ if(i===attempts.length-1) throw inner; }
-      }
-      urls=shuffleWorkerList(urls);
-      if(!urls.length) throw new Error("No image URLs returned by Worker /images.");
-      workerRandomUrls=urls;
-      propertyUrls=rotateList(urls,0);
-      insideUrls=rotateList(urls,3);
-      kitchenUrls=CLEAN_GUESTY_KITCHEN_IMAGES.slice();
-      privateSaunaUrls=rotateList(urls,9);
-      groupUrls=rotateList(urls,12);
-      exteriorUrls=rotateList(urls,15);
-      mountainUrls=rotateList(urls,18);
-      shuttleUrls=rotateList(urls,21).slice(0,Math.min(6,urls.length));
-      return true;
-    }catch(error){
-      console.warn("Fletschhorn property Worker random images not loaded.",error);
-      workerRandomUrls=[];
-      return false;
-    }
   }
 
   const I18N={
@@ -1890,49 +1772,12 @@
     const progress=qs("#propertySlideProgress"); if(progress){progress.style.animation="none"; void progress.offsetHeight; progress.style.animation="fhHeroProgress 32s linear infinite";}
   }
   function startHero(){if(heroTimer) clearInterval(heroTimer);heroTimer=setInterval(()=>showHero(heroIndex+1),32000);}
-  function setImg(el,url){
-    if(!el)return;
-    if(!isValidGuestyUrl(url)){
-      /* A missing/empty/invalid URL (delayed Worker callback, empty array,
-         failed fetch) must never blank out an image that is already
-         showing. If nothing has been applied yet, use a real fallback
-         photo instead of leaving the element without a src. */
-      if(el.dataset.workerImageApplied==="true") return;
-      url=fallback[Math.floor(Math.random()*fallback.length)];
-    }
-    el.loading=el.loading||"lazy";
-    el.decoding="async";
-    el.onerror=function(){
-      el.onerror=null;
-      const alt=fallback[Math.floor(Math.random()*fallback.length)];
-      if(alt && el.src!==alt) el.src=alt;
-    };
-    el.dataset.workerImageApplied="true";
-    el.src=url;
-    const wrap=el.closest(".fh-img-loading");
-    if(wrap) wrap.classList.remove("fh-img-loading");
-  }
+  const PROPERTY_CTA_IMAGE = "https://assets.guesty.com/image/upload/v1769382114/production/686c48ada4bbacd7a82a4f83/xuhjdo9ekahme3rkmln0.jpg";
   function applyImages(){
-    const all=workerRandomUrls.length?workerRandomUrls:(propertyUrls.length?propertyUrls:fallback);
-    const prop=propertyUrls.length?propertyUrls:all;
-    const inside=insideUrls.length?insideUrls:all;
-    const sauna=privateSaunaUrls.length?privateSaunaUrls:all;
-    const group=groupUrls.length?groupUrls:all;
-    const exterior=exteriorUrls.length?exteriorUrls:all;
-    const mountain=mountainUrls.length?mountainUrls:all;
-    let cursor=Math.floor(Math.random()*Math.max(1,all.length));
-    function next(){ const url=imgAt(all,cursor); cursor+=1; return url; }
-    qsa("[data-fh-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-address-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-exterior-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-mountain-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-inside-img]").forEach((el)=>setImg(el,next()));
-    qsa("[data-group-img]").forEach((el)=>setImg(el,next()));
-    /* Sauna & amenities carousel images are fixed marketing photos set
-       directly in the markup; no longer cycled from the random pool. */
-    qsa("[data-kitchen-main]").forEach((el)=>setImg(el,next()));
-    qsa("[data-kitchen-img]").forEach((el)=>setImg(el,next()));
-    const cta=qs(".fh-cta"); if(cta) cta.style.setProperty("--cta-bg",`url('${imgAt(exterior,0)}')`);
+    /* Property's own marketing images (CTA background + hero) are fixed
+       direct Guesty URLs, exactly like Home. Nothing here reads Worker
+       state -- see the note above rotateList(). */
+    const cta=qs(".fh-cta"); if(cta) cta.style.setProperty("--cta-bg",`url('${PROPERTY_CTA_IMAGE}')`);
     buildHeroSlides(CLEAN_GUESTY_HERO_IMAGES.length ? CLEAN_GUESTY_HERO_IMAGES : GUESTY_HERO_IMAGES); startHero();
   }
   function galleryCard(url,small,cap,eager){
@@ -1947,22 +1792,19 @@
     /* propertyGalleryRail and propertyKitchenRail must not rotate:
        buildPropertyGalleryImages() and the fixed KITCHEN set are already
        aligned index-for-index with their caption lists. */
-    const offset={propertyGalleryRail:0,propertyKitchenRail:0,propertyShuttleRail:13,propertySpaRail:19}[railId]||0;
+    const offset={propertyGalleryRail:0,propertyKitchenRail:0}[railId]||0;
     const clean=(images||[]).filter(isValidGuestyUrl);
-    const workerClean=workerRandomUrls.filter(isValidGuestyUrl);
-    let source=clean.length>1 ? clean : (workerClean.length ? workerClean : fallback);
+    const source=clean.length>1 ? clean : fallback;
     const list=rotateList(source,offset).slice(0,Math.min(18,Math.max(1,source.length)));
     rail.innerHTML=list.map((url,i)=>galleryCard(url,i%3===1,captions[i%captions.length],i<2)).join("");
   }
   function buildDynamic(){
     buildGallery("propertyGalleryRail",buildPropertyGalleryImages(),d("gallery"));
-    buildGallery("propertyKitchenRail",kitchenUrls,d("kitchen"));
-    buildGallery("propertyShuttleRail",shuttleUrls,d("shuttle"));
-    const shuttleStage=qs("#propertyShuttleGallery"); if(shuttleStage) shuttleStage.style.display=(shuttleUrls.length||workerRandomUrls.length)?"block":"none";
+    buildGallery("propertyKitchenRail",CLEAN_GUESTY_KITCHEN_IMAGES,d("kitchen"));
     const suites=d("suites"); qs("#suiteGrid").innerHTML=suites.map((s,i)=>`<article class="fh-suite-card preSlide ${i%3===1?'delay-1':i%3===2?'delay-2':''}"><small>${s[0]}</small><h3>${s[1]}</h3><div class="fh-suite-meta">${s[2].map(x=>`<span>${x}</span>`).join("")}</div><p>${s[3]}</p></article>`).join("");
-    const room=d("roomCards"); const roomImgs=SHARED_SPACES_IMAGES; qs("#roomGallery").innerHTML=room.map((r,i)=>`<article class="fh-room-card preSlide ${i?'delay-1':''} fh-img-loading"><img src="${imgAt(roomImgs,i)}" data-worker-image-applied="true" alt="${i===1?'Fletschhorn group gathering':'Fletschhorn interior'}"><div><small>${r[0]}</small><strong>${r[1]}</strong></div></article>`).join("");
+    const room=d("roomCards"); const roomImgs=SHARED_SPACES_IMAGES; qs("#roomGallery").innerHTML=room.map((r,i)=>{const fb=fallback[Math.floor(Math.random()*fallback.length)].replace(/'/g,"%27");return `<article class="fh-room-card preSlide ${i?'delay-1':''}"><img src="${imgAt(roomImgs,i)}" alt="${i===1?'Fletschhorn group gathering':'Fletschhorn interior'}" loading="lazy" onerror="this.onerror=null;this.src='${fb}'"><div><small>${r[0]}</small><strong>${r[1]}</strong></div></article>`;}).join("");
     const regs=d("regionCards"); qs("#regionCards").innerHTML=regs.map((r,i)=>`<article class="fh-card preSlide ${i?'delay-1':''}"><small>${r[0]}</small><strong>${r[1]}</strong><p>${r[2]}</p></article>`).join("");
-    const cons=d("concepts"); const conceptImgs=PROPERTY_CONCEPT_IMAGES; qs("#conceptCards").innerHTML=cons.map((c,i)=>`<article class="fh-concept preSlide ${i?'delay-1':''}"><img src="${imgAt(conceptImgs,i)}" data-worker-image-applied="true" alt="Fletschhorn"><div><small>${c[0]}</small><strong>${c[1]}</strong><p>${c[2]}</p></div></article>`).join("");
+    const cons=d("concepts"); const conceptImgs=PROPERTY_CONCEPT_IMAGES; qs("#conceptCards").innerHTML=cons.map((c,i)=>{const fb=fallback[Math.floor(Math.random()*fallback.length)].replace(/'/g,"%27");return `<article class="fh-concept preSlide ${i?'delay-1':''}"><img src="${imgAt(conceptImgs,i)}" alt="Fletschhorn" loading="lazy" onerror="this.onerror=null;this.src='${fb}'"><div><small>${c[0]}</small><strong>${c[1]}</strong><p>${c[2]}</p></div></article>`;}).join("");
     observeNew();
   }
   function setLanguage(next){
@@ -1997,11 +1839,6 @@
   const startLang=(localStorage.getItem("fh_lang")||document.documentElement.getAttribute("lang")||"en").slice(0,2).toLowerCase();
   lang=I18N[startLang]?startLang:"en";
   applyStaticTranslations(); applyImages(); buildDynamic(); observeNew();
-  loadWorkerImageAssets().then(function(ok){
-    applyImages();
-    buildDynamic();
-    if(ok) console.log("Fletschhorn property Worker images loaded:",{property:propertyUrls.length,inside:insideUrls.length,kitchen:kitchenUrls.length,sauna:privateSaunaUrls.length,exterior:exteriorUrls.length,mountain:mountainUrls.length});
-  });
 })();
 </script>
 
