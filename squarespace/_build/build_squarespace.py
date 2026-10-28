@@ -33,7 +33,7 @@ SLUGS = {
     "Wedding-event.html": "/wedding-event",
     "About-us.html": "/about-us",
     "booking.html": "/booking",
-    "checkout.html": "/checkout",
+    "checkout.html": "/secure-booking",
     "confirmation.html": "/confirmation",
 }
 
