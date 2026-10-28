@@ -24,7 +24,7 @@ squarespace/
 │   ├── wedding-event.html   (slug "/wedding-event")
 │   ├── about-us.html        (slug "/about-us")
 │   ├── booking.html         (slug "/booking")
-│   ├── checkout.html        (slug "/checkout")
+│   ├── checkout.html        (slug "/secure-booking")
 │   └── confirmation.html    (slug "/confirmation")
 └── _build/build_squarespace.py           (the generator — see “Rebuilding”)
 ```
